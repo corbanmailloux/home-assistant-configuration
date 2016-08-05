@@ -87,3 +87,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# Custom
+.HA_VERSION
+deps/
+home-assistant_v2.db
+secrets.yaml

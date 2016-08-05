@@ -1,0 +1,249 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: !secret home_name
+  # Location required to calculate the time the sun rises and sets
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  # Impacts weather/sunrise data
+  elevation: !secret home_elevation
+  # C for Celsius, F for Fahrenheit
+  temperature_unit: F
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: America/New_York
+
+  customize:
+    # Media players
+    media_player.kodi_obama:
+      friendly_name: Obama Kodi
+      icon: mdi:kodi
+
+    # Lights
+    light.bedroom_headboard_rgb:
+      friendly_name: Bed RGB LEDs
+      icon: mdi:led-outline
+    light.exit_sign:
+      friendly_name: Exit Sign
+      icon: mdi:sign-caution
+
+    # Switches
+    switch.bedroom_light_endtable_1:
+      friendly_name: Bedside Lamp (Corban)
+      icon: mdi:lightbulb-outline
+    switch.bedroom_light_endtable_2:
+      friendly_name: Bedside Lamp (Maggie)
+      icon: mdi:lightbulb-outline
+    switch.bedroom_fan:
+      friendly_name: Mini Fan
+      icon: mdi:fan
+
+http:
+  api_password: !secret http_api_password
+  # SSL is now being handled by NGINX
+  # ssl_certificate: !secret http_ssl_certificate_path
+  # ssl_key: !secret http_ssl_key_path
+
+# Checks for available updates
+updater:
+
+# Enables support for tracking state changes over time.
+history:
+
+# Enables the frontend
+frontend:
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend
+conversation:
+
+# Track the sun
+sun:
+
+# View all events in a logbook
+logbook:
+
+# logger:
+#   default: info
+#   logs:
+#     homeassistant.components.http: critical
+
+mqtt:
+  broker: 127.0.0.1
+  # port: 1883
+  # client_id: home-assistant-1
+  username: !secret mqtt_username
+  password: !secret mqtt_password
+
+media_player:
+  - platform: kodi
+    name: kodi_obama
+    host: !secret obama_kodi_host
+    port: !secret obama_kodi_port
+    user: !secret obama_kodi_user
+    password: !secret obama_kodi_password
+    turn_off_action: shutdown
+  - platform: cast
+
+sensor:
+  # Weather
+  - platform: openweathermap
+    api_key: !secret open_weather_map_api_key
+    # forecast: 1
+    monitored_conditions:
+      - weather
+      - temperature
+      # - wind_speed
+      - humidity
+      # - pressure
+      # - clouds
+      # - rain
+      # - snow
+  # Thermometer
+  # - platform: dht
+  #   sensor: DHT11
+  #   pin: 23
+  #   name: Bedroom
+  #   monitored_conditions:
+  #     - temperature
+  #     - humidity
+
+switch:
+  - platform: rpi_rf
+    gpio: 17
+    switches:
+      # unused_rf_switch_5: # Button 1
+      #   protocol: 1
+      #   pulselength: 192
+      #   code_on: 1135923
+      #   code_off: 1135932
+      bedroom_fan: # Button 2
+        protocol: 1
+        pulselength: 191 #192
+        code_on: 1136067
+        code_off: 1136076
+      bedroom_light_endtable_2: # Button 3
+        protocol: 1
+        pulselength: 191
+        code_on: 1136387
+        code_off: 1136396
+      bedroom_light_endtable_1: # Button 4
+        protocol: 1
+        pulselength: 191
+        code_on: 1137923
+        code_off: 1137932
+      # unused_rf_switch_5: # Button 5
+      #   protocol: 1
+      #   pulselength: 192
+      #   code_on: 1144067
+      #   code_off: 1144076
+  # - platform: mqtt
+  #   name: esp_test_switch_1
+  #   state_topic: "home/espled"
+  #   command_topic: "home/espled/set"
+  #   # payload_on: "ON"
+  #   # payload_off: "OFF"
+  #   # optimistic: false
+  #   qos: 0
+  #   retain: true
+  #   # value_template: '{{ value.x }}'
+
+light:
+  # - platform: rgb_web_mark_ii
+  #   name: bedroom_headboard_rgb
+  #   host: !secret particle_host
+  #   api_key: !secret particle_api_key
+  - platform: mqtt
+    name: bedroom_headboard_rgb
+    state_topic: "home/rgb1"
+    command_topic: "home/rgb1/set"
+    brightness: true
+    rgb: true
+    optimistic: false
+    retain: true
+    qos: 0
+  - platform: mqtt
+    name: exit_sign
+    state_topic: "home/exit"
+    command_topic: "home/exit/set"
+    brightness: true
+    rgb: false
+    optimistic: false
+    retain: true
+    qos: 0
+
+group:
+  bedroom:
+    # view: yes
+    name: Bedroom
+    entities:
+      - light.bedroom_headboard_rgb
+      - switch.bedroom_light_endtable_1
+      - switch.bedroom_light_endtable_2
+      - switch.bedroom_fan
+      - media_player.kodi_obama
+      - media_player.corban_and_maggie
+      # - switch.esp_test_switch_1
+
+scene:
+  - name: Bedroom Normal
+    entities:
+        light.bedroom_headboard_rgb:
+            state: on
+            transition: 2
+            brightness: 255
+            rgb_color: [255, 255, 255]
+  - name: Bedroom Dim
+    entities:
+        light.bedroom_headboard_rgb:
+            state: on
+            transition: 2
+            brightness: 125
+            rgb_color: [255, 255, 255]
+
+automation:
+  - alias: "Media player paused/stopped"
+    trigger:
+      - platform: state
+        entity_id: media_player.kodi_obama
+        from: 'playing'
+    condition:
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+    action:
+        service: scene.turn_on
+        entity_id: scene.bedroom_normal
+
+  - alias: "Media player playing"
+    trigger:
+      - platform: state
+        entity_id: media_player.kodi_obama
+        to: 'playing'
+    condition:
+      - condition: state
+        entity_id: sun.sun
+        state: 'below_horizon'
+    action:
+        service: scene.turn_on
+        entity_id: scene.bedroom_dim
+
+  - alias: "Goodnight"
+    trigger:
+      platform: mqtt
+      topic: home/espbutton
+      payload: 'ON'
+    action: 
+      service: homeassistant.turn_off
+      entity_id: group.bedroom
+
+  - alias: "Exit Sign Button - Toggle"
+    trigger:
+      platform: mqtt
+      topic: home/exit/button
+      payload: 'ON'
+    action: 
+      service: light.toggle
+      entity_id: light.exit_sign
+      data:
+        transition: 1
