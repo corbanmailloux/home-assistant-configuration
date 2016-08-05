@@ -75,6 +75,9 @@ mqtt:
   username: !secret mqtt_username
   password: !secret mqtt_password
 
+ifttt:
+  key: !secret ifttt_key
+
 media_player:
   - platform: kodi
     name: kodi_obama
@@ -107,6 +110,11 @@ sensor:
   #   monitored_conditions:
   #     - temperature
   #     - humidity
+  - platform: speedtest
+    monitored_conditions:
+      - ping
+      - download
+      - upload
 
 switch:
   - platform: rpi_rf
@@ -146,7 +154,7 @@ switch:
   #   # optimistic: false
   #   qos: 0
   #   retain: true
-  #   # value_template: '{{ value.x }}'
+  #   # value_template: "{{ value.x }}"
 
 light:
   # - platform: rgb_web_mark_ii
@@ -172,6 +180,12 @@ light:
     retain: true
     qos: 0
 
+input_boolean:
+  disable_media_dim:
+    name: Disable light dimming for media
+    initial: off
+    icon: mdi:led-variant-off
+
 group:
   bedroom:
     # view: yes
@@ -188,51 +202,57 @@ group:
 scene:
   - name: Bedroom Normal
     entities:
-        light.bedroom_headboard_rgb:
-            state: on
-            transition: 2
-            brightness: 255
-            rgb_color: [255, 255, 255]
+      light.bedroom_headboard_rgb:
+        state: on
+        transition: 2
+        brightness: 255
+        rgb_color: [255, 255, 255]
   - name: Bedroom Dim
     entities:
-        light.bedroom_headboard_rgb:
-            state: on
-            transition: 2
-            brightness: 125
-            rgb_color: [255, 255, 255]
+      light.bedroom_headboard_rgb:
+        state: on
+        transition: 2
+        brightness: 150
+        rgb_color: [255, 255, 255]
 
 automation:
   - alias: "Media player paused/stopped"
     trigger:
       - platform: state
         entity_id: media_player.kodi_obama
-        from: 'playing'
+        from: "playing"
     condition:
       - condition: state
         entity_id: sun.sun
-        state: 'below_horizon'
+        state: "below_horizon"
+      - condition: state
+        entity_id: input_boolean.disable_media_dim
+        state: "off"
     action:
-        service: scene.turn_on
-        entity_id: scene.bedroom_normal
+      service: scene.turn_on
+      entity_id: scene.bedroom_normal
 
   - alias: "Media player playing"
     trigger:
       - platform: state
         entity_id: media_player.kodi_obama
-        to: 'playing'
+        to: "playing"
     condition:
       - condition: state
         entity_id: sun.sun
-        state: 'below_horizon'
+        state: "below_horizon"
+      - condition: state
+        entity_id: input_boolean.disable_media_dim
+        state: "off"
     action:
-        service: scene.turn_on
-        entity_id: scene.bedroom_dim
+      service: scene.turn_on
+      entity_id: scene.bedroom_dim
 
   - alias: "Goodnight"
     trigger:
       platform: mqtt
       topic: home/espbutton
-      payload: 'ON'
+      payload: "ON"
     action: 
       service: homeassistant.turn_off
       entity_id: group.bedroom
@@ -241,7 +261,7 @@ automation:
     trigger:
       platform: mqtt
       topic: home/exit/button
-      payload: 'ON'
+      payload: "ON"
     action: 
       service: light.toggle
       entity_id: light.exit_sign
