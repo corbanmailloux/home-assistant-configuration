@@ -161,7 +161,7 @@ light:
   #   name: bedroom_headboard_rgb
   #   host: !secret particle_host
   #   api_key: !secret particle_api_key
-  - platform: mqtt
+  - platform: mqtt_json
     name: bedroom_headboard_rgb
     state_topic: "home/rgb1"
     command_topic: "home/rgb1/set"
@@ -170,7 +170,7 @@ light:
     optimistic: false
     retain: true
     qos: 0
-  - platform: mqtt
+  - platform: mqtt_json
     name: exit_sign
     state_topic: "home/exit"
     command_topic: "home/exit/set"
@@ -197,6 +197,7 @@ group:
       - switch.bedroom_fan
       - media_player.kodi_obama
       - media_player.corban_and_maggie
+      - light.exit_sign
       # - switch.esp_test_switch_1
 
 scene:
@@ -265,5 +266,5 @@ automation:
     action: 
       service: light.toggle
       entity_id: light.exit_sign
-      data:
-        transition: 1
+      # data:
+      #   transition: 1
