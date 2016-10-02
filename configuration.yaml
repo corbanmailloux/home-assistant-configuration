@@ -6,8 +6,7 @@ homeassistant:
   longitude: !secret home_longitude
   # Impacts weather/sunrise data
   elevation: !secret home_elevation
-  # C for Celsius, F for Fahrenheit
-  temperature_unit: F
+  unit_system: imperial
   # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/New_York
 
@@ -36,6 +35,14 @@ homeassistant:
       friendly_name: Mini Fan
       icon: mdi:fan
 
+    # Scripts
+    script.kodi_notify_i_love_maggs:
+      friendly_name: Kodi - I love Maggs
+      icon: mdi:heart
+    script.phone_notify_i_love_maggs:
+      friendly_name: Phone - I love Maggs
+      icon: mdi:heart
+
 http:
   api_password: !secret http_api_password
   # SSL is now being handled by NGINX
@@ -63,10 +70,12 @@ sun:
 # View all events in a logbook
 logbook:
 
-# logger:
-#   default: info
-#   logs:
-#     homeassistant.components.http: critical
+logger:
+  # default: info
+  default: warn
+  # logs:
+    # homeassistant.components.device_tracker.netgear: critical
+    # homeassistant.components.device_tracker: critical
 
 mqtt:
   broker: 127.0.0.1
@@ -75,18 +84,50 @@ mqtt:
   username: !secret mqtt_username
   password: !secret mqtt_password
 
+device_tracker:
+  # platform: netgear
+  # host: !secret router_netgear_host
+  # port: !secret router_netgear_port
+  # username: !secret router_netgear_username
+  # password: !secret router_netgear_password
+  platform: nmap_tracker
+  hosts: !secret nmap_hosts
+  # home_interval: 10
+  track_new_devices: no
+
 ifttt:
   key: !secret ifttt_key
+
+notify:
+  - platform: html5
+    name: HTML5
+    gcm_api_key: !secret html5_key
+    gcm_sender_id: !secret html5_project_number
+  - platform: kodi
+    name: kodi_obama
+    host: !secret obama_kodi_host
+    port: !secret obama_kodi_port
+    # user: !secret obama_kodi_user
+    # password: !secret obama_kodi_password
 
 media_player:
   - platform: kodi
     name: kodi_obama
     host: !secret obama_kodi_host
     port: !secret obama_kodi_port
-    user: !secret obama_kodi_user
-    password: !secret obama_kodi_password
+    # user: !secret obama_kodi_user
+    # password: !secret obama_kodi_password
     turn_off_action: shutdown
   - platform: cast
+
+# ffmpeg:
+#   ffmpeg_bin: /usr/local/bin/ffmpeg/ffmpeg
+
+# camera:
+#   - platform: ffmpeg
+#     input: /dev/video0
+#     name: Webcam
+#     extra_arguments: -pred 1
 
 sensor:
   # Weather
@@ -187,33 +228,52 @@ input_boolean:
     icon: mdi:led-variant-off
 
 script:
-  fade_test:
+  # fade_test:
+  #   sequence:
+  #     - service: light.turn_on
+  #       data:
+  #         entity_id: light.bedroom_headboard_rgb
+  #         rgb_color: [255, 0, 0]
+  #         transition: 2
+  #     - delay:
+  #         seconds: 2
+  #     - service: light.turn_on
+  #       data:
+  #         entity_id: light.bedroom_headboard_rgb
+  #         rgb_color: [0, 255, 0]
+  #         transition: 2
+  #     - delay:
+  #         seconds: 1
+  #     - service: light.turn_on
+  #       data:
+  #         entity_id: light.bedroom_headboard_rgb
+  #         rgb_color: [0, 0, 255]
+  #         transition: 2
+  #     - delay:
+  #         seconds: 2
+  #     - service: light.turn_off
+  #       data:
+  #         entity_id: light.bedroom_headboard_rgb
+  #         transition: 2
+
+  kodi_notify_i_love_maggs:
     sequence:
-      - service: light.turn_on
+    - service: notify.kodi_obama
+      data:
+        title: "Hey, Cutie!"
+        message: "I love you!"
         data:
-          entity_id: light.bedroom_headboard_rgb
-          rgb_color: [255, 0, 0]
-          transition: 2
-      - delay:
-          seconds: 2
-      - service: light.turn_on
+          # displaytime: 10000
+          icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/200px-Heart_coraz%C3%B3n.svg.png"
+
+  phone_notify_i_love_maggs:
+    sequence:
+    - service: notify.html5_jackie
+      data:
+        title: "Hey, Cutie!"
+        message: "I love you!"
         data:
-          entity_id: light.bedroom_headboard_rgb
-          rgb_color: [0, 255, 0]
-          transition: 2
-      - delay:
-          seconds: 1
-      - service: light.turn_on
-        data:
-          entity_id: light.bedroom_headboard_rgb
-          rgb_color: [0, 0, 255]
-          transition: 2
-      - delay:
-          seconds: 2
-      - service: light.turn_off
-        data:
-          entity_id: light.bedroom_headboard_rgb
-          transition: 2
+          vibrate: [350, 200, 350, 200, 350]
 
 group:
   bedroom:
