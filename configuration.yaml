@@ -42,6 +42,9 @@ homeassistant:
     script.phone_notify_i_love_maggs:
       friendly_name: Phone - I love Maggs
       icon: mdi:heart
+    script.shutdown_obama:
+      friendly_name: Shutdown Obama
+      icon: mdi:power
 
 http:
   api_password: !secret http_api_password
@@ -197,6 +200,9 @@ switch:
   #   retain: true
   #   # value_template: "{{ value.x }}"
 
+shell_command:
+  shutdown_obama: /usr/local/sbin/shutdown-obama.sh
+
 light:
   # - platform: rgb_web_mark_ii
   #   name: bedroom_headboard_rgb
@@ -274,6 +280,10 @@ script:
         message: "I love you!"
         data:
           vibrate: [350, 200, 350, 200, 350]
+
+  shutdown_obama:
+    sequence:
+      - service: shell_command.shutdown_obama
 
 group:
   bedroom:
