@@ -10,3 +10,15 @@
     entity_id: light.exit_sign
     # data:
     #   transition: 1
+
+- alias: "Turn off exit sign at 11pm"
+  trigger:
+    platform: time
+    after: '23:00:00'
+  condition:
+  - condition: state
+    entity_id: light.exit_sign
+    state: "on"
+  action:
+    service: light.turn_off
+    entity_id: light.exit_sign
