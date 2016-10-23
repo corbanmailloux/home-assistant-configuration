@@ -39,6 +39,9 @@ homeassistant:
     script.kodi_notify_i_love_maggs:
       friendly_name: Kodi - I love Maggs
       icon: mdi:heart
+    script.kodi_notify_i_love_corb:
+      friendly_name: Kodi - I love Corb
+      icon: mdi:heart-outline
     script.phone_notify_i_love_maggs:
       friendly_name: Phone - I love Maggs
       icon: mdi:heart
@@ -276,6 +279,16 @@ script:
           # displaytime: 10000
           icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/200px-Heart_coraz%C3%B3n.svg.png"
 
+  kodi_notify_i_love_corb:
+    sequence:
+    - service: notify.kodi_obama
+      data:
+        title: "Hey, Corb!"
+        message: "You're my lover Scum!"
+        data:
+          # displaytime: 10000
+          icon: "http://weknowyourdreams.com/images/duck/duck-03.jpg"
+
   phone_notify_i_love_maggs:
     sequence:
     - service: notify.html5_jackie
@@ -330,6 +343,19 @@ scene:
         brightness: 150
         rgb_color: [255, 255, 255]
 
+  - name: Exit Bright
+    entities:
+      light.exit_sign:
+        state: on
+        transition: 2
+        brightness: 255
+  - name: Exit Dim
+    entities:
+      light.exit_sign:
+        state: on
+        transition: 2
+        brightness: 75
+
 automation:
   - alias: "Media player paused/stopped"
     trigger:
@@ -345,7 +371,7 @@ automation:
         state: "off"
     action:
       service: scene.turn_on
-      entity_id: scene.bedroom_normal
+      entity_id: scene.exit_bright
 
   - alias: "Media player playing"
     trigger:
@@ -361,7 +387,7 @@ automation:
         state: "off"
     action:
       service: scene.turn_on
-      entity_id: scene.bedroom_dim
+      entity_id: scene.exit_dim
 
   - alias: "Goodnight"
     trigger:
