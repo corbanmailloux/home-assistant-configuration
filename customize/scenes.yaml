@@ -1,0 +1,6 @@
+# Customizations for scenes
+
+scene.exit_bright:
+  hidden: true
+scene.exit_dim:
+  hidden: true

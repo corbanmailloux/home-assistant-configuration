@@ -1,0 +1,8 @@
+# Group for fun notifications
+
+fun_notifications:
+  name: Fun Notifications
+  entities:
+    - script.kodi_notify_i_love_maggs
+    - script.phone_notify_i_love_maggs
+    - script.kodi_notify_i_love_corb

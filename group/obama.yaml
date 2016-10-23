@@ -1,9 +1,20 @@
-# Obama Group
+# Obama Groups
 
 obama:
   name: Obama
   view: yes
   entities:
     - media_player.kodi_obama
+    - group.obama_management_scripts
+    - group.media_automation_control
+
+obama_management_scripts:
+  name: Obama Management
+  entities:
     - script.kodi_update_video
     - script.shutdown_obama
+
+media_automation_control:
+  name: Media Automation Control
+  entities:
+    - input_boolean.disable_media_dim
