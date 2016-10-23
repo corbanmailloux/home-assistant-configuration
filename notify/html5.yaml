@@ -1,0 +1,6 @@
+# HTML5 Notification
+
+- platform: html5
+  name: HTML5
+  gcm_api_key: !secret html5_key
+  gcm_sender_id: !secret html5_project_number

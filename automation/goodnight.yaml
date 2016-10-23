@@ -1,0 +1,8 @@
+- alias: "Goodnight"
+  trigger:
+    platform: mqtt
+    topic: home/espbutton
+    payload: "ON"
+  action: 
+    service: homeassistant.turn_off
+    entity_id: group.bedroom

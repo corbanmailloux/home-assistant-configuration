@@ -1,0 +1,14 @@
+# Exit sign scenes
+
+- name: Exit Bright
+  entities:
+    light.exit_sign:
+      state: on
+      transition: 2
+      brightness: 255
+- name: Exit Dim
+  entities:
+    light.exit_sign:
+      state: on
+      transition: 2
+      brightness: 75

@@ -1,0 +1,9 @@
+# Obama Management Scripts
+
+shutdown_obama:
+  sequence:
+    - service: shell_command.shutdown_obama
+
+kodi_update_video:
+  sequence:
+    - service: shell_command.kodi_update_video

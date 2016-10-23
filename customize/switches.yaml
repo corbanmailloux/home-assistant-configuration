@@ -1,0 +1,10 @@
+# Switches
+switch.bedroom_light_endtable_1:
+  friendly_name: Bedside Lamp (Corban)
+  icon: mdi:lightbulb-outline
+switch.bedroom_light_endtable_2:
+  friendly_name: Bedside Lamp (Maggie)
+  icon: mdi:lightbulb-outline
+switch.bedroom_fan:
+  friendly_name: Mini Fan
+  icon: mdi:fan

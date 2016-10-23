@@ -1,0 +1,29 @@
+# Testing Scripts
+
+# fade_test:
+#   sequence:
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.bedroom_headboard_rgb
+#         rgb_color: [255, 0, 0]
+#         transition: 2
+#     - delay:
+#         seconds: 2
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.bedroom_headboard_rgb
+#         rgb_color: [0, 255, 0]
+#         transition: 2
+#     - delay:
+#         seconds: 1
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.bedroom_headboard_rgb
+#         rgb_color: [0, 0, 255]
+#         transition: 2
+#     - delay:
+#         seconds: 2
+#     - service: light.turn_off
+#       data:
+#         entity_id: light.bedroom_headboard_rgb
+#         transition: 2

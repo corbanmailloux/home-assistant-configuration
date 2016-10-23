@@ -1,0 +1,9 @@
+# Thermometer
+
+# - platform: dht
+#   sensor: DHT11
+#   pin: 23
+#   name: Bedroom
+#   monitored_conditions:
+#     - temperature
+#     - humidity

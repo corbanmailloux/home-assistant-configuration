@@ -1,0 +1,9 @@
+# Obama Group
+
+obama:
+  name: Obama
+  view: yes
+  entities:
+    - media_player.kodi_obama
+    - script.kodi_update_video
+    - script.shutdown_obama

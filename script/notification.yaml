@@ -1,0 +1,30 @@
+# Notification Scripts
+
+kodi_notify_i_love_maggs:
+  sequence:
+  - service: notify.kodi_obama
+    data:
+      title: "Hey, Cutie!"
+      message: "I love you!"
+      data:
+        # displaytime: 10000
+        icon: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Heart_coraz%C3%B3n.svg/200px-Heart_coraz%C3%B3n.svg.png"
+
+kodi_notify_i_love_corb:
+  sequence:
+  - service: notify.kodi_obama
+    data:
+      title: "Hey, Corb!"
+      message: "You're my lover Scum!"
+      data:
+        # displaytime: 10000
+        icon: "http://weknowyourdreams.com/images/duck/duck-03.jpg"
+
+phone_notify_i_love_maggs:
+  sequence:
+  - service: notify.html5_jackie
+    data:
+      title: "Hey, Cutie!"
+      message: "I love you!"
+      data:
+        vibrate: [350, 200, 350, 200, 350]

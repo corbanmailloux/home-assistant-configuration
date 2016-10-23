@@ -1,0 +1,33 @@
+# Media player automations
+
+- alias: "Media player paused/stopped"
+  trigger:
+    - platform: state
+      entity_id: media_player.kodi_obama
+      from: "playing"
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: "below_horizon"
+    - condition: state
+      entity_id: input_boolean.disable_media_dim
+      state: "off"
+  action:
+    service: scene.turn_on
+    entity_id: scene.exit_bright
+
+- alias: "Media player playing"
+  trigger:
+    - platform: state
+      entity_id: media_player.kodi_obama
+      to: "playing"
+  condition:
+    - condition: state
+      entity_id: sun.sun
+      state: "below_horizon"
+    - condition: state
+      entity_id: input_boolean.disable_media_dim
+      state: "off"
+  action:
+    service: scene.turn_on
+    entity_id: scene.exit_dim

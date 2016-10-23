@@ -1,0 +1,6 @@
+# Media Automation Control Booleans
+
+disable_media_dim:
+  name: Disable light dimming for media
+  initial: off
+  icon: mdi:led-variant-off

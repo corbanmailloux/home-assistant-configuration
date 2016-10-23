@@ -1,0 +1,12 @@
+# Exit sign
+
+- alias: "Exit Sign Button - Toggle"
+  trigger:
+    platform: mqtt
+    topic: home/exit/button
+    payload: "ON"
+  action: 
+    service: light.toggle
+    entity_id: light.exit_sign
+    # data:
+    #   transition: 1

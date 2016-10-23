@@ -1,0 +1,7 @@
+# Lights
+light.bedroom_headboard_rgb:
+  friendly_name: Bed RGB LEDs
+  icon: mdi:led-outline
+light.exit_sign:
+  friendly_name: Exit Sign
+  icon: mdi:sign-caution

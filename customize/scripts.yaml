@@ -1,0 +1,16 @@
+# Scripts
+script.kodi_notify_i_love_maggs:
+  friendly_name: Kodi - I love Maggs
+  icon: mdi:heart
+script.kodi_notify_i_love_corb:
+  friendly_name: Kodi - I love Corb
+  icon: mdi:heart-outline
+script.phone_notify_i_love_maggs:
+  friendly_name: Phone - I love Maggs
+  icon: mdi:heart
+script.shutdown_obama:
+  friendly_name: Shutdown Obama
+  icon: mdi:power
+script.kodi_update_video:
+  friendly_name: Update video library
+  icon: mdi:movie
