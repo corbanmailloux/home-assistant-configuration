@@ -7,6 +7,9 @@
       from: "playing"
   condition:
     - condition: state
+      entity_id: light.exit_sign
+      state: "on"
+    - condition: state
       entity_id: sun.sun
       state: "below_horizon"
     - condition: state
@@ -22,6 +25,9 @@
       entity_id: media_player.kodi_obama
       to: "playing"
   condition:
+    - condition: state
+      entity_id: light.exit_sign
+      state: "on"
     - condition: state
       entity_id: sun.sun
       state: "below_horizon"
