@@ -1,9 +1,10 @@
 # Bedroom Group
 
-# bedroom:
-#   # view: yes
-#   name: Bedroom
-#   entities:
+bedroom:
+  # view: yes
+  name: Bedroom
+  entities:
+    - switch.bedroom_fairy_lights
 #     - light.bedroom_headboard_rgb
 #     - switch.bedroom_light_endtable_1
 #     - switch.bedroom_light_endtable_2

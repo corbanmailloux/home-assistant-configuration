@@ -1,16 +1,16 @@
 # Bedroom Scenes
 
-- name: Bedroom Normal
-  entities:
-    light.bedroom_headboard_rgb:
-      state: on
-      transition: 2
-      brightness: 255
-      rgb_color: [255, 255, 255]
-- name: Bedroom Dim
-  entities:
-    light.bedroom_headboard_rgb:
-      state: on
-      transition: 2
-      brightness: 150
-      rgb_color: [255, 255, 255]
+# - name: Bedroom Normal
+#   entities:
+#     light.bedroom_headboard_rgb:
+#       state: on
+#       transition: 2
+#       brightness: 255
+#       rgb_color: [255, 255, 255]
+# - name: Bedroom Dim
+#   entities:
+#     light.bedroom_headboard_rgb:
+#       state: on
+#       transition: 2
+#       brightness: 150
+#       rgb_color: [255, 255, 255]

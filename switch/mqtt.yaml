@@ -10,3 +10,12 @@
 #   qos: 0
 #   retain: true
 #   # value_template: "{{ value.x }}"
+
+- platform: mqtt
+  name: bedroom_fairy_lights
+  state_topic: "home/sonoff/power_tail/1/stat"
+  command_topic: "home/sonoff/power_tail/1"
+  qos: 1
+  payload_on: "on"
+  payload_off: "off"
+  retain: true
