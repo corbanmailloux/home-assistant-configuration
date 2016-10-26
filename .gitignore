@@ -95,3 +95,4 @@ home-assistant_v2.db
 secrets.yaml
 html5_push_registrations.conf
 known_devices.yaml
+.uuid
