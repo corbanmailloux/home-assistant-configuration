@@ -1,0 +1,4 @@
+# Customizations for sensors
+
+sensor.living_room_humidity:
+  icon: mdi:water-percent
