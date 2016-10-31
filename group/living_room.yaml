@@ -1,0 +1,11 @@
+# Living Room Group
+
+living_room:
+  # view: yes
+  name: Living Room
+  entities:
+    - media_player.kodi_obama
+    - media_player.corban_and_maggie
+    - light.exit_sign
+    - sensor.living_room_humidity
+    - sensor.living_room_temperature

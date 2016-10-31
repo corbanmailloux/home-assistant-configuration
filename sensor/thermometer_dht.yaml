@@ -7,3 +7,15 @@
 #   monitored_conditions:
 #     - temperature
 #     - humidity
+
+- platform: mqtt
+  name: "Living Room Temperature"
+  state_topic: "home/livingroom/temperature"
+  qos: 0
+  unit_of_measurement: "°F"
+
+- platform: mqtt
+  name: "Living Room Humidity"
+  state_topic: "home/livingroom/humidity"
+  qos: 0
+  unit_of_measurement: "%"
