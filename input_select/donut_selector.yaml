@@ -3,10 +3,14 @@
 donut_selector:
   name: What is the next donut type?
   options:
-   - Chocolate iced with rainbow sprinkles
-   - Maple glazed
-   - Boston creme
-   - Jelly
+   - Boston Creme
+   - Chocolate Iced with Rainbow Sprinkles
+   - Cinnamon Apple Filled
+   - Cinnamon Sugar
+   - Dulce De Leche
    - Glazed
+   - Jelly
+   - Maple Glazed
    - Powdered
+   - Strawberry Iced
   icon: mdi:disk
