@@ -1,0 +1,9 @@
+- alias: "Bring me a donut"
+  trigger:
+    - platform: mqtt
+      topic: home/espbutton
+      payload: "ON"
+
+  action: 
+    - service: script.turn_on
+      entity_id: script.send_donut_and_randomize

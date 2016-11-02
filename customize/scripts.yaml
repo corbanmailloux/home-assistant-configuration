@@ -18,7 +18,3 @@ script.shutdown_obama:
 script.kodi_update_video:
   friendly_name: Update video library
   icon: mdi:movie
-
-# Maggie's Donut
-script.phone_notify_maggies_donut:
-  hidden: true

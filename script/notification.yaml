@@ -28,12 +28,3 @@ phone_notify_i_love_maggs:
       message: "I love you!"
       data:
         vibrate: [350, 200, 350, 200, 350]
-
-phone_notify_maggies_donut:
-  sequence:
-  - service: notify.html5_ida
-    data:
-      title: "Here's your donut."
-      message: "Chocolate with rainbow sprinkles."
-      data:
-        icon: "https://pbs.twimg.com/profile_images/732656558853607425/b7jTYSJ5.jpg"

@@ -1,0 +1,7 @@
+# Group for Maggie's donut
+
+send_me_a_donut:
+  name: Donut Delivery
+  entities:
+    - input_select.donut_selector
+    - script.send_donut_and_randomize

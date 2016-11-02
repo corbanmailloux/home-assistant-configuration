@@ -1,0 +1,12 @@
+# Donut selector
+
+donut_selector:
+  name: What is the next donut type?
+  options:
+   - Chocolate iced with rainbow sprinkles
+   - Maple glazed
+   - Boston creme
+   - Jelly
+   - Glazed
+   - Powdered
+  icon: mdi:disk

@@ -1,0 +1,17 @@
+# Donut Scripts
+
+send_donut_and_randomize:
+  sequence:
+  - service: notify.html5_ida
+    data_template:
+      title: "Here's your donut."
+      message: >
+        {{ states('input_select.donut_selector') }}
+      data:
+        icon: >
+          https://corb.co/images/donuts/{{ states('input_select.donut_selector') | lower | replace(' ', '_') }}.png
+  - service: input_select.select_option
+    entity_id: input_select.donut_selector
+    data_template:
+      option: >
+        {{ states.input_select.donut_selector.attributes.options | random }}

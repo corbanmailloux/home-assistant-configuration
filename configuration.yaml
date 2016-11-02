@@ -69,9 +69,16 @@ ifttt:
 # ffmpeg:
 #   ffmpeg_bin: /usr/local/bin/ffmpeg/ffmpeg
 
+panel_iframe:
+  google_calendar:
+    title: 'Calendar'
+    icon: mdi:calendar
+    url: !secret google_calendar_url
+
 automation: !include_dir_merge_list automation
 group: !include_dir_merge_named group
 input_boolean: !include_dir_merge_named input_boolean
+input_select: !include_dir_merge_named input_select
 light: !include_dir_merge_list light
 media_player: !include_dir_merge_list media_player
 notify: !include_dir_merge_list notify
