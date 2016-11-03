@@ -2,7 +2,7 @@
 
 script.send_donut_and_randomize:
   friendly_name: Bring me a donut
-  icon: mdi:disk
+  icon: mdi:truck-delivery
 
 automation.bring_me_a_donut:
   hidden: true
