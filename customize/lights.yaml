@@ -1,7 +1,10 @@
 # Lights
-# light.bedroom_headboard_rgb:
-#   friendly_name: Bed RGB LEDs
-#   icon: mdi:led-outline
+
+light.living_room_tv_backlight:
+  friendly_name: TV Backlight
+  # icon: mdi:led-outline
+  icon: mdi:television
+
 light.exit_sign:
   friendly_name: Exit Sign
   icon: mdi:sign-caution

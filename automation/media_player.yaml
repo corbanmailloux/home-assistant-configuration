@@ -16,8 +16,10 @@
       entity_id: input_boolean.disable_media_dim
       state: "off"
   action:
-    service: scene.turn_on
-    entity_id: scene.exit_bright
+    - service: scene.turn_on
+      entity_id: scene.exit_bright
+    - service: scene.turn_on
+      entity_id: scene.tv_bright
 
 - alias: "Media player playing"
   trigger:
@@ -35,5 +37,7 @@
       entity_id: input_boolean.disable_media_dim
       state: "off"
   action:
-    service: scene.turn_on
-    entity_id: scene.exit_dim
+    - service: scene.turn_on
+      entity_id: scene.exit_dim
+    - service: scene.turn_on
+      entity_id: scene.tv_dim

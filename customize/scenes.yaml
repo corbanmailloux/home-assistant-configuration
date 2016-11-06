@@ -4,3 +4,6 @@ scene.exit_bright:
   hidden: true
 scene.exit_dim:
   hidden: true
+
+scene.living_room_lights_out:
+  icon: mdi:filmstrip-off
