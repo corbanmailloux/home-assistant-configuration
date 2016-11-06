@@ -1,15 +1,26 @@
 # Living Room Group
 
 living_room:
-  # view: yes
+  view: yes
   name: Living Room
   entities:
-    - media_player.kodi_obama
+    # - media_player.kodi_obama
     - media_player.corban_and_maggie
-    - light.exit_sign
-    - light.living_room_tv_backlight
     - sensor.living_room_humidity
     - sensor.living_room_temperature
     - scene.living_room_lights_out
     - scene.tv_bright
     - scene.tv_dim
+    - group.living_room_lights
+    # From group.obama
+    - media_player.kodi_obama
+    - group.obama_management_scripts
+    - group.media_automation_control
+
+living_room_lights:
+  name: Lights
+  entities:
+    - light.exit_sign
+    - light.living_room_tv_backlight
+    - switch.living_room_corner
+    - switch.living_room_lamp_near_tv

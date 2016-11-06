@@ -7,6 +7,10 @@
     light.exit_sign:
       state: off
       transition: 2
+    switch.living_room_corner:
+      state: off
+    switch.living_room_lamp_near_tv:
+      state: off
 
 # TV Lighting Scenes
 - name: TV Bright

@@ -10,23 +10,23 @@
   payload_off: "off"
   retain: true
 
-# - platform: mqtt
-#   name: power_tail_2
-#   state_topic: "home/sonoff/power_tail/2/stat"
-#   command_topic: "home/sonoff/power_tail/2"
-#   qos: 1
-#   payload_on: "on"
-#   payload_off: "off"
-#   retain: true
+- platform: mqtt
+  name: living_room_lamp_near_tv # power_tail_2
+  state_topic: "home/sonoff/power_tail/2/stat"
+  command_topic: "home/sonoff/power_tail/2"
+  qos: 1
+  payload_on: "on"
+  payload_off: "off"
+  retain: true
 
-# - platform: mqtt
-#   name: power_tail_3
-#   state_topic: "home/sonoff/power_tail/3/stat"
-#   command_topic: "home/sonoff/power_tail/3"
-#   qos: 1
-#   payload_on: "on"
-#   payload_off: "off"
-#   retain: true
+- platform: mqtt
+  name: living_room_corner # power_tail_3
+  state_topic: "home/sonoff/power_tail/3/stat"
+  command_topic: "home/sonoff/power_tail/3"
+  qos: 1
+  payload_on: "on"
+  payload_off: "off"
+  retain: true
 
 # - platform: mqtt
 #   name: power_tail_4

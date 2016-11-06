@@ -3,3 +3,11 @@
 switch.bedroom_fairy_lights:
   friendly_name: LED Fairy Lights
   icon: mdi:lightbulb
+
+switch.living_room_corner:
+  friendly_name: Corner Lamp
+  icon: mdi:lightbulb
+
+switch.living_room_lamp_near_tv:
+  friendly_name: Lamp Next to TV
+  icon: mdi:lightbulb
