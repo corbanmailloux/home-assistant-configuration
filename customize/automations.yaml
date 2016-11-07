@@ -17,3 +17,9 @@ automation.media_player_playing:
 
 automation.hass_update_notification:
   icon: mdi:security-home
+
+# Auto-color the TV backlight
+automation.chromecast_starts_spotify:
+  hidden: true
+automation.reset_color_when_chromecase_stops:
+  hidden: true
