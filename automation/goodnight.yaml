@@ -1,4 +1,5 @@
 - alias: "Goodnight"
+  hide_entity: true
   trigger:
     platform: mqtt
     topic: home/espbutton

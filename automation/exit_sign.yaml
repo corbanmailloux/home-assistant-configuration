@@ -1,6 +1,7 @@
 # Exit sign
 
 - alias: "Exit Sign Button - Toggle"
+  hide_entity: true
   trigger:
     platform: mqtt
     topic: home/exit/button
@@ -12,6 +13,7 @@
     #   transition: 1
 
 - alias: "Turn off exit sign at 11pm"
+  hide_entity: true
   trigger:
     platform: time
     after: '23:00:00'

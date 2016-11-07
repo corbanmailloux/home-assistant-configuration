@@ -1,25 +1,4 @@
 # Customizations for automations
 
-automation.exit_sign_button__toggle:
-  hidden: true
-
-automation.turn_off_exit_sign_at_11pm:
-  hidden: true
-
-automation.goodnight:
-  hidden: true
-
-# See input_boolean.disable_media_dim for controlling these automations
-automation.media_player_pausedstopped:
-  hidden: true
-automation.media_player_playing:
-  hidden: true
-
 automation.hass_update_notification:
   icon: mdi:security-home
-
-# Auto-color the TV backlight
-automation.chromecast_starts_spotify:
-  hidden: true
-automation.reset_color_when_chromecase_stops:
-  hidden: true

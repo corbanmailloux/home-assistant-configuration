@@ -1,6 +1,7 @@
 # Media player automations
 
 - alias: "Media player paused/stopped"
+  hide_entity: true
   trigger:
     - platform: state
       entity_id: media_player.kodi_obama
@@ -22,6 +23,7 @@
       entity_id: scene.tv_bright
 
 - alias: "Media player playing"
+  hide_entity: true
   trigger:
     - platform: state
       entity_id: media_player.kodi_obama
@@ -44,6 +46,7 @@
 
 
 - alias: "Chromecast starts Spotify"
+  hide_entity: true
   trigger:
     - platform: template
       value_template: >
@@ -56,6 +59,7 @@
       entity_id: scene.tv_spotify
 
 - alias: "Reset color when Chromecase stops"
+  hide_entity: true
   trigger:
     - platform: state
       entity_id: media_player.corban_and_maggie

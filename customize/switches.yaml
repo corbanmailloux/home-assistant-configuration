@@ -6,7 +6,7 @@ switch.bedroom_fairy_lights:
 
 switch.living_room_corner:
   friendly_name: Corner Lamp
-  icon: mdi:lightbulb
+  icon: mdi:lamp
 
 switch.living_room_lamp_near_tv:
   friendly_name: Lamp Next to TV
