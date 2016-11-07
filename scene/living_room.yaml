@@ -34,6 +34,13 @@
       transition: 1
       brightness: 255
       rgb_color: [0, 40, 255]
+- name: TV Spotify
+  entities:
+    light.living_room_tv_backlight:
+      state: on
+      transition: 1
+      brightness: 255
+      rgb_color: [33, 255, 19]
 
 # Exit sign scenes
 - name: Exit Bright

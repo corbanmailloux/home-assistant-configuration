@@ -41,3 +41,30 @@
       entity_id: scene.exit_dim
     - service: scene.turn_on
       entity_id: scene.tv_dim
+
+
+- alias: "Chromecast starts Spotify"
+  trigger:
+    - platform: template
+      value_template: >
+        {% if states.media_player.corban_and_maggie is not none 
+          and states.media_player.corban_and_maggie.attributes.app_name == "Spotify" %}
+          true
+        {% endif %}
+  action:
+    - service: scene.turn_on
+      entity_id: scene.tv_spotify
+
+- alias: "Reset color when Chromecase stops"
+  trigger:
+    - platform: state
+      entity_id: media_player.corban_and_maggie
+      from: "playing"
+      to: "off"
+    - platform: state
+      entity_id: media_player.corban_and_maggie
+      from: "paused"
+      to: "off"
+  action:
+    - service: scene.turn_on
+      entity_id: scene.tv_kodi_background
