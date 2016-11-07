@@ -11,6 +11,7 @@ living_room:
     - scene.living_room_lights_out
     - scene.tv_bright
     - scene.tv_dim
+    - scene.tv_kodi_background
     - group.living_room_lights
     # From group.obama
     - media_player.kodi_obama

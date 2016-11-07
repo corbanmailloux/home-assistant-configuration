@@ -7,3 +7,6 @@ scene.exit_dim:
 
 scene.living_room_lights_out:
   icon: mdi:filmstrip-off
+
+# scene.tv_kodi_background:
+#   hidden: true
