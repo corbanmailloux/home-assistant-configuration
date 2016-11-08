@@ -2,8 +2,14 @@
 
 send_donut_and_randomize:
   sequence:
-  - service: notify.html5_jackie
+  - service: notify.html5
     data_template:
+      target: >
+        {%- if is_state("input_select.donut_destination", "Maggie") -%}
+          jackie
+        {%- elif is_state("input_select.donut_destination", "Corban") -%}
+          ida
+        {%- endif -%}
       title: "Donut Delivery!"
       message: >
         {{ states('input_select.donut_selector') }}

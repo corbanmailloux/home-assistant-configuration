@@ -14,3 +14,10 @@ donut_selector:
    - Powdered
    - Strawberry Iced
   icon: mdi:disk
+
+donut_destination:
+  name: Donut Destination
+  options:
+    - Maggie
+    - Corban
+  icon: mdi:cellphone
