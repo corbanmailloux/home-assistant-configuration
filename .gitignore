@@ -92,6 +92,7 @@ ENV/
 .HA_VERSION
 deps/
 home-assistant_v2.db
+home-assistant_v2.db-journal
 secrets.yaml
 html5_push_registrations.conf
 known_devices.yaml
