@@ -1,7 +1,12 @@
 # Bedroom Group
 
+bedroom_view:
+  name: Bedroom
+  view: yes
+  entities:
+    - group.bedroom
+
 bedroom:
-  # view: yes
   name: Bedroom
   entities:
     - switch.bedroom_fairy_lights

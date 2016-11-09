@@ -1,0 +1,9 @@
+# Environment/Weather
+
+environment:
+  name: Environment
+  entities:
+    - sensor.owm_condition
+    - sensor.owm_temperature
+    - sensor.owm_humidity
+    - sun.sun
