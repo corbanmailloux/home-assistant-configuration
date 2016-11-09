@@ -4,6 +4,7 @@ living_room:
   view: yes
   name: Living Room
   entities:
+    - group.living_room_lights
     # - media_player.kodi_obama
     - media_player.corban_and_maggie
     - sensor.living_room_humidity
@@ -12,7 +13,6 @@ living_room:
     - scene.tv_bright
     - scene.tv_dim
     - scene.tv_kodi_background
-    - group.living_room_lights
     # From group.obama
     - media_player.kodi_obama
     - group.obama_management_scripts
