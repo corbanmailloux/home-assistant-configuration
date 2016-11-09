@@ -1,0 +1,11 @@
+# TV Backlight selector
+
+tv_backlight_selector:
+  name: TV Backlight
+  options:
+    - "Off"
+    - "Bright White"
+    - "Dim White"
+    - "Kodi Background"
+    - "Spotify"
+  icon: mdi:television

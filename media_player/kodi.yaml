@@ -6,4 +6,4 @@
   port: !secret obama_kodi_port
   # user: !secret obama_kodi_user
   # password: !secret obama_kodi_password
-  turn_off_action: shutdown
+  # turn_off_action: none
