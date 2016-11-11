@@ -1,6 +1,6 @@
 # Bedroom Group
 
-bedroom_view:
+view_bedroom:
   name: Bedroom
   view: yes
   entities:

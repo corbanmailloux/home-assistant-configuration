@@ -1,12 +1,13 @@
-# Obama Groups
+# Management Groups
 
-obama:
-  name: Obama
+view_management:
+  name: Management
   view: yes
   entities:
-    - media_player.kodi_obama
     - group.obama_management_scripts
     - group.media_automation_control
+    - group.hass_notifications
+
 
 obama_management_scripts:
   name: Obama Management

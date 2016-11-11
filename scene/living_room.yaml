@@ -12,6 +12,11 @@
     switch.living_room_lamp_near_tv:
       state: off
 
+- name: Coming Home
+  entities:
+    switch.living_room_lamp_near_tv:
+      state: on
+
 # TV Lighting Scenes
 - name: TV Bright
   entities:

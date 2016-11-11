@@ -1,0 +1,24 @@
+# Customizations for groups
+
+# View tab ordering
+group.view_living_room:
+  order: 1
+  icon: mdi:television
+group.view_bedroom:
+  order: 2
+  icon: mdi:hotel
+group.view_management:
+  order: 3
+  icon: mdi:settings
+
+# Living Room Tab
+group.living_room_light_control:
+  order: 1
+
+group.living_room_lights:
+  order: 2
+
+
+# General
+group.send_me_a_donut:
+  order: 3

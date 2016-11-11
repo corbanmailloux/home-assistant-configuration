@@ -1,6 +1,6 @@
 # Notification when I forget to turn off lights
 
-- alias: Notification when I forget to turn off lights
+- alias: Reminder to turn off the lights
   trigger:
     - platform: state
       entity_id: device_tracker.corban_phone

@@ -2,3 +2,6 @@
 
 automation.hass_update_notification:
   icon: mdi:security-home
+
+automation.reminder_to_turn_off_the_lights:
+  icon: mdi:lightbulb-outline

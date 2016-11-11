@@ -1,13 +1,12 @@
 # Customizations for scenes
 
+# Exit sign scenes
 scene.exit_bright:
   hidden: true
 scene.exit_dim:
   hidden: true
 
-scene.living_room_lights_out:
-  icon: mdi:filmstrip-off
-
+# TV backlight scenes
 scene.tv_bright:
   hidden: true
 scene.tv_dim:
@@ -16,3 +15,9 @@ scene.tv_kodi_background:
   hidden: true
 scene.tv_spotify:
   hidden: true
+
+scene.living_room_lights_out:
+  icon: mdi:filmstrip-off
+
+scene.coming_home:
+  icon: mdi:home

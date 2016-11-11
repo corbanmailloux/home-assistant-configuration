@@ -1,6 +1,6 @@
 # Living Room Group
 
-living_room:
+view_living_room:
   view: yes
   name: Living Room
   entities:
@@ -25,5 +25,6 @@ living_room_lights:
 living_room_light_control:
   name: Light Control
   entities:
+    - scene.coming_home
     - scene.living_room_lights_out
     - input_select.tv_backlight_selector
