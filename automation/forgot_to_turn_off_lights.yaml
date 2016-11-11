@@ -19,7 +19,7 @@
           state: 'on'
         - condition: state
           entity_id: group.all_lights
-          below: 'on'
+          state: 'on'
   action:
     service: notify.html5_ida
     data:
@@ -31,6 +31,7 @@
             title: "Turn off"
 
 - alias: Notification turn off lights clicked
+  hide_entity: true
   trigger:
     platform: event
     event_type: html5_notification.clicked
