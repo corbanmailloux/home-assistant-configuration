@@ -7,8 +7,11 @@ group.view_living_room:
 group.view_bedroom:
   order: 2
   icon: mdi:hotel
-group.view_management:
+group.view_environment:
   order: 3
+  icon: mdi:white-balance-sunny
+group.view_management:
+  order: 4
   icon: mdi:settings
 
 # Living Room Tab

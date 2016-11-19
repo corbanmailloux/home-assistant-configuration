@@ -1,7 +1,11 @@
 # Customizations for sensors
 
+# Living Room Environment
 sensor.living_room_humidity:
   icon: mdi:water-percent
+  friendly_name: Humidity
+sensor.living_room_temperature:
+  friendly_name: Temperature
 
 sensor.owm_humidity:
   icon: mdi:water-percent

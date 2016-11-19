@@ -1,9 +1,22 @@
 # Environment/Weather
 
-environment:
+view_environment:
+  view: yes
   name: Environment
+  entities:
+    - group.environment_outside
+    - group.environment_livingroom
+
+environment_outside:
+  name: Outside
   entities:
     - sensor.owm_condition
     - sensor.owm_temperature
     - sensor.owm_humidity
     - sun.sun
+
+environment_livingroom:
+  name: Living Room
+  entities:
+    - sensor.living_room_humidity
+    - sensor.living_room_temperature
