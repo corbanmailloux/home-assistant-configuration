@@ -1,3 +1,5 @@
+# Set the light based on the selector
+
 - alias: "Set TV backlight - Off"
   hide_entity: true
   trigger:
@@ -47,3 +49,18 @@
   action: 
     - service: scene.turn_on
       entity_id: scene.tv_spotify
+
+
+# Set the selector based on the light
+
+- alias: "Set TV backlight selector - Off"
+  hide_entity: true
+  trigger:
+    - platform: state
+      entity_id: light.living_room_tv_backlight
+      to: "off"
+  action: 
+    - service: input_select.select_option
+      entity_id: input_select.tv_backlight_selector
+      data:
+        option: "Off"
