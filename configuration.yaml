@@ -53,12 +53,9 @@ mqtt:
   password: !secret mqtt_password
 
 device_tracker:
-  # platform: nmap_tracker
-  # hosts: !secret nmap_hosts
-  # # home_interval: 10
   - platform: owntracks
     max_gps_accuracy: 200
-    track_new_devices: no
+    track_new_devices: yes
 
 ifttt:
   key: !secret ifttt_key

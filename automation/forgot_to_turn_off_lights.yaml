@@ -10,7 +10,7 @@
     condition: and
     conditions:
       - condition: state
-        entity_id: 'device_tracker.maggie_phone'
+        entity_id: 'device_tracker.jackie_jackie'
         state: 'not_home'
       - condition: or
         conditions:

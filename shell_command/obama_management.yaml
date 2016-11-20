@@ -1,4 +1,4 @@
 # Obama Management Shell Commands
 
-shutdown_obama: /usr/local/sbin/shutdown_obama.sh
-kodi_update_video: /usr/local/sbin/kodi_update_video.sh
+shutdown_obama: !secret obama_shell_command_shutdown
+kodi_update_video: !secret obama_shell_command_kodi_update_video_library
