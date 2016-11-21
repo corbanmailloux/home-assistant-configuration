@@ -5,3 +5,8 @@ automation.hass_update_notification:
 
 automation.reminder_to_turn_off_the_lights:
   icon: mdi:lightbulb-outline
+
+automation.corban__ask_to_turn_on_a_light_when_coming_home:
+  icon: mdi:home-map-marker
+automation.maggie__ask_to_turn_on_a_light_when_coming_home:
+  icon: mdi:home-map-marker
