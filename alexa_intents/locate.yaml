@@ -1,0 +1,31 @@
+WhereAreWe:
+  speech:
+    type: plaintext
+    text: >
+      {%- if is_state('device_tracker.ida_ida', 'home') and
+             is_state('device_tracker.jackie_jackie', 'home') -%}
+        You're both home, idiot.
+      {%- else -%}
+        Corban is at {{ states("device_tracker.ida_ida") }}
+        and Maggie is at {{ states("device_tracker.jackie_jackie") }}
+      {% endif %}
+
+LocateUser:
+  # action:
+  #   service: notify.notify
+  #   data_template:
+  #     message: The location of {{ User }} has been queried via Alexa.
+  speech:
+    type: plaintext
+    text: >
+      {%- if User.lower() == "maggie" -%}
+        {{ User }} is at {{ states.device_tracker.jackie_jackie.state }}.
+      {%- elif User.lower() == "corban" -%}
+        {{ User }} is at {{ states.device_tracker.ida_ida.state }}.
+      {%- else -%}
+        I'm sorry, I don't know where {{ User }} is.
+      {%- endif -%}
+  # card:
+  #   type: simple
+  #   title: Sample title
+  #   content: Some more content

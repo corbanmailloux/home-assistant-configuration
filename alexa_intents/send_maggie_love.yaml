@@ -1,0 +1,7 @@
+SendMaggieLove:
+  action:
+    service: script.turn_on
+    entity_id: script.phone_notify_i_love_maggs
+  speech:
+    type: plaintext
+    text: I've let her know.

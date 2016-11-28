@@ -69,6 +69,15 @@ panel_iframe:
     icon: mdi:calendar
     url: !secret google_calendar_url
 
+google:
+  client_id: !secret google_client_id
+  client_secret: !secret google_client_secret
+
+emulated_hue:
+  host_ip: !secret hass_ip_address
+
+alexa:
+  intents: !include_dir_merge_named alexa_intents
 automation: !include_dir_merge_list automation
 group: !include_dir_merge_named group
 input_boolean: !include_dir_merge_named input_boolean
@@ -81,20 +90,4 @@ script: !include_dir_merge_named script
 sensor: !include_dir_merge_list sensor
 shell_command: !include_dir_merge_named shell_command
 switch: !include_dir_merge_list switch
-
-zone:
-  - name: Home
-    latitude: !secret home_latitude
-    longitude: !secret home_longitude
-    radius: 150
-    icon: mdi:home
-  
-  - name: RIT
-    latitude: 43.084250
-    longitude: -77.677865
-    radius: 575
-    icon: mdi:school
-
-google:
-  client_id: !secret google_client_id
-  client_secret: !secret google_client_secret
+zone: !include_dir_merge_list zone
