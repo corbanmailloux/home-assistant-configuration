@@ -1,0 +1,30 @@
+# Explicit scenes for Alexa
+- name: Going to bed
+  entities:
+    light.living_room_tv_backlight:
+      state: off
+      transition: 2
+    light.exit_sign:
+      state: off
+      transition: 2
+    switch.living_room_corner:
+      state: off
+    switch.living_room_lamp_near_tv:
+      state: off
+    switch.bedroom_fairy_lights:
+      state: on
+
+- name: Goodnight
+  entities:
+    light.living_room_tv_backlight:
+      state: off
+      transition: 2
+    light.exit_sign:
+      state: off
+      transition: 2
+    switch.living_room_corner:
+      state: off
+    switch.living_room_lamp_near_tv:
+      state: off
+    switch.bedroom_fairy_lights:
+      state: off

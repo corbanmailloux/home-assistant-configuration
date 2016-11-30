@@ -1,0 +1,15 @@
+GoingToBed:
+  action:
+    service: scene.turn_on
+    entity_id: scene.going_to_bed
+  speech:
+    type: plaintext
+    text: OK
+
+Goodnight:
+  action:
+    service: scene.turn_on
+    entity_id: scene.goodnight
+  speech:
+    type: plaintext
+    text: Sweet dreams
