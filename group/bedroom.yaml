@@ -4,17 +4,9 @@ view_bedroom:
   name: Bedroom
   view: yes
   entities:
-    - group.bedroom
+    - group.bedroom_lights
 
-bedroom:
-  name: Bedroom
+bedroom_lights:
+  name: Bedroom Lights
   entities:
     - switch.bedroom_fairy_lights
-#     - light.bedroom_headboard_rgb
-#     - switch.bedroom_light_endtable_1
-#     - switch.bedroom_light_endtable_2
-#     - switch.bedroom_fan
-#     - media_player.kodi_obama
-#     - media_player.corban_and_maggie
-#     - light.exit_sign
-#     # - switch.esp_test_switch_1

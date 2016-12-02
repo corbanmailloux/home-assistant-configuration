@@ -1,13 +1,17 @@
 # Customizations for switches
 
 switch.bedroom_fairy_lights:
-  friendly_name: LED Fairy Lights
+  friendly_name: Fairy Lights
+  emulated_hue: true
   icon: mdi:lightbulb
 
 switch.living_room_corner:
   friendly_name: Corner Lamp
+  emulated_hue: true
   icon: mdi:lamp
 
 switch.living_room_lamp_near_tv:
-  friendly_name: Lamp Next to TV
+  friendly_name: TV Lamp
+  emulated_hue: true
+  emulated_hue_name: "T.V. Lamp"
   icon: mdi:lightbulb

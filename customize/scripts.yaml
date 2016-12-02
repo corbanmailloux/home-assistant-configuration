@@ -18,3 +18,6 @@ script.shutdown_obama:
 script.kodi_update_video:
   friendly_name: Update video library
   icon: mdi:movie
+
+script.send_donut:
+  hidden: true

@@ -2,6 +2,16 @@
 
 send_donut_and_randomize:
   sequence:
+  - service: script.turn_on
+    entity_id: script.send_donut
+  - service: input_select.select_option
+    entity_id: input_select.donut_selector
+    data_template:
+      option: >
+        {{ states.input_select.donut_selector.attributes.options | random }}
+
+send_donut:
+  sequence:
   - service: notify.html5
     data_template:
       target: >
@@ -17,8 +27,3 @@ send_donut_and_randomize:
         icon: >
           https://corb.co/images/donuts/{{ states('input_select.donut_selector') | lower | replace(' ', '_') }}.png
         badge: https://corb.co/images/donuts/donut_icon.ico
-  - service: input_select.select_option
-    entity_id: input_select.donut_selector
-    data_template:
-      option: >
-        {{ states.input_select.donut_selector.attributes.options | random }}
