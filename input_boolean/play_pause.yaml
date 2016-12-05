@@ -1,0 +1,4 @@
+play_pause_kodi:
+  name: "Play/Pause Kodi"
+  initial: off
+  icon: mdi:play-pause

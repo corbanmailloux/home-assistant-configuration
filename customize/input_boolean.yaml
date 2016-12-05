@@ -1,0 +1,4 @@
+input_boolean.play_pause_kodi:
+  hidden: true
+  emulated_hue: true
+  emulated_hue_name: "Cody"
