@@ -28,3 +28,4 @@ living_room_light_control:
     - scene.coming_home
     - scene.living_room_lights_out
     - input_select.tv_backlight_selector
+    - input_boolean.party_mode

@@ -1,0 +1,117 @@
+# Party Mode!
+
+# Kick off party mode!
+party_mode:
+  sequence:
+    - service: script.turn_on
+      entity_id: 
+        - script.fade_backlight
+        - script.blink_exit_sign
+        - script.toggle_lamps
+
+# End party mode and reset
+party_mode_end:
+  sequence:
+    - service: script.turn_off
+      entity_id:
+        - script.party_mode
+        - script.fade_backlight
+        - script.fade_backlight_loop
+        - script.blink_exit_sign
+        - script.blink_exit_sign_loop
+        - script.toggle_lamps
+        - script.toggle_lamps_loop
+    # Reset the lights
+    - service: light.turn_on # Reset the brightness
+      data:
+        entity_id: 
+          - light.living_room_tv_backlight
+          - light.exit_sign
+        brightness: 255
+    - service: homeassistant.turn_off
+      entity_id: 
+        - light.living_room_tv_backlight
+        - light.exit_sign
+    - service: homeassistant.turn_on
+      entity_id:
+        - switch.living_room_lamp_near_tv
+        - switch.living_room_corner
+
+# TV Backlight Party Mode
+fade_backlight:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_tv_backlight
+        rgb_color: [255, 0, 0]
+        brightness: 255
+        transition: 2
+    - delay: 00:00:02
+      # seconds: 2
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_tv_backlight
+        rgb_color: [0, 255, 0]
+        transition: 2
+    - delay: 00:00:02
+      # seconds: 2
+    - service: light.turn_on
+      data:
+        entity_id: light.living_room_tv_backlight
+        rgb_color: [0, 0, 255]
+        transition: 2
+    # - delay:
+    #     seconds: 2
+    - service: script.turn_on
+      entity_id: script.fade_backlight_loop
+
+fade_backlight_loop:
+  sequence:
+    - delay: 00:00:02
+      # seconds: 2
+    - service: script.turn_on
+      entity_id: script.fade_backlight
+
+# Exit Sign Party Mode
+blink_exit_sign:
+  sequence:
+    - service: light.turn_on
+      data:
+        entity_id: light.exit_sign
+        brightness: 255
+        transition: 1
+    - delay: 00:00:01
+    - service: light.turn_on
+      data:
+        entity_id: light.exit_sign
+        brightness: 1 # Effectively off
+        transition: 1
+    - service: script.turn_on
+      entity_id: script.blink_exit_sign_loop
+
+blink_exit_sign_loop:
+  sequence:
+    - delay: 00:00:01
+    - service: script.turn_on
+      entity_id: script.blink_exit_sign
+
+# Toggle the living room lamps
+toggle_lamps:
+  sequence:
+    - service: switch.turn_on
+      entity_id: switch.living_room_corner
+    - service: switch.turn_off
+      entity_id: switch.living_room_lamp_near_tv
+    - delay: 00:00:05
+    - service: switch.turn_off
+      entity_id: switch.living_room_corner
+    - service: switch.turn_on
+      entity_id: switch.living_room_lamp_near_tv
+    - service: script.turn_on
+      entity_id: script.toggle_lamps_loop
+
+toggle_lamps_loop:
+  sequence:
+    - delay: 00:00:05
+    - service: script.turn_on
+      entity_id: script.toggle_lamps

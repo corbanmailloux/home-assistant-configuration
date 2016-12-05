@@ -1,0 +1,15 @@
+StartParty:
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.party_mode
+  speech:
+    type: plaintext
+    text: Let's get the party started!
+
+StopParty:
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.party_mode
+  speech:
+    type: plaintext
+    text: The party's over. Everybody out!

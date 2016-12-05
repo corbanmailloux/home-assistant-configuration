@@ -1,0 +1,19 @@
+- alias: "Party Mode - On"
+  hide_entity: true
+  trigger:
+    - platform: state
+      entity_id: input_boolean.party_mode
+      to: "on"
+  action: 
+    - service: script.turn_on
+      entity_id: script.party_mode
+
+- alias: "Party Mode - Off"
+  hide_entity: true
+  trigger:
+    - platform: state
+      entity_id: input_boolean.party_mode
+      to: "off"
+  action: 
+    - service: script.turn_on
+      entity_id: script.party_mode_end
