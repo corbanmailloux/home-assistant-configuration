@@ -42,6 +42,7 @@ script.toggle_lamps_loop:
 
 script.play_pause_master:
   friendly_name: "Master Play/Pause"
+  icon: mdi:play-pause
   emulated_hue: true
   emulated_hue_name: "T.V. Show"
 script.play_pause_kodi:
