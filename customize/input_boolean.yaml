@@ -1,4 +1,3 @@
-input_boolean.play_pause_kodi:
-  hidden: true
+input_boolean.party_mode:
   emulated_hue: true
-  emulated_hue_name: "Cody"
+  emulated_hue_name: "Party mode"
