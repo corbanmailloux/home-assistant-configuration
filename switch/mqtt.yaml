@@ -28,20 +28,20 @@
   payload_off: "off"
   retain: true
 
-# - platform: mqtt
-#   name: power_tail_4
-#   state_topic: "home/sonoff/power_tail/4/stat"
-#   command_topic: "home/sonoff/power_tail/4"
-#   qos: 1
-#   payload_on: "on"
-#   payload_off: "off"
-#   retain: true
+- platform: mqtt
+  name: window_christmas # power_tail_4
+  state_topic: "home/sonoff/power_tail/4/stat"
+  command_topic: "home/sonoff/power_tail/4"
+  qos: 1
+  payload_on: "on"
+  payload_off: "off"
+  retain: true
 
-# - platform: mqtt
-#   name: power_tail_5
-#   state_topic: "home/sonoff/power_tail/5/stat"
-#   command_topic: "home/sonoff/power_tail/5"
-#   qos: 1
-#   payload_on: "on"
-#   payload_off: "off"
-#   retain: true
+- platform: mqtt
+  name: power_tail_5
+  state_topic: "home/sonoff/power_tail/5/stat"
+  command_topic: "home/sonoff/power_tail/5"
+  qos: 1
+  payload_on: "on"
+  payload_off: "off"
+  retain: true

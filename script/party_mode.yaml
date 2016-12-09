@@ -8,6 +8,7 @@ party_mode:
         - script.fade_backlight
         - script.blink_exit_sign
         - script.toggle_lamps
+        - script.blink_christmas_lights
 
 # End party mode and reset
 party_mode_end:
@@ -21,6 +22,8 @@ party_mode_end:
         - script.blink_exit_sign_loop
         - script.toggle_lamps
         - script.toggle_lamps_loop
+        - script.blink_christmas_lights
+        - script.blink_christmas_lights_loop
     # Reset the lights
     - service: light.turn_on # Reset the brightness
       data:
@@ -36,6 +39,7 @@ party_mode_end:
       entity_id:
         - switch.living_room_lamp_near_tv
         - switch.living_room_corner
+        - switch.window_christmas
 
 # TV Backlight Party Mode
 fade_backlight:
@@ -102,7 +106,7 @@ toggle_lamps:
       entity_id: switch.living_room_corner
     - service: switch.turn_off
       entity_id: switch.living_room_lamp_near_tv
-    - delay: 00:00:05
+    - delay: 00:00:03
     - service: switch.turn_off
       entity_id: switch.living_room_corner
     - service: switch.turn_on
@@ -112,6 +116,23 @@ toggle_lamps:
 
 toggle_lamps_loop:
   sequence:
-    - delay: 00:00:05
+    - delay: 00:00:03
     - service: script.turn_on
       entity_id: script.toggle_lamps
+
+# Blink the Christmas lights
+blink_christmas_lights:
+  sequence:
+    - service: switch.turn_on
+      entity_id: switch.window_christmas
+    - delay: 00:00:03
+    - service: switch.turn_off
+      entity_id: switch.window_christmas
+    - service: script.turn_on
+      entity_id: script.blink_christmas_lights_loop
+
+blink_christmas_lights_loop:
+  sequence:
+    - delay: 00:00:03
+    - service: script.turn_on
+      entity_id: script.blink_christmas_lights

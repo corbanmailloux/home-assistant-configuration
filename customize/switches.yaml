@@ -15,3 +15,9 @@ switch.living_room_lamp_near_tv:
   emulated_hue: true
   emulated_hue_name: "T.V. Lamp"
   icon: mdi:lightbulb
+
+switch.window_christmas:
+  friendly_name: Christmas Lights
+  emulated_hue: true
+  emulated_hue_name: "Christmas Lights"
+  icon: mdi:pine-tree
