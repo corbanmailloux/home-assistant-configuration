@@ -1,0 +1,9 @@
+- alias: "Christmas lights on near sunset"
+  # hide_entity: true
+  trigger:
+    platform: sun
+    event: sunset
+    offset: '-01:00:00' # An hour before sunset
+  action: 
+    service: homeassistant.turn_on
+    entity_id: group.christmas_lights
