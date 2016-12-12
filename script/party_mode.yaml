@@ -106,7 +106,7 @@ toggle_lamps:
       entity_id: switch.living_room_corner
     - service: switch.turn_off
       entity_id: switch.living_room_lamp_near_tv
-    - delay: 00:00:03
+    - delay: 00:00:02
     - service: switch.turn_off
       entity_id: switch.living_room_corner
     - service: switch.turn_on
@@ -116,7 +116,7 @@ toggle_lamps:
 
 toggle_lamps_loop:
   sequence:
-    - delay: 00:00:03
+    - delay: 00:00:02
     - service: script.turn_on
       entity_id: script.toggle_lamps
 
@@ -125,7 +125,7 @@ blink_christmas_lights:
   sequence:
     - service: switch.turn_on
       entity_id: switch.window_christmas
-    - delay: 00:00:03
+    - delay: 00:00:02
     - service: switch.turn_off
       entity_id: switch.window_christmas
     - service: script.turn_on
@@ -133,6 +133,6 @@ blink_christmas_lights:
 
 blink_christmas_lights_loop:
   sequence:
-    - delay: 00:00:03
+    - delay: 00:00:01
     - service: script.turn_on
       entity_id: script.blink_christmas_lights
