@@ -53,9 +53,13 @@ mqtt:
   password: !secret mqtt_password
 
 device_tracker:
-  - platform: owntracks
-    max_gps_accuracy: 200
-    track_new_devices: yes
+  # - platform: owntracks
+  #   max_gps_accuracy: 200
+  #   track_new_devices: yes
+  - platform: mqtt
+    devices:
+      ida_ida: /devices/location/ida_ida
+      jackie_jackie: /devices/location/jackie_jackie
 
 ifttt:
   key: !secret ifttt_key
