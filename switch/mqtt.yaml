@@ -29,7 +29,7 @@
   retain: true
 
 - platform: mqtt
-  name: window_christmas # power_tail_4
+  name: power_tail_4
   state_topic: "home/sonoff/power_tail/4/stat"
   command_topic: "home/sonoff/power_tail/4"
   qos: 1

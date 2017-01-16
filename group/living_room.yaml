@@ -6,7 +6,6 @@ view_living_room:
   entities:
     - group.living_room_lights
     - group.living_room_light_control
-    - group.christmas_lights
     - media_player.corban_and_maggie
     - sensor.living_room_humidity
     - sensor.living_room_temperature
@@ -30,8 +29,3 @@ living_room_light_control:
     - scene.living_room_lights_out
     - input_select.tv_backlight_selector
     - input_boolean.party_mode
-
-christmas_lights:
-  name: Christmas!
-  entities:
-    - switch.window_christmas
