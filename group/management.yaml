@@ -19,3 +19,4 @@ media_automation_control:
   name: Media Automation Control
   entities:
     - input_boolean.disable_media_dim
+    - script.play_pause_master
