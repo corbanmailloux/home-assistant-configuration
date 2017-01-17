@@ -6,10 +6,10 @@
     - platform: state
       entity_id: media_player.kodi_obama
       from: "playing"
+    - platform: state
+      entity_id: media_player.corban_and_maggie
+      from: "playing"
   condition:
-    - condition: state
-      entity_id: light.exit_sign
-      state: "on"
     - condition: state
       entity_id: sun.sun
       state: "below_horizon"
@@ -17,10 +17,8 @@
       entity_id: input_boolean.disable_media_dim
       state: "off"
   action:
-    - service: scene.turn_on
-      entity_id: scene.exit_bright
-    - service: scene.turn_on
-      entity_id: scene.tv_bright
+    - service: script.turn_on
+      entity_id: script.media_undim_master
 
 - alias: "Media player playing"
   hide_entity: true
@@ -28,10 +26,10 @@
     - platform: state
       entity_id: media_player.kodi_obama
       to: "playing"
+    - platform: state
+      entity_id: media_player.corban_and_maggie
+      to: "playing"
   condition:
-    - condition: state
-      entity_id: light.exit_sign
-      state: "on"
     - condition: state
       entity_id: sun.sun
       state: "below_horizon"
@@ -39,11 +37,8 @@
       entity_id: input_boolean.disable_media_dim
       state: "off"
   action:
-    - service: scene.turn_on
-      entity_id: scene.exit_dim
-    - service: scene.turn_on
-      entity_id: scene.tv_dim
-
+    - service: script.turn_on
+      entity_id: script.media_dim_master
 
 - alias: "Chromecast starts Spotify"
   hide_entity: true

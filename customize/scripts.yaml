@@ -40,6 +40,7 @@ script.toggle_lamps:
 script.toggle_lamps_loop:
   hidden: true
 
+# "Alexa, turn on the TV show" scripts
 script.play_pause_master:
   friendly_name: "Master Play/Pause"
   icon: mdi:play-pause
@@ -56,4 +57,18 @@ script.play_pause_cast:
 script.play_cast_test:
   hidden: true
 script.pause_cast_test:
+  hidden: true
+
+# Scripts for dimming/undimming the lights when watching movies
+script.media_dim_master:
+  hidden: true
+script.media_undim_master:
+  hidden: true
+script.media_dim_tv_backlight:
+  hidden: true
+script.media_undim_tv_backlight:
+  hidden: true
+script.media_dim_exit_sign:
+  hidden: true
+script.media_undim_exit_sign:
   hidden: true

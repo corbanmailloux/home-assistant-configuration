@@ -1,0 +1,54 @@
+##########
+# Master #
+##########
+media_dim_master:
+  sequence:
+    - service: script.turn_on
+      entity_id: 
+        - script.media_dim_tv_backlight
+        - script.media_dim_exit_sign
+
+media_undim_master:
+  sequence:
+    - service: script.turn_on
+      entity_id:
+        - script.media_undim_tv_backlight
+        - script.media_undim_exit_sign
+
+################
+# TV Backlight #
+################
+media_dim_tv_backlight:
+  sequence:
+    - condition: state
+      entity_id: light.living_room_tv_backlight
+      state: "on"
+    - service: scene.turn_on
+      entity_id: scene.tv_dim
+
+media_undim_tv_backlight:
+  sequence:
+    - condition: state
+      entity_id: light.living_room_tv_backlight
+      state: "on"
+    - service: scene.turn_on
+      entity_id: scene.tv_bright
+
+#############
+# Exit Sign #
+#############
+media_dim_exit_sign:
+  sequence:
+    - condition: state
+      entity_id: light.exit_sign
+      state: "on"
+    - service: scene.turn_on
+      entity_id: scene.exit_dim
+
+media_undim_exit_sign:
+  sequence:
+    - condition: state
+      entity_id: light.exit_sign
+      state: "on"
+    - service: scene.turn_on
+      entity_id: scene.exit_bright
