@@ -8,3 +8,4 @@ all_lights_custom:
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - switch.bedroom_fairy_lights
+    - switch.bedroom_desk_lamp

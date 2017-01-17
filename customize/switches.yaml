@@ -5,6 +5,11 @@ switch.bedroom_fairy_lights:
   emulated_hue: true
   icon: mdi:lightbulb
 
+switch.bedroom_desk_lamp:
+  friendly_name: Bedroom Desk Lamp
+  emulated_hue: true
+  icon: mdi:lightbulb
+
 switch.living_room_corner:
   friendly_name: Corner Lamp
   emulated_hue: true
