@@ -24,6 +24,7 @@ living_room_lights:
 
 living_room_light_control:
   name: Light Control
+  control: hidden
   entities:
     - scene.coming_home
     - scene.living_room_lights_out

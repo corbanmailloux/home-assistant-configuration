@@ -13,6 +13,7 @@ homeassistant:
 
 http:
   api_password: !secret http_api_password
+  base_url: !secret http_base_url
   # SSL is now being handled by NGINX
   # ssl_certificate: !secret http_ssl_certificate_path
   # ssl_key: !secret http_ssl_key_path
@@ -81,6 +82,9 @@ panel_iframe:
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
+
+tts:
+  - platform: google
 
 emulated_hue:
   host_ip: !secret hass_ip_address
