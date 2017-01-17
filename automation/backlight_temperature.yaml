@@ -1,0 +1,23 @@
+# # Set the light based on the temperature
+
+# - alias: "Set TV backlight based on temperature"
+#   # hide_entity: true
+#   trigger:
+#     - platform: state
+#       entity_id: sensor.living_room_temperature
+#   action: 
+#     - service: light.turn_on
+#       data:
+#         entity_id: light.living_room_tv_backlight
+#       data_template:
+#         rgb_color: >-
+#           [
+#             {%- set temperature = states('sensor.living_room_temperature') | float -%}
+#             {%- if temperature > 70 -%}
+#               {%- set red_val = 255 -%}
+#             {%- elif temperature < 64 -%}
+#               {%- set red_val = 0 -%}
+#             {%- else -%}
+#               {%- set red_val = ((temperature - 64)*(255/6)) | int -%}
+#             {%- endif -%}
+#             {{ red_val }}, 0, {{ 255 - red_val }}]
