@@ -22,3 +22,11 @@ media_automation_control:
   entities:
     - input_boolean.disable_media_dim
     - script.play_pause_master
+
+hass_notifications:
+  name: Home Assistant Notifications
+  entities:
+    - automation.hass_update_notification
+    - automation.reminder_to_turn_off_the_lights
+    - automation.corban__ask_to_turn_on_a_light_when_coming_home
+    - automation.maggie__ask_to_turn_on_a_light_when_coming_home

@@ -13,6 +13,10 @@ group.view_environment:
 group.view_management:
   order: 4
   icon: mdi:settings
+group.view_fun:
+  order: 5
+  icon: mdi:dots-horizontal
+
 
 # Living Room Tab
 group.living_room_light_control:
@@ -26,7 +30,6 @@ group.living_room_lights:
 # General
 group.send_me_a_donut:
   order: 3
-
 
 group.bedroom_lights:
   emulated_hue: true

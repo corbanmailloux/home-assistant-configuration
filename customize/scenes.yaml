@@ -1,5 +1,9 @@
 # Customizations for scenes
 
+scene.movie_mode:
+  hidden: true
+  emulated_hue: true
+
 # Exit sign scenes
 scene.exit_bright:
   hidden: true
