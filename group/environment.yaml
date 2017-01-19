@@ -1,4 +1,4 @@
-# Environment/Weather
+# Environment/Weather/Speedtest
 
 view_environment:
   view: yes
@@ -6,6 +6,8 @@ view_environment:
   entities:
     - group.environment_outside
     - group.environment_livingroom
+    - group.environment_bedroom
+    - group.speedtest
 
 environment_outside:
   name: Outside
@@ -18,5 +20,18 @@ environment_outside:
 environment_livingroom:
   name: Living Room
   entities:
-    - sensor.living_room_humidity
     - sensor.living_room_temperature
+    - sensor.living_room_humidity
+
+environment_bedroom:
+  name: Bedroom
+  entities:
+    - sensor.bedroom_temperature
+    - sensor.bedroom_humidity
+
+speedtest:
+  name: Internet Speed
+  entities:
+    - sensor.speedtest_download
+    - sensor.speedtest_upload
+    - sensor.speedtest_ping

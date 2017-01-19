@@ -1,5 +1,9 @@
 # Customizations for scenes
 
+scene.movie_mode:
+  hidden: true
+  emulated_hue: true
+
 # Exit sign scenes
 scene.exit_bright:
   hidden: true
@@ -21,3 +25,8 @@ scene.living_room_lights_out:
 
 scene.coming_home:
   icon: mdi:home
+
+scene.going_to_bed:
+  hidden: true
+scene.goodnight:
+  hidden: true

@@ -17,6 +17,17 @@
     switch.living_room_lamp_near_tv:
       state: on
 
+- name: Movie Mode
+  entities:
+    switch.living_room_lamp_near_tv:
+      state: off
+    switch.living_room_corner:
+      state: off
+    scene.tv_dim:
+      state: on
+    scene.exit_dim:
+      state: on
+
 # TV Lighting Scenes
 - name: TV Bright
   entities:

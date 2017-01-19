@@ -1,0 +1,7 @@
+# Default View (Home tab)
+
+default_view:
+  view: yes
+  entities:
+    - group.living_room_lights
+    - group.bedroom_lights

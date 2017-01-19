@@ -5,6 +5,8 @@ view_bedroom:
   view: yes
   entities:
     - group.bedroom_lights
+    - sensor.bedroom_temperature
+    - sensor.bedroom_humidity
 
 bedroom_lights:
   name: Bedroom Lights

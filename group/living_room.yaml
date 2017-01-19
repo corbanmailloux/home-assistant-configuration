@@ -7,15 +7,15 @@ view_living_room:
     - group.living_room_lights
     - group.living_room_light_control
     - media_player.corban_and_maggie
-    - sensor.living_room_humidity
     - sensor.living_room_temperature
+    - sensor.living_room_humidity
     # From group.obama
     - media_player.kodi_obama
     # - group.obama_management_scripts
     - group.media_automation_control
 
 living_room_lights:
-  name: Lights
+  name: Living Room Lights
   entities:
     - light.exit_sign
     - light.living_room_tv_backlight
@@ -24,6 +24,7 @@ living_room_lights:
 
 living_room_light_control:
   name: Light Control
+  control: hidden
   entities:
     - scene.coming_home
     - scene.living_room_lights_out
