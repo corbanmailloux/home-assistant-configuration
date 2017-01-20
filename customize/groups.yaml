@@ -10,12 +10,12 @@ group.view_bedroom:
 group.view_environment:
   order: 3
   icon: mdi:white-balance-sunny
-group.view_management:
-  order: 4
-  icon: mdi:settings
 group.view_fun:
+  order: 4
+  icon: mdi:airballoon
+group.view_management:
   order: 5
-  icon: mdi:dots-horizontal
+  icon: mdi:settings
 
 
 # Living Room Tab
