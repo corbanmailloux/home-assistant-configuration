@@ -11,6 +11,9 @@ homeassistant:
   time_zone: America/New_York
   customize: !include_dir_merge_named customize
 
+  # Use packages for new setups
+  packages: !include_dir_named packages
+
 http:
   api_password: !secret http_api_password
   base_url: !secret http_base_url

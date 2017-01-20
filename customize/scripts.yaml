@@ -72,3 +72,11 @@ script.media_dim_exit_sign:
   hidden: true
 script.media_undim_exit_sign:
   hidden: true
+
+# packages/hass_utilities
+script.reload_config:
+  friendly_name: "Reload Core Configuration"
+  icon: mdi:refresh
+script.restart_hass:
+  friendly_name: "Restart Home Assistant"
+  icon: mdi:power

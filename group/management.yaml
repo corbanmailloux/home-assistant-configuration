@@ -7,6 +7,7 @@ view_management:
     - group.obama_management_scripts
     - group.media_automation_control
     - group.hass_notifications
+    - group.hass_utilities  # See packages/hass_utilities
 
 
 obama_management_scripts:
