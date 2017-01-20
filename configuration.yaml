@@ -1,17 +1,14 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
   name: !secret home_name
-  # Location required to calculate the time the sun rises and sets
   latitude: !secret home_latitude
   longitude: !secret home_longitude
-  # Impacts weather/sunrise data
   elevation: !secret home_elevation
   unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  # See: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/New_York
+
   customize: !include_dir_merge_named customize
 
-  # Use packages for new setups
   packages: !include_dir_named packages
 
 http:
@@ -57,9 +54,6 @@ mqtt:
   password: !secret mqtt_password
 
 device_tracker:
-  # - platform: owntracks
-  #   max_gps_accuracy: 200
-  #   track_new_devices: yes
   - platform: mqtt
     devices:
       ida_ida: /devices/location/ida_ida
