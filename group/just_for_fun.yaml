@@ -16,13 +16,6 @@ fun_notifications:
     - script.phone_notify_i_love_maggs
     - script.kodi_notify_i_love_corb
 
-send_me_a_donut:
-  name: Donut Delivery
-  entities:
-    - input_select.donut_selector
-    - input_select.donut_destination
-    - script.send_donut_and_randomize
-
 unused_for_now:
   name: Unused
   entities:

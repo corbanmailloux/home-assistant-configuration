@@ -1,8 +1,5 @@
-# Maggie's Donut customizations
+# Donut Delivery system. See packages/donut_delivery
 
 script.send_donut_and_randomize:
   friendly_name: Bring me a donut
   icon: mdi:truck-delivery
-
-automation.bring_me_a_donut:
-  hidden: true
