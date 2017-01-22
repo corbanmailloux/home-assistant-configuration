@@ -27,9 +27,6 @@ group.living_room_lights:
   emulated_hue_name: "Living Room Lights"
   order: 2
 
-# General
-group.send_me_a_donut:
-  order: 3
 
 group.bedroom_lights:
   emulated_hue: true
