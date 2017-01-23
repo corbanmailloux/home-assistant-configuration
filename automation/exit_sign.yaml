@@ -1,16 +1,32 @@
 # Exit sign
 
-- alias: "Exit Sign Button - Toggle"
+- alias: "Exit Sign Button - Toggle Exit Sign"
   hide_entity: true
   trigger:
     platform: mqtt
     topic: home/exit/button
     payload: "ON"
-  action: 
+  condition:
+  - condition: state
+    entity_id: input_select.exit_sign_button_action
+    state: "Toggle Exit Sign"
+  action:
     service: light.toggle
     entity_id: light.exit_sign
-    # data:
-    #   transition: 1
+
+- alias: "Exit Sign Button - Toggle Party Mode"
+  hide_entity: true
+  trigger:
+    platform: mqtt
+    topic: home/exit/button
+    payload: "ON"
+  condition:
+  - condition: state
+    entity_id: input_select.exit_sign_button_action
+    state: "Toggle Party Mode"
+  action:
+    service: input_boolean.toggle
+    entity_id: input_boolean.party_mode
 
 - alias: "Turn off exit sign at 11pm"
   hide_entity: true
