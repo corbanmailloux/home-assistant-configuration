@@ -19,9 +19,6 @@ script.kodi_update_video:
   friendly_name: Update video library
   icon: mdi:movie
 
-script.send_donut:
-  hidden: true
-
 # Party Mode scripts are run by input_boolean.party_mode
 script.party_mode:
   hidden: true
@@ -40,25 +37,6 @@ script.toggle_lamps:
 script.toggle_lamps_loop:
   hidden: true
 
-# "Alexa, turn on the TV show" scripts
-script.play_pause_master:
-  friendly_name: "Master Play/Pause"
-  icon: mdi:play-pause
-  emulated_hue: true
-  emulated_hue_name: "T.V. Show"
-script.play_pause_kodi:
-  hidden: true
-script.play_kodi_test:
-  hidden: true
-script.pause_kodi_test:
-  hidden: true
-script.play_pause_cast:
-  hidden: true
-script.play_cast_test:
-  hidden: true
-script.pause_cast_test:
-  hidden: true
-
 # Scripts for dimming/undimming the lights when watching movies
 script.media_dim_master:
   hidden: true
@@ -72,16 +50,3 @@ script.media_dim_exit_sign:
   hidden: true
 script.media_undim_exit_sign:
   hidden: true
-
-# packages/hass_utilities
-script.reload_config:
-  friendly_name: "Reload Core Configuration"
-  icon: mdi:refresh
-script.restart_hass:
-  friendly_name: "Restart Home Assistant"
-  icon: mdi:power
-
-# packages/download_notify
-script.reset_download_count:
-  friendly_name: Reset Download Count
-  icon: mdi:checkbox-marked-circle

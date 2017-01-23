@@ -1,5 +1,8 @@
 # Donut Delivery system. See packages/donut_delivery
 
+script.send_donut:
+  hidden: true
+
 script.send_donut_and_randomize:
   friendly_name: Bring me a donut
   icon: mdi:truck-delivery
