@@ -22,6 +22,7 @@
             title: "Turn on"
 
 - alias: Maggie - Ask to turn on a light when coming home
+  initial_state: false
   trigger:
     - platform: state
       entity_id: device_tracker.jackie_jackie

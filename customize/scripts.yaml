@@ -80,3 +80,8 @@ script.reload_config:
 script.restart_hass:
   friendly_name: "Restart Home Assistant"
   icon: mdi:power
+
+# packages/download_notify
+script.reset_download_count:
+  friendly_name: Reset Download Count
+  icon: mdi:checkbox-marked-circle
