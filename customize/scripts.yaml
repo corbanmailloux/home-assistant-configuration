@@ -19,24 +19,6 @@ script.kodi_update_video:
   friendly_name: Update video library
   icon: mdi:movie
 
-# Party Mode scripts are run by input_boolean.party_mode
-script.party_mode:
-  hidden: true
-script.party_mode_end:
-  hidden: true
-script.fade_backlight:
-  hidden: true
-script.fade_backlight_loop:
-  hidden: true
-script.blink_exit_sign:
-  hidden: true
-script.blink_exit_sign_loop:
-  hidden: true
-script.toggle_lamps:
-  hidden: true
-script.toggle_lamps_loop:
-  hidden: true
-
 # Scripts for dimming/undimming the lights when watching movies
 script.media_dim_master:
   hidden: true
