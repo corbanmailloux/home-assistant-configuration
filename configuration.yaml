@@ -21,8 +21,27 @@ http:
 # Checks for available updates
 updater:
 
+recorder:
+  purge_days: 14
+  exclude:
+    domains:
+      - weblink
+      - automation
+      - group
+      - updater
+    entities:
+      - sun.sun   # Don't record sun data
+
 # Enables support for tracking state changes over time.
 history:
+  exclude:
+    domains:
+      - weblink
+      - automation
+      - group
+      - updater
+    entities:
+      - sun.sun   # Don't record sun data
 
 # Enables the frontend
 frontend:
