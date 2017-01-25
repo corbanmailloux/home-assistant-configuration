@@ -9,6 +9,7 @@ view_management:
     - group.hass_notifications
     - group.hass_utilities  # See packages/hass_utilities
     - group.obama_download_monitor # See packages/download_notify
+    - group.testing_scripts
 
 
 obama_management_scripts:
@@ -32,3 +33,8 @@ hass_notifications:
     - automation.reminder_to_turn_off_the_lights
     - automation.corban__ask_to_turn_on_a_light_when_coming_home
     - automation.maggie__ask_to_turn_on_a_light_when_coming_home
+
+testing_scripts:
+  name: Test Scripts
+  entities:
+    - automation.bedside_button
