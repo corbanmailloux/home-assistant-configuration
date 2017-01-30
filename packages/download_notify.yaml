@@ -70,3 +70,10 @@ group:
       - sensor.number_of_downloads_waiting
       - sensor.most_recent_download
       - script.reset_download_count
+
+
+homeassistant:
+  customize:
+    script.reset_download_count:
+      friendly_name: Reset Download Count
+      icon: mdi:checkbox-marked-circle

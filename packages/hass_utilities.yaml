@@ -9,6 +9,7 @@ script:
     sequence:
       - service: homeassistant.restart
 
+
 group:
   hass_utilities:
     name: "Home Assistant Utilities"
@@ -16,3 +17,13 @@ group:
     entities:
       - script.reload_config
       - script.restart_hass
+
+
+homeassistant:
+  customize:
+    script.reload_config:
+      friendly_name: "Reload Core Configuration"
+      icon: mdi:refresh
+    script.restart_hass:
+      friendly_name: "Restart Home Assistant"
+      icon: mdi:power

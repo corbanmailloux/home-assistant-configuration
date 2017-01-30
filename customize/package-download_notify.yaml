@@ -1,5 +1,0 @@
-# See packages/download_notify
-
-script.reset_download_count:
-  friendly_name: Reset Download Count
-  icon: mdi:checkbox-marked-circle

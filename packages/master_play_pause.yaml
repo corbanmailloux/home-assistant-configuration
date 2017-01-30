@@ -70,3 +70,24 @@ script:
         entity_id: script.play_cast_test
       - service: media_player.media_pause
         entity_id: media_player.corban_and_maggie
+
+
+homeassistant:
+  customize:
+    script.play_pause_master:
+      friendly_name: "Master Play/Pause"
+      icon: mdi:play-pause
+      emulated_hue: true
+      emulated_hue_name: "T.V. Show"
+    script.play_pause_kodi:
+      hidden: true
+    script.play_kodi_test:
+      hidden: true
+    script.pause_kodi_test:
+      hidden: true
+    script.play_pause_cast:
+      hidden: true
+    script.play_cast_test:
+      hidden: true
+    script.pause_cast_test:
+      hidden: true

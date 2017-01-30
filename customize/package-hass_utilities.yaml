@@ -1,8 +1,0 @@
-# See packages/hass_utilities
-
-script.reload_config:
-  friendly_name: "Reload Core Configuration"
-  icon: mdi:refresh
-script.restart_hass:
-  friendly_name: "Restart Home Assistant"
-  icon: mdi:power
