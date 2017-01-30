@@ -74,6 +74,6 @@ group:
 
 homeassistant:
   customize:
-    script.reset_download_count:
+    - entity_id: script.reset_download_count
       friendly_name: Reset Download Count
       icon: mdi:checkbox-marked-circle
