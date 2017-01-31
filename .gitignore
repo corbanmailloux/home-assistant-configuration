@@ -88,7 +88,7 @@ ENV/
 # Rope project settings
 .ropeproject
 
-# Custom
+# Home Assistant
 .HA_VERSION
 deps/
 home-assistant_v2.db
@@ -100,3 +100,4 @@ known_devices.yaml
 google_calendars.yaml
 .google.token
 tts/
+emulated_hue_ids.json
