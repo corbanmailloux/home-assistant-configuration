@@ -8,4 +8,5 @@
     service: notify.html5_ida
     data:
       title: "Home Assistant Update"
-      message: "There is a new Home Assistant release available."
+    data_template:
+      message: "Home Assistant version {{ states('updater.updater') }} is now available."
