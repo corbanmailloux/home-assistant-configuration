@@ -1,19 +1,21 @@
 homeassistant:
-  # Name of the location where Home Assistant is running
   name: !secret home_name
-  # Location required to calculate the time the sun rises and sets
   latitude: !secret home_latitude
   longitude: !secret home_longitude
-  # Impacts weather/sunrise data
   elevation: !secret home_elevation
   unit_system: imperial
-  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  # See: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/New_York
-  customize: !include_dir_merge_named customize
+
+  customize: !include_dir_merge_list customize
+
+  packages: !include_dir_named packages
 
 http:
   api_password: !secret http_api_password
   base_url: !secret http_base_url
+  ip_ban_enabled: True
+  login_attempts_threshold: 3 # Three strikes
   # SSL is now being handled by NGINX
   # ssl_certificate: !secret http_ssl_certificate_path
   # ssl_key: !secret http_ssl_key_path
@@ -21,8 +23,27 @@ http:
 # Checks for available updates
 updater:
 
+recorder:
+  purge_days: 14
+  exclude:
+    domains:
+      - weblink
+      - automation
+      - group
+      - updater
+    entities:
+      - sun.sun   # Don't record sun data
+
 # Enables support for tracking state changes over time.
 history:
+  exclude:
+    domains:
+      - weblink
+      - automation
+      - group
+      - updater
+    entities:
+      - sun.sun   # Don't record sun data
 
 # Enables the frontend
 frontend:
@@ -54,9 +75,6 @@ mqtt:
   password: !secret mqtt_password
 
 device_tracker:
-  # - platform: owntracks
-  #   max_gps_accuracy: 200
-  #   track_new_devices: yes
   - platform: mqtt
     devices:
       ida_ida: /devices/location/ida_ida

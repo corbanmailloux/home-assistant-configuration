@@ -6,8 +6,7 @@ view_fun:
   entities:
     - group.fun_notifications
     - group.send_me_a_donut
-    - group.unused_for_now
-    - group.calendar # Unused
+    # - group.unused_for_now
     
 fun_notifications:
   name: Fun Notifications
@@ -15,13 +14,6 @@ fun_notifications:
     - script.kodi_notify_i_love_maggs
     - script.phone_notify_i_love_maggs
     - script.kodi_notify_i_love_corb
-
-send_me_a_donut:
-  name: Donut Delivery
-  entities:
-    - input_select.donut_selector
-    - input_select.donut_destination
-    - script.send_donut_and_randomize
 
 unused_for_now:
   name: Unused

@@ -1,0 +1,29 @@
+# Package for Home Assistant Utilities
+
+script:
+  reload_config:
+    sequence:
+      - service: homeassistant.reload_core_config
+
+  restart_hass:
+    sequence:
+      - service: homeassistant.restart
+
+
+group:
+  hass_utilities:
+    name: "Home Assistant Utilities"
+    control: hidden
+    entities:
+      - script.reload_config
+      - script.restart_hass
+
+
+homeassistant:
+  customize:
+    - entity_id: script.reload_config
+      friendly_name: "Reload Core Configuration"
+      icon: mdi:refresh
+    - entity_id: script.restart_hass
+      friendly_name: "Restart Home Assistant"
+      icon: mdi:power

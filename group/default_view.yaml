@@ -3,5 +3,14 @@
 default_view:
   view: yes
   entities:
+    - updater.updater
+    - device_tracker.ida_ida
+    - device_tracker.jackie_jackie
     - group.living_room_lights
     - group.bedroom_lights
+
+# devices:
+#   name: Device Trackers
+#   entities:
+#     - device_tracker.ida_ida
+#     - device_tracker.jackie_jackie

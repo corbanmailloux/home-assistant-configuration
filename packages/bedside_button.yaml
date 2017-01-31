@@ -1,0 +1,51 @@
+# Package for the bedside button control
+
+automation:
+  - alias: "Bedside Button"
+    # hide_entity: true
+    trigger:
+      - platform: mqtt
+        topic: home/bedroom/bedside_button_1
+        payload: "ON"
+    action: 
+      - service: script.turn_on
+        entity_id: 
+          - script.bedside_1_morning
+          - script.bedside_2_normal
+          - script.bedside_3_going_to_bed
+
+
+script:
+  # 12:00a - 6:29a: Toggle TV lamp (pee mode)
+  bedside_1_morning:
+    sequence:
+      - condition: time
+        after: '00:00:00'
+        before: '06:29:59'
+      - service: homeassistant.toggle
+        entity_id: switch.living_room_lamp_near_tv
+  
+  # 6:30a - 8:29p: Toggle fairy lights
+  bedside_2_normal:
+    sequence:
+      - condition: time
+        after: '06:30:00'
+        before: '20:29:59'
+      - service: homeassistant.toggle
+        entity_id: switch.bedroom_fairy_lights
+
+  # 8:30p - 11:59p: Everything off/toggle fairy lights
+  bedside_3_going_to_bed:
+    sequence:
+      - condition: time
+        after: '20:30:00'
+        before: '23:59:59'
+      - service: homeassistant.turn_off
+        entity_id:
+          - light.living_room_tv_backlight
+          - light.exit_sign
+          - switch.living_room_lamp_near_tv
+          - switch.living_room_corner
+          - switch.bedroom_desk_lamp
+      - service: homeassistant.toggle
+        entity_id: switch.bedroom_fairy_lights

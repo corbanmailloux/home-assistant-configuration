@@ -1,13 +1,13 @@
 # Lights
 
-light.living_room_tv_backlight:
+- entity_id: light.living_room_tv_backlight
   friendly_name: Backlight
   emulated_hue: true
   emulated_hue_name: "Back light"
   # icon: mdi:led-outline
   icon: mdi:television
 
-light.exit_sign:
+- entity_id: light.exit_sign
   emulated_hue: true
   friendly_name: Exit Sign
   icon: mdi:sign-caution

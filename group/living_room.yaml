@@ -30,3 +30,4 @@ living_room_light_control:
     - scene.living_room_lights_out
     - input_select.tv_backlight_selector
     - input_boolean.party_mode
+    - input_select.exit_sign_button_action

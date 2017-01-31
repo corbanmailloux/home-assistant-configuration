@@ -12,3 +12,30 @@
     # - clouds
     # - rain
     # - snow
+
+- platform: darksky
+  api_key: !secret darksky_api_key
+  monitored_conditions:
+    - summary
+    # - icon
+    - precip_type
+    - precip_intensity
+    - precip_intensity_max
+    - precip_probability
+    - temperature
+    - temperature_max
+    - temperature_min
+    - apparent_temperature
+    - apparent_temperature_max
+    - apparent_temperature_min
+    # - dew_point
+    # - wind_speed
+    # - wind_bearing
+    - cloud_cover
+    - humidity
+    # - pressure
+    # - visibility
+    # - ozone
+    - minutely_summary
+    - hourly_summary
+    # - daily_summary

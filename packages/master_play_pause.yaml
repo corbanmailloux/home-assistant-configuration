@@ -1,0 +1,87 @@
+# Package for the Master Play/Pause Control
+
+script:
+  ##########
+  # Master #
+  ##########
+  play_pause_master:
+    sequence:
+      - service: script.turn_on
+        entity_id: 
+          - script.play_pause_kodi
+          - script.play_pause_cast
+
+  ########
+  # Kodi #
+  ########
+  play_pause_kodi:
+    sequence:
+      - service: script.turn_on
+        entity_id:
+          - script.pause_kodi_test
+          - script.play_kodi_test
+
+  play_kodi_test:
+    sequence:
+      - condition: state
+        entity_id: media_player.kodi_obama
+        state: "paused"
+      - service: script.turn_off
+        entity_id: script.pause_kodi_test
+      - service: media_player.media_play
+        entity_id: media_player.kodi_obama
+
+  pause_kodi_test:
+    sequence:
+      - condition: state
+        entity_id: media_player.kodi_obama
+        state: "playing"
+      - service: script.turn_off
+        entity_id: script.play_kodi_test
+      - service: media_player.media_pause
+        entity_id: media_player.kodi_obama
+
+  ##############
+  # Chromecast #
+  ##############
+  play_pause_cast:
+    sequence:
+      - service: script.turn_on
+        entity_id:
+          - script.pause_cast_test
+          - script.play_cast_test
+
+  play_cast_test:
+    sequence:
+      - condition: state
+        entity_id: media_player.corban_and_maggie
+        state: "paused"
+      - service: script.turn_off
+        entity_id: script.pause_cast_test
+      - service: media_player.media_play
+        entity_id: media_player.corban_and_maggie
+
+  pause_cast_test:
+    sequence:
+      - condition: state
+        entity_id: media_player.corban_and_maggie
+        state: "playing"
+      - service: script.turn_off
+        entity_id: script.play_cast_test
+      - service: media_player.media_pause
+        entity_id: media_player.corban_and_maggie
+
+
+homeassistant:
+  customize:
+    - entity_id: script.play_pause_master
+      friendly_name: "Master Play/Pause"
+      icon: mdi:play-pause
+      emulated_hue: true
+      emulated_hue_name: "T.V. Show"
+    # Hide Kodi scripts
+    - entity_id: script.play_pause_kodi, script.play_kodi_test, script.pause_kodi_test
+      hidden: true
+    # Hide cast scripts
+    - entity_id: script.play_pause_cast, script.play_cast_test, script.pause_cast_test
+      hidden: true
