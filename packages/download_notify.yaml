@@ -37,6 +37,12 @@ automation:
           retain: true
         data_template:
           payload: "{{ states('sensor.number_of_downloads_waiting') | int + 1 }}"
+      - service: persistent_notification.create
+        data:
+          notification_id: 1 # Replace the same notification each time
+        data_template:
+          title: "{{ states('sensor.number_of_downloads_waiting') }} Download{%- if states('sensor.number_of_downloads_waiting')|int > 1 -%}s{%- endif %} Waiting"
+          message: "Most recent: {{ trigger.to_state.state }}"
 
   - alias: "Reset Download Count"
     hide_entity: true
