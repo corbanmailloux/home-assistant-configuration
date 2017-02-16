@@ -5,17 +5,18 @@ sensor:
     name: Most Recent Download
     state_topic: "home/obama/downloadcomplete"
   - platform: mqtt
-    name: Number of Downloads Waiting
-    state_topic: "emulated/numberdownloadswaiting"
+    name: Listing of Waiting Downloads
+    state_topic: "emulated/obamadownloads/listing"
 
 
 binary_sensor:
-  - platform: threshold
-    name: Download Waiting
-    threshold: 0
-    type: upper
-    entity_id: sensor.number_of_downloads_waiting
-
+  - platform: template
+    sensors:
+      download_waiting:
+        friendly_name: Download Waiting
+        value_template: >
+          {{ states('sensor.listing_of_waiting_downloads') != "" }}
+        entity_id: sensor.listing_of_waiting_downloads
 
 automation:
   - alias: "New Obama Download"
@@ -33,16 +34,22 @@ automation:
     action: 
       - service: mqtt.publish
         data:
-          topic: "emulated/numberdownloadswaiting"
+          topic: "emulated/obamadownloads/listing"
           retain: true
         data_template:
-          payload: "{{ states('sensor.number_of_downloads_waiting') | int + 1 }}"
+          payload: >
+            {%- if states('sensor.listing_of_waiting_downloads') == "" -%}
+              {{ trigger.to_state.state }}
+            {%- else -%}
+              {{ states('sensor.listing_of_waiting_downloads') ~ ', ' ~ trigger.to_state.state }}
+            {%- endif -%}
+      - delay: 00:00:02
       - service: persistent_notification.create
         data:
           notification_id: 1 # Replace the same notification each time
+          title: "Downloads Waiting"
         data_template:
-          title: "{{ states('sensor.number_of_downloads_waiting') }} Download{%- if states('sensor.number_of_downloads_waiting')|int > 1 -%}s{%- endif %} Waiting"
-          message: "Most recent: {{ trigger.to_state.state }}"
+          message: "{{ states('sensor.listing_of_waiting_downloads') }}"
 
   - alias: "Reset Download Count"
     hide_entity: true
@@ -50,13 +57,12 @@ automation:
       - platform: state
         entity_id: sensor.most_recent_download
         to: "none"
-    action: 
+    action:
       - service: mqtt.publish
         data:
-          topic: "emulated/numberdownloadswaiting"
+          topic: "emulated/obamadownloads/listing"
           retain: true
-          payload: 0
-
+          payload: ""
 
 script:
   reset_download_count:
@@ -73,8 +79,8 @@ group:
     name: Download Monitor
     entities:
       - binary_sensor.download_waiting
-      - sensor.number_of_downloads_waiting
       - sensor.most_recent_download
+      - sensor.listing_of_waiting_downloads
       - script.reset_download_count
 
 
