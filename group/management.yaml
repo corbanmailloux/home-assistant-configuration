@@ -8,7 +8,6 @@ view_management:
     - group.media_automation_control
     - group.hass_notifications
     - group.hass_utilities  # See packages/hass_utilities
-    - group.obama_download_monitor # See packages/download_notify
     - group.testing_scripts
 
 
