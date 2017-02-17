@@ -83,13 +83,15 @@ device_tracker:
 ifttt:
   key: !secret ifttt_key
 
-# ffmpeg:
-#   ffmpeg_bin: /usr/local/bin/ffmpeg/ffmpeg
+ffmpeg:
+  ffmpeg_bin: /usr/local/bin/ffmpeg/ffmpeg
 
-# camera:
-#   - platform: ffmpeg
-#     input: /dev/video1
-#     extra_arguments: "-f v4l2 -input_format mjpeg -video_size 1600x1200 -framerate 30"
+camera:
+  - platform: ffmpeg
+    name: yi
+    # input: rtsp://10.0.0.250:554/ch0_0.h264
+    input: rtsp://10.0.0.250:554/ch0_1.h264
+    extra_arguments: "-pred 1"
 
 panel_iframe:
   google_calendar:
