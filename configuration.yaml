@@ -91,9 +91,20 @@ ffmpeg:
 camera:
   - platform: ffmpeg
     name: yi
-    # input: rtsp://10.0.0.250:554/ch0_0.h264
-    input: rtsp://10.0.0.250:554/ch0_1.h264
+    input: !secret yi_camera_sd
     extra_arguments: "-pred 1"
+
+  - platform: generic
+    still_image_url: !secret radar_image_url
+    name: Radar
+
+  - platform: generic
+    still_image_url: !secret traffic_camera_url
+    name: Traffic Camera
+
+  - platform: mjpeg
+    mjpeg_url: !secret community_college_camera_url
+    name: Community College
 
 panel_iframe:
   google_calendar:
