@@ -84,6 +84,7 @@ group:
     control: hidden
     entities:
       - sensor.listing_of_waiting_downloads
+      - script.kodi_update_video
       - script.reset_download_count
 
   # obama_download_monitor:
