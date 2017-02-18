@@ -1,0 +1,23 @@
+# Package for the Yi Camera
+# Uses https://github.com/fritz-smh/yi-hack
+
+camera:
+  - platform: ffmpeg
+    name: yi
+    input: !secret yi_camera_sd
+    extra_arguments: "-pred 1"
+
+
+weblink:
+  entities:
+    - name: Yi Recordings
+      url: !secret yi_camera_recordings_url
+      icon: mdi:record-rec
+
+group:
+  yi_camera:
+    name: Yi Camera
+    control: hidden
+    entities:
+      - camera.yi
+      - weblink.yi_recordings

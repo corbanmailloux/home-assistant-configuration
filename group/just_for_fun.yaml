@@ -6,7 +6,7 @@ view_fun:
   entities:
     - group.fun_notifications
     - group.send_me_a_donut
-    - camera.yi
+    - group.yi_camera
     # - group.unused_for_now
     
 fun_notifications:
