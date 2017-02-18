@@ -32,6 +32,7 @@ recorder:
       - group
       - updater
       - camera
+      - script
     entities:
       - sun.sun   # Don't record sun data
 
@@ -44,6 +45,7 @@ history:
       - group
       - updater
       - camera
+      - script
     entities:
       - sun.sun   # Don't record sun data
 
