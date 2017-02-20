@@ -1,0 +1,19 @@
+Temperature:
+  speech:
+    type: plaintext
+    text: >
+      {%- if Location is not defined -%}
+        The living room is {{ states('sensor.living_room_temperature') | round | int }} degrees and the bedroom is {{ states('sensor.bedroom_temperature') | round | int }} degrees. Dark sky reports that it's {{ states('sensor.dark_sky_temperature') | round | int }} degrees outside, but it feels like {{ states('sensor.dark_sky_apparent_temperature') | round | int }} degrees.
+      {%- elif Location.lower() == "bedroom" -%}
+        It's {{ states('sensor.bedroom_temperature') | round | int }} degrees in the bedroom.
+      {%- elif Location.lower() == "living room" -%}
+        It's {{ states('sensor.living_room_temperature') | round | int }} degrees in the living room.
+      {%- elif Location.lower() == "outside" -%}
+        Dark sky reports that it's {{ states('sensor.dark_sky_temperature') | round | int }} degrees outside, but it feels like {{ states('sensor.dark_sky_apparent_temperature') | round | int }} degrees.
+      {%- else -%}
+        I'm sorry, I didn't understand the location {{ Location }}.
+      {%- endif -%}
+  # card:
+  #   type: simple
+  #   title: Sample title
+  #   content: Some more content

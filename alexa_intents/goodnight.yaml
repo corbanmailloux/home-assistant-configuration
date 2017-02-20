@@ -4,7 +4,14 @@ GoingToBed:
     entity_id: scene.going_to_bed
   speech:
     type: plaintext
-    text: OK
+    text: >
+      {{ [
+        "Goodnight.",
+        "Sweet dreams.",
+        "Don't let the bedbugs. Uhh. Forget about that. Night!",
+        "Rest well.",
+        "See you in the morning.",
+      ] | random }} 
 
 Goodnight:
   action:
@@ -12,4 +19,4 @@ Goodnight:
     entity_id: scene.goodnight
   speech:
     type: plaintext
-    text: Sweet dreams
+    text: Sweet dreams.
