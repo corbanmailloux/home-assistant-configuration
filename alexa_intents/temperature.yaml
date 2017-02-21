@@ -13,7 +13,8 @@ Temperature:
       {%- else -%}
         I'm sorry, I didn't understand the location {{ Location }}.
       {%- endif -%}
-  # card:
-  #   type: simple
-  #   title: Sample title
-  #   content: Some more content
+  card:
+    type: simple
+    title: Temperatures
+    content: >
+      Living room: {{ states('sensor.living_room_temperature') | round | int }}°. Bedroom: {{ states('sensor.bedroom_temperature') | round | int }}°. Outside: {{ states('sensor.dark_sky_temperature') | round | int }}°.
