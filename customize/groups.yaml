@@ -36,3 +36,8 @@
   hidden: true
   emulated_hue: true
   emulated_hue_name: "All Lights"
+
+- entity_id: group.everything_custom
+  hidden: true
+  emulated_hue: true
+  emulated_hue_name: "Everything"

@@ -9,3 +9,16 @@ all_lights_custom:
     - switch.living_room_lamp_near_tv
     - switch.bedroom_fairy_lights
     - switch.bedroom_desk_lamp
+
+# All lights, switches, and media_player, for Alexa
+everything_custom:
+  name: Everything
+  entities:
+    - light.exit_sign
+    - light.living_room_tv_backlight
+    - switch.living_room_corner
+    - switch.living_room_lamp_near_tv
+    - switch.bedroom_fairy_lights
+    - switch.bedroom_desk_lamp
+    - media_player.kodi_obama
+    - media_player.corban_and_maggie
