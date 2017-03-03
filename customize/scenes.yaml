@@ -1,32 +1,32 @@
 # Customizations for scenes
 
-- entity_id: scene.movie_mode
+scene.movie_mode:
   hidden: true
   emulated_hue: true
 
 # Exit sign scenes
-- entity_id: scene.exit_bright
+scene.exit_bright:
   hidden: true
-- entity_id: scene.exit_dim
+scene.exit_dim:
   hidden: true
 
 # TV backlight scenes
-- entity_id: scene.tv_bright
+scene.tv_bright:
   hidden: true
-- entity_id: scene.tv_dim
+scene.tv_dim:
   hidden: true
-- entity_id: scene.tv_kodi_background
+scene.tv_kodi_background:
   hidden: true
-- entity_id: scene.tv_spotify
+scene.tv_spotify:
   hidden: true
 
-- entity_id: scene.living_room_lights_out
+scene.living_room_lights_out:
   icon: mdi:filmstrip-off
 
-- entity_id: scene.coming_home
+scene.coming_home:
   icon: mdi:home
 
-- entity_id: scene.going_to_bed
+scene.going_to_bed:
   hidden: true
-- entity_id: scene.goodnight
+scene.goodnight:
   hidden: true

@@ -1,12 +1,12 @@
 # Customizations for automations
 
-- entity_id: automation.hass_update_notification
+automation.hass_update_notification:
   icon: mdi:security-home
 
-- entity_id: automation.reminder_to_turn_off_the_lights
+automation.reminder_to_turn_off_the_lights:
   icon: mdi:lightbulb-outline
 
-- entity_id: automation.corban__ask_to_turn_on_a_light_when_coming_home
+automation.corban__ask_to_turn_on_a_light_when_coming_home:
   icon: mdi:home-map-marker
-- entity_id: automation.maggie__ask_to_turn_on_a_light_when_coming_home
+automation.maggie__ask_to_turn_on_a_light_when_coming_home:
   icon: mdi:home-map-marker

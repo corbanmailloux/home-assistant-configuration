@@ -99,11 +99,11 @@ group:
 
 homeassistant:
   customize:
-    - entity_id: script.reset_download_count
+    script.reset_download_count:
       friendly_name: Reset Download Count
       icon: mdi:checkbox-marked-circle
-    - entity_id: sensor.listing_of_waiting_downloads
+    sensor.listing_of_waiting_downloads:
       friendly_name: Waiting
       icon: mdi:download
-    - entity_id: group.obama_download_display
+    group.obama_download_display:
       order: 1 # Make it be first, when it's there.

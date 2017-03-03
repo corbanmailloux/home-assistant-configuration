@@ -77,9 +77,9 @@ group:
 
 homeassistant:
   customize:
-    - entity_id: script.send_donut
+    script.send_donut:
       hidden: true
 
-    - entity_id: script.send_donut_and_randomize
+    script.send_donut_and_randomize:
       friendly_name: Bring me a donut
       icon: mdi:truck-delivery

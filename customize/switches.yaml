@@ -1,21 +1,21 @@
 # Customizations for switches
 
-- entity_id: switch.bedroom_fairy_lights
+switch.bedroom_fairy_lights:
   friendly_name: Fairy Lights
   emulated_hue: true
   icon: mdi:lightbulb
 
-- entity_id: switch.bedroom_desk_lamp
+switch.bedroom_desk_lamp:
   friendly_name: Bedroom Desk Lamp
   emulated_hue: true
   icon: mdi:lightbulb
 
-- entity_id: switch.living_room_corner
+switch.living_room_corner:
   friendly_name: Corner Lamp
   emulated_hue: true
   icon: mdi:lamp
 
-- entity_id: switch.living_room_lamp_near_tv
+switch.living_room_lamp_near_tv:
   friendly_name: TV Lamp
   emulated_hue: true
   emulated_hue_name: "T.V. Lamp"

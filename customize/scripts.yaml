@@ -1,34 +1,34 @@
 # Scripts
 
 # Fun Notifications
-- entity_id: script.kodi_notify_i_love_maggs
+script.kodi_notify_i_love_maggs:
   friendly_name: Kodi - I love Maggs
   icon: mdi:heart
-- entity_id: script.kodi_notify_i_love_corb
+script.kodi_notify_i_love_corb:
   friendly_name: Kodi - I love Corb
   icon: mdi:heart-outline
-- entity_id: script.phone_notify_i_love_maggs
+script.phone_notify_i_love_maggs:
   friendly_name: Phone - I love Maggs
   icon: mdi:heart
 
 # Obama Management
-- entity_id: script.shutdown_obama
+script.shutdown_obama:
   friendly_name: Shutdown Obama
   icon: mdi:power
-- entity_id: script.kodi_update_video
+script.kodi_update_video:
   friendly_name: Update video library
   icon: mdi:movie
 
 # Scripts for dimming/undimming the lights when watching movies
-- entity_id: script.media_dim_master
+script.media_dim_master:
   hidden: true
-- entity_id: script.media_undim_master
+script.media_undim_master:
   hidden: true
-- entity_id: script.media_dim_tv_backlight
+script.media_dim_tv_backlight:
   hidden: true
-- entity_id: script.media_undim_tv_backlight
+script.media_undim_tv_backlight:
   hidden: true
-- entity_id: script.media_dim_exit_sign
+script.media_dim_exit_sign:
   hidden: true
-- entity_id: script.media_undim_exit_sign
+script.media_undim_exit_sign:
   hidden: true

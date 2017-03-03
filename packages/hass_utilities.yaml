@@ -21,9 +21,9 @@ group:
 
 homeassistant:
   customize:
-    - entity_id: script.reload_config
+    script.reload_config:
       friendly_name: "Reload Core Configuration"
       icon: mdi:refresh
-    - entity_id: script.restart_hass
+    script.restart_hass:
       friendly_name: "Restart Home Assistant"
       icon: mdi:power
