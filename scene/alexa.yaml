@@ -13,6 +13,8 @@
       state: off
     switch.bedroom_fairy_lights:
       state: on
+    media_player.kodi_obama:
+      state: off
 
 - name: Goodnight
   entities:
