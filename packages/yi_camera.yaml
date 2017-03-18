@@ -14,6 +14,22 @@ weblink:
       url: !secret yi_camera_recordings_url
       icon: mdi:record-rec
 
+
+sensor:
+  - platform: scrape
+    name: Yi Most Recent Recording
+    resource: http://10.0.0.250/motion
+    select: "body"
+
+
+binary_sensor:
+  - platform: template
+    sensors:
+      yi_motion:
+        value_template: '{{ states("sensor.yi_most_recent_recording") | length > 0 }}'
+        friendly_name: 'Yi Motion Detected'
+
+
 group:
   yi_camera:
     name: Yi Camera
@@ -21,3 +37,5 @@ group:
     entities:
       - camera.yi
       - weblink.yi_recordings
+      - sensor.yi_most_recent_recording
+      - binary_sensor.yi_motion

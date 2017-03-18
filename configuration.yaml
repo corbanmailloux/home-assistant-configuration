@@ -35,6 +35,7 @@ recorder:
       - script
     entities:
       - sun.sun   # Don't record sun data
+      - sensor.yi_most_recent_recording # It changes each minute
 
 # Enables support for tracking state changes over time.
 history:
@@ -48,6 +49,7 @@ history:
       - script
     entities:
       - sun.sun   # Don't record sun data
+      - sensor.yi_most_recent_recording # It changes each minute
 
 # Enables the frontend
 frontend:

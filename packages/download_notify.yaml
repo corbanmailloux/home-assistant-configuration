@@ -18,6 +18,7 @@ binary_sensor:
           {{ states('sensor.listing_of_waiting_downloads') != "" }}
         entity_id: sensor.listing_of_waiting_downloads
 
+
 automation:
   - alias: "New Obama Download"
     hide_entity: true
@@ -67,6 +68,7 @@ automation:
         entity_id: group.obama_download_display
         data_template:
           visible: "{{ trigger.to_state.state == 'on' }}"
+
 
 script:
   reset_download_count:
