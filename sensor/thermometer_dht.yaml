@@ -1,35 +1,27 @@
 # Thermometer
 
-# - platform: dht
-#   sensor: DHT11
-#   pin: 23
-#   name: Bedroom
-#   monitored_conditions:
-#     - temperature
-#     - humidity
-
 # Living room
 - platform: mqtt
   name: "Living Room Temperature"
-  state_topic: "home/livingroom/temperature"
+  state_topic: "home/LivingRoomESP/dht/temperature"
   qos: 0
   unit_of_measurement: "°F"
 
 - platform: mqtt
   name: "Living Room Humidity"
-  state_topic: "home/livingroom/humidity"
+  state_topic: "home/LivingRoomESP/dht/humidity"
   qos: 0
   unit_of_measurement: "%"
 
 # Bedroom
 - platform: mqtt
   name: "Bedroom Temperature"
-  state_topic: "home/bedroom/temperature"
+  state_topic: "home/BedroomNodeMCU/dht/temperature"
   qos: 0
   unit_of_measurement: "°F"
 
 - platform: mqtt
   name: "Bedroom Humidity"
-  state_topic: "home/bedroom/humidity"
+  state_topic: "home/BedroomNodeMCU/dht/humidity"
   qos: 0
   unit_of_measurement: "%"

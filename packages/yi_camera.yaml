@@ -28,6 +28,7 @@ binary_sensor:
       yi_motion:
         value_template: '{{ states("sensor.yi_most_recent_recording") | length > 0 }}'
         friendly_name: 'Yi Motion Detected'
+        device_class: motion
 
 
 group:

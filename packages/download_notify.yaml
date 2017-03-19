@@ -78,6 +78,11 @@ script:
         topic: "home/obama/downloadcomplete"
         retain: true
         payload: "none"
+    # Force the group to hide, just in case
+    - service: group.set_visibility
+      entity_id: group.obama_download_display
+      data:
+        visible: false
 
  
 group:
