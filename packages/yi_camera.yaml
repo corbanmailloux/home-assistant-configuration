@@ -32,7 +32,6 @@ binary_sensor:
 
 automation:
   - alias: "Notify me on motion when no one is home"
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: binary_sensor.yi_motion
@@ -50,7 +49,7 @@ automation:
       - service: notify.html5_ida
         data:
           title: "Movement at home."
-          # message: "You seem to have left some lights on."
+          message: "You might wanna check that out."
           # data:
           #   actions:
           #     - action: "turn_off_lights"
