@@ -16,12 +16,12 @@
 # Bedroom
 - platform: mqtt
   name: "Bedroom Temperature"
-  state_topic: "home/BedroomNodeMCU/dht/temperature"
+  state_topic: "home/BedroomESP/dht/temperature"
   qos: 0
   unit_of_measurement: "°F"
 
 - platform: mqtt
   name: "Bedroom Humidity"
-  state_topic: "home/BedroomNodeMCU/dht/humidity"
+  state_topic: "home/BedroomESP/dht/humidity"
   qos: 0
   unit_of_measurement: "%"
