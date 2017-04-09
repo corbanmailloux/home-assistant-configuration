@@ -53,8 +53,9 @@
     - service: scene.turn_on
       entity_id: scene.tv_spotify
 
-- alias: "Reset color when Chromecase stops"
-  hide_entity: true
+- alias: "Reset color when Chromecast stops"
+  # hide_entity: true
+  initial_state: false
   trigger:
     - platform: state
       entity_id: media_player.corban_and_maggie
