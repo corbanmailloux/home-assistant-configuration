@@ -30,6 +30,11 @@ binary_sensor:
         friendly_name: 'Yi Motion Detected'
         device_class: motion
 
+
+shell_command:
+  yi_get_most_recent_download: !secret yi_camera_shell_command_get_most_recent_download
+
+
 automation:
   - alias: "Notify me on motion when no one is home"
     trigger:
@@ -46,14 +51,14 @@ automation:
           entity_id: device_tracker.jackie_jackie
           state: "not_home"
     action:
+      - service: shell_command.yi_get_most_recent_download
+      - delay: 00:00:05
       - service: notify.html5_ida
         data:
           title: "Movement at home."
-          message: "You might wanna check that out."
-          # data:
-          #   actions:
-          #     - action: "turn_off_lights"
-          #       title: "Turn off"
+          message: "Tap to watch the video."
+          data:
+            url: !secret yi_camera_trigger_video_url
 
 
 group:
