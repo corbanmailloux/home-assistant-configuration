@@ -2,14 +2,20 @@ Temperature:
   speech:
     type: plaintext
     text: >
+      {%- set temp_livingroom = states('sensor.living_room_temperature') | round | int -%}
+      {%- set temp_bedroom = states('sensor.bedroom_temperature') | round | int -%}
+      {%- set temp_outside = states('sensor.dark_sky_temperature') | round | int -%}
+      {%- set temp_feelslike = states('sensor.dark_sky_apparent_temperature') | round | int -%}
       {%- if Location is not defined -%}
-        The living room is {{ states('sensor.living_room_temperature') | round | int }} degrees and the bedroom is {{ states('sensor.bedroom_temperature') | round | int }} degrees. Dark sky reports that it's {{ states('sensor.dark_sky_temperature') | round | int }} degrees outside, but it feels like {{ states('sensor.dark_sky_apparent_temperature') | round | int }} degrees.
+        The living room is {{ temp_livingroom }} degrees and the bedroom is {{ temp_bedroom }} degrees. Dark sky reports that it's {{ temp_outside }} degrees outside
+        {%- if temp_outside != temp_feelslike -%}, but it feels like {{ temp_feelslike }} degrees{%- endif -%}.
       {%- elif Location.lower() == "bedroom" -%}
-        It's {{ states('sensor.bedroom_temperature') | round | int }} degrees in the bedroom.
+        It's {{ temp_bedroom }} degrees in the bedroom.
       {%- elif Location.lower() == "living room" -%}
-        It's {{ states('sensor.living_room_temperature') | round | int }} degrees in the living room.
+        It's {{ temp_livingroom }} degrees in the living room.
       {%- elif Location.lower() == "outside" -%}
-        Dark sky reports that it's {{ states('sensor.dark_sky_temperature') | round | int }} degrees outside, but it feels like {{ states('sensor.dark_sky_apparent_temperature') | round | int }} degrees.
+        Dark sky reports that it's {{ temp_outside }} degrees outside
+        {%- if temp_outside != temp_feelslike -%}, but it feels like {{ temp_feelslike }} degrees{%- endif -%}.
       {%- else -%}
         I'm sorry, I didn't understand the location {{ Location }}.
       {%- endif -%}
