@@ -26,8 +26,8 @@ script:
           {{ states('input_select.donut_selector') }}
         data:
           icon: >
-            https://corb.co/images/donuts/{{ states('input_select.donut_selector') | lower | replace(' ', '_') }}.png
-          badge: https://corb.co/images/donuts/donut_icon.ico
+            https://home.corb.co/local/donuts/{{ states('input_select.donut_selector') | lower | replace(' ', '_') }}.png
+          badge: https://home.corb.co/local/donuts/donut_icon.ico
 
 
 automation:
