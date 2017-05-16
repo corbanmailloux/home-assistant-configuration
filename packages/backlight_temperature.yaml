@@ -1,0 +1,57 @@
+# # Set the light based on the temperature
+
+# automation:
+#   - alias: "Set TV backlight based on temperature"
+#     # hide_entity: true
+#     trigger:
+#       - platform: state
+#         entity_id: sensor.living_room_temperature
+#     action: 
+#       - service: light.turn_on
+#         data:
+#           entity_id: light.living_room_tv_backlight
+#         data_template:
+#           rgb_color: >-
+#             [
+#               {%- set temperature = states('sensor.living_room_temperature') | float -%}
+#               {%- if temperature > 70 -%}
+#                 {%- set red_val = 255 -%}
+#               {%- elif temperature < 64 -%}
+#                 {%- set red_val = 0 -%}
+#               {%- else -%}
+#                 {%- set red_val = ((temperature - 64)*(255/6)) | int -%}
+#               {%- endif -%}
+#               {{ red_val }}, 0, {{ 255 - red_val }}]
+
+automation:
+  - alias: "Set TV backlight based on temperature"
+    initial_state: false
+    trigger:
+      - platform: state
+        entity_id: sensor.living_room_temperature
+    action: 
+      - service: script.set_color
+        data_template:
+          id: light.living_room_tv_backlight
+          brightness: 255
+          transition: 5
+          colors: >-
+            {%- set temperature = states('sensor.living_room_temperature') | float -%}
+            {%- if temperature > 70 -%}
+              {%- set red_val = 255 -%}
+            {%- elif temperature < 64 -%}
+              {%- set red_val = 0 -%}
+            {%- else -%}
+              {%- set red_val = ((temperature - 64)*(255/6)) | int -%}
+            {%- endif -%}
+            {{ red_val }}, 0, {{ 255 - red_val }}
+
+script:
+  set_color:
+    sequence:
+      - service: light.turn_on
+        data_template:
+          entity_id: '{{ id }}'
+          rgb_color: ["{{ colors.split(',')[0]|int }}", "{{ colors.split(',')[1]|int }}", "{{ colors.split(',')[2]|int }}"]
+          brightness: "{{ brightness }}"
+          transition: "{{ transition }}"
