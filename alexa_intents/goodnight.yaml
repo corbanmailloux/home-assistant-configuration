@@ -5,13 +5,15 @@ GoingToBed:
   speech:
     type: plaintext
     text: >
-      {{ [
+      {% set responses = [
         "Goodnight.",
         "Sweet dreams.",
         "Don't let the bedbugs. Uhh. Forget about that. Night!",
         "Rest well.",
         "See you in the morning.",
-      ] | random }} 
+      ] %}
+      {% set rindex =  (range(0, (responses | length - 1) )|random) -%}
+      {{responses[rindex]}}
 
 Goodnight:
   action:
