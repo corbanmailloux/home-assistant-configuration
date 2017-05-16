@@ -4,6 +4,9 @@ view_environment:
   view: yes
   name: Environment
   entities:
+    - camera.radar
+    - camera.traffic_camera
+    - camera.community_college
     - group.environment_outside
     - group.environment_livingroom
     - group.environment_bedroom
@@ -13,9 +16,9 @@ view_environment:
 environment_outside:
   name: Outside
   entities:
-    - sensor.owm_condition
-    - sensor.owm_temperature
-    - sensor.owm_humidity
+    - sensor.dark_sky_summary
+    - sensor.dark_sky_temperature
+    - sensor.dark_sky_humidity
     - sun.sun
 
 environment_livingroom:

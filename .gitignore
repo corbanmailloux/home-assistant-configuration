@@ -101,3 +101,5 @@ google_calendars.yaml
 .google.token
 tts/
 emulated_hue_ids.json
+www/*
+!www/donuts/

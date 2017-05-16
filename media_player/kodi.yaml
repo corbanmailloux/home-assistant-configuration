@@ -4,4 +4,4 @@
   name: kodi_obama
   host: !secret obama_kodi_host
   port: !secret obama_kodi_port
-  # turn_off_action: none
+  turn_off_action: suspend

@@ -4,7 +4,16 @@ GoingToBed:
     entity_id: scene.going_to_bed
   speech:
     type: plaintext
-    text: OK
+    text: >
+      {% set responses = [
+        "Goodnight.",
+        "Sweet dreams.",
+        "Don't let the bedbugs. Uhh. Forget about that. Night!",
+        "Rest well.",
+        "See you in the morning.",
+      ] %}
+      {% set rindex =  (range(0, (responses | length - 1) )|random) -%}
+      {{responses[rindex]}}
 
 Goodnight:
   action:
@@ -12,4 +21,4 @@ Goodnight:
     entity_id: scene.goodnight
   speech:
     type: plaintext
-    text: Sweet dreams
+    text: Sweet dreams.

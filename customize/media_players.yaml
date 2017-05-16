@@ -1,5 +1,5 @@
 # Media players
 
-- entity_id: media_player.kodi_obama
+media_player.kodi_obama:
   friendly_name: Obama Kodi
   icon: mdi:kodi

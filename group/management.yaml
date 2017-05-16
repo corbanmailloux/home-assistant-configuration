@@ -8,7 +8,6 @@ view_management:
     - group.media_automation_control
     - group.hass_notifications
     - group.hass_utilities  # See packages/hass_utilities
-    - group.obama_download_monitor # See packages/download_notify
     - group.testing_scripts
 
 
@@ -33,6 +32,7 @@ hass_notifications:
     - automation.reminder_to_turn_off_the_lights
     - automation.corban__ask_to_turn_on_a_light_when_coming_home
     - automation.maggie__ask_to_turn_on_a_light_when_coming_home
+    - automation.notify_me_on_motion_when_no_one_is_home
 
 testing_scripts:
   name: Test Scripts

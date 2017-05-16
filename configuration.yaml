@@ -7,7 +7,7 @@ homeassistant:
   # See: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
   time_zone: America/New_York
 
-  customize: !include_dir_merge_list customize
+  customize: !include_dir_merge_named customize
 
   packages: !include_dir_named packages
 
@@ -31,8 +31,11 @@ recorder:
       - automation
       - group
       - updater
+      - camera
+      - script
     entities:
       - sun.sun   # Don't record sun data
+      - sensor.yi_most_recent_recording # It changes each minute
 
 # Enables support for tracking state changes over time.
 history:
@@ -42,8 +45,11 @@ history:
       - automation
       - group
       - updater
+      - camera
+      - script
     entities:
       - sun.sun   # Don't record sun data
+      - sensor.yi_most_recent_recording # It changes each minute
 
 # Enables the frontend
 frontend:
@@ -83,13 +89,21 @@ device_tracker:
 ifttt:
   key: !secret ifttt_key
 
-# ffmpeg:
-#   ffmpeg_bin: /usr/local/bin/ffmpeg/ffmpeg
+ffmpeg:
+  ffmpeg_bin: /usr/local/bin/ffmpeg/ffmpeg
 
-# camera:
-#   - platform: ffmpeg
-#     input: /dev/video1
-#     extra_arguments: "-f v4l2 -input_format mjpeg -video_size 1600x1200 -framerate 30"
+camera:
+  - platform: generic
+    still_image_url: !secret radar_image_url
+    name: Radar
+
+  - platform: generic
+    still_image_url: !secret traffic_camera_url
+    name: Traffic Camera
+
+  - platform: mjpeg
+    mjpeg_url: !secret community_college_camera_url
+    name: Community College
 
 panel_iframe:
   google_calendar:

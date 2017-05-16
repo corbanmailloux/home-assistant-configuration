@@ -1,38 +1,43 @@
 # Customizations for groups
 
 # View tab ordering
-- entity_id: group.view_living_room
+group.view_living_room:
   order: 1
   icon: mdi:television
-- entity_id: group.view_bedroom
+group.view_bedroom:
   order: 2
   icon: mdi:hotel
-- entity_id: group.view_environment
+group.view_environment:
   order: 3
   icon: mdi:white-balance-sunny
-- entity_id: group.view_fun
+group.view_fun:
   order: 4
   icon: mdi:airballoon
-- entity_id: group.view_management
+group.view_management:
   order: 5
   icon: mdi:settings
 
 
 # Living Room Tab
-- entity_id: group.living_room_light_control
+group.living_room_light_control:
   order: 1
 
-- entity_id: group.living_room_lights
+group.living_room_lights:
   emulated_hue: true
   emulated_hue_name: "Living Room Lights"
   order: 2
 
 
-- entity_id: group.bedroom_lights
+group.bedroom_lights:
   emulated_hue: true
   emulated_hue_name: "Bedroom Lights"
 
-- entity_id: group.all_lights_custom
+group.all_lights_custom:
   hidden: true
   emulated_hue: true
   emulated_hue_name: "All Lights"
+
+group.everything_custom:
+  hidden: true
+  emulated_hue: true
+  emulated_hue_name: "Everything"

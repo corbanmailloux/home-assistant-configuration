@@ -1,26 +1,26 @@
 # Customizations for sensors
 
 # Living Room Environment
-- entity_id: sensor.living_room_humidity
+sensor.living_room_humidity:
   icon: mdi:water-percent
   friendly_name: Humidity
-- entity_id: sensor.living_room_temperature
+sensor.living_room_temperature:
   friendly_name: Temperature
 
 # Bedroom Environment
-- entity_id: sensor.bedroom_humidity
+sensor.bedroom_humidity:
   icon: mdi:water-percent
   friendly_name: Humidity
-- entity_id: sensor.bedroom_temperature
+sensor.bedroom_temperature:
   friendly_name: Temperature
 
-- entity_id: sensor.owm_humidity
+sensor.owm_humidity:
   icon: mdi:water-percent
 
 # Speedtest
-- entity_id: sensor.speedtest_download
+sensor.speedtest_download:
   icon: mdi:download
-- entity_id: sensor.speedtest_upload
+sensor.speedtest_upload:
   icon: mdi:upload
-- entity_id: sensor.speedtest_ping
+sensor.speedtest_ping:
   icon: mdi:speedometer

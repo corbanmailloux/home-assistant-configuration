@@ -5,16 +5,18 @@ sensor:
     name: Most Recent Download
     state_topic: "home/obama/downloadcomplete"
   - platform: mqtt
-    name: Number of Downloads Waiting
-    state_topic: "emulated/numberdownloadswaiting"
+    name: Listing of Waiting Downloads
+    state_topic: "emulated/obamadownloads/listing"
 
 
 binary_sensor:
-  - platform: threshold
-    name: Download Waiting
-    threshold: 0
-    type: upper
-    entity_id: sensor.number_of_downloads_waiting
+  - platform: template
+    sensors:
+      download_waiting:
+        friendly_name: Download Waiting
+        value_template: >
+          {{ states('sensor.listing_of_waiting_downloads') != "" }}
+        entity_id: sensor.listing_of_waiting_downloads
 
 
 automation:
@@ -33,10 +35,15 @@ automation:
     action: 
       - service: mqtt.publish
         data:
-          topic: "emulated/numberdownloadswaiting"
+          topic: "emulated/obamadownloads/listing"
           retain: true
         data_template:
-          payload: "{{ states('sensor.number_of_downloads_waiting') | int + 1 }}"
+          payload: >
+            {%- if states('sensor.listing_of_waiting_downloads') == "" -%}
+              {{ trigger.to_state.state }}
+            {%- else -%}
+              {{ states('sensor.listing_of_waiting_downloads') ~ ', ' ~ trigger.to_state.state }}
+            {%- endif -%}
 
   - alias: "Reset Download Count"
     hide_entity: true
@@ -44,12 +51,23 @@ automation:
       - platform: state
         entity_id: sensor.most_recent_download
         to: "none"
-    action: 
+    action:
       - service: mqtt.publish
         data:
-          topic: "emulated/numberdownloadswaiting"
+          topic: "emulated/obamadownloads/listing"
           retain: true
-          payload: 0
+          payload: ""
+
+  - alias: "Show/Hide Notification Group"
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.download_waiting
+    action:
+      - service: group.set_visibility
+        entity_id: group.obama_download_display
+        data_template:
+          visible: "{{ trigger.to_state.state == 'on' }}"
 
 
 script:
@@ -60,20 +78,39 @@ script:
         topic: "home/obama/downloadcomplete"
         retain: true
         payload: "none"
+    # Force the group to hide, just in case
+    - service: group.set_visibility
+      entity_id: group.obama_download_display
+      data:
+        visible: false
 
  
 group:
-  obama_download_monitor:
-    name: Download Monitor
+  obama_download_display:
+    name: Downloads Waiting
+    control: hidden
     entities:
-      - binary_sensor.download_waiting
-      - sensor.number_of_downloads_waiting
-      - sensor.most_recent_download
+      - sensor.listing_of_waiting_downloads
+      - script.kodi_update_video
       - script.reset_download_count
+
+  # obama_download_monitor:
+  #   name: Download Monitor
+  #   control: hidden
+  #   entities:
+  #     - binary_sensor.download_waiting
+  #     - sensor.most_recent_download
+  #     - sensor.listing_of_waiting_downloads
+  #     - script.reset_download_count
 
 
 homeassistant:
   customize:
-    - entity_id: script.reset_download_count
+    script.reset_download_count:
       friendly_name: Reset Download Count
       icon: mdi:checkbox-marked-circle
+    sensor.listing_of_waiting_downloads:
+      friendly_name: Waiting
+      icon: mdi:download
+    group.obama_download_display:
+      order: 1 # Make it be first, when it's there.
