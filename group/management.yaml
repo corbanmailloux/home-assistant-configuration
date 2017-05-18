@@ -8,6 +8,7 @@ view_management:
     - group.media_automation_control
     - group.hass_notifications
     - group.hass_utilities  # See packages/hass_utilities
+    - group.temperature_brightness  # See packages/backlight_temperature
     - group.testing_scripts
 
 
@@ -38,4 +39,3 @@ testing_scripts:
   name: Test Scripts
   entities:
     - automation.bedside_button
-    - automation.set_tv_backlight_based_on_temperature

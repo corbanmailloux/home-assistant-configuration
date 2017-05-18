@@ -1,27 +1,4 @@
-# # Set the light based on the temperature
-
-# automation:
-#   - alias: "Set TV backlight based on temperature"
-#     # hide_entity: true
-#     trigger:
-#       - platform: state
-#         entity_id: sensor.living_room_temperature
-#     action: 
-#       - service: light.turn_on
-#         data:
-#           entity_id: light.living_room_tv_backlight
-#         data_template:
-#           rgb_color: >-
-#             [
-#               {%- set temperature = states('sensor.living_room_temperature') | float -%}
-#               {%- if temperature > 70 -%}
-#                 {%- set red_val = 255 -%}
-#               {%- elif temperature < 64 -%}
-#                 {%- set red_val = 0 -%}
-#               {%- else -%}
-#                 {%- set red_val = ((temperature - 64)*(255/6)) | int -%}
-#               {%- endif -%}
-#               {{ red_val }}, 0, {{ 255 - red_val }}]
+# Set the light based on the temperature
 
 automation:
   - alias: "Set TV backlight based on temperature"
@@ -36,15 +13,56 @@ automation:
           brightness: 255
           transition: 5
           colors: >-
-            {%- set temperature = states('sensor.living_room_temperature') | float -%}
-            {%- if temperature > 70 -%}
-              {%- set red_val = 255 -%}
-            {%- elif temperature < 64 -%}
-              {%- set red_val = 0 -%}
-            {%- else -%}
-              {%- set red_val = ((temperature - 64)*(255/6)) | int -%}
-            {%- endif -%}
-            {{ red_val }}, 0, {{ 255 - red_val }}
+            {% macro map(value, in_min, in_max, out_min, out_max) -%}
+              {{ ((value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min) }}
+            {%- endmacro %}
+
+            {% macro map_color(value, in_min, in_max, start_color, end_color) -%}
+              {% if value < in_min %}
+                {% set value = in_min %}
+              {% endif %}
+              {% if value > in_max %}
+                {% set value = in_max %}
+              {% endif %}
+
+              {{- map(value, in_min, in_max, start_color[0], end_color[0]) | int -}},
+              {{- map(value, in_min, in_max, start_color[1], end_color[1]) | int -}},
+              {{- map(value, in_min, in_max, start_color[2], end_color[2]) | int -}}
+            {%- endmacro %}
+
+            {% macro pick_color(value) -%}
+              {% set temp_low = states.input_slider.temperature_low.state | int %}
+              {% set temp_high = states.input_slider.temperature_high.state | int %}
+
+              {% set color_low = [0, 0, 255] %}
+              {% set color_mid = [255, 255, 255] %}
+              {% set color_high = [255, 0, 0] %}
+
+              {% set temp_mid = ((temp_low + temp_high) / 2) %}
+              {% if value < temp_mid %}
+                {{ map_color(value, temp_low, temp_mid, color_low, color_mid) }}
+              {% else %}
+                {{ map_color(value, temp_mid, temp_high, color_mid, color_high) }}
+              {% endif %}
+            {%- endmacro %}
+
+            {{ pick_color(states.sensor.living_room_temperature.state | float) }}
+
+
+input_slider:
+  temperature_low:
+    name: Cold Temperature
+    initial: 64
+    min: 55
+    max: 80
+    step: 1
+  temperature_high:
+    name: Hot Temperature
+    initial: 75
+    min: 55
+    max: 80
+    step: 1
+
 
 script:
   set_color:
@@ -55,3 +73,13 @@ script:
           rgb_color: ["{{ colors.split(',')[0]|int }}", "{{ colors.split(',')[1]|int }}", "{{ colors.split(',')[2]|int }}"]
           brightness: "{{ brightness }}"
           transition: "{{ transition }}"
+
+
+group:
+  temperature_brightness:
+    name: "Temperature-Controlled Brightness"
+    control: hidden
+    entities:
+      - automation.set_tv_backlight_based_on_temperature
+      - input_slider.temperature_low
+      - input_slider.temperature_high
