@@ -14,7 +14,7 @@ automation:
       - service: script.set_color
         data_template:
           id: light.living_room_tv_backlight
-          brightness: 255
+          brightness: "{{ ((states.input_slider.backlight_temp_brightness.state | int) / 100 * 255) | int }}"
           transition: 5
           colors: >-
             {% macro map(value, in_min, in_max, out_min, out_max) -%}
@@ -56,15 +56,21 @@ automation:
 input_slider:
   temperature_low:
     name: Cold Temperature
-    initial: 64
+    # initial: 64
     min: 55
     max: 80
     step: 1
   temperature_high:
     name: Hot Temperature
-    initial: 75
+    # initial: 75
     min: 55
     max: 80
+    step: 1
+  backlight_temp_brightness:
+    name: Brightness
+    # initial: 100
+    min: 0
+    max: 100
     step: 1
 
 
@@ -79,6 +85,21 @@ script:
           transition: "{{ transition }}"
 
 
+homeassistant:
+  customize:
+    automation.set_tv_backlight_based_on_temperature:
+      icon: mdi:thermometer-lines
+
+    input_slider.temperature_low:
+      icon: mdi:priority-low
+
+    input_slider.temperature_high:
+      icon: mdi:priority-high
+
+    input_slider.backlight_temp_brightness:
+      icon: mdi:brightness-6
+
+
 group:
   temperature_brightness:
     name: "Temperature-Controlled Brightness"
@@ -87,3 +108,4 @@ group:
       - automation.set_tv_backlight_based_on_temperature
       - input_slider.temperature_low
       - input_slider.temperature_high
+      - input_slider.backlight_temp_brightness
