@@ -6,6 +6,10 @@ automation:
     trigger:
       - platform: state
         entity_id: sensor.living_room_temperature
+    condition:
+      - condition: state
+        entity_id: light.living_room_tv_backlight
+        state: "on"
     action: 
       - service: script.set_color
         data_template:
