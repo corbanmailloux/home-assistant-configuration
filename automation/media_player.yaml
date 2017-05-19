@@ -14,8 +14,8 @@
       entity_id: sun.sun
       state: "below_horizon"
     - condition: state
-      entity_id: input_boolean.disable_media_dim
-      state: "off"
+      entity_id: input_select.backlight_mode
+      state: "Media control"
   action:
     - service: script.turn_on
       entity_id: script.media_undim_master
@@ -34,8 +34,8 @@
       entity_id: sun.sun
       state: "below_horizon"
     - condition: state
-      entity_id: input_boolean.disable_media_dim
-      state: "off"
+      entity_id: input_select.backlight_mode
+      state: "Media control"
   action:
     - service: script.turn_on
       entity_id: script.media_dim_master
@@ -49,6 +49,10 @@
           and states.media_player.corban_and_maggie.attributes.app_name == "Spotify" %}
           true
         {% endif %}
+  condition:
+    - condition: state
+      entity_id: input_select.backlight_mode
+      state: "Media control"
   action:
     - service: scene.turn_on
       entity_id: scene.tv_spotify
@@ -65,6 +69,10 @@
       entity_id: media_player.corban_and_maggie
       from: "paused"
       to: "off"
+  condition:
+    - condition: state
+      entity_id: input_select.backlight_mode
+      state: "Media control"
   action:
     - service: scene.turn_on
       entity_id: scene.tv_kodi_background

@@ -1,8 +1,18 @@
 # Set the light based on the temperature
 
+
+input_select:
+  backlight_mode:
+    name: Backlight Mode
+    options:
+     - Media control
+     - Temperature control
+     - Manual control
+    icon: mdi:traffic-light
+
+
 automation:
   - alias: "Set TV backlight based on temperature"
-    initial_state: false
     trigger:
       - platform: state
         entity_id: sensor.living_room_temperature
@@ -10,6 +20,9 @@ automation:
       - condition: state
         entity_id: light.living_room_tv_backlight
         state: "on"
+      - condition: state
+        entity_id: input_select.backlight_mode
+        state: "Temperature control"
     action: 
       - service: script.set_color
         data_template:
@@ -106,6 +119,7 @@ group:
     control: hidden
     entities:
       - automation.set_tv_backlight_based_on_temperature
+      - input_select.backlight_mode
       - input_slider.temperature_low
       - input_slider.temperature_high
       - input_slider.backlight_temp_brightness

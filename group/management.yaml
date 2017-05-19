@@ -5,7 +5,6 @@ view_management:
   view: yes
   entities:
     - group.obama_management_scripts
-    - group.media_automation_control
     - group.hass_notifications
     - group.hass_utilities  # See packages/hass_utilities
     - group.temperature_brightness  # See packages/backlight_temperature
@@ -19,12 +18,6 @@ obama_management_scripts:
     - script.kodi_update_video
     - script.shutdown_obama
 
-media_automation_control:
-  name: Media Automation Control
-  control: hidden
-  entities:
-    - input_boolean.disable_media_dim
-    - script.play_pause_master
 
 hass_notifications:
   name: Home Assistant Notifications
@@ -35,7 +28,9 @@ hass_notifications:
     - automation.maggie__ask_to_turn_on_a_light_when_coming_home
     - automation.notify_me_on_motion_when_no_one_is_home
 
+
 testing_scripts:
   name: Test Scripts
   entities:
     - automation.bedside_button
+    - script.play_pause_master
