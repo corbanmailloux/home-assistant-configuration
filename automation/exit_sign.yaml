@@ -32,7 +32,7 @@
   hide_entity: true
   trigger:
     platform: time
-    after: '23:00:00'
+    at: '23:00:00'
   condition:
   - condition: state
     entity_id: light.exit_sign
