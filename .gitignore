@@ -103,3 +103,4 @@ tts/
 emulated_hue_ids.json
 www/*
 !www/donuts/
+usps_cookies.pickle

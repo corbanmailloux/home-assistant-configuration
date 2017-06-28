@@ -7,6 +7,8 @@ view_fun:
     - group.fun_notifications
     - group.send_me_a_donut
     - group.yi_camera
+    - sensor.usps_mail
+    - sensor.usps_packages
     # - group.unused_for_now
     
 fun_notifications:

@@ -22,6 +22,7 @@ http:
 
 # Checks for available updates
 updater:
+  include_used_components: true
 
 recorder:
   purge_days: 14
