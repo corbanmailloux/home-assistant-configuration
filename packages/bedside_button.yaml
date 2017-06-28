@@ -54,6 +54,6 @@ script:
           - light.exit_sign
           - switch.living_room_lamp_near_tv
           - switch.living_room_corner
-          - switch.bedroom_desk_lamp
+          - switch.living_room_triple
       - service: homeassistant.toggle
         entity_id: switch.bedroom_fairy_lights

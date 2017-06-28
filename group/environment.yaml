@@ -5,8 +5,6 @@ view_environment:
   name: Environment
   entities:
     - camera.radar
-    - camera.traffic_camera
-    - camera.community_college
     - group.environment_outside
     - group.environment_livingroom
     - group.environment_bedroom

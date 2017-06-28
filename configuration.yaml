@@ -97,14 +97,6 @@ camera:
     still_image_url: !secret radar_image_url
     name: Radar
 
-  - platform: generic
-    still_image_url: !secret traffic_camera_url
-    name: Traffic Camera
-
-  - platform: mjpeg
-    mjpeg_url: !secret community_college_camera_url
-    name: Community College
-
 panel_iframe:
   google_calendar:
     title: 'Calendar'

@@ -12,4 +12,3 @@ bedroom_lights:
   name: Bedroom Lights
   entities:
     - switch.bedroom_fairy_lights
-    - switch.bedroom_desk_lamp
