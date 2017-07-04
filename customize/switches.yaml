@@ -13,10 +13,10 @@ switch.living_room_triple:
 switch.living_room_corner:
   friendly_name: Corner Lamp
   emulated_hue: true
-  icon: mdi:lamp
+  icon: mdi:lightbulb
 
 switch.living_room_lamp_near_tv:
   friendly_name: TV Lamp
   emulated_hue: true
   emulated_hue_name: "T.V. Lamp"
-  icon: mdi:lightbulb
+  icon: mdi:lamp
