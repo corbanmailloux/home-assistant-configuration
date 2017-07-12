@@ -5,8 +5,8 @@ switch.bedroom_fairy_lights:
   emulated_hue: true
   icon: mdi:lightbulb
 
-switch.living_room_triple:
-  friendly_name: Living Room Triple Lamp
+switch.living_room_window:
+  friendly_name: Window Lamp
   emulated_hue: true
   icon: mdi:lightbulb
 

@@ -29,7 +29,7 @@
   retain: true
 
 - platform: mqtt
-  name: living_room_triple # power_tail_4
+  name: living_room_window # power_tail_4
   state_topic: "home/sonoff/power_tail/4/stat"
   command_topic: "home/sonoff/power_tail/4"
   qos: 1

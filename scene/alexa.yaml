@@ -9,14 +9,16 @@
       transition: 2
     switch.living_room_corner:
       state: off
+    switch.living_room_window:
+      state: off
     switch.living_room_lamp_near_tv:
       state: off
-    switch.bedroom_fairy_lights:
-      state: on
     media_player.kodi_obama:
       state: off
     media_player.corban_and_maggie:
       state: off
+    switch.bedroom_fairy_lights:
+      state: on
 
 - name: Goodnight
   entities:
@@ -28,7 +30,13 @@
       transition: 2
     switch.living_room_corner:
       state: off
+    switch.living_room_window:
+      state: off
     switch.living_room_lamp_near_tv:
+      state: off
+    media_player.kodi_obama:
+      state: off
+    media_player.corban_and_maggie:
       state: off
     switch.bedroom_fairy_lights:
       state: off
