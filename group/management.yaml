@@ -17,6 +17,7 @@ obama_management_scripts:
   entities:
     - script.kodi_update_video
     - script.shutdown_obama
+    - switch.obama
 
 
 hass_notifications:

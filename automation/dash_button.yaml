@@ -2,6 +2,11 @@
   trigger:
     platform: event
     event_type: dash_button_1
-  action: 
-    service: homeassistant.turn_off
-    entity_id: group.everything_custom
+  # action: 
+  #   service: homeassistant.turn_off
+  #   entity_id: group.everything_custom
+  action:
+    service: persistent_notification.create
+    data:
+      message: "Your message goes here"
+      title: "Custom subject"

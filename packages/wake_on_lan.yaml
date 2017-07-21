@@ -1,0 +1,21 @@
+# Package for the wake on LAN setup
+
+script:
+  sleep_obama:
+    sequence:
+    - service: media_player.turn_off
+      entity_id: media_player.kodi_obama
+
+switch:
+  - platform: wake_on_lan
+    name: "Obama"
+    mac_address: "BC:5F:F4:42:69:24"
+    host: "10.0.0.254"
+    turn_off:
+      service: script.sleep_obama
+
+homeassistant:
+  customize:
+    switch.obama:
+      emulated_hue: true
+      icon: mdi:desktop-tower
