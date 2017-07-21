@@ -9,13 +9,3 @@
   optimistic: false
   retain: true
   qos: 0
-
-- platform: mqtt_json
-  name: exit_sign
-  state_topic: "home/exit"
-  command_topic: "home/exit/set"
-  brightness: true
-  rgb: false
-  optimistic: false
-  retain: true
-  qos: 0

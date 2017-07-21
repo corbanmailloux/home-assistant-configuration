@@ -8,5 +8,5 @@
   action:
     service: persistent_notification.create
     data:
-      message: "Your message goes here"
-      title: "Custom subject"
+      message: "Maybe you should do something with this..."
+      title: "Dash Button Pressed"

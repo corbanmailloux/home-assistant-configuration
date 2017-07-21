@@ -18,17 +18,3 @@ script.shutdown_obama:
 script.kodi_update_video:
   friendly_name: Update video library
   icon: mdi:movie
-
-# Scripts for dimming/undimming the lights when watching movies
-script.media_dim_master:
-  hidden: true
-script.media_undim_master:
-  hidden: true
-script.media_dim_tv_backlight:
-  hidden: true
-script.media_undim_tv_backlight:
-  hidden: true
-script.media_dim_exit_sign:
-  hidden: true
-script.media_undim_exit_sign:
-  hidden: true

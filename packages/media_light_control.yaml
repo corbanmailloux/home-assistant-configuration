@@ -1,0 +1,152 @@
+# Package for controlling the lights based on the media players
+
+automation:
+  - alias: "Media player paused/stopped"
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: media_player.kodi_obama
+        from: "playing"
+      - platform: state
+        entity_id: media_player.corban_and_maggie
+        from: "playing"
+    condition:
+      - condition: state
+        entity_id: sun.sun
+        state: "below_horizon"
+      - condition: state
+        entity_id: input_select.backlight_mode
+        state: "Media control"
+    action:
+      - service: script.turn_on
+        entity_id: script.media_undim_master
+
+  - alias: "Media player playing"
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: media_player.kodi_obama
+        to: "playing"
+      - platform: state
+        entity_id: media_player.corban_and_maggie
+        to: "playing"
+    condition:
+      - condition: state
+        entity_id: sun.sun
+        state: "below_horizon"
+      - condition: state
+        entity_id: input_select.backlight_mode
+        state: "Media control"
+    action:
+      - service: script.turn_on
+        entity_id: script.media_dim_master
+
+  - alias: "Chromecast starts Spotify"
+    hide_entity: true
+    trigger:
+      - platform: template
+        value_template: >
+          {% if states.media_player.corban_and_maggie is not none 
+            and states.media_player.corban_and_maggie.attributes.app_name == "Spotify" %}
+            true
+          {% endif %}
+    condition:
+      - condition: state
+        entity_id: input_select.backlight_mode
+        state: "Media control"
+    action:
+      - service: scene.turn_on
+        entity_id: scene.tv_spotify
+
+  - alias: "Reset color when Chromecast stops"
+    # hide_entity: true
+    initial_state: false
+    trigger:
+      - platform: state
+        entity_id: media_player.corban_and_maggie
+        from: "playing"
+        to: "off"
+      - platform: state
+        entity_id: media_player.corban_and_maggie
+        from: "paused"
+        to: "off"
+    condition:
+      - condition: state
+        entity_id: input_select.backlight_mode
+        state: "Media control"
+    action:
+      - service: scene.turn_on
+        entity_id: scene.tv_kodi_background
+
+
+script:
+  ##########
+  # Master #
+  ##########
+  media_dim_master:
+    sequence:
+      - service: script.turn_on
+        entity_id: 
+          - script.media_dim_tv_backlight
+          - script.media_dim_exit_sign
+
+  media_undim_master:
+    sequence:
+      - service: script.turn_on
+        entity_id:
+          - script.media_undim_tv_backlight
+          - script.media_undim_exit_sign
+
+  ################
+  # TV Backlight #
+  ################
+  media_dim_tv_backlight:
+    sequence:
+      - condition: state
+        entity_id: light.living_room_tv_backlight
+        state: "on"
+      - service: scene.turn_on
+        entity_id: scene.tv_dim
+
+  media_undim_tv_backlight:
+    sequence:
+      - condition: state
+        entity_id: light.living_room_tv_backlight
+        state: "on"
+      - service: scene.turn_on
+        entity_id: scene.tv_bright
+
+  #############
+  # Exit Sign #
+  #############
+  media_dim_exit_sign:
+    sequence:
+      - condition: state
+        entity_id: light.exit_sign
+        state: "on"
+      - service: scene.turn_on
+        entity_id: scene.exit_dim
+
+  media_undim_exit_sign:
+    sequence:
+      - condition: state
+        entity_id: light.exit_sign
+        state: "on"
+      - service: scene.turn_on
+        entity_id: scene.exit_bright
+
+
+homeassistant:
+  customize:
+    script.media_dim_master:
+      hidden: true
+    script.media_undim_master:
+      hidden: true
+    script.media_dim_tv_backlight:
+      hidden: true
+    script.media_undim_tv_backlight:
+      hidden: true
+    script.media_dim_exit_sign:
+      hidden: true
+    script.media_undim_exit_sign:
+      hidden: true

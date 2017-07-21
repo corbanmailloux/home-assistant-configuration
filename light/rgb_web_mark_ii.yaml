@@ -1,6 +1,0 @@
-# RGB Web Mark II
-
-# - platform: rgb_web_mark_ii
-#   name: bedroom_headboard_rgb
-#   host: !secret particle_host
-#   api_key: !secret particle_api_key

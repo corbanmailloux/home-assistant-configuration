@@ -109,6 +109,13 @@ automation:
       entity_id: switch.living_room_lamp_near_tv
 
 
+scene:
+  - name: Coming Home
+    entities:
+      switch.living_room_lamp_near_tv:
+        state: on
+
+
 homeassistant:
   customize:
     automation.hass_update_notification:

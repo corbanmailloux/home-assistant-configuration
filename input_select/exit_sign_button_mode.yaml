@@ -1,8 +1,0 @@
-# Exit Sign Button Action
-
-exit_sign_button_action:
-  name: Exit Sign Button Action
-  options:
-    - "Toggle Exit Sign"
-    - "Toggle Party Mode"
-  icon: mdi:sign-caution

@@ -4,12 +4,6 @@ scene.movie_mode:
   hidden: true
   emulated_hue: true
 
-# Exit sign scenes
-scene.exit_bright:
-  hidden: true
-scene.exit_dim:
-  hidden: true
-
 # TV backlight scenes
 scene.tv_bright:
   hidden: true
