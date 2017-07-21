@@ -79,7 +79,6 @@ scene:
         brightness: 75
 
 
-
 homeassistant:
   customize:
     light.exit_sign:
