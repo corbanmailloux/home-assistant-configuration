@@ -104,3 +104,4 @@ emulated_hue_ids.json
 www/*
 !www/donuts/
 usps_cookies.pickle
+ip_bans.yaml

@@ -86,12 +86,14 @@ device_tracker:
     devices:
       ida_ida: /devices/location/ida_ida
       jackie_jackie: /devices/location/jackie_jackie
+  - platform: bluetooth_tracker
+    track_new_devices: False
+    consider_home: 60
 
 ifttt:
   key: !secret ifttt_key
 
 ffmpeg:
-  ffmpeg_bin: /usr/local/bin/ffmpeg/ffmpeg
 
 camera:
   - platform: generic
