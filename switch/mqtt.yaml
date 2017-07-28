@@ -2,7 +2,7 @@
 
 # Power Tails
 - platform: mqtt
-  name: bedroom_fairy_lights # power_tail_1
+  name: power_tail_1 # bedroom_fairy_lights
   state_topic: "home/sonoff/power_tail/1/stat"
   command_topic: "home/sonoff/power_tail/1"
   qos: 1
@@ -38,7 +38,7 @@
   retain: true
 
 - platform: mqtt
-  name: power_tail_5
+  name: living_room_couch # power_tail_5
   state_topic: "home/sonoff/power_tail/5/stat"
   command_topic: "home/sonoff/power_tail/5"
   qos: 1
