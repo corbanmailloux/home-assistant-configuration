@@ -88,6 +88,9 @@ ENV/
 # Rope project settings
 .ropeproject
 
+# Sometimes I edit this on Mac
+*.DS_Store
+
 # Home Assistant
 .HA_VERSION
 deps/
