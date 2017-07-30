@@ -7,3 +7,5 @@
   action:
     - service: light.toggle
       entity_id: light.fairy_lights
+      data:
+        transition: 2
