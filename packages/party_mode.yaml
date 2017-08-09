@@ -1,7 +1,6 @@
 # Package for Party Mode
 # See also:
-#  - automation/exit_sign.yaml: "Exit Sign Button - Toggle Party Mode"
-#  - input_select/exit_sign_button_mode.yaml: "Toggle Party Mode"
+#  - packages/exit_sign.yaml: "Exit Sign Button - Toggle Party Mode"
 
 input_boolean:
   party_mode:
@@ -17,7 +16,7 @@ automation:
       - platform: state
         entity_id: input_boolean.party_mode
         to: "on"
-    action: 
+    action:
       - service: script.turn_on
         entity_id: script.party_mode
 
@@ -27,7 +26,7 @@ automation:
       - platform: state
         entity_id: input_boolean.party_mode
         to: "off"
-    action: 
+    action:
       - service: script.turn_on
         entity_id: script.party_mode_end
 
@@ -37,7 +36,7 @@ script:
   party_mode:
     sequence:
       - service: script.turn_on
-        entity_id: 
+        entity_id:
           - script.fade_backlight
           - script.blink_exit_sign
           - script.toggle_lamps
@@ -57,18 +56,17 @@ script:
       # Reset the lights
       - service: light.turn_on # Reset the brightness
         data:
-          entity_id: 
+          entity_id:
             - light.living_room_tv_backlight
             - light.exit_sign
           brightness: 255
       - service: homeassistant.turn_off
-        entity_id: 
+        entity_id:
           - light.living_room_tv_backlight
           - light.exit_sign
       - service: homeassistant.turn_on
         entity_id:
-          - switch.living_room_lamp_near_tv
-          - switch.living_room_corner
+          - group.living_room_lights
 
   # TV Backlight Party Mode
   fade_backlight:
@@ -80,28 +78,23 @@ script:
           brightness: 255
           transition: 2
       - delay: 00:00:02
-        # seconds: 2
       - service: light.turn_on
         data:
           entity_id: light.living_room_tv_backlight
           rgb_color: [0, 255, 0]
           transition: 2
       - delay: 00:00:02
-        # seconds: 2
       - service: light.turn_on
         data:
           entity_id: light.living_room_tv_backlight
           rgb_color: [0, 0, 255]
           transition: 2
-      # - delay:
-      #     seconds: 2
       - service: script.turn_on
         entity_id: script.fade_backlight_loop
 
   fade_backlight_loop:
     sequence:
       - delay: 00:00:02
-        # seconds: 2
       - service: script.turn_on
         entity_id: script.fade_backlight
 
@@ -132,14 +125,22 @@ script:
   toggle_lamps:
     sequence:
       - service: switch.turn_on
-        entity_id: switch.living_room_corner
+        entity_id:
+          - switch.living_room_corner
+          - switch.living_room_lamp_near_tv
       - service: switch.turn_off
-        entity_id: switch.living_room_lamp_near_tv
+        entity_id:
+          - switch.living_room_window
+          - switch.living_room_couch
       - delay: 00:00:02
       - service: switch.turn_off
-        entity_id: switch.living_room_corner
+        entity_id:
+          - switch.living_room_corner
+          - switch.living_room_lamp_near_tv
       - service: switch.turn_on
-        entity_id: switch.living_room_lamp_near_tv
+        entity_id:
+          - switch.living_room_window
+          - switch.living_room_couch
       - service: script.turn_on
         entity_id: script.toggle_lamps_loop
 
@@ -155,21 +156,3 @@ homeassistant:
     input_boolean.party_mode:
       emulated_hue: true
       emulated_hue_name: "Party mode"
-
-    # Party Mode scripts are run by input_boolean.party_mode
-    script.party_mode:
-      hidden: true
-    script.party_mode_end:
-      hidden: true
-    script.fade_backlight:
-      hidden: true
-    script.fade_backlight_loop:
-      hidden: true
-    script.blink_exit_sign:
-      hidden: true
-    script.blink_exit_sign_loop:
-      hidden: true
-    script.toggle_lamps:
-      hidden: true
-    script.toggle_lamps_loop:
-      hidden: true

@@ -106,6 +106,8 @@ panel_iframe:
     icon: mdi:calendar
     url: !secret google_calendar_url
 
+alexa:
+
 google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
@@ -117,12 +119,11 @@ emulated_hue:
   host_ip: !secret hass_ip_address
   expose_by_default: false
 
-alexa:
-  intents: !include_dir_merge_named alexa_intents
 automation: !include_dir_merge_list automation
 group: !include_dir_merge_named group
 input_boolean: !include_dir_merge_named input_boolean
 input_select: !include_dir_merge_named input_select
+intent_script: !include_dir_merge_named intent_script
 light: !include_dir_merge_list light
 media_player: !include_dir_merge_list media_player
 notify: !include_dir_merge_list notify

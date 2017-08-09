@@ -35,3 +35,4 @@ testing_scripts:
   entities:
     - automation.bedside_button
     - script.play_pause_master
+    - light.test_light

@@ -6,10 +6,14 @@ script:
   ##########
   play_pause_master:
     sequence:
-      - service: script.turn_on
-        entity_id: 
-          - script.play_pause_kodi
-          - script.play_pause_cast
+      - service: media_player.media_play_pause
+        entity_id:
+          - media_player.kodi_obama
+          - media_player.corban_and_maggie
+      # - service: script.turn_on
+      #   entity_id:
+      #     - script.play_pause_kodi
+      #     - script.play_pause_cast
 
   ########
   # Kodi #

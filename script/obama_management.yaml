@@ -2,8 +2,15 @@
 
 shutdown_obama:
   sequence:
-    - service: shell_command.shutdown_obama
+    - service: media_player.kodi_call_method
+      data:
+        entity_id: media_player.kodi_obama
+        method: System.Shutdown
+    # - service: shell_command.shutdown_obama
 
 kodi_update_video:
   sequence:
-    - service: shell_command.kodi_update_video
+    - service: media_player.kodi_call_method
+      data:
+        entity_id: media_player.kodi_obama
+        method: VideoLibrary.Scan

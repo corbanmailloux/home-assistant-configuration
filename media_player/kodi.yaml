@@ -4,4 +4,8 @@
   name: kodi_obama
   host: !secret obama_kodi_host
   port: !secret obama_kodi_port
-  turn_off_action: suspend
+  turn_off_action:
+    service: media_player.kodi_call_method
+    data:
+      entity_id: media_player.kodi_obama
+      method: System.Suspend

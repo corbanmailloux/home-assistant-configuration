@@ -1,4 +1,3 @@
 # Obama Management Shell Commands
 
 shutdown_obama: !secret obama_shell_command_shutdown
-kodi_update_video: !secret obama_shell_command_kodi_update_video_library
