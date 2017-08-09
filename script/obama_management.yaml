@@ -2,11 +2,11 @@
 
 shutdown_obama:
   sequence:
-    - service: media_player.kodi_call_method
-      data:
-        entity_id: media_player.kodi_obama
-        method: System.Shutdown
-    # - service: shell_command.shutdown_obama
+    # - service: media_player.kodi_call_method
+    #   data:
+    #     entity_id: media_player.kodi_obama
+    #     method: System.Shutdown
+    - service: shell_command.shutdown_obama
 
 kodi_update_video:
   sequence:
