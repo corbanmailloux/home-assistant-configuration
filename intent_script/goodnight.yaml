@@ -3,7 +3,7 @@ GoingToBed:
     service: scene.turn_on
     entity_id: scene.going_to_bed
   speech:
-    type: plaintext
+    type: plain
     text: >
       {% set responses = [
         "Goodnight.",
@@ -20,5 +20,5 @@ Goodnight:
     service: scene.turn_on
     entity_id: scene.goodnight
   speech:
-    type: plaintext
+    type: plain
     text: Sweet dreams.

@@ -1,6 +1,6 @@
 Temperature:
   speech:
-    type: plaintext
+    type: plain
     text: >
       {%- set temp_livingroom = states('sensor.living_room_temperature') | round | int -%}
       {%- set temp_bedroom = states('sensor.bedroom_temperature') | round | int -%}

@@ -3,5 +3,5 @@ SendMaggieLove:
     service: script.turn_on
     entity_id: script.phone_notify_i_love_maggs
   speech:
-    type: plaintext
+    type: plain
     text: I've let her know.

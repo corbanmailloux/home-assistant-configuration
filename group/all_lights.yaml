@@ -7,8 +7,9 @@ all_lights_custom:
     - light.living_room_tv_backlight
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
-    - switch.bedroom_fairy_lights
+    - light.fairy_lights
     - switch.living_room_window
+    - switch.living_room_couch
 
 # All lights, switches, and media_player, for Alexa
 everything_custom:
@@ -18,7 +19,8 @@ everything_custom:
     - light.living_room_tv_backlight
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
-    - switch.bedroom_fairy_lights
+    - light.fairy_lights
     - switch.living_room_window
+    - switch.living_room_couch
     - media_player.kodi_obama
     - media_player.corban_and_maggie

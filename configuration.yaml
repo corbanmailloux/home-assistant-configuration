@@ -16,16 +16,14 @@ http:
   base_url: !secret http_base_url
   ip_ban_enabled: True
   login_attempts_threshold: 3 # Three strikes
-  # SSL is now being handled by NGINX
-  # ssl_certificate: !secret http_ssl_certificate_path
-  # ssl_key: !secret http_ssl_key_path
 
 # Checks for available updates
 updater:
   include_used_components: true
 
 recorder:
-  purge_days: 14
+  db_url: !secret mysql_db_connection
+  purge_days: 31
   exclude:
     domains:
       - weblink

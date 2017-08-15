@@ -3,7 +3,7 @@ StartParty:
     service: input_boolean.turn_on
     entity_id: input_boolean.party_mode
   speech:
-    type: plaintext
+    type: plain
     text: Let's get the party started!
 
 StopParty:
@@ -11,5 +11,5 @@ StopParty:
     service: input_boolean.turn_off
     entity_id: input_boolean.party_mode
   speech:
-    type: plaintext
+    type: plain
     text: The party's over. Everybody out!

@@ -1,6 +1,6 @@
 WhereAreWe:
   speech:
-    type: plaintext
+    type: plain
     text: >
       {%- if is_state('device_tracker.ida_ida', 'home') and
              is_state('device_tracker.jackie_jackie', 'home') -%}
@@ -16,7 +16,7 @@ LocateUser:
   #   data_template:
   #     message: The location of {{ User }} has been queried via Alexa.
   speech:
-    type: plaintext
+    type: plain
     text: >
       {%- if User.lower() == "maggie" -%}
         {{ User }} is at {{ states.device_tracker.jackie_jackie.state }}.

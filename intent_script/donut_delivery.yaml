@@ -31,7 +31,7 @@ SendDonut:
     - service: script.turn_on
       entity_id: script.send_donut
   speech:
-    type: plaintext
+    type: plain
     text: >
       {%- if User is not defined or User.lower() == "maggie" or User.lower() == "corban" -%}
         {%- if Donut is not defined or Donut.lower() == "random" or Donut.lower() in states.input_select.donut_selector.attributes.options|map('lower') -%}
