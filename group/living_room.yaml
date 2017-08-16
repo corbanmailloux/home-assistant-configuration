@@ -14,12 +14,12 @@ view_living_room:
 living_room_lights:
   name: Living Room Lights
   entities:
-    - switch.living_room_window
     - light.exit_sign
     - light.living_room_tv_backlight
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
+    - switch.living_room_window
 
 living_room_light_control:
   name: Light Control

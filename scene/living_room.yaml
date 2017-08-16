@@ -1,22 +1,30 @@
 # Living room
 - name: Living Room Lights Out
   entities:
-    light.living_room_tv_backlight:
+    light.exit_sign:
       state: off
       transition: 2
-    light.exit_sign:
+    light.living_room_tv_backlight:
       state: off
       transition: 2
     switch.living_room_corner:
       state: off
     switch.living_room_lamp_near_tv:
+      state: off
+    switch.living_room_couch:
+      state: off
+    switch.living_room_window:
       state: off
 
 - name: Movie Mode
   entities:
-    switch.living_room_lamp_near_tv:
-      state: off
     switch.living_room_corner:
+      state: off
+    switch.living_room_lamp_near_tv:
+      state: on
+    switch.living_room_couch:
+      state: off
+    switch.living_room_window:
       state: off
     scene.tv_dim:
       state: on
