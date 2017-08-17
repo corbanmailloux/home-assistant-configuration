@@ -19,7 +19,7 @@
       state: off
     media_player.corban_and_maggie:
       state: off
-    switch.fairy_lights:
+    light.fairy_lights:
       state: on
       transition: 5
 
@@ -43,6 +43,6 @@
       state: off
     media_player.corban_and_maggie:
       state: off
-    switch.fairy_lights:
+    light.fairy_lights:
       state: off
       transition: 5
