@@ -36,3 +36,5 @@ testing_scripts:
     - automation.bedside_button
     - script.play_pause_master
     - light.test_light
+    - media_player.spotify
+    - input_slider.umbrella_percent

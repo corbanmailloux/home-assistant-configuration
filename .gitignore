@@ -110,3 +110,4 @@ www/*
 !www/donuts/
 usps_cookies.pickle
 ip_bans.yaml
+.spotify-token-cache

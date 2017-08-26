@@ -1,4 +1,11 @@
-# Kodi (Obama) Media Player
+- platform: universal
+  name: Living Room
+  children:
+    - media_player.kodi_obama
+    - media_player.corban_and_maggie
+
+- platform: cast
+  host: !secret chromecast_host
 
 - platform: kodi
   name: kodi_obama
