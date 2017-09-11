@@ -20,3 +20,8 @@ switch.living_room_couch:
   friendly_name: Couch Lamp
   emulated_hue: true
   icon: mdi:lamp
+
+switch.strobe_light:
+  friendly_name: Strobe Light
+  emulated_hue: true
+  icon: mdi:alarm-light
