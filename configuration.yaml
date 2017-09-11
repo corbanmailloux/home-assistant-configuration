@@ -88,6 +88,10 @@ device_tracker:
     track_new_devices: False
     consider_home: 60
 
+usps:
+  username: !secret usps_username
+  password: !secret usps_password
+
 ifttt:
   key: !secret ifttt_key
 
