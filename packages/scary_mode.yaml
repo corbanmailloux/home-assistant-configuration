@@ -1,0 +1,118 @@
+input_boolean:
+  scary_mode:
+    name: Scary Mode
+    initial: off
+    icon: mdi:skull
+
+automation:
+  - alias: "Scary Mode - On"
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: input_boolean.scary_mode
+        to: "on"
+    action:
+      - service: script.turn_on
+        entity_id: script.scary_mode_start
+
+  - alias: "Scary Mode - Off"
+    hide_entity: true
+    trigger:
+      - platform: state
+        entity_id: input_boolean.scary_mode
+        to: "off"
+    action:
+      - service: script.turn_on
+        entity_id: script.scary_mode_end
+
+script:
+  scary_mode_start:
+    sequence:
+      - service: homeassistant.turn_off
+        entity_id: group.all_lights_custom
+      # Pause, in case something was playing
+      - service: media_player.media_pause
+        entity_id: media_player.spotify
+      - service: media_player.shuffle_set
+        entity_id: media_player.spotify
+        data:
+          shuffle: true
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.spotify
+          source: "Living Room Dot"
+      - delay: 00:00:01
+      - service: media_player.play_media
+        data:
+          entity_id: media_player.spotify
+          media_content_type: playlist
+          media_content_id: "spotify:user:halloween_sound_effects:playlist:5TEIjI0yKxbJpmAr8wHjFV"
+      - delay: 00:00:05
+      - service: script.turn_on
+        entity_id:
+          - script.scary_mode_flicker_lights
+          - script.scary_mode_strobe
+
+  scary_mode_end:
+    sequence:
+      - service: media_player.media_pause
+        entity_id: media_player.spotify
+      - service: media_player.shuffle_set
+        entity_id: media_player.spotify
+        data:
+          shuffle: false # I hate shuffle in general
+      - service: script.turn_off
+        entity_id:
+          - script.scary_mode_flicker_lights
+          - script.scary_mode_flicker_lights_loop
+          - script.scary_mode_strobe
+          - script.scary_mode_strobe_loop
+      - service: homeassistant.turn_off
+        entity_id: group.all_lights_custom
+
+
+  # Flicker a light
+  scary_mode_flicker_lights:
+    sequence:
+      # Delay for 0 to 6 seconds
+      - delay: 00:00:{{ (range(0, 7) | random | string).rjust(2, '0') }}
+      - service: homeassistant.turn_on
+        entity_id: switch.living_room_corner
+      - delay:
+          milliseconds: 100
+      - service: homeassistant.turn_off
+        entity_id: switch.living_room_corner
+      - service: script.turn_on
+        entity_id: script.scary_mode_flicker_lights_loop
+
+  scary_mode_flicker_lights_loop:
+    sequence:
+      - delay: 00:00:01
+      - service: script.turn_on
+        entity_id: script.scary_mode_flicker_lights
+
+
+  # Strobe Light
+  scary_mode_strobe:
+    sequence:
+      - delay: 00:00:{{ (range(8, 21) | random | string).rjust(2, '0') }}
+      - service: homeassistant.turn_on
+        entity_id: switch.strobe_light
+      - delay: 00:00:05
+      - service: homeassistant.turn_off
+        entity_id: switch.strobe_light
+      - service: script.turn_on
+        entity_id: script.scary_mode_strobe_loop
+
+  scary_mode_strobe_loop:
+    sequence:
+      - delay: 00:00:01
+      - service: script.turn_on
+        entity_id: script.scary_mode_strobe
+
+
+homeassistant:
+  customize:
+    input_boolean.scary_mode:
+      emulated_hue: true
+      emulated_hue_name: "Scary mode"

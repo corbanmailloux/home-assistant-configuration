@@ -39,3 +39,4 @@ testing_scripts:
     - media_player.spotify
     - input_slider.umbrella_percent
     - switch.strobe_light
+    - input_boolean.scary_mode
