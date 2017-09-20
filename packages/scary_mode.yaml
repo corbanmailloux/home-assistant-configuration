@@ -68,7 +68,9 @@ script:
           - script.scary_mode_strobe
           - script.scary_mode_strobe_loop
       - service: homeassistant.turn_off
-        entity_id: group.all_lights_custom
+        entity_id:
+          - group.all_lights_custom
+          - switch.strobe_light
 
 
   # Flicker a light
