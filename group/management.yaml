@@ -9,6 +9,8 @@ view_management:
     - group.hass_utilities  # See packages/hass_utilities
     - group.temperature_brightness  # See packages/backlight_temperature
     - group.testing_scripts
+    - sensor.corbco_certificate
+    - sensor.homecorbco_certificate
 
 
 obama_management_scripts:

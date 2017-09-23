@@ -1,0 +1,6 @@
+- platform: cert_expiry
+  host: corb.co
+  name: corb.co Certificate
+- platform: cert_expiry
+  host: home.corb.co
+  name: home.corb.co Certificate
