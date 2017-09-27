@@ -24,6 +24,16 @@ environment_livingroom:
   entities:
     - sensor.living_room_temperature
     - sensor.living_room_humidity
+    - binary_sensor.living_room_thermostat_fan
+    - binary_sensor.living_room_thermostat_has_leaf
+    - binary_sensor.living_room_thermostat_is_locked
+    - binary_sensor.living_room_thermostat_is_using_emergency_heat
+    - binary_sensor.living_room_thermostat_online
+    - sensor.living_room_thermostat_humidity
+    - sensor.living_room_thermostat_hvac_state
+    - sensor.living_room_thermostat_operation_mode
+    - sensor.living_room_thermostat_targett
+    - sensor.living_room_thermostat_temperature
 
 environment_bedroom:
   name: Bedroom

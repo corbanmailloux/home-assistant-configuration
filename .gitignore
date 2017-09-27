@@ -111,3 +111,4 @@ www/*
 usps_cookies.pickle
 ip_bans.yaml
 .spotify-token-cache
+nest.conf

@@ -10,6 +10,7 @@ view_living_room:
     - group.living_room_light_control
     - media_player.corban_and_maggie
     - media_player.kodi_obama
+    - climate.living_room
 
 living_room_lights:
   name: Living Room Lights
