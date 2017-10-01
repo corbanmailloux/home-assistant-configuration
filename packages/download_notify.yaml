@@ -32,7 +32,7 @@ automation:
           value_template: "{{ trigger.to_state.state != 'none' }}"
         - condition: template
           value_template: "{{ trigger.to_state.state != trigger.from_state.state }}" # Just in case
-    action: 
+    action:
       - service: mqtt.publish
         data:
           topic: "emulated/obamadownloads/listing"
@@ -44,6 +44,11 @@ automation:
             {%- else -%}
               {{ states('sensor.listing_of_waiting_downloads') ~ ', ' ~ trigger.to_state.state }}
             {%- endif -%}
+      # Force the group to show, just in case
+      - service: group.set_visibility
+        entity_id: group.obama_download_display
+        data:
+          visible: true
 
   - alias: "Reset Download Count"
     hide_entity: true
@@ -84,7 +89,7 @@ script:
       data:
         visible: false
 
- 
+
 group:
   obama_download_display:
     name: Downloads Waiting
