@@ -6,17 +6,17 @@ automation:
       - platform: state
         entity_id: updater.updater
     action:
-      service: notify.html5_ida
+      service: notify.html5_edith
       data:
         title: "Home Assistant Update"
       data_template:
         message: "Home Assistant version {{ states('updater.updater') }} is now available."
-  
+
   # Reminder to turn off the lights
   - alias: Reminder to turn off the lights
     trigger:
       - platform: state
-        entity_id: device_tracker.ida_ida
+        entity_id: device_tracker.edith_wifi
         from: "home"
         to: "not_home"
     condition:
@@ -34,7 +34,7 @@ automation:
             entity_id: group.all_lights
             state: 'on'
     action:
-      service: notify.html5_ida
+      service: notify.html5_edith
       data:
         title: "Lights are still on."
         message: "You seem to have left some lights on."
@@ -59,20 +59,20 @@ automation:
   - alias: Corban - Ask to turn on a light when coming home
     trigger:
       - platform: state
-        entity_id: device_tracker.ida_ida
+        entity_id: device_tracker.edith_wifi
         from: "not_home"
         to: "home"
-    condition: 
+    condition:
       - condition: state
         entity_id: switch.living_room_lamp_near_tv
         state: "off"
     action:
-      service: notify.html5_ida
+      service: notify.html5_edith
       data:
         title: "Welcome Home"
         message: "Wanna light?"
         data:
-          tag: 'wanna-light-ida'
+          tag: 'wanna-light-edith'
           actions:
             - action: "turn_on_light_next_to_tv"
               title: "Turn on"
@@ -83,7 +83,7 @@ automation:
         entity_id: device_tracker.jackie_jackie
         from: "not_home"
         to: "home"
-    condition: 
+    condition:
       - condition: state
         entity_id: switch.living_room_lamp_near_tv
         state: "off"

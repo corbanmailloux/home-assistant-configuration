@@ -2,11 +2,11 @@ WhereAreWe:
   speech:
     type: plain
     text: >
-      {%- if is_state('device_tracker.ida_ida', 'home') and
+      {%- if is_state('device_tracker.edith_wifi', 'home') and
              is_state('device_tracker.jackie_jackie', 'home') -%}
         You're both home, idiot.
       {%- else -%}
-        Corban is at {{ states("device_tracker.ida_ida") }}
+        Corban is at {{ states("device_tracker.edith_wifi") }}
         and Maggie is at {{ states("device_tracker.jackie_jackie") }}
       {% endif %}
 
@@ -21,7 +21,7 @@ LocateUser:
       {%- if User.lower() == "maggie" -%}
         {{ User }} is at {{ states.device_tracker.jackie_jackie.state }}.
       {%- elif User.lower() == "corban" -%}
-        {{ User }} is at {{ states.device_tracker.ida_ida.state }}.
+        {{ User }} is at {{ states.device_tracker.edith_wifi.state }}.
       {%- else -%}
         I'm sorry, I don't know where {{ User }} is.
       {%- endif -%}

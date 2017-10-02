@@ -6,10 +6,10 @@ view_fun:
   entities:
     - group.fun_notifications
     - group.send_me_a_donut
-    - group.yi_camera
-    - sensor.usps_mail
-    - sensor.usps_packages
-    - camera.usps_mail
+    # - group.yi_camera
+    # - sensor.usps_mail
+    # - sensor.usps_packages
+    # - camera.usps_mail
     # - group.unused_for_now
 
 fun_notifications:

@@ -3,7 +3,7 @@
     - platform: event
       event_type: jackie_fairy_toggle
     - platform: event
-      event_type: ida_fairy_toggle
+      event_type: edith_fairy_toggle
   action:
     - service: light.toggle
       entity_id: light.fairy_lights

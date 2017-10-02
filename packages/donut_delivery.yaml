@@ -19,7 +19,7 @@ script:
           {%- if is_state("input_select.donut_destination", "Maggie") -%}
             jackie
           {%- elif is_state("input_select.donut_destination", "Corban") -%}
-            ida
+            edith
           {%- endif -%}
         title: "Donut Delivery!"
         message: >
@@ -37,7 +37,7 @@ automation:
       - platform: mqtt
         topic: home/espbutton
         payload: "ON"
-    action: 
+    action:
       - service: script.turn_on
         entity_id: script.send_donut_and_randomize
 

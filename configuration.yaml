@@ -82,15 +82,15 @@ mqtt:
 device_tracker:
   - platform: mqtt
     devices:
-      ida_ida: /devices/location/ida_ida
+      edith_wifi: /devices/location/edith_wifi
       jackie_jackie: /devices/location/jackie_jackie
-  - platform: bluetooth_tracker
-    track_new_devices: False
-    consider_home: 60
+  # - platform: bluetooth_tracker
+  #   track_new_devices: False
+  #   consider_home: 60
 
-usps:
-  username: !secret usps_username
-  password: !secret usps_password
+# usps:
+#   username: !secret usps_username
+#   password: !secret usps_password
 
 nest:
   client_id: !secret nest_client_id

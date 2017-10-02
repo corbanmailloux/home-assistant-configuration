@@ -1,72 +1,72 @@
 # Package for the Yi Camera
 # Uses https://github.com/fritz-smh/yi-hack
 
-camera:
-  - platform: ffmpeg
-    name: yi
-    input: !secret yi_camera_sd
-    extra_arguments: "-pred 1"
-
-
-weblink:
-  entities:
-    - name: Yi Recordings
-      url: !secret yi_camera_recordings_url
-      icon: mdi:record-rec
-
-
-sensor:
-  - platform: scrape
-    name: Yi Most Recent Recording
-    resource: http://10.0.0.250/motion
-    select: "body"
-
-
-binary_sensor:
-  - platform: template
-    sensors:
-      yi_motion:
-        value_template: '{{ states("sensor.yi_most_recent_recording") | length > 0 }}'
-        friendly_name: 'Yi Motion Detected'
-        device_class: motion
-
-
-shell_command:
-  yi_get_most_recent_download: !secret yi_camera_shell_command_get_most_recent_download
-
-
-automation:
-  - alias: "Notify me on motion when no one is home"
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.yi_motion
-        to: "on"
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: device_tracker.ida_ida
-          state: "not_home"
-        - condition: state
-          entity_id: device_tracker.jackie_jackie
-          state: "not_home"
-    action:
-      - service: shell_command.yi_get_most_recent_download
-      - delay: 00:00:05
-      - service: notify.html5_ida
-        data:
-          title: "Movement at home."
-          message: "Tap to watch the video."
-          data:
-            url: !secret yi_camera_trigger_video_url
-
-
-group:
-  yi_camera:
-    name: Yi Camera
-    control: hidden
-    entities:
-      - camera.yi
-      - weblink.yi_recordings
-      - sensor.yi_most_recent_recording
-      - binary_sensor.yi_motion
+# camera:
+#   - platform: ffmpeg
+#     name: yi
+#     input: !secret yi_camera_sd
+#     extra_arguments: "-pred 1"
+#
+#
+# weblink:
+#   entities:
+#     - name: Yi Recordings
+#       url: !secret yi_camera_recordings_url
+#       icon: mdi:record-rec
+#
+#
+# sensor:
+#   - platform: scrape
+#     name: Yi Most Recent Recording
+#     resource: http://10.0.0.250/motion
+#     select: "body"
+#
+#
+# binary_sensor:
+#   - platform: template
+#     sensors:
+#       yi_motion:
+#         value_template: '{{ states("sensor.yi_most_recent_recording") | length > 0 }}'
+#         friendly_name: 'Yi Motion Detected'
+#         device_class: motion
+#
+#
+# shell_command:
+#   yi_get_most_recent_download: !secret yi_camera_shell_command_get_most_recent_download
+#
+#
+# automation:
+#   - alias: "Notify me on motion when no one is home"
+#     trigger:
+#       - platform: state
+#         entity_id: binary_sensor.yi_motion
+#         to: "on"
+#     condition:
+#       condition: and
+#       conditions:
+#         - condition: state
+#           entity_id: device_tracker.edith_wifi
+#           state: "not_home"
+#         - condition: state
+#           entity_id: device_tracker.jackie_jackie
+#           state: "not_home"
+#     action:
+#       - service: shell_command.yi_get_most_recent_download
+#       - delay: 00:00:05
+#       - service: notify.html5_edith
+#         data:
+#           title: "Movement at home."
+#           message: "Tap to watch the video."
+#           data:
+#             url: !secret yi_camera_trigger_video_url
+#
+#
+# group:
+#   yi_camera:
+#     name: Yi Camera
+#     control: hidden
+#     entities:
+#       - camera.yi
+#       - weblink.yi_recordings
+#       - sensor.yi_most_recent_recording
+#       - binary_sensor.yi_motion
