@@ -11,6 +11,7 @@ view_management:
     - group.testing_scripts
     - sensor.corbco_certificate
     - sensor.homecorbco_certificate
+    - group.octoprint
 
 
 obama_management_scripts:
