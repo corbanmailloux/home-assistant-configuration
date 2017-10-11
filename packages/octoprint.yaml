@@ -14,6 +14,29 @@ sensor:
       - Job Percentage
 
 
+automation:
+  - alias: "Notify on print error"
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.octoprint_printing_error
+        to: "on"
+    action:
+      - service: notify.html5_edith
+        data:
+          title: "3D Print Error"
+          message: "Go check the printer!"
+  - alias: "Notify on print completion"
+    trigger:
+      - platform: state
+        entity_id: sensor.octoprint_job_percentage
+        to: "100"
+    action:
+      - service: notify.html5_edith
+        data:
+          title: "3D Print Complete"
+          message: "Go get it."
+
+
 group:
   octoprint:
     name: OctoPrint
@@ -28,6 +51,8 @@ group:
       - sensor.octoprint_target_tool0_temp
       - sensor.octoprint_actual_bed_temp
       - sensor.octoprint_target_bed_temp
+      - automation.notify_on_print_completion
+      - automation.notify_on_print_error
 
 
 homeassistant:
@@ -56,3 +81,7 @@ homeassistant:
     sensor.octoprint_target_tool0_temp:
       icon: mdi:thermometer-lines
       friendly_name: Extruder Target
+    automation.notify_on_print_completion:
+      icon: mdi:flag-checkered
+    automation.notify_on_print_error:
+      icon: mdi:printer-alert

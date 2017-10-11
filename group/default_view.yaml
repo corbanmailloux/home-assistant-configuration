@@ -5,7 +5,7 @@ default_view:
   entities:
     - updater.updater
     - device_tracker.edith_wifi
-    - device_tracker.jackie_jackie
+    - device_tracker.jackie_wifi
     - group.obama_download_display # Only shown when downloads are waiting
     - group.living_room_lights
     - group.bedroom_lights
@@ -15,4 +15,4 @@ default_view:
 #   name: Device Trackers
 #   entities:
 #     - device_tracker.edith_wifi
-#     - device_tracker.jackie_jackie
+#     - device_tracker.jackie_wifi

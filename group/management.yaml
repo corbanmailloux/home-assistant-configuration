@@ -4,14 +4,15 @@ view_management:
   name: Management
   view: yes
   entities:
+    - sensor.corbco_certificate
+    - sensor.homecorbco_certificate
     - group.obama_management_scripts
-    - group.hass_notifications
+    - group.hass_notifications # See packages/home_assistant_notifications.yaml
     - group.hass_utilities  # See packages/hass_utilities
     - group.temperature_brightness  # See packages/backlight_temperature
     - group.testing_scripts
-    - sensor.corbco_certificate
-    - sensor.homecorbco_certificate
     - group.octoprint
+    - media_player.spotify
 
 
 obama_management_scripts:
@@ -23,23 +24,8 @@ obama_management_scripts:
     - switch.obama
 
 
-hass_notifications:
-  name: Home Assistant Notifications
-  entities:
-    - automation.hass_update_notification
-    - automation.reminder_to_turn_off_the_lights
-    - automation.corban__ask_to_turn_on_a_light_when_coming_home
-    - automation.maggie__ask_to_turn_on_a_light_when_coming_home
-    - automation.notify_me_on_motion_when_no_one_is_home
-
-
 testing_scripts:
   name: Test Scripts
   entities:
     - automation.bedside_button
     - script.play_pause_master
-    - light.test_light
-    - media_player.spotify
-    - input_slider.umbrella_percent
-    - switch.strobe_light
-    - input_boolean.scary_mode

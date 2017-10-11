@@ -6,6 +6,7 @@ view_fun:
   entities:
     - group.fun_notifications
     - group.send_me_a_donut
+    - group.fun_stuff
     # - group.yi_camera
     # - sensor.usps_mail
     # - sensor.usps_packages
@@ -18,6 +19,14 @@ fun_notifications:
     - script.kodi_notify_i_love_maggs
     - script.phone_notify_i_love_maggs
     - script.kodi_notify_i_love_corb
+
+fun_stuff:
+  name: Fun Stuff
+  control: hidden
+  entities:
+    - input_slider.umbrella_percent
+    - switch.strobe_light
+    - input_boolean.scary_mode
 
 unused_for_now:
   name: Unused

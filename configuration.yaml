@@ -83,7 +83,7 @@ device_tracker:
   - platform: mqtt
     devices:
       edith_wifi: /devices/location/edith_wifi
-      jackie_jackie: /devices/location/jackie_jackie
+      jackie_wifi: /devices/location/jackie_wifi
   # - platform: bluetooth_tracker
   #   track_new_devices: False
   #   consider_home: 60

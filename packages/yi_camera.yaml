@@ -48,7 +48,7 @@
 #           entity_id: device_tracker.edith_wifi
 #           state: "not_home"
 #         - condition: state
-#           entity_id: device_tracker.jackie_jackie
+#           entity_id: device_tracker.jackie_wifi
 #           state: "not_home"
 #     action:
 #       - service: shell_command.yi_get_most_recent_download

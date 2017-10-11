@@ -23,7 +23,7 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: 'device_tracker.jackie_jackie'
+          entity_id: 'device_tracker.jackie_wifi'
           state: 'not_home'
         - condition: or
           conditions:
@@ -80,7 +80,7 @@ automation:
     initial_state: false
     trigger:
       - platform: state
-        entity_id: device_tracker.jackie_jackie
+        entity_id: device_tracker.jackie_wifi
         from: "not_home"
         to: "home"
     condition:
@@ -115,6 +115,17 @@ scene:
       switch.living_room_lamp_near_tv:
         state: on
 
+group:
+  hass_notifications:
+    name: Home Assistant Notifications
+    entities:
+      - automation.hass_update_notification
+      - automation.reminder_to_turn_off_the_lights
+      - automation.corban__ask_to_turn_on_a_light_when_coming_home
+      - automation.maggie__ask_to_turn_on_a_light_when_coming_home
+      - automation.notify_me_on_motion_when_no_one_is_home
+      - automation.notify_if_nest_goes_offline
+
 
 homeassistant:
   customize:
@@ -128,3 +139,6 @@ homeassistant:
       icon: mdi:home-map-marker
     automation.maggie__ask_to_turn_on_a_light_when_coming_home:
       icon: mdi:home-map-marker
+
+    automation.notify_if_nest_goes_offline:
+      icon: mdi:server-network

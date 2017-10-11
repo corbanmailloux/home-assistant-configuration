@@ -16,7 +16,7 @@ living_room_lights:
   name: Living Room Lights
   entities:
     - light.exit_sign
-    - light.living_room_tv_backlight
+    # - light.living_room_tv_backlight
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
