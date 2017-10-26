@@ -2,14 +2,14 @@ automation:
   - alias: "Set the umbrella based on a slider"
     trigger:
       - platform: state
-        entity_id: input_slider.umbrella_percent
+        entity_id: input_number.umbrella_percent
     action:
       - service: mqtt.publish
         data:
           topic: "home/umbrella"
-          payload_template: "{{ states('input_slider.umbrella_percent') | int }}"
+          payload_template: "{{ states('input_number.umbrella_percent') | int }}"
 
-input_slider:
+input_number:
   umbrella_percent:
     name: Umbrella
     initial: 0
@@ -19,5 +19,5 @@ input_slider:
 
 homeassistant:
   customize:
-    input_slider.umbrella_percent:
+    input_number.umbrella_percent:
       icon: mdi:umbrella

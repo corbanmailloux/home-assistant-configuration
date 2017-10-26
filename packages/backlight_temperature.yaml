@@ -27,7 +27,7 @@ automation:
       - service: script.set_color
         data_template:
           id: light.living_room_tv_backlight
-          brightness: "{{ ((states.input_slider.backlight_temp_brightness.state | int) / 100 * 255) | int }}"
+          brightness: "{{ ((states.input_number.backlight_temp_brightness.state | int) / 100 * 255) | int }}"
           transition: 5
           colors: >-
             {% macro map(value, in_min, in_max, out_min, out_max) -%}
@@ -48,8 +48,8 @@ automation:
             {%- endmacro %}
 
             {% macro pick_color(value) -%}
-              {% set temp_low = states.input_slider.temperature_low.state | int %}
-              {% set temp_high = states.input_slider.temperature_high.state | int %}
+              {% set temp_low = states.input_number.temperature_low.state | int %}
+              {% set temp_high = states.input_number.temperature_high.state | int %}
 
               {% set color_low = [0, 0, 255] %}
               {% set color_mid = [255, 255, 255] %}
@@ -66,7 +66,7 @@ automation:
             {{ pick_color(states.sensor.living_room_temperature.state | float) }}
 
 
-input_slider:
+input_number:
   temperature_low:
     name: Cold Temperature
     # initial: 64
@@ -103,13 +103,13 @@ homeassistant:
     automation.set_tv_backlight_based_on_temperature:
       icon: mdi:thermometer-lines
 
-    input_slider.temperature_low:
+    input_number.temperature_low:
       icon: mdi:priority-low
 
-    input_slider.temperature_high:
+    input_number.temperature_high:
       icon: mdi:priority-high
 
-    input_slider.backlight_temp_brightness:
+    input_number.backlight_temp_brightness:
       icon: mdi:brightness-6
 
 
@@ -120,6 +120,6 @@ group:
     entities:
       - automation.set_tv_backlight_based_on_temperature
       - input_select.backlight_mode
-      - input_slider.temperature_low
-      - input_slider.temperature_high
-      - input_slider.backlight_temp_brightness
+      - input_number.temperature_low
+      - input_number.temperature_high
+      - input_number.backlight_temp_brightness

@@ -23,7 +23,8 @@ updater:
 
 recorder:
   db_url: !secret mysql_db_connection
-  purge_days: 31
+  purge_interval: 2
+  purge_keep_days: 60
   exclude:
     domains:
       - weblink

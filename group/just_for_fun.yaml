@@ -24,7 +24,7 @@ fun_stuff:
   name: Fun Stuff
   control: hidden
   entities:
-    - input_slider.umbrella_percent
+    - input_number.umbrella_percent
     - switch.strobe_light
     - input_boolean.scary_mode
 
