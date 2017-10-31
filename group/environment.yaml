@@ -10,6 +10,7 @@ view_environment:
     - group.environment_bedroom
     - group.speedtest
     - group.darksky_sensors
+    - history_graph.temperatures
 
 environment_outside:
   name: Outside
@@ -22,8 +23,8 @@ environment_outside:
 environment_livingroom:
   name: Living Room
   entities:
-    - sensor.living_room_temperature
-    - sensor.living_room_humidity
+    # - sensor.living_room_temperature # TODO: Remove?
+    # - sensor.living_room_humidity # TODO: Remove?
     - sensor.living_room_thermostat_temperature
     - sensor.living_room_thermostat_target
     - sensor.living_room_thermostat_humidity
