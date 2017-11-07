@@ -6,7 +6,7 @@ default_view:
     - updater.updater
     - device_tracker.edith_wifi
     - device_tracker.jackie_wifi
-    - group.obama_download_display # Only shown when downloads are waiting
+    # - group.obama_download_display # Only shown when downloads are waiting
     - group.living_room_lights
     - group.bedroom_lights
     - media_player.living_room

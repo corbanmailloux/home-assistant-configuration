@@ -3,7 +3,7 @@
 input_number:
   alarm_max_brightness:
     name: Max Brightness
-    initial: 50
+    # initial: 50
     min: 0
     max: 100
     step: 1
@@ -30,7 +30,6 @@ binary_sensor:
 
 automation:
   - alias: "Sunrise Alarm"
-    initial_state: false
     trigger:
       - platform: template
         value_template: >-

@@ -1,17 +1,17 @@
 # Thermometer
 
-# Living room
-- platform: mqtt
-  name: "Living Room Temperature"
-  state_topic: "home/LivingRoomESP/dht/temperature"
-  qos: 0
-  unit_of_measurement: "°F"
-
-- platform: mqtt
-  name: "Living Room Humidity"
-  state_topic: "home/LivingRoomESP/dht/humidity"
-  qos: 0
-  unit_of_measurement: "%"
+# # Living room
+# - platform: mqtt
+#   name: "Living Room Temperature"
+#   state_topic: "home/LivingRoomESP/dht/temperature"
+#   qos: 0
+#   unit_of_measurement: "°F"
+#
+# - platform: mqtt
+#   name: "Living Room Humidity"
+#   state_topic: "home/LivingRoomESP/dht/humidity"
+#   qos: 0
+#   unit_of_measurement: "%"
 
 # Bedroom
 - platform: mqtt

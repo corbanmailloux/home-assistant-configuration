@@ -1,121 +1,121 @@
-# Package for download notifications
-
-sensor:
-  - platform: mqtt
-    name: Most Recent Download
-    state_topic: "home/obama/downloadcomplete"
-  - platform: mqtt
-    name: Listing of Waiting Downloads
-    state_topic: "emulated/obamadownloads/listing"
-
-
-binary_sensor:
-  - platform: template
-    sensors:
-      download_waiting:
-        friendly_name: Download Waiting
-        value_template: >
-          {{ states('sensor.listing_of_waiting_downloads') != "" }}
-        entity_id: sensor.listing_of_waiting_downloads
-
-
-automation:
-  - alias: "New Obama Download"
-    hide_entity: true
-    trigger:
-      - platform: state
-        entity_id: sensor.most_recent_download
-    condition:
-      condition: and
-      conditions:
-        - condition: template
-          value_template: "{{ trigger.to_state.state != 'none' }}"
-        - condition: template
-          value_template: "{{ trigger.to_state.state != trigger.from_state.state }}" # Just in case
-    action:
-      - service: mqtt.publish
-        data:
-          topic: "emulated/obamadownloads/listing"
-          retain: true
-        data_template:
-          payload: >
-            {%- if states('sensor.listing_of_waiting_downloads') == "" -%}
-              {{ trigger.to_state.state }}
-            {%- else -%}
-              {{ states('sensor.listing_of_waiting_downloads') ~ ', ' ~ trigger.to_state.state }}
-            {%- endif -%}
-      # Force the group to show, just in case
-      - service: group.set_visibility
-        entity_id: group.obama_download_display
-        data:
-          visible: true
-
-  - alias: "Reset Download Count"
-    hide_entity: true
-    trigger:
-      - platform: state
-        entity_id: sensor.most_recent_download
-        to: "none"
-    action:
-      - service: mqtt.publish
-        data:
-          topic: "emulated/obamadownloads/listing"
-          retain: true
-          payload: ""
-
-  - alias: "Show/Hide Notification Group"
-    hide_entity: true
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.download_waiting
-    action:
-      - service: group.set_visibility
-        entity_id: group.obama_download_display
-        data_template:
-          visible: "{{ trigger.to_state.state == 'on' }}"
-
-
-script:
-  reset_download_count:
-    sequence:
-    - service: mqtt.publish
-      data:
-        topic: "home/obama/downloadcomplete"
-        retain: true
-        payload: "none"
-    # Force the group to hide, just in case
-    - service: group.set_visibility
-      entity_id: group.obama_download_display
-      data:
-        visible: false
-
-
-group:
-  obama_download_display:
-    name: Downloads Waiting
-    control: hidden
-    entities:
-      - sensor.listing_of_waiting_downloads
-      - script.kodi_update_video
-      - script.reset_download_count
-
-  # obama_download_monitor:
-  #   name: Download Monitor
-  #   control: hidden
-  #   entities:
-  #     - binary_sensor.download_waiting
-  #     - sensor.most_recent_download
-  #     - sensor.listing_of_waiting_downloads
-  #     - script.reset_download_count
-
-
-homeassistant:
-  customize:
-    script.reset_download_count:
-      friendly_name: Reset Download Count
-      icon: mdi:checkbox-marked-circle
-    sensor.listing_of_waiting_downloads:
-      friendly_name: Waiting
-      icon: mdi:download
-    group.obama_download_display:
-      order: 1 # Make it be first, when it's there.
+# # Package for download notifications
+#
+# sensor:
+#   - platform: mqtt
+#     name: Most Recent Download
+#     state_topic: "home/obama/downloadcomplete"
+#   - platform: mqtt
+#     name: Listing of Waiting Downloads
+#     state_topic: "emulated/obamadownloads/listing"
+#
+#
+# binary_sensor:
+#   - platform: template
+#     sensors:
+#       download_waiting:
+#         friendly_name: Download Waiting
+#         value_template: >
+#           {{ states('sensor.listing_of_waiting_downloads') != "" }}
+#         entity_id: sensor.listing_of_waiting_downloads
+#
+#
+# automation:
+#   - alias: "New Obama Download"
+#     hide_entity: true
+#     trigger:
+#       - platform: state
+#         entity_id: sensor.most_recent_download
+#     condition:
+#       condition: and
+#       conditions:
+#         - condition: template
+#           value_template: "{{ trigger.to_state.state != 'none' }}"
+#         - condition: template
+#           value_template: "{{ trigger.to_state.state != trigger.from_state.state }}" # Just in case
+#     action:
+#       - service: mqtt.publish
+#         data:
+#           topic: "emulated/obamadownloads/listing"
+#           retain: true
+#         data_template:
+#           payload: >
+#             {%- if states('sensor.listing_of_waiting_downloads') == "" -%}
+#               {{ trigger.to_state.state }}
+#             {%- else -%}
+#               {{ states('sensor.listing_of_waiting_downloads') ~ ', ' ~ trigger.to_state.state }}
+#             {%- endif -%}
+#       # Force the group to show, just in case
+#       - service: group.set_visibility
+#         entity_id: group.obama_download_display
+#         data:
+#           visible: true
+#
+#   - alias: "Reset Download Count"
+#     hide_entity: true
+#     trigger:
+#       - platform: state
+#         entity_id: sensor.most_recent_download
+#         to: "none"
+#     action:
+#       - service: mqtt.publish
+#         data:
+#           topic: "emulated/obamadownloads/listing"
+#           retain: true
+#           payload: ""
+#
+#   - alias: "Show/Hide Notification Group"
+#     hide_entity: true
+#     trigger:
+#       - platform: state
+#         entity_id: binary_sensor.download_waiting
+#     action:
+#       - service: group.set_visibility
+#         entity_id: group.obama_download_display
+#         data_template:
+#           visible: "{{ trigger.to_state.state == 'on' }}"
+#
+#
+# script:
+#   reset_download_count:
+#     sequence:
+#     - service: mqtt.publish
+#       data:
+#         topic: "home/obama/downloadcomplete"
+#         retain: true
+#         payload: "none"
+#     # Force the group to hide, just in case
+#     - service: group.set_visibility
+#       entity_id: group.obama_download_display
+#       data:
+#         visible: false
+#
+#
+# group:
+#   obama_download_display:
+#     name: Downloads Waiting
+#     control: hidden
+#     entities:
+#       - sensor.listing_of_waiting_downloads
+#       - script.kodi_update_video
+#       - script.reset_download_count
+#
+#   # obama_download_monitor:
+#   #   name: Download Monitor
+#   #   control: hidden
+#   #   entities:
+#   #     - binary_sensor.download_waiting
+#   #     - sensor.most_recent_download
+#   #     - sensor.listing_of_waiting_downloads
+#   #     - script.reset_download_count
+#
+#
+# homeassistant:
+#   customize:
+#     script.reset_download_count:
+#       friendly_name: Reset Download Count
+#       icon: mdi:checkbox-marked-circle
+#     sensor.listing_of_waiting_downloads:
+#       friendly_name: Waiting
+#       icon: mdi:download
+#     group.obama_download_display:
+#       order: 1 # Make it be first, when it's there.

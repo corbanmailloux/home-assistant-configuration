@@ -4,8 +4,8 @@ view_living_room:
   view: yes
   name: Living Room
   entities:
-    - sensor.living_room_temperature
-    - sensor.living_room_humidity
+    - sensor.living_room_thermostat_temperature
+    - sensor.living_room_thermostat_humidity
     - group.living_room_lights
     - group.living_room_light_control
     - media_player.corban_and_maggie
