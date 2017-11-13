@@ -40,7 +40,7 @@ script:
       - service: media_player.select_source
         data:
           entity_id: media_player.spotify
-          source: "Living Room Dot"
+          source: "Living Room"
       - delay: 00:00:01
       - service: media_player.play_media
         data:
