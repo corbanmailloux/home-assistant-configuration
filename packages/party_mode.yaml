@@ -157,5 +157,5 @@ script:
 homeassistant:
   customize:
     input_boolean.party_mode:
-      emulated_hue: true
+      emulated_hue_hidden: false
       emulated_hue_name: "Party mode"

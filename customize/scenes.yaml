@@ -2,7 +2,7 @@
 
 scene.movie_mode:
   hidden: true
-  emulated_hue: true
+  emulated_hue_hidden: false
 
 # TV backlight scenes
 scene.tv_bright:

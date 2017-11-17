@@ -82,7 +82,7 @@ scene:
 homeassistant:
   customize:
     light.exit_sign:
-      emulated_hue: true
+      emulated_hue_hidden: false
       friendly_name: Exit Sign
       icon: mdi:sign-caution
     scene.exit_bright:

@@ -2,11 +2,11 @@
 
 light.living_room_tv_backlight:
   friendly_name: Backlight
-  emulated_hue: true
+  emulated_hue_hidden: false
   emulated_hue_name: "Back light"
   icon: mdi:television
 
 light.fairy_lights:
   friendly_name: Fairy Lights
-  emulated_hue: true
+  emulated_hue_hidden: false
   icon: mdi:lightbulb

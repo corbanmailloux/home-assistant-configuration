@@ -23,21 +23,21 @@ group.living_room_light_control:
   order: 1
 
 group.living_room_lights:
-  emulated_hue: true
+  emulated_hue_hidden: false
   emulated_hue_name: "Living Room Lights"
   order: 2
 
 
 group.bedroom_lights:
-  emulated_hue: true
+  emulated_hue_hidden: false
   emulated_hue_name: "Bedroom Lights"
 
 group.all_lights_custom:
   hidden: true
-  emulated_hue: true
+  emulated_hue_hidden: false
   emulated_hue_name: "All Lights"
 
 group.everything_custom:
   hidden: true
-  emulated_hue: true
+  emulated_hue_hidden: false
   emulated_hue_name: "Everything"
