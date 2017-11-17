@@ -1,0 +1,90 @@
+automation:
+  - alias: "Dash Button 1 - Everything Off"
+    trigger:
+      - platform: event
+        event_type: dash_button_1
+    condition:
+      - condition: state
+        entity_id: input_select.dash_button_1_mode
+        state: "Everything Off"
+    action:
+      - service: homeassistant.turn_off
+        entity_id: group.everything_custom
+
+  - alias: "Dash Button 1 - Living Room On"
+    trigger:
+      - platform: event
+        event_type: dash_button_1
+    condition:
+      - condition: state
+        entity_id: input_select.dash_button_1_mode
+        state: "Living Room On"
+    action:
+      - service: homeassistant.turn_on
+        entity_id: group.living_room_lights
+
+  # TODO: Add a more complete "away mode" structure to do multiple actions by firing an event
+  - alias: "Set Dash Button 1 Mode - At Home"
+    trigger:
+      - platform: state
+        entity_id: group.all_devices
+        from: "not_home"
+        to: "home"
+        for:
+          minutes: 2
+          seconds: 30
+    action:
+      - service: input_select.select_option
+        entity_id: input_select.dash_button_1_mode
+        data:
+          option: "Everything Off"
+
+  - alias: "Set Dash Button 1 Mode - Away"
+    trigger:
+      - platform: state
+        entity_id: group.all_devices
+        from: "home"
+        to: "not_home"
+        for:
+          minutes: 2
+          seconds: 30
+    action:
+      - service: input_select.select_option
+        entity_id: input_select.dash_button_1_mode
+        data:
+          option: "Living Room On"
+
+
+input_select:
+  dash_button_1_mode:
+    name: Dash Button Mode
+    options:
+     - Everything Off
+     - Living Room On
+     # TODO: Guest mode?
+     # - service: switch.toggle
+     #   entity_id: switch.living_room_window
+    icon: mdi:menu
+
+
+script:
+  press_dash_button_1:
+    sequence:
+    - event: dash_button_1
+
+
+group:
+  dash_button_1:
+    name: Dash Button 1
+    control: hidden
+    icon: mdi:run
+    entities:
+      - input_select.dash_button_1_mode
+      - script.press_dash_button_1
+
+
+homeassistant:
+  customize:
+    script.press_dash_button_1:
+      friendly_name: Press button
+      icon: mdi:cursor-pointer
