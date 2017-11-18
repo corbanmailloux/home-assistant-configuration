@@ -15,7 +15,7 @@ automation:
   - alias: "Set TV backlight based on temperature"
     trigger:
       - platform: state
-        entity_id: sensor.living_room_temperature
+        entity_id: sensor.living_room_thermostat_temperature
     condition:
       - condition: state
         entity_id: light.living_room_tv_backlight
@@ -23,7 +23,7 @@ automation:
       - condition: state
         entity_id: input_select.backlight_mode
         state: "Temperature control"
-    action: 
+    action:
       - service: script.set_color
         data_template:
           id: light.living_room_tv_backlight
@@ -63,7 +63,7 @@ automation:
               {% endif %}
             {%- endmacro %}
 
-            {{ pick_color(states.sensor.living_room_temperature.state | float) }}
+            {{ pick_color(states.sensor.living_room_thermostat_temperature.state | float) }}
 
 
 input_number:
