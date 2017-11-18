@@ -1,0 +1,7 @@
+- alias: "Edith - Going to Bed (Tasker)"
+  trigger:
+    - platform: event
+      event_type: edith_going_to_bed
+  action:
+    - service: homeassistant.turn_off
+      entity_id: group.everything_custom
