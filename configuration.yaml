@@ -223,10 +223,10 @@ google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
 
-google_domains:
-  domain: !secret google_domains_url
-  username: !secret google_domains_username
-  password: !secret google_domains_password
+# google_domains:
+#   domain: !secret google_domains_url
+#   username: !secret google_domains_username
+#   password: !secret google_domains_password
 
 tts:
   - platform: google
