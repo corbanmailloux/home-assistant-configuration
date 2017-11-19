@@ -27,6 +27,7 @@ fun_stuff:
     - input_number.umbrella_percent
     - switch.strobe_light
     - input_boolean.scary_mode
+    - input_boolean.party_mode
 
 unused_for_now:
   name: Unused

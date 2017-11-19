@@ -26,8 +26,5 @@ living_room_light_control:
   name: Light Control
   control: hidden
   entities:
-    - scene.coming_home
-    - scene.living_room_lights_out
     - input_select.backlight_mode
-    - input_boolean.party_mode
     - input_select.exit_sign_button_action

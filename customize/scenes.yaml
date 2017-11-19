@@ -14,12 +14,6 @@ scene.tv_kodi_background:
 scene.tv_spotify:
   hidden: true
 
-scene.living_room_lights_out:
-  icon: mdi:filmstrip-off
-
-scene.coming_home:
-  icon: mdi:home
-
 scene.going_to_bed:
   hidden: true
 scene.goodnight:

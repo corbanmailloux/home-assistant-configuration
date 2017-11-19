@@ -108,13 +108,6 @@ automation:
       service: switch.turn_on
       entity_id: switch.living_room_lamp_near_tv
 
-
-scene:
-  - name: Coming Home
-    entities:
-      switch.living_room_lamp_near_tv:
-        state: on
-
 group:
   hass_notifications:
     name: Home Assistant Notifications
