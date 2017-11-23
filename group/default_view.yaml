@@ -9,7 +9,13 @@ default_view:
     # - group.obama_download_display # Only shown when downloads are waiting
     - group.living_room_lights
     - group.bedroom_lights
+    - group.guest_items
     - media_player.living_room
+
+guest_items:
+  name: Guest Helpers
+  entities:
+    - switch.coffee_maker
 
 # devices:
 #   name: Device Trackers

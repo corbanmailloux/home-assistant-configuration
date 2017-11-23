@@ -25,3 +25,8 @@ switch.strobe_light:
   friendly_name: Strobe Light
   emulated_hue_hidden: false
   icon: mdi:alarm-light
+
+switch.coffee_maker:
+  friendly_name: Coffee Maker
+  emulated_hue_hidden: false
+  icon: mdi:coffee
