@@ -8,8 +8,8 @@ automation:
         entity_id: input_select.dash_button_1_mode
         state: "Everything Off"
     action:
-      - service: homeassistant.turn_off
-        entity_id: group.everything_custom
+      - service: script.turn_on
+        entity_id: script.everything_off
 
   - alias: "Dash Button 1 - Living Room On"
     trigger:

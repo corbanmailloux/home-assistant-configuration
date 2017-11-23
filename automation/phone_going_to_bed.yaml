@@ -3,5 +3,5 @@
     - platform: event
       event_type: edith_going_to_bed
   action:
-    - service: homeassistant.turn_off
-      entity_id: group.everything_custom
+    - service: script.turn_on
+      entity_id: script.everything_off
