@@ -24,5 +24,4 @@ everything_custom:
     - switch.living_room_couch
     - media_player.kodi_obama
     - media_player.corban_and_maggie
-    - switch.coffee_maker
     - switch.strobe_light
