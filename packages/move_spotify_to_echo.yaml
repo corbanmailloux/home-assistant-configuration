@@ -1,0 +1,14 @@
+script:
+  move_spotify_to_bedroom_echo:
+    sequence:
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.spotify
+          source: "Bedroom"
+
+
+homeassistant:
+  customize:
+    script.move_spotify_to_bedroom_echo:
+      emulated_hue_hidden: false
+      emulated_hue_name: "Move music to the bedroom"
