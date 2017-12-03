@@ -21,6 +21,7 @@ living_room_lights:
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
     - switch.living_room_window
+    - switch.window_christmas_lights
 
 living_room_light_control:
   name: Light Control
