@@ -2,7 +2,7 @@
 
 # Power Tails
 - platform: mqtt
-  name: window_christmas_lights # strobe_light # power_tail_1
+  name: christmas_lights # strobe_light # power_tail_1
   state_topic: "home/sonoff/power_tail/1/stat"
   command_topic: "home/sonoff/power_tail/1"
   qos: 1

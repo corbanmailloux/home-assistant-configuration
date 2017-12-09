@@ -11,7 +11,7 @@ all_lights_custom:
     - switch.living_room_window
     - switch.living_room_couch
     # - switch.strobe_light
-    - switch.window_christmas_lights
+    - switch.christmas_lights
 
 # All lights, switches, and media_player, for Alexa
 everything_custom:
@@ -27,4 +27,4 @@ everything_custom:
     - media_player.kodi_obama
     - media_player.corban_and_maggie
     # - switch.strobe_light
-    - switch.window_christmas_lights
+    - switch.christmas_lights

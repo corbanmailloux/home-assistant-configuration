@@ -26,7 +26,7 @@ switch.living_room_couch:
 #   emulated_hue_hidden: false
 #   icon: mdi:alarm-light
 
-switch.window_christmas_lights:
-  friendly_name: Window Christmas Lights
+switch.christmas_lights:
+  friendly_name: Christmas Lights
   emulated_hue_hidden: false
   icon: mdi:pine-tree
