@@ -21,6 +21,35 @@ http:
 updater:
   include_used_components: true
 
+# Trying out the HASS Cloud
+# cloud:
+#   alexa:
+#     filter:
+#       include_entities:
+#         - group.living_room_lights
+#       # include_domains:
+#       #   - switch
+#       #   - light
+#       # exclude_entities:
+#       #   - switch.outside
+#       exclude_domains:
+#         - alert
+#         - automation
+#         - cover
+#         - fan
+#         - group
+#         - input_boolean
+#         # - light
+#         - lock
+#         - media_player # (play, pause, stop, set volume, adjust volume, next track, and previous track)
+#         - scene
+#         - script
+#         - switch
+#     entity_config:
+#       group.living_room_lights:
+#         name: Living Room Lights
+#         description: The lights in the living room.
+#         display_categories: LIGHT
 config:
 
 recorder:

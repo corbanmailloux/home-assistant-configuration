@@ -12,11 +12,11 @@ input_number:
 input_datetime:
   alarm_target_time:
     name: Target Time
-    initial: '06:30'
+    initial: '06:20'
     has_date: false
     has_time: true
   alarm_start_time:
-    initial: '06:15'
+    initial: '06:10'
     name: Start Time
     has_date: false
     has_time: true

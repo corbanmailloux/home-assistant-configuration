@@ -3,19 +3,14 @@
 # View tab ordering
 group.view_living_room:
   order: 1
-  icon: mdi:television
 group.view_bedroom:
   order: 2
-  icon: mdi:hotel
 group.view_environment:
   order: 3
-  icon: mdi:white-balance-sunny
 group.view_fun:
   order: 4
-  icon: mdi:airballoon
 group.view_management:
   order: 5
-  icon: mdi:settings
 
 
 # Living Room Tab
@@ -26,7 +21,6 @@ group.living_room_lights:
   emulated_hue_hidden: false
   emulated_hue_name: "Living Room Lights"
   order: 2
-
 
 group.bedroom_lights:
   emulated_hue_hidden: false

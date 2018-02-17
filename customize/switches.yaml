@@ -21,12 +21,12 @@ switch.living_room_couch:
   emulated_hue_hidden: false
   icon: mdi:lamp
 
-# switch.strobe_light:
-#   friendly_name: Strobe Light
-#   emulated_hue_hidden: false
-#   icon: mdi:alarm-light
-
-switch.christmas_lights:
-  friendly_name: Christmas Lights
+switch.strobe_light:
+  friendly_name: Strobe Light
   emulated_hue_hidden: false
-  icon: mdi:pine-tree
+  icon: mdi:alarm-light
+
+# switch.christmas_lights:
+#   friendly_name: Christmas Lights
+#   emulated_hue_hidden: false
+#   icon: mdi:pine-tree

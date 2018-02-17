@@ -3,6 +3,7 @@
 view_environment:
   view: yes
   name: Environment
+  icon: mdi:white-balance-sunny
   entities:
     - camera.radar
     - group.environment_outside

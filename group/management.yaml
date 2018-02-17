@@ -3,6 +3,7 @@
 view_management:
   name: Management
   view: yes
+  icon: mdi:settings
   entities:
     - sensor.corbco_certificate
     - sensor.homecorbco_certificate
@@ -30,3 +31,4 @@ testing_scripts:
   entities:
     - automation.bedside_button
     - script.play_pause_master
+    - light.test_light

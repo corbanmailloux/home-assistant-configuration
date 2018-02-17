@@ -3,6 +3,7 @@
 view_living_room:
   view: yes
   name: Living Room
+  icon: mdi:television
   entities:
     - sensor.living_room_thermostat_temperature
     - sensor.living_room_thermostat_humidity
@@ -21,7 +22,6 @@ living_room_lights:
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
     - switch.living_room_window
-    - switch.christmas_lights
 
 living_room_light_control:
   name: Light Control

@@ -113,3 +113,4 @@ ip_bans.yaml
 .spotify-token-cache
 nest.conf
 usps_cache.sqlite
+.cloud/

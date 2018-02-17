@@ -3,3 +3,7 @@
 media_player.kodi_obama:
   friendly_name: Obama Kodi
   icon: mdi:kodi
+
+# media_player.living_room:
+#   emulated_hue_hidden: false
+#   emulated_hue_name: "show"

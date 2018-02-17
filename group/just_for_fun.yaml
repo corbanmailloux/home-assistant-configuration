@@ -3,6 +3,7 @@
 view_fun:
   view: yes
   name: Fun Stuff
+  icon: mdi:airballoon
   entities:
     - group.fun_notifications
     - group.send_me_a_donut
@@ -25,7 +26,7 @@ fun_stuff:
   control: hidden
   entities:
     - input_number.umbrella_percent
-    # - switch.strobe_light
+    - switch.strobe_light
     - input_boolean.scary_mode
     - input_boolean.party_mode
 

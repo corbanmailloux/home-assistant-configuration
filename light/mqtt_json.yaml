@@ -20,15 +20,16 @@
   retain: true
   qos: 0
 
-# - platform: mqtt_json
-#   name: test_light
-#   state_topic: "home/test_light"
-#   command_topic: "home/test_light/set"
-#   brightness: true
-#   rgb: true
-#   white_value: true
-#   effect: true
-#   effect_list: [colorfade_slow, colorfade_fast, flash]
-#   optimistic: false
-#   retain: true
-#   qos: 0
+- platform: mqtt_json
+  name: test_light
+  state_topic: "home/test_light"
+  command_topic: "home/test_light/set"
+  brightness: true
+  rgb: true
+  white_value: true
+  color_temp: true
+  effect: true
+  effect_list: [colorfade_slow, colorfade_fast, flash]
+  optimistic: false
+  retain: true
+  qos: 0

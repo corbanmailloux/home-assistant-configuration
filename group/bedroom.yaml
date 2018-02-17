@@ -3,6 +3,7 @@
 view_bedroom:
   name: Bedroom
   view: yes
+  icon: mdi:hotel
   entities:
     - group.bedroom_lights
     - sensor.bedroom_temperature
