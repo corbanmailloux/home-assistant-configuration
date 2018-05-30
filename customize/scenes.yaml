@@ -3,6 +3,7 @@
 scene.movie_mode:
   hidden: true
   emulated_hue_hidden: false
+  icon: mdi:movie
 
 # TV backlight scenes
 scene.tv_bright:

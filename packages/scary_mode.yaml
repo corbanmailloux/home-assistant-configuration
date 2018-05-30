@@ -117,4 +117,3 @@ homeassistant:
   customize:
     input_boolean.scary_mode:
       emulated_hue_hidden: false
-      emulated_hue_name: "Scary mode"

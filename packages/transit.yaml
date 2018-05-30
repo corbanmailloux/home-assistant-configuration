@@ -1,0 +1,228 @@
+light:
+  - platform: walldisplay
+    host: !secret wall_display_ip
+
+sensor:
+  - platform: rest
+    name: Busses at Stop
+    scan_interval: 30
+    force_update: true
+    resource: !secret transit_api_url
+    json_attributes:
+      - data
+    value_template: >-
+      {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
+        {{ as_timestamp(value_json["data"][0]["attributes"]["arrival_time"]) | timestamp_custom("%I:%M %p") }}
+      {% else %}
+        N/A
+      {% endif %}
+    headers:
+      x-api-key: !secret transit_api_key
+  - platform: template
+    sensors:
+      bus_1_time:
+        friendly_name: 'Bus 1 - Time'
+        unit_of_measurement: Minutes
+        value_template: >-
+          {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
+            {{ ((as_timestamp(states.sensor.busses_at_stop.attributes["data"][0]["attributes"]["arrival_time"]) - as_timestamp(now())) / 60) | round(1) }}
+          {% else %}
+            N/A
+          {% endif %}
+      bus_1_route:
+        friendly_name: 'Bus 1 - Route'
+        value_template: >-
+          {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
+            {{ states.sensor.busses_at_stop.attributes["data"][0]["relationships"]["route"]["data"]["id"] }}
+          {% else %}
+            N/A
+          {% endif %}
+      bus_2_time:
+        friendly_name: 'Bus 2 - Time'
+        unit_of_measurement: Minutes
+        value_template: >-
+          {% if states.sensor.busses_at_stop.attributes["data"] | length > 1 %}
+            {{ ((as_timestamp(states.sensor.busses_at_stop.attributes["data"][1]["attributes"]["arrival_time"]) - as_timestamp(now())) / 60) | round(1) }}
+          {% else %}
+            N/A
+          {% endif %}
+      bus_2_route:
+        friendly_name: 'Bus 2 - Route'
+        value_template: >-
+          {% if states.sensor.busses_at_stop.attributes["data"] | length > 1 %}
+            {{ states.sensor.busses_at_stop.attributes["data"][1]["relationships"]["route"]["data"]["id"] }}
+          {% else %}
+            N/A
+          {% endif %}
+
+input_boolean:
+  bus_alert:
+    name: Bus Alert
+    initial: on
+    icon: mdi:bus
+    # icon: mdi:bus-clock
+  bus_alert_active:
+    name: Bus Alert Active
+    initial: off
+    icon: mdi:calendar-range
+
+binary_sensor:
+  - platform: workday
+    name: Corban Office Workdays
+    country: US
+    workdays: [mon, tue, wed, thu]
+
+automation:
+  # SCREEN
+  - alias: Turn on the wall display when Corban gets home
+    trigger:
+      - platform: state
+        entity_id: device_tracker.edith_wifi
+        # from: "not_home"
+        to: "home"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.wall_display_screen
+
+  - alias: Turn on the wall display in the morning # if Corban is home
+    trigger:
+      - platform: time
+        at: '06:30:00'
+    condition:
+      - condition: state
+        entity_id: device_tracker.edith_wifi
+        state: "home"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.wall_display_screen
+
+  # BUS ALERT
+
+  # Enable at 6:30 AM on workdays
+  - alias: Enable the bus alert based on time
+    trigger:
+      - platform: time
+        at: '06:30:00'
+    condition:
+      - condition: state
+        entity_id: binary_sensor.corban_office_workdays
+        state: 'on'
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.bus_alert_active
+  - alias: Disable the bus alert based on time
+    trigger:
+      - platform: time
+        at: '09:00:00' # Disable at 9AM
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.bus_alert_active
+
+  - alias: "Turn off the wall display light when the automations are disabled"
+    trigger:
+      - platform: state
+        entity_id: input_boolean.bus_alert
+        to: "off"
+      - platform: state
+        entity_id: input_boolean.bus_alert_active
+        to: "off"
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.wall_display_light
+
+  - alias: "Set display LED based on bus time - 1"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.bus_1_time
+        # above: 1
+        below: 2
+    condition:
+      - condition: state
+        entity_id: input_boolean.bus_alert
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.bus_alert_active
+        state: "on"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.wall_display_light
+          rgb_color: [255, 0, 0]
+  - alias: "Set display LED based on bus time - 2"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.bus_1_time
+        above: 1.9 # >= 2
+        below: 10
+    condition:
+      - condition: state
+        entity_id: input_boolean.bus_alert
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.bus_alert_active
+        state: "on"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.wall_display_light
+          rgb_color: [0, 255, 0]
+  - alias: "Set display LED based on bus time - 3"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.bus_1_time
+        above: 9.9 # >= 10
+        # below: 10
+    condition:
+      - condition: state
+        entity_id: input_boolean.bus_alert
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.bus_alert_active
+        state: "on"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.wall_display_light
+          rgb_color: [0, 0, 255]
+
+group:
+  bus_times:
+    name: Bus Times
+    icon: mdi:bus
+    entities:
+      - sensor.busses_at_stop
+      - sensor.bus_1_time
+      - sensor.bus_1_route
+      - sensor.bus_2_time
+      - sensor.bus_2_route
+      - input_boolean.bus_alert
+      - input_boolean.bus_alert_active # Debug
+      # - automation.set_display_led_based_on_bus_time__1
+      # - automation.set_display_led_based_on_bus_time__2
+      # - automation.set_display_led_based_on_bus_time__3
+      - light.wall_display_light
+      - light.wall_display_screen
+      - automation.turn_on_the_wall_display_when_corban_gets_home
+
+homeassistant:
+  customize:
+    sensor.busses_at_stop:
+      friendly_name: Next Bus
+      icon: mdi:bus-clock
+    sensor.bus_1_time:
+      icon: mdi:bus-clock
+    sensor.bus_2_time:
+      icon: mdi:bus-clock
+    sensor.bus_1_route:
+      icon: mdi:bus-side
+    sensor.bus_2_route:
+      icon: mdi:bus-side
+    light.wall_display_light:
+      icon: mdi:tablet
+    light.wall_display_screen:
+      icon: mdi:monitor

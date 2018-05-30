@@ -1,3 +1,0 @@
-# Obama Management Shell Commands
-
-shutdown_obama: !secret obama_shell_command_shutdown

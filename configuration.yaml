@@ -22,38 +22,15 @@ updater:
   include_used_components: true
 
 # Trying out the HASS Cloud
-# cloud:
-#   alexa:
-#     filter:
-#       include_entities:
-#         - group.living_room_lights
-#       # include_domains:
-#       #   - switch
-#       #   - light
-#       # exclude_entities:
-#       #   - switch.outside
-#       exclude_domains:
-#         - alert
-#         - automation
-#         - cover
-#         - fan
-#         - group
-#         - input_boolean
-#         # - light
-#         - lock
-#         - media_player # (play, pause, stop, set volume, adjust volume, next track, and previous track)
-#         - scene
-#         - script
-#         - switch
-#     entity_config:
-#       group.living_room_lights:
-#         name: Living Room Lights
-#         description: The lights in the living room.
-#         display_categories: LIGHT
+cloud:
+  alexa: !include cloud_alexa.yaml
+  google_actions: !include cloud_google.yaml
+
 config:
 
+hassio:
+
 recorder:
-  db_url: !secret mysql_db_connection
   purge_interval: 2
   purge_keep_days: 60
   exclude:
@@ -67,6 +44,7 @@ recorder:
     entities:
       - sun.sun   # Don't record sun data
       - sensor.yi_most_recent_recording # It changes each minute
+      - sensor.time
 
 # Enables support for tracking state changes over time.
 history:
@@ -81,6 +59,7 @@ history:
     entities:
       - sun.sun   # Don't record sun data
       - sensor.yi_most_recent_recording # It changes each minute
+      - sensor.time
 
 history_graph:
   temperatures:
@@ -201,9 +180,7 @@ logger:
     # homeassistant.components.device_tracker: critical
 
 mqtt:
-  broker: 127.0.0.1
-  # port: 1883
-  # client_id: home-assistant-1
+  broker: core-mosquitto # Addon
   username: !secret mqtt_username
   password: !secret mqtt_password
 
@@ -212,9 +189,14 @@ device_tracker:
     devices:
       edith_wifi: /devices/location/edith_wifi
       jackie_wifi: /devices/location/jackie_wifi
+  - platform: google_maps
+    username: !secret google_maps_username
+    password: !secret google_maps_password
   # - platform: bluetooth_tracker
   #   track_new_devices: False
   #   consider_home: 60
+
+map:
 
 # usps:
 #   username: !secret usps_username
@@ -260,9 +242,9 @@ google:
 tts:
   - platform: google
 
-emulated_hue:
-  host_ip: !secret hass_ip_address
-  expose_by_default: false
+# emulated_hue:
+#   host_ip: !secret hass_ip_address
+#   expose_by_default: false
 
 automation: !include_dir_merge_list automation
 group: !include_dir_merge_named group

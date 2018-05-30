@@ -1,0 +1,141 @@
+#
+# Main arguments, all optional
+#
+title: Wall Display
+# widget_dimensions: [120, 120]
+widget_dimensions: [154, 154]
+widget_margins: [5, 5]
+
+scalable: False # Disable tap to zoon
+columns: 8
+# rows: 5
+
+global_parameters:
+  use_hass_icon: 1
+  widget_style: "font-size: 128%;"
+  level_up_style: "font-size: 140%;"
+  level_down_style: "font-size: 140%;"
+
+corban_presence:
+  widget_type: device_tracker
+  title: Corban
+  device: edith_wifi
+  enable: 1
+
+maggie_presence:
+  widget_type: device_tracker
+  title: Maggie
+  device: jackie_wifi
+  enable: 1
+
+corban_maps_presence:
+  widget_type: device_tracker
+  title: Corban
+  device: google_maps_110168280884137709870
+  icon_on: fa-male
+  # enable: 1
+
+maggie_maps_presence:
+  widget_type: device_tracker
+  title: Maggie
+  device: google_maps_106112096418399445974
+  icon_on: fa-female
+  # enable: 1
+
+clock:
+  widget_type: clock
+  date_format_country: "us"
+  date_format_options:
+    weekday: "short"
+    year: "numeric"
+    month: "short"
+    day: "numeric"
+  date_style: "font-size: 128%;"
+  time_style: "color: #ffaa00;"
+
+weather_custom:
+  widget_type: weather
+  # title: Today
+  units: "°F"
+  prefer_icons: 1
+  # show_forecast: 1
+  forecast_title: Tomorrow
+
+bus_time:
+  widget_type: sensor
+  title: Next Bus
+  units: ""
+  precision: 1
+  entity: sensor.bus_1_time
+  sub_entity: sensor.bus_2_time
+
+reload:
+  widget_type: reload
+  title: Reload
+
+living_room_media_player:
+  title: Living Room
+  widget_type: media_player
+  entity: media_player.living_room
+
+spotify:
+  title: Spotify
+  widget_type: media_player
+  entity: media_player.spotify
+
+everything_off:
+  widget_type: script
+  entity: script.everything_off
+  title: Everything Off
+  icon_off: mdi-power
+  icon_on: mdi-timer-sand
+
+living_room_temp:
+  widget_type: climate
+  entity: climate.living_room
+  title: Living Room
+  title2: Temperature
+
+living_room_humidity:
+  widget_type: gauge
+  entity: sensor.living_room_thermostat_humidity
+  max: "100"
+  min: "0"
+  units: "%"
+  title: Living Room
+  title2: Humidity
+
+bedroom_temp:
+  widget_type: sensor
+  entity: sensor.bedroom_temperature
+  title: Bedroom
+  title2: Temperature
+
+bedroom_humidity:
+  widget_type: gauge
+  entity: sensor.bedroom_humidity
+  max: "100"
+  min: "0"
+  units: "%"
+  title: Bedroom
+  title2: Humidity
+
+living_room_lights:
+  widget_type: group
+  entity: group.living_room_lights
+  monitored_entity: light.living_room_tv_backlight
+  title: Living Room Lights
+
+bus_alert_toggle:
+  widget_type: input_boolean
+  entity: input_boolean.bus_alert
+  title: Bus Alert
+  # icon_on: mdi-bus
+  # icon_off: mdi-bus
+
+layout:
+    - clock(2x1), weather_custom(4x1), bus_time, reload
+    - corban_presence, maggie_presence, living_room_temp, bedroom_temp, spotify(2x2), living_room_media_player(2x2)
+    - corban_maps_presence, maggie_maps_presence, living_room_humidity, bedroom_humidity
+    -
+    - light.fairy_lights, living_room_lights, spacer, scene.movie_mode, spacer(1x1), bus_alert_toggle, spacer, everything_off
