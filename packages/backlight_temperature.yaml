@@ -114,8 +114,8 @@ homeassistant:
 
 
 group:
-  temperature_brightness:
-    name: "Temperature-Controlled Brightness"
+  temperature_backlight:
+    name: "Temperature-Controlled Backlight"
     control: hidden
     entities:
       - automation.set_tv_backlight_based_on_temperature

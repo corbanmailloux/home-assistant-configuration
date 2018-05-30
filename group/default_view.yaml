@@ -3,11 +3,13 @@
 default_view:
   view: yes
   name: !secret home_name
+  icon: mdi:home
   entities:
     - updater.updater
+    - device_tracker.google_maps_110168280884137709870 # Corban
+    - device_tracker.google_maps_106112096418399445974 # Maggie
     - device_tracker.edith_wifi
     - device_tracker.jackie_wifi
-    # - group.obama_download_display # Only shown when downloads are waiting
     - group.living_room_lights
     - group.bedroom_lights
     - group.guest_items
@@ -18,8 +20,10 @@ default_view:
 #   entities:
 #     - switch.coffee_maker
 
-# devices:
-#   name: Device Trackers
-#   entities:
-#     - device_tracker.edith_wifi
-#     - device_tracker.jackie_wifi
+devices:
+  name: Device Trackers
+  entities:
+    - device_tracker.google_maps_110168280884137709870 # Corban
+    - device_tracker.google_maps_106112096418399445974 # Maggie
+    - device_tracker.edith_wifi
+    - device_tracker.jackie_wifi

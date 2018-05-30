@@ -114,3 +114,6 @@ ip_bans.yaml
 nest.conf
 usps_cache.sqlite
 .cloud/
+.google_maps_location_sharing.cookies
+appdaemon/appdaemon.yaml
+entity_registry.yaml

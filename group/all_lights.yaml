@@ -10,6 +10,8 @@ all_lights_custom:
     - light.fairy_lights
     - switch.living_room_window
     - switch.living_room_couch
+    - light.wall_display_light
+    # - input_boolean.bus_alert # Because it will just keep turning the light back on.
 
 # All lights, switches, and media_player, for Alexa
 everything_custom:
@@ -25,3 +27,6 @@ everything_custom:
     - media_player.kodi_obama
     - media_player.corban_and_maggie
     - switch.strobe_light
+    - light.wall_display_screen
+    - light.wall_display_light
+    # - input_boolean.bus_alert # Because it will just keep turning the light back on.

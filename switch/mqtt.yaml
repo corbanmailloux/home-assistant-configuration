@@ -3,45 +3,60 @@
 # Power Tails
 - platform: mqtt
   name: strobe_light # christmas_lights # power_tail_1
-  state_topic: "home/sonoff/power_tail/1/stat"
-  command_topic: "home/sonoff/power_tail/1"
+  state_topic: "stat/sonoff_1/POWER"
+  command_topic: "cmnd/sonoff_1/POWER"
+  availability_topic: "tele/sonoff_1/LWT"
   qos: 1
-  payload_on: "on"
-  payload_off: "off"
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
   retain: true
 
 - platform: mqtt
   name: living_room_lamp_near_tv # power_tail_2
-  state_topic: "home/sonoff/power_tail/2/stat"
-  command_topic: "home/sonoff/power_tail/2"
+  state_topic: "stat/sonoff_2/POWER"
+  command_topic: "cmnd/sonoff_2/POWER"
+  availability_topic: "tele/sonoff_2/LWT"
   qos: 1
-  payload_on: "on"
-  payload_off: "off"
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
   retain: true
 
 - platform: mqtt
   name: living_room_corner # power_tail_3
-  state_topic: "home/sonoff/power_tail/3/stat"
-  command_topic: "home/sonoff/power_tail/3"
+  state_topic: "stat/sonoff_3/POWER"
+  command_topic: "cmnd/sonoff_3/POWER"
+  availability_topic: "tele/sonoff_3/LWT"
   qos: 1
-  payload_on: "on"
-  payload_off: "off"
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
   retain: true
 
 - platform: mqtt
   name: living_room_window # power_tail_4
-  state_topic: "home/sonoff/power_tail/4/stat"
-  command_topic: "home/sonoff/power_tail/4"
+  state_topic: "stat/sonoff_4/POWER"
+  command_topic: "cmnd/sonoff_4/POWER"
+  availability_topic: "tele/sonoff_4/LWT"
   qos: 1
-  payload_on: "on"
-  payload_off: "off"
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
   retain: true
 
 - platform: mqtt
   name: living_room_couch # power_tail_5
-  state_topic: "home/sonoff/power_tail/5/stat"
-  command_topic: "home/sonoff/power_tail/5"
+  state_topic: "stat/sonoff_5/POWER"
+  command_topic: "cmnd/sonoff_5/POWER"
+  availability_topic: "tele/sonoff_5/LWT"
   qos: 1
-  payload_on: "on"
-  payload_off: "off"
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
   retain: true

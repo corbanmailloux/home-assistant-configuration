@@ -15,9 +15,13 @@
 
 - platform: darksky
   api_key: !secret darksky_api_key
+  update_interval:
+    minutes: 5
+  forecast:
+    - 1
   monitored_conditions:
     - summary
-    # - icon
+    - icon
     - precip_type
     - precip_intensity
     - precip_intensity_max
@@ -29,13 +33,13 @@
     - apparent_temperature_max
     - apparent_temperature_min
     # - dew_point
-    # - wind_speed
-    # - wind_bearing
+    - wind_speed
+    - wind_bearing
     - cloud_cover
     - humidity
-    # - pressure
+    - pressure
     # - visibility
     # - ozone
     - minutely_summary
     - hourly_summary
-    # - daily_summary
+    #- daily_summary

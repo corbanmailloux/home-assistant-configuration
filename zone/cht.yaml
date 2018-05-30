@@ -1,0 +1,5 @@
+- name: CHT
+  latitude: !secret cht_latitude
+  longitude: !secret cht_longitude
+  radius: 100
+  icon: mdi:laptop
