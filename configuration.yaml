@@ -227,6 +227,14 @@ panel_iframe:
     title: 'Calendar'
     icon: mdi:calendar
     url: !secret google_calendar_url
+  nodered_flows:
+    title: 'Node-RED Flows'
+    url: 'http://hassio.local:1880'
+    icon: mdi:nodejs
+  sonweb:
+    title: 'SonWEB'
+    url: 'http://hassio.local:9541/devices'
+    icon: mdi:lightbulb-on
 
 alexa:
 
