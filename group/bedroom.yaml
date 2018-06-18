@@ -14,3 +14,5 @@ bedroom_lights:
   name: Bedroom Lights
   entities:
     - light.fairy_lights
+    - switch.bedroom_lamp
+    - light.exit_sign

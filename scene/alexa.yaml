@@ -13,7 +13,7 @@
       state: off
     switch.living_room_couch:
       state: off
-    switch.living_room_window:
+    switch.bedroom_lamp:
       state: off
     media_player.kodi_obama:
       state: off
@@ -37,7 +37,7 @@
       state: off
     switch.living_room_couch:
       state: off
-    switch.living_room_window:
+    switch.bedroom_lamp:
       state: off
     media_player.kodi_obama:
       state: off

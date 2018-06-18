@@ -7,8 +7,6 @@
       state: on
     switch.living_room_couch:
       state: off
-    switch.living_room_window:
-      state: off
     scene.tv_dim:
       state: on
     scene.exit_dim:

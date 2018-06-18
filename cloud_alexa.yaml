@@ -7,7 +7,7 @@ filter:
     - light.fairy_lights
     - media_player.living_room
     - scene.movie_mode
-    - switch.living_room_window
+    - switch.bedroom_lamp
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
@@ -30,7 +30,7 @@ entity_config:
     name: Back light
   media_player.living_room:
     name: TV
-  switch.living_room_window:
+  switch.bedroom_lamp:
     display_categories: LIGHT
   switch.living_room_corner:
     display_categories: LIGHT

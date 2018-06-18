@@ -8,7 +8,7 @@ all_lights_custom:
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - light.fairy_lights
-    - switch.living_room_window
+    - switch.bedroom_lamp
     - switch.living_room_couch
     - light.wall_display_light
     # - input_boolean.bus_alert # Because it will just keep turning the light back on.
@@ -22,7 +22,7 @@ everything_custom:
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - light.fairy_lights
-    - switch.living_room_window
+    - switch.bedroom_lamp
     - switch.living_room_couch
     - media_player.kodi_obama
     - media_player.corban_and_maggie

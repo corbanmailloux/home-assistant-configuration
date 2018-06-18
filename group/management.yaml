@@ -9,7 +9,6 @@ view_management:
     - sensor.homecorbco_certificate
     - group.obama_management_scripts
     - group.hass_notifications # See packages/home_assistant_notifications.yaml
-    - group.hass_utilities  # See packages/hass_utilities
     - group.temperature_backlight  # See packages/backlight_temperature
     - group.dash_button_1
     - group.testing_scripts

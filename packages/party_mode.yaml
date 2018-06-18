@@ -133,7 +133,7 @@ script:
           - switch.living_room_lamp_near_tv
       - service: switch.turn_off
         entity_id:
-          - switch.living_room_window
+          - switch.living_room_lamp_near_tv
           - switch.living_room_couch
       - delay: 00:00:02
       - service: switch.turn_off
@@ -142,7 +142,7 @@ script:
           - switch.living_room_lamp_near_tv
       - service: switch.turn_on
         entity_id:
-          - switch.living_room_window
+          - switch.living_room_lamp_near_tv
           - switch.living_room_couch
       - service: script.turn_on
         entity_id: script.toggle_lamps_loop

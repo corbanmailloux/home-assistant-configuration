@@ -64,7 +64,7 @@ automation:
         state: "Toggle Window Lamp"
     action:
       - service: switch.toggle
-        entity_id: switch.living_room_window
+        entity_id: switch.living_room_lamp_near_tv
 
 input_select:
   dash_button_1_mode:

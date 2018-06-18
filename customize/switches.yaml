@@ -1,7 +1,7 @@
 # Customizations for switches
 
-switch.living_room_window:
-  friendly_name: Window Lamp
+switch.bedroom_lamp:
+  friendly_name: Bedroom Lamp
   emulated_hue_hidden: false
   icon: mdi:lightbulb
 
@@ -14,7 +14,7 @@ switch.living_room_lamp_near_tv:
   friendly_name: TV Lamp
   emulated_hue_hidden: false
   emulated_hue_name: "T.V. Lamp"
-  icon: mdi:lamp
+  icon: mdi:lightbulb
 
 switch.living_room_couch:
   friendly_name: Couch Lamp
