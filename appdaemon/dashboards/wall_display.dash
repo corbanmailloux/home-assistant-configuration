@@ -61,13 +61,21 @@ weather_custom:
   # show_forecast: 1
   forecast_title: Tomorrow
 
-bus_time:
+bus_time_1:
   widget_type: sensor
-  title: Next Bus
+  title: Bus - 1
   units: ""
   precision: 1
   entity: sensor.bus_1_time
-  sub_entity: sensor.bus_2_time
+  sub_entity: sensor.bus_1_route
+
+bus_time_2:
+  widget_type: sensor
+  title: Bus - 2
+  units: ""
+  precision: 1
+  entity: sensor.bus_2_time
+  sub_entity: sensor.bus_2_route
 
 reload:
   widget_type: reload
@@ -134,7 +142,7 @@ bus_alert_toggle:
   # icon_off: mdi-bus
 
 layout:
-    - clock(2x1), weather_custom(4x1), bus_time, reload
+    - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
     - corban_presence, maggie_presence, living_room_temp, bedroom_temp, spotify(2x2), living_room_media_player(2x2)
     - corban_maps_presence, maggie_maps_presence, living_room_humidity, bedroom_humidity
     -
