@@ -5,13 +5,14 @@ group.view_living_room:
   order: 1
 group.view_bedroom:
   order: 2
-group.view_environment:
+group.view_office:
   order: 3
-group.view_fun:
+group.view_environment:
   order: 4
-group.view_management:
+group.view_fun:
   order: 5
-
+group.view_management:
+  order: 6
 
 # Living Room Tab
 group.living_room_light_control:

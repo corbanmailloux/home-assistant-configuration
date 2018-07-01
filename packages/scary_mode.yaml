@@ -1,3 +1,6 @@
+# Note: The strobe light has been removed from this configuration, so scary mode is a little
+# lackluster now.
+
 input_boolean:
   scary_mode:
     name: Scary Mode

@@ -3,7 +3,7 @@
 view_living_room:
   view: yes
   name: Living Room
-  icon: mdi:television
+  icon: mdi:sofa
   entities:
     - sensor.living_room_thermostat_temperature
     - sensor.living_room_thermostat_humidity

@@ -2,7 +2,7 @@
 
 # Power Tails
 - platform: mqtt
-  name: strobe_light # christmas_lights # power_tail_1
+  name: office_pink_lamp # strobe_light # christmas_lights # power_tail_1
   state_topic: "stat/sonoff_1/POWER"
   command_topic: "cmnd/sonoff_1/POWER"
   availability_topic: "tele/sonoff_1/LWT"

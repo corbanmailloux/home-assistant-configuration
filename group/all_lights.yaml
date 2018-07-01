@@ -26,7 +26,7 @@ everything_custom:
     - switch.living_room_couch
     - media_player.kodi_obama
     - media_player.corban_and_maggie
-    - switch.strobe_light
+    - switch.office_pink_lamp
     - light.wall_display_screen
     - light.wall_display_light
     # - input_boolean.bus_alert # Because it will just keep turning the light back on.

@@ -11,7 +11,7 @@ filter:
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
-    - switch.strobe_light
+    - switch.office_pink_lamp
     - script.everything_off
     - light.exit_sign
     # - script.play_pause_master # Test this vs the media player

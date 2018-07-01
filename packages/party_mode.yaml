@@ -40,8 +40,8 @@ script:
           - script.fade_backlight
           - script.blink_exit_sign
           - script.toggle_lamps
-      - service: switch.turn_on
-        entity_id: switch.strobe_light
+      # - service: switch.turn_on
+      #   entity_id: switch.strobe_light
 
   # End party mode and reset
   party_mode_end:
@@ -66,7 +66,7 @@ script:
         entity_id:
           - light.living_room_tv_backlight
           - light.exit_sign
-          - switch.strobe_light
+          # - switch.strobe_light
       - service: homeassistant.turn_on
         entity_id:
           - group.living_room_lights

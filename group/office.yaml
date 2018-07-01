@@ -1,0 +1,13 @@
+# Office Group
+
+view_office:
+  name: Office
+  view: yes
+  icon: mdi:monitor
+  entities:
+    - group.office_lights
+
+office_lights:
+  name: Office Lights
+  entities:
+    - switch.office_pink_lamp

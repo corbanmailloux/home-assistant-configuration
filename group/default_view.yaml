@@ -12,6 +12,7 @@ default_view:
     - device_tracker.jackie_wifi
     - group.living_room_lights
     - group.bedroom_lights
+    - group.office_lights
     - group.guest_items
     - media_player.living_room
 
