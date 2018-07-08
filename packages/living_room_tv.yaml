@@ -1,0 +1,52 @@
+sensor:
+  - platform: plex
+    host: !secret obama_host
+
+media_player:
+  - platform: roku
+    host: !secret living_room_tv_host
+  - platform: plex
+    entity_namespace: 'plex'
+    include_non_clients: true
+    # show_all_controls: false
+    # use_custom_entity_ids: true
+    # use_episode_art: true
+    # remove_unavailable_clients: true
+    # client_remove_interval: 600
+
+switch:
+  - platform: command_line
+    switches:
+      living_room_tv_power_command_line:
+        command_on: 'curl -X POST http://10.0.0.248:8060/keypress/PowerOn'
+        command_off: 'curl -X POST http://10.0.0.248:8060/keypress/PowerOff'
+        command_state: 'curl -m 5 -s GET http://10.0.0.248:8060/query/device-info | grep power-mode | sed -e "s:<power-mode>DisplayOff</power-mode>:OFF:" -e "s:<power-mode>PowerOn</power-mode>:ON:"'
+        value_template: '{{ value == "ON" }}'
+  - platform: template
+    switches:
+      living_room_tv_power:
+        value_template: "{{ is_state('switch.living_room_tv_power_command_line', 'on') }}"
+        turn_on:
+          service: script.turn_on
+          data:
+            entity_id: script.living_room_tv_power_on
+        turn_off:
+          service: switch.turn_off
+          data:
+            entity_id: switch.living_room_tv_power_command_line
+
+script:
+  living_room_tv_power_on:
+    sequence:
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: !secret living_room_tv_mac
+      - service: switch.turn_on
+        data:
+          entity_id: switch.living_room_tv_power_command_line
+
+homeassistant:
+  customize:
+    switch.living_room_tv_power:
+      friendly_name: Living Room TV
+      icon: mdi:television

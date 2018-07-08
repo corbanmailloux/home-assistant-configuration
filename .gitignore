@@ -117,3 +117,4 @@ usps_cache.sqlite
 .google_maps_location_sharing.cookies
 appdaemon/appdaemon.yaml
 entity_registry.yaml
+plex.conf # Contains a key

@@ -161,7 +161,11 @@ frontend:
       google-green-500: '#39E949'
 
 # Discover some devices automatically
-# discovery:
+# I had this disabled due to an issue with my old router. Let's try it again.
+discovery:
+
+# Allows sending a magic packet directly.
+wake_on_lan:
 
 # Allows you to issue voice commands from the frontend
 # conversation:

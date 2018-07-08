@@ -2,14 +2,15 @@
   name: Living Room
   children:
     - media_player.kodi_obama
-    - media_player.corban_and_maggie
+    # - media_player.corban_and_maggie # This Chromecast has been moved to the bedroom and renamed.
+    - media_player.65_tcl_roku_tv
 
-- platform: cast
-  host: !secret chromecast_host
+# - platform: cast
+#   host: !secret chromecast_host
 
 - platform: kodi
   name: kodi_obama
-  host: !secret obama_kodi_host
+  host: !secret obama_host
   port: !secret obama_kodi_port
   turn_off_action:
     service: media_player.kodi_call_method

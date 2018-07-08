@@ -9,8 +9,8 @@ script:
 switch:
   - platform: wake_on_lan
     name: "Obama"
-    mac_address: "BC:5F:F4:42:69:24"
-    host: "10.0.0.254"
+    mac_address: !secret obama_mac
+    host: !secret obama_host
     turn_off:
       service: script.sleep_obama
 

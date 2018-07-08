@@ -2,7 +2,7 @@
 
 - platform: kodi
   name: kodi_obama
-  host: !secret obama_kodi_host
+  host: !secret obama_host
   port: !secret obama_kodi_port
   # user: !secret obama_kodi_user
   # password: !secret obama_kodi_password
