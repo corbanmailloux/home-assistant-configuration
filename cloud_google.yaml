@@ -15,10 +15,11 @@ filter:
     - script.everything_off
     - light.exit_sign
     # - script.play_pause_master # Test this vs the media player
-    - script.move_spotify_to_bedroom_echo
     - input_boolean.party_mode
     - input_boolean.scary_mode
     - switch.obama
+    - script.living_room_game_mode
+    - switch.living_room_tv_power
 
 entity_config:
   group.all_lights_custom:
@@ -29,7 +30,5 @@ entity_config:
     name: TV
   # script.play_pause_master:
   #   name: T.V. Show
-  script.move_spotify_to_bedroom_echo:
-    name: "Move music to the bedroom"
   switch.obama:
     name: Server
