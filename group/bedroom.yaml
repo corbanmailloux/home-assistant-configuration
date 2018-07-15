@@ -15,4 +15,5 @@ bedroom_lights:
   entities:
     - light.fairy_lights
     - switch.bedroom_lamp
+    - light.bedroom_lamp # Tradfri
     - light.exit_sign

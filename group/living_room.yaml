@@ -25,6 +25,7 @@ living_room_lights:
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
+    - light.living_room_lamp # Tradfri
 
 living_room_light_control:
   name: Light Control

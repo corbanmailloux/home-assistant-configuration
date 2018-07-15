@@ -202,6 +202,10 @@ device_tracker:
 
 map:
 
+tradfri:
+  host: !secret tradfri_host
+  allow_tradfri_groups: false
+
 # usps:
 #   username: !secret usps_username
 #   password: !secret usps_password
