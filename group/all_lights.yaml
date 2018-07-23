@@ -8,9 +8,10 @@ all_lights_custom:
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - light.fairy_lights
-    - switch.bedroom_lamp
     - switch.living_room_couch
     - light.wall_display_light
+    - light.bedroom_lamp
+    - light.living_room_lamp
     # - input_boolean.bus_alert # Because it will just keep turning the light back on.
 
 # All lights, switches, and media_player, for Alexa
@@ -22,11 +23,12 @@ everything_custom:
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - light.fairy_lights
-    - switch.bedroom_lamp
     - switch.living_room_couch
     - media_player.kodi_obama
     - media_player.corban_and_maggie
     - switch.office_pink_lamp
     - light.wall_display_screen
     - light.wall_display_light
+    - light.bedroom_lamp
+    - light.living_room_lamp
     # - input_boolean.bus_alert # Because it will just keep turning the light back on.

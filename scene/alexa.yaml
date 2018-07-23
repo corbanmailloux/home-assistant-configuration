@@ -13,8 +13,11 @@
       state: off
     switch.living_room_couch:
       state: off
-    switch.bedroom_lamp:
-      state: off
+    light.bedroom_lamp:
+      state: on
+      transition: 5
+      brightness: 126
+      color_temp: 454 # Warm
     media_player.kodi_obama:
       state: off
     media_player.corban_and_maggie:
@@ -37,8 +40,9 @@
       state: off
     switch.living_room_couch:
       state: off
-    switch.bedroom_lamp:
+    light.bedroom_lamp:
       state: off
+      transition: 5
     media_player.kodi_obama:
       state: off
     media_player.corban_and_maggie:

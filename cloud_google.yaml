@@ -7,7 +7,6 @@ filter:
     - light.fairy_lights
     - media_player.living_room
     - scene.movie_mode
-    - switch.bedroom_lamp
     - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
@@ -20,6 +19,9 @@ filter:
     - switch.obama
     - script.living_room_game_mode
     - switch.living_room_tv_power
+    - light.bedroom_lamp
+    - light.living_room_lamp
+    - scene.going_to_bed
 
 entity_config:
   group.all_lights_custom:
