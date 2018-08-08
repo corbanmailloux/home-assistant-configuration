@@ -99,34 +99,34 @@ everything_off:
   icon_on: mdi-timer-sand
 
 living_room_temp:
-  widget_type: climate
-  entity: climate.living_room
+  widget_type: sensor
+  entity: sensor.living_room_temperature
   title: Living Room
   title2: Temperature
 
 living_room_humidity:
   widget_type: gauge
-  entity: sensor.living_room_thermostat_humidity
+  entity: sensor.living_room_humidity
   max: "100"
   min: "0"
   units: "%"
   title: Living Room
   title2: Humidity
 
-bedroom_temp:
-  widget_type: sensor
-  entity: sensor.bedroom_temperature
-  title: Bedroom
-  title2: Temperature
-
-bedroom_humidity:
-  widget_type: gauge
-  entity: sensor.bedroom_humidity
-  max: "100"
-  min: "0"
-  units: "%"
-  title: Bedroom
-  title2: Humidity
+# bedroom_temp:
+#   widget_type: sensor
+#   entity: sensor.bedroom_temperature
+#   title: Bedroom
+#   title2: Temperature
+#
+# bedroom_humidity:
+#   widget_type: gauge
+#   entity: sensor.bedroom_humidity
+#   max: "100"
+#   min: "0"
+#   units: "%"
+#   title: Bedroom
+#   title2: Humidity
 
 living_room_lights:
   widget_type: group
@@ -143,7 +143,7 @@ bus_alert_toggle:
 
 layout:
     - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
-    - corban_presence, maggie_presence, living_room_temp, bedroom_temp, spotify(2x2), living_room_media_player(2x2)
-    - corban_maps_presence, maggie_maps_presence, living_room_humidity, bedroom_humidity
+    - corban_presence, maggie_presence, living_room_temp, living_room_humidity, spotify(2x2), living_room_media_player(2x2)
+    - corban_maps_presence, maggie_maps_presence, spacer, spacer
     -
     - light.fairy_lights, living_room_lights, spacer, scene.movie_mode, spacer(1x1), bus_alert_toggle, spacer, everything_off

@@ -24,22 +24,24 @@ environment_outside:
 environment_livingroom:
   name: Living Room
   entities:
-    - sensor.living_room_thermostat_temperature
-    - sensor.living_room_thermostat_target
-    - sensor.living_room_thermostat_humidity
-    - binary_sensor.living_room_thermostat_fan
-    - binary_sensor.living_room_thermostat_has_leaf
-    - sensor.living_room_thermostat_hvac_state
-    - sensor.living_room_thermostat_operation_mode
-    # - binary_sensor.living_room_thermostat_is_locked
-    # - binary_sensor.living_room_thermostat_is_using_emergency_heat
-    - binary_sensor.living_room_thermostat_online
+    - sensor.living_room_temperature
+    - sensor.living_room_humidity
+    # - sensor.living_room_thermostat_temperature
+    # - sensor.living_room_thermostat_target
+    # - sensor.living_room_thermostat_humidity
+    # - binary_sensor.living_room_thermostat_fan
+    # - binary_sensor.living_room_thermostat_has_leaf
+    # - sensor.living_room_thermostat_hvac_state
+    # - sensor.living_room_thermostat_operation_mode
+    # # - binary_sensor.living_room_thermostat_is_locked
+    # # - binary_sensor.living_room_thermostat_is_using_emergency_heat
+    # - binary_sensor.living_room_thermostat_online
 
-environment_bedroom:
-  name: Bedroom
-  entities:
-    - sensor.bedroom_temperature
-    - sensor.bedroom_humidity
+# environment_bedroom:
+#   name: Bedroom
+#   entities:
+#     - sensor.bedroom_temperature
+#     - sensor.bedroom_humidity
 
 speedtest:
   name: Internet Speed

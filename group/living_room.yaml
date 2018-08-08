@@ -5,8 +5,10 @@ view_living_room:
   name: Living Room
   icon: mdi:sofa
   entities:
-    - sensor.living_room_thermostat_temperature
-    - sensor.living_room_thermostat_humidity
+    # - sensor.living_room_thermostat_temperature
+    # - sensor.living_room_thermostat_humidity
+    - sensor.living_room_temperature
+    - sensor.living_room_humidity
     - group.living_room_lights
     - group.living_room_light_control
     - media_player.living_room
