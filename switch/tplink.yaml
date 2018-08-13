@@ -1,0 +1,3 @@
+- platform: tplink
+  name: TP-Link Switch 1 # TODO: Needs a better name
+  host: !secret tplink_switch_1_host
