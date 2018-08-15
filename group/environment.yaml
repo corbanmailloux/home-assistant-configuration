@@ -12,6 +12,7 @@ view_environment:
     - group.speedtest
     - group.darksky_sensors
     - history_graph.temperatures
+    - history_graph.humidities
 
 environment_outside:
   name: Outside

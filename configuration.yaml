@@ -66,9 +66,14 @@ history_graph:
     name: Temperatures
     entities:
       # - sensor.living_room_thermostat_temperature
-      - sensor.bedroom_temperature
       - sensor.living_room_temperature
       - sensor.dark_sky_temperature
+    hours_to_show: 72
+  humidities:
+    name: Humidities
+    entities:
+      - sensor.living_room_humidity
+      - sensor.dark_sky_humidity
     hours_to_show: 72
 
 # Enables the frontend
