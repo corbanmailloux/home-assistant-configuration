@@ -1,10 +1,5 @@
 # Customizations for switches
 
-switch.living_room_corner:
-  friendly_name: Corner Lamp
-  emulated_hue_hidden: false
-  icon: mdi:lightbulb
-
 switch.living_room_lamp_near_tv:
   friendly_name: TV Lamp
   emulated_hue_hidden: false

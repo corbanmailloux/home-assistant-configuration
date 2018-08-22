@@ -51,7 +51,12 @@ script:
           - switch.obama # Turn on the server, in case it was off.
           - switch.living_room_tv_power # Same with the TV.
           - switch.living_room_lamp_near_tv # Give some lighting. # TODO: Set the backlight as well?
-      - delay: 00:00:02 # TODO: Tweak timing
+      - delay: 00:00:02
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.65_tcl_roku_tv
+          source: Obama
+      - delay: 00:00:03 # Try a second time in case 
       - service: media_player.select_source
         data:
           entity_id: media_player.65_tcl_roku_tv

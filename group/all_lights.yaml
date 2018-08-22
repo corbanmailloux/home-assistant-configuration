@@ -5,7 +5,6 @@ all_lights_custom:
   entities:
     - light.exit_sign
     - light.living_room_tv_backlight
-    - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - light.fairy_lights
     - switch.living_room_couch
@@ -20,7 +19,6 @@ everything_custom:
   entities:
     - light.exit_sign
     - light.living_room_tv_backlight
-    - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - light.fairy_lights
     - switch.living_room_couch

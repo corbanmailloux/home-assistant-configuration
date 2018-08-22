@@ -7,7 +7,6 @@ filter:
     - light.fairy_lights
     - media_player.living_room
     - scene.movie_mode
-    - switch.living_room_corner
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
     - switch.office_pink_lamp

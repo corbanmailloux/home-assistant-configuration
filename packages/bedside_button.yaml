@@ -15,9 +15,9 @@ automation:
       - platform: state
         entity_id: binary_sensor.bedside_button
         to: "on"
-    action: 
+    action:
       - service: script.turn_on
-        entity_id: 
+        entity_id:
           - script.bedside_1_morning
           - script.bedside_2_normal
           - script.bedside_3_going_to_bed
@@ -32,7 +32,7 @@ script:
         before: '06:29:59'
       - service: homeassistant.toggle
         entity_id: switch.living_room_lamp_near_tv
-  
+
   # 6:30a - 8:29p: Toggle fairy lights
   bedside_2_normal:
     sequence:
@@ -53,7 +53,7 @@ script:
           - light.living_room_tv_backlight
           - light.exit_sign
           - switch.living_room_lamp_near_tv
-          - switch.living_room_corner
+          - light.living_room_lamp
           - switch.living_room_triple
       - service: homeassistant.toggle
         entity_id: switch.bedroom_fairy_lights
