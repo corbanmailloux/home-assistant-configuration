@@ -3,6 +3,24 @@ light:
     host: !secret wall_display_ip
 
 sensor:
+  # Outbound (heading home)
+  - platform: rest
+    name: Outbound Busses from Station
+    scan_interval: 30
+    force_update: true
+    resource: !secret transit_api_outbound_url
+    json_attributes:
+      - data
+    value_template: >-
+      {% if states.sensor.outbound_busses_from_station.attributes["data"] | length > 0 %}
+        {{ as_timestamp(value_json["data"][0]["attributes"]["arrival_time"]) | timestamp_custom("%I:%M %p") }}
+      {% else %}
+        N/A
+      {% endif %}
+    headers:
+      x-api-key: !secret transit_api_key
+
+  # Inbound (heading to work)
   - platform: rest
     name: Busses at Stop
     scan_interval: 30
@@ -190,6 +208,30 @@ automation:
           entity_id: light.wall_display_light
           rgb_color: [0, 0, 255]
 
+  # Outbound, notify when at Malden about the next bus
+  - alias: "Notify Corban of the next busses when he gets to Malden"
+    trigger:
+      - platform: state
+        entity_id: device_tracker.edith_wifi
+        to: "malden"
+    action:
+      - service: notify.html5_edith
+        data:
+          title: "Upcoming Busses at Malden"
+        data_template:
+          message: |-
+            {%- set data = states.sensor.outbound_busses_from_station.attributes["data"] -%}
+            {%- if data and data | length > 0 -%}
+            {% for route in data %}
+            {%- set arrival_time = route["attributes"]["arrival_time"] -%}
+            {%- set route_id = route["relationships"]["route"]["data"]["id"] -%}
+
+            {{ route_id }} - {{ as_timestamp(arrival_time) | timestamp_custom("%I:%M %p") }}
+            {% endfor %}
+            {%- else -%}
+            No busses available.
+            {%- endif -%}
+
 group:
   bus_times:
     name: Bus Times
@@ -208,6 +250,7 @@ group:
       - light.wall_display_light
       - light.wall_display_screen
       - automation.turn_on_the_wall_display_when_corban_gets_home
+      - automation.notify_corban_of_the_next_busses_when_he_gets_to_malden
 
 homeassistant:
   customize:
