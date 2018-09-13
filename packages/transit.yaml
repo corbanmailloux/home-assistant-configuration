@@ -13,7 +13,7 @@ sensor:
       - data
     value_template: >-
       {% if states.sensor.outbound_busses_from_station.attributes["data"] | length > 0 %}
-        {{ as_timestamp(value_json["data"][0]["attributes"]["arrival_time"]) | timestamp_custom("%I:%M %p") }}
+        {{ as_timestamp(value_json["data"][0]["attributes"]["departure_time"]) | timestamp_custom("%I:%M %p") }}
       {% else %}
         N/A
       {% endif %}
@@ -223,10 +223,10 @@ automation:
             {%- set data = states.sensor.outbound_busses_from_station.attributes["data"] -%}
             {%- if data and data | length > 0 -%}
             {% for route in data %}
-            {%- set arrival_time = route["attributes"]["arrival_time"] -%}
+            {%- set departure_time = route["attributes"]["departure_time"] -%}
             {%- set route_id = route["relationships"]["route"]["data"]["id"] -%}
 
-            {{ route_id }} - {{ as_timestamp(arrival_time) | timestamp_custom("%I:%M %p") }}
+            {{ route_id }} - {{ as_timestamp(departure_time) | timestamp_custom("%I:%M %p") }}
             {% endfor %}
             {%- else -%}
             No busses available.
