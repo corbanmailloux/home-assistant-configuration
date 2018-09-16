@@ -30,5 +30,4 @@ testing_scripts:
     - automation.bedside_button
     - script.play_pause_master
     - script.living_room_game_mode
-    - switch.tplink_switch_1
     # - light.test_light

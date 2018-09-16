@@ -16,6 +16,9 @@ switch.office_pink_lamp:
   emulated_hue_hidden: false
   icon: mdi:lightbulb
 
+switch.bedroom_fan:
+  icon: mdi:fan
+
 # switch.strobe_light:
 #   friendly_name: Strobe Light
 #   emulated_hue_hidden: false

@@ -8,6 +8,7 @@ view_bedroom:
     - group.bedroom_lights
     # - sensor.bedroom_temperature
     # - sensor.bedroom_humidity
+    - switch.bedroom_fan
     - group.sunrise_alarm
 
 bedroom_lights:
