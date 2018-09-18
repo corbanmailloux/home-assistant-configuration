@@ -23,7 +23,6 @@ everything_custom:
     - light.fairy_lights
     - switch.living_room_couch
     - media_player.kodi_obama
-    - media_player.corban_and_maggie
     - switch.office_pink_lamp
     - light.wall_display_screen
     - light.wall_display_light

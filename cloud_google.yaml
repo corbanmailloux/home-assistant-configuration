@@ -6,7 +6,7 @@ filter:
     - light.living_room_tv_backlight
     - light.fairy_lights
     # - media_player.living_room
-    - scene.movie_mode
+    # - scene.movie_mode
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
     - switch.office_pink_lamp
@@ -17,6 +17,7 @@ filter:
     - input_boolean.scary_mode
     - switch.obama
     - script.living_room_game_mode
+    - script.living_room_movie_mode
     - switch.living_room_tv_power
     - light.bedroom_lamp
     - light.living_room_lamp
