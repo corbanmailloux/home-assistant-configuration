@@ -81,15 +81,15 @@ reload:
   widget_type: reload
   title: Reload
 
-living_room_media_player:
-  title: Living Room
-  widget_type: media_player
-  entity: media_player.living_room
-
 spotify:
   title: Spotify
   widget_type: media_player
   entity: media_player.spotify
+
+living_room_play_pause:
+  title: TV Play/Pause
+  widget_type: script
+  entity: script.roku_play_pause
 
 everything_off:
   widget_type: script
@@ -141,9 +141,10 @@ bus_alert_toggle:
   # icon_on: mdi-bus
   # icon_off: mdi-bus
 
+# 8 columns per row
 layout:
     - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
-    - corban_presence, maggie_presence, living_room_temp, living_room_humidity, spotify(2x2), living_room_media_player(2x2)
-    - corban_maps_presence, maggie_maps_presence, spacer, spacer
+    - corban_presence, maggie_presence, living_room_temp, living_room_humidity, spacer, living_room_play_pause, spotify(2x2)
+    - corban_maps_presence, maggie_maps_presence
     - script.living_room_movie_mode, script.living_room_game_mode
     - switch.living_room_tv_power, living_room_lights, spacer, light.fairy_lights, spacer, bus_alert_toggle, spacer, everything_off
