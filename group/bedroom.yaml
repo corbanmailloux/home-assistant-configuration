@@ -14,6 +14,6 @@ view_bedroom:
 bedroom_lights:
   name: Bedroom Lights
   entities:
-    - light.fairy_lights
+    # - light.fairy_lights
     - light.bedroom_lamp # Tradfri
-    - light.exit_sign
+    # - light.exit_sign # TODO: Moved, and also unplugged.

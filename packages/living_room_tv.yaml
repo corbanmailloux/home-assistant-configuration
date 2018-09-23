@@ -45,6 +45,8 @@ group:
       - script.roku_play_pause
       - script.roku_replay
       - script.roku_back
+      - script.living_room_movie_mode
+      - script.living_room_game_mode
 
 rest_command:
   # https://sdkdocs.roku.com/display/sdkdoc/External+Control+API#ExternalControlAPI-KeypressKeyValues
