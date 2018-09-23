@@ -1,0 +1,19 @@
+script:
+  front_buzzer:
+    sequence:
+      - service: mqtt.publish
+        data:
+          topic: /FrontBuzzerESP/cmd
+          payload: Servo,1,12,45
+      - delay:
+          milliseconds: 500
+      - service: mqtt.publish
+        data:
+          topic: /FrontBuzzerESP/cmd
+          payload: Servo,1,12,90
+
+homeassistant:
+  customize:
+    script.front_buzzer:
+      friendly_name: Front Buzzer
+      icon: mdi:door

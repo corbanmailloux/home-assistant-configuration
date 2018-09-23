@@ -29,5 +29,5 @@ testing_scripts:
   entities:
     - automation.bedside_button
     - script.play_pause_master
-    - script.living_room_game_mode
+    - script.front_buzzer
     # - light.test_light
