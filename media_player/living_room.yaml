@@ -1,8 +1,8 @@
 - platform: universal
-  name: Living Room
+  name: Living Room TV
   children:
+    - media_player.plex_65_tcl_roku_tv
     - media_player.kodi_obama
-    # - media_player.corban_and_maggie # This Chromecast has been moved to the bedroom and renamed.
     - media_player.65_tcl_roku_tv
 
 # - platform: cast
