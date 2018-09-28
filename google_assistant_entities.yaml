@@ -29,6 +29,8 @@ switch.living_room_tv_power:
 switch.obama:
   name: Server
   room: Living Room
+  aliases:
+    - Obama
   expose: true
 script.living_room_game_mode:
   room: Living Room
@@ -48,3 +50,4 @@ light.bedroom_lamp:
 light.living_room_lamp:
   room: Living Room
   expose: true
+# TODO: Party mode and scary mode?

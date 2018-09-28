@@ -38,8 +38,13 @@ recorder:
       - script
     entities:
       - sun.sun   # Don't record sun data
-      - sensor.yi_most_recent_recording # It changes each minute
       - sensor.time
+      - sensor.outbound_busses_from_station # Changes often, and no value in tracking
+      - sensor.busses_at_stop
+      - sensor.bus_1_time
+      - sensor.bus_1_route
+      - sensor.bus_2_time
+      - sensor.bus_2_route
 
 # Enables support for tracking state changes over time.
 history:
@@ -53,8 +58,13 @@ history:
       - script
     entities:
       - sun.sun   # Don't record sun data
-      - sensor.yi_most_recent_recording # It changes each minute
       - sensor.time
+      - sensor.outbound_busses_from_station # Changes often, and no value in tracking
+      - sensor.busses_at_stop
+      - sensor.bus_1_time
+      - sensor.bus_1_route
+      - sensor.bus_2_time
+      - sensor.bus_2_route
 
 history_graph:
   temperatures:
@@ -162,7 +172,6 @@ frontend:
       google-green-500: '#39E949'
 
 # Discover some devices automatically
-# I had this disabled due to an issue with my old router. Let's try it again.
 discovery:
 
 # Allows sending a magic packet directly.
@@ -180,9 +189,6 @@ logbook:
 logger:
   # default: info
   default: warn
-  # logs:
-    # homeassistant.components.device_tracker.netgear: critical
-    # homeassistant.components.device_tracker: critical
 
 mqtt:
   broker: core-mosquitto # Addon
