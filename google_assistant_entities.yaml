@@ -1,0 +1,50 @@
+group.living_room_lights:
+  room: Living Room
+  expose: true
+group.bedroom_lights:
+  room: Bedroom
+  expose: true
+group.all_lights_custom:
+  name: All Lights
+  expose: true
+light.living_room_tv_backlight:
+  name: Back light
+  room: Living Room
+  expose: true
+switch.living_room_lamp_near_tv:
+  room: Living Room
+  expose: true
+switch.living_room_couch:
+  room: Living Room
+  expose: true
+switch.office_pink_lamp:
+  room: Office
+  expose: true
+switch.living_room_tv_power:
+  name: Living Room TV
+  aliases:
+    - TV
+  room: Living Room
+  expose: true
+switch.obama:
+  name: Server
+  room: Living Room
+  expose: true
+script.living_room_game_mode:
+  room: Living Room
+  expose: true
+script.living_room_movie_mode:
+  room: Living Room
+  expose: true
+switch.bedroom_fan:
+  name: Bedroom Fan
+  room: Bedroom
+  aliases:
+    - Fan
+  expose: true
+light.bedroom_lamp:
+  room: Bedroom
+  expose: true
+light.living_room_lamp:
+  room: Living Room
+  expose: true
