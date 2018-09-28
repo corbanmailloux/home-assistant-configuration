@@ -9,11 +9,11 @@ view_bedroom:
     # - sensor.bedroom_temperature
     # - sensor.bedroom_humidity
     - switch.bedroom_fan
-    - group.sunrise_alarm
+    # - group.sunrise_alarm # TODO: Coming back soon.
 
 bedroom_lights:
   name: Bedroom Lights
   entities:
-    # - light.fairy_lights
+    # - light.fairy_lights # TODO: Coming back soon.
     - light.bedroom_lamp # Tradfri
     # - light.exit_sign # TODO: Moved, and also unplugged.
