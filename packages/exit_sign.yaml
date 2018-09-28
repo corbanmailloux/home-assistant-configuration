@@ -23,7 +23,6 @@ input_select:
 
 automation:
   - alias: "Exit Sign Button - Toggle Exit Sign"
-    hide_entity: true
     trigger:
       platform: mqtt
       topic: home/exit/button
@@ -37,7 +36,6 @@ automation:
       entity_id: light.exit_sign
 
   - alias: "Exit Sign Button - Toggle Party Mode"
-    hide_entity: true
     trigger:
       platform: mqtt
       topic: home/exit/button
@@ -51,7 +49,6 @@ automation:
       entity_id: input_boolean.party_mode
 
   - alias: "Turn off exit sign at 11pm"
-    hide_entity: true
     trigger:
       platform: time
       at: '23:00:00'

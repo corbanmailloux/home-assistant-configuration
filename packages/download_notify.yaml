@@ -21,7 +21,6 @@
 #
 # automation:
 #   - alias: "New Obama Download"
-#     hide_entity: true
 #     trigger:
 #       - platform: state
 #         entity_id: sensor.most_recent_download
@@ -51,7 +50,6 @@
 #           visible: true
 #
 #   - alias: "Reset Download Count"
-#     hide_entity: true
 #     trigger:
 #       - platform: state
 #         entity_id: sensor.most_recent_download
@@ -64,7 +62,6 @@
 #           payload: ""
 #
 #   - alias: "Show/Hide Notification Group"
-#     hide_entity: true
 #     trigger:
 #       - platform: state
 #         entity_id: binary_sensor.download_waiting

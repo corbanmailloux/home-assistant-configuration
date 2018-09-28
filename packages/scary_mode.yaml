@@ -1,5 +1,6 @@
-# Note: The strobe light has been removed from this configuration, so scary mode is a little
+# NOTE: The strobe light has been removed from this configuration, so scary mode is a little
 # lackluster now.
+# TODO: Update for the new apartment, as well as because there are no Echos anymore.
 
 input_boolean:
   scary_mode:
@@ -9,7 +10,6 @@ input_boolean:
 
 automation:
   - alias: "Scary Mode - On"
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: input_boolean.scary_mode
@@ -19,7 +19,6 @@ automation:
         entity_id: script.scary_mode_start
 
   - alias: "Scary Mode - Off"
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: input_boolean.scary_mode

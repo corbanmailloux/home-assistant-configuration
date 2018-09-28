@@ -32,7 +32,6 @@ script:
 
 automation:
   - alias: "Bring me a donut"
-    hide_entity: true
     trigger:
       - platform: mqtt
         topic: home/espbutton

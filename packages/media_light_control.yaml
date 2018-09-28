@@ -1,8 +1,8 @@
+# NOTE: This whole package is out-of-date because we moved and rearranged. I should update it someday.
 # Package for controlling the lights based on the media players
 
 automation:
   - alias: "Media player paused/stopped"
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: media_player.kodi_obama
@@ -22,7 +22,6 @@ automation:
         entity_id: script.media_undim_master
 
   - alias: "Media player playing"
-    hide_entity: true
     trigger:
       - platform: state
         entity_id: media_player.kodi_obama
@@ -42,7 +41,6 @@ automation:
         entity_id: script.media_dim_master
 
   - alias: "Chromecast starts Spotify"
-    hide_entity: true
     trigger:
       - platform: template
         value_template: >
@@ -59,7 +57,6 @@ automation:
         entity_id: scene.tv_spotify
 
   - alias: "Reset color when Chromecast stops"
-    # hide_entity: true
     initial_state: false
     trigger:
       - platform: state
