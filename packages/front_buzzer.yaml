@@ -11,6 +11,7 @@ script:
         data:
           topic: /FrontBuzzerESP/cmd
           payload: Servo,1,12,90
+          retain: true # Just in case, make the servo always reset to here after a restart.
 
 homeassistant:
   customize:

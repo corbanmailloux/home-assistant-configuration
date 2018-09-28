@@ -146,5 +146,5 @@ layout:
     - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
     - corban_presence, maggie_presence, living_room_temp, living_room_humidity, spacer, living_room_play_pause, spotify(2x2)
     - corban_maps_presence, maggie_maps_presence
-    - script.living_room_movie_mode, script.living_room_game_mode
+    - script.living_room_movie_mode, script.living_room_game_mode, spacer(5x1), script.front_buzzer
     - switch.living_room_tv_power, living_room_lights, spacer, light.fairy_lights, spacer, bus_alert_toggle, spacer, everything_off
