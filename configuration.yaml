@@ -21,11 +21,6 @@ http:
 updater:
   include_used_components: true
 
-# Trying out the HASS Cloud
-cloud:
-  alexa: !include cloud_alexa.yaml
-  google_actions: !include cloud_google.yaml
-
 config:
 
 hassio:
