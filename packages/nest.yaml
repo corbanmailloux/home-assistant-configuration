@@ -1,44 +1,44 @@
-automation:
-  - alias: "Notify if Nest goes offline"
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.living_room_thermostat_online
-        to: "off"
-    action:
-      - service: notify.html5_edith
-        data:
-          title: "Nest is Offline"
-          message: "Might want to look into that."
-
-
-homeassistant:
-  customize:
-    binary_sensor.living_room_thermostat_fan:
-      icon: mdi:fan
-      device_class: moving
-      friendly_name: Fan
-    binary_sensor.living_room_thermostat_has_leaf:
-      icon: mdi:leaf
-      friendly_name: Nest leaf
-    binary_sensor.living_room_thermostat_is_locked:
-      icon: mdi:lock
-      friendly_name: Nest locked
-    binary_sensor.living_room_thermostat_online:
-      icon: mdi:server-network
-      device_class: connectivity
-      friendly_name: Nest online
-    sensor.living_room_thermostat_humidity:
-      icon: mdi:water-percent
-      friendly_name: Nest humidity
-    sensor.living_room_thermostat_temperature:
-      icon: mdi:thermometer
-      friendly_name: Nest temperature
-    sensor.living_room_thermostat_target:
-      icon: mdi:thermometer-lines
-      friendly_name: Nest target temperature
-    sensor.living_room_thermostat_hvac_state:
-      icon: mdi:nest-thermostat
-      friendly_name: Nest HVAC state
-    sensor.living_room_thermostat_operation_mode:
-      icon: mdi:nest-thermostat
-      friendly_name: Nest operation mode
+# automation:
+#   - alias: "Notify if Nest goes offline"
+#     trigger:
+#       - platform: state
+#         entity_id: binary_sensor.living_room_thermostat_online
+#         to: "off"
+#     action:
+#       - service: notify.html5_edith
+#         data:
+#           title: "Nest is Offline"
+#           message: "Might want to look into that."
+#
+#
+# homeassistant:
+#   customize:
+#     binary_sensor.living_room_thermostat_fan:
+#       icon: mdi:fan
+#       device_class: moving
+#       friendly_name: Fan
+#     binary_sensor.living_room_thermostat_has_leaf:
+#       icon: mdi:leaf
+#       friendly_name: Nest leaf
+#     binary_sensor.living_room_thermostat_is_locked:
+#       icon: mdi:lock
+#       friendly_name: Nest locked
+#     binary_sensor.living_room_thermostat_online:
+#       icon: mdi:server-network
+#       device_class: connectivity
+#       friendly_name: Nest online
+#     sensor.living_room_thermostat_humidity:
+#       icon: mdi:water-percent
+#       friendly_name: Nest humidity
+#     sensor.living_room_thermostat_temperature:
+#       icon: mdi:thermometer
+#       friendly_name: Nest temperature
+#     sensor.living_room_thermostat_target:
+#       icon: mdi:thermometer-lines
+#       friendly_name: Nest target temperature
+#     sensor.living_room_thermostat_hvac_state:
+#       icon: mdi:nest-thermostat
+#       friendly_name: Nest HVAC state
+#     sensor.living_room_thermostat_operation_mode:
+#       icon: mdi:nest-thermostat
+#       friendly_name: Nest operation mode

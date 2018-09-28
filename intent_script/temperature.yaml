@@ -2,7 +2,7 @@ Temperature:
   speech:
     type: plain
     text: >
-      {%- set temp_livingroom = states('sensor.living_room_thermostat_temperature') | round | int -%}
+      {%- set temp_livingroom = states('sensor.living_room_temperature') | round | int -%}
       {%- set temp_bedroom = states('sensor.bedroom_temperature') | round | int -%}
       {%- set temp_outside = states('sensor.dark_sky_temperature') | round | int -%}
       {%- set temp_feelslike = states('sensor.dark_sky_apparent_temperature') | round | int -%}
@@ -23,4 +23,4 @@ Temperature:
     type: simple
     title: Temperatures
     content: >
-      Living room: {{ states('sensor.living_room_thermostat_temperature') | round | int }}°. Bedroom: {{ states('sensor.bedroom_temperature') | round | int }}°. Outside: {{ states('sensor.dark_sky_temperature') | round | int }}°.
+      Living room: {{ states('sensor.living_room_temperature') | round | int }}°. Bedroom: {{ states('sensor.bedroom_temperature') | round | int }}°. Outside: {{ states('sensor.dark_sky_temperature') | round | int }}°.
