@@ -3,7 +3,7 @@
 This is the configuration I use for [Home Assistant](https://www.home-assistant.io/). I use [Hass.io](https://www.home-assistant.io/hassio/) running on a Raspberry Pi as the central Home Assistant server.
 
 ### Services and Devices
-Here are the services/platforms/other devices that I use with Home Assistant:
+Here are (some of) the services/platforms/other devices that I use with Home Assistant:
 
 | Name | Product Link | How It's Used in HASS |
 |------|--------------|-----------|
@@ -14,4 +14,4 @@ Here are the services/platforms/other devices that I use with Home Assistant:
 | IKEA Trådfri | [IKEA](https://www.ikea.com/us/en/catalog/products/90353361/) | [Tradfri component](https://www.home-assistant.io/components/tradfri/) |
 | Nest Thermostat E | [Nest Store](https://store.nest.com/product/thermostat-e/T4000ES) | [Nest component](https://www.home-assistant.io/components/nest/) |
 | OctoPrint with a Monoprice MP Select Mini 3D Printer V2 | [OctoPrint](https://octoprint.org/), [Monoprice](https://www.monoprice.com/product?p_id=21711) | [OctoPrint component](https://www.home-assistant.io/components/octoprint/) |
-| TP-Link Spart Plug | [Amazon](https://www.amazon.com/gp/product/B01K1JVZOE/) | [TP-Link Switch](https://www.home-assistant.io/components/switch.tplink/) |
+| TP-Link Smart Plug | [Amazon](https://www.amazon.com/gp/product/B01K1JVZOE/) | [TP-Link Switch](https://www.home-assistant.io/components/switch.tplink/) |
