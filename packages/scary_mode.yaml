@@ -114,9 +114,3 @@ script:
       - delay: 00:00:01
       - service: script.turn_on
         entity_id: script.scary_mode_strobe
-
-
-homeassistant:
-  customize:
-    input_boolean.scary_mode:
-      emulated_hue_hidden: false

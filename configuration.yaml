@@ -268,10 +268,6 @@ google_assistant:
 tts:
   - platform: google
 
-# emulated_hue:
-#   host_ip: !secret hass_ip_address
-#   expose_by_default: false
-
 automation: !include_dir_merge_list automation
 group: !include_dir_merge_named group
 input_boolean: !include_dir_merge_named input_boolean

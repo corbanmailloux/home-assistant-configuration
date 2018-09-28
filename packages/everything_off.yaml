@@ -11,4 +11,3 @@ homeassistant:
   customize:
     script.everything_off:
       friendly_name: "Everything"
-      emulated_hue_hidden: false

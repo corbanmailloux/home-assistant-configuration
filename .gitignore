@@ -105,7 +105,6 @@ known_devices.yaml
 google_calendars.yaml
 .google.token
 tts/
-emulated_hue_ids.json
 www/*
 !www/donuts/
 usps_cookies.pickle

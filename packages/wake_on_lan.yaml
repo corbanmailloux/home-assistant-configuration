@@ -17,6 +17,4 @@ switch:
 homeassistant:
   customize:
     switch.obama:
-      emulated_hue_hidden: false
-      emulated_hue_name: "Server"
       icon: mdi:desktop-tower

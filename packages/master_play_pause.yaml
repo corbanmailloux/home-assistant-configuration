@@ -13,5 +13,3 @@ homeassistant:
     script.play_pause_master:
       friendly_name: "Master Play/Pause"
       icon: mdi:play-pause
-      emulated_hue_hidden: false
-      emulated_hue_name: "T.V. Show"

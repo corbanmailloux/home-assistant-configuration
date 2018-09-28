@@ -150,9 +150,3 @@ script:
       - delay: 00:00:02
       - service: script.turn_on
         entity_id: script.toggle_lamps
-
-
-homeassistant:
-  customize:
-    input_boolean.party_mode:
-      emulated_hue_hidden: false
