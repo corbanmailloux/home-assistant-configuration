@@ -46,7 +46,7 @@ automation:
     trigger:
       - platform: template
         value_template: >
-          {% if states.media_player.corban_and_maggie is not none 
+          {% if states.media_player.corban_and_maggie is not none
             and states.media_player.corban_and_maggie.attributes.app_name == "Spotify" %}
             true
           {% endif %}
@@ -86,7 +86,7 @@ script:
   media_dim_master:
     sequence:
       - service: script.turn_on
-        entity_id: 
+        entity_id:
           - script.media_dim_tv_backlight
           - script.media_dim_exit_sign
 
@@ -134,19 +134,3 @@ script:
         state: "on"
       - service: scene.turn_on
         entity_id: scene.exit_bright
-
-
-homeassistant:
-  customize:
-    script.media_dim_master:
-      hidden: true
-    script.media_undim_master:
-      hidden: true
-    script.media_dim_tv_backlight:
-      hidden: true
-    script.media_undim_tv_backlight:
-      hidden: true
-    script.media_dim_exit_sign:
-      hidden: true
-    script.media_undim_exit_sign:
-      hidden: true
