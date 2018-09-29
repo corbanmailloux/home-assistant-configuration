@@ -148,14 +148,6 @@ panel_iframe:
     title: 'Calendar'
     icon: mdi:calendar
     url: !secret google_calendar_url
-  nodered_flows:
-    title: 'Node-RED Flows'
-    url: 'http://hassio.local:1880'
-    icon: mdi:nodejs
-  sonweb:
-    title: 'SonWEB'
-    url: 'http://hassio.local:9541/devices'
-    icon: mdi:lightbulb-on
 
 alexa:
 
@@ -179,6 +171,15 @@ google_assistant:
 
 tts:
   - platform: google
+
+weblink:
+  entities:
+    - name: 'Node-RED Flows'
+      url: 'http://hassio.local:1880'
+      icon: mdi:nodejs
+    - name: 'TasmoAdmin'
+      url: 'http://hassio.local:9541/devices'
+      icon: mdi:lightbulb-on
 
 automation: !include_dir_merge_list automation
 group: !include_dir_merge_named group

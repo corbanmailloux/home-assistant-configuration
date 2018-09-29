@@ -12,6 +12,7 @@ view_management:
     - group.temperature_backlight  # See packages/backlight_temperature
     - group.dash_button_1
     - group.testing_scripts
+    - group.hass_extensions
     - group.octoprint
     - media_player.spotify
     - media_player.google_homes
@@ -24,6 +25,13 @@ obama_management_scripts:
     - script.kodi_update_video
     - script.shutdown_obama
     - switch.obama
+
+hass_extensions:
+  name: HASS Extensions
+  control: hidden
+  entities:
+    - weblink.nodered_flows
+    - weblink.tasmoadmin
 
 testing_scripts:
   name: Test Scripts
