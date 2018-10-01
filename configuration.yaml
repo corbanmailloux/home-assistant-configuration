@@ -99,6 +99,7 @@ mqtt:
   broker: core-mosquitto # Addon
   username: !secret mqtt_username
   password: !secret mqtt_password
+  discovery: true
 
 device_tracker:
   - platform: mqtt

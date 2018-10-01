@@ -111,7 +111,22 @@ script:
       # - service: media_player.select_source
       #   data:
       #     entity_id: media_player.65_tcl_roku_tv
-      #     source: Plux
+      #     source: Plex
+
+  # esphomeyaml autoconfigures switches for these. Wrap them in scripts so they appear as a button
+  # in the front end.
+  soundbar_volume_up:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.soundbar__volume_up
+  soundbar_volume_down:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.soundbar__volume_down
+  soundbar_power:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.soundbar__power
 
 homeassistant:
   customize:

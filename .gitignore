@@ -120,3 +120,9 @@ plex.conf
 .storage/core.config_entries
 .tradfri_psk.conf
 .storage/
+
+esphomeyaml/*
+!esphomeyaml/*.yaml
+esphomeyaml/secrets.yaml
+# .pioenvs/
+# .piolibdeps/

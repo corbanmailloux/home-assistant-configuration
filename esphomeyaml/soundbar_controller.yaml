@@ -1,0 +1,97 @@
+esphomeyaml:
+  name: soundbar_controller
+  platform: ESP8266
+  board: d1_mini
+  arduino_version: recommended
+  esphomelib_version: dev
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  manual_ip:
+    static_ip: 10.0.0.245
+    gateway: 10.0.0.1
+    subnet: 255.255.255.0
+
+mqtt:
+  broker: !secret mqtt_broker_ip
+  username: !secret mqtt_username_esphomelib
+  password: !secret mqtt_password_esphomelib
+
+# Enable logging
+logger:
+
+ota:
+
+remote_receiver:
+  pin:
+    number: D3
+    inverted: True
+  dump:
+    - nec
+
+remote_transmitter:
+  pin: D1
+  carrier_duty_percent: 50%
+
+switch:
+  # Onboard LED, just to have a simple fallback
+  - platform: gpio
+    name: "Wemos Onboard LED"
+    pin:
+      number: D4
+      inverted: True
+  # Soundbar
+  - platform: remote_transmitter
+    name: "Soundbar - Power"
+    id: sb_power
+    nec:
+      address: 0x00FF
+      command: 0x02FD
+  - platform: remote_transmitter
+    name: "Soundbar - Volume Up"
+    id: sb_vol_up
+    nec:
+      address: 0x00FF
+      command: 0x827D
+  - platform: remote_transmitter
+    name: "Soundbar - Volume Down"
+    id: sb_vol_down
+    nec:
+      address: 0x00FF
+      command: 0xA25D
+
+binary_sensor:
+  - platform: remote_receiver
+    name: "Roku Remote - Mute Button"
+    nec:
+      address: 0x57E3
+      command: 0x04FB
+    filters:
+      - delayed_off: 200ms
+    on_release:
+      then:
+        - switch.turn_on:
+            id: sb_power
+  - platform: remote_receiver
+    name: "Roku Remote - Volume Up Button"
+    nec:
+      address: 0x57E3
+      command: 0xF00F
+    filters:
+      - delayed_off: 200ms
+    on_release:
+      then:
+        - switch.turn_on:
+            id: sb_vol_up
+  - platform: remote_receiver
+    name: "Roku Remote - Volume Down Button"
+    nec:
+      address: 0x57E3
+      command: 0x08F7
+    filters:
+      - delayed_off: 200ms
+    on_release:
+      then:
+        - switch.turn_on:
+            id: sb_vol_down
