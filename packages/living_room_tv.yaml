@@ -23,13 +23,30 @@ switch:
       living_room_tv_power:
         value_template: "{{ is_state('switch.living_room_tv_power_command_line', 'on') }}"
         turn_on:
-          service: script.turn_on
-          data:
+          - service: script.turn_on
             entity_id: script.living_room_tv_power_on
         turn_off:
-          service: switch.turn_off
-          data:
+          - service: switch.turn_off
             entity_id: switch.living_room_tv_power_command_line
+      living_room_soundbar_power:
+        value_template: "false" # assumed_state, set below, because we can't tell if it's on or off.
+        turn_on:
+          - service: script.turn_on
+            entity_id: script.soundbar_power_on
+        turn_off:
+          - service: script.turn_on
+            entity_id: script.soundbar_power_off
+
+cover:
+  - platform: template
+    covers:
+      living_room_soundbar_volume:
+        friendly_name: "Soundbar Volume"
+        position_template: "50"
+        open_cover:
+          service: script.soundbar_volume_up
+        close_cover:
+          service: script.soundbar_volume_down
 
 group:
   living_room_tv_control:
@@ -38,6 +55,8 @@ group:
     entities:
       - switch.living_room_tv_power
       - switch.obama
+      - switch.living_room_soundbar_power
+      - cover.living_room_soundbar_volume
       - script.roku_play_pause
       - script.roku_replay
       - script.roku_back
@@ -128,6 +147,32 @@ script:
       - service: switch.turn_on
         entity_id: switch.soundbar__power
 
+  # On this soundbar, volume down is ignored if the soundbar is off, and volume up turns it on.
+  # Using this, we can build sequences that will always turn the soundbar on and off, regardless
+  # of its starting state, and leave it at its initial volume level.
+  soundbar_power_on:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.soundbar__volume_down
+      - delay:
+          milliseconds: 200
+      - service: switch.turn_on
+        entity_id: switch.soundbar__volume_up
+  soundbar_power_off:
+    sequence:
+      # First, ensure it's on.
+      - service: switch.turn_on
+        entity_id: switch.soundbar__volume_down
+      - delay:
+          milliseconds: 200
+      - service: switch.turn_on
+        entity_id: switch.soundbar__volume_up
+      # It takes a bit after turning on before the soundbar will turn back off.
+      - delay:
+          seconds: 1
+      - service: switch.turn_on
+        entity_id: switch.soundbar__power
+
 homeassistant:
   customize:
     switch.living_room_tv_power:
@@ -148,3 +193,9 @@ homeassistant:
     script.roku_back:
       friendly_name: "Back"
       icon: mdi:keyboard-backspace
+    switch.living_room_soundbar_power:
+      friendly_name: Soundbar Power
+      icon: mdi:surround-sound
+      assumed_state: true # Enable the separate buttons for on and off
+    cover.living_room_soundbar_volume:
+      icon: mdi:volume-medium
