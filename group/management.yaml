@@ -38,7 +38,4 @@ testing_scripts:
   entities:
     - automation.bedside_button
     - script.front_buzzer
-    - script.soundbar_power
-    - script.soundbar_volume_up
-    - script.soundbar_volume_down
     # - light.test_light
