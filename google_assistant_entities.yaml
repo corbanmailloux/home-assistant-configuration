@@ -50,4 +50,9 @@ light.bedroom_lamp:
 light.living_room_lamp:
   room: Living Room
   expose: true
+script.maggie_travel_time_update_and_speak:
+  name: Maggie Travel Time
+  aliases:
+    - Maggie's Time to Home
+  expose: true
 # TODO: Party mode and scary mode?

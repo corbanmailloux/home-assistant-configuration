@@ -1,0 +1,46 @@
+sensor:
+  - platform: google_travel_time
+    name: 'Maggie to Home Travel Time'
+    scan_interval: 31536000 # 1 year in seconds
+    api_key: !secret google_maps_api_key
+    origin: device_tracker.google_maps_106112096418399445974
+    destination: zone.home
+
+group:
+  maggie_travel_time:
+    name: "Maggie Travel Time"
+    control: hidden
+    entities:
+      - sensor.maggie_to_home_travel_time
+      - script.maggie_travel_time_update
+      - script.maggie_travel_time_update_and_speak
+
+script:
+  maggie_travel_time_update:
+    sequence:
+      - service: sensor.google_travel_sensor_update
+        entity_id: sensor.maggie_to_home_travel_time
+  maggie_travel_time_update_and_speak:
+    sequence:
+      - service: sensor.google_travel_sensor_update
+        entity_id: sensor.maggie_to_home_travel_time
+      - delay:
+          seconds: 7
+      - service: tts.google_say
+        # entity_id: media_player.everything
+        entity_id: media_player.living_room_speaker
+        data_template:
+          message: >-
+            {%- set minutes = states('sensor.maggie_to_home_travel_time') -%}
+            Maggie is {{ minutes }} minute{% if minutes != 1 %}s{% endif %} away.
+
+homeassistant:
+  customize:
+    sensor.maggie_to_home_travel_time:
+      icon: mdi:map-marker-distance
+    script.maggie_travel_time_update:
+      friendly_name: Update Maggie's Travel Time
+      icon: mdi:map-search
+    script.maggie_travel_time_update_and_speak:
+      friendly_name: Update and Announce
+      icon: mdi:voice
