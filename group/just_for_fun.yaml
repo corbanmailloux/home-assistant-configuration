@@ -18,9 +18,7 @@ view_fun:
 fun_notifications:
   name: Fun Notifications
   entities:
-    - script.kodi_notify_i_love_maggs
     - script.phone_notify_i_love_maggs
-    - script.kodi_notify_i_love_corb
 
 fun_stuff:
   name: Fun Stuff
