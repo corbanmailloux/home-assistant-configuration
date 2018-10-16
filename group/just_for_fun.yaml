@@ -5,6 +5,7 @@ view_fun:
   name: Fun Stuff
   icon: mdi:airballoon
   entities:
+    - group.maggie_travel_time
     - group.fun_notifications
     - group.send_me_a_donut
     - group.fun_stuff
