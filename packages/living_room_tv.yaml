@@ -101,6 +101,7 @@ script:
         entity_id:
           - switch.obama # Turn on the server, in case it was off.
           - switch.living_room_tv_power # Same with the TV.
+          - switch.living_room_soundbar_power # And the soundbar.
           - switch.living_room_lamp_near_tv # Give some lighting. # TODO: Set the backlight as well?
       - delay: 00:00:02
       - service: media_player.select_source
@@ -118,6 +119,7 @@ script:
         entity_id:
           - switch.obama # Turn on the server, in case it was off.
           - switch.living_room_tv_power # Same with the TV.
+          - switch.living_room_soundbar_power # And the soundbar.
       - service: scene.turn_on
         entity_id: scene.movie_mode
       # Leaving these commented out for now because we use it for both Netflix and Plex
