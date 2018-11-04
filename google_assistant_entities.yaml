@@ -47,6 +47,9 @@ switch.bedroom_fan:
 light.bedroom_lamp:
   room: Bedroom
   expose: true
+light.fairy_lights:
+  room: Bedroom
+  expose: true
 light.entry_lamp:
   room: Living Room
   expose: true
