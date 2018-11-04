@@ -1,0 +1,45 @@
+esphomeyaml:
+  name: fairy_lights_32
+  platform: ESP32
+  board: esp32doit-devkit-v1
+  esphomelib_version: latest
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # manual_ip:
+  #   static_ip: 10.0.0.245
+  #   gateway: 10.0.0.1
+  #   subnet: 255.255.255.0
+
+mqtt:
+  broker: !secret mqtt_broker_ip
+  username: !secret mqtt_username_esphomelib
+  password: !secret mqtt_password_esphomelib
+
+# Enable logging
+logger:
+  level: INFO
+
+ota:
+
+output:
+  - platform: ledc
+    pin: 2
+    id: pin_2
+
+light:
+  - platform: monochromatic
+    name: "Fairy Lights"
+    output: pin_2
+    effects:
+      - strobe:
+      - strobe:
+          name: Fast Strobe
+          colors:
+            - state: True
+              brightness: 100%
+              duration: 250ms
+            - state: True
+              brightness: 0%
+              duration: 250ms

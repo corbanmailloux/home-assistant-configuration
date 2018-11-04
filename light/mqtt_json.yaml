@@ -10,15 +10,15 @@
   retain: true
   qos: 0
 
-- platform: mqtt_json
-  name: fairy_lights
-  state_topic: "home/brfairylights"
-  command_topic: "home/brfairylights/set"
-  brightness: true
-  rgb: false
-  optimistic: false
-  retain: true
-  qos: 0
+# - platform: mqtt_json
+#   name: fairy_lights
+#   state_topic: "home/brfairylights"
+#   command_topic: "home/brfairylights/set"
+#   brightness: true
+#   rgb: false
+#   optimistic: false
+#   retain: true
+#   qos: 0
 
 # - platform: mqtt_json
 #   name: test_light
