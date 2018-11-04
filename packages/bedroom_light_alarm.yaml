@@ -30,7 +30,7 @@ binary_sensor:
 
 automation:
   - alias: "Sunrise Alarm"
-    initial_state: 'off' # TODO: Coming back soon (and this will be reset)
+    initial_state: 'on'
     trigger:
       - platform: template
         value_template: >-

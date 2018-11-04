@@ -6,4 +6,4 @@ light.living_room_tv_backlight:
 
 light.fairy_lights:
   friendly_name: Fairy Lights
-  icon: mdi:lightbulb
+  icon: mdi:hotel
