@@ -20,7 +20,7 @@ views:
         entities:
           - switch.living_room_lamp_near_tv
           - switch.living_room_couch
-          - light.living_room_lamp
+          - light.entry_lamp
       - type: entities
         title: Bedroom Lights
         show_header_toggle: true
@@ -46,7 +46,7 @@ views:
         entities:
           - switch.living_room_lamp_near_tv
           - switch.living_room_couch
-          - light.living_room_lamp
+          - light.entry_lamp
       - type: entities
         title: Light Control
         show_header_toggle: false

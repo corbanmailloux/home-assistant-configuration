@@ -81,11 +81,11 @@ script:
       # Delay for 0 to 6 seconds
       - delay: 00:00:{{ (range(0, 7) | random | string).rjust(2, '0') }}
       - service: homeassistant.turn_on
-        entity_id: light.living_room_lamp
+        entity_id: light.entry_lamp
       - delay:
           milliseconds: 100
       - service: homeassistant.turn_off
-        entity_id: light.living_room_lamp
+        entity_id: light.entry_lamp
       - service: script.turn_on
         entity_id: script.scary_mode_flicker_lights_loop
 

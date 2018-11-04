@@ -1,7 +1,7 @@
 # Living room
 - name: Movie Mode
   entities:
-    light.living_room_lamp:
+    light.entry_lamp:
       state: off
       transition: 2
     switch.living_room_lamp_near_tv:
