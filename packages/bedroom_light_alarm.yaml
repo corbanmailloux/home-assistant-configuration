@@ -1,4 +1,5 @@
-# Slowly fade the bedroom lights on as an alarm
+# Slowly fade the bedroom lights on as an alarm.
+# See also: packages/bedroom_fairy_lights.yaml
 
 input_number:
   alarm_max_brightness:

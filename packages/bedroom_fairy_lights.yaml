@@ -1,0 +1,35 @@
+# Fairy lights mounted on the headboard in the main bedroom.
+# See also: packages/bedroom_light_alarm.yaml
+
+automation:
+  - alias: "Fairy Lights - Auto-Off"
+    trigger:
+      - platform: state
+        entity_id: light.fairy_lights
+        to: 'on'
+        for:
+          hours: 3
+          minutes: 0
+          seconds: 0
+    action:
+      - service: light.turn_off
+        entity_id: light.fairy_lights
+        data:
+          transition: 5
+  - alias: "Phone Fairy Toggle"
+    trigger:
+      - platform: event
+        event_type: jackie_fairy_toggle
+      - platform: event
+        event_type: edith_fairy_toggle
+    action:
+      - service: light.toggle
+        entity_id: light.fairy_lights
+        data:
+          transition: 2
+
+homeassistant:
+  customize:
+    light.fairy_lights:
+      friendly_name: Fairy Lights
+      icon: mdi:hotel
