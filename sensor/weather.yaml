@@ -27,11 +27,11 @@
     - precip_intensity_max
     - precip_probability
     - temperature
-    - temperature_max
-    - temperature_min
+    - temperature_high
+    - temperature_low
     - apparent_temperature
-    - apparent_temperature_max
-    - apparent_temperature_min
+    - apparent_temperature_high
+    - apparent_temperature_low
     # - dew_point
     - wind_speed
     - wind_bearing
