@@ -26,6 +26,7 @@ ota:
 output:
   - platform: ledc
     pin: 2
+    frequency: 5000
     id: pin_2
 
 light:
