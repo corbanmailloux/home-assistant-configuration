@@ -20,7 +20,7 @@ mqtt:
 
 # Enable logging
 logger:
-  level: INFO
+  level: DEBUG
 
 ota:
 
