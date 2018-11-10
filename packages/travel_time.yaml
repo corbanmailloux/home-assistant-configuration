@@ -1,12 +1,6 @@
 sensor:
-  - platform: google_travel_time
-    name: 'Maggie to Home Travel Time'
-    scan_interval: 31536000 # 1 year in seconds
-    api_key: !secret google_maps_api_key
-    origin: device_tracker.google_maps_106112096418399445974
-    destination: zone.home
   - platform: waze_travel_time
-    name: 'Maggie to Home Travel Time - Waze'
+    name: 'Maggie to Home Travel Time'
     origin: device_tracker.google_maps_106112096418399445974
     destination: zone.home
     region: 'US'
@@ -17,21 +11,13 @@ group:
     control: hidden
     entities:
       - sensor.maggie_to_home_travel_time
-      - sensor.maggie_to_home_travel_time__waze
-      - script.maggie_travel_time_update
-      - script.maggie_travel_time_update_and_speak
+      - script.maggie_travel_time_speak
 
 script:
-  maggie_travel_time_update:
+  maggie_travel_time_speak:
     sequence:
-      - service: sensor.google_travel_sensor_update
-        entity_id: sensor.maggie_to_home_travel_time
-  maggie_travel_time_update_and_speak:
-    sequence:
-      - service: sensor.google_travel_sensor_update
-        entity_id: sensor.maggie_to_home_travel_time
       - delay:
-          seconds: 7
+          seconds: 5
       - service: tts.google_say
         entity_id: media_player.everything
         data_template:
@@ -43,11 +29,6 @@ homeassistant:
   customize:
     sensor.maggie_to_home_travel_time:
       icon: mdi:map-marker-distance
-    sensor.maggie_to_home_travel_time__waze:
-      icon: mdi:map-marker-distance
-    script.maggie_travel_time_update:
-      friendly_name: Update Maggie's Travel Time
-      icon: mdi:map-search
-    script.maggie_travel_time_update_and_speak:
-      friendly_name: Update and Announce
+    script.maggie_travel_time_speak:
+      friendly_name: Announce Maggie's Travel Time
       icon: mdi:voice

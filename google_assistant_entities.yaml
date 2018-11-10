@@ -53,7 +53,7 @@ light.fairy_lights:
 light.entry_lamp:
   room: Living Room
   expose: true
-script.maggie_travel_time_update_and_speak:
+script.maggie_travel_time_speak:
   name: Maggie Travel Time
   aliases:
     - Maggie's Travel Time
