@@ -1,14 +1,14 @@
 # MQTT JSON lights
 
-- platform: mqtt_json
-  name: living_room_tv_backlight
-  state_topic: "home/lrtvbacklight"
-  command_topic: "home/lrtvbacklight/set"
-  brightness: true
-  rgb: true
-  optimistic: false
-  retain: true
-  qos: 0
+# - platform: mqtt_json
+#   name: living_room_tv_backlight
+#   state_topic: "home/lrtvbacklight"
+#   command_topic: "home/lrtvbacklight/set"
+#   brightness: true
+#   rgb: true
+#   optimistic: false
+#   retain: true
+#   qos: 0
 
 # - platform: mqtt_json
 #   name: fairy_lights
