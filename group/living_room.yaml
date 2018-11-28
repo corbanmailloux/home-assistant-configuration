@@ -21,7 +21,7 @@ view_living_room:
 living_room_lights:
   name: Living Room Lights
   entities:
-    # - light.living_room_tv_backlight # TODO: I should bring back the backlight...
+    - light.living_room_tv_backlight
     - switch.living_room_lamp_near_tv
     - switch.living_room_couch
     - light.entry_lamp # Tradfri
