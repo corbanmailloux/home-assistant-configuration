@@ -1,18 +1,16 @@
 # Package for the wake on LAN setup
 
-script:
-  sleep_obama:
-    sequence:
-    - service: media_player.turn_off
-      entity_id: media_player.kodi_obama
-
 switch:
   - platform: wake_on_lan
     name: "Obama"
     mac_address: !secret obama_mac
     host: !secret obama_host
     turn_off:
-      service: script.sleep_obama
+      service: rest_command.sleep_obama
+
+rest_command:
+  sleep_obama:
+    url: !secret obama_sleep_url
 
 homeassistant:
   customize:
