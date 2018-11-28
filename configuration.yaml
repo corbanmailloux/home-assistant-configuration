@@ -136,10 +136,10 @@ tradfri:
 #   client_secret: !secret nest_client_secret
 
 octoprint:
-  host: !secret octoprint_host
-  api_key: !secret octoprint_api_key
-  bed: true
-  number_of_tools: 1
+  - host: !secret octoprint_host
+    api_key: !secret octoprint_api_key
+    bed: true
+    number_of_tools: 1
 
 ifttt:
   key: !secret ifttt_key
