@@ -111,8 +111,8 @@ mqtt:
 device_tracker:
   - platform: mqtt
     devices:
-      edith_wifi: /devices/location/edith_wifi
-      jackie_wifi: /devices/location/jackie_wifi
+      edith_wifi: !secret edith_wifi_mqtt_topic
+      jackie_wifi: !secret jackie_wifi_mqtt_topic
   - platform: google_maps
     username: !secret google_maps_username
     password: !secret google_maps_password
