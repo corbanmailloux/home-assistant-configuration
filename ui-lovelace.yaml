@@ -70,9 +70,9 @@ views:
   - title: Bedroom
     icon: mdi:hotel
     cards:
-      - type: entities
-        entities:
-          - switch.bedroom_fan
+      # - type: entities
+      #   entities:
+      #     - switch.bedroom_fan
       - type: entities
         title: Bedroom Lights
         show_header_toggle: true
