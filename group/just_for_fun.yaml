@@ -24,6 +24,8 @@ fun_stuff:
   name: Fun Stuff
   control: hidden
   entities:
+    - sensor.corbans_time_at_work_today
+    - sensor.corbans_time_at_work_this_week
     - input_number.umbrella_percent
     # - switch.strobe_light
     - input_boolean.scary_mode
