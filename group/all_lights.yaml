@@ -11,6 +11,7 @@ all_lights_custom:
     - light.wall_display_light
     - light.bedroom_lamp
     - light.entry_lamp
+    - switch.christmas_lights
     # - input_boolean.bus_alert # Because it will just keep turning the light back on.
 
 # All lights, switches, and media_player, for Alexa
@@ -28,4 +29,5 @@ everything_custom:
     - light.wall_display_light
     - light.bedroom_lamp
     - light.entry_lamp
+    - switch.christmas_lights
     # - input_boolean.bus_alert # Because it will just keep turning the light back on.

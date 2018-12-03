@@ -19,6 +19,6 @@ switch.bedroom_fan:
 #   friendly_name: Strobe Light
 #   icon: mdi:alarm-light
 
-# switch.christmas_lights:
-#   friendly_name: Christmas Lights
-#   icon: mdi:pine-tree
+switch.christmas_lights:
+  friendly_name: Christmas Lights
+  icon: mdi:pine-tree
