@@ -41,6 +41,7 @@ sensor:
       bus_1_time:
         friendly_name: 'Bus 1 - Time'
         unit_of_measurement: Minutes
+        entity_id: 'sensor.busses_at_stop'
         value_template: >-
           {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
             {{ ((as_timestamp(states.sensor.busses_at_stop.attributes["data"][0]["attributes"]["arrival_time"]) - as_timestamp(now())) / 60) | round(1) }}
@@ -49,6 +50,7 @@ sensor:
           {% endif %}
       bus_1_route:
         friendly_name: 'Bus 1 - Route'
+        entity_id: 'sensor.busses_at_stop'
         value_template: >-
           {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
             {{ states.sensor.busses_at_stop.attributes["data"][0]["relationships"]["route"]["data"]["id"] }}
@@ -58,6 +60,7 @@ sensor:
       bus_2_time:
         friendly_name: 'Bus 2 - Time'
         unit_of_measurement: Minutes
+        entity_id: 'sensor.busses_at_stop'
         value_template: >-
           {% if states.sensor.busses_at_stop.attributes["data"] | length > 1 %}
             {{ ((as_timestamp(states.sensor.busses_at_stop.attributes["data"][1]["attributes"]["arrival_time"]) - as_timestamp(now())) / 60) | round(1) }}
@@ -66,6 +69,7 @@ sensor:
           {% endif %}
       bus_2_route:
         friendly_name: 'Bus 2 - Route'
+        entity_id: 'sensor.busses_at_stop'
         value_template: >-
           {% if states.sensor.busses_at_stop.attributes["data"] | length > 1 %}
             {{ states.sensor.busses_at_stop.attributes["data"][1]["relationships"]["route"]["data"]["id"] }}
