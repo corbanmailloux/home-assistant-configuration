@@ -1,3 +1,13 @@
+automation:
+  - alias: "Edith - Going to Bed (Tasker)"
+    trigger:
+      - platform: webhook
+        webhook_id: !secret edith_going_to_bed_webhook
+    action:
+      - service: script.turn_on
+        entity_id: script.everything_off
+
+
 script:
   everything_off:
     sequence:

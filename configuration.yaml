@@ -186,7 +186,7 @@ weblink:
       url: 'http://hassio.local:9541/devices'
       icon: mdi:lightbulb-on
 
-automation: !include_dir_merge_list automation
+# automation: !include_dir_merge_list automation
 group: !include_dir_merge_named group
 input_boolean: !include_dir_merge_named input_boolean
 input_select: !include_dir_merge_named input_select

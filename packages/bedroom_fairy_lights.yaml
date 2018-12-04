@@ -23,8 +23,6 @@ automation:
         webhook_id: !secret jackie_fairy_toggle_webhook
       - platform: webhook
         webhook_id: !secret edith_fairy_toggle_webhook
-      - platform: event
-        event_type: jackie_fairy_toggle # TODO: Remove when updated.
     action:
       - service: light.toggle
         entity_id: light.fairy_lights
