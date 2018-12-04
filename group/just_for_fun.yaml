@@ -30,6 +30,7 @@ fun_stuff:
     # - switch.strobe_light
     - input_boolean.scary_mode
     - input_boolean.party_mode
+    - automation.pagerduty_webhook__triggered_event
 
 unused_for_now:
   name: Unused
