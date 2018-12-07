@@ -3,6 +3,34 @@ esphomeyaml:
   platform: ESP8266
   board: esp01_1m
   esphomelib_version: latest
+# Show Gozynta colors on boot (color reproduction probably way off)
+# Green for 30 seconds, then purple and leave it on as a (semi-)permanent reminder.
+#
+# TODO: fading between colors
+# TODO: Rather than cycle once on boot, continuously fade from green to purple forever (Green should be on 2/7 of the time, and purple 5/7)
+# TODO: Test/debug - this is briyaml after all (goes hand in hand with brithon)
+  on_boot:
+    priority: -10
+    then:
+      - output.set_level:
+          id: green_output
+          level: 100%
+      - output.set_level:
+          id: red_output
+          level: 0%
+      - output.set_level:
+          id: blue_output
+          level: 0%
+      - delay: 30s
+      - output.set_level:
+          id: green_output
+          level: 0%
+      - output.set_level:
+          id: red_output
+          level: 100%
+      - output.set_level:
+          id: blue_output
+          level: 100%
 
 wifi:
   ssid: !secret wifi_ssid
