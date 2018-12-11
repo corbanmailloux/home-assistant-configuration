@@ -3,7 +3,7 @@
 
 automation:
   - alias: "PagerDuty Webhook - Triggered Event"
-    initial_state: "off"
+    # initial_state: "off"
     trigger:
       - platform: webhook
         webhook_id: !secret pagerduty_webhook
@@ -26,6 +26,12 @@ automation:
           {% endfor %}
 
           {{ (message.event == message_type) and ns.assigned_to_me }}
+      - condition: state
+        entity_id: 'device_tracker.edith_wifi'
+        state: 'home'
+      - condition: time
+        after: '22:00:00'
+        before: '07:00:00'
     action:
       # Partially turn on the fairy lights so I can pick up my laptop to respond to the page.
       - service: light.turn_on
