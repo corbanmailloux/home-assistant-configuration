@@ -10,6 +10,7 @@ view_bedroom:
     # - sensor.bedroom_humidity
     # - switch.bedroom_fan
     - group.sunrise_alarm
+    - media_player.bedroom_roku
 
 bedroom_lights:
   name: Bedroom Lights

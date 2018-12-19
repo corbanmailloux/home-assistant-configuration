@@ -1,10 +1,4 @@
-# sensor:
-#   - platform: plex
-#     host: !secret obama_host
-
 media_player:
-  - platform: roku
-    host: !secret living_room_tv_host
   - platform: plex
     entity_namespace: 'plex'
     include_non_clients: true
