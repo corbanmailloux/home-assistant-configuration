@@ -32,6 +32,7 @@ hass_extensions:
   entities:
     - weblink.nodered_flows
     - weblink.tasmoadmin
+    - weblink.web_ide
 
 testing_scripts:
   name: Test Scripts
