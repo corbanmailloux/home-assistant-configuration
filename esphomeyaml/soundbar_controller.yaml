@@ -3,7 +3,7 @@ esphomeyaml:
   platform: ESP8266
   board: d1_mini
   arduino_version: recommended
-  esphomelib_version: dev
+  esphomelib_version: latest
 
 wifi:
   ssid: !secret wifi_ssid
