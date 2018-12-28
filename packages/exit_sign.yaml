@@ -1,7 +1,8 @@
 # Package for the exit sign
 
 light:
-  - platform: mqtt_json
+  - platform: mqtt
+    schema: json
     name: exit_sign
     state_topic: "home/exit"
     command_topic: "home/exit/set"
