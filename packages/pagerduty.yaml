@@ -39,3 +39,10 @@ automation:
         data:
           transition: 5
           brightness: 64
+      # Wait 10 minutes, then turn them off.
+      - delay:
+          minutes: 10
+      - service: light.turn_off
+        entity_id: light.fairy_lights
+        data:
+          transition: 10
