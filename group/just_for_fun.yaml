@@ -9,6 +9,7 @@ view_fun:
     - group.fun_notifications
     - group.send_me_a_donut
     - group.fun_stuff
+    - group.welcome_home
     # - group.yi_camera
     # - sensor.usps_mail
     # - sensor.usps_packages

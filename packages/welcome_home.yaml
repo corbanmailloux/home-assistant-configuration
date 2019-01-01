@@ -1,0 +1,71 @@
+# When I (Corban) get home, play a welcome message on the Google Home Mini that is near the front door.
+# This welcome message will only play if it wouldn't be a disruption to the current occupants of the apartment.
+
+automation:
+  - alias: Corban - Welcome Home Announcement
+    trigger:
+      - platform: state
+        entity_id: device_tracker.edith_wifi
+        to: "home"
+    condition:
+      - condition: time # From 7AM - 9PM
+        after: '07:00:00'
+        before: '21:00:00'
+      # Check that nothing is playing in the living room (as to not interrupt someone's media).
+      # Note: With Roku, this just means that some channel is open, not necessarily that media is actually playing.
+      - condition: template
+        value_template: >-
+          {{ states("media_player.living_room_tv") != "playing" }}
+      - condition: template
+        value_template: >-
+          {{ states("media_player.living_room_speaker") != "playing" }}
+    action:
+      - service: script.welcome_home_corban
+
+
+input_number:
+  welcome_home_corban_delay:
+    name: Welcome Home Delay
+    icon: mdi:timer-sand
+    min: 0
+    max: 30
+    step: 1
+
+
+script:
+  welcome_home_corban:
+    sequence:
+      - delay:
+          seconds: >-
+            {{ states("input_number.welcome_home_corban_delay") }}
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.living_room_speaker
+          volume_level: 0.5
+      - service: tts.google_say
+        entity_id: media_player.living_room_speaker
+        data_template:
+          message: >-
+            Welcome home Corban!
+            {# Build the rest of the parts of the message: #}
+
+            {# Maggie's travel time to home #}
+            {%- if states("device_tracker.jackie_wifi") != "home" -%}
+              {%- set maggie_minutes = states('sensor.maggie_to_home_travel_time') -%}
+              Maggie is {{ maggie_minutes }} minute{% if maggie_minutes != 1 %}s{% endif %} from home.
+            {%- endif -%}
+
+
+group:
+  welcome_home:
+    name: Welcome Home
+    icon: mdi:home-heart
+    entities:
+      - input_number.welcome_home_corban_delay
+      - automation.corban__welcome_home_announcement
+
+
+homeassistant:
+  customize:
+    automation.corban__welcome_home_announcement:
+      icon: mdi:home-heart
