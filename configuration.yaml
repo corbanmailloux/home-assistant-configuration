@@ -93,7 +93,7 @@ sun:
 logbook:
 
 logger:
-  default: warn
+  default: error
   logs:
     # Spits out errors because I don't leave OctoPrint running.
     homeassistant.components.octoprint: critical
