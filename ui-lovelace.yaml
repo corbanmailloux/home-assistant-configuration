@@ -176,8 +176,8 @@ views:
     cards:
       - type: entities
         entities:
-          - sensor.corbco_certificate
-          - sensor.homecorbco_certificate
+          - sensor.corb_co_certificate
+          - sensor.home_corb_co_certificate
       - type: entities
         title: Obama Management
         show_header_toggle: false
@@ -191,8 +191,8 @@ views:
         entities:
           - automation.hass_update_notification
           - automation.reminder_to_turn_off_the_lights
-          - automation.corban__ask_to_turn_on_a_light_when_coming_home
-          - automation.maggie__ask_to_turn_on_a_light_when_coming_home
+          - automation.corban_ask_to_turn_on_a_light_when_coming_home
+          - automation.maggie_ask_to_turn_on_a_light_when_coming_home
       - type: entities
         title: Temperature-Controlled Backlight
         show_header_toggle: false
@@ -221,7 +221,7 @@ views:
         title: HASS Extensions
         show_header_toggle: false
         entities:
-          - weblink.nodered_flows
+          - weblink.node_red_flows
           - weblink.tasmoadmin
       - type: entities
         title: OctoPrint

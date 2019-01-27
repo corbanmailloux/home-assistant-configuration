@@ -5,8 +5,8 @@ view_management:
   view: yes
   icon: mdi:settings
   entities:
-    - sensor.corbco_certificate
-    - sensor.homecorbco_certificate
+    - sensor.corb_co_certificate
+    - sensor.home_corb_co_certificate
     - group.obama_management_scripts
     - group.hass_notifications # See packages/home_assistant_notifications.yaml
     - group.temperature_backlight # See packages/backlight_temperature
@@ -30,7 +30,7 @@ hass_extensions:
   name: HASS Extensions
   control: hidden
   entities:
-    - weblink.nodered_flows
+    - weblink.node_red_flows
     - weblink.tasmoadmin
     - weblink.web_ide
 

@@ -16,7 +16,7 @@ sensor:
 
 homeassistant:
   customize:
-    sensor.corbans_time_at_work_today:
+    sensor.corban_s_time_at_work_today:
       icon: mdi:timer
-    sensor.corbans_time_at_work_this_week:
+    sensor.corban_s_time_at_work_this_week:
       icon: mdi:calendar-clock

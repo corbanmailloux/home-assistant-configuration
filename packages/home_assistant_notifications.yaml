@@ -112,8 +112,8 @@ group:
     entities:
       - automation.hass_update_notification
       - automation.reminder_to_turn_off_the_lights
-      - automation.corban__ask_to_turn_on_a_light_when_coming_home
-      - automation.maggie__ask_to_turn_on_a_light_when_coming_home
+      - automation.corban_ask_to_turn_on_a_light_when_coming_home
+      - automation.maggie_ask_to_turn_on_a_light_when_coming_home
       - automation.notify_me_on_motion_when_no_one_is_home
       # - automation.notify_if_nest_goes_offline
 
@@ -126,9 +126,9 @@ homeassistant:
     automation.reminder_to_turn_off_the_lights:
       icon: mdi:lightbulb-outline
 
-    automation.corban__ask_to_turn_on_a_light_when_coming_home:
+    automation.corban_ask_to_turn_on_a_light_when_coming_home:
       icon: mdi:home-map-marker
-    automation.maggie__ask_to_turn_on_a_light_when_coming_home:
+    automation.maggie_ask_to_turn_on_a_light_when_coming_home:
       icon: mdi:home-map-marker
 
     automation.notify_if_nest_goes_offline:

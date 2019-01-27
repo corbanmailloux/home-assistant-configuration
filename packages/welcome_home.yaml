@@ -63,10 +63,10 @@ group:
     icon: mdi:home-heart
     entities:
       - input_number.welcome_home_corban_delay
-      - automation.corban__welcome_home_announcement
+      - automation.corban_welcome_home_announcement
 
 
 homeassistant:
   customize:
-    automation.corban__welcome_home_announcement:
+    automation.corban_welcome_home_announcement:
       icon: mdi:home-heart

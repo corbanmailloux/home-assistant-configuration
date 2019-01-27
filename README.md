@@ -15,3 +15,15 @@ Here are (some of) the services/platforms/other devices that I use with Home Ass
 | Nest Thermostat E | [Nest Store](https://store.nest.com/product/thermostat-e/T4000ES) | [Nest component](https://www.home-assistant.io/components/nest/) |
 | OctoPrint with a Monoprice MP Select Mini 3D Printer V2 | [OctoPrint](https://octoprint.org/), [Monoprice](https://www.monoprice.com/product?p_id=21711) | [OctoPrint component](https://www.home-assistant.io/components/octoprint/) |
 | TP-Link Smart Plug | [Amazon](https://www.amazon.com/gp/product/B01K1JVZOE/) | [TP-Link Switch](https://www.home-assistant.io/components/switch.tplink/) |
+
+
+### Helper Templates
+
+#### List all `entity_id`s
+During the update to v0.85 of Home Assistant, `slugify` changed. I was nervous this would cause subtle changes in my `entity_id` values and I wouldn't notice, so I exported them all before and after the update.
+I could have also grabbed this from the "States" page in HASS, but I wanted it as a template.
+```
+{% for state in states -%}
+  {{ state.entity_id }}
+{% endfor %}
+```

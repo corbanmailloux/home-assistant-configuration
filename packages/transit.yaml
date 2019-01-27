@@ -248,9 +248,9 @@ group:
       - sensor.bus_2_route
       - input_boolean.bus_alert
       - input_boolean.bus_alert_active # Debug
-      # - automation.set_display_led_based_on_bus_time__1
-      # - automation.set_display_led_based_on_bus_time__2
-      # - automation.set_display_led_based_on_bus_time__3
+      # - automation.set_display_led_based_on_bus_time_1
+      # - automation.set_display_led_based_on_bus_time_2
+      # - automation.set_display_led_based_on_bus_time_3
       - light.wall_display_light
       - light.wall_display_screen
       - automation.turn_on_the_wall_display_when_corban_gets_home
