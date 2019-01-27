@@ -1,0 +1,60 @@
+switch:
+  - platform: mqtt
+    name: "Linksio"
+    state_topic: "stat/sonoff_linksio/POWER"
+    command_topic: "cmnd/sonoff_linksio/POWER"
+    availability_topic: "tele/sonoff_linksio/LWT"
+    payload_on: "ON"
+    payload_off: "OFF"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    retain: true
+  
+sensor:
+  - platform: mqtt
+    name: "Linksio Energy Today"
+    state_topic: "tele/sonoff_linksio/SENSOR"
+    availability_topic: "tele/sonoff_linksio/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    value_template: '{{ value_json["ENERGY"]["Today"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "Linksio Energy Yesterday"
+    state_topic: "tele/sonoff_linksio/SENSOR"
+    availability_topic: "tele/sonoff_linksio/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    value_template: '{{ value_json["ENERGY"]["Yesterday"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "Linksio Energy Total"
+    state_topic: "tele/sonoff_linksio/SENSOR"
+    availability_topic: "tele/sonoff_linksio/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    value_template: '{{ value_json["ENERGY"]["Total"] }}'
+    unit_of_measurement: "kWh"
+  - platform: mqtt
+    name: "Linksio Power"
+    state_topic: "tele/sonoff_linksio/SENSOR"
+    availability_topic: "tele/sonoff_linksio/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    value_template: '{{ value_json["ENERGY"]["Power"] }}'
+    unit_of_measurement: "W"
+  - platform: mqtt
+    name: "Linksio Voltage"
+    state_topic: "tele/sonoff_linksio/SENSOR"
+    availability_topic: "tele/sonoff_linksio/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    value_template: '{{ value_json["ENERGY"]["Voltage"] }}'
+    unit_of_measurement: "V"
+  - platform: mqtt
+    name: "Linksio Power Factor"
+    state_topic: "tele/sonoff_linksio/SENSOR"
+    availability_topic: "tele/sonoff_linksio/LWT"
+    payload_available: "Online"
+    payload_not_available: "Offline"
+    value_template: '{{ value_json["ENERGY"]["Factor"] }}'
