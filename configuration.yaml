@@ -130,10 +130,9 @@ tradfri:
 #   username: !secret usps_username
 #   password: !secret usps_password
 
-# TODO: Set up the Nest in the new apartment.
-# nest:
-#   client_id: !secret nest_client_id
-#   client_secret: !secret nest_client_secret
+nest:
+  client_id: !secret nest_client_id
+  client_secret: !secret nest_client_secret
 
 octoprint:
   - host: !secret octoprint_host
