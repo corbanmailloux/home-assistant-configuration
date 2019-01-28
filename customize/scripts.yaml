@@ -9,6 +9,3 @@ script.phone_notify_i_love_maggs:
 script.shutdown_obama:
   friendly_name: Shutdown Obama
   icon: mdi:power
-script.kodi_update_video:
-  friendly_name: Update Video Library
-  icon: mdi:movie

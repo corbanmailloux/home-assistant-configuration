@@ -6,10 +6,3 @@ shutdown_obama:
       data:
         addon: core_rpc_shutdown
         input: obama
-
-kodi_update_video:
-  sequence:
-    - service: media_player.kodi_call_method
-      data:
-        entity_id: media_player.kodi_obama
-        method: VideoLibrary.Scan

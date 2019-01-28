@@ -18,7 +18,7 @@
   update_interval:
     minutes: 5
   forecast:
-    - 1
+    - 0
   monitored_conditions:
     - summary
     - icon

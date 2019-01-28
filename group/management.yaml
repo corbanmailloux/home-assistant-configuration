@@ -22,7 +22,6 @@ obama_management_scripts:
   name: Obama Management
   control: hidden
   entities:
-    - script.kodi_update_video
     - script.shutdown_obama
     - switch.obama
 
@@ -37,6 +36,5 @@ hass_extensions:
 testing_scripts:
   name: Test Scripts
   entities:
-    - automation.bedside_button
     - script.front_buzzer
     # - light.test_light
