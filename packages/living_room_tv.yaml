@@ -133,15 +133,15 @@ script:
   soundbar_volume_up:
     sequence:
       - service: switch.turn_on
-        entity_id: switch.soundbar__volume_up
+        entity_id: switch.soundbar_volume_up
   soundbar_volume_down:
     sequence:
       - service: switch.turn_on
-        entity_id: switch.soundbar__volume_down
+        entity_id: switch.soundbar_volume_down
   soundbar_power:
     sequence:
       - service: switch.turn_on
-        entity_id: switch.soundbar__power
+        entity_id: switch.soundbar_power
 
   # On this soundbar, volume down is ignored if the soundbar is off, and volume up turns it on.
   # Using this, we can build sequences that will always turn the soundbar on and off, regardless
@@ -149,25 +149,25 @@ script:
   soundbar_power_on:
     sequence:
       - service: switch.turn_on
-        entity_id: switch.soundbar__volume_down
+        entity_id: switch.soundbar_volume_down
       - delay:
           milliseconds: 200
       - service: switch.turn_on
-        entity_id: switch.soundbar__volume_up
+        entity_id: switch.soundbar_volume_up
   soundbar_power_off:
     sequence:
       # First, ensure it's on.
       - service: switch.turn_on
-        entity_id: switch.soundbar__volume_down
+        entity_id: switch.soundbar_volume_down
       - delay:
           milliseconds: 200
       - service: switch.turn_on
-        entity_id: switch.soundbar__volume_up
+        entity_id: switch.soundbar_volume_up
       # It takes a bit after turning on before the soundbar will turn back off.
       - delay:
           seconds: 1
       - service: switch.turn_on
-        entity_id: switch.soundbar__power
+        entity_id: switch.soundbar_power
 
 homeassistant:
   customize:

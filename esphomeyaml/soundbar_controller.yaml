@@ -13,14 +13,17 @@ wifi:
     gateway: 10.0.0.1
     subnet: 255.255.255.0
 
+# api:
+
 mqtt:
   broker: !secret mqtt_broker_ip
   username: !secret mqtt_username_esphomelib
   password: !secret mqtt_password_esphomelib
+  # discovery: clean
 
 # Enable logging
 logger:
-  level: DEBUG
+  level: INFO
 
 ota:
 
@@ -28,8 +31,8 @@ remote_receiver:
   pin:
     number: D3
     inverted: True
-  dump:
-    - nec
+  # dump:
+  #   - nec
 
 remote_transmitter:
   pin: D1
@@ -37,26 +40,26 @@ remote_transmitter:
 
 switch:
   # Onboard LED, just to have a simple fallback
-  - platform: gpio
-    name: "Wemos Onboard LED"
-    pin:
-      number: D4
-      inverted: True
+  # - platform: gpio
+  #   name: "Wemos Onboard LED"
+  #   pin:
+  #     number: D4
+  #     inverted: True
   # Soundbar
   - platform: remote_transmitter
-    name: "Soundbar - Power"
+    name: "Soundbar: Power"
     id: sb_power
     nec:
       address: 0x00FF
       command: 0x02FD
   - platform: remote_transmitter
-    name: "Soundbar - Volume Up"
+    name: "Soundbar: Volume Up"
     id: sb_vol_up
     nec:
       address: 0x00FF
       command: 0x827D
   - platform: remote_transmitter
-    name: "Soundbar - Volume Down"
+    name: "Soundbar: Volume Down"
     id: sb_vol_down
     nec:
       address: 0x00FF
@@ -64,7 +67,7 @@ switch:
 
 binary_sensor:
   - platform: remote_receiver
-    name: "Roku Remote - Mute Button"
+    name: "Roku Remote: Mute Button"
     nec:
       address: 0x57E3
       command: 0x04FB
@@ -75,7 +78,7 @@ binary_sensor:
         - switch.turn_on:
             id: sb_power
   - platform: remote_receiver
-    name: "Roku Remote - Volume Up Button"
+    name: "Roku Remote: Volume Up Button"
     nec:
       address: 0x57E3
       command: 0xF00F
@@ -86,7 +89,7 @@ binary_sensor:
         - switch.turn_on:
             id: sb_vol_up
   - platform: remote_receiver
-    name: "Roku Remote - Volume Down Button"
+    name: "Roku Remote: Volume Down Button"
     nec:
       address: 0x57E3
       command: 0x08F7
