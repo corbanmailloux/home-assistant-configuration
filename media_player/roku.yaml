@@ -1,4 +1,0 @@
-- platform: roku
-  host: !secret living_room_tv_host
-- platform: roku
-  host: !secret bedroom_roku_host

@@ -179,6 +179,10 @@ google_assistant:
 tts:
   - platform: google
 
+roku:
+  - host: !secret living_room_tv_host
+  - host: !secret bedroom_roku_host
+
 weblink:
   entities:
     - name: 'Node-RED Flows'
