@@ -102,12 +102,6 @@ logger:
     # The TV is often sleeping when HASS restarts. I should force it to wake up on reboots or use standby mode, but it works for now.
     homeassistant.components.media_player.roku: critical
 
-mqtt:
-  broker: core-mosquitto # Addon
-  username: !secret mqtt_username
-  password: !secret mqtt_password
-  discovery: true
-
 device_tracker:
   - platform: mqtt
     devices:
@@ -116,9 +110,6 @@ device_tracker:
   - platform: google_maps
     username: !secret google_maps_username
     password: !secret google_maps_password
-  # - platform: bluetooth_tracker
-  #   track_new_devices: False
-  #   consider_home: 60
 
 map:
 
@@ -181,18 +172,6 @@ tts:
 roku:
   - host: !secret living_room_tv_host
   - host: !secret bedroom_roku_host
-
-weblink:
-  entities:
-    - name: 'Node-RED Flows'
-      url: 'http://hassio.local:1880'
-      icon: mdi:nodejs
-    - name: 'TasmoAdmin'
-      url: 'http://hassio.local:9541/devices'
-      icon: mdi:lightbulb-on
-    - name: 'Web IDE'
-      url: 'http://hassio.local:8321'
-      icon: mdi:code-tags
 
 # automation: !include_dir_merge_list automation
 group: !include_dir_merge_named group
