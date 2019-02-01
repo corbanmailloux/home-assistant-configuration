@@ -19,3 +19,51 @@ automation:
           topic: !secret jackie_wifi_mqtt_topic
           retain: true
           payload: '{{ trigger.json.location }}'
+
+group:
+  corban_home:
+    name: Corban
+    icon: mdi:home-account
+    entities:
+      - device_tracker.google_maps_110168280884137709870
+      - device_tracker.edith_wifi
+  maggie_home:
+    name: Maggie
+    icon: mdi:home-account
+    entities:
+      - device_tracker.google_maps_106112096418399445974
+      - device_tracker.jackie_wifi
+
+binary_sensor:
+  - platform: template
+    sensors:
+      corban_home_gps:
+        friendly_name: "Corban Home - GPS"
+        device_class: presence
+        value_template: >-
+          {{ is_state('device_tracker.google_maps_110168280884137709870', 'home') }}
+      corban_home_wifi:
+        friendly_name: "Corban Home - WiFi"
+        device_class: presence
+        value_template: >-
+          {{ is_state('device_tracker.edith_wifi', 'home') }}
+      corban_home:
+        friendly_name: "Corban Home"
+        device_class: presence
+        value_template: >-
+          {{ is_state('binary_sensor.corban_home_wifi', 'on') or is_state('binary_sensor.corban_home_gps', 'on') }}
+      maggie_home_gps:
+        friendly_name: "Maggie Home - GPS"
+        device_class: presence
+        value_template: >-
+          {{ is_state('device_tracker.google_maps_106112096418399445974', 'home') }}
+      maggie_home_wifi:
+        friendly_name: "Maggie Home - WiFi"
+        device_class: presence
+        value_template: >-
+          {{ is_state('device_tracker.jackie_wifi', 'home') }}
+      maggie_home:
+        friendly_name: "Maggie Home"
+        device_class: presence
+        value_template: >-
+          {{ is_state('binary_sensor.maggie_home_wifi', 'on') or is_state('binary_sensor.maggie_home_gps', 'on') }}

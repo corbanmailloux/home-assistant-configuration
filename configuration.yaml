@@ -111,7 +111,7 @@ device_tracker:
   #   consider_home: 120
   - platform: nmap_tracker
     hosts: 10.0.0.0/24
-    interval_seconds: 30
+    interval_seconds: 20
     consider_home: 120
     exclude:
       - 10.0.0.253
