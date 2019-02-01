@@ -7,10 +7,6 @@ esphomeyaml:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  # manual_ip:
-  #   static_ip: 10.0.0.245
-  #   gateway: 10.0.0.1
-  #   subnet: 255.255.255.0
 
 mqtt:
   broker: !secret mqtt_broker_ip
