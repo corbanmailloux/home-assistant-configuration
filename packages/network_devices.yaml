@@ -1,0 +1,126 @@
+binary_sensor:
+  - platform: template
+    sensors:
+      net_living_room_tv:
+        friendly_name: "Network: Living Room TV"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_living_room_tv', 'home') }}
+      net_bedroom_roku:
+        friendly_name: "Network: Bedroom Roku"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_bedroom_roku', 'home') }}
+      net_corbans_macbook:
+        friendly_name: "Network: Corban's MacBook"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_corbans_macbook', 'home') }}
+      net_corbans_phone:
+        friendly_name: "Network: Corban's Phone"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_corbans_phone', 'home') }}
+      net_corbans_work_macbook:
+        friendly_name: "Network: Corban's Work MacBook"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_corbans_work_macbook', 'home') }}
+      net_fairy_lights:
+        friendly_name: "Network: Fairy Lights"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_fairy_lights', 'home') }}
+      net_google_home_mini_1:
+        friendly_name: "Network: Google Home Mini 1"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_google_home_mini_1', 'home') }}
+      net_google_home_mini_2:
+        friendly_name: "Network: Google Home Mini 2"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_google_home_mini_2', 'home') }}
+      net_google_home_mini_3:
+        friendly_name: "Network: Google Home Mini 3"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_google_home_mini_3', 'home') }}
+      net_google_home_mini_4:
+        friendly_name: "Network: Google Home Mini 4"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_google_home_mini_4', 'home') }}
+      net_google_home_mini_5:
+        friendly_name: "Network: Google Home Mini 5"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_google_home_mini_5', 'home') }}
+      net_living_room_dht:
+        friendly_name: "Network: Living Room DHT"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_living_room_dht', 'home') }}
+      net_maggies_phone:
+        friendly_name: "Network: Maggie's Phone"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_maggies_phone', 'home') }}
+      net_sonoff_1:
+        friendly_name: "Network: Sonoff 1"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_sonoff_1', 'home') }}
+      net_sonoff_3:
+        friendly_name: "Network: Sonoff 3"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_sonoff_3', 'home') }}
+      net_sonoff_5:
+        friendly_name: "Network: Sonoff 5"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_sonoff_5', 'home') }}
+      net_tradfri_gateway:
+        friendly_name: "Network: Tradfri Gateway"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_tradfri_gateway', 'home') }}
+      net_tv_backlight:
+        friendly_name: "Network: TV Backlight"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_tv_backlight', 'home') }}
+      net_wall_display:
+        friendly_name: "Network: Wall Display"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_wall_display', 'home') }}
+      net_unknown_15aa01ac26170bzq:
+        friendly_name: "Network: 15aa01ac26170bzq (Unknown)"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_unknown_15aa01ac26170bzq', 'home') }}
+      net_maggies_phone_2:
+        friendly_name: "Network: Maggie's Phone (2)"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_maggies_phone_2', 'home') }}
+      net_corbans_phone_2:
+        friendly_name: "Network: Corban's Phone (2)"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_corbans_phone_2', 'home') }}
+      net_soundbar_controller:
+        friendly_name: "Network: Soundbar Controller"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_soundbar_controller', 'home') }}
+
+
+# List all of these sensors:
+# {% for state in states -%}
+#   {%- if "binary_sensor.net_" in state.entity_id -%}
+#     {{ state.entity_id }}
+#   {% endif -%}
+# {% endfor %}
