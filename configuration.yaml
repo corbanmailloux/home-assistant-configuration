@@ -103,6 +103,18 @@ logger:
     homeassistant.components.media_player.roku: critical
 
 device_tracker:
+  # - platform: tplink
+  #   host: !secret router_ip
+  #   username: !secret router_username
+  #   password: !secret router_password
+  #   interval_seconds: 60 # Relatively slow to allow manual logins to the router
+  #   consider_home: 120
+  - platform: nmap_tracker
+    hosts: 10.0.0.0/24
+    interval_seconds: 30
+    consider_home: 120
+    exclude:
+      - 10.0.0.253
   - platform: mqtt
     devices:
       edith_wifi: !secret edith_wifi_mqtt_topic
@@ -181,7 +193,7 @@ intent_script: !include_dir_merge_named intent_script
 # light: !include_dir_merge_list light
 media_player: !include_dir_merge_list media_player
 notify: !include_dir_merge_list notify
-scene: !include_dir_merge_list scene
+# scene: !include_dir_merge_list scene
 script: !include_dir_merge_named script
 sensor: !include_dir_merge_list sensor
 shell_command: !include_dir_merge_named shell_command
