@@ -15,17 +15,17 @@ binary_sensor:
         friendly_name: "Network: Corban's MacBook"
         device_class: connectivity
         value_template: >-
-          {{ is_state('device_tracker.net_corbans_macbook', 'home') }}
+          {{ is_state('device_tracker.net_corbans_macbook', 'home') or is_state('device_tracker.net_corbans_macbook_2', 'home') }}
       net_corbans_phone:
         friendly_name: "Network: Corban's Phone"
         device_class: connectivity
         value_template: >-
-          {{ is_state('device_tracker.net_corbans_phone', 'home') }}
+          {{ is_state('device_tracker.net_corbans_phone', 'home') or is_state('device_tracker.net_corbans_phone_2', 'home') }}
       net_corbans_work_macbook:
         friendly_name: "Network: Corban's Work MacBook"
         device_class: connectivity
         value_template: >-
-          {{ is_state('device_tracker.net_corbans_work_macbook', 'home') }}
+          {{ is_state('device_tracker.net_corbans_work_macbook', 'home') or is_state('device_tracker.net_corbans_work_macbook_2', 'home') }}
       net_fairy_lights:
         friendly_name: "Network: Fairy Lights"
         device_class: connectivity
@@ -65,7 +65,7 @@ binary_sensor:
         friendly_name: "Network: Maggie's Phone"
         device_class: connectivity
         value_template: >-
-          {{ is_state('device_tracker.net_maggies_phone', 'home') }}
+          {{ is_state('device_tracker.net_maggies_phone', 'home') or is_state('device_tracker.net_maggies_phone_2', 'home') }}
       net_sonoff_1:
         friendly_name: "Network: Sonoff 1"
         device_class: connectivity
@@ -96,27 +96,26 @@ binary_sensor:
         device_class: connectivity
         value_template: >-
           {{ is_state('device_tracker.net_wall_display', 'home') }}
-      net_unknown_15aa01ac26170bzq:
-        friendly_name: "Network: 15aa01ac26170bzq (Unknown)"
-        device_class: connectivity
-        value_template: >-
-          {{ is_state('device_tracker.net_unknown_15aa01ac26170bzq', 'home') }}
-      net_maggies_phone_2:
-        friendly_name: "Network: Maggie's Phone (2)"
-        device_class: connectivity
-        value_template: >-
-          {{ is_state('device_tracker.net_maggies_phone_2', 'home') }}
-      net_corbans_phone_2:
-        friendly_name: "Network: Corban's Phone (2)"
-        device_class: connectivity
-        value_template: >-
-          {{ is_state('device_tracker.net_corbans_phone_2', 'home') }}
       net_soundbar_controller:
         friendly_name: "Network: Soundbar Controller"
         device_class: connectivity
         value_template: >-
           {{ is_state('device_tracker.net_soundbar_controller', 'home') }}
-
+      net_obama:
+        friendly_name: "Network: Obama"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_obama', 'home') }}
+      net_nest:
+        friendly_name: "Network: Nest"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_nest', 'home') }}
+      net_extender:
+        friendly_name: "Network: Extender"
+        device_class: connectivity
+        value_template: >-
+          {{ is_state('device_tracker.net_extender', 'home') }}
 
 # List all of these sensors:
 # {% for state in states -%}
