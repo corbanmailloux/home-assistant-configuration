@@ -3,7 +3,6 @@
 
 automation:
   - alias: "PagerDuty Webhook - Triggered Event"
-    # initial_state: "off"
     trigger:
       - platform: webhook
         webhook_id: !secret pagerduty_webhook
