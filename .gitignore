@@ -105,8 +105,8 @@ known_devices.yaml
 google_calendars.yaml
 .google.token
 tts/
-www/*
-!www/donuts/
+# www/*
+# !www/donuts/
 usps_cookies.pickle
 ip_bans.yaml
 .spotify-token-cache
