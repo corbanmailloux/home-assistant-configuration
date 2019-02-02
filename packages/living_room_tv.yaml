@@ -3,6 +3,26 @@ media_player:
     entity_namespace: 'plex'
     include_non_clients: true
     remove_unavailable_clients: false
+  - platform: universal
+    name: Living Room TV
+    children:
+      - media_player.plex_65_tcl_roku_tv
+      - media_player.65_tcl_roku_tv
+    commands:
+      volume_up:
+        service: script.soundbar_volume_up
+      volume_down:
+        service: script.soundbar_volume_down
+      volume_mute:
+        service: script.soundbar_power
+      select_source:
+        service: media_player.select_source
+        data_template:
+          entity_id: media_player.65_tcl_roku_tv
+          source: '{{ source }}'
+    attributes:
+      source: media_player.65_tcl_roku_tv|source
+      source_list: media_player.65_tcl_roku_tv|source_list
 
 switch:
   - platform: command_line
