@@ -1,6 +1,6 @@
 media_player:
   - platform: universal
-    name: Bedoom TV
+    name: Bedroom TV
     children:
       - media_player.plex_bedroom_tv
       - media_player.bedroom_roku
