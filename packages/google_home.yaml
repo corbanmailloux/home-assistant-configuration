@@ -1,0 +1,60 @@
+script:
+  set_optimal_volumes_on_google_homes:
+    sequence:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.living_room_speaker
+          volume_level: >-
+            {{ states('input_number.gh_volume_target_living_room') | int / 100 }}
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bedroom_speaker
+          volume_level: >-
+            {{ states('input_number.gh_volume_target_bedroom') | int / 100 }}
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.office_speaker
+          volume_level: >-
+            {{ states('input_number.gh_volume_target_office') | int / 100 }}
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.kitchen_speaker
+          volume_level: >-
+            {{ states('input_number.gh_volume_target_kitchen') | int / 100 }}
+      - service: media_player.volume_set
+        data_template:
+          entity_id: media_player.bathroom_speaker
+          volume_level: >-
+            {{ states('input_number.gh_volume_target_bathroom') | int / 100 }}
+
+input_number:
+  gh_volume_target_living_room:
+    name: Target Living Room Speaker Volume
+    min: 0
+    max: 100
+    unit_of_measurement: "%"
+    icon: mdi:google-home
+  gh_volume_target_bedroom:
+    name: Target Bedroom Speaker Volume
+    min: 0
+    max: 100
+    unit_of_measurement: "%"
+    icon: mdi:google-home
+  gh_volume_target_office:
+    name: Target Office Speaker Volume
+    min: 0
+    max: 100
+    unit_of_measurement: "%"
+    icon: mdi:google-home
+  gh_volume_target_kitchen:
+    name: Target Kitchen Speaker Volume
+    min: 0
+    max: 100
+    unit_of_measurement: "%"
+    icon: mdi:google-home
+  gh_volume_target_bathroom:
+    name: Target Bathroom Speaker Volume
+    min: 0
+    max: 100
+    unit_of_measurement: "%"
+    icon: mdi:google-home
