@@ -123,6 +123,7 @@ plex.conf
 
 esphomeyaml/*
 !esphomeyaml/*.yaml
+!esphomeyaml/soundbar_controller_wiring/
 esphomeyaml/secrets.yaml
 # .pioenvs/
 # .piolibdeps/
