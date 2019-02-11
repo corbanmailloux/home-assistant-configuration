@@ -6,7 +6,7 @@ media_player:
   - platform: universal
     name: Living Room TV
     children:
-      - media_player.plex_65_tcl_roku_tv
+      - media_player.plex_living_room_roku_tv
       - media_player.65_tcl_roku_tv
     commands:
       volume_up:
