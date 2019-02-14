@@ -189,6 +189,22 @@ script:
       - service: switch.turn_on
         entity_id: switch.soundbar_power
 
+scene:
+  - name: Movie Mode
+    entities:
+      light.entry_lamp:
+        state: off
+        transition: 2
+      switch.living_room_lamp_near_tv:
+        state: on
+      switch.living_room_couch:
+        state: off
+      light.living_room_tv_backlight:
+        state: on
+        transition: 5
+        brightness: 200
+        rgb_color: [255, 214, 170]
+
 homeassistant:
   customize:
     switch.living_room_tv_power:
