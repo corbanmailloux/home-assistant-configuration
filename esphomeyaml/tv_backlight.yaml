@@ -8,10 +8,15 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 
-mqtt:
-  broker: !secret mqtt_broker_ip
-  username: !secret mqtt_username_esphomelib
-  password: !secret mqtt_password_esphomelib
+# 10.0.0.243
+
+# mqtt:
+#   broker: !secret mqtt_broker_ip
+#   username: !secret mqtt_username_esphomelib
+#   password: !secret mqtt_password_esphomelib
+#   discovery: clean
+
+api:
 
 # Enable logging
 logger:
