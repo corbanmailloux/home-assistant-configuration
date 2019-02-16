@@ -23,6 +23,8 @@ config:
 
 hassio:
 
+system_health:
+
 recorder:
   purge_interval: 2
   purge_keep_days: 60

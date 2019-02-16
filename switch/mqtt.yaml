@@ -1,17 +1,17 @@
 # MQTT
 
 # Power Tails
-- platform: mqtt
-  name: office_pink_lamp # strobe_light # christmas_lights # power_tail_1
-  state_topic: "stat/sonoff_1/POWER"
-  command_topic: "cmnd/sonoff_1/POWER"
-  availability_topic: "tele/sonoff_1/LWT"
-  qos: 1
-  payload_on: "ON"
-  payload_off: "OFF"
-  payload_available: "Online"
-  payload_not_available: "Offline"
-  retain: true
+# - platform: mqtt
+#   name: office_pink_lamp # strobe_light # christmas_lights # power_tail_1
+#   state_topic: "stat/sonoff_1/POWER"
+#   command_topic: "cmnd/sonoff_1/POWER"
+#   availability_topic: "tele/sonoff_1/LWT"
+#   qos: 1
+#   payload_on: "ON"
+#   payload_off: "OFF"
+#   payload_available: "Online"
+#   payload_not_available: "Offline"
+#   retain: true
 
 - platform: mqtt
   name: christmas_lights # living_room_corner # power_tail_2
