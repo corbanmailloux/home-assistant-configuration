@@ -75,6 +75,7 @@ sensor:
         friendly_name: "Corban's Phone Battery"
         device_class: battery
         unit_of_measurement: '%'
+        entity_id: 'device_tracker.google_maps_110168280884137709870'
         icon_template: >-
           {%- set tracker_name = 'device_tracker.google_maps_110168280884137709870' -%}
 
@@ -94,6 +95,7 @@ sensor:
         friendly_name: "Maggie's Phone Battery"
         device_class: battery
         unit_of_measurement: '%'
+        entity_id: 'device_tracker.google_maps_106112096418399445974'
         icon_template: >-
           {%- set tracker_name = 'device_tracker.google_maps_106112096418399445974' -%}
 
