@@ -107,6 +107,7 @@ google_calendars.yaml
 tts/
 # www/*
 # !www/donuts/
+www/lovelace/
 usps_cookies.pickle
 ip_bans.yaml
 .spotify-token-cache
