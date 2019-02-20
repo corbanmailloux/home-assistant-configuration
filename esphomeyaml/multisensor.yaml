@@ -1,0 +1,79 @@
+esphomeyaml:
+  name: multisensor
+  platform: ESP8266
+  board: d1_mini
+  arduino_version: recommended
+  esphomelib_version: latest
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+# 10.0.0.241
+
+api:
+
+# mqtt:
+#   broker: !secret mqtt_broker_ip
+#   username: !secret mqtt_username_esphomelib
+#   password: !secret mqtt_password_esphomelib
+#   discovery: clean
+
+# Enable logging
+logger:
+  level: INFO
+
+ota:
+
+sensor:
+  - platform: dht
+    pin: D7
+    model: DHT22
+    temperature:
+      name: "Multisensor Temperature"
+      filters:
+        - sliding_window_moving_average:
+            window_size: 30 # 5 minute window
+            send_every: 6 # 1 minute
+            send_first_at: 3
+        - lambda: return x * (9.0/5.0) + 32.0;
+      unit_of_measurement: "°F"
+    humidity:
+      name: "Multisensor Humidity"
+      filters:
+        - sliding_window_moving_average:
+            window_size: 30 # 5 minute window
+            send_every: 6 # 1 minute
+            send_first_at: 3
+    update_interval: 10s
+  # - platform: adc
+  #   pin: A0
+  #   name: "Multisensor Brightness"
+  #   unit_of_measurement: lux
+  #   filters:
+  #     - lambda: |-
+  #         return (x / 10000.0) * 2000000.0;
+
+binary_sensor:
+  - platform: gpio
+    pin: D5
+    name: "Multisensor Motion"
+    device_class: motion
+
+output:
+  - platform: esp8266_pwm
+    pin: D1
+    id: redgpio
+  - platform: esp8266_pwm
+    pin: D2
+    id: greengpio
+  - platform: esp8266_pwm
+    pin: D3
+    id: bluegpio
+
+light:
+  - platform: rgb
+    name: "Multisensor Light"
+    red: redgpio
+    green: greengpio
+    blue: bluegpio
