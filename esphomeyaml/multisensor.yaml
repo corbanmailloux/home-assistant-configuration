@@ -1,9 +1,9 @@
-esphomeyaml:
+esphome:
   name: multisensor
   platform: ESP8266
   board: d1_mini
   arduino_version: recommended
-  esphomelib_version: latest
+  esphome_core_version: latest
 
 wifi:
   ssid: !secret wifi_ssid
@@ -12,12 +12,6 @@ wifi:
 # 10.0.0.241
 
 api:
-
-# mqtt:
-#   broker: !secret mqtt_broker_ip
-#   username: !secret mqtt_username_esphomelib
-#   password: !secret mqtt_password_esphomelib
-#   discovery: clean
 
 # Enable logging
 logger:

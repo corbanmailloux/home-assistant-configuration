@@ -1,20 +1,14 @@
-esphomeyaml:
+esphome:
   name: fairy_lights_32
   platform: ESP32
   board: esp32doit-devkit-v1
-  esphomelib_version: latest
+  esphome_core_version: latest
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 
 # 10.0.0.242
-
-# mqtt:
-#   broker: !secret mqtt_broker_ip
-#   username: !secret mqtt_username_esphomelib
-#   password: !secret mqtt_password_esphomelib
-#   discovery: clean
 
 # Enable logging
 logger:

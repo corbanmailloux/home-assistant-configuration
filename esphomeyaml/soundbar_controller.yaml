@@ -1,9 +1,9 @@
-esphomeyaml:
+esphome:
   name: soundbar_controller
   platform: ESP8266
   board: d1_mini
   arduino_version: recommended
-  esphomelib_version: latest
+  esphome_core_version: latest
 
 wifi:
   ssid: !secret wifi_ssid

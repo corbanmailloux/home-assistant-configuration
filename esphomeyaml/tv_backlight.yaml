@@ -1,20 +1,14 @@
-esphomeyaml:
+esphome:
   name: tv_backlight
   platform: ESP8266
   board: esp01_1m
-  esphomelib_version: latest
+  esphome_core_version: latest
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
 
 # 10.0.0.243
-
-# mqtt:
-#   broker: !secret mqtt_broker_ip
-#   username: !secret mqtt_username_esphomelib
-#   password: !secret mqtt_password_esphomelib
-#   discovery: clean
 
 api:
 
