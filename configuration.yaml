@@ -164,7 +164,9 @@ panel_iframe:
     icon: mdi:calendar
     url: !secret google_calendar_url
 
-alexa:
+# alexa:
+
+speedtestdotnet:
 
 # Google Calendar
 google:
