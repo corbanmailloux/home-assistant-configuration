@@ -1,18 +1,5 @@
 # Package for the exit sign
 
-light:
-  - platform: mqtt
-    schema: json
-    name: exit_sign
-    state_topic: "home/exit"
-    command_topic: "home/exit/set"
-    brightness: true
-    rgb: false
-    optimistic: false
-    retain: true
-    qos: 0
-
-
 input_select:
   exit_sign_button_action:
     name: Exit Sign Button Action
@@ -21,13 +8,12 @@ input_select:
       - "Toggle Party Mode"
     icon: mdi:sign-caution
 
-
 automation:
   - alias: "Exit Sign Button - Toggle Exit Sign"
     trigger:
-      platform: mqtt
-      topic: home/exit/button
-      payload: "ON"
+      - platform: state
+        entity_id: binary_sensor.exit_sign_button
+        to: "on"
     condition:
     - condition: state
       entity_id: input_select.exit_sign_button_action
@@ -38,9 +24,9 @@ automation:
 
   - alias: "Exit Sign Button - Toggle Party Mode"
     trigger:
-      platform: mqtt
-      topic: home/exit/button
-      payload: "ON"
+      - platform: state
+        entity_id: binary_sensor.exit_sign_button
+        to: "on"
     condition:
     - condition: state
       entity_id: input_select.exit_sign_button_action
