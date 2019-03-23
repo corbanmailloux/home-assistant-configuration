@@ -131,8 +131,8 @@ tradfri:
   host: !secret tradfri_host
   allow_tradfri_groups: false
 
-transmission:
-  host: !secret transmission_host
+# transmission:
+#   host: !secret transmission_host
 
 # usps:
 #   username: !secret usps_username
