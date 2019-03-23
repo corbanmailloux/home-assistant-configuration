@@ -3,31 +3,38 @@
 all_lights_custom:
   name: All Lights
   entities:
-    - light.exit_sign
-    - light.living_room_tv_backlight
-    - switch.living_room_lamp_near_tv
-    - light.fairy_lights
-    - switch.living_room_couch
-    - light.wall_display_light
     - light.bedroom_lamp
     - light.entry_lamp
-    - switch.christmas_lights
-    # - input_boolean.bus_alert # Because it will just keep turning the light back on.
+    - light.exit_sign
+    - light.fairy_lights
+    - light.living_room_tv_backlight
+    - light.multisensor_light
+    - light.wall_display_light
+    - light.wall_display_screen
+    - switch.christmas_lights # Not currently connected.
+    - switch.living_room_couch
+    - switch.living_room_lamp_near_tv
+    - switch.office_pink_lamp
 
-# All lights, switches, and media_player, for Alexa
+# All lights, switches, and media_players for automations
 everything_custom:
   name: Everything
   entities:
-    - light.exit_sign
-    - light.living_room_tv_backlight
-    - switch.living_room_lamp_near_tv
-    - light.fairy_lights
-    - switch.living_room_couch
-    - switch.obama
-    - switch.office_pink_lamp
-    - light.wall_display_screen
-    - light.wall_display_light
+    # Lights (and switches that work like lights)
     - light.bedroom_lamp
     - light.entry_lamp
-    - switch.christmas_lights
-    # - input_boolean.bus_alert # Because it will just keep turning the light back on.
+    - light.exit_sign
+    - light.fairy_lights
+    - light.living_room_tv_backlight
+    - light.multisensor_light
+    - light.wall_display_light
+    - light.wall_display_screen
+    - switch.christmas_lights # Not currently connected.
+    - switch.living_room_couch
+    - switch.living_room_lamp_near_tv
+    - switch.office_pink_lamp
+    
+    # Other devices
+    - switch.living_room_tv_power
+    - switch.obama
+    - switch.linksio # Floats to various devices.
