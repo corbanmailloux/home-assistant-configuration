@@ -148,7 +148,7 @@ script:
       #     entity_id: media_player.65_tcl_roku_tv
       #     source: Plex
 
-  # esphomeyaml autoconfigures switches for these. Wrap them in scripts so they appear as a button
+  # esphome autoconfigures switches for these. Wrap them in scripts so they appear as a button
   # in the front end.
   soundbar_volume_up:
     sequence:
@@ -193,10 +193,11 @@ scene:
   - name: Movie Mode
     entities:
       light.entry_lamp:
-        state: off
-        transition: 2
-      switch.living_room_lamp_near_tv:
         state: on
+        transition: 2
+        brightness: 90
+      switch.living_room_lamp_near_tv:
+        state: off
       switch.living_room_couch:
         state: off
       light.living_room_tv_backlight:

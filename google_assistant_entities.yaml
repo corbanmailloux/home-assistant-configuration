@@ -38,17 +38,14 @@ script.living_room_game_mode:
 script.living_room_movie_mode:
   room: Living Room
   expose: true
-# switch.bedroom_fan:
-#   name: Bedroom Fan
-#   room: Bedroom
-#   aliases:
-#     - Fan
-#   expose: true
 light.bedroom_lamp:
   room: Bedroom
   expose: true
 light.fairy_lights:
   room: Bedroom
+  expose: true
+light.exit_sign:
+  room: Living Room
   expose: true
 light.entry_lamp:
   room: Living Room
