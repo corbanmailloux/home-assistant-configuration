@@ -116,7 +116,8 @@ script:
           - switch.obama # Turn on the server, in case it was off.
           - switch.living_room_tv_power # Same with the TV.
           - switch.living_room_soundbar_power # And the soundbar.
-          - switch.living_room_lamp_near_tv # Give some lighting. # TODO: Set the backlight as well?
+      - service: scene.turn_on
+        entity_id: scene.movie_mode # At least until I make a game mode scene.
       - delay: 00:00:02
       - service: media_player.select_source
         data:
