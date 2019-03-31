@@ -11,6 +11,8 @@ switch:
 rest_command:
   sleep_obama:
     url: !secret obama_sleep_url
+  shutdown_obama:
+    url: !secret obama_shutdown_url
 
 homeassistant:
   customize:

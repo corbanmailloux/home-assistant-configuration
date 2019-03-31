@@ -2,7 +2,8 @@
 
 shutdown_obama:
   sequence:
-    - service: hassio.addon_stdin
-      data:
-        addon: core_rpc_shutdown
-        input: obama
+    - service: rest_command.shutdown_obama
+    # - service: hassio.addon_stdin
+    #   data:
+    #     addon: core_rpc_shutdown
+    #     input: obama
