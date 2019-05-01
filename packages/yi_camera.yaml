@@ -53,7 +53,7 @@
 #     action:
 #       - service: shell_command.yi_get_most_recent_download
 #       - delay: 00:00:05
-#       - service: notify.html5_edith
+#       - service: notify.html5_corban_phone
 #         data:
 #           title: "Movement at home."
 #           message: "Tap to watch the video."

@@ -5,7 +5,7 @@
 #         entity_id: binary_sensor.living_room_thermostat_online
 #         to: "off"
 #     action:
-#       - service: notify.html5_edith
+#       - service: notify.html5_corban_phone
 #         data:
 #           title: "Nest is Offline"
 #           message: "Might want to look into that."

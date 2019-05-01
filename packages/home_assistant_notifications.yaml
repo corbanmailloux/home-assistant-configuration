@@ -6,7 +6,7 @@ automation:
       - platform: state
         entity_id: updater.updater
     action:
-      service: notify.html5_edith
+      service: notify.html5_corban_phone
       data:
         title: "Home Assistant Update"
       data_template:
@@ -34,7 +34,7 @@ automation:
             entity_id: group.all_lights
             state: 'on'
     action:
-      service: notify.html5_edith
+      service: notify.html5_corban_phone
       data:
         title: "Lights are still on."
         message: "You seem to have left some lights on."
@@ -66,7 +66,7 @@ automation:
         entity_id: switch.living_room_lamp_near_tv
         state: "off"
     action:
-      service: notify.html5_edith
+      service: notify.html5_corban_phone
       data:
         title: "Welcome Home"
         message: "Wanna light?"

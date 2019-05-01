@@ -19,7 +19,7 @@ script:
           {%- if is_state("input_select.donut_destination", "Maggie") -%}
             jackie
           {%- elif is_state("input_select.donut_destination", "Corban") -%}
-            edith
+            Corban Phone
           {%- endif -%}
         title: "Donut Delivery!"
         message: >

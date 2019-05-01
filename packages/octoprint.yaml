@@ -21,7 +21,7 @@ automation:
         entity_id: binary_sensor.octoprint_printing_error
         to: "on"
     action:
-      - service: notify.html5_edith
+      - service: notify.html5_corban_phone
         data:
           title: "3D Print Error"
           message: "Go check the printer!"
@@ -31,7 +31,7 @@ automation:
         entity_id: sensor.octoprint_job_percentage
         to: "100"
     action:
-      - service: notify.html5_edith
+      - service: notify.html5_corban_phone
         data:
           title: "3D Print Complete"
           message: "Go get it."

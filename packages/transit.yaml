@@ -223,7 +223,7 @@ automation:
         entity_id: device_tracker.edith_wifi
         to: "malden"
     action:
-      - service: notify.html5_edith
+      - service: notify.html5_corban_phone
         data:
           title: "Upcoming Busses at Malden"
         data_template:

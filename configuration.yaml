@@ -186,7 +186,7 @@ google_assistant:
   entity_config: !include google_assistant_entities.yaml
 
 tts:
-  - platform: google
+  - platform: google_translate
 
 roku:
   - host: !secret living_room_tv_host
