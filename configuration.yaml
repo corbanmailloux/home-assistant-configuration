@@ -12,7 +12,6 @@ homeassistant:
   packages: !include_dir_named packages
 
 http:
-  api_password: !secret http_api_password
   base_url: !secret http_base_url
 
 # Checks for available updates
@@ -105,12 +104,6 @@ logger:
     homeassistant.components.media_player.roku: critical
 
 device_tracker:
-  # - platform: tplink
-  #   host: !secret router_ip
-  #   username: !secret router_username
-  #   password: !secret router_password
-  #   interval_seconds: 60 # Relatively slow to allow manual logins to the router
-  #   consider_home: 120
   - platform: nmap_tracker
     hosts: 10.0.0.0/24
     interval_seconds: 20
@@ -157,14 +150,6 @@ camera:
   - platform: generic
     still_image_url: !secret radar_image_url
     name: Radar
-
-panel_iframe:
-  google_calendar:
-    title: 'Calendar'
-    icon: mdi:calendar
-    url: !secret google_calendar_url
-
-# alexa:
 
 speedtestdotnet:
 
