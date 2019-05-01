@@ -18,55 +18,55 @@ binary_sensor:
         device_class: connectivity
         icon_template: 'mdi:laptop-mac'
         value_template: >-
-          {{ is_state('device_tracker.net_corbans_macbook', 'home') or is_state('device_tracker.net_corbans_macbook_2', 'home') }}
+          {{ is_state('device_tracker.net_corbans_macbook', 'home') }}
       net_corbans_phone:
         friendly_name: "Network: Corban's Phone"
         device_class: connectivity
         icon_template: 'mdi:cellphone'
         value_template: >-
-          {{ is_state('device_tracker.net_corbans_phone', 'home') or is_state('device_tracker.net_corbans_phone_2', 'home') }}
+          {{ is_state('device_tracker.net_corbans_phone', 'home') }}
       net_corbans_work_macbook:
         friendly_name: "Network: Corban's Work MacBook"
         device_class: connectivity
         icon_template: 'mdi:laptop-mac'
         value_template: >-
-          {{ is_state('device_tracker.net_corbans_work_macbook', 'home') or is_state('device_tracker.net_corbans_work_macbook_2', 'home') }}
+          {{ is_state('device_tracker.net_corbans_work_macbook', 'home') }}
       net_fairy_lights:
         friendly_name: "Network: Fairy Lights"
         device_class: connectivity
         icon_template: 'mdi:led-outline'
         value_template: >-
           {{ is_state('device_tracker.net_fairy_lights', 'home') }}
-      net_google_home_mini_1:
-        friendly_name: "Network: Google Home Mini 1"
+      net_google_home_mini_living_room:
+        friendly_name: "Network: Google Home Mini - Living Room"
         device_class: connectivity
         icon_template: 'mdi:google-home'
         value_template: >-
-          {{ is_state('device_tracker.net_google_home_mini_1', 'home') }}
-      net_google_home_mini_2:
-        friendly_name: "Network: Google Home Mini 2"
+          {{ is_state('device_tracker.net_google_home_mini_living_room', 'home') }}
+      net_google_home_mini_bedroom:
+        friendly_name: "Network: Google Home Mini - Bedroom"
         device_class: connectivity
         icon_template: 'mdi:google-home'
         value_template: >-
-          {{ is_state('device_tracker.net_google_home_mini_2', 'home') }}
-      net_google_home_mini_3:
-        friendly_name: "Network: Google Home Mini 3"
+          {{ is_state('device_tracker.net_google_home_mini_bedroom', 'home') }}
+      net_google_home_mini_kitchen:
+        friendly_name: "Network: Google Home Mini - Kitchen"
         device_class: connectivity
         icon_template: 'mdi:google-home'
         value_template: >-
-          {{ is_state('device_tracker.net_google_home_mini_3', 'home') }}
-      net_google_home_mini_4:
-        friendly_name: "Network: Google Home Mini 4"
+          {{ is_state('device_tracker.net_google_home_mini_kitchen', 'home') }}
+      net_google_home_mini_bathroom:
+        friendly_name: "Network: Google Home Mini - Bathroom"
         device_class: connectivity
         icon_template: 'mdi:google-home'
         value_template: >-
-          {{ is_state('device_tracker.net_google_home_mini_4', 'home') }}
-      net_google_home_mini_5:
-        friendly_name: "Network: Google Home Mini 5"
+          {{ is_state('device_tracker.net_google_home_mini_bathroom', 'home') }}
+      net_google_home_mini_office:
+        friendly_name: "Network: Google Home Mini - Office"
         device_class: connectivity
         icon_template: 'mdi:google-home'
         value_template: >-
-          {{ is_state('device_tracker.net_google_home_mini_5', 'home') }}
+          {{ is_state('device_tracker.net_google_home_mini_office', 'home') }}
       net_living_room_dht:
         friendly_name: "Network: Living Room DHT"
         device_class: connectivity
@@ -78,7 +78,7 @@ binary_sensor:
         device_class: connectivity
         icon_template: 'mdi:cellphone'
         value_template: >-
-          {{ is_state('device_tracker.net_maggies_phone', 'home') or is_state('device_tracker.net_maggies_phone_2', 'home') }}
+          {{ is_state('device_tracker.net_maggies_phone', 'home') }}
       net_sonoff_1:
         friendly_name: "Network: Sonoff 1"
         device_class: connectivity
@@ -133,12 +133,6 @@ binary_sensor:
         icon_template: 'mdi:thermostat'
         value_template: >-
           {{ is_state('device_tracker.net_nest', 'home') }}
-      net_extender:
-        friendly_name: "Network: Extender"
-        device_class: connectivity
-        icon_template: 'mdi:router-wireless'
-        value_template: >-
-          {{ is_state('device_tracker.net_extender', 'home') or is_state('device_tracker.net_extender_2', 'home') }}
       net_maggies_laptop:
         friendly_name: "Network: Maggie's Laptop"
         device_class: connectivity
@@ -151,20 +145,18 @@ binary_sensor:
         icon_template: 'mdi:chip'
         value_template: >-
           {{ is_state('device_tracker.net_multisensor', 'home') }}
-      net_router:
-        friendly_name: "Network: Router"
-        device_class: connectivity
-        icon_template: 'mdi:router-wireless'
-        value_template: >-
-          {{ is_state('device_tracker.net_router', 'home') }}
       net_linksio_switch:
         friendly_name: "Network: Linksio Switch"
         device_class: connectivity
         icon_template: 'mdi:power-socket-us'
         value_template: >-
           {{ is_state('device_tracker.net_linksio_switch', 'home') }}
-
-
+      net_exit_sign:
+        friendly_name: "Network: Exit Sign"
+        device_class: connectivity
+        icon_template: 'mdi:chip'
+        value_template: >-
+          {{ is_state('device_tracker.net_exit_sign', 'home') }}
 
 # List all of these sensors:
 # {% for state in states -%}
