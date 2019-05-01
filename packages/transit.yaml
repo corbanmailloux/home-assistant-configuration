@@ -102,6 +102,10 @@ automation:
         entity_id: device_tracker.edith_wifi
         # from: "not_home"
         to: "home"
+      - platform: state
+        entity_id: device_tracker.jackie_wifi # TODO: Consider using a combined tracker here.
+        # from: "not_home"
+        to: "home"
     action:
       - service: light.turn_on
         data:
