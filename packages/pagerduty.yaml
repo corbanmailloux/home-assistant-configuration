@@ -26,11 +26,14 @@ automation:
 
           {{ (message.event == message_type) and ns.assigned_to_me }}
       - condition: state
-        entity_id: 'device_tracker.edith_wifi'
+        entity_id: device_tracker.edith_wifi
         state: 'home'
       - condition: time
         after: '22:00:00'
         before: '07:00:00'
+      - condition: state
+        entity_id: light.fairy_lights
+        state: 'off' # Only run if the lights are already off to avoid changing them.
     action:
       # Partially turn on the fairy lights so I can pick up my laptop to respond to the page.
       - service: light.turn_on
