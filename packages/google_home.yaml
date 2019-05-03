@@ -1,4 +1,40 @@
+input_text:
+  text_to_speak:
+    name: Text to Speak
+    initial: ""
+
+input_select:
+  text_to_speak_destination:
+    name: Destination
+    options:
+     - All
+     - Living Room
+     - Bedroom
+     - Bathroom
+     - Kitchen
+     - Office
+    initial: All
+    icon: mdi:text-to-speech
+
 script:
+  speak_chosen_text_on_google_home:
+    sequence:
+      - service: tts.google_translate_say
+        data_template:
+          entity_id: >-
+            media_player.{{
+              {
+                'All': 'everything',
+                'Living Room': 'living_room_speaker',
+                'Bedroom': 'bedroom_speaker',
+                'Bathroom': 'bathroom_speaker',
+                'Kitchen': 'kitchen_speaker',
+                'Office': 'office_speaker'
+              }[states('input_select.text_to_speak_destination')] | default('everything')
+            }}
+          message: >-
+            {{ states('input_text.text_to_speak') }}
+
   set_optimal_volumes_on_google_homes:
     sequence:
       - service: media_player.volume_set
