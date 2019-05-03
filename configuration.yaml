@@ -38,7 +38,7 @@ recorder:
     entities:
       - sun.sun
       - sensor.time
-      - sensor.outbound_busses_from_station # Changes often, and no value in tracking
+      # - sensor.outbound_busses_from_station # Changes often, and no value in tracking
       - sensor.busses_at_stop
       - sensor.bus_1_time
       - sensor.bus_1_route
@@ -57,7 +57,7 @@ history:
     entities:
       - sun.sun
       - sensor.time
-      - sensor.outbound_busses_from_station # Changes often, and no value in tracking
+      # - sensor.outbound_busses_from_station # Changes often, and no value in tracking
       - sensor.busses_at_stop
       - sensor.bus_1_time
       - sensor.bus_1_route
