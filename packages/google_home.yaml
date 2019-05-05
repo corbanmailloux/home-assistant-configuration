@@ -35,6 +35,11 @@ script:
           message: >-
             {{ states('input_text.text_to_speak') }}
 
+  play_pause_google_homes:
+    sequence:
+      - service: media_player.media_play_pause
+        entity_id: media_player.everything
+
   set_optimal_volumes_on_google_homes:
     sequence:
       - service: media_player.volume_set
@@ -94,3 +99,10 @@ input_number:
     max: 100
     unit_of_measurement: "%"
     icon: mdi:google-home
+
+
+homeassistant:
+  customize:
+    script.play_pause_google_homes:
+      friendly_name: "Play/Pause Homes"
+      icon: mdi:play-pause
