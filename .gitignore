@@ -129,3 +129,4 @@ esphomeyaml/secrets.yaml
 # .pioenvs/
 # .piolibdeps/
 appdaemon/compiled
+.vscode/
