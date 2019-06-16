@@ -4,15 +4,21 @@ automation:
       - platform: state
         entity_id: input_number.umbrella_percent
     action:
-      - service: mqtt.publish
-        data:
-          topic: "home/umbrella"
-          payload_template: "{{ states('input_number.umbrella_percent') | int }}"
+      - service: esphome.umbrella_control_servo
+        data_template:
+          level: >-
+            {% macro map(value, in_min, in_max, out_min, out_max) -%}
+              {{ ((value - in_min) * (out_max - out_min) / (in_max - in_min) + out_min) }}
+            {%- endmacro %}
+
+            {% set input_val = trigger.to_state.state | int %}
+
+            {{- map(input_val, 0, 100, 7, 57) -}}
 
 input_number:
   umbrella_percent:
     name: Umbrella
-    initial: 0
+    initial: 50
     min: 0
     max: 100
     step: 1
