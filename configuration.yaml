@@ -18,8 +18,8 @@ http:
 updater:
   include_used_components: true
 
+person:
 config:
-
 hassio:
 
 system_health:
@@ -138,7 +138,9 @@ frontend:
   themes: !include themes.yaml
 
 # Discover some devices automatically
-discovery:
+# discovery:
+ssdp:
+zeroconf:
 
 # Allows sending a magic packet directly.
 wake_on_lan:

@@ -1,7 +1,5 @@
 media_player:
   - platform: plex
-    entity_namespace: 'plex'
-    include_non_clients: true
     remove_unavailable_clients: false
   - platform: universal
     name: Living Room TV
