@@ -194,7 +194,7 @@ scene:
       light.entry_lamp:
         state: on
         transition: 2
-        brightness: 90
+        brightness: 255
       switch.living_room_lamp_near_tv:
         state: off
       switch.living_room_couch:
@@ -238,6 +238,18 @@ automation:
         entity_id: light.living_room_tv_backlight
         data:
           transition: 5
+  - alias: Turn on the server when the living room TV switches to Plex
+    trigger:
+      - platform: template
+        value_template: >
+          {{ is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Plex') }}
+    condition:
+      - condition: state
+        entity_id: switch.obama
+        state: 'off'
+    action:
+      - service: switch.turn_on
+        entity_id: switch.obama
 
 homeassistant:
   customize:
