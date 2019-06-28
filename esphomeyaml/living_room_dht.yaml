@@ -2,7 +2,6 @@ esphome:
   name: living_room_dht
   platform: ESP8266
   board: esp01_1m
-  esphome_core_version: latest
 
 wifi:
   ssid: !secret wifi_ssid

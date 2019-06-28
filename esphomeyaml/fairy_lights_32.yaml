@@ -2,7 +2,6 @@ esphome:
   name: fairy_lights_32
   platform: ESP32
   board: esp32doit-devkit-v1
-  esphome_core_version: latest
 
 wifi:
   ssid: !secret wifi_ssid
