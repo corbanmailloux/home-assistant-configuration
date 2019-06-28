@@ -157,6 +157,12 @@ binary_sensor:
         icon_template: 'mdi:chip'
         value_template: >-
           {{ is_state('device_tracker.net_exit_sign', 'home') }}
+      net_docker_host:
+        friendly_name: "Network: Docker Host"
+        device_class: connectivity
+        icon_template: 'mdi:chip'
+        value_template: >-
+          {{ is_state('device_tracker.net_docker_host', 'home') }}
 
 # List all of these sensors:
 # {% for state in states -%}
