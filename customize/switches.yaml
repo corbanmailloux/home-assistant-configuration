@@ -12,8 +12,8 @@ switch.office_pink_lamp:
   friendly_name: Pink Lamp
   icon: mdi:lightbulb
 
-# switch.bedroom_fan:
-#   icon: mdi:fan
+switch.bedroom_fan:
+  icon: mdi:fan
 
 # switch.strobe_light:
 #   friendly_name: Strobe Light

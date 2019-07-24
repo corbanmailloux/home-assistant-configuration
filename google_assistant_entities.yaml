@@ -56,4 +56,10 @@ script.maggie_travel_time_speak:
     - Maggie's Travel Time
     - Maggie's Time to Home
   expose: true
+switch.bedroom_fan:
+  name: Bedroom Fan
+  aliases:
+    - Fan
+  room: Bedroom
+  expose: true
 # TODO: Party mode and scary mode?
