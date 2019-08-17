@@ -174,7 +174,7 @@ device_tracker:
       jackie_wifi: !secret jackie_wifi_mqtt_topic
   - platform: google_maps
     username: !secret google_maps_username
-    password: !secret google_maps_password
+    # password: !secret google_maps_password
 
 map:
 
