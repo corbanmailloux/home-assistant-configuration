@@ -1,0 +1,35 @@
+esphomeyaml:
+  name: litter_box
+  platform: ESP8266
+  board: d1_mini
+  arduino_version: recommended
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+# 10.0.0.?
+
+api:
+
+logger:
+  # level: INFO
+
+ota:
+
+sensor:
+  - platform: hx711
+    name: "Litter Box Weight"
+    dout_pin: D0
+    clk_pin: D1
+    gain: 128
+    update_interval: 15s
+    # filters:
+    #   - lambda: |-
+    #       auto first_mass = 0.0; // first known mass was 0 lbs
+    #       auto first_value = 120.0; // value for the first known mass was 120
+    #       auto second_mass = 1.0; // second mass was 1 lb
+    #       auto second_value = 810.0; // second value was 810
+
+    #       return map(x, first_value, second_value, first_mass, second_mass);
+    # unit_of_measurement: lbs
