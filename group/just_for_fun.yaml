@@ -11,9 +11,6 @@ view_fun:
     - group.fun_stuff
     - group.welcome_home
     # - group.yi_camera
-    # - sensor.usps_mail
-    # - sensor.usps_packages
-    # - camera.usps_mail
     # - group.unused_for_now
 
 fun_notifications:

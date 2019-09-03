@@ -109,11 +109,9 @@ tts/
 # www/*
 # !www/donuts/
 www/lovelace/
-usps_cookies.pickle
 ip_bans.yaml
 .spotify-token-cache
 nest.conf
-usps_cache.sqlite
 .cloud/
 appdaemon/appdaemon.yaml
 entity_registry.yaml
