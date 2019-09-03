@@ -5,7 +5,6 @@ default_view:
   name: !secret home_name
   icon: mdi:home
   entities:
-    - updater.updater
     - device_tracker.google_maps_110168280884137709870 # Corban
     - device_tracker.google_maps_106112096418399445974 # Maggie
     - device_tracker.edith_wifi
