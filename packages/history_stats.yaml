@@ -27,7 +27,7 @@ sensor:
       obama_cost_last_30_days:
         friendly_name: Obama On Time Last 30 Days - Estimated Cost
         value_template: >
-          {% set hours = float(states("sensor.obama_on_time_last_30_days")) %}
+          {% set hours = states("sensor.obama_on_time_last_30_days") | float %}
           ${{ (hours * 0.000281516853932584 * 100) | round(2) }}
 
 homeassistant:
