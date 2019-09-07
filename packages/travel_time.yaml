@@ -25,6 +25,30 @@ script:
             {%- set minutes = states('sensor.maggie_to_home_travel_time') -%}
             Maggie is {{ minutes }} minute{% if minutes != 1 %}s{% endif %} away.
 
+automation:
+  - alias: Notify Corban when Maggie is almost home
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.maggie_to_home_travel_time
+        below: 11
+    condition:
+      - condition: state
+        entity_id: device_tracker.edith_wifi # TODO: Move to a person entity
+        state: 'home'
+      - condition: state
+        entity_id: timer.maggie_home_notification_cooldown
+        state: idle
+    action:
+      - service: script.turn_on
+        entity_id: script.maggie_travel_time_speak
+      - service: timer.start
+        entity_id: timer.maggie_home_notification_cooldown
+        data:
+          duration: '00:10:00' # 10 minute cooldown before retriggering.
+
+timer:
+  maggie_home_notification_cooldown:
+
 homeassistant:
   customize:
     sensor.maggie_to_home_travel_time:
