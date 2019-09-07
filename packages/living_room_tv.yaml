@@ -195,6 +195,7 @@ scene:
         state: on
         transition: 2
         brightness: 255
+        color_temp: 352
       switch.living_room_lamp_near_tv:
         state: off
       switch.living_room_couch:
