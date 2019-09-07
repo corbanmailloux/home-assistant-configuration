@@ -62,4 +62,3 @@ switch.bedroom_fan:
     - Fan
   room: Bedroom
   expose: true
-# TODO: Party mode and scary mode?
