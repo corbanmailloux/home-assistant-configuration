@@ -1,0 +1,1125 @@
+{
+    "data": {
+        "config": {
+            "resources": [
+                {
+                    "type": "js",
+                    "url": "/local/lovelace/lovelace-slider-entity-row/slider-entity-row.js?v=1"
+                }
+            ],
+            "title": "Home",
+            "views": [
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "switch.living_room_lamp_near_tv"
+                                },
+                                {
+                                    "entity": "switch.living_room_couch"
+                                },
+                                {
+                                    "entity": "light.entry_lamp",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                }
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Living Room Lights",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.fairy_lights",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                },
+                                {
+                                    "entity": "light.bedroom_lamp",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                }
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Bedroom Lights",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "switch.office_pink_lamp"
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Office Lights",
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "media_player.living_room_tv",
+                                    "type": "media-control"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "script.roku_back",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.roku_play_pause",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.roku_replay",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "binary_sensor.corban_home_gps",
+                                            "icon": "mdi:crosshairs-gps"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.corban_home_wifi",
+                                            "icon": "mdi:wifi"
+                                        },
+                                        "sensor.corban_phone_battery"
+                                    ],
+                                    "entity": "binary_sensor.corban_home",
+                                    "image": "/local/images/corban.jpg",
+                                    "title": "Corban",
+                                    "type": "picture-glance"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "binary_sensor.maggie_home_gps",
+                                            "icon": "mdi:crosshairs-gps"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.maggie_home_wifi",
+                                            "icon": "mdi:wifi"
+                                        },
+                                        "sensor.maggie_phone_battery"
+                                    ],
+                                    "entity": "binary_sensor.maggie_home",
+                                    "image": "/local/images/maggie.jpg",
+                                    "title": "Maggie",
+                                    "type": "picture-glance"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "group.corban_home"
+                                },
+                                {
+                                    "entity": "group.maggie_home"
+                                },
+                                {
+                                    "entity": "device_tracker.corban_presence"
+                                }
+                            ],
+                            "type": "entities"
+                        },
+                        {
+                            "entity": "climate.hallway_thermostat",
+                            "type": "thermostat"
+                        }
+                    ],
+                    "icon": "mdi:home",
+                    "path": "home",
+                    "title": "Home"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "switch.living_room_lamp_near_tv"
+                                },
+                                {
+                                    "entity": "switch.living_room_couch"
+                                },
+                                {
+                                    "entity": "light.entry_lamp",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                }
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Living Room Lights",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "switch.living_room_tv_power"
+                                },
+                                {
+                                    "entity": "switch.obama"
+                                },
+                                {
+                                    "entity": "switch.living_room_soundbar_power"
+                                },
+                                {
+                                    "entity": "cover.living_room_soundbar_volume"
+                                },
+                                {
+                                    "entity": "script.living_room_movie_mode"
+                                },
+                                {
+                                    "entity": "script.living_room_game_mode"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Living Room TV",
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "media_player.living_room_tv",
+                                    "type": "media-control"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "script.roku_back",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.roku_play_pause",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.roku_replay",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_select.backlight_mode"
+                                },
+                                {
+                                    "entity": "input_select.exit_sign_button_action"
+                                },
+                                {
+                                    "entity": "light.exit_sign"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Light Control",
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "sensor.living_room_temperature",
+                                    "graph": "line",
+                                    "name": "Temperature",
+                                    "type": "sensor"
+                                },
+                                {
+                                    "entity": "sensor.living_room_humidity",
+                                    "name": "Humidity",
+                                    "type": "gauge"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        }
+                    ],
+                    "icon": "mdi:sofa",
+                    "path": "living_room",
+                    "title": "Living Room"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.fairy_lights",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                },
+                                {
+                                    "entity": "switch.bedroom_fan",
+                                    "name": "Bedroom Fan",
+                                    "toggle": true
+                                },
+                                {
+                                    "entity": "light.bedroom_lamp",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                }
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Bedroom Lights",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "automation.sunrise_alarm",
+                                "input_number.alarm_max_brightness",
+                                "input_datetime.alarm_start_time",
+                                "input_datetime.alarm_target_time"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Sunrise Alarm",
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "media_player.bedroom_tv",
+                                    "type": "media-control"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "script.bedroom_roku_back",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.bedroom_roku_play_pause",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.bedroom_roku_replay",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        }
+                    ],
+                    "icon": "mdi:hotel",
+                    "path": "bedroom",
+                    "title": "Bedroom"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                "switch.office_pink_lamp"
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Office Lights",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:monitor",
+                    "path": "office",
+                    "title": "Office"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.dark_sky_summary"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_temperature"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_humidity"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Outside",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "sensor.living_room_temperature",
+                                "sensor.living_room_humidity"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Living Room",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.dark_sky_summary"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_minutely_summary"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_hourly_summary"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_temperature"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_daytime_high_temperature_0d"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_overnight_low_temperature_0d"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_apparent_temperature"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_daytime_high_apparent_temperature_0d"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_overnight_low_apparent_temperature_0d"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_humidity"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_precip_probability"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_precip"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_precip_intensity"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_daily_max_precip_intensity_0d"
+                                },
+                                {
+                                    "entity": "sensor.dark_sky_cloud_coverage"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "DarkSky Weather Sensors",
+                            "type": "entities"
+                        },
+                        {
+                            "entity": "camera.radar",
+                            "type": "picture-entity"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        "sensor.living_room_temperature",
+                                        "sensor.dark_sky_temperature"
+                                    ],
+                                    "hours_to_show": 72,
+                                    "title": "Temperatures",
+                                    "type": "history-graph"
+                                },
+                                {
+                                    "entities": [
+                                        "sensor.living_room_humidity",
+                                        "sensor.dark_sky_humidity"
+                                    ],
+                                    "hours_to_show": 72,
+                                    "title": "Humidities",
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        }
+                    ],
+                    "icon": "mdi:white-balance-sunny",
+                    "path": "environment",
+                    "title": "Environment"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                "sensor.maggie_to_home_travel_time",
+                                "script.maggie_travel_time_speak"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Maggie Travel Time",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "script.phone_notify_i_love_maggs"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Fun Notifications",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.corban_s_time_at_work_today"
+                                },
+                                {
+                                    "entity": "sensor.corban_s_time_at_work_this_week"
+                                },
+                                {
+                                    "entity": "input_boolean.scary_mode"
+                                },
+                                {
+                                    "entity": "input_boolean.party_mode"
+                                },
+                                {
+                                    "entity": "automation.pagerduty_webhook_triggered_event"
+                                },
+                                {
+                                    "entity": "sensor.heat_on_time_today"
+                                },
+                                {
+                                    "entity": "sensor.heat_on_time_yesterday"
+                                },
+                                {
+                                    "entity": "sensor.obama_on_time_last_30_days"
+                                },
+                                {
+                                    "entity": "sensor.obama_cost_last_30_days"
+                                },
+                                {
+                                    "entity": "input_number.umbrella_percent"
+                                },
+                                {
+                                    "entity": "light.umbrella_light"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Fun Stuff",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_select.donut_selector",
+                                "input_select.donut_destination",
+                                "script.send_donut_and_randomize"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Donut Delivery",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_number.welcome_home_corban_delay",
+                                "automation.corban_welcome_home_announcement"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Welcome Home",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_text.text_to_speak"
+                                },
+                                {
+                                    "entity": "input_select.text_to_speak_destination"
+                                },
+                                {
+                                    "entity": "script.speak_chosen_text_on_google_home",
+                                    "name": "Speak!"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Make the Homes Speak",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:airballoon",
+                    "path": "fun",
+                    "title": "Fun Stuff"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "script.shutdown_obama"
+                                },
+                                {
+                                    "entity": "switch.obama"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Obama Management",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "automation.hass_update_notification"
+                                },
+                                {
+                                    "entity": "automation.reminder_to_turn_off_the_lights"
+                                },
+                                {
+                                    "entity": "automation.corban_ask_to_turn_on_a_light_when_coming_home"
+                                },
+                                {
+                                    "entity": "automation.maggie_ask_to_turn_on_a_light_when_coming_home"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Home Assistant Notifications",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "automation.set_tv_backlight_based_on_temperature",
+                                "input_select.backlight_mode",
+                                "input_number.temperature_low",
+                                "input_number.temperature_high",
+                                "input_number.backlight_temp_brightness"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Temperature-Controlled Backlight",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "input_select.dash_button_1_mode",
+                                "script.press_dash_button_1"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Dash Button 1",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "script.front_buzzer"
+                                }
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Test Scripts",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "icon": "mdi:code-tags",
+                                    "name": "Web IDE",
+                                    "type": "weblink",
+                                    "url": "http://hassio.local:8321"
+                                },
+                                {
+                                    "icon": "mdi:lightbulb-on",
+                                    "name": "TasmoAdmin",
+                                    "type": "weblink",
+                                    "url": "http://hassio.local:9541/devices"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "HASS Extensions",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                "sensor.octoprint_current_state",
+                                "sensor.octoprint_job_percentage",
+                                "binary_sensor.octoprint_printing",
+                                "binary_sensor.octoprint_printing_error",
+                                "sensor.octoprint_actual_tool0_temp",
+                                "sensor.octoprint_target_tool0_temp",
+                                "sensor.octoprint_actual_bed_temp",
+                                "sensor.octoprint_target_bed_temp",
+                                "automation.notify_on_print_completion",
+                                "automation.notify_on_print_error"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "OctoPrint",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.busses_at_stop"
+                                },
+                                {
+                                    "entity": "sensor.bus_1_time"
+                                },
+                                {
+                                    "entity": "sensor.bus_1_route"
+                                },
+                                {
+                                    "entity": "sensor.bus_2_time"
+                                },
+                                {
+                                    "entity": "sensor.bus_2_route"
+                                },
+                                {
+                                    "entity": "input_boolean.bus_alert"
+                                },
+                                {
+                                    "entity": "input_boolean.bus_alert_active"
+                                },
+                                {
+                                    "entity": "light.wall_display_light"
+                                },
+                                {
+                                    "entity": "light.wall_display_screen"
+                                },
+                                {
+                                    "entity": "automation.turn_on_the_wall_display_when_corban_gets_home"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Bus Times",
+                            "type": "entities"
+                        },
+                        {
+                            "entity": "media_player.spotify",
+                            "type": "media-control"
+                        },
+                        {
+                            "entity": "media_player.google_homes",
+                            "type": "media-control"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_number.gh_volume_target_living_room"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_bedroom"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_office"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_kitchen"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_bathroom"
+                                },
+                                {
+                                    "entity": "script.set_optimal_volumes_on_google_homes",
+                                    "icon": "mdi:volume-medium",
+                                    "name": "Set Target Volumes"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Reset Google Home Volumes",
+                            "type": "entities"
+                        }
+                    ],
+                    "icon": "mdi:settings",
+                    "path": "management",
+                    "title": "Management"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "card": {
+                                "show_header_toggle": false,
+                                "title": "Unexpectedly Offline Devices",
+                                "type": "entities"
+                            },
+                            "entities": [
+                                "binary_sensor.net_obama",
+                                "binary_sensor.net_nest",
+                                "binary_sensor.net_bedroom_roku",
+                                "binary_sensor.net_living_room_tv",
+                                "binary_sensor.net_wall_display",
+                                "binary_sensor.net_google_home_mini_bathroom",
+                                "binary_sensor.net_google_home_mini_bedroom",
+                                "binary_sensor.net_google_home_mini_kitchen",
+                                "binary_sensor.net_google_home_mini_living_room",
+                                "binary_sensor.net_google_home_mini_office",
+                                "binary_sensor.net_tradfri_gateway",
+                                "binary_sensor.net_exit_sign",
+                                "binary_sensor.net_fairy_lights",
+                                "binary_sensor.net_living_room_dht",
+                                "binary_sensor.net_multisensor",
+                                "binary_sensor.net_soundbar_controller",
+                                "binary_sensor.net_tv_backlight",
+                                "binary_sensor.net_sonoff_1",
+                                "binary_sensor.net_sonoff_3",
+                                "binary_sensor.net_sonoff_5",
+                                "binary_sensor.net_docker_host"
+                            ],
+                            "state_filter": [
+                                "off"
+                            ],
+                            "type": "entity-filter"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.net_corbans_phone"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_corbans_macbook"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_corbans_work_macbook"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_maggies_phone"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_maggies_laptop"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_obama"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_nest"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_bedroom_roku"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_living_room_tv"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_wall_display"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_google_home_mini_bathroom"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_google_home_mini_bedroom"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_google_home_mini_kitchen"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_google_home_mini_living_room"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_google_home_mini_office"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_tradfri_gateway"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_exit_sign"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_fairy_lights"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_living_room_dht"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_multisensor"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_soundbar_controller"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_tv_backlight"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_linksio_switch"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_sonoff_1"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_sonoff_3"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_sonoff_5"
+                                },
+                                {
+                                    "entity": "binary_sensor.net_docker_host"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Network Devices",
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        "sensor.living_room_temperature",
+                                        "sensor.multisensor_temperature"
+                                    ],
+                                    "hours_to_show": 168,
+                                    "title": "Network Cabinet Temperature",
+                                    "type": "history-graph"
+                                },
+                                {
+                                    "entities": [
+                                        "sensor.multisensor_humidity"
+                                    ],
+                                    "hours_to_show": 168,
+                                    "title": "Network Cabinet Humidity",
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        "sensor.speedtest_ping"
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Internet",
+                                    "type": "entities"
+                                },
+                                {
+                                    "entities": [
+                                        "sensor.speedtest_download",
+                                        "sensor.speedtest_upload"
+                                    ],
+                                    "hours_to_show": 168,
+                                    "type": "history-graph"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.onhub_kbyte_sec_sent",
+                                            "name": "Up Speed"
+                                        },
+                                        {
+                                            "entity": "sensor.onhub_kbyte_sec_received",
+                                            "name": "Down Speed"
+                                        }
+                                    ],
+                                    "hours_to_show": 168,
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "sensor.home_corb_co_certificate",
+                                    "max": 90,
+                                    "min": 0,
+                                    "name": "home.corb.co",
+                                    "type": "gauge"
+                                },
+                                {
+                                    "entity": "sensor.corb_co_certificate",
+                                    "max": 90,
+                                    "min": 0,
+                                    "name": "corb.co",
+                                    "type": "gauge"
+                                }
+                            ],
+                            "name": "Certificates",
+                            "type": "horizontal-stack"
+                        }
+                    ],
+                    "icon": "mdi:server-network",
+                    "path": "network",
+                    "title": "Network"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entity": "sensor.time",
+                            "hours_to_show": 0,
+                            "type": "sensor"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "binary_sensor.corban_home_gps",
+                                            "icon": "mdi:crosshairs-gps"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.corban_home_wifi",
+                                            "icon": "mdi:wifi"
+                                        },
+                                        "sensor.corban_phone_battery"
+                                    ],
+                                    "entity": "binary_sensor.corban_home",
+                                    "image": "/local/images/corban.jpg",
+                                    "title": "Corban",
+                                    "type": "picture-glance"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "binary_sensor.maggie_home_gps",
+                                            "icon": "mdi:crosshairs-gps"
+                                        },
+                                        {
+                                            "entity": "binary_sensor.maggie_home_wifi",
+                                            "icon": "mdi:wifi"
+                                        },
+                                        "sensor.maggie_phone_battery"
+                                    ],
+                                    "entity": "binary_sensor.maggie_home",
+                                    "image": "/local/images/maggie.jpg",
+                                    "title": "Maggie",
+                                    "type": "picture-glance"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "sensor.bus_1_time",
+                                    "type": "sensor"
+                                },
+                                {
+                                    "entity": "sensor.bus_2_time",
+                                    "type": "sensor"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "entity": "script.roku_play_pause",
+                            "hold_action": {
+                                "action": "none"
+                            },
+                            "name": "TV Play/Pause",
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "type": "entity-button"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "sensor.living_room_temperature",
+                                    "graph": "line",
+                                    "name": "Temperature",
+                                    "type": "sensor"
+                                },
+                                {
+                                    "entity": "sensor.living_room_humidity",
+                                    "name": "Humidity",
+                                    "type": "gauge"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "script.living_room_movie_mode",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "entity-button"
+                                },
+                                {
+                                    "entity": "script.living_room_game_mode",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "entity-button"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "entity": "script.everything_off",
+                            "hold_action": {
+                                "action": "more-info"
+                            },
+                            "icon": "mdi:power",
+                            "name": "Everything Off",
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "type": "entity-button"
+                        }
+                    ],
+                    "panel": false,
+                    "theme": "midnight",
+                    "title": "Wall Display"
+                }
+            ]
+        }
+    },
+    "key": "lovelace",
+    "version": 1
+}

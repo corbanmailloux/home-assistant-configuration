@@ -118,7 +118,8 @@ entity_registry.yaml
 plex.conf
 .storage/core.config_entries
 .tradfri_psk.conf
-.storage/
+.storage/*
+!.storage/lovelace
 
 esphomeyaml/*
 !esphomeyaml/*.yaml
