@@ -6,9 +6,9 @@ automation:
     trigger:
       - platform: state
         entity_id: light.fairy_lights
-        to: 'on'
+        to: "on"
         for:
-          hours: 3
+          hours: 5
           minutes: 0
           seconds: 0
     action:
@@ -17,7 +17,7 @@ automation:
         data:
           transition: 5
 
-  - alias: "Phone Fairy Toggle"
+  - alias: "Phone Fairy Toggle - 3 states"
     trigger:
       - platform: webhook
         webhook_id: !secret jackie_fairy_toggle_webhook
@@ -28,6 +28,30 @@ automation:
         entity_id: light.fairy_lights
         data:
           transition: 2
+      # Explanation of the tri-state logic:
+      # If the light is off, turn it on to 25%.
+      # If it's on but not at 100%, set it to 100%.
+      # If it's on at 100%, turn it off.
+      - service_template: >
+          {%- if states("light.fairy_lights") == "off" -%}
+            light.turn_on
+          {%- elif state_attr("light.fairy_lights", "brightness") != 255 -%}
+            light.turn_on
+          {%- else -%}
+            light.turn_off
+          {%- endif -%}
+        entity_id: light.fairy_lights
+        data_template:
+          brightness: >
+            {%- set percent = 100 -%}
+            {%- if states("light.fairy_lights") == "off" -%}
+              {%- set percent = 25 -%}
+            {%- elif state_attr("light.fairy_lights", "brightness") != 255 -%}
+              {%- set percent = 100 -%}
+            {%- else -%}
+              {%- set percent = 0 -%}
+            {%- endif -%}
+            {{ (percent / 100 * 255) | int}}
 
 homeassistant:
   customize:
