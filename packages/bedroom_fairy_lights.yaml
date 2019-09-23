@@ -29,13 +29,13 @@ automation:
         data:
           transition: 2
       # Explanation of the tri-state logic:
-      # If the light is off, turn it on to 25%.
-      # If it's on but not at 100%, set it to 100%.
-      # If it's on at 100%, turn it off.
+      # If the light is off, turn it on to 100%.
+      # If it's on at 100%, set it to 25%.
+      # If it's on but not at 100%, turn it off.
       - service_template: >
           {%- if states("light.fairy_lights") == "off" -%}
             light.turn_on
-          {%- elif state_attr("light.fairy_lights", "brightness") != 255 -%}
+          {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
             light.turn_on
           {%- else -%}
             light.turn_off
@@ -45,9 +45,9 @@ automation:
           brightness: >
             {%- set percent = 100 -%}
             {%- if states("light.fairy_lights") == "off" -%}
-              {%- set percent = 25 -%}
-            {%- elif state_attr("light.fairy_lights", "brightness") != 255 -%}
               {%- set percent = 100 -%}
+            {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
+              {%- set percent = 25 -%}
             {%- else -%}
               {%- set percent = 0 -%}
             {%- endif -%}
