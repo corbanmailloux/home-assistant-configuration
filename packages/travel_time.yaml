@@ -1,9 +1,9 @@
 sensor:
   - platform: waze_travel_time
-    name: 'Maggie to Home Travel Time'
+    name: "Maggie to Home Travel Time"
     origin: device_tracker.google_maps_106112096418399445974
     destination: zone.home
-    region: 'US'
+    region: "US"
 
 group:
   maggie_travel_time:
@@ -34,17 +34,20 @@ automation:
     condition:
       - condition: state
         entity_id: device_tracker.edith_wifi # TODO: Move to a person entity
-        state: 'home'
+        state: "home"
       - condition: state
         entity_id: timer.maggie_home_notification_cooldown
         state: idle
+      - condition: time # From 7AM - 9PM
+        after: "07:00:00"
+        before: "21:00:00"
     action:
       - service: script.turn_on
         entity_id: script.maggie_travel_time_speak
       - service: timer.start
         entity_id: timer.maggie_home_notification_cooldown
         data:
-          duration: '00:10:00' # 10 minute cooldown before retriggering.
+          duration: "00:10:00" # 10 minute cooldown before retriggering.
 
 timer:
   maggie_home_notification_cooldown:
