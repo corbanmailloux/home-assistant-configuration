@@ -621,9 +621,6 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "input_boolean.vacation_mode"
-                                },
-                                {
                                     "entity": "automation.hass_update_notification"
                                 },
                                 {
@@ -669,6 +666,19 @@
                             ],
                             "show_header_toggle": true,
                             "title": "Test Scripts",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_boolean.vacation_mode"
+                                },
+                                {
+                                    "entity": "input_boolean.vacation_mode_light_schedule"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Vacation Mode",
                             "type": "entities"
                         },
                         {

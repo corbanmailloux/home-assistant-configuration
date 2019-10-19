@@ -2,8 +2,12 @@ input_boolean:
   vacation_mode:
     name: Vacation Mode
     icon: mdi:airplane
+  vacation_mode_light_schedule:
+    name: Automatic Light Schedule
+    icon: mdi:av-timer
 
 automation:
+  ## Disable vacation mode
   - alias: Remind us to turn off vacation mode
     trigger:
       - platform: state
@@ -28,6 +32,103 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacation_mode
+
+  ## Schedule
+  - alias: Schedule - Enable/Disable Automations
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacation_mode_light_schedule
+    action:
+      - service_template: >
+          {% if trigger.to_state.state == "on" %}
+            homeassistant.turn_on
+          {% elif trigger.to_state.state == "off" %}
+            homeassistant.turn_off
+          {% endif %}
+        entity_id: group.vacation_schedule_automations
+
+  - alias: Schedule - Disable When Vacation Mode is Disabled
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacation_mode
+        to: "off"
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.vacation_mode_light_schedule
+
+  - alias: Schedule - 1 - Some Lights On
+    trigger:
+      - platform: time
+        at: "18:03:00" # 6:03 PM
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode_light_schedule
+        state: "on"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.entry_lamp
+          brightness_pct: 80
+  - alias: Schedule - 2 - Dim for movie
+    trigger:
+      - platform: time
+        at: "19:26:00" # 7:26 PM
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode_light_schedule
+        state: "on"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.entry_lamp
+          brightness_pct: 40
+  - alias: Schedule - 3 - Maggs to bed
+    trigger:
+      - platform: time
+        at: "21:49:00" # 9:49 PM
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode_light_schedule
+        state: "on"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.bedroom_lamp
+          brightness_pct: 40
+  - alias: Schedule - 4 - Maggs sleep
+    trigger:
+      - platform: time
+        at: "22:15:00" # 10:15 PM
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode_light_schedule
+        state: "on"
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.bedroom_lamp
+  - alias: Schedule - 5 - Everything off
+    trigger:
+      - platform: time
+        at: "23:05:00" # 11:05 PM
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode_light_schedule
+        state: "on"
+    action:
+      - service: light.turn_off
+        data:
+          entity_id: light.entry_lamp
+
+group:
+  vacation_schedule_automations:
+    name: Scheduled Light Automations
+    entities:
+      - automation.schedule_1_some_lights_on
+      - automation.schedule_2_dim_for_movie
+      - automation.schedule_3_maggs_to_bed
+      - automation.schedule_4_maggs_sleep
+      - automation.schedule_5_everything_off
 
 script:
   vacation_mode_notification:
