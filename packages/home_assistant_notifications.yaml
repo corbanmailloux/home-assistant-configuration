@@ -5,8 +5,12 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.updater
-        from: 'off'
-        to: 'on'
+        from: "off"
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
     action:
       service: notify.html5_corban_phone
       data:
@@ -25,16 +29,16 @@ automation:
       condition: and
       conditions:
         - condition: state
-          entity_id: 'device_tracker.jackie_wifi'
-          state: 'not_home'
+          entity_id: "device_tracker.jackie_wifi"
+          state: "not_home"
         - condition: or
           conditions:
-          - condition: state
-            entity_id: group.all_switches
-            state: 'on'
-          - condition: state
-            entity_id: group.all_lights
-            state: 'on'
+            - condition: state
+              entity_id: group.all_switches
+              state: "on"
+            - condition: state
+              entity_id: group.all_lights
+              state: "on"
     action:
       service: notify.html5_corban_phone
       data:
@@ -73,7 +77,7 @@ automation:
         title: "Welcome Home"
         message: "Wanna light?"
         data:
-          tag: 'wanna-light-edith'
+          tag: "wanna-light-edith"
           actions:
             - action: "turn_on_light_next_to_tv"
               title: "Turn on"
@@ -94,7 +98,7 @@ automation:
         title: "Welcome Home"
         message: "Wanna light?"
         data:
-          tag: 'wanna-light-jackie'
+          tag: "wanna-light-jackie"
           actions:
             - action: "turn_on_light_next_to_tv"
               title: "Turn on"
@@ -117,7 +121,6 @@ group:
       - automation.corban_ask_to_turn_on_a_light_when_coming_home
       - automation.maggie_ask_to_turn_on_a_light_when_coming_home
       # - automation.notify_if_nest_goes_offline
-
 
 homeassistant:
   customize:

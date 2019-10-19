@@ -621,6 +621,9 @@
                         {
                             "entities": [
                                 {
+                                    "entity": "input_boolean.vacation_mode"
+                                },
+                                {
                                     "entity": "automation.hass_update_notification"
                                 },
                                 {

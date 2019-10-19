@@ -1,0 +1,52 @@
+input_boolean:
+  vacation_mode:
+    name: Vacation Mode
+    icon: mdi:airplane
+
+automation:
+  - alias: Remind us to turn off vacation mode
+    trigger:
+      - platform: state
+        entity_id: device_tracker.edith_wifi
+        to: "home"
+      - platform: state
+        entity_id: device_tracker.jackie_wifi
+        to: "home"
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "on"
+    action:
+      - service: script.turn_on
+        entity_id: script.vacation_mode_notification
+  - alias: Turn off vacation mode notification clicked
+    trigger:
+      - platform: event
+        event_type: ariela_notification_clicked
+        event_data:
+          action: turn_off_vacation_mode
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.vacation_mode
+
+script:
+  vacation_mode_notification:
+    sequence:
+      - service: notify.mobile_app_edith
+        data:
+          title: "Welcome back!"
+          message: "Turn off vacation mode?"
+          data:
+            tag: 20 # Arbitrary but constant.
+            actions:
+              - action: "turn_off_vacation_mode"
+                title: "Yes, turn off."
+      - service: notify.mobile_app_jackie
+        data:
+          title: "Welcome back!"
+          message: "Turn off vacation mode?"
+          data:
+            tag: 20 # Arbitrary but constant.
+            actions:
+              - action: "turn_off_vacation_mode"
+                title: "Yes, turn off."

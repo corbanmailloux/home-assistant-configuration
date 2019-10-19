@@ -8,6 +8,10 @@ automation:
     trigger:
       - platform: time
         at: '19:00:00' # 7 PM. TODO: Make configurable?
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
     action:
       service: script.turn_on
       entity_id: script.litter_send_notifications
