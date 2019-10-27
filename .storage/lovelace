@@ -4,7 +4,7 @@
             "resources": [
                 {
                     "type": "js",
-                    "url": "/local/lovelace/lovelace-slider-entity-row/slider-entity-row.js?v=1"
+                    "url": "/local/community/lovelace-slider-entity-row/slider-entity-row.js"
                 }
             ],
             "title": "Home",
@@ -495,6 +495,16 @@
                                 }
                             ],
                             "type": "vertical-stack"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "vacuum.xiaomi_vacuum_cleaner"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Vacuum",
+                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:white-balance-sunny",
