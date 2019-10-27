@@ -671,6 +671,19 @@
                         {
                             "entities": [
                                 {
+                                    "entity": "input_boolean.vacation_mode"
+                                },
+                                {
+                                    "entity": "input_boolean.vacation_mode_light_schedule"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Vacation Mode",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
                                     "icon": "mdi:code-tags",
                                     "name": "Web IDE",
                                     "type": "weblink",

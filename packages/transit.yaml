@@ -39,9 +39,9 @@ sensor:
   - platform: template
     sensors:
       bus_1_time:
-        friendly_name: 'Bus 1 - Time'
+        friendly_name: "Bus 1 - Time"
         unit_of_measurement: Minutes
-        entity_id: 'sensor.busses_at_stop'
+        entity_id: "sensor.busses_at_stop"
         value_template: >-
           {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
             {{ ((as_timestamp(states.sensor.busses_at_stop.attributes["data"][0]["attributes"]["arrival_time"]) - as_timestamp(now())) / 60) | round(1) }}
@@ -49,8 +49,8 @@ sensor:
             N/A
           {% endif %}
       bus_1_route:
-        friendly_name: 'Bus 1 - Route'
-        entity_id: 'sensor.busses_at_stop'
+        friendly_name: "Bus 1 - Route"
+        entity_id: "sensor.busses_at_stop"
         value_template: >-
           {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
             {{ states.sensor.busses_at_stop.attributes["data"][0]["relationships"]["route"]["data"]["id"] }}
@@ -58,9 +58,9 @@ sensor:
             N/A
           {% endif %}
       bus_2_time:
-        friendly_name: 'Bus 2 - Time'
+        friendly_name: "Bus 2 - Time"
         unit_of_measurement: Minutes
-        entity_id: 'sensor.busses_at_stop'
+        entity_id: "sensor.busses_at_stop"
         value_template: >-
           {% if states.sensor.busses_at_stop.attributes["data"] | length > 1 %}
             {{ ((as_timestamp(states.sensor.busses_at_stop.attributes["data"][1]["attributes"]["arrival_time"]) - as_timestamp(now())) / 60) | round(1) }}
@@ -68,8 +68,8 @@ sensor:
             N/A
           {% endif %}
       bus_2_route:
-        friendly_name: 'Bus 2 - Route'
-        entity_id: 'sensor.busses_at_stop'
+        friendly_name: "Bus 2 - Route"
+        entity_id: "sensor.busses_at_stop"
         value_template: >-
           {% if states.sensor.busses_at_stop.attributes["data"] | length > 1 %}
             {{ states.sensor.busses_at_stop.attributes["data"][1]["relationships"]["route"]["data"]["id"] }}
@@ -114,11 +114,14 @@ automation:
   - alias: Turn on the wall display in the morning # if Corban is home
     trigger:
       - platform: time
-        at: '06:30:00'
+        at: "06:30:00"
     condition:
       - condition: state
         entity_id: device_tracker.edith_wifi
         state: "home"
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
     action:
       - service: light.turn_on
         data:
@@ -130,11 +133,14 @@ automation:
   - alias: Enable the bus alert based on time
     trigger:
       - platform: time
-        at: '06:30:00'
+        at: "06:30:00"
     condition:
       - condition: state
         entity_id: binary_sensor.corban_office_workdays
-        state: 'on'
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
     action:
       - service: input_boolean.turn_on
         data:
@@ -142,7 +148,7 @@ automation:
   - alias: Disable the bus alert based on time
     trigger:
       - platform: time
-        at: '09:00:00' # Disable at 9AM
+        at: "09:00:00" # Disable at 9AM
     action:
       - service: input_boolean.turn_off
         data:
@@ -233,7 +239,6 @@ automation:
   #           {% for route in data %}
   #           {%- set departure_time = route["attributes"]["departure_time"] -%}
   #           {%- set route_id = route["relationships"]["route"]["data"]["id"] -%}
-
   #           {{ route_id }} - {{ as_timestamp(departure_time) | timestamp_custom("%I:%M %p") }}
   #           {% endfor %}
   #           {%- else -%}

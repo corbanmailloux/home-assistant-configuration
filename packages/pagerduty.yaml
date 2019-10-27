@@ -28,6 +28,9 @@ automation:
       - condition: state
         entity_id: device_tracker.edith_wifi
         state: 'home'
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
       - condition: time
         after: '22:00:00'
         before: '07:00:00'

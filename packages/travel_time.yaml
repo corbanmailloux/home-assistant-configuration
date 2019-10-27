@@ -36,11 +36,17 @@ automation:
         entity_id: device_tracker.edith_wifi # TODO: Move to a person entity
         state: "home"
       - condition: state
+        entity_id: device_tracker.jackie_wifi
+        state: "not_home" # Only run if Maggie isn't home. Prevents some false triggers.
+      - condition: state
         entity_id: timer.maggie_home_notification_cooldown
         state: idle
       - condition: time # From 7AM - 9PM
         after: "07:00:00"
         before: "21:00:00"
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
     action:
       - service: script.turn_on
         entity_id: script.maggie_travel_time_speak

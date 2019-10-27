@@ -9,29 +9,26 @@ input_number:
     max: 100
     step: 1
 
-
 input_datetime:
   alarm_target_time:
     name: Target Time
-    initial: '06:20'
+    initial: "06:20"
     has_date: false
     has_time: true
   alarm_start_time:
-    initial: '06:10'
+    initial: "06:10"
     name: Start Time
     has_date: false
     has_time: true
-
 
 # Might want to pull this out of the package
 binary_sensor:
   - platform: workday
     country: US
 
-
 automation:
   - alias: "Sunrise Alarm"
-    initial_state: 'on'
+    initial_state: "on"
     trigger:
       - platform: template
         value_template: >-
@@ -40,25 +37,26 @@ automation:
     condition:
       - condition: state
         entity_id: binary_sensor.workday_sensor
-        state: 'on'
+        state: "on"
       - condition: state
         entity_id: light.fairy_lights
-        state: 'off'
+        state: "off"
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
     action:
       - service: script.turn_on
         entity_id: script.alarm_start_fade
 
-
 script:
   alarm_start_fade:
     sequence:
-    - service: light.turn_on
-      entity_id: light.fairy_lights
-      data_template:
-        brightness: '{{ ((states.input_number.alarm_max_brightness.state | int) / 100 * 255) | int }}'
-        # Get the difference in seconds of the two times
-        transition: '{{ states.input_datetime.alarm_target_time.attributes.timestamp - states.input_datetime.alarm_start_time.attributes.timestamp }}'
-
+      - service: light.turn_on
+        entity_id: light.fairy_lights
+        data_template:
+          brightness: "{{ ((states.input_number.alarm_max_brightness.state | int) / 100 * 255) | int }}"
+          # Get the difference in seconds of the two times
+          transition: "{{ states.input_datetime.alarm_target_time.attributes.timestamp - states.input_datetime.alarm_start_time.attributes.timestamp }}"
 
 group:
   sunrise_alarm:
@@ -70,7 +68,6 @@ group:
       - input_datetime.alarm_start_time
       - input_datetime.alarm_target_time
       # - binary_sensor.workday_sensor
-
 
 homeassistant:
   customize:
