@@ -109,6 +109,7 @@ tts/
 # www/*
 # !www/donuts/
 www/lovelace/
+www/community/
 ip_bans.yaml
 .spotify-token-cache
 nest.conf
@@ -129,3 +130,4 @@ esphomeyaml/secrets.yaml
 # .piolibdeps/
 appdaemon/compiled
 .vscode/
+custom_components/hacs/
