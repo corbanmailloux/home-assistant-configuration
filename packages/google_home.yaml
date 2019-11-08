@@ -7,12 +7,12 @@ input_select:
   text_to_speak_destination:
     name: Destination
     options:
-     - All
-     - Living Room
-     - Bedroom
-     - Bathroom
-     - Kitchen
-     - Office
+      - All
+      - Living Room
+      - Bedroom
+      - Bathroom
+      - Kitchen
+      - Office
     initial: All
     icon: mdi:text-to-speech
 
