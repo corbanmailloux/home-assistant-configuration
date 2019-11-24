@@ -138,6 +138,9 @@ history_graph:
 frontend:
   themes: !include themes.yaml
 
+lovelace:
+  mode: yaml
+
 # Discover some devices automatically
 # discovery:
 ssdp:
