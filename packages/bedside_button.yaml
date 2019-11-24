@@ -1,0 +1,19 @@
+script:
+  send_event_bedside_button_1_single:
+    alias: Send Event for Bedside Button 1 - Single Press
+    sequence:
+      - event: bedside_button_1
+        event_data:
+          press_type: single
+  send_event_bedside_button_1_double:
+    alias: Send Event for Bedside Button 1 - Double Press
+    sequence:
+      - event: bedside_button_1
+        event_data:
+          press_type: double
+  send_event_bedside_button_1_hold:
+    alias: Send Event for Bedside Button 1 - Hold
+    sequence:
+      - event: bedside_button_1
+        event_data:
+          press_type: hold

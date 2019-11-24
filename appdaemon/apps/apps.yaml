@@ -1,0 +1,6 @@
+Bedside Button:
+  module: bedside_button
+  class: BedsideButton
+  # constrain_start_time: "05:00:00"
+  # constrain_end_time: "08:00:00"
+  event_name: bedside_button_press

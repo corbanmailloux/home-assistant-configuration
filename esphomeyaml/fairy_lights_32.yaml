@@ -38,3 +38,58 @@ light:
             - state: True
               brightness: 0%
               duration: 250ms
+
+binary_sensor:
+  - platform: gpio
+    id: bedside_button_1
+    internal: true
+    pin:
+      number: 5
+      mode: INPUT_PULLUP
+      inverted: True
+    on_multi_click:
+      - timing:
+          - ON for at most 1s
+          - OFF for at most 1s
+          - ON for at most 1s
+          - OFF for at least 0.2s
+        then:
+          - logger.log: "Double Clicked"
+          - homeassistant.service:
+              service: script.send_event_bedside_button_1_double
+      - timing:
+          - ON for 1s to 2s
+          - OFF for at least 0.5s
+        then:
+          - logger.log: "Single Long Clicked"
+          - homeassistant.service:
+              service: script.send_event_bedside_button_1_hold
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.5s
+        then:
+          - logger.log: "Single Short Clicked"
+          - homeassistant.service:
+              service: script.send_event_bedside_button_1_single
+    # on_click:
+    #   # Normal click
+    #   - min_length: 50ms
+    #     max_length: 350ms
+    #     then:
+    #      - homeassistant.service:
+    #          service: script.send_event_bedside_button_1_single
+    #   # Press and hold
+    #   - min_length: 400ms
+    #     max_length: 2000ms
+    #     then:
+    #       - homeassistant.service:
+    #           service: script.send_event_bedside_button_1_hold
+    # on_double_click:
+    #   then:
+    #     - homeassistant.service:
+    #         service: script.send_event_bedside_button_1_double
+    # Based on https://github.com/esphome/feature-requests/issues/89, it looks like this is coming soon.
+    # - homeassistant.event:
+    #     event: esphome.bedside_button_1
+    #     data:
+    #       press_type: single
