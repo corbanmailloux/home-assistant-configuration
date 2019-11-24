@@ -23,6 +23,12 @@ automation:
         webhook_id: !secret jackie_fairy_toggle_webhook
       - platform: webhook
         webhook_id: !secret edith_fairy_toggle_webhook
+      - platform: state # See also: bedside_button_1_maggie.yaml
+        entity_id: sensor.maggie_bedside_button_action
+        to: "arrow_left_click"
+      - platform: state # See also: bedside_button_2_corban.yaml
+        entity_id: sensor.0x000d6ffffea6b202_click
+        to: "on"
     action:
       - service: light.toggle
         entity_id: light.fairy_lights

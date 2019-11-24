@@ -1,0 +1,28 @@
+automation:
+  # - alias: Bedside Button 2 - Press On
+  #   trigger:
+  #     platform: state
+  #     entity_id: sensor.0x000d6ffffea6b202_click
+  #     to: "on" # Up
+  ### Already mapped. See bedroom_fairy_lights.yaml
+
+  - alias: Bedside Button 2 - Press Off
+    trigger:
+      platform: state
+      entity_id: sensor.0x000d6ffffea6b202_click
+      to: "off" # Down
+    action:
+      service: homeassistant.toggle
+      entity_id: switch.bedroom_fan
+
+  - alias: Bedside Button 2 - Hold Either Button
+    trigger:
+      - platform: state
+        entity_id: sensor.0x000d6ffffea6b202_click
+        to: "brightness_up"
+      - platform: state
+        entity_id: sensor.0x000d6ffffea6b202_click
+        to: "brightness_down"
+    action:
+      - service: script.turn_on
+        entity_id: script.everything_off

@@ -1,0 +1,87 @@
+automation:
+  - alias: Bedside Button 1 - Toggle Bedroom Light
+    trigger:
+      platform: state
+      entity_id: sensor.maggie_bedside_button_action
+      to: "toggle"
+    action:
+      service: light.toggle
+      entity_id: light.bedroom_lamp
+
+  - alias: Bedside Button 1 - Brightness Up
+    trigger:
+      platform: state
+      entity_id: sensor.maggie_bedside_button_action
+      to: "brightness_up_click"
+    condition:
+      - condition: state
+        entity_id: light.bedroom_lamp
+        state: "on"
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom_lamp
+        data_template:
+          brightness: >
+            {%- set target = state_attr('light.bedroom_lamp', 'brightness') | int + 40 -%}
+            {%- if target > 255 -%}
+              255
+            {%- else -%}
+              {{ target}}
+            {%- endif -%}
+
+  - alias: Bedside Button 1 - Brightness Down
+    trigger:
+      platform: state
+      entity_id: sensor.maggie_bedside_button_action
+      to: "brightness_down_click"
+    condition:
+      - condition: state
+        entity_id: light.bedroom_lamp
+        state: "on"
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom_lamp
+        data_template:
+          brightness: >
+            {%- set target = state_attr('light.bedroom_lamp', 'brightness') | int - 40 -%}
+            {%- if target < 10 -%}
+              10
+            {%- else -%}
+              {{ target}}
+            {%- endif -%}
+
+  - alias: Bedside Button 1 - Brightness Up Hold
+    trigger:
+      platform: state
+      entity_id: sensor.maggie_bedside_button_action
+      to: "brightness_up_hold"
+    condition:
+      - condition: state
+        entity_id: light.bedroom_lamp
+        state: "on"
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom_lamp
+        data:
+          brightness: 255
+
+  - alias: Bedside Button 1 - Brightness Down Hold
+    trigger:
+      platform: state
+      entity_id: sensor.maggie_bedside_button_action
+      to: "brightness_down_hold"
+    condition:
+      - condition: state
+        entity_id: light.bedroom_lamp
+        state: "on"
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom_lamp
+        data:
+          brightness: 10
+  # - alias: Bedside Button 1 - Left Button Click
+  #   trigger:
+  #     platform: state
+  #     entity_id: sensor.maggie_bedside_button_action
+  #     to: "arrow_left_click"
+  #   # Already mapped. See bedroom_fairy_lights.yaml
