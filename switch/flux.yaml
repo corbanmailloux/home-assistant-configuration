@@ -1,0 +1,5 @@
+- platform: flux
+  lights:
+    - light.bedroom_lamp
+    - light.entry_lamp
+  disable_brightness_adjust: true
