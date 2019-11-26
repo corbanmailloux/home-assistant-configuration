@@ -143,13 +143,6 @@ views:
                 type: entity-button
             type: horizontal-stack
         type: vertical-stack
-      - entities:
-          - entity: input_select.backlight_mode
-          - entity: input_select.exit_sign_button_action
-          - entity: light.exit_sign
-        show_header_toggle: false
-        title: Light Control
-        type: entities
       - cards:
           - entity: sensor.living_room_temperature
             graph: line
@@ -339,8 +332,6 @@ views:
           - entity: sensor.heat_on_time_yesterday
           - entity: sensor.obama_on_time_last_30_days
           - entity: sensor.obama_cost_last_30_days
-          - entity: input_number.umbrella_percent
-          - entity: light.umbrella_light
         show_header_toggle: false
         title: Fun Stuff
         type: entities
@@ -376,6 +367,11 @@ views:
           - entity: switch.obama
         show_header_toggle: false
         title: Obama Management
+        type: entities
+      - entities:
+          - entity: input_select.exit_sign_button_action
+        show_header_toggle: false
+        title: Light Control
         type: entities
       - entities:
           - entity: automation.hass_update_notification
