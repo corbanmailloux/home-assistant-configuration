@@ -12,7 +12,10 @@ resources:
 
 title: Home
 views:
-  - badges: []
+  - title: Home
+    path: home
+    icon: "mdi:home"
+    badges: []
     cards:
       - entities:
           - entity: switch.living_room_lamp_near_tv
@@ -91,10 +94,11 @@ views:
         type: entities
       - entity: climate.hallway_thermostat
         type: thermostat
-    icon: "mdi:home"
-    path: home
-    title: Home
-  - badges: []
+
+  - title: Living Room
+    path: living_room
+    icon: "mdi:sofa"
+    badges: []
     cards:
       - entities:
           - entity: switch.living_room_lamp_near_tv
@@ -155,10 +159,11 @@ views:
             name: Humidity
             type: gauge
         type: horizontal-stack
-    icon: "mdi:sofa"
-    path: living_room
-    title: Living Room
-  - badges: []
+
+  - title: Bedroom
+    path: bedroom
+    icon: "mdi:hotel"
+    badges: []
     cards:
       - entities:
           - entity: light.fairy_lights
@@ -205,10 +210,11 @@ views:
                 type: entity-button
             type: horizontal-stack
         type: vertical-stack
-    icon: "mdi:hotel"
-    path: bedroom
-    title: Bedroom
-  - badges: []
+
+  - title: Office
+    path: office
+    icon: "mdi:monitor"
+    badges: []
     cards:
       - entities:
           - switch.office_pink_lamp
@@ -237,10 +243,11 @@ views:
             width: 50%
         title: Refill Timers
         type: vertical-stack
-    icon: "mdi:monitor"
-    path: office
-    title: Office
-  - badges: []
+
+  - title: Environment
+    path: environment
+    icon: "mdi:white-balance-sunny"
+    badges: []
     cards:
       - entities:
           - entity: sensor.dark_sky_summary
@@ -305,10 +312,11 @@ views:
         refresh_interval: 0
         title: Internal Temperatures
         type: history-graph
-    icon: "mdi:white-balance-sunny"
-    path: environment
-    title: Environment
-  - badges: []
+
+  - title: Fun Stuff
+    path: fun
+    icon: "mdi:airballoon"
+    badges: []
     cards:
       - entities:
           - sensor.maggie_to_home_travel_time
@@ -357,10 +365,11 @@ views:
         show_header_toggle: false
         title: Make the Homes Speak
         type: entities
-    icon: "mdi:airballoon"
-    path: fun
-    title: Fun Stuff
-  - badges: []
+
+  - title: Management
+    path: management
+    icon: "mdi:settings"
+    badges: []
     cards:
       - entities:
           - entity: script.shutdown_obama
@@ -375,15 +384,6 @@ views:
           - entity: automation.maggie_ask_to_turn_on_a_light_when_coming_home
         show_header_toggle: false
         title: Home Assistant Notifications
-        type: entities
-      - entities:
-          - automation.set_tv_backlight_based_on_temperature
-          - input_select.backlight_mode
-          - input_number.temperature_low
-          - input_number.temperature_high
-          - input_number.backlight_temp_brightness
-        show_header_toggle: false
-        title: Temperature-Controlled Backlight
         type: entities
       - entities:
           - input_select.dash_button_1_mode
@@ -401,18 +401,6 @@ views:
           - entity: input_boolean.vacation_mode_light_schedule
         show_header_toggle: false
         title: Vacation Mode
-        type: entities
-      - entities:
-          - icon: "mdi:code-tags"
-            name: Web IDE
-            type: weblink
-            url: "http://hassio.local:8321"
-          - icon: "mdi:lightbulb-on"
-            name: TasmoAdmin
-            type: weblink
-            url: "http://hassio.local:9541/devices"
-        show_header_toggle: false
-        title: HASS Extensions
         type: entities
       - entities:
           - sensor.octoprint_current_state
@@ -458,10 +446,11 @@ views:
         show_header_toggle: false
         title: Reset Google Home Volumes
         type: entities
-    icon: "mdi:settings"
-    path: management
-    title: Management
-  - badges: []
+
+  - title: Network
+    path: network
+    icon: "mdi:server-network"
+    badges: []
     cards:
       - title: Zigbee2mqtt
         type: entities
@@ -586,15 +575,13 @@ views:
             type: gauge
         name: Certificates
         type: horizontal-stack
-    icon: "mdi:server-network"
-    path: network
-    title: Network
 
-  - badges: []
+  - title: Wall Display
+    panel: false
+    theme: midnight
+    visible: false # Hide for now.
+    badges: []
     cards:
-      - entity: sensor.time
-        hours_to_show: 0
-        type: sensor
       - cards:
           - entities:
               - entity: binary_sensor.corban_home_gps
@@ -661,9 +648,6 @@ views:
         tap_action:
           action: toggle
         type: entity-button
-    panel: false
-    theme: midnight
-    title: Wall Display
 
   - badges: []
     cards:
@@ -1079,6 +1063,7 @@ views:
 
   - title: FP - Living Room
     path: fp-livingroom
+    visible: false
     badges: []
     cards:
       - type: picture-elements
@@ -1143,6 +1128,7 @@ views:
 
   - title: FP - Bedroom
     path: fp-bedroom
+    visible: false
     badges: []
     cards:
       - image: /local/images/fp-bedroom.png
@@ -1202,6 +1188,7 @@ views:
 
   - title: FP - Office
     path: fp-office
+    visible: false
     badges: []
     cards:
       - type: picture-elements
@@ -1236,6 +1223,7 @@ views:
 
   - title: FP - Kitchen/Bathroom
     path: fp-kitchen-bathroom
+    visible: false
     badges: []
     cards:
       - elements:
