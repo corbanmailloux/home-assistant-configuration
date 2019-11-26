@@ -188,24 +188,6 @@ script:
       - service: switch.turn_on
         entity_id: switch.soundbar_power
 
-scene:
-  - name: Movie Mode
-    entities:
-      light.entry_lamp:
-        state: on
-        transition: 2
-        brightness: 255
-        color_temp: 352
-      switch.living_room_lamp_near_tv:
-        state: off
-      switch.living_room_couch:
-        state: off
-      light.living_room_tv_backlight:
-        state: on
-        transition: 5
-        brightness: 200
-        rgb_color: [255, 214, 170]
-
 automation:
   - alias: Turn on the backlight when the TV turns on
     trigger:
