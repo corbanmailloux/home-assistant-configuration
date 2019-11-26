@@ -241,13 +241,12 @@ mobile_app:
 group: !include_dir_merge_named group
 input_boolean: !include_dir_merge_named input_boolean
 input_select: !include_dir_merge_named input_select
-intent_script: !include_dir_merge_named intent_script
 # light: !include_dir_merge_list light
 media_player: !include_dir_merge_list media_player
 notify: !include_dir_merge_list notify
 # scene: !include_dir_merge_list scene
-scene: !include scenes.yaml
-script: !include_dir_merge_named script
+scene: !include scenes.yaml # For the scene editor
+# script: !include_dir_merge_named script
 sensor: !include_dir_merge_list sensor
 shell_command: !include_dir_merge_named shell_command
 switch: !include_dir_merge_list switch
