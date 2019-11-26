@@ -1,0 +1,35 @@
+- id: "1574735892892"
+  name: Dining
+  entities:
+    light.entry_lamp:
+      brightness: 255
+      color_temp: 352
+      state: "on"
+    script.soundbar_power_on:
+      state: "off"
+    switch.living_room_couch:
+      state: "off"
+    switch.living_room_lamp_near_tv:
+      state: "on"
+    switch.living_room_tv_power:
+      state: "on"
+    switch.obama:
+      state: "on"
+
+- id: "movie_mode"
+  name: Movie Mode
+  entities:
+    light.entry_lamp:
+      state: on
+      transition: 2
+      brightness: 255
+      color_temp: 352
+    switch.living_room_lamp_near_tv:
+      state: off
+    switch.living_room_couch:
+      state: off
+    light.living_room_tv_backlight:
+      state: on
+      transition: 5
+      brightness: 200
+      rgb_color: [255, 214, 170]
