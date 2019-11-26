@@ -8,6 +8,11 @@ switch:
     turn_off:
       service: rest_command.sleep_obama
 
+script: 
+  shutdown_obama:
+    sequence:
+      - service: rest_command.shutdown_obama
+
 rest_command:
   sleep_obama:
     url: !secret obama_sleep_url
