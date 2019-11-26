@@ -294,11 +294,6 @@ views:
             type: history-graph
         type: vertical-stack
       - entities:
-          - entity: vacuum.xiaomi_vacuum_cleaner
-        show_header_toggle: false
-        title: Vacuum
-        type: entities
-      - entities:
           - sensor.living_room_temperature
           - sensor.hallway_thermostat_temperature
         hours_to_show: 72
@@ -316,11 +311,6 @@ views:
           - script.maggie_travel_time_speak
         show_header_toggle: false
         title: Maggie Travel Time
-        type: entities
-      - entities:
-          - script.phone_notify_i_love_maggs
-        show_header_toggle: false
-        title: Fun Notifications
         type: entities
       - entities:
           - entity: sensor.corban_s_time_at_work_today

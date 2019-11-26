@@ -1,10 +1,5 @@
 # Scripts
 
-# Fun Notifications
-script.phone_notify_i_love_maggs:
-  friendly_name: Phone - I love Maggs
-  icon: mdi:heart
-
 # Obama Management
 script.shutdown_obama:
   friendly_name: Shutdown Obama
