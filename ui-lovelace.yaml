@@ -386,17 +386,6 @@ views:
         title: Home Assistant Notifications
         type: entities
       - entities:
-          - input_select.dash_button_1_mode
-          - script.press_dash_button_1
-        show_header_toggle: false
-        title: Dash Button 1
-        type: entities
-      - entities:
-          - entity: script.front_buzzer
-        show_header_toggle: true
-        title: Test Scripts
-        type: entities
-      - entities:
           - entity: input_boolean.vacation_mode
           - entity: input_boolean.vacation_mode_light_schedule
         show_header_toggle: false
