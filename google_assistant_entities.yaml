@@ -7,10 +7,6 @@ group.bedroom_lights:
 group.all_lights_custom:
   name: All Lights
   expose: true
-light.living_room_tv_backlight:
-  name: Back light
-  room: Living Room
-  expose: true
 switch.living_room_lamp_near_tv:
   room: Living Room
   expose: true

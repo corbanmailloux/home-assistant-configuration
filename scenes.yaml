@@ -28,8 +28,3 @@
       state: off
     switch.living_room_couch:
       state: off
-    light.living_room_tv_backlight:
-      state: on
-      transition: 5
-      brightness: 200
-      rgb_color: [255, 214, 170]
