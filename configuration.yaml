@@ -182,22 +182,9 @@ device_tracker:
 
 map:
 
-tradfri:
-  host: !secret tradfri_host
-  allow_tradfri_groups: false
-
-# transmission:
-#   host: !secret transmission_host
-
 nest:
   client_id: !secret nest_client_id
   client_secret: !secret nest_client_secret
-
-octoprint:
-  - host: !secret octoprint_host
-    api_key: !secret octoprint_api_key
-    bed: true
-    number_of_tools: 1
 
 ifttt:
   key: !secret ifttt_key
@@ -216,11 +203,6 @@ google:
   client_id: !secret google_client_id
   client_secret: !secret google_client_secret
   track_new_calendar: false
-
-# google_domains:
-#   domain: !secret google_domains_url
-#   username: !secret google_domains_username
-#   password: !secret google_domains_password
 
 google_assistant:
   project_id: !secret google_assistant_project_id

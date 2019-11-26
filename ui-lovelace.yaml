@@ -359,20 +359,6 @@ views:
         title: Vacation Mode
         type: entities
       - entities:
-          - sensor.octoprint_current_state
-          - sensor.octoprint_job_percentage
-          - binary_sensor.octoprint_printing
-          - binary_sensor.octoprint_printing_error
-          - sensor.octoprint_actual_tool0_temp
-          - sensor.octoprint_target_tool0_temp
-          - sensor.octoprint_actual_bed_temp
-          - sensor.octoprint_target_bed_temp
-          - automation.notify_on_print_completion
-          - automation.notify_on_print_error
-        show_header_toggle: false
-        title: OctoPrint
-        type: entities
-      - entities:
           - entity: sensor.busses_at_stop
           - entity: sensor.bus_1_time
           - entity: sensor.bus_1_route
