@@ -257,25 +257,6 @@ views:
         show_header_toggle: false
         title: Inside
         type: entities
-      - entities:
-          - entity: sensor.dark_sky_summary
-          - entity: sensor.dark_sky_minutely_summary
-          - entity: sensor.dark_sky_hourly_summary
-          - entity: sensor.dark_sky_temperature
-          - entity: sensor.dark_sky_daytime_high_temperature_0d
-          - entity: sensor.dark_sky_overnight_low_temperature_0d
-          - entity: sensor.dark_sky_apparent_temperature
-          - entity: sensor.dark_sky_daytime_high_apparent_temperature_0d
-          - entity: sensor.dark_sky_overnight_low_apparent_temperature_0d
-          - entity: sensor.dark_sky_humidity
-          - entity: sensor.dark_sky_precip_probability
-          - entity: sensor.dark_sky_precip
-          - entity: sensor.dark_sky_precip_intensity
-          - entity: sensor.dark_sky_daily_max_precip_intensity_0d
-          - entity: sensor.dark_sky_cloud_coverage
-        show_header_toggle: false
-        title: DarkSky Weather Sensors
-        type: entities
       - entity: camera.radar
         type: picture-entity
       - cards:
