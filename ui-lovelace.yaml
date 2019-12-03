@@ -77,6 +77,13 @@ views:
             tap_action:
               action: navigate
               navigation_path: /lovelace/fp-kitchen-bathroom
+          - entity: binary_sensor.front_door
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 64%
+              top: 30.5%
+            type: state-icon
 
       # Other cards
       - cards:
@@ -144,8 +151,9 @@ views:
             style:
               "--iron-icon-height": 42px
               "--iron-icon-width": 42px
-              left: 7%
-              top: 61%
+              left: 2.5%
+              top: 56.3%
+              transform: rotate(270deg)
             tap_action:
               action: toggle
             title: Obama
@@ -154,8 +162,9 @@ views:
             style:
               "--iron-icon-height": 42px
               "--iron-icon-width": 42px
-              left: 7%
-              top: 43%
+              left: 2.5%
+              top: 39%
+              transform: rotate(270deg)
             tap_action:
               action: more-info
             title: Living Room TV
@@ -168,6 +177,13 @@ views:
             tap_action:
               action: more-info
             title: Living Room Home
+            type: state-icon
+          - entity: light.wall_display_screen
+            style:
+              left: 35.5%
+              top: 94%
+            tap_action:
+              action: toggle
             type: state-icon
           - entity: switch.christmas_tree
             style:
