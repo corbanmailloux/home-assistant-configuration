@@ -29,6 +29,9 @@ automation:
       - platform: state # See also: bedside_button_2_corban.yaml
         entity_id: sensor.0x000d6ffffea6b202_click
         to: "on"
+      - platform: state # See also: bedside_button_2_corban.yaml
+        entity_id: sensor.corban_bedside_button_click
+        to: "single"
     action:
       - service: light.toggle
         entity_id: light.fairy_lights

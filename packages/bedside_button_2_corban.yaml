@@ -1,4 +1,6 @@
 automation:
+# IKEA Switch
+
   # - alias: Bedside Button 2 - Press On
   #   trigger:
   #     platform: state
@@ -8,21 +10,51 @@ automation:
 
   - alias: Bedside Button 2 - Press Off
     trigger:
-      platform: state
-      entity_id: sensor.0x000d6ffffea6b202_click
-      to: "off" # Down
+      - platform: state
+        entity_id: sensor.0x000d6ffffea6b202_click
+        to: "off" # Down
     action:
-      service: homeassistant.toggle
-      entity_id: switch.bedroom_fan
+      - service: homeassistant.toggle
+        entity_id: switch.bedroom_fan
 
   - alias: Bedside Button 2 - Hold Either Button
     trigger:
       - platform: state
         entity_id: sensor.0x000d6ffffea6b202_click
-        to: "brightness_up"
+        to: "brightness_up" # Hold up
       - platform: state
         entity_id: sensor.0x000d6ffffea6b202_click
-        to: "brightness_down"
+        to: "brightness_down" # Hold down
+    action:
+      - service: script.turn_on
+        entity_id: script.everything_off
+
+
+# New Aqara Button
+
+  # - alias: Bedside Button 2 - Click
+  #   trigger:
+  #     platform: state
+  #     entity_id: sensor.corban_bedside_button_click
+  #     to: "single"
+  ### Already mapped. See bedroom_fairy_lights.yaml
+
+  - alias: Bedside Button 2 - Double Click
+    trigger:
+      - platform: state
+        entity_id: sensor.corban_bedside_button_click
+        to: "double"
+    action:
+      - service: homeassistant.toggle
+        entity_id: switch.bedroom_fan
+
+  - alias: Bedside Button 2 - Hold
+    trigger:
+      - platform: mqtt
+        topic: 'zigbee2mqtt/Corban Bedside Button'
+    condition:
+      - condition: template
+        value_template: '{{ "hold" == trigger.payload_json.action }}'
     action:
       - service: script.turn_on
         entity_id: script.everything_off
