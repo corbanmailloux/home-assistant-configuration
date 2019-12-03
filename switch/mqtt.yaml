@@ -37,17 +37,18 @@
   payload_not_available: "Offline"
   retain: true
 
-# - platform: mqtt
-#   name: bedroom_lamp # living_room_window # power_tail_4
-#   state_topic: "stat/sonoff_4/POWER"
-#   command_topic: "cmnd/sonoff_4/POWER"
-#   availability_topic: "tele/sonoff_4/LWT"
-#   qos: 1
-#   payload_on: "ON"
-#   payload_off: "OFF"
-#   payload_available: "Online"
-#   payload_not_available: "Offline"
-#   retain: true
+- platform: mqtt
+  name: Christmas Tree # power_tail_4
+  icon: mdi:pine-tree
+  state_topic: "stat/sonoff_4/POWER"
+  command_topic: "cmnd/sonoff_4/POWER"
+  availability_topic: "tele/sonoff_4/LWT"
+  qos: 1
+  payload_on: "ON"
+  payload_off: "OFF"
+  payload_available: "Online"
+  payload_not_available: "Offline"
+  retain: true
 
 - platform: mqtt
   name: living_room_couch # power_tail_5

@@ -58,3 +58,8 @@ switch.bedroom_fan:
     - Fan
   room: Bedroom
   expose: true
+switch.christmas_tree:
+  aliases:
+    - Tree
+    - Christmas Lights
+  room: Living Room
