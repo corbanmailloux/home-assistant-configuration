@@ -119,7 +119,8 @@ entity_registry.yaml
 plex.conf
 .storage/core.config_entries
 .tradfri_psk.conf
-.storage/*
+.storage/
+# .storage/*
 # !.storage/lovelace # Moved to YAML mode for now.
 
 esphomeyaml/*
