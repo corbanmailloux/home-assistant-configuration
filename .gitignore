@@ -120,7 +120,7 @@ plex.conf
 .storage/core.config_entries
 .tradfri_psk.conf
 .storage/*
-!.storage/lovelace
+# !.storage/lovelace # Moved to YAML mode for now.
 
 esphomeyaml/*
 !esphomeyaml/*.yaml
