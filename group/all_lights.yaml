@@ -11,7 +11,7 @@ all_lights_custom:
     - light.multisensor_light
     - light.wall_display_light
     - light.wall_display_screen
-    - switch.christmas_lights # Not currently connected.
+    - switch.christmas_tree
     - switch.living_room_couch
     - switch.living_room_lamp_near_tv
     - switch.office_pink_lamp
@@ -29,7 +29,7 @@ everything_custom:
     - light.multisensor_light
     - light.wall_display_light
     - light.wall_display_screen
-    - switch.christmas_lights # Not currently connected.
+    - switch.christmas_tree
     - switch.living_room_couch
     - switch.living_room_lamp_near_tv
     - switch.office_pink_lamp
