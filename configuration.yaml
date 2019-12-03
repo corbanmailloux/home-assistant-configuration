@@ -191,11 +191,6 @@ ifttt:
 
 ffmpeg:
 
-camera:
-  - platform: generic
-    still_image_url: !secret radar_image_url
-    name: Radar
-
 speedtestdotnet:
 
 # Google Calendar

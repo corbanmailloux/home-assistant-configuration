@@ -14,11 +14,3 @@ switch.office_pink_lamp:
 
 switch.bedroom_fan:
   icon: mdi:fan
-
-# switch.strobe_light:
-#   friendly_name: Strobe Light
-#   icon: mdi:alarm-light
-
-switch.christmas_lights:
-  friendly_name: Christmas Lights
-  icon: mdi:pine-tree

@@ -7,64 +7,78 @@ resources:
     url: /community_plugin/lovelace-card-tools/card-tools.js
   - type: module
     url: /community_plugin/compact-custom-header/compact-custom-header.js
-  - url: /community_plugin/plan-coordinates/plan-coordinates.js
-    type: js
+  # - url: /community_plugin/plan-coordinates/plan-coordinates.js
+  #   type: js
 
 title: Home
 views:
+  # Floorplans
   - title: Home
     path: home
     icon: "mdi:home"
     badges: []
     cards:
-      - entities:
-          - entity: switch.living_room_lamp_near_tv
-          - entity: switch.living_room_couch
-          - entity: light.entry_lamp
-            toggle: true
-            type: "custom:slider-entity-row"
-        show_header_toggle: true
-        title: Living Room Lights
-        type: entities
-      - entities:
-          - entity: light.fairy_lights
-            toggle: true
-            type: "custom:slider-entity-row"
-          - entity: light.bedroom_lamp
-            toggle: true
-            type: "custom:slider-entity-row"
-        show_header_toggle: true
-        title: Bedroom Lights
-        type: entities
-      - entities:
-          - switch.office_pink_lamp
-        show_header_toggle: true
-        title: Office Lights
-        type: entities
-      - cards:
-          - entity: media_player.living_room_tv
-            type: media-control
-          - cards:
-              - entity: script.roku_back
-                hold_action:
-                  action: none
-                tap_action:
-                  action: toggle
-                type: entity-button
-              - entity: script.roku_play_pause
-                hold_action:
-                  action: none
-                tap_action:
-                  action: toggle
-                type: entity-button
-              - entity: script.roku_replay
-                hold_action:
-                  action: none
-                tap_action:
-                  action: toggle
-                type: entity-button
-            type: horizontal-stack
-        type: vertical-stack
+      # Floorplan
+      - type: picture-elements
+        image: /local/images/fp-colored-overall.png
+        elements:
+          - icon: "mdi:floor-plan"
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 50%
+              top: 15%
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/fp-livingroom
+            title: Living Room
+            type: icon
+          - icon: "mdi:floor-plan"
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 36%
+              top: 38%
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/fp-bedroom
+            title: Bedroom
+            type: icon
+          - title: Office
+            type: icon
+            icon: "mdi:floor-plan"
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 43%
+              top: 60%
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/fp-office
+          - title: Kitchen
+            type: icon
+            icon: "mdi:floor-plan"
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 41%
+              top: 75%
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/fp-kitchen-bathroom
+          - title: Bathroom
+            type: icon
+            icon: "mdi:floor-plan"
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 60%
+              top: 82%
+            tap_action:
+              action: navigate
+              navigation_path: /lovelace/fp-kitchen-bathroom
+
+      # Other cards
       - cards:
           - entities:
               - entity: binary_sensor.corban_home_gps
@@ -87,25 +101,90 @@ views:
             title: Maggie
             type: picture-glance
         type: horizontal-stack
-      - entities:
-          - entity: group.corban_home
-          - entity: group.maggie_home
-          - entity: device_tracker.corban_presence
-        type: entities
       - entity: climate.hallway_thermostat
         type: thermostat
 
   - title: Living Room
-    path: living_room
+    path: fp-livingroom
     icon: "mdi:sofa"
+    # visible: false
     badges: []
     cards:
+      - type: picture-elements
+        image: /local/images/fp-living-room.png
+        elements:
+          - entity: light.entry_lamp
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 24.5%
+              top: 93%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.living_room_couch
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 54.2%
+              top: 17%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.living_room_lamp_near_tv
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 7%
+              top: 23%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: switch.obama
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 7%
+              top: 61%
+            tap_action:
+              action: toggle
+            title: Obama
+            type: state-icon
+          - entity: media_player.living_room_tv
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 7%
+              top: 43%
+            tap_action:
+              action: more-info
+            title: Living Room TV
+            type: state-icon
+          - entity: media_player.living_room_speaker
+            icon: "mdi:google-home"
+            style:
+              left: 46%
+              top: 94%
+            tap_action:
+              action: more-info
+            title: Living Room Home
+            type: state-icon
+          - entity: switch.christmas_tree
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 8%
+              top: 92%
+            tap_action:
+              action: toggle
+            type: state-icon
       - entities:
           - entity: switch.living_room_lamp_near_tv
           - entity: switch.living_room_couch
           - entity: light.entry_lamp
             toggle: true
             type: "custom:slider-entity-row"
+          - entity: switch.christmas_tree
         show_header_toggle: true
         title: Living Room Lights
         type: entities
@@ -154,10 +233,65 @@ views:
         type: horizontal-stack
 
   - title: Bedroom
-    path: bedroom
+    path: fp-bedroom
     icon: "mdi:hotel"
+    # visible: false
     badges: []
     cards:
+      - image: /local/images/fp-bedroom.png
+        type: picture-elements
+        elements:
+          - entity: light.fairy_lights
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 43%
+              top: 30%
+            tap_action:
+              action: toggle
+            title: Fairy Lights
+            type: state-icon
+          - entity: switch.bedroom_fan
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 64%
+              top: 91%
+            tap_action:
+              action: toggle
+            title: Fan
+            type: state-icon
+          - entity: light.bedroom_lamp
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 12.5%
+              top: 71%
+            tap_action:
+              action: toggle
+            title: Bedroom Lamp
+            type: state-icon
+          - entity: media_player.bedroom_tv
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 47%
+              top: 91.5%
+            tap_action:
+              action: more-info
+            title: Bedroom TV
+            type: state-icon
+          - entity: media_player.bedroom_speaker
+            icon: "mdi:google-home"
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 38%
+              top: 91.5%
+            tap_action:
+              action: more-info
+            title: Bedroom Home
+            type: state-icon
       - entities:
           - entity: light.fairy_lights
             toggle: true
@@ -205,37 +339,94 @@ views:
         type: vertical-stack
 
   - title: Office
-    path: office
+    path: fp-office
     icon: "mdi:monitor"
+    # visible: false
     badges: []
     cards:
-      - entities:
-          - switch.office_pink_lamp
-        show_header_toggle: true
-        title: Office Lights
-        type: entities
+      - type: picture-elements
+        image: /local/images/fp-office.png
+        elements:
+          - entity: switch.office_pink_lamp
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 91.8%
+              top: 63%
+            tap_action:
+              action: toggle
+            type: state-icon
+          - entity: media_player.office_speaker
+            icon: "mdi:google-home"
+            style:
+              left: 66.5%
+              top: 92.5%
+            tap_action:
+              action: more-info
+            title: Office Home
+            type: state-icon
+          - entity: vacuum.xiaomi_vacuum_cleaner
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 69.9%
+              top: 55%
+            title: Eve
+            type: state-icon
       - cards:
-          - entity: sensor.last_genie_refill
-            title: Last Genie Refill
-            type: "custom:check-button-card"
-            width: 50%
-          - entity: sensor.last_open_box_of_litter
-            title: Last Opened Box of Litter
-            type: "custom:check-button-card"
-            width: 50%
-          - entity: sensor.last_litter_box_clean
-            severity:
-              - hue: "120"
-                value: 21 days
-              - hue: "30"
-                value: 1 month
-              - hue: "0"
-                value: 1 years
-            title: Last Litter Box Clean
-            type: "custom:check-button-card"
-            width: 50%
+        - entity: sensor.last_genie_refill
+          title: Last Genie Refill
+          type: "custom:check-button-card"
+          width: 50%
+        - entity: sensor.last_open_box_of_litter
+          title: Last Opened Box of Litter
+          type: "custom:check-button-card"
+          width: 50%
+        - entity: sensor.last_litter_box_clean
+          severity:
+            - hue: "120"
+              value: 21 days
+            - hue: "30"
+              value: 1 month
+            - hue: "0"
+              value: 1 years
+          title: Last Litter Box Clean
+          type: "custom:check-button-card"
+          width: 50%
         title: Refill Timers
         type: vertical-stack
+
+  - title: Kitchen/Bathroom
+    path: fp-kitchen-bathroom
+    icon: "mdi:paper-roll-outline"
+    # visible: false
+    badges: []
+    cards:
+      - elements:
+          - entity: media_player.bathroom_speaker
+            icon: "mdi:google-home"
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 60.5%
+              top: 33%
+            tap_action:
+              action: more-info
+            title: Bathroom Home
+            type: state-icon
+          - entity: media_player.kitchen_speaker
+            icon: "mdi:google-home"
+            style:
+              "--iron-icon-height": 42px
+              "--iron-icon-width": 42px
+              left: 6%
+              top: 40%
+            tap_action:
+              action: more-info
+            title: Kitchen Home
+            type: state-icon
+        image: /local/images/fp-kitchen-bathroom.png
+        type: picture-elements
 
   - title: Environment
     path: environment
@@ -257,8 +448,6 @@ views:
         show_header_toggle: false
         title: Inside
         type: entities
-      - entity: camera.radar
-        type: picture-entity
       - cards:
           - entities:
               - sensor.living_room_temperature
@@ -517,79 +706,6 @@ views:
             type: gauge
         name: Certificates
         type: horizontal-stack
-
-  - title: Wall Display
-    panel: false
-    theme: midnight
-    visible: false # Hide for now.
-    badges: []
-    cards:
-      - cards:
-          - entities:
-              - entity: binary_sensor.corban_home_gps
-                icon: "mdi:crosshairs-gps"
-              - entity: binary_sensor.corban_home_wifi
-                icon: "mdi:wifi"
-              - sensor.corban_phone_battery
-            entity: binary_sensor.corban_home
-            image: /local/images/corban.jpg
-            title: Corban
-            type: picture-glance
-          - entities:
-              - entity: binary_sensor.maggie_home_gps
-                icon: "mdi:crosshairs-gps"
-              - entity: binary_sensor.maggie_home_wifi
-                icon: "mdi:wifi"
-              - sensor.maggie_phone_battery
-            entity: binary_sensor.maggie_home
-            image: /local/images/maggie.jpg
-            title: Maggie
-            type: picture-glance
-        type: horizontal-stack
-      - cards:
-          - entity: sensor.bus_1_time
-            type: sensor
-          - entity: sensor.bus_2_time
-            type: sensor
-        type: horizontal-stack
-      - entity: script.roku_play_pause
-        hold_action:
-          action: none
-        name: TV Play/Pause
-        tap_action:
-          action: toggle
-        type: entity-button
-      - cards:
-          - entity: sensor.living_room_temperature
-            graph: line
-            name: Temperature
-            type: sensor
-          - entity: sensor.living_room_humidity
-            name: Humidity
-            type: gauge
-        type: horizontal-stack
-      - cards:
-          - entity: script.living_room_movie_mode
-            hold_action:
-              action: none
-            tap_action:
-              action: toggle
-            type: entity-button
-          - entity: script.living_room_game_mode
-            hold_action:
-              action: none
-            tap_action:
-              action: toggle
-            type: entity-button
-        type: horizontal-stack
-      - entity: script.everything_off
-        hold_action:
-          action: more-info
-        icon: "mdi:power"
-        name: Everything Off
-        tap_action:
-          action: toggle
-        type: entity-button
 
   - badges: []
     cards:
@@ -939,257 +1055,75 @@ views:
     theme: Backend-selected
     title: Floorplan - Mobile
 
-  # Colored Layout
-  - title: Maggie's Layout
-    path: maggies-layout
+  - title: Wall Display
+    panel: false
+    theme: midnight
+    visible: false # Hide for now.
     badges: []
     cards:
-      - type: picture-elements
-        image: /local/images/fp-colored-overall.png
-        elements:
-          - icon: "mdi:floor-plan"
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 50%
-              top: 15%
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/fp-livingroom
-            title: Living Room
-            type: icon
-          - icon: "mdi:floor-plan"
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 36%
-              top: 38%
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/fp-bedroom
-            title: Bedroom
-            type: icon
-          - title: Office
-            type: icon
-            icon: "mdi:floor-plan"
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 43%
-              top: 60%
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/fp-office
-          - title: Kitchen
-            type: icon
-            icon: "mdi:floor-plan"
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 41%
-              top: 75%
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/fp-kitchen-bathroom
-          - title: Bathroom
-            type: icon
-            icon: "mdi:floor-plan"
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 60%
-              top: 82%
-            tap_action:
-              action: navigate
-              navigation_path: /lovelace/fp-kitchen-bathroom
-
-  - title: FP - Living Room
-    path: fp-livingroom
-    visible: false
-    badges: []
-    cards:
-      - type: picture-elements
-        image: /local/images/fp-living-room.png
-        elements:
-          - entity: light.entry_lamp
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 24.5%
-              top: 93%
+      - cards:
+          - entities:
+              - entity: binary_sensor.corban_home_gps
+                icon: "mdi:crosshairs-gps"
+              - entity: binary_sensor.corban_home_wifi
+                icon: "mdi:wifi"
+              - sensor.corban_phone_battery
+            entity: binary_sensor.corban_home
+            image: /local/images/corban.jpg
+            title: Corban
+            type: picture-glance
+          - entities:
+              - entity: binary_sensor.maggie_home_gps
+                icon: "mdi:crosshairs-gps"
+              - entity: binary_sensor.maggie_home_wifi
+                icon: "mdi:wifi"
+              - sensor.maggie_phone_battery
+            entity: binary_sensor.maggie_home
+            image: /local/images/maggie.jpg
+            title: Maggie
+            type: picture-glance
+        type: horizontal-stack
+      - cards:
+          - entity: sensor.bus_1_time
+            type: sensor
+          - entity: sensor.bus_2_time
+            type: sensor
+        type: horizontal-stack
+      - entity: script.roku_play_pause
+        hold_action:
+          action: none
+        name: TV Play/Pause
+        tap_action:
+          action: toggle
+        type: entity-button
+      - cards:
+          - entity: sensor.living_room_temperature
+            graph: line
+            name: Temperature
+            type: sensor
+          - entity: sensor.living_room_humidity
+            name: Humidity
+            type: gauge
+        type: horizontal-stack
+      - cards:
+          - entity: script.living_room_movie_mode
+            hold_action:
+              action: none
             tap_action:
               action: toggle
-            type: state-icon
-          - entity: switch.living_room_couch
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 54.2%
-              top: 17%
+            type: entity-button
+          - entity: script.living_room_game_mode
+            hold_action:
+              action: none
             tap_action:
               action: toggle
-            type: state-icon
-          - entity: switch.living_room_lamp_near_tv
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 7%
-              top: 23%
-            tap_action:
-              action: toggle
-            type: state-icon
-          - entity: switch.obama
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 7%
-              top: 61%
-            tap_action:
-              action: toggle
-            title: Obama
-            type: state-icon
-          - entity: media_player.living_room_tv
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 7%
-              top: 43%
-            tap_action:
-              action: more-info
-            title: Living Room TV
-            type: state-icon
-          - entity: media_player.living_room_speaker
-            icon: "mdi:google-home"
-            style:
-              left: 46%
-              top: 94%
-            tap_action:
-              action: more-info
-            title: Living Room Home
-            type: state-icon
-
-  - title: FP - Bedroom
-    path: fp-bedroom
-    visible: false
-    badges: []
-    cards:
-      - image: /local/images/fp-bedroom.png
-        type: picture-elements
-        elements:
-          - entity: light.fairy_lights
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 43%
-              top: 30%
-            tap_action:
-              action: toggle
-            title: Fairy Lights
-            type: state-icon
-          - entity: switch.bedroom_fan
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 64%
-              top: 91%
-            tap_action:
-              action: toggle
-            title: Fan
-            type: state-icon
-          - entity: light.bedroom_lamp
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 12.5%
-              top: 71%
-            tap_action:
-              action: toggle
-            title: Bedroom Lamp
-            type: state-icon
-          - entity: media_player.bedroom_tv
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 47%
-              top: 91.5%
-            tap_action:
-              action: more-info
-            title: Bedroom TV
-            type: state-icon
-          - entity: media_player.bedroom_speaker
-            icon: "mdi:google-home"
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 38%
-              top: 91.5%
-            tap_action:
-              action: more-info
-            title: Bedroom Home
-            type: state-icon
-
-  - title: FP - Office
-    path: fp-office
-    visible: false
-    badges: []
-    cards:
-      - type: picture-elements
-        image: /local/images/fp-office.png
-        elements:
-          - entity: switch.office_pink_lamp
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 91.8%
-              top: 63%
-            tap_action:
-              action: toggle
-            type: state-icon
-          - entity: media_player.office_speaker
-            icon: "mdi:google-home"
-            style:
-              left: 66.5%
-              top: 92.5%
-            tap_action:
-              action: more-info
-            title: Office Home
-            type: state-icon
-          - entity: vacuum.xiaomi_vacuum_cleaner
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 69.9%
-              top: 55%
-            title: Eve
-            type: state-icon
-
-  - title: FP - Kitchen/Bathroom
-    path: fp-kitchen-bathroom
-    visible: false
-    badges: []
-    cards:
-      - elements:
-          - entity: media_player.bathroom_speaker
-            icon: "mdi:google-home"
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 60.5%
-              top: 33%
-            tap_action:
-              action: more-info
-            title: Bathroom Home
-            type: state-icon
-          - entity: media_player.kitchen_speaker
-            icon: "mdi:google-home"
-            style:
-              "--iron-icon-height": 42px
-              "--iron-icon-width": 42px
-              left: 6%
-              top: 40%
-            tap_action:
-              action: more-info
-            title: Kitchen Home
-            type: state-icon
-        image: /local/images/fp-kitchen-bathroom.png
-        type: picture-elements
+            type: entity-button
+        type: horizontal-stack
+      - entity: script.everything_off
+        hold_action:
+          action: more-info
+        icon: "mdi:power"
+        name: Everything Off
+        tap_action:
+          action: toggle
+        type: entity-button
