@@ -9,7 +9,7 @@ all_lights_custom:
     - light.fairy_lights
     - light.living_room_tv_backlight
     - light.multisensor_light
-    - light.wall_display_light
+    # - light.wall_display_light
     - light.wall_display_screen
     - switch.christmas_tree
     - switch.living_room_couch
@@ -27,7 +27,7 @@ everything_custom:
     - light.fairy_lights
     - light.living_room_tv_backlight
     - light.multisensor_light
-    - light.wall_display_light
+    # - light.wall_display_light
     - light.wall_display_screen
     - switch.christmas_tree
     - switch.living_room_couch

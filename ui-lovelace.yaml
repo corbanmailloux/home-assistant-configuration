@@ -110,6 +110,12 @@ views:
         type: horizontal-stack
       - entity: climate.hallway_thermostat
         type: thermostat
+      - type: entities
+        title: Home Occupied
+        show_header_toggle: false
+        entities:
+          - input_boolean.home_occupied
+          - binary_sensor.home_occupied
 
   - title: Living Room
     path: fp-livingroom
