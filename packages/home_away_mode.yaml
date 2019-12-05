@@ -23,6 +23,14 @@ automation:
       - platform: state
         entity_id: binary_sensor.front_door
         to: "on"
+    condition:
+      # Only count this as someone coming home if the home has been unoccupied for at least 1 minute.
+      # This allows a grace period to leave, much like alarm systems.
+      - condition: state
+        entity_id: input_boolean.home_occupied
+        state: "off"
+        for:
+          minutes: 1
     action:
       - service: input_boolean.turn_on
         data:
