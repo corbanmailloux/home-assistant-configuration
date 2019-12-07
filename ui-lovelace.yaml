@@ -7,8 +7,8 @@ resources:
     url: /community_plugin/lovelace-card-tools/card-tools.js
   - type: module
     url: /community_plugin/compact-custom-header/compact-custom-header.js
-  # - url: /community_plugin/plan-coordinates/plan-coordinates.js
-  #   type: js
+  - type: module
+    url: /community_plugin/roku-card/roku-card.js
 
 title: Home
 views:

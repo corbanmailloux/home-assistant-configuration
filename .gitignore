@@ -119,9 +119,9 @@ entity_registry.yaml
 plex.conf
 .storage/core.config_entries
 .tradfri_psk.conf
-.storage/
-# .storage/*
-# !.storage/lovelace # Moved to YAML mode for now.
+google_cloud_credentials.json
+.storage/*
+!.storage/lovelace
 
 esphomeyaml/*
 !esphomeyaml/*.yaml
