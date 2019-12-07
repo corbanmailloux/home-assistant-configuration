@@ -121,6 +121,16 @@
                                         "top": "30.5%"
                                     },
                                     "type": "state-icon"
+                                },
+                                {
+                                    "entity": "binary_sensor.back_door",
+                                    "style": {
+                                        "--iron-icon-height": "42px",
+                                        "--iron-icon-width": "42px",
+                                        "left": "72.4%",
+                                        "top": "89.4%"
+                                    },
+                                    "type": "state-icon"
                                 }
                             ],
                             "image": "/local/images/fp-colored-overall.png",
