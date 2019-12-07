@@ -10,46 +10,16 @@ input_select:
     initial: info
     icon: mdi:format-list-bulleted
 
-# Input text to input Zigbee2mqtt friendly_name for scripts
-input_text:
-  zigbee2mqtt_old_name:
-    name: Zigbee2mqtt Old Name
-  zigbee2mqtt_new_name:
-    name: Zigbee2mqtt New Name
-  zigbee2mqtt_remove:
-    name: Zigbee2mqtt Remove
-
-# Scripts for renaming & removing devices
-script:
-  zigbee2mqtt_rename:
-    alias: Zigbee2mqtt Rename
-    sequence:
-      service: mqtt.publish
-      data_template:
-        topic: zigbee2mqtt/bridge/config/rename
-        payload_template: >-
-          {
-            "old": "{{ states.input_text.zigbee2mqtt_old_name.state | string }}",
-            "new": "{{ states.input_text.zigbee2mqtt_new_name.state | string }}"
-          }
-  zigbee2mqtt_remove:
-    alias: Zigbee2mqtt Remove
-    sequence:
-      service: mqtt.publish
-      data_template:
-        topic: zigbee2mqtt/bridge/config/remove
-        payload_template: "{{ states.input_text.zigbee2mqtt_remove.state | string }}"
-
 # Timer for joining time remaining
 timer:
   zigbee_permit_join:
-    name: Time remaining
+    name: Time Remaining
     duration: 600
 
 sensor:
   # Sensor for monitoring the bridge state
   - platform: mqtt
-    name: Zigbee2mqtt Bridge state
+    name: Zigbee2mqtt Bridge State
     state_topic: "zigbee2mqtt/bridge/state"
     icon: mdi:router-wireless
   # Sensor for Showing the Zigbee2mqtt Version
@@ -64,18 +34,12 @@ sensor:
     state_topic: "zigbee2mqtt/bridge/config"
     value_template: "{{ value_json.coordinator }}"
     icon: mdi:chip
-  # For the network map custom component
-  - platform: mqtt
-    name: Zigbee2mqtt Networkmap
-    state_topic: zigbee2mqtt/bridge/networkmap/raw
-    value_template: >-
-      {{ now().strftime('%Y-%m-%d %H:%M:%S') }}
-    json_attributes_topic: zigbee2mqtt/bridge/networkmap/raw
 
 # Switch for enabling joining
 switch:
   - platform: mqtt
-    name: "Zigbee2mqtt Main join"
+    name: "Zigbee2mqtt Allow Joining"
+    icon: mdi:home-lock-open
     state_topic: "zigbee2mqtt/bridge/config/permit_join"
     command_topic: "zigbee2mqtt/bridge/config/permit_join"
     payload_on: "true"

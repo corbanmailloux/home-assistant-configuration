@@ -1072,31 +1072,10 @@
                                     "type": "divider"
                                 },
                                 {
-                                    "entity": "switch.zigbee2mqtt_main_join"
+                                    "entity": "switch.zigbee2mqtt_allow_joining"
                                 },
                                 {
                                     "entity": "timer.zigbee_permit_join"
-                                },
-                                {
-                                    "type": "divider"
-                                },
-                                {
-                                    "entity": "input_text.zigbee2mqtt_old_name"
-                                },
-                                {
-                                    "entity": "input_text.zigbee2mqtt_new_name"
-                                },
-                                {
-                                    "entity": "script.zigbee2mqtt_rename"
-                                },
-                                {
-                                    "type": "divider"
-                                },
-                                {
-                                    "entity": "input_text.zigbee2mqtt_remove"
-                                },
-                                {
-                                    "entity": "script.zigbee2mqtt_remove"
                                 }
                             ],
                             "show_header_toggle": false,
