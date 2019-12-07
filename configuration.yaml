@@ -139,7 +139,7 @@ frontend:
   themes: !include themes.yaml
 
 lovelace:
-  mode: yaml
+  # mode: yaml
 
 # Discover some devices automatically
 # discovery:
@@ -207,6 +207,9 @@ google_assistant:
 
 tts:
   - platform: google_translate
+  - platform: google_cloud
+    key_file: google_cloud_credentials.json
+    voice: en-US-Standard-C
 
 roku:
   - host: !secret living_room_tv_host
