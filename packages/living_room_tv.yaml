@@ -188,6 +188,15 @@ script:
       - service: switch.turn_on
         entity_id: switch.soundbar_power
 
+  start_plex_on_tv:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.obama
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.65_tcl_roku_tv
+          source: Plex
+
 automation:
   - alias: Turn on the backlight when the TV turns on
     trigger:
