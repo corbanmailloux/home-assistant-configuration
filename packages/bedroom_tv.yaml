@@ -34,6 +34,15 @@ script:
           entity_id: remote.bedroom_tv
           command: "replay"
 
+  start_plex_on_bedroom_tv:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.obama
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.bedroom_tv
+          source: Plex
+
 automation:
   - alias: Turn on the server when the bedroom TV switches to Plex
     trigger:

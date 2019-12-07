@@ -24,6 +24,10 @@
                 {
                     "type": "module",
                     "url": "/community_plugin/roku-card/roku-card.js"
+                },
+                {
+                    "type": "module",
+                    "url": "/community_plugin/mini-media-player/mini-media-player-bundle.js"
                 }
             ],
             "title": "Home",
@@ -297,11 +301,11 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "light.entry_lamp",
+                                    "entity": "light.christmas_tree",
                                     "type": "light"
                                 },
                                 {
-                                    "entity": "light.christmas_tree",
+                                    "entity": "light.entry_lamp",
                                     "type": "light"
                                 },
                                 {
@@ -369,7 +373,12 @@
                             "cards": [
                                 {
                                     "entity": "media_player.living_room_tv",
-                                    "type": "media-control"
+                                    "hide": {
+                                        "power": true,
+                                        "volume": true
+                                    },
+                                    "type": "custom:mini-media-player",
+                                    "volume_stateless": true
                                 },
                                 {
                                     "apps": [
@@ -514,26 +523,17 @@
                             "type": "picture-elements"
                         },
                         {
-                            "entities": [
+                            "cards": [
                                 {
                                     "entity": "light.fairy_lights",
-                                    "toggle": true,
-                                    "type": "custom:slider-entity-row"
-                                },
-                                {
-                                    "entity": "switch.bedroom_fan",
-                                    "name": "Bedroom Fan",
-                                    "toggle": true
+                                    "type": "light"
                                 },
                                 {
                                     "entity": "light.bedroom_lamp",
-                                    "toggle": true,
-                                    "type": "custom:slider-entity-row"
+                                    "type": "light"
                                 }
                             ],
-                            "show_header_toggle": true,
-                            "title": "Bedroom Lights",
-                            "type": "entities"
+                            "type": "horizontal-stack"
                         },
                         {
                             "entities": [
@@ -550,42 +550,40 @@
                             "cards": [
                                 {
                                     "entity": "media_player.bedroom_tv",
-                                    "type": "media-control"
+                                    "hide": {
+                                        "power": true,
+                                        "volume": true
+                                    },
+                                    "type": "custom:mini-media-player"
                                 },
                                 {
-                                    "cards": [
+                                    "apps": [
                                         {
-                                            "entity": "script.bedroom_roku_back",
-                                            "hold_action": {
-                                                "action": "none"
-                                            },
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "entity-button"
+                                            "app": "Netflix",
+                                            "image": "/local/images/netflix-icon.png"
                                         },
                                         {
-                                            "entity": "script.bedroom_roku_play_pause",
-                                            "hold_action": {
-                                                "action": "none"
-                                            },
+                                            "image": "/local/images/plex-icon.png",
                                             "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "entity-button"
+                                                "action": "call-service",
+                                                "service": "script.start_plex_on_bedroom_tv"
+                                            }
                                         },
                                         {
-                                            "entity": "script.bedroom_roku_replay",
-                                            "hold_action": {
-                                                "action": "none"
-                                            },
+                                            "image": "/local/images/replay-icon-white.png",
                                             "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "entity-button"
+                                                "action": "call-service",
+                                                "service": "script.bedroom_roku_replay"
+                                            }
                                         }
                                     ],
-                                    "type": "horizontal-stack"
+                                    "entity": "media_player.bedroom_roku",
+                                    "power": {
+                                        "show": false
+                                    },
+                                    "remote": "remote.bedroom_tv",
+                                    "theme": "midnight",
+                                    "type": "custom:roku-card"
                                 }
                             ],
                             "type": "vertical-stack"
