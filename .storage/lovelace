@@ -764,22 +764,10 @@
                                     "entity": "sensor.hallway_thermostat_temperature"
                                 },
                                 {
-                                    "entity": "sensor.square_sensor_temperature"
-                                },
-                                {
-                                    "entity": "sensor.circular_sensor_temperature"
-                                },
-                                {
                                     "entity": "sensor.living_room_humidity"
                                 },
                                 {
                                     "entity": "sensor.hallway_thermostat_humidity"
-                                },
-                                {
-                                    "entity": "sensor.square_sensor_humidity"
-                                },
-                                {
-                                    "entity": "sensor.circular_sensor_humidity"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -812,10 +800,12 @@
                         },
                         {
                             "entities": [
-                                "sensor.living_room_temperature",
-                                "sensor.hallway_thermostat_temperature",
-                                "sensor.square_sensor_temperature",
-                                "sensor.circular_sensor_temperature"
+                                {
+                                    "entity": "sensor.living_room_temperature"
+                                },
+                                {
+                                    "entity": "sensor.hallway_thermostat_temperature"
+                                }
                             ],
                             "hours_to_show": 72,
                             "refresh_interval": 0,
@@ -824,10 +814,12 @@
                         },
                         {
                             "entities": [
-                                "sensor.living_room_humidity",
-                                "sensor.hallway_thermostat_humidity",
-                                "sensor.square_sensor_humidity",
-                                "sensor.circular_sensor_humidity"
+                                {
+                                    "entity": "sensor.living_room_humidity"
+                                },
+                                {
+                                    "entity": "sensor.hallway_thermostat_humidity"
+                                }
                             ],
                             "hours_to_show": 72,
                             "refresh_interval": 0,
@@ -1219,7 +1211,7 @@
                                 {
                                     "entities": [
                                         "sensor.living_room_temperature",
-                                        "sensor.multisensor_temperature"
+                                        "sensor.network_cabinet_temperature"
                                     ],
                                     "hours_to_show": 168,
                                     "title": "Network Cabinet Temperature",
@@ -1227,7 +1219,8 @@
                                 },
                                 {
                                     "entities": [
-                                        "sensor.multisensor_humidity"
+                                        "sensor.living_room_humidity",
+                                        "sensor.network_cabinet_humidity"
                                     ],
                                     "hours_to_show": 168,
                                     "title": "Network Cabinet Humidity",
@@ -1250,20 +1243,6 @@
                                     "entities": [
                                         "sensor.speedtest_download",
                                         "sensor.speedtest_upload"
-                                    ],
-                                    "hours_to_show": 168,
-                                    "type": "history-graph"
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.onhub_kbyte_sec_sent",
-                                            "name": "Up Speed"
-                                        },
-                                        {
-                                            "entity": "sensor.onhub_kbyte_sec_received",
-                                            "name": "Down Speed"
-                                        }
                                     ],
                                     "hours_to_show": 168,
                                     "type": "history-graph"
