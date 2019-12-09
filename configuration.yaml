@@ -45,34 +45,6 @@ recorder:
       - sensor.bus_1_route
       - sensor.bus_2_time
       - sensor.bus_2_route
-      # These already have binary_sensors matching their values
-      - device_tracker.net_bedroom_roku
-      - device_tracker.net_corbans_macbook
-      - device_tracker.net_corbans_phone
-      - device_tracker.net_corbans_work_macbook
-      - device_tracker.net_docker_host
-      - device_tracker.net_exit_sign
-      - device_tracker.net_fairy_lights
-      - device_tracker.net_google_home_mini_bathroom
-      - device_tracker.net_google_home_mini_bedroom
-      - device_tracker.net_google_home_mini_kitchen
-      - device_tracker.net_google_home_mini_living_room
-      - device_tracker.net_google_home_mini_office
-      - device_tracker.net_linksio_switch
-      - device_tracker.net_living_room_dht
-      - device_tracker.net_living_room_tv
-      - device_tracker.net_maggies_laptop
-      - device_tracker.net_maggies_phone
-      - device_tracker.net_multisensor
-      - device_tracker.net_nest
-      - device_tracker.net_obama
-      - device_tracker.net_sonoff_1
-      - device_tracker.net_sonoff_3
-      - device_tracker.net_sonoff_5
-      - device_tracker.net_soundbar_controller
-      - device_tracker.net_tradfri_gateway
-      - device_tracker.net_tv_backlight
-      - device_tracker.net_wall_display
 
 history:
   exclude:
@@ -92,34 +64,6 @@ history:
       - sensor.bus_1_route
       - sensor.bus_2_time
       - sensor.bus_2_route
-      # These already have binary_sensors matching their values
-      - device_tracker.net_bedroom_roku
-      - device_tracker.net_corbans_macbook
-      - device_tracker.net_corbans_phone
-      - device_tracker.net_corbans_work_macbook
-      - device_tracker.net_docker_host
-      - device_tracker.net_exit_sign
-      - device_tracker.net_fairy_lights
-      - device_tracker.net_google_home_mini_bathroom
-      - device_tracker.net_google_home_mini_bedroom
-      - device_tracker.net_google_home_mini_kitchen
-      - device_tracker.net_google_home_mini_living_room
-      - device_tracker.net_google_home_mini_office
-      - device_tracker.net_linksio_switch
-      - device_tracker.net_living_room_dht
-      - device_tracker.net_living_room_tv
-      - device_tracker.net_maggies_laptop
-      - device_tracker.net_maggies_phone
-      - device_tracker.net_multisensor
-      - device_tracker.net_nest
-      - device_tracker.net_obama
-      - device_tracker.net_sonoff_1
-      - device_tracker.net_sonoff_3
-      - device_tracker.net_sonoff_5
-      - device_tracker.net_soundbar_controller
-      - device_tracker.net_tradfri_gateway
-      - device_tracker.net_tv_backlight
-      - device_tracker.net_wall_display
 
 history_graph:
   temperatures:
@@ -166,19 +110,12 @@ logger:
     homeassistant.components.media_player.roku: critical
 
 device_tracker:
-  - platform: nmap_tracker
-    hosts: 10.0.0.0/24
-    interval_seconds: 15
-    consider_home: 155
-    exclude:
-      - 10.0.0.253
   - platform: mqtt
     devices:
       edith_wifi: !secret edith_wifi_mqtt_topic
       jackie_wifi: !secret jackie_wifi_mqtt_topic
   - platform: google_maps
     username: !secret google_maps_username
-    # password: !secret google_maps_password
 
 map:
 
