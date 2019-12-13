@@ -120,6 +120,7 @@ plex.conf
 .storage/core.config_entries
 .tradfri_psk.conf
 google_cloud_credentials.json
+google_cloud_assistant_credentials.json
 .storage/*
 !.storage/lovelace
 
