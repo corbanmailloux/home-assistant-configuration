@@ -91,3 +91,8 @@ binary_sensor:
       then:
         - switch.turn_on:
             id: sb_vol_down
+  - platform: remote_receiver
+    name: "Roku Remote: Play/Pause Button"
+    nec:
+      address: 0x57E3
+      command: 0x32CD
