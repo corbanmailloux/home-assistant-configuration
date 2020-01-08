@@ -58,7 +58,7 @@ automation:
         data:
           entity_id: input_boolean.home_occupied
 
-  - alias: Bedside Button 2 - Press Off sets the home as unoccupied
+  - alias: Living Room Switch - Press Off sets the home as unoccupied
     trigger:
       - platform: state
         entity_id: sensor.0x000d6ffffea6b202_click
@@ -68,7 +68,7 @@ automation:
         data:
           entity_id: input_boolean.home_occupied
 
-  - alias: Bedside Button 2 - Hold On turns on movie mode
+  - alias: Living Room Switch - Hold On turns on movie mode
     trigger:
       - platform: state
         entity_id: sensor.0x000d6ffffea6b202_click
@@ -77,7 +77,7 @@ automation:
       - service: script.turn_on
         entity_id: script.living_room_movie_mode
   
-  - alias: Bedside Button 2 - Hold Off for unoccupied and vacuum run
+  - alias: Living Room Switch - Hold Off for unoccupied and vacuum run
     trigger:
       - platform: state
         entity_id: sensor.0x000d6ffffea6b202_click
