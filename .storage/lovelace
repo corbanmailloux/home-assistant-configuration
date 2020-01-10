@@ -131,6 +131,26 @@
                                         "top": "89.4%"
                                     },
                                     "type": "state-icon"
+                                },
+                                {
+                                    "entity": "binary_sensor.home_occupied",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "style": {
+                                        "--iron-icon-height": "42px",
+                                        "--iron-icon-width": "42px",
+                                        "left": "10%",
+                                        "top": "90%"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "input_boolean.toggle",
+                                        "service_data": {
+                                            "entity_id": "input_boolean.home_occupied"
+                                        }
+                                    },
+                                    "type": "state-badge"
                                 }
                             ],
                             "image": "/local/images/fp-colored-overall.png",
@@ -178,15 +198,6 @@
                         {
                             "entity": "climate.hallway_thermostat",
                             "type": "thermostat"
-                        },
-                        {
-                            "entities": [
-                                "input_boolean.home_occupied",
-                                "binary_sensor.home_occupied"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Home Occupied",
-                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:home",
@@ -290,19 +301,6 @@
                                         "action": "toggle"
                                     },
                                     "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.christmas_tree",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "8%",
-                                        "top": "92%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
                                 }
                             ],
                             "image": "/local/images/fp-living-room.png",
@@ -310,10 +308,6 @@
                         },
                         {
                             "cards": [
-                                {
-                                    "entity": "light.christmas_tree",
-                                    "type": "light"
-                                },
                                 {
                                     "entity": "light.entry_lamp",
                                     "type": "light"
