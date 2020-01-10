@@ -114,15 +114,11 @@ automation:
       - service: script.turn_on
         entity_id: script.welcome_home_announcement
 
-  - alias: Turn on wall display and lights when getting home
+  - alias: Home Occupied - Lights, Wall Display on
     trigger:
       - platform: state
         entity_id: input_boolean.home_occupied
         to: "on"
-    condition:
-      - condition: state
-        entity_id: light.entry_lamp
-        state: "off"
     action:
       - service: light.turn_on
         data:
@@ -131,20 +127,37 @@ automation:
         data:
           entity_id: light.entry_lamp
           brightness: 127 # 50%
-      - service: switch.turn_on
-        data:
-          entity_id: switch.christmas_tree
 
-  - alias: Turn everything off when no one is home
+  - alias: Home Occupied - Set Nest home
+    trigger:
+      - platform: state
+        entity_id: input_boolean.home_occupied
+        to: "on"
+    action:
+      - service: nest.set_away_mode
+        data:
+          away_mode: home
+
+  - alias: Home Unoccupied - Turn everything off
     trigger:
       - platform: state
         entity_id: input_boolean.home_occupied
         to: "off"
     action:
-        - service: script.turn_on
-          entity_id: script.everything_off
-        - service: script.turn_on
-          entity_id: script.flash_wall_display_light
+      - service: script.turn_on
+        entity_id: script.everything_off
+      - service: script.turn_on
+        entity_id: script.flash_wall_display_light
+
+  - alias: Home Unoccupied - Set Nest away
+    trigger:
+      - platform: state
+        entity_id: input_boolean.home_occupied
+        to: "off"
+    action:
+      - service: nest.set_away_mode
+        data:
+          away_mode: away
 
 script:
   welcome_home_announcement:
