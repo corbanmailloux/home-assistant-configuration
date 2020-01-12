@@ -224,6 +224,7 @@
                                 },
                                 {
                                     "entity": "switch.living_room_couch",
+                                    "icon": "mdi:lightbulb",
                                     "style": {
                                         "--iron-icon-height": "42px",
                                         "--iron-icon-width": "42px",
@@ -237,11 +238,12 @@
                                 },
                                 {
                                     "entity": "switch.living_room_lamp_near_tv",
+                                    "icon": "mdi:lightbulb",
                                     "style": {
                                         "--iron-icon-height": "42px",
                                         "--iron-icon-width": "42px",
-                                        "left": "7%",
-                                        "top": "23%"
+                                        "left": "7.4%",
+                                        "top": "22.7%"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -481,6 +483,7 @@
                                 },
                                 {
                                     "entity": "light.bedroom_lamp",
+                                    "icon": "mdi:lightbulb",
                                     "style": {
                                         "--iron-icon-height": "42px",
                                         "--iron-icon-width": "42px",
@@ -604,6 +607,7 @@
                             "elements": [
                                 {
                                     "entity": "switch.office_pink_lamp",
+                                    "icon": "mdi:lightbulb",
                                     "style": {
                                         "--iron-icon-height": "42px",
                                         "--iron-icon-width": "42px",
