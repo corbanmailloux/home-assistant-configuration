@@ -230,11 +230,11 @@ automation:
         entity_id: light.living_room_tv_backlight
         data:
           transition: 5
-  - alias: Turn on the server when the living room TV switches to Plex
+  - alias: Turn on the server when the living room TV switches to Plex or Obama
     trigger:
       - platform: template
         value_template: >
-          {{ is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Plex - Stream Free TV & Movies') }}
+          {{ is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Plex - Stream Free TV & Movies') or is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Obama') }}
     condition:
       - condition: state
         entity_id: switch.obama
