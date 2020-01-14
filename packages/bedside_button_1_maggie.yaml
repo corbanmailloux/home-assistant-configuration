@@ -79,9 +79,19 @@ automation:
         entity_id: light.bedroom_lamp
         data:
           brightness: 10
-  # - alias: Bedside Button 1 - Left Button Click
+
+  - alias: Bedside Button 1 - Left Button Click
+    trigger:
+      platform: state
+      entity_id: sensor.maggie_bedside_button_action
+      to: "arrow_left_click"
+    action:
+      - service: homeassistant.toggle
+        entity_id: switch.bedroom_fan
+
+  # - alias: Bedside Button 1 - Right Button Click
   #   trigger:
   #     platform: state
   #     entity_id: sensor.maggie_bedside_button_action
-  #     to: "arrow_left_click"
+  #     to: "arrow_right_click"
   #   # Already mapped. See bedroom_fairy_lights.yaml

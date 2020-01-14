@@ -25,7 +25,7 @@ automation:
         webhook_id: !secret edith_fairy_toggle_webhook
       - platform: state # See also: bedside_button_1_maggie.yaml
         entity_id: sensor.maggie_bedside_button_action
-        to: "arrow_left_click"
+        to: "arrow_right_click"
       - platform: state # See also: bedside_button_2_corban.yaml
         entity_id: sensor.corban_bedside_button_click
         to: "single"
