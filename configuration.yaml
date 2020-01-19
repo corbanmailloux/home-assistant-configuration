@@ -80,10 +80,9 @@ history_graph:
     hours_to_show: 72
 
 frontend:
-  themes: !include themes.yaml
+  themes: !include_dir_merge_named themes
 
 lovelace:
-  # mode: yaml
 
 # Discover some devices automatically
 # discovery:
