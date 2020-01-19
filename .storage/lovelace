@@ -4,11 +4,11 @@
             "cch": {
                 "chevrons": true
             },
+            "custom_header": {
+                "compact_mode": true,
+                "hidden_tab_redirect": false
+            },
             "resources": [
-                {
-                    "type": "js",
-                    "url": "/local/community/lovelace-slider-entity-row/slider-entity-row.js"
-                },
                 {
                     "type": "js",
                     "url": "/community_plugin/check-button-card/check-button-card.js"
@@ -19,15 +19,19 @@
                 },
                 {
                     "type": "module",
-                    "url": "/community_plugin/compact-custom-header/compact-custom-header.js"
-                },
-                {
-                    "type": "module",
                     "url": "/community_plugin/roku-card/roku-card.js"
                 },
                 {
                     "type": "module",
+                    "url": "/community_plugin/custom-header/custom-header.js"
+                },
+                {
+                    "type": "module",
                     "url": "/community_plugin/mini-media-player/mini-media-player-bundle.js"
+                },
+                {
+                    "type": "module",
+                    "url": "/community_plugin/lovelace-slider-entity-row/slider-entity-row.js"
                 }
             ],
             "title": "Home",
@@ -613,6 +617,19 @@
                                         "--iron-icon-width": "42px",
                                         "left": "91.8%",
                                         "top": "63%"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "switch.office_desk_lamp",
+                                    "style": {
+                                        "--iron-icon-height": "42px",
+                                        "--iron-icon-width": "42px",
+                                        "left": "42.6%",
+                                        "top": "89.8%"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
