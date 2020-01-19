@@ -2,7 +2,7 @@
 
 # Power Tails
 # - platform: mqtt
-#   name: office_pink_lamp # strobe_light # christmas_lights # power_tail_1
+#   name: power_tail_1
 #   state_topic: "stat/sonoff_1/POWER"
 #   command_topic: "cmnd/sonoff_1/POWER"
 #   availability_topic: "tele/sonoff_1/LWT"
@@ -14,7 +14,7 @@
 #   retain: true
 
 # - platform: mqtt
-#   name: bedroom_fan # power_tail_2
+#   name: power_tail_2
 #   state_topic: "stat/sonoff_2/POWER"
 #   command_topic: "cmnd/sonoff_2/POWER"
 #   availability_topic: "tele/sonoff_2/LWT"
@@ -26,7 +26,7 @@
 #   retain: true
 
 - platform: mqtt
-  name: office_pink_lamp # living_room_lamp_near_tv # power_tail_3
+  name: office_pink_lamp # power_tail_3
   state_topic: "stat/sonoff_3/POWER"
   command_topic: "cmnd/sonoff_3/POWER"
   availability_topic: "tele/sonoff_3/LWT"
@@ -38,8 +38,8 @@
   retain: true
 
 - platform: mqtt
-  name: Christmas Tree # power_tail_4
-  icon: mdi:pine-tree
+  name: Office Desk Lamp # power_tail_4
+  icon: mdi:desk-lamp
   state_topic: "stat/sonoff_4/POWER"
   command_topic: "cmnd/sonoff_4/POWER"
   availability_topic: "tele/sonoff_4/LWT"
