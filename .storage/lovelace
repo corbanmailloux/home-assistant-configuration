@@ -313,21 +313,23 @@
                             "type": "picture-elements"
                         },
                         {
-                            "cards": [
+                            "entities": [
                                 {
                                     "entity": "light.entry_lamp",
-                                    "type": "light"
+                                    "icon": "mdi:lamp",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
                                 },
                                 {
                                     "entity": "light.tv_lamp",
-                                    "type": "light"
+                                    "icon": "mdi:floor-lamp"
                                 },
                                 {
                                     "entity": "light.couch_lamp",
-                                    "type": "light"
+                                    "icon": "mdi:lamp"
                                 }
                             ],
-                            "type": "horizontal-stack"
+                            "type": "entities"
                         },
                         {
                             "cards": [
