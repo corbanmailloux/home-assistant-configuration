@@ -30,7 +30,6 @@ recorder:
   purge_keep_days: 60
   exclude:
     domains:
-      - weblink
       - automation
       - group
       - updater
@@ -39,7 +38,6 @@ recorder:
     entities:
       - sun.sun
       - sensor.time
-      # - sensor.outbound_busses_from_station # Changes often, and no value in tracking
       - sensor.busses_at_stop
       - sensor.bus_1_time
       - sensor.bus_1_route
@@ -49,7 +47,6 @@ recorder:
 history:
   exclude:
     domains:
-      - weblink
       - automation
       - group
       - updater
@@ -58,26 +55,11 @@ history:
     entities:
       - sun.sun
       - sensor.time
-      # - sensor.outbound_busses_from_station # Changes often, and no value in tracking
       - sensor.busses_at_stop
       - sensor.bus_1_time
       - sensor.bus_1_route
       - sensor.bus_2_time
       - sensor.bus_2_route
-
-history_graph:
-  temperatures:
-    name: Temperatures
-    entities:
-      - sensor.living_room_temperature
-      - sensor.dark_sky_temperature
-    hours_to_show: 72
-  humidities:
-    name: Humidities
-    entities:
-      - sensor.living_room_humidity
-      - sensor.dark_sky_humidity
-    hours_to_show: 72
 
 frontend:
   themes: !include_dir_merge_named themes

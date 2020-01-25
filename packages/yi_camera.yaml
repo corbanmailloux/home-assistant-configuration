@@ -8,13 +8,6 @@
 #     extra_arguments: "-pred 1"
 #
 #
-# weblink:
-#   entities:
-#     - name: Yi Recordings
-#       url: !secret yi_camera_recordings_url
-#       icon: mdi:record-rec
-#
-#
 # sensor:
 #   - platform: scrape
 #     name: Yi Most Recent Recording
@@ -67,6 +60,5 @@
 #     control: hidden
 #     entities:
 #       - camera.yi
-#       - weblink.yi_recordings
 #       - sensor.yi_most_recent_recording
 #       - binary_sensor.yi_motion

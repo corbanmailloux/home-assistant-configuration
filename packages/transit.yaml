@@ -3,23 +3,6 @@ light:
     host: !secret wall_display_ip
 
 sensor:
-  # Outbound (heading home)
-  # - platform: rest
-  #   name: Outbound Busses from Station
-  #   scan_interval: 30
-  #   force_update: true
-  #   resource: !secret transit_api_outbound_url
-  #   json_attributes:
-  #     - data
-  #   value_template: >-
-  #     {% if states.sensor.outbound_busses_from_station.attributes["data"] | length > 0 %}
-  #       {{ as_timestamp(value_json["data"][0]["attributes"]["departure_time"]) | timestamp_custom("%I:%M %p") }}
-  #     {% else %}
-  #       N/A
-  #     {% endif %}
-  #   headers:
-  #     x-api-key: !secret transit_api_key
-
   # Inbound (heading to work)
   - platform: rest
     name: Busses at Stop
