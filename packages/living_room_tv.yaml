@@ -255,6 +255,32 @@ automation:
       - service: media_player.media_play_pause
         data:
           entity_id: media_player.living_room_chromecast
+  - alias: Switch the TV to the Chromecast when someone starts casting
+    trigger:
+      - platform: state
+        entity_id: media_player.living_room_chromecast
+        to: "idle"
+      - platform: state
+        entity_id: media_player.living_room_chromecast
+        to: "playing"
+    condition:
+      - condition: template
+        value_template: >
+          {{ not is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Chromecast') }}
+    action:
+      - service: switch.turn_on
+        entity_id: 
+          - switch.living_room_tv_power # No action if it's off.
+          - switch.living_room_soundbar_power # No action if it's off.
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.65_tcl_roku_tv
+          source: Chromecast
+      - delay: 00:00:03 # Try a second time in case
+      - service: media_player.select_source
+        data:
+          entity_id: media_player.65_tcl_roku_tv
+          source: Chromecast
 
 homeassistant:
   customize:
