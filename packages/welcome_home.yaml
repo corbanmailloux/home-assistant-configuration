@@ -57,15 +57,6 @@ script:
             {%- endif -%}
 
 
-group:
-  welcome_home:
-    name: Welcome Home
-    icon: mdi:home-heart
-    entities:
-      - input_number.welcome_home_corban_delay
-      - automation.corban_welcome_home_announcement
-
-
 homeassistant:
   customize:
     automation.corban_welcome_home_announcement:
