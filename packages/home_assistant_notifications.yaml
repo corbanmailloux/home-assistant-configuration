@@ -19,46 +19,46 @@ automation:
         message: "Home Assistant version {{ state_attr('binary_sensor.updater', 'newest_version') }} is now available."
 
   # Reminder to turn off the lights
-  - alias: Reminder to turn off the lights
-    trigger:
-      - platform: state
-        entity_id: device_tracker.edith_wifi
-        from: "home"
-        to: "not_home"
-    condition:
-      condition: and
-      conditions:
-        - condition: state
-          entity_id: "device_tracker.jackie_wifi"
-          state: "not_home"
-        - condition: or
-          conditions:
-            - condition: state
-              entity_id: group.all_switches
-              state: "on"
-            - condition: state
-              entity_id: group.all_lights
-              state: "on"
-    action:
-      service: notify.html5_corban_phone
-      data:
-        title: "Lights are still on."
-        message: "You seem to have left some lights on."
-        data:
-          actions:
-            - action: "turn_off_lights"
-              title: "Turn off"
-  - alias: Notification turn off lights clicked
-    trigger:
-      platform: event
-      event_type: html5_notification.clicked
-      event_data:
-        action: turn_off_lights
-    action:
-      service: homeassistant.turn_off
-      entity_id:
-        - group.all_switches
-        - group.all_lights
+  # - alias: Reminder to turn off the lights
+  #   trigger:
+  #     - platform: state
+  #       entity_id: device_tracker.edith_wifi
+  #       from: "home"
+  #       to: "not_home"
+  #   condition:
+  #     condition: and
+  #     conditions:
+  #       - condition: state
+  #         entity_id: "device_tracker.jackie_wifi"
+  #         state: "not_home"
+  #       - condition: or
+  #         conditions:
+  #           - condition: state
+  #             entity_id: group.all_switches
+  #             state: "on"
+  #           - condition: state
+  #             entity_id: group.all_lights
+  #             state: "on"
+  #   action:
+  #     service: notify.html5_corban_phone
+  #     data:
+  #       title: "Lights are still on."
+  #       message: "You seem to have left some lights on."
+  #       data:
+  #         actions:
+  #           - action: "turn_off_lights"
+  #             title: "Turn off"
+  # - alias: Notification turn off lights clicked
+  #   trigger:
+  #     platform: event
+  #     event_type: html5_notification.clicked
+  #     event_data:
+  #       action: turn_off_lights
+  #   action:
+  #     service: homeassistant.turn_off
+  #     entity_id:
+  #       - group.all_switches
+  #       - group.all_lights
 
   # Ask to turn on the lights when we get home
   - alias: Corban - Ask to turn on a light when coming home

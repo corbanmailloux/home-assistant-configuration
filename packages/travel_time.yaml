@@ -5,14 +5,6 @@ sensor:
     destination: zone.home
     region: "US"
 
-group:
-  maggie_travel_time:
-    name: "Maggie Travel Time"
-    control: hidden
-    entities:
-      - sensor.maggie_to_home_travel_time
-      - script.maggie_travel_time_speak
-
 script:
   maggie_travel_time_speak:
     sequence:

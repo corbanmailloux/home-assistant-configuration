@@ -58,21 +58,8 @@ script:
           # Get the difference in seconds of the two times
           transition: "{{ states.input_datetime.alarm_target_time.attributes.timestamp - states.input_datetime.alarm_start_time.attributes.timestamp }}"
 
-group:
-  sunrise_alarm:
-    name: Sunrise Alarm
-    control: hidden
-    entities:
-      - automation.sunrise_alarm
-      - input_number.alarm_max_brightness
-      - input_datetime.alarm_start_time
-      - input_datetime.alarm_target_time
-      # - binary_sensor.workday_sensor
-
 homeassistant:
   customize:
-    group.sunrise_alarm:
-      icon: mdi:weather-sunset
     automation.sunrise_alarm:
       icon: mdi:weather-sunset
     input_number.alarm_max_brightness:

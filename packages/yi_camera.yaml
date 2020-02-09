@@ -52,13 +52,3 @@
 #           message: "Tap to watch the video."
 #           data:
 #             url: !secret yi_camera_trigger_video_url
-#
-#
-# group:
-#   yi_camera:
-#     name: Yi Camera
-#     control: hidden
-#     entities:
-#       - camera.yi
-#       - sensor.yi_most_recent_recording
-#       - binary_sensor.yi_motion

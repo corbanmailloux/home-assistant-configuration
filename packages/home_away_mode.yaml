@@ -35,18 +35,18 @@ automation:
         data:
           entity_id: input_boolean.home_occupied
 
-  - alias: Automatically mark the home as unoccupied if no one is home
-    trigger:
-      - platform: state
-        entity_id: group.all_devices
-        to: "not_home"
-        for:
-          minutes: 60
-    # TODO: Guest mode condition
-    action:
-      - service: input_boolean.turn_off
-        data:
-          entity_id: input_boolean.home_occupied
+  # - alias: Automatically mark the home as unoccupied if no one is home
+  #   trigger:
+  #     - platform: state
+  #       entity_id: group.all_devices # TODO: Replace this "all_" group
+  #       to: "not_home"
+  #       for:
+  #         minutes: 60
+  #   # TODO: Guest mode condition
+  #   action:
+  #     - service: input_boolean.turn_off
+  #       data:
+  #         entity_id: input_boolean.home_occupied
 
   - alias: Living Room Switch - Press On sets the home as occupied
     trigger:

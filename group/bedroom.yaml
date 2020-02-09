@@ -1,17 +1,5 @@
 # Bedroom Group
 
-view_bedroom:
-  name: Bedroom
-  view: yes
-  icon: mdi:hotel
-  entities:
-    - group.bedroom_lights
-    # - sensor.bedroom_temperature
-    # - sensor.bedroom_humidity
-    - switch.bedroom_fan
-    - group.sunrise_alarm
-    - media_player.bedroom_roku
-
 bedroom_lights:
   name: Bedroom Lights
   entities:

@@ -3,7 +3,7 @@
 switch:
   - platform: wake_on_lan
     name: "Obama"
-    mac_address: !secret obama_mac
+    mac: !secret obama_mac
     host: !secret obama_host
     turn_off:
       service: rest_command.sleep_obama

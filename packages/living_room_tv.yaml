@@ -60,21 +60,6 @@ cover:
         close_cover:
           service: script.soundbar_volume_down
 
-group:
-  living_room_tv_control:
-    name: "Living Room TV"
-    control: hidden
-    entities:
-      - switch.living_room_tv_power
-      - switch.obama
-      - switch.living_room_soundbar_power
-      - cover.living_room_soundbar_volume
-      - script.roku_play_pause
-      - script.roku_replay
-      - script.roku_back
-      - script.living_room_movie_mode
-      - script.living_room_game_mode
-
 rest_command:
   # https://sdkdocs.roku.com/display/sdkdoc/External+Control+API#ExternalControlAPI-KeypressKeyValues
   living_room_roku_keypress:
@@ -277,6 +262,7 @@ automation:
           entity_id: media_player.65_tcl_roku_tv
           source: Chromecast
       - delay: 00:00:03 # Try a second time in case
+      # TODO: Can you add a condition as a step in a script, so it stops here if the first attempt worked?
       - service: media_player.select_source
         data:
           entity_id: media_player.65_tcl_roku_tv
