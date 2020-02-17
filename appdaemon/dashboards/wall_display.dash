@@ -48,11 +48,9 @@ clock:
 
 weather_custom:
   widget_type: weather
-  # title: Today
   units: "°F"
   prefer_icons: 1
-  # show_forecast: 1
-  forecast_title: Tomorrow
+  # show_forecast: 0
 
 bus_time_1:
   widget_type: sensor
