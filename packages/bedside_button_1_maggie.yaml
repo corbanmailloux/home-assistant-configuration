@@ -13,16 +13,13 @@ automation:
       platform: state
       entity_id: sensor.maggie_bedside_button_action
       to: "brightness_up_click"
-    condition:
-      - condition: state
-        entity_id: light.bedroom_lamp
-        state: "on"
     action:
       - service: light.turn_on
         entity_id: light.bedroom_lamp
         data_template:
+          # Handles the light being off as well, treating it as 0 brightness.
           brightness: >
-            {%- set target = state_attr('light.bedroom_lamp', 'brightness') | int + 40 -%}
+            {%- set target = (is_state('light.bedroom_lamp', "on") and state_attr('light.bedroom_lamp', 'brightness')) | int + 40 -%}
             {%- if target > 255 -%}
               255
             {%- else -%}
