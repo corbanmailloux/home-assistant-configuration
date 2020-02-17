@@ -165,6 +165,10 @@
                                 {
                                     "entities": [
                                         {
+                                            "entity": "person.corban",
+                                            "icon": "mdi:account"
+                                        },
+                                        {
                                             "entity": "binary_sensor.corban_home_gps",
                                             "icon": "mdi:crosshairs-gps"
                                         },
@@ -172,15 +176,19 @@
                                             "entity": "binary_sensor.corban_home_wifi",
                                             "icon": "mdi:wifi"
                                         },
-                                        "sensor.corban_phone_battery"
+                                        "sensor.edith_battery_level"
                                     ],
-                                    "entity": "binary_sensor.corban_home",
+                                    "entity": "person.corban",
                                     "image": "/local/images/corban.jpg",
                                     "title": "Corban",
                                     "type": "picture-glance"
                                 },
                                 {
                                     "entities": [
+                                        {
+                                            "entity": "person.maggie",
+                                            "icon": "mdi:account"
+                                        },
                                         {
                                             "entity": "binary_sensor.maggie_home_gps",
                                             "icon": "mdi:crosshairs-gps"
@@ -189,9 +197,9 @@
                                             "entity": "binary_sensor.maggie_home_wifi",
                                             "icon": "mdi:wifi"
                                         },
-                                        "sensor.maggie_phone_battery"
+                                        "sensor.jackie_battery_level"
                                     ],
-                                    "entity": "binary_sensor.maggie_home",
+                                    "entity": "person.maggie",
                                     "image": "/local/images/maggie.jpg",
                                     "title": "Maggie",
                                     "type": "picture-glance"
@@ -202,6 +210,36 @@
                         {
                             "entity": "climate.hallway_thermostat",
                             "type": "thermostat"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "person.corban",
+                                    "name": "Corban - Person"
+                                },
+                                {
+                                    "entity": "device_tracker.corban_s_oneplus_5",
+                                    "name": "OnePlus 5 - Mobile App"
+                                },
+                                {
+                                    "entity": "device_tracker.google_maps_110168280884137709870"
+                                },
+                                {
+                                    "entity": "device_tracker.edith_wifi",
+                                    "name": "Edith - WiFi"
+                                },
+                                {
+                                    "entity": "person.maggie"
+                                },
+                                {
+                                    "entity": "device_tracker.jackie"
+                                },
+                                {
+                                    "entity": "device_tracker.google_maps_106112096418399445974"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:home",
