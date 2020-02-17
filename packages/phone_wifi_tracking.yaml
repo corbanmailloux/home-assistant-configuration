@@ -8,7 +8,7 @@ automation:
         data_template:
           topic: !secret edith_wifi_mqtt_topic
           retain: true
-          payload: '{{ trigger.json.location }}'
+          payload: "{{ trigger.json.location }}"
   - alias: "Set Maggie's Phone Location - Webhook"
     trigger:
       - platform: webhook
@@ -18,64 +18,43 @@ automation:
         data_template:
           topic: !secret jackie_wifi_mqtt_topic
           retain: true
-          payload: '{{ trigger.json.location }}'
-
-group:
-  corban_home:
-    name: Corban
-    icon: mdi:home-account
-    entities:
-      - device_tracker.google_maps_110168280884137709870
-      - device_tracker.edith_wifi
-  maggie_home:
-    name: Maggie
-    icon: mdi:home-account
-    entities:
-      - device_tracker.google_maps_106112096418399445974
-      - device_tracker.jackie_wifi
+          payload: "{{ trigger.json.location }}"
 
 binary_sensor:
   - platform: template
     sensors:
-      corban_home_gps:
+      # Used for the UI
+      corban_person_home:
+        friendly_name: "Corban Home"
+        device_class: presence
+        value_template: >-
+          {{ is_state('person.maggie', 'home') }}
+      maggie_person_home:
+        friendly_name: "Maggie Home"
+        device_class: presence
+        value_template: >-
+          {{ is_state('person.maggie', 'home') }}
+
+      corban_home_google:
         friendly_name: "Corban Home - GPS"
         device_class: presence
         value_template: >-
           {{ is_state('device_tracker.google_maps_110168280884137709870', 'home') }}
-      corban_home_wifi:
-        friendly_name: "Corban Home - WiFi"
-        device_class: presence
-        value_template: >-
-          {{ is_state('device_tracker.edith_wifi', 'home') }}
-      corban_home:
-        friendly_name: "Corban Home"
-        device_class: presence
-        value_template: >-
-          {{ is_state('binary_sensor.corban_home_wifi', 'on') or is_state('binary_sensor.corban_home_gps', 'on') }}
-      maggie_home_gps:
+      maggie_home_google:
         friendly_name: "Maggie Home - GPS"
         device_class: presence
         value_template: >-
           {{ is_state('device_tracker.google_maps_106112096418399445974', 'home') }}
-      maggie_home_wifi:
-        friendly_name: "Maggie Home - WiFi"
-        device_class: presence
-        value_template: >-
-          {{ is_state('device_tracker.jackie_wifi', 'home') }}
-      maggie_home:
-        friendly_name: "Maggie Home"
-        device_class: presence
-        value_template: >-
-          {{ is_state('binary_sensor.maggie_home_wifi', 'on') or is_state('binary_sensor.maggie_home_gps', 'on') }}
 
 sensor:
   - platform: template
     sensors:
+      # TODO: I think both of these are now covered by Home Assistant Companion. Compare this and icons vs. default app.
       corban_phone_battery:
         friendly_name: "Corban's Phone Battery"
         device_class: battery
-        unit_of_measurement: '%'
-        entity_id: 'device_tracker.google_maps_110168280884137709870'
+        unit_of_measurement: "%"
+        entity_id: "device_tracker.google_maps_110168280884137709870"
         icon_template: >-
           {%- set tracker_name = 'device_tracker.google_maps_110168280884137709870' -%}
 
@@ -94,8 +73,8 @@ sensor:
       maggie_phone_battery:
         friendly_name: "Maggie's Phone Battery"
         device_class: battery
-        unit_of_measurement: '%'
-        entity_id: 'device_tracker.google_maps_106112096418399445974'
+        unit_of_measurement: "%"
+        entity_id: "device_tracker.google_maps_106112096418399445974"
         icon_template: >-
           {%- set tracker_name = 'device_tracker.google_maps_106112096418399445974' -%}
 
