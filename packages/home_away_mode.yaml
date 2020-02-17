@@ -16,6 +16,15 @@ binary_sensor:
         value_template: >-
           {{ is_state('input_boolean.home_occupied', 'on') }}
 
+# TODO: Move to a shared place. Core systems like notification groups and person groups should not be in packages.
+# Does it make more sense to move them back to the standard, shared config?
+group:
+  adults:
+    name: Adults
+    entities:
+      - person.corban
+      - person.maggie
+
 automation:
   - alias: Mark home occupied when the door opens
     trigger:
@@ -35,18 +44,32 @@ automation:
         data:
           entity_id: input_boolean.home_occupied
 
-  # - alias: Automatically mark the home as unoccupied if no one is home
-  #   trigger:
-  #     - platform: state
-  #       entity_id: group.all_devices # TODO: Replace this "all_" group
-  #       to: "not_home"
-  #       for:
-  #         minutes: 60
-  #   # TODO: Guest mode condition
-  #   action:
-  #     - service: input_boolean.turn_off
-  #       data:
-  #         entity_id: input_boolean.home_occupied
+  - alias: Mark home occupied when someone is home for a few minutes
+    # This really should be a backup plan in case the door sensors don't trigger. At the moment, the door sensors are removed.
+    trigger:
+      - platform: state
+        entity_id: group.adults
+        to: "home"
+        for:
+          minutes: 5
+    # TODO: Guest mode condition
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.home_occupied
+
+  - alias: Automatically mark the home as unoccupied if no one is home
+    trigger:
+      - platform: state
+        entity_id: group.adults
+        to: "not_home"
+        for:
+          minutes: 60
+    # TODO: Guest mode condition
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.home_occupied
 
   - alias: Living Room Switch - Press On sets the home as occupied
     trigger:
@@ -76,7 +99,7 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.living_room_movie_mode
-  
+
   - alias: Living Room Switch - Hold Off for unoccupied and vacuum run
     trigger:
       - platform: state
@@ -99,8 +122,8 @@ automation:
         to: "on"
     condition:
       - condition: time # From 7AM - 9PM
-        after: '07:00:00'
-        before: '21:00:00'
+        after: "07:00:00"
+        before: "21:00:00"
       # Check that nothing is playing in the living room (as to not interrupt someone's media).
       # Note: With Roku, this just means that some channel is open, not necessarily that media is actually playing.
       # This weird app_id is the "Davinci Channel" which seems to occasionally be active when the TV is turned off.
@@ -174,7 +197,7 @@ script:
         entity_id: media_player.living_room_speaker
         data_template:
           message: Welcome home!
-  
+
   flash_wall_display_light:
     sequence:
       - service: light.turn_on
