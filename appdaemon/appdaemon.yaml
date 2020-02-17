@@ -1,0 +1,22 @@
+secrets: /config/secrets.yaml
+appdaemon:
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  elevation: !secret home_elevation
+  time_zone: America/New_York
+
+  disable_apps: 1
+
+  plugins:
+    HASS:
+      type: hass
+      ha_url: http://10.0.0.253:8123
+      token: !secret appdaemon_token
+
+http:
+  url: http://127.0.0.1:5050
+
+api:
+
+hadashboard:
+  dashboard_dir: /config/appdaemon/dashboards
