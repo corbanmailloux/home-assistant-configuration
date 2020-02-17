@@ -1,39 +1,14 @@
 # Package for the exit sign
 
-input_select:
-  exit_sign_button_action:
-    name: Exit Sign Button Action
-    options:
-      - "Toggle Exit Sign"
-      - "Toggle Party Mode"
-    icon: mdi:sign-caution
-
 automation:
   - alias: "Exit Sign Button - Toggle Exit Sign"
     trigger:
       - platform: state
         entity_id: binary_sensor.exit_sign_button
         to: "on"
-    condition:
-    - condition: state
-      entity_id: input_select.exit_sign_button_action
-      state: "Toggle Exit Sign"
     action:
-      service: light.toggle
-      entity_id: light.exit_sign
-
-  - alias: "Exit Sign Button - Toggle Party Mode"
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.exit_sign_button
-        to: "on"
-    condition:
-    - condition: state
-      entity_id: input_select.exit_sign_button_action
-      state: "Toggle Party Mode"
-    action:
-      service: input_boolean.toggle
-      entity_id: input_boolean.party_mode
+      - service: light.toggle
+        entity_id: light.exit_sign
 
 homeassistant:
   customize:

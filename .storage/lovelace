@@ -857,12 +857,6 @@
                                     "entity": "sensor.corban_s_time_at_work_this_week"
                                 },
                                 {
-                                    "entity": "input_boolean.scary_mode"
-                                },
-                                {
-                                    "entity": "input_boolean.party_mode"
-                                },
-                                {
                                     "entity": "automation.pagerduty_webhook_triggered_event"
                                 },
                                 {
@@ -890,15 +884,6 @@
                             ],
                             "show_header_toggle": false,
                             "title": "Donut Delivery",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                "input_number.welcome_home_corban_delay",
-                                "automation.corban_welcome_home_announcement"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Welcome Home",
                             "type": "entities"
                         },
                         {

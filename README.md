@@ -20,7 +20,7 @@ TP-Link Smart Plug                                      | [Amazon](https://www.a
 Roborock S5 Vacuum                                      | [Amazon](https://www.amazon.com/gp/product/B0792BWMV4/)                                                                                                                                                                                               | [Xiaomi Mi Robot Vacuum](https://www.home-assistant.io/integrations/vacuum.xiaomi_miio/)
 Aquara (Zigbee) Buttons and Sensors                     | Aliexpress: [Button](https://www.aliexpress.com/item/32998319647.html), [Door Sensor](https://www.aliexpress.com/item/32967550225.html)                                                                                                               | [Zigbee2MQTT](https://www.zigbee2mqtt.io/) as a Hass.io add-on
 
-## Helper Templates
+## Things that Might be Helpful Again
 
 ### List all `entity_id`s
 
@@ -30,4 +30,27 @@ During the update to v0.85 of Home Assistant, `slugify` changed. I was nervous t
 {% for state in states -%}
   {{ state.entity_id }}
 {% endfor %}
+```
+
+### "Flicker" a traditional light
+
+```yaml
+scary_mode_flicker_lights:
+  sequence:
+    # Delay for 0 to 6 seconds
+    - delay: 00:00:{{ (range(0, 7) | random | string).rjust(2, '0') }}
+    - service: homeassistant.turn_on
+      entity_id: light.entry_lamp
+    - delay:
+        milliseconds: 100
+    - service: homeassistant.turn_off
+      entity_id: light.entry_lamp
+    - service: script.turn_on
+      entity_id: script.scary_mode_flicker_lights_loop
+
+scary_mode_flicker_lights_loop:
+  sequence:
+    - delay: 00:00:01
+    - service: script.turn_on
+      entity_id: script.scary_mode_flicker_lights
 ```
