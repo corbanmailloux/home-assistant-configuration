@@ -164,42 +164,22 @@
                             "cards": [
                                 {
                                     "entities": [
-                                        {
-                                            "entity": "person.corban",
-                                            "icon": "mdi:account"
-                                        },
-                                        {
-                                            "entity": "binary_sensor.corban_home_gps",
-                                            "icon": "mdi:crosshairs-gps"
-                                        },
-                                        {
-                                            "entity": "binary_sensor.corban_home_wifi",
-                                            "icon": "mdi:wifi"
-                                        },
-                                        "sensor.edith_battery_level"
+                                        "sensor.corban_location_icon",
+                                        "sensor.edith_battery_level",
+                                        "sensor.corban_phone_battery"
                                     ],
-                                    "entity": "person.corban",
+                                    "entity": "binary_sensor.corban_person_home",
                                     "image": "/local/images/corban.jpg",
                                     "title": "Corban",
                                     "type": "picture-glance"
                                 },
                                 {
                                     "entities": [
-                                        {
-                                            "entity": "person.maggie",
-                                            "icon": "mdi:account"
-                                        },
-                                        {
-                                            "entity": "binary_sensor.maggie_home_gps",
-                                            "icon": "mdi:crosshairs-gps"
-                                        },
-                                        {
-                                            "entity": "binary_sensor.maggie_home_wifi",
-                                            "icon": "mdi:wifi"
-                                        },
-                                        "sensor.jackie_battery_level"
+                                        "sensor.maggie_location_icon",
+                                        "sensor.jackie_battery_level",
+                                        "sensor.maggie_phone_battery"
                                     ],
-                                    "entity": "person.maggie",
+                                    "entity": "binary_sensor.maggie_person_home",
                                     "image": "/local/images/maggie.jpg",
                                     "title": "Maggie",
                                     "type": "picture-glance"
@@ -210,36 +190,6 @@
                         {
                             "entity": "climate.hallway_thermostat",
                             "type": "thermostat"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "person.corban",
-                                    "name": "Corban - Person"
-                                },
-                                {
-                                    "entity": "device_tracker.corban_s_oneplus_5",
-                                    "name": "OnePlus 5 - Mobile App"
-                                },
-                                {
-                                    "entity": "device_tracker.google_maps_110168280884137709870"
-                                },
-                                {
-                                    "entity": "device_tracker.edith_wifi",
-                                    "name": "Edith - WiFi"
-                                },
-                                {
-                                    "entity": "person.maggie"
-                                },
-                                {
-                                    "entity": "device_tracker.jackie"
-                                },
-                                {
-                                    "entity": "device_tracker.google_maps_106112096418399445974"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:home",

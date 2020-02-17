@@ -28,7 +28,7 @@ binary_sensor:
         friendly_name: "Corban Home"
         device_class: presence
         value_template: >-
-          {{ is_state('person.maggie', 'home') }}
+          {{ is_state('person.corban', 'home') }}
       maggie_person_home:
         friendly_name: "Maggie Home"
         device_class: presence
@@ -49,6 +49,46 @@ binary_sensor:
 sensor:
   - platform: template
     sensors:
+      corban_location_icon:
+        friendly_name: Corban's Location
+        entity_id: person.corban
+        icon_template: >-
+          {% set state = states('person.corban') %}
+
+          {% if state == "home" %}
+            mdi:home
+          {% elif state == "BKB" %}
+            mdi:dumbbell
+          {% elif state == "CHT" %}
+            mdi:laptop
+          {% elif state == "RE" %}
+            mdi:flask-outline
+          {% else %}
+            mdi:account-outline
+          {% endif %}
+        value_template: >-
+          {{ states('person.corban') }}
+
+      maggie_location_icon:
+        friendly_name: Maggie's Location
+        entity_id: person.maggie
+        icon_template: >-
+          {% set state = states('person.maggie') %}
+
+          {% if state == "home" %}
+            mdi:home
+          {% elif state == "BKB" %}
+            mdi:dumbbell
+          {% elif state == "CHT" %}
+            mdi:laptop
+          {% elif state == "RE" %}
+            mdi:flask-outline
+          {% else %}
+            mdi:account-outline
+          {% endif %}
+        value_template: >-
+          {{ states('person.maggie') }}
+
       # TODO: I think both of these are now covered by Home Assistant Companion. Compare this and icons vs. default app.
       corban_phone_battery:
         friendly_name: "Corban's Phone Battery"
