@@ -17,7 +17,7 @@ media_player:
         service: media_player.select_source
         data_template:
           entity_id: media_player.65_tcl_roku_tv
-          source: '{{ source }}'
+          source: "{{ source }}"
     attributes:
       source: media_player.65_tcl_roku_tv|source
       source_list: media_player.65_tcl_roku_tv|source_list
@@ -26,8 +26,8 @@ switch:
   - platform: command_line
     switches:
       living_room_tv_power_command_line:
-        command_on: 'curl -X POST http://10.0.0.248:8060/keypress/PowerOn'
-        command_off: 'curl -X POST http://10.0.0.248:8060/keypress/PowerOff'
+        command_on: "curl -X POST http://10.0.0.248:8060/keypress/PowerOn"
+        command_off: "curl -X POST http://10.0.0.248:8060/keypress/PowerOff"
         command_state: 'curl -m 5 -s GET http://10.0.0.248:8060/query/device-info | grep power-mode | sed -e "s:<power-mode>DisplayOff</power-mode>:OFF:" -e "s:<power-mode>PowerOn</power-mode>:ON:"'
         value_template: '{{ value == "ON" }}'
   - platform: template
@@ -35,19 +35,41 @@ switch:
       living_room_tv_power:
         value_template: "{{ is_state('switch.living_room_tv_power_command_line', 'on') }}"
         turn_on:
-          - service: script.turn_on
-            entity_id: script.living_room_tv_power_on
+          - service: wake_on_lan.send_magic_packet
+            data:
+              mac: !secret living_room_tv_mac
+          - service: switch.turn_on
+            data:
+              entity_id: switch.living_room_tv_power_command_line
         turn_off:
           - service: switch.turn_off
             entity_id: switch.living_room_tv_power_command_line
+
       living_room_soundbar_power:
+        # On this soundbar, volume down is ignored if the soundbar is off, and volume up turns it on.
+        # Using this, we can build sequences that will always turn the soundbar on and off, regardless
+        # of its starting state, and leave it at its initial volume level.
         value_template: "false" # assumed_state, set below, because we can't tell if it's on or off.
         turn_on:
-          - service: script.turn_on
-            entity_id: script.soundbar_power_on
+          - service: switch.turn_on
+            entity_id: switch.soundbar_volume_down
+          - delay:
+              milliseconds: 200
+          - service: switch.turn_on
+            entity_id: switch.soundbar_volume_up
         turn_off:
-          - service: script.turn_on
-            entity_id: script.soundbar_power_off
+          # First, ensure it's on.
+          - service: switch.turn_on
+            entity_id: switch.soundbar_volume_down
+          - delay:
+              milliseconds: 200
+          - service: switch.turn_on
+            entity_id: switch.soundbar_volume_up
+          # It takes a bit after turning on before the soundbar will turn back off.
+          - delay:
+              seconds: 1
+          - service: switch.turn_on
+            entity_id: switch.soundbar_power
 
 cover:
   - platform: template
@@ -63,7 +85,7 @@ cover:
 rest_command:
   # https://sdkdocs.roku.com/display/sdkdoc/External+Control+API#ExternalControlAPI-KeypressKeyValues
   living_room_roku_keypress:
-    url: 'http://10.0.0.248:8060/keypress/{{button}}'
+    url: "http://10.0.0.248:8060/keypress/{{button}}"
     method: post
 
 script:
@@ -83,31 +105,28 @@ script:
       - service: rest_command.living_room_roku_keypress
         data:
           button: Back
-  # Other
-  living_room_tv_power_on:
-    sequence:
-      - service: wake_on_lan.send_magic_packet
-        data:
-          mac: !secret living_room_tv_mac
-      - service: switch.turn_on
-        data:
-          entity_id: switch.living_room_tv_power_command_line
 
-  living_room_tv_server_soundbar_on:
+  # esphome autoconfigures switches for these. Wrap them in scripts so they appear as buttons in the front end.
+  soundbar_volume_up:
     sequence:
       - service: switch.turn_on
-        entity_id:
-          - switch.obama # Turn on the server, in case it was off.
-          - switch.living_room_tv_power # Same with the TV.
-          - switch.living_room_soundbar_power # And the soundbar.
-  
+        entity_id: switch.soundbar_volume_up
+  soundbar_volume_down:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.soundbar_volume_down
+  soundbar_power:
+    sequence:
+      - service: switch.turn_on
+        entity_id: switch.soundbar_power
+
   # "Scenes"
   living_room_dining_mode:
     sequence:
       - service: script.living_room_tv_server_soundbar_on
       - service: scene.turn_on
         entity_id: scene.dining_mode
-  
+
   living_room_movie_mode:
     sequence:
       - service: script.living_room_tv_server_soundbar_on
@@ -130,46 +149,14 @@ script:
           entity_id: media_player.65_tcl_roku_tv
           source: Obama
 
-  # esphome autoconfigures switches for these. Wrap them in scripts so they appear as a button
-  # in the front end.
-  soundbar_volume_up:
+  # Other
+  living_room_tv_server_soundbar_on:
     sequence:
       - service: switch.turn_on
-        entity_id: switch.soundbar_volume_up
-  soundbar_volume_down:
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.soundbar_volume_down
-  soundbar_power:
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.soundbar_power
-
-  # On this soundbar, volume down is ignored if the soundbar is off, and volume up turns it on.
-  # Using this, we can build sequences that will always turn the soundbar on and off, regardless
-  # of its starting state, and leave it at its initial volume level.
-  soundbar_power_on:
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.soundbar_volume_down
-      - delay:
-          milliseconds: 200
-      - service: switch.turn_on
-        entity_id: switch.soundbar_volume_up
-  soundbar_power_off:
-    sequence:
-      # First, ensure it's on.
-      - service: switch.turn_on
-        entity_id: switch.soundbar_volume_down
-      - delay:
-          milliseconds: 200
-      - service: switch.turn_on
-        entity_id: switch.soundbar_volume_up
-      # It takes a bit after turning on before the soundbar will turn back off.
-      - delay:
-          seconds: 1
-      - service: switch.turn_on
-        entity_id: switch.soundbar_power
+        entity_id:
+          - switch.obama # Turn on the server, in case it was off.
+          - switch.living_room_tv_power # Same with the TV.
+          - switch.living_room_soundbar_power # And the soundbar.
 
   start_plex_on_tv:
     sequence:
@@ -221,7 +208,7 @@ automation:
     condition:
       - condition: state
         entity_id: switch.obama
-        state: 'off'
+        state: "off"
     action:
       - service: switch.turn_on
         entity_id: switch.obama
@@ -252,7 +239,7 @@ automation:
           {{ not is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Chromecast') }}
     action:
       - service: switch.turn_on
-        entity_id: 
+        entity_id:
           - switch.living_room_tv_power # No action if it's off.
           - switch.living_room_soundbar_power # No action if it's off.
       - service: media_player.select_source
