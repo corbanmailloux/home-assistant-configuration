@@ -3,6 +3,13 @@
 # This pushes a notification to both of our phones to ensure the litter box is cleaned each night.
 # If one user acknowledges the notification, the notification is dismissed on both devices.
 
+notify:
+  - name: adult_phones
+    platform: group
+    services:
+      - service: mobile_app_oneplus_a5000
+      - service: mobile_app_pixel
+
 automation:
   - alias: Reminder to do the litter box
     trigger:
@@ -18,7 +25,7 @@ automation:
   - alias: Litter box reminder clicked
     trigger:
       platform: event
-      event_type: ariela_notification_clicked
+      event_type: mobile_app_notification_action
       event_data:
         action: litter_box_complete
     action:
@@ -29,7 +36,7 @@ automation:
 script:
   litter_send_notifications:
     sequence:
-      - service: notify.mobile_app_edith
+      - service: notify.adult_phones
         data:
           title: "Litter Box Check"
           message: "Has the litter box been done?"
@@ -39,37 +46,11 @@ script:
             actions:
               - action: "litter_box_complete"
                 title: "Yes, complete."
-                # icon: https://home.corb.co/local/litter_box/check-bold.png
-      - service: notify.mobile_app_jackie
-        data:
-          title: "Litter Box Check"
-          message: "Has the litter box been done?"
-          data:
-            tag: 10 # Arbitrary but constant.
-            icon: https://home.corb.co/local/litter_box/litter_box_icon.png
-            actions:
-              - action: "litter_box_complete"
-                title: "Yes, complete."
-                # icon: https://home.corb.co/local/litter_box/check-bold.png
+
   litter_dismiss_notifications:
     sequence:
-      - service: notify.mobile_app_edith
+      - service: notify.adult_phones
         data:
-          title: "Litter Box Check"
-          message: "Has the litter box been done?"
+          message: clear_notification
           data:
             tag: 10 # Arbitrary but constant.
-            dismiss: true # Get rid of the notification
-            actions:
-              - action: "litter_box_complete"
-                title: "Yes, complete."
-      - service: notify.mobile_app_jackie
-        data:
-          title: "Litter Box Check"
-          message: "Has the litter box been done?"
-          data:
-            tag: 10 # Arbitrary but constant.
-            dismiss: true # Get rid of the notification
-            actions:
-              - action: "litter_box_complete"
-                title: "Yes, complete."
