@@ -9,7 +9,7 @@ columns: 8
 
 global_parameters:
   use_hass_icon: 1
-  widget_style: "font-size: 128%;"
+  widget_style: "font-size: 150%;"
   level_up_style: "font-size: 140%;"
   level_down_style: "font-size: 140%;"
 
@@ -99,7 +99,6 @@ living_room_temp:
   widget_type: sensor
   entity: sensor.living_room_temperature
   title: Living Room
-  title2: Temperature
 
 living_room_humidity:
   widget_type: gauge
@@ -118,20 +117,20 @@ living_room_lights:
   icon_on: mdi-lightbulb
   icon_off: mdi-lightbulb-outline
 
-# bus_alert_toggle:
-#   widget_type: input_boolean
-#   entity: input_boolean.bus_alert
-#   title: Bus Alert
+hallway_climate:
+  widget_type: climate
+  entity: climate.hallway_thermostat
+  title: Hallway
 
-# go_to_lovelace:
-#   widget_type: navigate
-#   title: Lovelace
-#   url: https://home.corb.co/lovelace/floorplan
+tv:
+  widget_type: switch
+  entity: switch.living_room_tv_power
+  title: TV
 
 # 8 columns per row
 layout:
   - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
-  - corban_presence, maggie_presence, living_room_temp, living_room_humidity, spacer(3x1), living_room_play_pause
-  - corban_maps_presence, maggie_maps_presence, input_boolean.home_occupied, spacer(4x1), google_home_play_pause
-  - script.living_room_movie_mode, script.living_room_game_mode
-  - switch.living_room_tv_power, living_room_lights, spacer(2x1), light.fairy_lights, spacer(2x1), everything_off
+  - corban_presence, maggie_presence, input_boolean.home_occupied, spacer, living_room_temp, hallway_climate, spacer, google_home_play_pause
+  - corban_maps_presence, maggie_maps_presence
+  - spacer(5x1), script.living_room_dining_mode, script.living_room_movie_mode, script.living_room_game_mode
+  - living_room_lights, spacer(4x1), switch.obama, tv, living_room_play_pause
