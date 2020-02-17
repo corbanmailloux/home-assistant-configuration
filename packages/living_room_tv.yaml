@@ -92,13 +92,31 @@ script:
       - service: switch.turn_on
         data:
           entity_id: switch.living_room_tv_power_command_line
-  living_room_game_mode:
+
+  living_room_tv_server_soundbar_on:
     sequence:
       - service: switch.turn_on
         entity_id:
           - switch.obama # Turn on the server, in case it was off.
           - switch.living_room_tv_power # Same with the TV.
           - switch.living_room_soundbar_power # And the soundbar.
+  
+  # "Scenes"
+  living_room_dining_mode:
+    sequence:
+      - service: script.living_room_tv_server_soundbar_on
+      - service: scene.turn_on
+        entity_id: scene.dining_mode
+  
+  living_room_movie_mode:
+    sequence:
+      - service: script.living_room_tv_server_soundbar_on
+      - service: scene.turn_on
+        entity_id: scene.movie_mode
+
+  living_room_game_mode:
+    sequence:
+      - service: script.living_room_tv_server_soundbar_on
       - service: scene.turn_on
         entity_id: scene.movie_mode # At least until I make a game mode scene.
       - delay: 00:00:02
@@ -111,26 +129,6 @@ script:
         data:
           entity_id: media_player.65_tcl_roku_tv
           source: Obama
-  living_room_movie_mode:
-    sequence:
-      - service: switch.turn_on
-        entity_id:
-          - switch.obama # Turn on the server, in case it was off.
-          - switch.living_room_tv_power # Same with the TV.
-          - switch.living_room_soundbar_power # And the soundbar.
-      - service: scene.turn_on
-        entity_id: scene.movie_mode
-      # Leaving these commented out for now because we use it for both Netflix and Plex
-      # - delay: 00:00:02
-      # - service: media_player.select_source
-      #   data:
-      #     entity_id: media_player.65_tcl_roku_tv
-      #     source: Netflix
-      # - delay: 00:00:03 # Try a second time in case
-      # - service: media_player.select_source
-      #   data:
-      #     entity_id: media_player.65_tcl_roku_tv
-      #     source: "Plex - Stream Free TV & Movies"
 
   # esphome autoconfigures switches for these. Wrap them in scripts so they appear as a button
   # in the front end.
@@ -273,6 +271,9 @@ homeassistant:
     switch.living_room_tv_power:
       friendly_name: Living Room TV
       icon: mdi:television
+    script.living_room_dining_mode:
+      friendly_name: Dining Mode
+      icon: mdi:silverware
     script.living_room_game_mode:
       friendly_name: Game Mode
       icon: mdi:google-controller

@@ -1,30 +1,25 @@
-- id: "1574735892892"
-  name: Dining
+- id: dining_mode
+  name: Dining Mode
   entities:
     light.entry_lamp:
-      brightness: 255
-      color_temp: 352
-      state: "on"
-    script.soundbar_power_on:
-      state: "off"
-    switch.living_room_couch:
-      state: "off"
-    switch.living_room_lamp_near_tv:
-      state: "on"
-    switch.living_room_tv_power:
-      state: "on"
-    switch.obama:
-      state: "on"
-
-- id: "movie_mode"
-  name: Movie Mode
-  entities:
-    light.entry_lamp:
-      state: on
+      state: true
       transition: 2
       brightness: 255
       color_temp: 352
     switch.living_room_lamp_near_tv:
-      state: off
+      state: false
     switch.living_room_couch:
-      state: off
+      state: false
+
+- id: movie_mode
+  name: Movie Mode
+  entities:
+    light.entry_lamp:
+      state: true
+      transition: 2
+      brightness: 51
+      color_temp: 352
+    switch.living_room_lamp_near_tv:
+      state: false
+    switch.living_room_couch:
+      state: false

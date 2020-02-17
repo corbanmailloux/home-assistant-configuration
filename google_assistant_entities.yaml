@@ -34,6 +34,9 @@ script.living_room_game_mode:
 script.living_room_movie_mode:
   room: Living Room
   expose: true
+script.living_room_dining_mode:
+  room: Living Room
+  expose: true
 light.bedroom_lamp:
   room: Bedroom
   expose: true
