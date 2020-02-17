@@ -15,6 +15,7 @@ all_lights_custom:
     - switch.living_room_couch
     - switch.living_room_lamp_near_tv
     - switch.office_pink_lamp
+    - switch.office_desk_lamp
 
 # All lights, switches, and media_players for automations
 everything_custom:
@@ -33,7 +34,8 @@ everything_custom:
     - switch.living_room_couch
     - switch.living_room_lamp_near_tv
     - switch.office_pink_lamp
-    
+    - switch.office_desk_lamp
+
     # Other devices
     - switch.living_room_tv_power
     - switch.obama
