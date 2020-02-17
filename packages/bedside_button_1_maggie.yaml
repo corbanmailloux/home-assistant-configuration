@@ -87,8 +87,7 @@ automation:
       to: "arrow_left_click"
     action:
       - service: homeassistant.toggle
-        entity_id: switch.bedroom_fan
-
+        entity_id: fan.bedroom_fan
   # - alias: Bedside Button 1 - Right Button Click
   #   trigger:
   #     platform: state

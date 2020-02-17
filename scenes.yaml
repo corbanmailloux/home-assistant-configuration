@@ -6,9 +6,9 @@
       transition: 2
       brightness: 255
       color_temp: 352
-    switch.living_room_lamp_near_tv:
+    light.tv_lamp:
       state: false
-    switch.living_room_couch:
+    light.couch_lamp:
       state: false
 
 - id: movie_mode
@@ -19,7 +19,7 @@
       transition: 2
       brightness: 51
       color_temp: 352
-    switch.living_room_lamp_near_tv:
+    light.tv_lamp:
       state: false
-    switch.living_room_couch:
+    light.couch_lamp:
       state: false

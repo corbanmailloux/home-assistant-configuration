@@ -1,7 +1,6 @@
 living_room_lights:
   name: Living Room Lights
   entities:
-    - switch.living_room_lamp_near_tv
-    - switch.living_room_couch
-    - light.entry_lamp # Tradfri
-    - switch.christmas_lights
+    - light.tv_lamp
+    - light.couch_lamp
+    - light.entry_lamp

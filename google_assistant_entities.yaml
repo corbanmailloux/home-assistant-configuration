@@ -7,13 +7,13 @@ group.bedroom_lights:
 group.all_lights_custom:
   name: All Lights
   expose: true
-switch.living_room_lamp_near_tv:
+light.tv_lamp:
   room: Living Room
   expose: true
-switch.living_room_couch:
+light.couch_lamp:
   room: Living Room
   expose: true
-switch.office_pink_lamp:
+light.office_pink_lamp:
   room: Office
   expose: true
 switch.living_room_tv_power:
@@ -55,13 +55,13 @@ script.maggie_travel_time_speak:
     - Maggie's Travel Time
     - Maggie's Time to Home
   expose: true
-switch.bedroom_fan:
+fan.bedroom_fan:
   name: Bedroom Fan
   aliases:
     - Fan
   room: Bedroom
   expose: true
-switch.office_desk_lamp:
+light.desk_lamp:
   name: Office Desk Lamp
   aliases:
     - Desk Lamp

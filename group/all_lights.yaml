@@ -12,10 +12,10 @@ all_lights_custom:
     # - light.wall_display_light
     - light.wall_display_screen
     - switch.christmas_tree
-    - switch.living_room_couch
-    - switch.living_room_lamp_near_tv
-    - switch.office_pink_lamp
-    - switch.office_desk_lamp
+    - light.couch_lamp
+    - light.tv_lamp
+    - light.office_pink_lamp
+    - light.desk_lamp
 
 # All lights, switches, and media_players for automations
 everything_custom:
@@ -31,10 +31,10 @@ everything_custom:
     # - light.wall_display_light
     - light.wall_display_screen
     - switch.christmas_tree
-    - switch.living_room_couch
-    - switch.living_room_lamp_near_tv
-    - switch.office_pink_lamp
-    - switch.office_desk_lamp
+    - light.couch_lamp
+    - light.tv_lamp
+    - light.office_pink_lamp
+    - light.desk_lamp
 
     # Other devices
     - switch.living_room_tv_power
