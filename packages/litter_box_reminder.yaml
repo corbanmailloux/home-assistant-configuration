@@ -3,13 +3,6 @@
 # This pushes a notification to both of our phones to ensure the litter box is cleaned each night.
 # If one user acknowledges the notification, the notification is dismissed on both devices.
 
-notify:
-  - name: adult_phones
-    platform: group
-    services:
-      - service: mobile_app_oneplus_a5000
-      - service: mobile_app_pixel
-
 automation:
   - alias: Reminder to do the litter box
     trigger:

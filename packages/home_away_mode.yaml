@@ -16,15 +16,6 @@ binary_sensor:
         value_template: >-
           {{ is_state('input_boolean.home_occupied', 'on') }}
 
-# TODO: Move to a shared place. Core systems like notification groups and person groups should not be in packages.
-# Does it make more sense to move them back to the standard, shared config?
-group:
-  adults:
-    name: Adults
-    entities:
-      - person.corban
-      - person.maggie
-
 automation:
   - alias: Mark home occupied when the door opens
     trigger:

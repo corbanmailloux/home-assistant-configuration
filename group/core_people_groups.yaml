@@ -1,0 +1,7 @@
+# Core helpers that are used in other automations and packages.
+
+adults:
+  name: Adults
+  entities:
+    - person.corban
+    - person.maggie

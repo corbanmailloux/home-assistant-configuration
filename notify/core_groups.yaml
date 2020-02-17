@@ -1,0 +1,19 @@
+# Core helpers that are used in other automations and packages.
+
+- name: adult_phones
+  platform: group
+  services:
+    - service: mobile_app_oneplus_a5000
+    - service: mobile_app_pixel
+
+
+# I keep switching notification systems and having to refactor a bunch of configs. Extract them here:
+- name: corban
+  platform: group
+  services:
+    - service: mobile_app_oneplus_a5000
+
+- name: maggie
+  platform: group
+  services:
+    - service: mobile_app_pixel
