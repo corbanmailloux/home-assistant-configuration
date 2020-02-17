@@ -6,27 +6,21 @@
     minutes: 5
   forecast:
     - 0
+    - 1
   monitored_conditions:
-    - summary
-    - icon
-    - precip_type
-    - precip_intensity
-    - precip_intensity_max
-    - precip_probability
+    # Required for HADashboard
     - temperature
     - temperature_high
     - temperature_low
     - apparent_temperature
-    - apparent_temperature_high
-    - apparent_temperature_low
-    # - dew_point
+    - humidity
+    - precip_probability
+    - precip_intensity
+    - precip_type
     - wind_speed
     - wind_bearing
-    - cloud_cover
-    - humidity
     - pressure
-    # - visibility
-    # - ozone
-    - minutely_summary
-    - hourly_summary
-    #- daily_summary
+    - icon
+
+    - summary
+    - cloud_cover
