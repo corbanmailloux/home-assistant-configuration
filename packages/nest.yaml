@@ -5,7 +5,7 @@ automation:
         entity_id: binary_sensor.hallway_thermostat_online
         to: "off"
     action:
-      - service: notify.html5_corban_phone
+      - service: notify.mobile_app_oneplus_a5000 # TODO: Extract the core stuff. Make a `notify.corban` just like `person.corban`.
         data:
           title: "Nest is Offline"
           message: "Might want to look into that."

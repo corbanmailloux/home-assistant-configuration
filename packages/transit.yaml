@@ -79,21 +79,8 @@ binary_sensor:
 
 automation:
   # SCREEN
-  - alias: Turn on the wall display when Corban gets home
-    trigger:
-      - platform: state
-        entity_id: device_tracker.edith_wifi
-        # from: "not_home"
-        to: "home"
-      - platform: state
-        entity_id: device_tracker.jackie_wifi # TODO: Consider using a combined tracker here.
-        # from: "not_home"
-        to: "home"
-    action:
-      - service: light.turn_on
-        data:
-          entity_id: light.wall_display_screen
-
+  # See also `package/home_away_mode.yaml`.
+  
   - alias: Turn on the wall display in the morning # if someone is home
     trigger:
       - platform: time

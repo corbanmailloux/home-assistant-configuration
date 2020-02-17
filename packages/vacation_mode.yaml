@@ -8,25 +8,29 @@ input_boolean:
 
 automation:
   ## Disable vacation mode
-  - alias: Remind us to turn off vacation mode
+  - alias: Remind us to turn off vacation mode when we get home
     trigger:
       - platform: state
-        entity_id: device_tracker.edith_wifi
-        to: "home"
-      - platform: state
-        entity_id: device_tracker.jackie_wifi
+        entity_id: group.adults
         to: "home"
     condition:
       - condition: state
         entity_id: input_boolean.vacation_mode
         state: "on"
     action:
-      - service: script.turn_on
-        entity_id: script.vacation_mode_notification
+      - service: notify.adult_phones
+        data:
+          title: "Welcome back!"
+          message: "Turn off vacation mode?"
+          data:
+            tag: 20 # Arbitrary but constant.
+            actions:
+              - action: "turn_off_vacation_mode"
+                title: "Yes, turn off."
   - alias: Turn off vacation mode notification clicked
     trigger:
       - platform: event
-        event_type: ariela_notification_clicked
+        event_type: mobile_app_notification_action
         event_data:
           action: turn_off_vacation_mode
     action:
@@ -129,25 +133,3 @@ group:
       - automation.schedule_3_maggs_to_bed
       - automation.schedule_4_maggs_sleep
       - automation.schedule_5_everything_off
-
-script:
-  vacation_mode_notification:
-    sequence:
-      - service: notify.mobile_app_edith
-        data:
-          title: "Welcome back!"
-          message: "Turn off vacation mode?"
-          data:
-            tag: 20 # Arbitrary but constant.
-            actions:
-              - action: "turn_off_vacation_mode"
-                title: "Yes, turn off."
-      - service: notify.mobile_app_jackie
-        data:
-          title: "Welcome back!"
-          message: "Turn off vacation mode?"
-          data:
-            tag: 20 # Arbitrary but constant.
-            actions:
-              - action: "turn_off_vacation_mode"
-                title: "Yes, turn off."

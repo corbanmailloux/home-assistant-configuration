@@ -26,7 +26,7 @@ automation:
 
           {{ (message.event == message_type) and ns.assigned_to_me }}
       - condition: state
-        entity_id: device_tracker.edith_wifi
+        entity_id: person.corban
         state: 'home'
       - condition: state
         entity_id: input_boolean.vacation_mode

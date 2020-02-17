@@ -25,10 +25,10 @@ automation:
         below: 11
     condition:
       - condition: state
-        entity_id: device_tracker.edith_wifi # TODO: Move to a person entity
+        entity_id: person.corban
         state: "home"
       - condition: state
-        entity_id: device_tracker.jackie_wifi
+        entity_id: person.maggie
         state: "not_home" # Only run if Maggie isn't home. Prevents some false triggers.
       - condition: state
         entity_id: timer.maggie_home_notification_cooldown
