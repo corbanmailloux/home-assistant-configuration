@@ -7,28 +7,12 @@ automation:
   - alias: Reminder to do the litter box
     trigger:
       - platform: time
-        at: '19:00:00' # 7 PM. TODO: Make configurable?
+        at: "19:00:00" # 7 PM. TODO: Make configurable?
     condition:
       - condition: state
         entity_id: input_boolean.vacation_mode
         state: "off"
     action:
-      service: script.turn_on
-      entity_id: script.litter_send_notifications
-  - alias: Litter box reminder clicked
-    trigger:
-      platform: event
-      event_type: mobile_app_notification_action
-      event_data:
-        action: litter_box_complete
-    action:
-      service: script.turn_on
-      entity_id: script.litter_dismiss_notifications
-
-
-script:
-  litter_send_notifications:
-    sequence:
       - service: notify.adult_phones
         data:
           title: "Litter Box Check"
@@ -39,9 +23,13 @@ script:
             actions:
               - action: "litter_box_complete"
                 title: "Yes, complete."
-
-  litter_dismiss_notifications:
-    sequence:
+  - alias: Litter box reminder clicked
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: litter_box_complete
+    action:
       - service: notify.adult_phones
         data:
           message: clear_notification
