@@ -1,5 +1,5 @@
-- id: dining_mode
-  name: Dining Mode
+- id: dinner_mode
+  name: Dinner Mode
   entities:
     light.entry_lamp:
       state: true
@@ -10,7 +10,6 @@
       state: false
     light.couch_lamp:
       state: false
-
 - id: movie_mode
   name: Movie Mode
   entities:
@@ -23,3 +22,79 @@
       state: false
     light.couch_lamp:
       state: false
+- id: "1582083590078"
+  name: Living Room - Bright
+  entities:
+    light.couch_lamp:
+      friendly_name: Couch Lamp
+      state: "on"
+      supported_features: 0
+    light.entry_lamp:
+      brightness: 255
+      color_temp: 352
+      friendly_name: Entry Lamp
+      max_mireds: 500
+      min_mireds: 153
+      state: "on"
+      supported_features: 43
+    light.tv_lamp:
+      friendly_name: TV Lamp
+      state: "on"
+      supported_features: 0
+- id: "1582083640118"
+  name: Living Room - Medium
+  entities:
+    light.couch_lamp:
+      friendly_name: Couch Lamp
+      state: "off"
+      supported_features: 0
+    light.entry_lamp:
+      brightness: 255
+      color_temp: 352
+      friendly_name: Entry Lamp
+      max_mireds: 500
+      min_mireds: 153
+      state: "on"
+      supported_features: 43
+    light.tv_lamp:
+      friendly_name: TV Lamp
+      state: "off"
+      supported_features: 0
+- id: "1582083678233"
+  name: Living Room - Dim
+  entities:
+    light.couch_lamp:
+      friendly_name: Couch Lamp
+      state: "off"
+      supported_features: 0
+    light.entry_lamp:
+      brightness: 153
+      color_temp: 352
+      friendly_name: Entry Lamp
+      max_mireds: 500
+      min_mireds: 153
+      state: "on"
+      supported_features: 43
+    light.tv_lamp:
+      friendly_name: TV Lamp
+      state: "off"
+      supported_features: 0
+- id: "1582084722339"
+  name: Living Room - Off
+  entities:
+    light.couch_lamp:
+      friendly_name: Couch Lamp
+      state: "off"
+      supported_features: 0
+    light.entry_lamp:
+      brightness: 255
+      color_temp: 352
+      friendly_name: Entry Lamp
+      max_mireds: 500
+      min_mireds: 153
+      state: "off"
+      supported_features: 43
+    light.tv_lamp:
+      friendly_name: TV Lamp
+      state: "off"
+      supported_features: 0

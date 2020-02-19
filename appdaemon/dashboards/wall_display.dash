@@ -13,6 +13,17 @@ global_parameters:
   level_up_style: "font-size: 140%;"
   level_down_style: "font-size: 140%;"
 
+# 8 columns per row
+layout:
+  - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
+  - corban_presence, maggie_presence, input_boolean.home_occupied, spacer, living_room_temp, hallway_climate, spacer, google_home_play_pause
+  - corban_maps_presence, maggie_maps_presence, input_boolean.guest
+  - wifi_qr_code, spacer(4x1), script.living_room_dinner_mode, script.living_room_movie_mode, script.living_room_game_mode
+  - scene_lr_off, scene_lr_dim, scene_lr_medium, scene_lr_bright, spacer(1x1), switch.obama, tv, living_room_play_pause
+
+
+# Widget Configurations
+
 corban_presence:
   widget_type: person
   title: Corban
@@ -50,7 +61,24 @@ weather_custom:
   widget_type: weather
   units: "°F"
   prefer_icons: 1
-  # show_forecast: 0
+  show_forecast: 0
+  sensors:
+    icon: sensor.dark_sky_icon
+    temperature: sensor.dark_sky_temperature
+    apparent_temperature: sensor.dark_sky_apparent_temperature
+    humidity: sensor.dark_sky_humidity
+    precip_probability: sensor.dark_sky_precip_probability
+    precip_intensity: sensor.dark_sky_precip_intensity
+    precip_type: sensor.dark_sky_precip
+    pressure: sensor.dark_sky_pressure
+    wind_speed: sensor.dark_sky_wind_speed
+    wind_bearing: sensor.dark_sky_wind_bearing
+    # Even with show_forcast disabled, I still need to set these or I get an error.
+    forecast_icon: sensor.dark_sky_icon_1
+    forecast_temperature_min: sensor.dark_sky_daily_low_temperature_1
+    forecast_temperature_max: sensor.dark_sky_daily_high_temperature_1
+    forecast_precip_probability: sensor.dark_sky_precip_probability_1
+    forecast_precip_type: sensor.dark_sky_precip_1
 
 bus_time_1:
   widget_type: sensor
@@ -67,16 +95,6 @@ bus_time_2:
   precision: 1
   entity: sensor.bus_2_time
   sub_entity: sensor.bus_2_route
-
-reload:
-  widget_type: reload
-  title: Reload
-
-# spotify:
-#   title: Spotify
-#   widget_type: media_player
-#   truncate_name: 100
-#   entity: media_player.spotify
 
 living_room_play_pause:
   title: Play/Pause TV
@@ -109,14 +127,6 @@ living_room_humidity:
   title: Living Room
   title2: Humidity
 
-living_room_lights:
-  widget_type: group
-  entity: group.living_room_lights
-  monitored_entity: light.entry_lamp
-  title: Living Room Lights
-  icon_on: mdi-lightbulb
-  icon_off: mdi-lightbulb-outline
-
 hallway_climate:
   widget_type: climate
   entity: climate.hallway_thermostat
@@ -127,10 +137,32 @@ tv:
   entity: switch.living_room_tv_power
   title: TV
 
-# 8 columns per row
-layout:
-  - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
-  - corban_presence, maggie_presence, input_boolean.home_occupied, spacer, living_room_temp, hallway_climate, spacer, google_home_play_pause
-  - corban_maps_presence, maggie_maps_presence
-  - spacer(5x1), script.living_room_dining_mode, script.living_room_movie_mode, script.living_room_game_mode
-  - living_room_lights, spacer(4x1), switch.obama, tv, living_room_play_pause
+wifi_qr_code:
+  widget_type: iframe
+  img_list:
+    # Sample QR code. This isn't the real one.
+    - https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market_full/generator/dist/generator/assets/images/websiteQRCode_noFrame.png
+
+scene_lr_bright:
+  title: Lights On
+  widget_type: scene
+  entity: scene.living_room_bright
+  icon_off: mdi-moon-full
+
+scene_lr_medium:
+  title: Lights Medium
+  widget_type: scene
+  entity: scene.living_room_medium
+  icon_off: mdi-moon-last-quarter
+
+scene_lr_dim:
+  title: Lights Dim
+  widget_type: scene
+  entity: scene.living_room_dim
+  icon_off: mdi-moon-new
+
+scene_lr_off:
+  title: Lights Off
+  widget_type: scene
+  entity: scene.living_room_off
+  icon_off: mdi-circle-off-outline

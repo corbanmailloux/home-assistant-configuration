@@ -1,0 +1,4 @@
+input_boolean:
+  guest:
+    name: Guest Mode
+    icon: mdi:bag-checked
