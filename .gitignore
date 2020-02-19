@@ -72,9 +72,9 @@ appdaemon/compiled
 custom_components/hacs/
 
 # ESPHome
-esphomeyaml/*
-!esphomeyaml/*.yaml
-!esphomeyaml/wiring_diagrams/
-esphomeyaml/secrets.yaml
+esphome/*
+!esphome/*.yaml
+!esphome/wiring_diagrams/
+esphome/secrets.yaml
 # .pioenvs/
 # .piolibdeps/
