@@ -121,11 +121,11 @@ script:
         entity_id: switch.soundbar_power
 
   # "Scenes"
-  living_room_dining_mode:
+  living_room_dinner_mode:
     sequence:
       - service: script.living_room_tv_server_soundbar_on
       - service: scene.turn_on
-        entity_id: scene.dining_mode
+        entity_id: scene.dinner_mode
 
   living_room_movie_mode:
     sequence:
@@ -258,8 +258,8 @@ homeassistant:
     switch.living_room_tv_power:
       friendly_name: Living Room TV
       icon: mdi:television
-    script.living_room_dining_mode:
-      friendly_name: Dining Mode
+    script.living_room_dinner_mode:
+      friendly_name: Dinner Mode
       icon: mdi:silverware
     script.living_room_game_mode:
       friendly_name: Game Mode
