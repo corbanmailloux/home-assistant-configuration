@@ -322,7 +322,11 @@
                                 {
                                     "entity": "switch.living_room_tv_power",
                                     "hold_action": {
-                                        "action": "more-info"
+                                        "action": "call-service",
+                                        "service": "switch.turn_on",
+                                        "service_data": {
+                                            "entity_id": "switch.living_room_tv_power"
+                                        }
                                     },
                                     "name": "TV",
                                     "show_icon": true,
@@ -335,7 +339,11 @@
                                 {
                                     "entity": "switch.obama",
                                     "hold_action": {
-                                        "action": "more-info"
+                                        "action": "call-service",
+                                        "service": "switch.turn_on",
+                                        "service_data": {
+                                            "entity_id": "switch.obama"
+                                        }
                                     },
                                     "show_icon": true,
                                     "show_name": true,
