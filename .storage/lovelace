@@ -165,8 +165,7 @@
                                 {
                                     "entities": [
                                         "sensor.corban_location_icon",
-                                        "sensor.edith_battery_level",
-                                        "sensor.corban_phone_battery"
+                                        "sensor.edith_battery_level"
                                     ],
                                     "entity": "binary_sensor.corban_person_home",
                                     "image": "/local/images/corban.jpg",
@@ -176,8 +175,7 @@
                                 {
                                     "entities": [
                                         "sensor.maggie_location_icon",
-                                        "sensor.jackie_battery_level",
-                                        "sensor.maggie_phone_battery"
+                                        "sensor.jackie_battery_level"
                                     ],
                                     "entity": "binary_sensor.maggie_person_home",
                                     "image": "/local/images/maggie.jpg",
@@ -1689,8 +1687,7 @@
                                 {
                                     "entities": [
                                         "sensor.corban_location_icon",
-                                        "sensor.edith_battery_level",
-                                        "sensor.corban_phone_battery"
+                                        "sensor.edith_battery_level"
                                     ],
                                     "entity": "binary_sensor.corban_person_home",
                                     "image": "/local/images/corban.jpg",
@@ -1700,8 +1697,7 @@
                                 {
                                     "entities": [
                                         "sensor.maggie_location_icon",
-                                        "sensor.jackie_battery_level",
-                                        "sensor.maggie_phone_battery"
+                                        "sensor.jackie_battery_level"
                                     ],
                                     "entity": "binary_sensor.maggie_person_home",
                                     "image": "/local/images/maggie.jpg",

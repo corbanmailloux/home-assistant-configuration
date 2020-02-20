@@ -54,3 +54,28 @@ scary_mode_flicker_lights_loop:
     - service: script.turn_on
       entity_id: script.scary_mode_flicker_lights
 ```
+
+### Extract the battery level from a Google Maps tracker and build a battery icon
+
+```yaml
+corban_phone_battery:
+  friendly_name: "Corban's Phone Battery"
+  device_class: battery
+  unit_of_measurement: "%"
+  entity_id: "device_tracker.google_maps_110168280884137709870"
+  icon_template: >-
+    {%- set tracker_name = 'device_tracker.google_maps_110168280884137709870' -%}
+
+    {%- set battery_level = state_attr(tracker_name, 'battery_level') -%}
+    {%- set battery_charging = state_attr(tracker_name, 'battery_charging') -%}
+
+    {%- if battery_level is none -%}
+      mdi:battery-unknown
+    {%- else -%}
+      {%- set icon_suffix = ['-outline', '-10', '-20', '-30', '-40', '-50', '-60', '-70', '-80', '-90', ''] -%}
+      {%- set charge = (battery_level | float / 10) | round -%}
+      mdi:battery{%- if battery_charging -%}-charging{%- endif -%}{{ icon_suffix[charge] }}
+    {%- endif -%}
+  value_template: >-
+    {{ state_attr('device_tracker.google_maps_110168280884137709870', 'battery_level') }}
+```
