@@ -16,9 +16,9 @@ global_parameters:
 # 8 columns per row
 layout:
   - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
-  - corban_presence, maggie_presence, input_boolean.home_occupied, spacer, living_room_temp, hallway_climate, spacer, google_home_play_pause
-  - corban_maps_presence, maggie_maps_presence, input_boolean.guest
-  - wifi_qr_code, spacer(4x1), script.living_room_dinner_mode, script.living_room_movie_mode, script.living_room_game_mode
+  - corban_presence, maggie_presence, spacer(1x1), living_room_temp, hallway_climate, network_cabinet_temp, spacer, google_home_play_pause
+  - input_boolean.guest, input_boolean.home_occupied
+  - spacer(5x1), script.living_room_dinner_mode, script.living_room_movie_mode, script.living_room_game_mode
   - scene_lr_off, scene_lr_dim, scene_lr_medium, scene_lr_bright, spacer(1x1), switch.obama, tv, living_room_play_pause
 
 
@@ -132,16 +132,21 @@ hallway_climate:
   entity: climate.hallway_thermostat
   title: Hallway
 
+network_cabinet_temp:
+  widget_type: sensor
+  entity: sensor.network_cabinet_temperature
+  title: Network Cabinet
+
 tv:
   widget_type: switch
   entity: switch.living_room_tv_power
   title: TV
 
-wifi_qr_code:
-  widget_type: iframe
-  img_list:
-    # Sample QR code. This isn't the real one.
-    - https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market_full/generator/dist/generator/assets/images/websiteQRCode_noFrame.png
+# wifi_qr_code:
+#   widget_type: iframe
+#   img_list:
+#     # Sample QR code. This isn't the real one.
+#     - https://www.qr-code-generator.com/wp-content/themes/qr/new_structure/markets/core_market_full/generator/dist/generator/assets/images/websiteQRCode_noFrame.png
 
 scene_lr_bright:
   title: Lights On
