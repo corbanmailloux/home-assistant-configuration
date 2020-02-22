@@ -21,11 +21,6 @@ input_datetime:
     has_date: false
     has_time: true
 
-# Might want to pull this out of the package
-binary_sensor:
-  - platform: workday
-    country: US
-
 automation:
   - alias: "Sunrise Alarm"
     initial_state: "on"

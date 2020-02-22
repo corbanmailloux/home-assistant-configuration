@@ -1,0 +1,8 @@
+- platform: workday
+  name: Corban Office Workdays
+  country: US
+  workdays: [mon, tue, wed, thu]
+
+# Normal workdays (Monday - Friday)
+- platform: workday
+  country: US
