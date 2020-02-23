@@ -123,21 +123,21 @@ script:
   # "Scenes"
   living_room_dinner_mode:
     sequence:
-      - service: script.living_room_tv_server_soundbar_on
       - service: scene.turn_on
         entity_id: scene.dinner_mode
+      - service: script.living_room_tv_server_soundbar_on
 
   living_room_movie_mode:
     sequence:
-      - service: script.living_room_tv_server_soundbar_on
       - service: scene.turn_on
         entity_id: scene.movie_mode
+      - service: script.living_room_tv_server_soundbar_on
 
   living_room_game_mode:
     sequence:
-      - service: script.living_room_tv_server_soundbar_on
       - service: scene.turn_on
         entity_id: scene.movie_mode # At least until I make a game mode scene.
+      - service: script.living_room_tv_server_soundbar_on
       - delay: 00:00:02
       - service: media_player.select_source
         data:
