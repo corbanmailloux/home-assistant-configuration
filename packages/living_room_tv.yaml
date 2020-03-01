@@ -91,16 +91,22 @@ rest_command:
 script:
   # Script wrappers for the Roku controls.
   roku_play_pause:
+    alias: "Play/Pause"
+    icon: mdi:play-pause
     sequence:
       - service: rest_command.living_room_roku_keypress
         data:
           button: Play
   roku_replay:
+    alias: "Replay"
+    icon: mdi:replay
     sequence:
       - service: rest_command.living_room_roku_keypress
         data:
           button: InstantReplay
   roku_back:
+    alias: "Back"
+    icon: mdi:keyboard-backspace
     sequence:
       - service: rest_command.living_room_roku_keypress
         data:
@@ -122,18 +128,24 @@ script:
 
   # "Scenes"
   living_room_dinner_mode:
+    alias: Dinner Mode
+    icon: mdi:silverware
     sequence:
       - service: scene.turn_on
         entity_id: scene.dinner_mode
       - service: script.living_room_tv_server_soundbar_on
 
   living_room_movie_mode:
+    alias: Movie Mode
+    icon: mdi:movie
     sequence:
       - service: scene.turn_on
         entity_id: scene.movie_mode
       - service: script.living_room_tv_server_soundbar_on
 
   living_room_game_mode:
+    alias: Game Mode
+    icon: mdi:google-controller
     sequence:
       - service: scene.turn_on
         entity_id: scene.movie_mode # At least until I make a game mode scene.
@@ -258,24 +270,6 @@ homeassistant:
     switch.living_room_tv_power:
       friendly_name: Living Room TV
       icon: mdi:television
-    script.living_room_dinner_mode:
-      friendly_name: Dinner Mode
-      icon: mdi:silverware
-    script.living_room_game_mode:
-      friendly_name: Game Mode
-      icon: mdi:google-controller
-    script.living_room_movie_mode:
-      friendly_name: Movie Mode
-      icon: mdi:movie
-    script.roku_play_pause:
-      friendly_name: "Play/Pause"
-      icon: mdi:play-pause
-    script.roku_replay:
-      friendly_name: "Replay"
-      icon: mdi:replay
-    script.roku_back:
-      friendly_name: "Back"
-      icon: mdi:keyboard-backspace
     switch.living_room_soundbar_power:
       friendly_name: Soundbar Power
       icon: mdi:surround-sound

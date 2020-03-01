@@ -7,6 +7,8 @@ sensor:
 
 script:
   maggie_travel_time_speak:
+    alias: "Announce Maggie's Travel Time"
+    icon: mdi:voice
     sequence:
       - delay:
           seconds: 5
@@ -54,6 +56,3 @@ homeassistant:
   customize:
     sensor.maggie_to_home_travel_time:
       icon: mdi:map-marker-distance
-    script.maggie_travel_time_speak:
-      friendly_name: Announce Maggie's Travel Time
-      icon: mdi:voice

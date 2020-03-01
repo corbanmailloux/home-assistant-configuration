@@ -7,15 +7,9 @@ automation:
       - service: script.turn_on
         entity_id: script.everything_off
 
-
 script:
   everything_off:
+    alias: Everything
     sequence:
       - service: homeassistant.turn_off
         entity_id: group.everything_custom
-
-
-homeassistant:
-  customize:
-    script.everything_off:
-      friendly_name: "Everything"

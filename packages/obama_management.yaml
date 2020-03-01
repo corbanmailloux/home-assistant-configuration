@@ -29,7 +29,7 @@ script:
           mac: !secret obama_mac
   obama_shutdown:
     alias: Shutdown Obama
-    # icon: mdi:power # TODO: Next HASS version
+    icon: mdi:power
     sequence:
       - service: mqtt.publish
         data:
