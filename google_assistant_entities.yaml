@@ -43,9 +43,9 @@ light.bedroom_lamp:
 light.fairy_lights:
   room: Bedroom
   expose: true
-light.exit_sign:
-  room: Living Room
-  expose: true
+# light.exit_sign:
+#   room: Living Room
+#   expose: true
 light.entry_lamp:
   room: Living Room
   expose: true
