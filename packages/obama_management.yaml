@@ -1,25 +1,43 @@
-# Package for the wake on LAN setup
-
 switch:
-  - platform: wake_on_lan
-    name: "Obama"
-    mac: !secret obama_mac
-    host: !secret obama_host
-    turn_off:
-      service: rest_command.sleep_obama
+  - platform: template
+    switches:
+      obama:
+        friendly_name: Obama
+        icon_template: "mdi:desktop-tower"
+        entity_id: "binary_sensor.obama_online"
+        value_template: "{{ is_state('binary_sensor.obama_online', 'on') }}"
+        turn_on:
+          service: script.obama_wake
+        turn_off:
+          service: script.obama_sleep
 
-script: 
-  shutdown_obama:
+binary_sensor:
+  - platform: mqtt
+    name: "Obama - Online"
+    state_topic: "iotlink/workgroup/obama/lwt"
+    value_template: "{{ value }}"
+    payload_on: "ON"
+    payload_off: "OFF"
+    device_class: "connectivity"
+    qos: 1
+
+script:
+  obama_wake:
     sequence:
-      - service: rest_command.shutdown_obama
-
-rest_command:
-  sleep_obama:
-    url: !secret obama_sleep_url
-  shutdown_obama:
-    url: !secret obama_shutdown_url
-
-homeassistant:
-  customize:
-    switch.obama:
-      icon: mdi:desktop-tower
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: !secret obama_mac
+  obama_shutdown:
+    alias: Shutdown Obama
+    # icon: mdi:power # TODO: Next HASS version
+    sequence:
+      - service: mqtt.publish
+        data:
+          topic: "iotlink/workgroup/obama/commands/shutdown"
+          payload: ""
+  obama_sleep:
+    sequence:
+      - service: mqtt.publish
+        data:
+          topic: "iotlink/workgroup/obama/commands/suspend"
+          payload: ""

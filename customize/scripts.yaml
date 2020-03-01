@@ -1,6 +1,0 @@
-# Scripts
-
-# Obama Management
-script.shutdown_obama:
-  friendly_name: Shutdown Obama
-  icon: mdi:power

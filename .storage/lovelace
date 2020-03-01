@@ -879,7 +879,7 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "script.shutdown_obama"
+                                    "entity": "script.obama_shutdown"
                                 },
                                 {
                                     "entity": "switch.obama"
