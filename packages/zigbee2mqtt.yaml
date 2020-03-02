@@ -32,7 +32,7 @@ sensor:
   - platform: mqtt
     name: Coordinator Version
     state_topic: "zigbee2mqtt/bridge/config"
-    value_template: "{{ value_json.coordinator }}"
+    value_template: "{{ value_json.coordinator.meta.revision }}"
     icon: mdi:chip
 
 # Switch for enabling joining
