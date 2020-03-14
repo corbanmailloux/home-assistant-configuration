@@ -10,10 +10,6 @@
             },
             "resources": [
                 {
-                    "type": "js",
-                    "url": "/community_plugin/check-button-card/check-button-card.js"
-                },
-                {
                     "type": "module",
                     "url": "/community_plugin/lovelace-card-tools/card-tools.js"
                 },
