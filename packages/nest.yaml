@@ -4,6 +4,8 @@ automation:
       - platform: state
         entity_id: binary_sensor.hallway_thermostat_online
         to: "off"
+        for:
+          minutes: 10
     action:
       - service: notify.corban
         data:
