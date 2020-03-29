@@ -162,6 +162,37 @@
                         {
                             "entity": "climate.hallway_thermostat",
                             "type": "thermostat"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "content": "In the last 14 days, **Corban** has been home for **{{ states(\"sensor.quarantine_o_meter_corban_home\") }}%** of the time. On average, he **left the house {{ (states(\"sensor.quarantine_o_meter_corban_left\") | int / 14) | round(1) }} times per day.**\n\nIn the last 14 days, **Maggie** has been home for **{{ states(\"sensor.quarantine_o_meter_maggie_home\") }}%** of the time. On average, she **left the house {{ (states(\"sensor.quarantine_o_meter_maggie_left\") | int / 14) | round(1) }} times per day.**",
+                                    "title": "Quarantine-O-Meter",
+                                    "type": "markdown"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.quarantine_o_meter_corban_home",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Corban",
+                                            "theme": "default",
+                                            "type": "gauge"
+                                        },
+                                        {
+                                            "entity": "sensor.quarantine_o_meter_maggie_home",
+                                            "max": 100,
+                                            "min": 0,
+                                            "name": "Maggie",
+                                            "theme": "default",
+                                            "type": "gauge"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "vertical-stack"
                         }
                     ],
                     "icon": "mdi:home",

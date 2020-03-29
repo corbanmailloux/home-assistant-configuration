@@ -1,0 +1,36 @@
+sensor:
+  - platform: history_stats
+    name: Quarantine-O-Meter - Corban Home
+    entity_id: person.corban
+    state: "home"
+    type: ratio
+    duration:
+      days: 14
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: Quarantine-O-Meter - Corban Left
+    entity_id: person.corban
+    state: "home"
+    type: count
+    duration:
+      days: 14
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: Quarantine-O-Meter - Maggie Home
+    entity_id: person.maggie
+    state: "home"
+    type: ratio
+    duration:
+      days: 14
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: Quarantine-O-Meter - Maggie Left
+    entity_id: person.maggie
+    state: "home"
+    type: count
+    duration:
+      days: 14
+    end: "{{ now() }}"
