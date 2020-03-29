@@ -1,6 +1,4 @@
 - platform: cert_expiry
   host: cat.corb.co
-  name: cat.corb.co Certificate
 - platform: cert_expiry
   host: home.corb.co
-  name: home.corb.co Certificate
