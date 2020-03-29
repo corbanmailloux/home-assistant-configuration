@@ -137,6 +137,12 @@ roku:
 
 mobile_app:
 
+nzbget:
+  host: !secret tubby_host
+  port: !secret tubby_nzbget_port
+  username: !secret tubby_nzbget_user
+  password: !secret tubby_nzbget_pass
+
 # automation: !include_dir_merge_list automation
 binary_sensor: !include_dir_merge_list binary_sensor
 fan: !include fans.yaml
