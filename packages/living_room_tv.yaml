@@ -133,7 +133,7 @@ script:
     sequence:
       - service: scene.turn_on
         entity_id: scene.dinner_mode
-      - service: script.living_room_tv_server_soundbar_on
+      - service: script.living_room_tv_and_soundbar_on
 
   living_room_movie_mode:
     alias: Movie Mode
@@ -141,7 +141,7 @@ script:
     sequence:
       - service: scene.turn_on
         entity_id: scene.movie_mode
-      - service: script.living_room_tv_server_soundbar_on
+      - service: script.living_room_tv_and_soundbar_on
 
   living_room_game_mode:
     alias: Game Mode
@@ -149,7 +149,9 @@ script:
     sequence:
       - service: scene.turn_on
         entity_id: scene.movie_mode # At least until I make a game mode scene.
-      - service: script.living_room_tv_server_soundbar_on
+      - service: switch.turn_on
+        entity_id: switch.obama
+      - service: script.living_room_tv_and_soundbar_on
       - delay: 00:00:02
       - service: media_player.select_source
         data:
@@ -162,22 +164,12 @@ script:
           source: Obama
 
   # Other
-  living_room_tv_server_soundbar_on:
+  living_room_tv_and_soundbar_on:
     sequence:
       - service: switch.turn_on
         entity_id:
-          - switch.obama # Turn on the server, in case it was off.
-          - switch.living_room_tv_power # Same with the TV.
+          - switch.living_room_tv_power # Turn on the TV.
           - switch.living_room_soundbar_power # And the soundbar.
-
-  start_plex_on_tv:
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.obama
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.65_tcl_roku_tv
-          source: "Plex - Stream Free TV & Movies"
 
 automation:
   - alias: Turn on the backlight when the TV turns on
@@ -212,11 +204,11 @@ automation:
         entity_id: light.living_room_tv_backlight
         data:
           transition: 5
-  - alias: Turn on the server when the living room TV switches to Plex or Obama
+  - alias: Turn on the server when the living room TV switches to Obama
     trigger:
       - platform: template
         value_template: >
-          {{ is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Plex - Stream Free TV & Movies') or is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Obama') }}
+          {{ is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Obama') }}
     condition:
       - condition: state
         entity_id: switch.obama

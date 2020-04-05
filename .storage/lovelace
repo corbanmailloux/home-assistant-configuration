@@ -396,11 +396,8 @@
                                             "image": "/local/images/netflix-icon.png"
                                         },
                                         {
-                                            "image": "/local/images/plex-icon.png",
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.start_plex_on_tv"
-                                            }
+                                            "app": "Plex - Stream Free TV & Movies",
+                                            "image": "/local/images/plex-icon.png"
                                         },
                                         {
                                             "image": "/local/images/replay-icon-white.png",
@@ -573,11 +570,8 @@
                                             "image": "/local/images/netflix-icon.png"
                                         },
                                         {
-                                            "image": "/local/images/plex-icon.png",
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.start_plex_on_bedroom_tv"
-                                            }
+                                            "app": "Plex - Stream Free TV & Movies",
+                                            "image": "/local/images/plex-icon.png"
                                         },
                                         {
                                             "image": "/local/images/replay-icon-white.png",

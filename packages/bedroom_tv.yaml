@@ -39,26 +39,3 @@ script:
         data:
           entity_id: remote.bedroom_tv
           command: "replay"
-
-  start_plex_on_bedroom_tv:
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.obama
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.bedroom_tv
-          source: "Plex - Stream Free TV & Movies"
-
-automation:
-  - alias: Turn on the server when the bedroom TV switches to Plex
-    trigger:
-      - platform: template
-        value_template: >
-          {{ is_state_attr('media_player.bedroom_roku', 'source', 'Plex - Stream Free TV & Movies') }}
-    condition:
-      - condition: state
-        entity_id: switch.obama
-        state: "off"
-    action:
-      - service: switch.turn_on
-        entity_id: switch.obama
