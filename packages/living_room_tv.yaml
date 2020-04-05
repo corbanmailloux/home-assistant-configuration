@@ -1,6 +1,4 @@
 media_player:
-  - platform: plex
-    remove_unavailable_clients: false
   - platform: universal
     name: Living Room TV
     children:

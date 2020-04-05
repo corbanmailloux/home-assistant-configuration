@@ -85,8 +85,6 @@ logger:
   logs:
     # Spits out errors because I don't leave OctoPrint running.
     homeassistant.components.octoprint: critical
-    # The server is often sleeping when HASS restarts. I should force it to wake up on reboots, but not today.
-    homeassistant.components.media_player.plex: critical
     # The TV is often sleeping when HASS restarts. I should force it to wake up on reboots or use standby mode, but it works for now.
     homeassistant.components.media_player.roku: critical
 

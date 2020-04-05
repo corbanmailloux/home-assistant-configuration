@@ -1057,6 +1057,16 @@
                             "type": "vertical-stack"
                         },
                         {
+                            "entities": [
+                                {
+                                    "entity": "input_select.download_speed"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "NAS",
+                            "type": "entities"
+                        },
+                        {
                             "cards": [
                                 {
                                     "entity": "sensor.home_corb_co_certificate",

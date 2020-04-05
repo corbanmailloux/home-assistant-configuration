@@ -1,0 +1,90 @@
+# See also `nzbget` in `configuration.yaml`.
+
+input_select:
+  download_speed:
+    name: Download Speed Mode
+    options:
+      - Full Speed
+      - Slow Speed
+      - Paused
+    icon: mdi:speedometer
+
+automation:
+  - alias: Slow down downloading when someone is home
+    trigger:
+      - platform: state
+        entity_id: input_boolean.home_occupied
+        to: "on"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.download_speed
+          option: Slow Speed
+
+  - alias: Run downloads at full speed when no one is home
+    trigger:
+      - platform: state
+        entity_id: input_boolean.home_occupied
+        to: "off"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.download_speed
+          option: Full Speed
+
+  - alias: Run downloads at full speed overnight
+    trigger:
+      # TODO: Consider adding a "night mode" that's activated by the bedside button/phone notification.
+      - platform: time
+        at: "23:30:00"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.download_speed
+          option: Full Speed
+
+  - alias: Run downloads at slow speed in the morning if someone is home
+    trigger:
+      - platform: time
+        at: "06:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.home_occupied
+        state: "on"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.download_speed
+          option: Slow Speed
+
+  # Set speed based on input_select
+
+  - alias: Set download speed based on input_select - Full
+    trigger:
+      - platform: state
+        entity_id: input_select.download_speed
+        to: Full Speed
+    action:
+      - service: nzbget.resume
+      - service: nzbget.set_speed
+        data:
+          speed: 0 # Unlimited
+
+  - alias: Set download speed based on input_select - Slow
+    trigger:
+      - platform: state
+        entity_id: input_select.download_speed
+        to: Slow Speed
+    action:
+      - service: nzbget.resume
+      - service: nzbget.set_speed
+        data:
+          speed: 1000 # kbps
+
+  - alias: Set download speed based on input_select - Paused
+    trigger:
+      - platform: state
+        entity_id: input_select.download_speed
+        to: Paused
+    action:
+      - service: nzbget.pause
