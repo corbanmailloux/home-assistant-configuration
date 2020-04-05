@@ -63,10 +63,6 @@ automation:
       platform: state
       entity_id: sensor.maggie_bedside_button_action
       to: "brightness_down_hold"
-    condition:
-      - condition: state
-        entity_id: light.bedroom_lamp
-        state: "on"
     action:
       - service: light.turn_on
         entity_id: light.bedroom_lamp
