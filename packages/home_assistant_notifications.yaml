@@ -16,4 +16,5 @@ automation:
       data:
         title: "Home Assistant Update"
       data_template:
-        message: "Home Assistant version {{ state_attr('binary_sensor.updater', 'newest_version') }} is now available."
+        message: >-
+          Home Assistant version {{ state_attr('binary_sensor.updater', 'newest_version') }} is now available.
