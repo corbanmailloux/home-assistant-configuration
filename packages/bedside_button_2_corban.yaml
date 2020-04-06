@@ -1,12 +1,29 @@
 automation:
-  # - alias: Bedside Button 2 - Click
-  #   trigger:
-  #     platform: state
-  #     entity_id: sensor.corban_bedside_button_click
-  #     to: "single"
-  ### Already mapped. See bedroom_fairy_lights.yaml
+  - alias: Bedside Button 2 - Click - Fairy Toggle
+    trigger:
+      - platform: state
+        entity_id: sensor.corban_bedside_button_click
+        to: "single"
+    action:
+      # Explanation of the tri-state logic:
+      # If the light is off, turn it on to 100%.
+      # If it's on at 100%, set it to 25%.
+      # If it's on but not at 100%, turn it off.
+      - service: light.turn_on
+        entity_id: light.fairy_lights
+        data_template:
+          brightness: >
+            {%- set percent = 100 -%}
+            {%- if states("light.fairy_lights") == "off" -%}
+              {%- set percent = 100 -%}
+            {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
+              {%- set percent = 25 -%}
+            {%- else -%}
+              {%- set percent = 0 -%}
+            {%- endif -%}
+            {{ (percent / 100 * 255) | int}}
 
-  - alias: Bedside Button 2 - Double Click
+  - alias: Bedside Button 2 - Double Click - Fan
     trigger:
       - platform: state
         entity_id: sensor.corban_bedside_button_click
@@ -15,10 +32,10 @@ automation:
       - service: homeassistant.toggle
         entity_id: fan.bedroom_fan
 
-  - alias: Bedside Button 2 - Hold
+  - alias: Bedside Button 2 - Hold - Everything Off
     trigger:
       - platform: mqtt
-        topic: 'zigbee2mqtt/Corban Bedside Button'
+        topic: "zigbee2mqtt/Corban Bedside Button"
     condition:
       - condition: template
         value_template: '{{ "hold" == trigger.payload_json.action }}'

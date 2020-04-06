@@ -69,7 +69,7 @@ automation:
         data:
           brightness: 10
 
-  - alias: Bedside Button 1 - Left Button Click
+  - alias: Bedside Button 1 - Left Button Click - Fan
     trigger:
       platform: state
       entity_id: sensor.maggie_bedside_button_action
@@ -77,9 +77,27 @@ automation:
     action:
       - service: homeassistant.toggle
         entity_id: fan.bedroom_fan
-  # - alias: Bedside Button 1 - Right Button Click
-  #   trigger:
-  #     platform: state
-  #     entity_id: sensor.maggie_bedside_button_action
-  #     to: "arrow_right_click"
-  #   # Already mapped. See bedroom_fairy_lights.yaml
+
+  - alias: Bedside Button 1 - Right Button Click - Fairy Toggle
+    trigger:
+      - platform: state
+        entity_id: sensor.maggie_bedside_button_action
+        to: "arrow_right_click"
+    action:
+      # Explanation of the tri-state logic:
+      # If the light is off, turn it on to 100%.
+      # If it's on at 100%, set it to 25%.
+      # If it's on but not at 100%, turn it off.
+      - service: light.turn_on
+        entity_id: light.fairy_lights
+        data_template:
+          brightness: >
+            {%- set percent = 100 -%}
+            {%- if states("light.fairy_lights") == "off" -%}
+              {%- set percent = 100 -%}
+            {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
+              {%- set percent = 25 -%}
+            {%- else -%}
+              {%- set percent = 0 -%}
+            {%- endif -%}
+            {{ (percent / 100 * 255) | int}}

@@ -17,33 +17,6 @@ automation:
         data:
           transition: 5
 
-  - alias: "Bedside Buttons - Fairy Toggle - 3 states"
-    trigger:
-      - platform: state # See also: bedside_button_1_maggie.yaml
-        entity_id: sensor.maggie_bedside_button_action
-        to: "arrow_right_click"
-      - platform: state # See also: bedside_button_2_corban.yaml
-        entity_id: sensor.corban_bedside_button_click
-        to: "single"
-    action:
-      # Explanation of the tri-state logic:
-      # If the light is off, turn it on to 100%.
-      # If it's on at 100%, set it to 25%.
-      # If it's on but not at 100%, turn it off.
-      - service: light.turn_on
-        entity_id: light.fairy_lights
-        data_template:
-          brightness: >
-            {%- set percent = 100 -%}
-            {%- if states("light.fairy_lights") == "off" -%}
-              {%- set percent = 100 -%}
-            {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
-              {%- set percent = 25 -%}
-            {%- else -%}
-              {%- set percent = 0 -%}
-            {%- endif -%}
-            {{ (percent / 100 * 255) | int}}
-
 homeassistant:
   customize:
     light.fairy_lights:
