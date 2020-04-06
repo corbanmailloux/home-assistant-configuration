@@ -17,12 +17,8 @@ automation:
         data:
           transition: 5
 
-  - alias: "Phone Fairy Toggle - 3 states"
+  - alias: "Bedside Buttons - Fairy Toggle - 3 states"
     trigger:
-      - platform: webhook
-        webhook_id: !secret jackie_fairy_toggle_webhook
-      - platform: webhook
-        webhook_id: !secret edith_fairy_toggle_webhook
       - platform: state # See also: bedside_button_1_maggie.yaml
         entity_id: sensor.maggie_bedside_button_action
         to: "arrow_right_click"
@@ -30,22 +26,11 @@ automation:
         entity_id: sensor.corban_bedside_button_click
         to: "single"
     action:
-      - service: light.toggle
-        entity_id: light.fairy_lights
-        data:
-          transition: 2
       # Explanation of the tri-state logic:
       # If the light is off, turn it on to 100%.
       # If it's on at 100%, set it to 25%.
       # If it's on but not at 100%, turn it off.
-      - service_template: >
-          {%- if states("light.fairy_lights") == "off" -%}
-            light.turn_on
-          {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
-            light.turn_on
-          {%- else -%}
-            light.turn_off
-          {%- endif -%}
+      - service: light.turn_on
         entity_id: light.fairy_lights
         data_template:
           brightness: >
