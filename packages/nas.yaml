@@ -9,12 +9,21 @@ input_select:
       - Paused
     icon: mdi:speedometer
 
+input_boolean:
+  download_mode_change_lock:
+    name: Lock Download Speed Setting
+    icon: mdi:download-lock
+
 automation:
   - alias: Slow down downloading when someone is home
     trigger:
       - platform: state
         entity_id: input_boolean.home_occupied
         to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.download_mode_change_lock
+        state: "off"
     action:
       - service: input_select.select_option
         data:
@@ -26,6 +35,10 @@ automation:
       - platform: state
         entity_id: input_boolean.home_occupied
         to: "off"
+    condition:
+      - condition: state
+        entity_id: input_boolean.download_mode_change_lock
+        state: "off"
     action:
       - service: input_select.select_option
         data:
@@ -37,6 +50,10 @@ automation:
       # TODO: Consider adding a "night mode" that's activated by the bedside button/phone notification.
       - platform: time
         at: "23:30:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.download_mode_change_lock
+        state: "off"
     action:
       - service: input_select.select_option
         data:
@@ -51,6 +68,9 @@ automation:
       - condition: state
         entity_id: input_boolean.home_occupied
         state: "on"
+      - condition: state
+        entity_id: input_boolean.download_mode_change_lock
+        state: "off"
     action:
       - service: input_select.select_option
         data:

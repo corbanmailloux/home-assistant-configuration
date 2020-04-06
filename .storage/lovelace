@@ -1060,6 +1060,9 @@
                             "entities": [
                                 {
                                     "entity": "input_select.download_speed"
+                                },
+                                {
+                                    "entity": "input_boolean.download_mode_change_lock"
                                 }
                             ],
                             "show_header_toggle": false,
