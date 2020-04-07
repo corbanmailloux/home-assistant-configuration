@@ -3,6 +3,7 @@ media_player:
     name: Living Room TV
     children:
       - media_player.plex_living_room_roku_tv
+      - media_player.living_room_chromecast
       - media_player.65_tcl_roku_tv
     commands:
       volume_up:
@@ -68,17 +69,6 @@ switch:
               seconds: 1
           - service: switch.turn_on
             entity_id: switch.soundbar_power
-
-cover:
-  - platform: template
-    covers:
-      living_room_soundbar_volume:
-        friendly_name: "Soundbar Volume"
-        position_template: "50"
-        open_cover:
-          service: script.soundbar_volume_up
-        close_cover:
-          service: script.soundbar_volume_down
 
 rest_command:
   # https://sdkdocs.roku.com/display/sdkdoc/External+Control+API#ExternalControlAPI-KeypressKeyValues
@@ -264,5 +254,3 @@ homeassistant:
       friendly_name: Soundbar Power
       icon: mdi:surround-sound
       assumed_state: true # Enable the separate buttons for on and off
-    cover.living_room_soundbar_volume:
-      icon: mdi:volume-medium

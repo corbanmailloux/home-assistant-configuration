@@ -4,7 +4,6 @@
 input_number:
   alarm_max_brightness:
     name: Max Brightness
-    # initial: 50
     min: 0
     max: 100
     step: 1

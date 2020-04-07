@@ -45,7 +45,7 @@ input_select:
       - Maple Glazed
       - Powdered
       - Strawberry Iced
-    icon: mdi:disk
+    icon: mdi:disc
 
   donut_destination:
     name: Donut Destination

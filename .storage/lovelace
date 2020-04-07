@@ -318,6 +318,7 @@
                                     "icon": "mdi:lamp"
                                 }
                             ],
+                            "show_header_toggle": false,
                             "type": "entities"
                         },
                         {
@@ -952,19 +953,24 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "input_number.gh_volume_target_living_room"
+                                    "entity": "input_number.gh_volume_target_living_room",
+                                    "name": "Living Room"
                                 },
                                 {
-                                    "entity": "input_number.gh_volume_target_bedroom"
+                                    "entity": "input_number.gh_volume_target_bedroom",
+                                    "name": "Bedroom"
                                 },
                                 {
-                                    "entity": "input_number.gh_volume_target_office"
+                                    "entity": "input_number.gh_volume_target_office",
+                                    "name": "Office"
                                 },
                                 {
-                                    "entity": "input_number.gh_volume_target_kitchen"
+                                    "entity": "input_number.gh_volume_target_kitchen",
+                                    "name": "Kitchen"
                                 },
                                 {
-                                    "entity": "input_number.gh_volume_target_bathroom"
+                                    "entity": "input_number.gh_volume_target_bathroom",
+                                    "name": "Bathroom"
                                 },
                                 {
                                     "entity": "script.set_optimal_volumes_on_google_homes",
