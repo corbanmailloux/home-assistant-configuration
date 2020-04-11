@@ -131,6 +131,7 @@ script:
         entity_id: scene.movie_mode
       - service: script.living_room_tv_and_soundbar_on
 
+  # Even though Obama has been moved, I'm keeping this around to be updated for the Switch soon.
   living_room_game_mode:
     alias: Game Mode
     icon: mdi:google-controller
@@ -177,6 +178,7 @@ automation:
           transition: 5
           brightness: 200
           rgb_color: [255, 214, 170]
+
   - alias: Turn off the backlight when the TV turns off
     trigger:
       - platform: state
@@ -192,18 +194,7 @@ automation:
         entity_id: light.living_room_tv_backlight
         data:
           transition: 5
-  - alias: Turn on the server when the living room TV switches to Obama
-    trigger:
-      - platform: template
-        value_template: >
-          {{ is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Obama') }}
-    condition:
-      - condition: state
-        entity_id: switch.obama
-        state: "off"
-    action:
-      - service: switch.turn_on
-        entity_id: switch.obama
+
   - alias: Send play/pause to Chromecast when selected
     trigger:
       - platform: state
@@ -217,6 +208,7 @@ automation:
       - service: media_player.media_play_pause
         data:
           entity_id: media_player.living_room_chromecast
+
   - alias: Switch the TV to the Chromecast when someone starts casting
     trigger:
       - platform: state
@@ -232,8 +224,8 @@ automation:
     action:
       - service: switch.turn_on
         entity_id:
-          - switch.living_room_tv_power # No action if it's off.
-          - switch.living_room_soundbar_power # No action if it's off.
+          - switch.living_room_tv_power # No action if it's on.
+          - switch.living_room_soundbar_power # No action if it's on.
       - service: media_player.select_source
         data:
           entity_id: media_player.65_tcl_roku_tv

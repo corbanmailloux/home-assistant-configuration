@@ -244,21 +244,6 @@
                                     "type": "state-icon"
                                 },
                                 {
-                                    "entity": "switch.obama",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "2.5%",
-                                        "top": "56.3%",
-                                        "transform": "rotate(270deg)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Obama",
-                                    "type": "state-icon"
-                                },
-                                {
                                     "entity": "media_player.living_room_tv",
                                     "style": {
                                         "--iron-icon-height": "42px",
@@ -333,22 +318,6 @@
                                         }
                                     },
                                     "name": "TV",
-                                    "show_icon": true,
-                                    "show_name": true,
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "entity-button"
-                                },
-                                {
-                                    "entity": "switch.obama",
-                                    "hold_action": {
-                                        "action": "call-service",
-                                        "service": "switch.turn_on",
-                                        "service_data": {
-                                            "entity_id": "switch.obama"
-                                        }
-                                    },
                                     "show_icon": true,
                                     "show_name": true,
                                     "tap_action": {
@@ -630,6 +599,20 @@
                                     "type": "state-icon"
                                 },
                                 {
+                                    "entity": "switch.obama",
+                                    "style": {
+                                        "--iron-icon-height": "42px",
+                                        "--iron-icon-width": "42px",
+                                        "left": "60.5%",
+                                        "top": "90%"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "title": "Obama",
+                                    "type": "state-icon"
+                                },
+                                {
                                     "entity": "media_player.office_speaker",
                                     "icon": "mdi:google-home",
                                     "style": {
@@ -671,10 +654,8 @@
                                     "entity": "media_player.bathroom_speaker",
                                     "icon": "mdi:google-home",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
                                         "left": "60.5%",
-                                        "top": "33%"
+                                        "top": "32%"
                                     },
                                     "tap_action": {
                                         "action": "more-info"
@@ -686,9 +667,7 @@
                                     "entity": "media_player.kitchen_speaker",
                                     "icon": "mdi:google-home",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "6%",
+                                        "left": "4.5%",
                                         "top": "40%"
                                     },
                                     "tap_action": {
