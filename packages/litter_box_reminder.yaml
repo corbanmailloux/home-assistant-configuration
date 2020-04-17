@@ -13,7 +13,7 @@ automation:
         entity_id: input_boolean.vacation_mode
         state: "off"
     action:
-      - service: notify.adult_phones
+      - service: notify.adult_android_phones
         data:
           title: "Litter Box Check"
           message: "Has the litter box been done?"
@@ -23,15 +23,63 @@ automation:
             actions:
               - action: "litter_box_complete"
                 title: "Yes, complete."
-  - alias: Litter box reminder clicked
+      - service: notify.adult_ios_phones
+        data:
+          title: "Litter Box Check"
+          message: "Has the litter box been done?"
+          data:
+            push:
+              category: "litter_box" # Adds the action button.
+            apns_headers:
+              "apns-collapse-id": "litter-box"
+
+  # When marking the box as complete on Android, send the update to all devices (iOS and Android).
+  - alias: Litter box reminder clicked - Android
     trigger:
       - platform: event
         event_type: mobile_app_notification_action
         event_data:
           action: litter_box_complete
     action:
-      - service: notify.adult_phones
+      - service: notify.adult_android_phones
         data:
           message: clear_notification
           data:
             tag: 10 # Arbitrary but constant.
+      - service: notify.adult_ios_phones
+        data:
+          title: "Litter Box Check - Complete"
+          message: "Litter box has been done."
+          data:
+            push:
+              sound: none
+            apns_headers:
+              "apns-collapse-id": "litter-box"
+
+  # When marking the box as complete from iOS, only send the dismiss command to Android.
+  # This is because the iOS notification gets dismissed when clicked.
+  - alias: Litter box reminder clicked - iOS
+    trigger:
+      - platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          actionName: COMPLETE
+    action:
+      - service: notify.adult_android_phones
+        data:
+          message: clear_notification
+          data:
+            tag: 10 # Arbitrary but constant.
+
+ios:
+  push:
+    categories:
+      - name: Litter Box
+        identifier: "litter_box"
+        actions:
+          - identifier: "COMPLETE"
+            title: "Yes, complete."
+            activationMode: "background"
+            authenticationRequired: false # Don't require unlocking the device
+            destructive: false
+            behavior: "default"

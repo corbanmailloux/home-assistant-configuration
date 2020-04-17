@@ -137,9 +137,14 @@
                         {
                             "cards": [
                                 {
+                                    "aspect_ratio": "0%",
                                     "entities": [
-                                        "sensor.corban_location_icon",
-                                        "sensor.edith_battery_level"
+                                        {
+                                            "entity": "sensor.corban_location_icon"
+                                        },
+                                        {
+                                            "entity": "sensor.corbans_iphone_battery_level"
+                                        }
                                     ],
                                     "entity": "binary_sensor.corban_person_home",
                                     "image": "/local/images/corban.jpg",
