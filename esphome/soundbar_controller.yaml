@@ -7,6 +7,7 @@ esphome:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  use_address: 10.0.0.245
 
 # api:
 
@@ -37,21 +38,21 @@ switch:
   # Soundbar
   - platform: template
     id: sb_power
-    name: 'Soundbar: Power'
+    name: "Soundbar: Power"
     turn_on_action:
       remote_transmitter.transmit_nec:
         address: 0x00FF
         command: 0x02FD
   - platform: template
     id: sb_vol_up
-    name: 'Soundbar: Volume Up'
+    name: "Soundbar: Volume Up"
     turn_on_action:
       remote_transmitter.transmit_nec:
         address: 0x00FF
         command: 0x827D
   - platform: template
     id: sb_vol_down
-    name: 'Soundbar: Volume Down'
+    name: "Soundbar: Volume Down"
     turn_on_action:
       remote_transmitter.transmit_nec:
         address: 0x00FF
