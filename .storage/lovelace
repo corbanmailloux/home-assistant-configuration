@@ -977,6 +977,27 @@
                         {
                             "entities": [
                                 {
+                                    "entity": "input_select.download_speed"
+                                },
+                                {
+                                    "entity": "input_boolean.download_mode_change_lock"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "NAS",
+                            "type": "entities"
+                        },
+                        {
+                            "detail": 2,
+                            "entity": "sensor.nzbget_speed",
+                            "graph": "line",
+                            "hours_to_show": 2,
+                            "icon": "mdi:progress-download",
+                            "type": "sensor"
+                        },
+                        {
+                            "entities": [
+                                {
                                     "entity": "sensor.zigbee2mqtt_bridge_state"
                                 },
                                 {
@@ -1045,19 +1066,6 @@
                                 }
                             ],
                             "type": "vertical-stack"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "input_select.download_speed"
-                                },
-                                {
-                                    "entity": "input_boolean.download_mode_change_lock"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "NAS",
-                            "type": "entities"
                         },
                         {
                             "cards": [
