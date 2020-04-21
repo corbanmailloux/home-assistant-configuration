@@ -5,6 +5,7 @@ input_select:
     name: Download Speed Mode
     options:
       - Full Speed
+      - Medium Speed
       - Slow Speed
       - Paused
     icon: mdi:speedometer
@@ -77,6 +78,20 @@ automation:
           entity_id: input_select.download_speed
           option: Slow Speed
 
+  - alias: Run downloads at medium speed after business hours
+    trigger:
+      - platform: time
+        at: "18:00:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.download_mode_change_lock
+        state: "off"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.download_speed
+          option: Medium Speed
+
   # Set speed based on input_select
 
   - alias: Set download speed based on input_select - Full
@@ -90,6 +105,17 @@ automation:
         data:
           speed: 0 # Unlimited
 
+  - alias: Set download speed based on input_select - Medium
+    trigger:
+      - platform: state
+        entity_id: input_select.download_speed
+        to: Medium Speed
+    action:
+      - service: nzbget.resume
+      - service: nzbget.set_speed
+        data:
+          speed: 7000 # KB/s
+
   - alias: Set download speed based on input_select - Slow
     trigger:
       - platform: state
@@ -99,7 +125,7 @@ automation:
       - service: nzbget.resume
       - service: nzbget.set_speed
         data:
-          speed: 1000 # kbps
+          speed: 1000 # KB/s
 
   - alias: Set download speed based on input_select - Paused
     trigger:
