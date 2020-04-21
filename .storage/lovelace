@@ -314,44 +314,108 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "switch.living_room_tv_power",
-                                    "hold_action": {
-                                        "action": "call-service",
-                                        "service": "switch.turn_on",
-                                        "service_data": {
-                                            "entity_id": "switch.living_room_tv_power"
+                                    "cards": [
+                                        {
+                                            "entity": "switch.living_room_tv_power",
+                                            "hold_action": {
+                                                "action": "call-service",
+                                                "service": "switch.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "switch.living_room_tv_power"
+                                                }
+                                            },
+                                            "name": "TV",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.living_room_movie_mode",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.living_room_game_mode",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
                                         }
-                                    },
-                                    "name": "TV",
-                                    "show_icon": true,
-                                    "show_name": true,
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "entity-button"
+                                    ],
+                                    "type": "horizontal-stack"
                                 },
                                 {
-                                    "entity": "script.living_room_movie_mode",
-                                    "hold_action": {
-                                        "action": "none"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "entity-button"
-                                },
-                                {
-                                    "entity": "script.living_room_game_mode",
-                                    "hold_action": {
-                                        "action": "none"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "entity-button"
+                                    "cards": [
+                                        {
+                                            "entity": "scene.living_room_dim",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "icon": "mdi:moon-new",
+                                            "name": "Dim",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "scene.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "scene.living_room_dim"
+                                                }
+                                            },
+                                            "type": "button"
+                                        },
+                                        {
+                                            "entity": "scene.living_room_medium",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "icon": "mdi:moon-last-quarter",
+                                            "name": "Medium",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "scene.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "scene.living_room_medium"
+                                                }
+                                            },
+                                            "type": "button"
+                                        },
+                                        {
+                                            "entity": "scene.living_room_bright",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "icon": "mdi:moon-full",
+                                            "name": "Bright",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "scene.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "scene.living_room_bright"
+                                                }
+                                            },
+                                            "type": "button"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
                                 }
                             ],
-                            "type": "horizontal-stack"
+                            "type": "vertical-stack"
                         },
                         {
                             "cards": [
