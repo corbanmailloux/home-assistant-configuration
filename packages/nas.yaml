@@ -10,6 +10,25 @@ input_select:
       - Paused
     icon: mdi:speedometer
 
+sensor:
+  - platform: template
+    sensors:
+      download_speed_limit:
+        friendly_name: Download Speed Limit
+        unit_of_measurement: MB/s
+        entity_id: input_select.download_speed
+        value_template: >-
+          {% set e_id = "input_select.download_speed" %}
+          {% if is_state(e_id, "Full Speed") %}
+            N/A
+          {% elif is_state(e_id, "Medium Speed") %}
+            7
+          {% elif is_state(e_id, "Slow Speed") %}
+            1
+          {% elif is_state(e_id, "Pause") %}
+            0
+          {% endif %}
+
 input_boolean:
   download_mode_change_lock:
     name: Lock Download Speed Setting

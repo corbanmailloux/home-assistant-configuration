@@ -1039,25 +1039,42 @@
                     "badges": [],
                     "cards": [
                         {
-                            "entities": [
+                            "cards": [
                                 {
-                                    "entity": "input_select.download_speed"
+                                    "entities": [
+                                        {
+                                            "entity": "input_select.download_speed"
+                                        },
+                                        {
+                                            "entity": "input_boolean.download_mode_change_lock"
+                                        },
+                                        {
+                                            "entity": "sensor.nzbget_speed",
+                                            "icon": "mdi:progress-download",
+                                            "name": "Current Download Speed"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Automatic Downloads",
+                                    "type": "entities"
                                 },
                                 {
-                                    "entity": "input_boolean.download_mode_change_lock"
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.download_speed_limit",
+                                            "name": "Limit"
+                                        },
+                                        {
+                                            "entity": "sensor.nzbget_speed",
+                                            "name": "Download Speed"
+                                        }
+                                    ],
+                                    "hours_to_show": 2,
+                                    "refresh_interval": 0,
+                                    "type": "history-graph"
                                 }
                             ],
-                            "show_header_toggle": false,
-                            "title": "NAS",
-                            "type": "entities"
-                        },
-                        {
-                            "detail": 2,
-                            "entity": "sensor.nzbget_speed",
-                            "graph": "line",
-                            "hours_to_show": 2,
-                            "icon": "mdi:progress-download",
-                            "type": "sensor"
+                            "type": "vertical-stack"
                         },
                         {
                             "entities": [
@@ -1074,9 +1091,6 @@
                                     "entity": "input_select.zigbee2mqtt_log_level"
                                 },
                                 {
-                                    "type": "divider"
-                                },
-                                {
                                     "entity": "switch.zigbee2mqtt_allow_joining"
                                 },
                                 {
@@ -1086,29 +1100,6 @@
                             "show_header_toggle": false,
                             "title": "Zigbee2mqtt",
                             "type": "entities"
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "entities": [
-                                        "sensor.living_room_temperature",
-                                        "sensor.network_cabinet_temperature"
-                                    ],
-                                    "hours_to_show": 168,
-                                    "title": "Network Cabinet Temperature",
-                                    "type": "history-graph"
-                                },
-                                {
-                                    "entities": [
-                                        "sensor.living_room_humidity",
-                                        "sensor.network_cabinet_humidity"
-                                    ],
-                                    "hours_to_show": 168,
-                                    "title": "Network Cabinet Humidity",
-                                    "type": "history-graph"
-                                }
-                            ],
-                            "type": "vertical-stack"
                         },
                         {
                             "cards": [
@@ -1130,6 +1121,14 @@
                                 }
                             ],
                             "type": "vertical-stack"
+                        },
+                        {
+                            "detail": 2,
+                            "entity": "sensor.network_cabinet_temperature",
+                            "graph": "line",
+                            "hours_to_show": 8,
+                            "icon": "mdi:thermometer-lines",
+                            "type": "sensor"
                         },
                         {
                             "cards": [
