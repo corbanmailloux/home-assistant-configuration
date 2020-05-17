@@ -165,8 +165,11 @@
                             "type": "horizontal-stack"
                         },
                         {
+                            "decimals": 0,
                             "entity": "climate.hallway_thermostat",
-                            "type": "thermostat"
+                            "icon": false,
+                            "name": false,
+                            "type": "custom:simple-thermostat"
                         },
                         {
                             "cards": [
@@ -1070,7 +1073,7 @@
                                         }
                                     ],
                                     "hours_to_show": 2,
-                                    "refresh_interval": 0,
+                                    "refresh_interval": 20,
                                     "type": "history-graph"
                                 }
                             ],
