@@ -981,12 +981,6 @@
                                     "entity": "sensor.bus_2_route"
                                 },
                                 {
-                                    "entity": "input_boolean.bus_alert"
-                                },
-                                {
-                                    "entity": "input_boolean.bus_alert_active"
-                                },
-                                {
                                     "entity": "light.wall_display_light"
                                 },
                                 {
