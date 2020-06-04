@@ -10,10 +10,15 @@
 import logging
 
 import voluptuous as vol
-import socket # This should probably be inside something below.
+import socket  # This should probably be inside something below.
 
 # Import the device class from the component that you want to support
-from homeassistant.components.light import SUPPORT_COLOR, Light, PLATFORM_SCHEMA, ATTR_HS_COLOR
+from homeassistant.components.light import (
+    SUPPORT_COLOR,
+    LightEntity,
+    PLATFORM_SCHEMA,
+    ATTR_HS_COLOR,
+)
 from homeassistant.const import CONF_HOST
 import homeassistant.helpers.config_validation as cv
 import homeassistant.util.color as color_util
@@ -21,9 +26,8 @@ import homeassistant.util.color as color_util
 _LOGGER = logging.getLogger(__name__)
 
 # Validation of the user's configuration
-PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({
-    vol.Required(CONF_HOST): cv.string
-})
+PLATFORM_SCHEMA = PLATFORM_SCHEMA.extend({vol.Required(CONF_HOST): cv.string})
+
 
 def setup_platform(hass, config, add_devices, discovery_info=None):
 
@@ -36,6 +40,7 @@ def setup_platform(hass, config, add_devices, discovery_info=None):
     # Add devices
     add_devices([WallDisplayLight(helper), WallDisplayBacklight(helper)])
 
+
 class WallDisplayHelper:
     def __init__(self, host):
         self._host = host
@@ -43,16 +48,16 @@ class WallDisplayHelper:
 
     # Turn off the display
     def sleep(self):
-        self._send_data(b'\x18\x01')
+        self._send_data(b"\x18\x01")
 
     # Turn on the display
     def wake(self):
-        self._send_data(b'\x18\x02')
+        self._send_data(b"\x18\x02")
 
     # Set the side LEDs to the given color.
     # Range for each: 0 - 255
     def set_color(self, r, g, b):
-        ba = bytearray(b'\xF3\x01')
+        ba = bytearray(b"\xF3\x01")
         ba.append(r)
         ba.append(g)
         ba.append(b)
@@ -60,7 +65,7 @@ class WallDisplayHelper:
 
     # Helper to actually send the data.
     def _send_data(self, ba):
-        size = len(ba) + 4 # 4 other standard bytes
+        size = len(ba) + 4  # 4 other standard bytes
         ba1 = bytearray()
         ba1.append(size)
         ba1.append(0x01)
@@ -76,12 +81,13 @@ class WallDisplayHelper:
         # print(s.recv(2048)) # Debug printout
         s.close()
 
-class WallDisplayLight(Light):
+
+class WallDisplayLight(LightEntity):
     def __init__(self, helper):
         self._helper = helper
         self._name = "Wall Display Light"
         self._state = False
-        self._color = [0, 0] # White
+        self._color = [0, 0]  # White
 
         self._supported_features = SUPPORT_COLOR
 
@@ -104,7 +110,6 @@ class WallDisplayLight(Light):
 
         self._state = True
         self.schedule_update_ha_state()
-
 
     def turn_off(self, **kwargs):
         """Instruct the light to turn off."""
@@ -131,11 +136,12 @@ class WallDisplayLight(Light):
         """Return the color property."""
         return self._color
 
-class WallDisplayBacklight(Light):
+
+class WallDisplayBacklight(LightEntity):
     def __init__(self, helper):
         self._helper = helper
         self._name = "Wall Display Screen"
-        self._state = True # Default to on
+        self._state = True  # Default to on
 
     @property
     def name(self):
@@ -152,7 +158,6 @@ class WallDisplayBacklight(Light):
 
         self._state = True
         self.schedule_update_ha_state()
-
 
     def turn_off(self, **kwargs):
         """Instruct the light to turn off."""
