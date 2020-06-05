@@ -18,10 +18,9 @@
                                 {
                                     "icon": "mdi:floor-plan",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "50%",
-                                        "top": "15%"
+                                        "left": "48%",
+                                        "top": "15%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "navigate",
@@ -33,10 +32,9 @@
                                 {
                                     "icon": "mdi:floor-plan",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "36%",
-                                        "top": "38%"
+                                        "left": "35%",
+                                        "top": "36%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "navigate",
@@ -48,10 +46,9 @@
                                 {
                                     "icon": "mdi:floor-plan",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "43%",
-                                        "top": "60%"
+                                        "left": "40%",
+                                        "top": "60%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "navigate",
@@ -63,10 +60,9 @@
                                 {
                                     "icon": "mdi:floor-plan",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "41%",
-                                        "top": "75%"
+                                        "left": "38.3%",
+                                        "top": "75%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "navigate",
@@ -78,10 +74,9 @@
                                 {
                                     "icon": "mdi:floor-plan",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "60%",
-                                        "top": "82%"
+                                        "left": "58%",
+                                        "top": "80%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "navigate",
@@ -89,26 +84,6 @@
                                     },
                                     "title": "Bathroom",
                                     "type": "icon"
-                                },
-                                {
-                                    "entity": "binary_sensor.front_door",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "64%",
-                                        "top": "30.5%"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "binary_sensor.back_door",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "72.4%",
-                                        "top": "89.4%"
-                                    },
-                                    "type": "state-icon"
                                 },
                                 {
                                     "entity": "binary_sensor.home_occupied",
@@ -215,10 +190,9 @@
                                 {
                                     "entity": "light.entry_lamp",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "24.5%",
-                                        "top": "93%"
+                                        "left": "20.3%",
+                                        "top": "89.1%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -228,10 +202,9 @@
                                 {
                                     "entity": "light.couch_lamp",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "54.2%",
-                                        "top": "17%"
+                                        "left": "49.5%",
+                                        "top": "12.5%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -241,10 +214,9 @@
                                 {
                                     "entity": "light.tv_lamp",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "7.4%",
-                                        "top": "22.7%"
+                                        "left": "3%",
+                                        "top": "19%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -254,11 +226,9 @@
                                 {
                                     "entity": "media_player.living_room_tv",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
                                         "left": "2.5%",
                                         "top": "39%",
-                                        "transform": "rotate(270deg)"
+                                        "transform": "scale(1.5) rotate(270deg)"
                                     },
                                     "tap_action": {
                                         "action": "more-info"
@@ -288,6 +258,19 @@
                                     "tap_action": {
                                         "action": "toggle"
                                     },
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "switch.obama",
+                                    "style": {
+                                        "left": "2.7%",
+                                        "top": "56.5%",
+                                        "transform": "scale(1.5) rotate(270deg)"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "title": "Obama",
                                     "type": "state-icon"
                                 }
                             ],
@@ -498,10 +481,9 @@
                                 {
                                     "entity": "light.fairy_lights",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "43%",
-                                        "top": "30%"
+                                        "left": "39%",
+                                        "top": "30%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -512,10 +494,9 @@
                                 {
                                     "entity": "fan.bedroom_fan",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "64%",
-                                        "top": "91%"
+                                        "left": "60%",
+                                        "top": "85.2%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -527,10 +508,9 @@
                                     "entity": "light.bedroom_lamp",
                                     "icon": "mdi:lightbulb",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "12.5%",
-                                        "top": "71%"
+                                        "left": "8.4%",
+                                        "top": "65.3%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -541,10 +521,9 @@
                                 {
                                     "entity": "media_player.bedroom_tv",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "47%",
-                                        "top": "91.5%"
+                                        "left": "42%",
+                                        "top": "86%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "more-info"
@@ -556,8 +535,6 @@
                                     "entity": "media_player.bedroom_speaker",
                                     "icon": "mdi:google-home",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
                                         "left": "38%",
                                         "top": "91.5%"
                                     },
@@ -647,10 +624,9 @@
                                 {
                                     "entity": "light.office_pink_lamp",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "91.8%",
-                                        "top": "63%"
+                                        "left": "87.6%",
+                                        "top": "58%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -660,10 +636,9 @@
                                 {
                                     "entity": "light.desk_lamp",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "42.6%",
-                                        "top": "89.8%"
+                                        "left": "39%",
+                                        "top": "85%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "tap_action": {
                                         "action": "toggle"
@@ -673,8 +648,6 @@
                                 {
                                     "entity": "switch.obama",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
                                         "left": "60.5%",
                                         "top": "90%"
                                     },
@@ -700,10 +673,9 @@
                                 {
                                     "entity": "vacuum.xiaomi_vacuum_cleaner",
                                     "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "69.9%",
-                                        "top": "55%"
+                                        "left": "67%",
+                                        "top": "50%",
+                                        "transform": "scale(1.5)"
                                     },
                                     "title": "Eve",
                                     "type": "state-icon"
