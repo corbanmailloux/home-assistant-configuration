@@ -1,20 +1,68 @@
 # Package for the HASS Notifications
 
+alert:
+  hass_update_available:
+    name: HASS Update Available
+    title: Home Assistant Update
+    message: Home Assistant version {{ state_attr('binary_sensor.updater', 'newest_version') }} is now available.
+    entity_id: binary_sensor.updater
+    state: "on"
+    repeat: 2880 # 2 days
+    notifiers:
+      - corban
+    data:
+      push:
+        # Add silence button
+        category: hass_update
+        sound: none
+      # Combine/replace notifications as needed.
+      apns_headers:
+        "apns-collapse-id": "hass_update"
+
 automation:
-  - alias: HASS Update Notification
+  - alias: "Alert Silence - HASS Update"
     trigger:
-      - platform: state
-        entity_id: binary_sensor.updater
-        from: "off"
-        to: "on"
+      - platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          actionName: SILENCE_HASS_UPDATE_ALERT
     condition:
       - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
+        entity_id: alert.hass_update_available
+        state: "on"
     action:
-      service: notify.corban
-      data:
-        title: "Home Assistant Update"
-      data_template:
-        message: >-
-          Home Assistant version {{ state_attr('binary_sensor.updater', 'newest_version') }} is now available.
+      - service: alert.turn_off
+        data:
+          entity_id: alert.hass_update_available
+
+  # Original automation, before using alerts.
+  # - alias: HASS Update Notification
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.updater
+  #       from: "off"
+  #       to: "on"
+  #   condition:
+  #     - condition: state
+  #       entity_id: input_boolean.vacation_mode
+  #       state: "off"
+  #   action:
+  #     service: notify.corban
+  #     data:
+  #       title: "Home Assistant Update"
+  #     data_template:
+  #       message: >-
+  #         Home Assistant version {{ state_attr('binary_sensor.updater', 'newest_version') }} is now available.
+
+ios:
+  push:
+    categories:
+      - name: HASS Update Notification
+        identifier: "hass_update"
+        actions:
+          - identifier: "SILENCE_HASS_UPDATE_ALERT"
+            title: "Acknowledge Alert"
+            activationMode: "background"
+            authenticationRequired: true
+            destructive: true
+            behavior: "default"
