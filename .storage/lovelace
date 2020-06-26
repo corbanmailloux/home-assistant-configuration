@@ -140,13 +140,6 @@
                             "type": "horizontal-stack"
                         },
                         {
-                            "decimals": 0,
-                            "entity": "climate.hallway_thermostat",
-                            "icon": false,
-                            "name": false,
-                            "type": "custom:simple-thermostat"
-                        },
-                        {
                             "cards": [
                                 {
                                     "content": "In the last 14 days, **Corban** has been home for **{{ states(\"sensor.quarantine_o_meter_corban_home\") }}%** of the time. On average, he **left the house {{ (states(\"sensor.quarantine_o_meter_corban_left\") | int / 14) | round(1) }} times per day.**\n\nIn the last 14 days, **Maggie** has been home for **{{ states(\"sensor.quarantine_o_meter_maggie_home\") }}%** of the time. On average, she **left the house {{ (states(\"sensor.quarantine_o_meter_maggie_left\") | int / 14) | round(1) }} times per day.**",
@@ -679,6 +672,18 @@
                                     },
                                     "title": "Eve",
                                     "type": "state-icon"
+                                },
+                                {
+                                    "entity": "fan.small_fan",
+                                    "style": {
+                                        "left": "73%",
+                                        "top": "40.5%",
+                                        "transform": "scale(1.5)"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "state-icon"
                                 }
                             ],
                             "image": "/local/images/fp-office.png",
@@ -754,13 +759,7 @@
                                     "entity": "sensor.living_room_temperature"
                                 },
                                 {
-                                    "entity": "sensor.hallway_thermostat_temperature"
-                                },
-                                {
                                     "entity": "sensor.living_room_humidity"
-                                },
-                                {
-                                    "entity": "sensor.hallway_thermostat_humidity"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -771,11 +770,15 @@
                             "cards": [
                                 {
                                     "entities": [
-                                        "sensor.living_room_temperature",
-                                        "sensor.hallway_thermostat_temperature",
-                                        "sensor.dark_sky_temperature"
+                                        {
+                                            "entity": "sensor.living_room_temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.dark_sky_temperature"
+                                        }
                                     ],
                                     "hours_to_show": 72,
+                                    "refresh_interval": 0,
                                     "title": "Temperatures",
                                     "type": "history-graph"
                                 },
@@ -795,28 +798,22 @@
                             "entities": [
                                 {
                                     "entity": "sensor.living_room_temperature"
-                                },
-                                {
-                                    "entity": "sensor.hallway_thermostat_temperature"
                                 }
                             ],
                             "hours_to_show": 72,
                             "refresh_interval": 0,
-                            "title": "Internal Temperatures",
+                            "title": "Internal Temperature",
                             "type": "history-graph"
                         },
                         {
                             "entities": [
                                 {
                                     "entity": "sensor.living_room_humidity"
-                                },
-                                {
-                                    "entity": "sensor.hallway_thermostat_humidity"
                                 }
                             ],
                             "hours_to_show": 72,
                             "refresh_interval": 0,
-                            "title": "Internal Humidities",
+                            "title": "Internal Humidity",
                             "type": "history-graph"
                         }
                     ],
@@ -1123,252 +1120,6 @@
                     "icon": "mdi:server-network",
                     "path": "network",
                     "title": "Network"
-                },
-                {
-                    "badges": [],
-                    "cards": [
-                        {
-                            "elements": [
-                                {
-                                    "entity": "light.entry_lamp",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "72.4%",
-                                        "top": "33.6%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Entry Lamp",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.living_room_couch",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "94.2%",
-                                        "top": "50%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Couch Lamp",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.living_room_lamp_near_tv",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "92.2%",
-                                        "top": "23%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "TV Lamp",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.fairy_lights",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "65%",
-                                        "top": "32%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Fairy Lights",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.bedroom_fan",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "53.2%",
-                                        "top": "44.8%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Fan",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.bedroom_lamp",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "57.4%",
-                                        "top": "14.1%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Bedroom Lamp",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.office_pink_lamp",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "38.5%",
-                                        "top": "76%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Pink Lamp",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "39.8%",
-                                        "top": "60%",
-                                        "transform": "rotate(90deg)"
-                                    },
-                                    "title": "Eve",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.obama",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "81.3%",
-                                        "top": "23%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Obama",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.living_room_tv",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "86.2%",
-                                        "top": "23%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Living Room TV",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.bedroom_tv",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "53.2%",
-                                        "top": "34%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Bedroom TV",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "climate.hallway_thermostat",
-                                    "style": {
-                                        "--iron-icon-height": "42px",
-                                        "--iron-icon-width": "42px",
-                                        "left": "14%",
-                                        "top": "84%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Thermostat",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.bedroom_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "53.2%",
-                                        "top": "28%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Bedroom Home",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.bathroom_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "21.8%",
-                                        "top": "57%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Bathroom Home",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.kitchen_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "20%",
-                                        "top": "23.7%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Kitchen Home",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.living_room_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "72.2%",
-                                        "top": "46%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Living Room Home",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.office_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "32.5%",
-                                        "top": "56%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Office Home",
-                                    "type": "state-icon"
-                                }
-                            ],
-                            "image": "/local/images/floor_plan_grey_v2.png",
-                            "type": "picture-elements"
-                        }
-                    ],
-                    "icon": "mdi:floor-plan",
-                    "panel": true,
-                    "path": "floorplan",
-                    "title": "Floorplan"
                 }
             ]
         }
