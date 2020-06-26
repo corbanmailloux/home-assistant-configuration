@@ -142,15 +142,16 @@ automation:
           entity_id: light.entry_lamp
           brightness: 127 # 50%
 
-  - alias: Home Occupied - Set Nest home
-    trigger:
-      - platform: state
-        entity_id: input_boolean.home_occupied
-        to: "on"
-    action:
-      - service: nest.set_away_mode
-        data:
-          away_mode: home
+  # TODO: Set up for new thermostat.
+  # - alias: Home Occupied - Set Nest home
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.home_occupied
+  #       to: "on"
+  #   action:
+  #     - service: nest.set_away_mode
+  #       data:
+  #         away_mode: home
 
   - alias: Home Unoccupied - Turn everything off
     trigger:
@@ -163,15 +164,16 @@ automation:
       - service: script.turn_on
         entity_id: script.flash_wall_display_light
 
-  - alias: Home Unoccupied - Set Nest away
-    trigger:
-      - platform: state
-        entity_id: input_boolean.home_occupied
-        to: "off"
-    action:
-      - service: nest.set_away_mode
-        data:
-          away_mode: away
+  # TODO: Set up for new thermostat.
+  # - alias: Home Unoccupied - Set Nest away
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_boolean.home_occupied
+  #       to: "off"
+  #   action:
+  #     - service: nest.set_away_mode
+  #       data:
+  #         away_mode: away
 
 script:
   welcome_home_announcement:
