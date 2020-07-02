@@ -5,6 +5,7 @@
                 "chevrons": true
             },
             "custom_header": {
+                "chevrons": false,
                 "compact_mode": true,
                 "hidden_tab_redirect": false
             },
@@ -907,16 +908,6 @@
                             ],
                             "show_header_toggle": false,
                             "title": "Obama Management",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "automation.hass_update_notification"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Home Assistant Notifications",
                             "type": "entities"
                         },
                         {
