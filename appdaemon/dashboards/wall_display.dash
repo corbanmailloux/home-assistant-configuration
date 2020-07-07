@@ -15,7 +15,7 @@ global_parameters:
 
 # 8 columns per row
 layout:
-  - clock(2x1), weather_custom(4x1), bus_time_1, bus_time_2
+  - clock(2x1), weather_custom(4x1), spacer(2x1)
   - corban_presence, maggie_presence, spacer(1x1), living_room_temp, network_cabinet_temp, spacer(2x1), google_home_play_pause
   - input_boolean.guest, input_boolean.home_occupied
   - spacer(5x1), script.living_room_dinner_mode, script.living_room_movie_mode, script.living_room_game_mode
@@ -79,22 +79,6 @@ weather_custom:
     forecast_temperature_max: sensor.dark_sky_daily_high_temperature_1
     forecast_precip_probability: sensor.dark_sky_precip_probability_1
     forecast_precip_type: sensor.dark_sky_precip_1
-
-bus_time_1:
-  widget_type: sensor
-  title: Bus - 1
-  units: ""
-  precision: 1
-  entity: sensor.bus_1_time
-  sub_entity: sensor.bus_1_route
-
-bus_time_2:
-  widget_type: sensor
-  title: Bus - 2
-  units: ""
-  precision: 1
-  entity: sensor.bus_2_time
-  sub_entity: sensor.bus_2_route
 
 living_room_play_pause:
   title: Play/Pause TV

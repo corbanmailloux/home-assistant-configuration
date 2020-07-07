@@ -37,11 +37,6 @@ recorder:
     entities:
       - sun.sun
       - sensor.time
-      - sensor.busses_at_stop
-      - sensor.bus_1_time
-      - sensor.bus_1_route
-      - sensor.bus_2_time
-      - sensor.bus_2_route
 
 history:
   exclude:
@@ -54,11 +49,6 @@ history:
     entities:
       - sun.sun
       - sensor.time
-      - sensor.busses_at_stop
-      - sensor.bus_1_time
-      - sensor.bus_1_route
-      - sensor.bus_2_time
-      - sensor.bus_2_route
 
 frontend:
   themes: !include_dir_merge_named themes

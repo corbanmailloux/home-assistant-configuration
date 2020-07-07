@@ -926,21 +926,6 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.busses_at_stop"
-                                },
-                                {
-                                    "entity": "sensor.bus_1_time"
-                                },
-                                {
-                                    "entity": "sensor.bus_1_route"
-                                },
-                                {
-                                    "entity": "sensor.bus_2_time"
-                                },
-                                {
-                                    "entity": "sensor.bus_2_route"
-                                },
-                                {
                                     "entity": "light.wall_display_light"
                                 },
                                 {
@@ -948,7 +933,7 @@
                                 }
                             ],
                             "show_header_toggle": false,
-                            "title": "Bus Times",
+                            "title": "Wall Display",
                             "type": "entities"
                         },
                         {
