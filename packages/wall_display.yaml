@@ -2,64 +2,6 @@ light:
   - platform: walldisplay
     host: !secret wall_display_ip
 
-sensor:
-  # Inbound (heading to work)
-  - platform: rest
-    name: Busses at Stop
-    scan_interval: 30
-    force_update: true
-    resource: !secret transit_api_url
-    json_attributes:
-      - data
-    value_template: >-
-      {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
-        {{ as_timestamp(value_json["data"][0]["attributes"]["arrival_time"]) | timestamp_custom("%I:%M %p") }}
-      {% else %}
-        N/A
-      {% endif %}
-    headers:
-      x-api-key: !secret transit_api_key
-  - platform: template
-    sensors:
-      bus_1_time:
-        friendly_name: "Bus 1 - Time"
-        unit_of_measurement: Minutes
-        entity_id: "sensor.busses_at_stop"
-        value_template: >-
-          {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
-            {{ ((as_timestamp(states.sensor.busses_at_stop.attributes["data"][0]["attributes"]["arrival_time"]) - as_timestamp(now())) / 60) | round(1) }}
-          {% else %}
-            N/A
-          {% endif %}
-      bus_1_route:
-        friendly_name: "Bus 1 - Route"
-        entity_id: "sensor.busses_at_stop"
-        value_template: >-
-          {% if states.sensor.busses_at_stop.attributes["data"] | length > 0 %}
-            {{ states.sensor.busses_at_stop.attributes["data"][0]["relationships"]["route"]["data"]["id"] }}
-          {% else %}
-            N/A
-          {% endif %}
-      bus_2_time:
-        friendly_name: "Bus 2 - Time"
-        unit_of_measurement: Minutes
-        entity_id: "sensor.busses_at_stop"
-        value_template: >-
-          {% if states.sensor.busses_at_stop.attributes["data"] | length > 1 %}
-            {{ ((as_timestamp(states.sensor.busses_at_stop.attributes["data"][1]["attributes"]["arrival_time"]) - as_timestamp(now())) / 60) | round(1) }}
-          {% else %}
-            N/A
-          {% endif %}
-      bus_2_route:
-        friendly_name: "Bus 2 - Route"
-        entity_id: "sensor.busses_at_stop"
-        value_template: >-
-          {% if states.sensor.busses_at_stop.attributes["data"] | length > 1 %}
-            {{ states.sensor.busses_at_stop.attributes["data"][1]["relationships"]["route"]["data"]["id"] }}
-          {% else %}
-            N/A
-          {% endif %}
-
 automation:
   # See also `package/home_away_mode.yaml`.
   - alias: Turn on the wall display in the morning # if someone is home
@@ -80,17 +22,6 @@ automation:
 
 homeassistant:
   customize:
-    sensor.busses_at_stop:
-      friendly_name: Next Bus
-      icon: mdi:bus-clock
-    sensor.bus_1_time:
-      icon: mdi:bus-clock
-    sensor.bus_2_time:
-      icon: mdi:bus-clock
-    sensor.bus_1_route:
-      icon: mdi:bus-side
-    sensor.bus_2_route:
-      icon: mdi:bus-side
     light.wall_display_light:
       icon: mdi:tablet
     light.wall_display_screen:
