@@ -1,18 +1,6 @@
 homeassistant:
-  name: !secret home_name
-  latitude: !secret home_latitude
-  longitude: !secret home_longitude
-  elevation: !secret home_elevation
-  unit_system: imperial
-  # See: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-  time_zone: America/New_York
-
   customize: !include_dir_merge_named customize
-
   packages: !include_dir_named packages
-
-http:
-  base_url: !secret http_base_url
 
 # Checks for available updates
 updater:
