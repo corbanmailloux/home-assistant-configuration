@@ -15,3 +15,7 @@
 - platform: switch
   name: Desk Lamp
   entity_id: switch.office_desk_lamp
+
+- platform: switch
+  name: Plant Lamp
+  entity_id: switch.plant_lamp
