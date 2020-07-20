@@ -971,6 +971,23 @@
                             "show_header_toggle": false,
                             "title": "Reset Google Home Volumes",
                             "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "switch.linksio",
+                                    "icon": "mdi:power",
+                                    "name": "Main Switch"
+                                },
+                                {
+                                    "entity": "sensor.linksio_energy_today",
+                                    "icon": "mdi:chart-line",
+                                    "name": "Energy Used Today"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "3D Printer",
+                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:settings",
