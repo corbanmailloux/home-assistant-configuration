@@ -689,6 +689,18 @@
                             ],
                             "image": "/local/images/fp-office.png",
                             "type": "picture-elements"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.plant_lamp"
+                                },
+                                {
+                                    "entity": "light.desk_lamp"
+                                }
+                            ],
+                            "title": "Lights",
+                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:monitor",
@@ -1113,6 +1125,53 @@
                     "icon": "mdi:server-network",
                     "path": "network",
                     "title": "Network"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "dark_mode": false,
+                            "entities": [
+                                {
+                                    "entity": "person.corban"
+                                },
+                                {
+                                    "entity": "person.maggie"
+                                },
+                                {
+                                    "entity": "zone.home"
+                                },
+                                {
+                                    "entity": "zone.re"
+                                }
+                            ],
+                            "hours_to_show": 0,
+                            "type": "map"
+                        },
+                        {
+                            "entity": "timer.zigbee_permit_join",
+                            "name": "Timer",
+                            "show_icon": false,
+                            "show_label": false,
+                            "show_state": true,
+                            "styles": {
+                                "name": [
+                                    {
+                                        "font-size": "40px"
+                                    }
+                                ],
+                                "state": [
+                                    {
+                                        "font-size": "70px"
+                                    }
+                                ]
+                            },
+                            "type": "custom:button-card"
+                        }
+                    ],
+                    "icon": "mdi:tablet-dashboard",
+                    "path": "wall-display",
+                    "title": "Wall Display"
                 }
             ]
         }
