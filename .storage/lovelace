@@ -775,16 +775,6 @@
                         },
                         {
                             "entities": [
-                                "input_select.donut_selector",
-                                "input_select.donut_destination",
-                                "script.send_donut_and_randomize"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Donut Delivery",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
                                 {
                                     "entity": "input_text.text_to_speak"
                                 },
@@ -994,7 +984,7 @@
                         },
                         {
                             "detail": 2,
-                            "entity": "sensor.network_cabinet_temperature",
+                            "entity": "sensor.network_closet_temperature",
                             "graph": "line",
                             "hours_to_show": 8,
                             "icon": "mdi:thermometer-lines",
