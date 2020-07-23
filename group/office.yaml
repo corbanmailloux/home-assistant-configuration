@@ -3,5 +3,5 @@
 office_lights:
   name: Office Lights
   entities:
-    - light.office_pink_lamp
+    - light.plant_lamp
     - light.desk_lamp

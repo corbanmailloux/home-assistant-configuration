@@ -4,17 +4,10 @@ all_lights_custom:
   name: All Lights
   entities:
     - light.bedroom_lamp
-    - light.entry_lamp
-    - light.exit_sign
     - light.fairy_lights
-    - light.living_room_tv_backlight
-    - light.multisensor_light
-    # - light.wall_display_light
+    - light.wall_display_light
     - light.wall_display_screen
-    - switch.christmas_tree
-    - light.couch_lamp
     - light.tv_lamp
-    - light.office_pink_lamp
     - light.desk_lamp
 
 # All lights, switches, and media_players for automations
@@ -23,20 +16,12 @@ everything_custom:
   entities:
     # Lights (and switches that work like lights)
     - light.bedroom_lamp
-    - light.entry_lamp
-    - light.exit_sign
     - light.fairy_lights
-    - light.living_room_tv_backlight
-    - light.multisensor_light
-    # - light.wall_display_light
+    - light.wall_display_light
     - light.wall_display_screen
-    - switch.christmas_tree
-    - light.couch_lamp
     - light.tv_lamp
-    - light.office_pink_lamp
     - light.desk_lamp
 
     # Other devices
     - switch.living_room_tv_power
     - switch.obama
-    - switch.linksio # Floats to various devices.

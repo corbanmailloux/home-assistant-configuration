@@ -2,5 +2,3 @@ living_room_lights:
   name: Living Room Lights
   entities:
     - light.tv_lamp
-    - light.couch_lamp
-    - light.entry_lamp

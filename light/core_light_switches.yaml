@@ -1,18 +1,6 @@
 # Create `light` entities for many `switch`es.
 
 - platform: switch
-  name: TV Lamp
-  entity_id: switch.living_room_lamp_near_tv
-
-- platform: switch
-  name: Couch Lamp
-  entity_id: switch.living_room_couch
-
-- platform: switch
-  name: Office Pink Lamp
-  entity_id: switch.office_pink_lamp
-
-- platform: switch
   name: Desk Lamp
   entity_id: switch.office_desk_lamp
 

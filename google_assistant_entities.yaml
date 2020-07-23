@@ -1,20 +1,15 @@
-group.living_room_lights:
-  room: Living Room
-  expose: true
-group.bedroom_lights:
-  room: Bedroom
-  expose: true
-group.all_lights_custom:
-  name: All Lights
-  expose: true
+# group.living_room_lights:
+#   room: Living Room
+#   expose: true
+# group.bedroom_lights:
+#   room: Bedroom
+#   expose: true
+# group.all_lights_custom:
+#   name: All Lights
+#   expose: true
+
 light.tv_lamp:
   room: Living Room
-  expose: true
-light.couch_lamp:
-  room: Living Room
-  expose: true
-light.office_pink_lamp:
-  room: Office
   expose: true
 switch.living_room_tv_power:
   name: Living Room TV
@@ -43,12 +38,6 @@ light.bedroom_lamp:
 light.fairy_lights:
   room: Bedroom
   expose: true
-# light.exit_sign:
-#   room: Living Room
-#   expose: true
-light.entry_lamp:
-  room: Living Room
-  expose: true
 script.maggie_travel_time_speak:
   name: Maggie Travel Time
   aliases:
@@ -68,15 +57,9 @@ light.desk_lamp:
   room: Office
   expose: true
 light.plant_lamp:
-    name: Plant Lamp
-    aliases:
-      - Office Plant Lamp
-      - Corner Lamp
-    room: Office
-    expose: true
-
-# switch.christmas_tree:
-#   aliases:
-#     - Tree
-#     - Christmas Lights
-#   room: Living Room
+  name: Plant Lamp
+  aliases:
+    - Office Plant Lamp
+    - Corner Lamp
+  room: Office
+  expose: true

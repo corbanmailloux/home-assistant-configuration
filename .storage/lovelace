@@ -180,118 +180,6 @@
                     "badges": [],
                     "cards": [
                         {
-                            "elements": [
-                                {
-                                    "entity": "light.entry_lamp",
-                                    "style": {
-                                        "left": "20.3%",
-                                        "top": "89.1%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.couch_lamp",
-                                    "style": {
-                                        "left": "49.5%",
-                                        "top": "12.5%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.tv_lamp",
-                                    "style": {
-                                        "left": "3%",
-                                        "top": "19%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.living_room_tv",
-                                    "style": {
-                                        "left": "2.5%",
-                                        "top": "39%",
-                                        "transform": "scale(1.5) rotate(270deg)"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Living Room TV",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.living_room_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "46%",
-                                        "top": "94%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Living Room Home",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.wall_display_screen",
-                                    "style": {
-                                        "left": "35.5%",
-                                        "top": "94%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.obama",
-                                    "style": {
-                                        "left": "2.7%",
-                                        "top": "56.5%",
-                                        "transform": "scale(1.5) rotate(270deg)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Obama",
-                                    "type": "state-icon"
-                                }
-                            ],
-                            "image": "/local/images/fp-living-room.png",
-                            "type": "picture-elements"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "light.entry_lamp",
-                                    "icon": "mdi:lamp",
-                                    "toggle": true,
-                                    "type": "custom:slider-entity-row"
-                                },
-                                {
-                                    "entity": "light.tv_lamp",
-                                    "icon": "mdi:floor-lamp"
-                                },
-                                {
-                                    "entity": "light.couch_lamp",
-                                    "icon": "mdi:lamp"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "type": "entities"
-                        },
-                        {
                             "cards": [
                                 {
                                     "cards": [
@@ -398,6 +286,24 @@
                             "type": "vertical-stack"
                         },
                         {
+                            "entities": [
+                                {
+                                    "entity": "light.tv_lamp",
+                                    "icon": "mdi:floor-lamp",
+                                    "toggle": true,
+                                    "type": "custom:slider-entity-row"
+                                },
+                                {
+                                    "entity": "light.wall_display_screen"
+                                },
+                                {
+                                    "entity": "switch.living_room_tv_power"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "type": "entities"
+                        },
+                        {
                             "cards": [
                                 {
                                     "entity": "media_player.living_room_tv",
@@ -461,6 +367,98 @@
                                 }
                             ],
                             "type": "vertical-stack"
+                        },
+                        {
+                            "elements": [
+                                {
+                                    "entity": "light.entry_lamp",
+                                    "style": {
+                                        "left": "20.3%",
+                                        "top": "89.1%",
+                                        "transform": "scale(1.5)"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "light.couch_lamp",
+                                    "style": {
+                                        "left": "49.5%",
+                                        "top": "12.5%",
+                                        "transform": "scale(1.5)"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "light.tv_lamp",
+                                    "style": {
+                                        "left": "3%",
+                                        "top": "19%",
+                                        "transform": "scale(1.5)"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "media_player.living_room_tv",
+                                    "style": {
+                                        "left": "2.5%",
+                                        "top": "39%",
+                                        "transform": "scale(1.5) rotate(270deg)"
+                                    },
+                                    "tap_action": {
+                                        "action": "more-info"
+                                    },
+                                    "title": "Living Room TV",
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "media_player.living_room_speaker",
+                                    "icon": "mdi:google-home",
+                                    "style": {
+                                        "left": "46%",
+                                        "top": "94%"
+                                    },
+                                    "tap_action": {
+                                        "action": "more-info"
+                                    },
+                                    "title": "Living Room Home",
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "light.wall_display_screen",
+                                    "style": {
+                                        "left": "35.5%",
+                                        "top": "94%"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "state-icon"
+                                },
+                                {
+                                    "entity": "switch.obama",
+                                    "style": {
+                                        "left": "2.7%",
+                                        "top": "56.5%",
+                                        "transform": "scale(1.5) rotate(270deg)"
+                                    },
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "title": "Obama",
+                                    "type": "state-icon"
+                                }
+                            ],
+                            "image": "/local/images/fp-living-room.png",
+                            "type": "picture-elements"
                         }
                     ],
                     "icon": "mdi:sofa",
@@ -470,6 +468,87 @@
                 {
                     "badges": [],
                     "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "entity": "light.fairy_lights",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "type": "light"
+                                },
+                                {
+                                    "entity": "light.bedroom_lamp",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "type": "light"
+                                },
+                                {
+                                    "entity": "fan.bedroom_fan",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "button"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "entities": [
+                                "automation.sunrise_alarm",
+                                "input_number.alarm_max_brightness",
+                                "input_datetime.alarm_start_time",
+                                "input_datetime.alarm_target_time"
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Sunrise Alarm",
+                            "type": "entities"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "media_player.bedroom_tv",
+                                    "hide": {
+                                        "power": true,
+                                        "volume": true
+                                    },
+                                    "type": "custom:mini-media-player"
+                                },
+                                {
+                                    "apps": [
+                                        {
+                                            "app": "Netflix",
+                                            "image": "/local/images/netflix-icon.png"
+                                        },
+                                        {
+                                            "app": "Plex - Stream Free TV & Movies",
+                                            "image": "/local/images/plex-icon.png"
+                                        },
+                                        {
+                                            "image": "/local/images/replay-icon-white.png",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "script.bedroom_roku_replay"
+                                            }
+                                        }
+                                    ],
+                                    "entity": "media_player.bedroom_roku",
+                                    "power": {
+                                        "show": false
+                                    },
+                                    "remote": "remote.bedroom_tv",
+                                    "theme": "midnight",
+                                    "type": "custom:roku-card"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
                         {
                             "elements": [
                                 {
@@ -541,69 +620,6 @@
                             ],
                             "image": "/local/images/fp-bedroom.png",
                             "type": "picture-elements"
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "entity": "light.fairy_lights",
-                                    "type": "light"
-                                },
-                                {
-                                    "entity": "light.bedroom_lamp",
-                                    "type": "light"
-                                }
-                            ],
-                            "type": "horizontal-stack"
-                        },
-                        {
-                            "entities": [
-                                "automation.sunrise_alarm",
-                                "input_number.alarm_max_brightness",
-                                "input_datetime.alarm_start_time",
-                                "input_datetime.alarm_target_time"
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Sunrise Alarm",
-                            "type": "entities"
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "entity": "media_player.bedroom_tv",
-                                    "hide": {
-                                        "power": true,
-                                        "volume": true
-                                    },
-                                    "type": "custom:mini-media-player"
-                                },
-                                {
-                                    "apps": [
-                                        {
-                                            "app": "Netflix",
-                                            "image": "/local/images/netflix-icon.png"
-                                        },
-                                        {
-                                            "app": "Plex - Stream Free TV & Movies",
-                                            "image": "/local/images/plex-icon.png"
-                                        },
-                                        {
-                                            "image": "/local/images/replay-icon-white.png",
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.bedroom_roku_replay"
-                                            }
-                                        }
-                                    ],
-                                    "entity": "media_player.bedroom_roku",
-                                    "power": {
-                                        "show": false
-                                    },
-                                    "remote": "remote.bedroom_tv",
-                                    "theme": "midnight",
-                                    "type": "custom:roku-card"
-                                }
-                            ],
-                            "type": "vertical-stack"
                         }
                     ],
                     "icon": "mdi:hotel",
@@ -613,83 +629,6 @@
                 {
                     "badges": [],
                     "cards": [
-                        {
-                            "elements": [
-                                {
-                                    "entity": "light.office_pink_lamp",
-                                    "style": {
-                                        "left": "87.6%",
-                                        "top": "58%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.desk_lamp",
-                                    "style": {
-                                        "left": "39%",
-                                        "top": "85%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.obama",
-                                    "style": {
-                                        "left": "60.5%",
-                                        "top": "90%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Obama",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.office_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "66.5%",
-                                        "top": "92.5%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Office Home",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                    "style": {
-                                        "left": "67%",
-                                        "top": "50%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "title": "Eve",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "fan.small_fan",
-                                    "style": {
-                                        "left": "73%",
-                                        "top": "40.5%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                }
-                            ],
-                            "image": "/local/images/fp-office.png",
-                            "type": "picture-elements"
-                        },
                         {
                             "entities": [
                                 {
@@ -706,46 +645,6 @@
                     "icon": "mdi:monitor",
                     "path": "fp-office",
                     "title": "Office"
-                },
-                {
-                    "badges": [],
-                    "cards": [
-                        {
-                            "elements": [
-                                {
-                                    "entity": "media_player.bathroom_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "60.5%",
-                                        "top": "32%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Bathroom Home",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.kitchen_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "4.5%",
-                                        "top": "40%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Kitchen Home",
-                                    "type": "state-icon"
-                                }
-                            ],
-                            "image": "/local/images/fp-kitchen-bathroom.png",
-                            "type": "picture-elements"
-                        }
-                    ],
-                    "icon": "mdi:paper-roll-outline",
-                    "path": "fp-kitchen-bathroom",
-                    "title": "Kitchen/Bathroom"
                 },
                 {
                     "badges": [],

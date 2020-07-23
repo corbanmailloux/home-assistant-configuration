@@ -89,7 +89,7 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.entry_lamp
+          entity_id: light.tv_lamp
           brightness_pct: 80
   - alias: Schedule - 2 - Dim for movie
     trigger:
@@ -102,7 +102,7 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.entry_lamp
+          entity_id: light.tv_lamp
           brightness_pct: 40
   - alias: Schedule - 3 - Maggs to bed
     trigger:
@@ -140,7 +140,7 @@ automation:
     action:
       - service: light.turn_off
         data:
-          entity_id: light.entry_lamp
+          entity_id: light.tv_lamp
 
 group:
   vacation_schedule_automations:

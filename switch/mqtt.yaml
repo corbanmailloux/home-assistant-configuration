@@ -26,7 +26,7 @@
   retain: true
 
 - platform: mqtt
-  name: office_pink_lamp # power_tail_3
+  name: power_tail_3
   state_topic: "stat/sonoff_3/POWER"
   command_topic: "cmnd/sonoff_3/POWER"
   availability_topic: "tele/sonoff_3/LWT"
@@ -51,7 +51,7 @@
   retain: true
 
 - platform: mqtt
-  name: living_room_couch # power_tail_5
+  name: power_tail_5
   state_topic: "stat/sonoff_5/POWER"
   command_topic: "cmnd/sonoff_5/POWER"
   availability_topic: "tele/sonoff_5/LWT"
