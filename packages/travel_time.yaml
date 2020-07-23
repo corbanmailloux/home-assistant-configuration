@@ -12,12 +12,16 @@ script:
     sequence:
       - delay:
           seconds: 5
-      # - service: tts.google_cloud_say
-      #   entity_id: media_player.living_room_speaker # media_player.everything
-      #   data_template:
-      #     message: >-
-      #       {%- set minutes = states('sensor.maggie_to_home_travel_time') -%}
-      #       Maggie is {{ minutes }} minute{% if minutes != 1 %}s{% endif %} away.
+      - service: tts.google_cloud_say
+        entity_id: media_player.living_room_speaker # media_player.everything
+        data_template:
+          message: >-
+            {%- set minutes = states('sensor.maggie_to_home_travel_time') -%}
+            Maggie is {{ minutes }} minute{% if minutes != 1 %}s{% endif %} away.
+
+  maggie_travel_time_send:
+    alias: "Notify Corban that Maggie's Almost Home"
+    sequence:
       - service: notify.corban
         data:
           title: "Maggie's Almost Home"
@@ -50,7 +54,7 @@ automation:
         state: "off"
     action:
       - service: script.turn_on
-        entity_id: script.maggie_travel_time_speak
+        entity_id: script.maggie_travel_time_send
       - service: timer.start
         entity_id: timer.maggie_home_notification_cooldown
         data:
