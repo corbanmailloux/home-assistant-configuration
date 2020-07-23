@@ -68,7 +68,6 @@ logger:
 device_tracker:
   - platform: mqtt
     devices:
-      edith_wifi: !secret edith_wifi_mqtt_topic
       jackie_wifi: !secret jackie_wifi_mqtt_topic
   - platform: google_maps
     username: !secret google_maps_username

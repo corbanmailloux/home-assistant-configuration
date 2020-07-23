@@ -1,14 +1,4 @@
 automation:
-  - alias: "Set Corban's Phone Location - Webhook"
-    trigger:
-      - platform: webhook
-        webhook_id: !secret edith_wifi_location_webhook
-    action:
-      - service: mqtt.publish
-        data_template:
-          topic: !secret edith_wifi_mqtt_topic
-          retain: true
-          payload: "{{ trigger.json.location }}"
   - alias: "Set Maggie's Phone Location - Webhook"
     trigger:
       - platform: webhook
@@ -35,11 +25,6 @@ binary_sensor:
         value_template: >-
           {{ is_state('person.maggie', 'home') }}
 
-      corban_home_google:
-        friendly_name: "Corban Home - GPS"
-        device_class: presence
-        value_template: >-
-          {{ is_state('device_tracker.google_maps_110168280884137709870', 'home') }}
       maggie_home_google:
         friendly_name: "Maggie Home - GPS"
         device_class: presence

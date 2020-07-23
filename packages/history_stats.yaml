@@ -1,42 +1,23 @@
-sensor:
-  - platform: history_stats
-    name: Heat On Time Today
-    entity_id: sensor.hallway_thermostat_hvac_state
-    state: heat
-    type: time
-    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    end: '{{ now() }}'
-  - platform: history_stats
-    name: Heat On Time Yesterday
-    entity_id: sensor.hallway_thermostat_hvac_state
-    state: heat
-    type: time
-    end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    duration:
-      hours: 24
-  - platform: history_stats
-    name: Obama On Time Last 30 Days
-    entity_id: switch.obama
-    state: "on"
-    type: time
-    end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
-    duration:
-      days: 30
-  - platform: template
-    sensors:
-      obama_cost_last_30_days:
-        friendly_name: Obama On Time Last 30 Days - Estimated Cost
-        value_template: >
-          {% set hours = states("sensor.obama_on_time_last_30_days") | float %}
-          ${{ (hours * 0.000281516853932584 * 100) | round(2) }}
+# sensor:
+#   - platform: history_stats
+#     name: Heat On Time Today
+#     entity_id: sensor.hallway_thermostat_hvac_state
+#     state: heat
+#     type: time
+#     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+#     end: '{{ now() }}'
+#   - platform: history_stats
+#     name: Heat On Time Yesterday
+#     entity_id: sensor.hallway_thermostat_hvac_state
+#     state: heat
+#     type: time
+#     end: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+#     duration:
+#       hours: 24
 
-homeassistant:
-  customize:
-    sensor.heat_on_time_today:
-      icon: mdi:fan
-    sensor.heat_on_time_yesterday:
-      icon: mdi:fan
-    sensor.obama_on_time_last_30_days:
-      icon: mdi:desktop-tower
-    sensor.obama_cost_last_30_days:
-      icon: mdi:currency-usd
+# homeassistant:
+#   customize:
+#     sensor.heat_on_time_today:
+#       icon: mdi:fan
+#     sensor.heat_on_time_yesterday:
+#       icon: mdi:fan
