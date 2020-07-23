@@ -1,5 +1,5 @@
 homeassistant:
-  customize: !include_dir_merge_named customize
+  # customize: !include_dir_merge_named customize
   packages: !include_dir_named packages
 
 # Checks for available updates
@@ -80,8 +80,6 @@ ifttt:
 
 ffmpeg:
 
-speedtestdotnet:
-
 # Google Calendar
 google:
   client_id: !secret google_client_id
@@ -90,7 +88,6 @@ google:
 
 google_assistant:
   project_id: !secret google_assistant_project_id
-  # api_key: !secret google_assistant_api_key
   report_state: true
   service_account: !include google_cloud_assistant_credentials.json
   expose_by_default: false
