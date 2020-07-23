@@ -131,26 +131,23 @@ script:
         entity_id: scene.movie_mode
       - service: script.living_room_tv_and_soundbar_on
 
-  # Even though Obama has been moved, I'm keeping this around to be updated for the Switch soon.
   living_room_game_mode:
     alias: Game Mode
     icon: mdi:google-controller
     sequence:
       - service: scene.turn_on
         entity_id: scene.movie_mode # At least until I make a game mode scene.
-      - service: switch.turn_on
-        entity_id: switch.obama
       - service: script.living_room_tv_and_soundbar_on
       - delay: 00:00:02
       - service: media_player.select_source
         data:
           entity_id: media_player.65_tcl_roku_tv
-          source: Obama
+          source: Switch
       - delay: 00:00:03 # Try a second time in case
       - service: media_player.select_source
         data:
           entity_id: media_player.65_tcl_roku_tv
-          source: Obama
+          source: Switch
 
   # Other
   living_room_tv_and_soundbar_on:
@@ -161,40 +158,6 @@ script:
           - switch.living_room_soundbar_power # And the soundbar.
 
 automation:
-  - alias: Turn on the backlight when the TV turns on
-    trigger:
-      - platform: state
-        entity_id: switch.living_room_tv_power
-        from: "off"
-        to: "on"
-    condition:
-      - condition: state
-        entity_id: input_select.backlight_mode
-        state: "Media control"
-    action:
-      - service: light.turn_on
-        entity_id: light.living_room_tv_backlight
-        data:
-          transition: 5
-          brightness: 200
-          rgb_color: [255, 214, 170]
-
-  - alias: Turn off the backlight when the TV turns off
-    trigger:
-      - platform: state
-        entity_id: switch.living_room_tv_power
-        from: "on"
-        to: "off"
-    condition:
-      - condition: state
-        entity_id: input_select.backlight_mode
-        state: "Media control"
-    action:
-      - service: light.turn_off
-        entity_id: light.living_room_tv_backlight
-        data:
-          transition: 5
-
   - alias: Send play/pause to Chromecast when selected
     trigger:
       - platform: state

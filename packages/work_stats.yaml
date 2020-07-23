@@ -1,14 +1,14 @@
 sensor:
   - platform: history_stats
     name: Corban's Time at Work Today
-    entity_id: device_tracker.google_maps_110168280884137709870
+    entity_id: person.corban
     state: CHT
     type: time
     start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
     end: '{{ now() }}'
   - platform: history_stats
     name: Corban's Time at Work This Week
-    entity_id: device_tracker.google_maps_110168280884137709870
+    entity_id: person.corban
     state: CHT
     type: time
     start: '{{ as_timestamp( now().replace(hour=0).replace(minute=0).replace(second=0) ) - now().weekday() * 86400 }}'
