@@ -371,30 +371,6 @@
                         {
                             "elements": [
                                 {
-                                    "entity": "light.entry_lamp",
-                                    "style": {
-                                        "left": "20.3%",
-                                        "top": "89.1%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.couch_lamp",
-                                    "style": {
-                                        "left": "49.5%",
-                                        "top": "12.5%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
                                     "entity": "light.tv_lamp",
                                     "style": {
                                         "left": "3%",
@@ -441,19 +417,6 @@
                                     "tap_action": {
                                         "action": "toggle"
                                     },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "switch.obama",
-                                    "style": {
-                                        "left": "2.7%",
-                                        "top": "56.5%",
-                                        "transform": "scale(1.5) rotate(270deg)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Obama",
                                     "type": "state-icon"
                                 }
                             ],
