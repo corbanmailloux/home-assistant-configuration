@@ -15,7 +15,7 @@ global_parameters:
 
 # 8 columns per row
 layout:
-  - clock(2x1), weather_custom(4x1), living_room_temp, network_cabinet_temp
+  - clock(2x1), weather_custom(4x1), living_room_temp, network_closet_temp
   - corban_presence, maggie_presence, spacer(4x1), everything_off, google_home_play_pause
   - input_boolean.guest, input_boolean.home_occupied
   - spacer(5x1), script.living_room_dinner_mode, script.living_room_movie_mode, script.living_room_game_mode
@@ -99,10 +99,10 @@ living_room_humidity:
   title: Living Room
   title2: Humidity
 
-network_cabinet_temp:
+network_closet_temp:
   widget_type: sensor
-  entity: sensor.network_cabinet_temperature
-  title: Network Cabinet
+  entity: sensor.network_closet_temperature
+  title: Network Closet
 
 tv:
   widget_type: switch

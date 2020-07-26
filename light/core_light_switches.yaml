@@ -7,3 +7,7 @@
 - platform: switch
   name: Plant Lamp
   entity_id: switch.plant_lamp
+
+- platform: switch
+  name: Office Lamp
+  entity_id: switch.office_lamp

@@ -51,7 +51,7 @@
   retain: true
 
 - platform: mqtt
-  name: power_tail_5
+  name: Office Lamp # power_tail_5
   state_topic: "stat/sonoff_5/POWER"
   command_topic: "cmnd/sonoff_5/POWER"
   availability_topic: "tele/sonoff_5/LWT"
