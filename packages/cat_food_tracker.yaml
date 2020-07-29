@@ -1,0 +1,26 @@
+sensor:
+  - platform: rest
+    name: Cat Food Tracker - Most Recent Meal 1
+    resource: !secret cat_food_tracker_url
+    headers:
+      API-Key: !secret cat_food_tracker_api_key
+    scan_interval: 60 # seconds
+    value_template: >-
+      {{ strptime(value_json.entries[0].submission_time, "%Y-%m-%dT%H:%M:%S%z") | as_timestamp | timestamp_custom("%-I:%M%p") }}
+    json_attributes:
+      - name
+      - upc
+    json_attributes_path: "$.entries[0].product"
+
+  - platform: rest
+    name: Cat Food Tracker - Most Recent Meal 2
+    resource: !secret cat_food_tracker_url
+    headers:
+      API-Key: !secret cat_food_tracker_api_key
+    scan_interval: 60 # seconds
+    value_template: >-
+      {{ strptime(value_json.entries[1].submission_time, "%Y-%m-%dT%H:%M:%S%z") | as_timestamp | timestamp_custom("%-I:%M%p") }}
+    json_attributes:
+      - name
+      - upc
+    json_attributes_path: "$.entries[1].product"
