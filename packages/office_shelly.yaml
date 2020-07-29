@@ -1,0 +1,28 @@
+# Outlet sensor system used in the office. See esphome/outlet_sensor.yaml.
+
+automation:
+  - alias: Office Light Switch - Turn on lamp
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.shelly_switch_sensor
+    condition:
+      - condition: state
+        entity_id: light.office_lamp
+        state: 'off'
+    action:
+      - service: light.turn_on
+        entity_id: light.office_lamp
+        data:
+          brightness: 255
+
+  - alias: Office Light Switch - Turn off lamp
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.shelly_switch_sensor
+    condition:
+      - condition: state
+        entity_id: light.office_lamp
+        state: 'on'
+    action:
+      - service: light.turn_off
+        entity_id: light.office_lamp
