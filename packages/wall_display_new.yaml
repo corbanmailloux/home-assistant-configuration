@@ -1,0 +1,30 @@
+# New wall display elements. (The old wall display will be removed after this one is deployed.)
+
+input_boolean:
+  wall_display_show_map:
+    name: Show map cards on wall display
+
+automation:
+  - alias: Show map when Maggie's on her way home
+    trigger:
+      - platform: state
+        entity_id: person.maggie
+        from: "re"
+        to: "away"
+        for: "00:01:00" # Debounce for a minute
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: wall_display_show_map
+
+  - alias: Hide map when Maggie gets home
+    trigger:
+      - platform: state
+        entity_id: person.maggie
+        from: "away"
+        to: "home"
+        for: "00:03:00" # Allow a couple minute window
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: wall_display_show_map

@@ -599,6 +599,9 @@
                                 },
                                 {
                                     "entity": "light.desk_lamp"
+                                },
+                                {
+                                    "entity": "light.office_lamp"
                                 }
                             ],
                             "title": "Lights",
@@ -982,24 +985,105 @@
                     "badges": [],
                     "cards": [
                         {
-                            "dark_mode": false,
-                            "entities": [
+                            "card": {
+                                "cards": [
+                                    {
+                                        "content": "She's **{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.",
+                                        "title": "Maggie's on her way home.",
+                                        "type": "markdown"
+                                    },
+                                    {
+                                        "dark_mode": false,
+                                        "entities": [
+                                            {
+                                                "entity": "person.corban"
+                                            },
+                                            {
+                                                "entity": "person.maggie"
+                                            },
+                                            {
+                                                "entity": "zone.home"
+                                            },
+                                            {
+                                                "entity": "zone.re"
+                                            }
+                                        ],
+                                        "hours_to_show": 0,
+                                        "type": "map"
+                                    },
+                                    {
+                                        "entities": [
+                                            {
+                                                "entity": "sensor.maggie_to_home_travel_time"
+                                            }
+                                        ],
+                                        "show_header_toggle": false,
+                                        "type": "entities"
+                                    }
+                                ],
+                                "type": "vertical-stack"
+                            },
+                            "conditions": [
                                 {
-                                    "entity": "person.corban"
-                                },
-                                {
-                                    "entity": "person.maggie"
-                                },
-                                {
-                                    "entity": "zone.home"
-                                },
-                                {
-                                    "entity": "zone.re"
+                                    "entity": "input_boolean.wall_display_show_map",
+                                    "state": "on"
                                 }
                             ],
-                            "hours_to_show": 0,
-                            "type": "map"
+                            "type": "conditional"
                         },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "sensor.cat_food_tracker_most_recent_meal_1",
+                                    "name": "Last Meal",
+                                    "show_icon": false,
+                                    "show_label": false,
+                                    "show_state": true,
+                                    "styles": {
+                                        "name": [
+                                            {
+                                                "font-size": "30px"
+                                            }
+                                        ],
+                                        "state": [
+                                            {
+                                                "font-size": "50px"
+                                            }
+                                        ]
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "sensor.cat_food_tracker_most_recent_meal_2",
+                                    "name": "Previous Meal",
+                                    "show_icon": false,
+                                    "show_label": false,
+                                    "show_state": true,
+                                    "styles": {
+                                        "name": [
+                                            {
+                                                "font-size": "30px"
+                                            }
+                                        ],
+                                        "state": [
+                                            {
+                                                "font-size": "50px"
+                                            }
+                                        ]
+                                    },
+                                    "type": "custom:button-card"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        }
+                    ],
+                    "icon": "mdi:tablet-dashboard",
+                    "path": "wall-display",
+                    "title": "Wall Display"
+                },
+                {
+                    "badges": [],
+                    "cards": [
                         {
                             "entity": "timer.zigbee_permit_join",
                             "name": "Timer",
@@ -1019,11 +1103,23 @@
                                 ]
                             },
                             "type": "custom:button-card"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.tablet_wall_display_screen"
+                                },
+                                {
+                                    "entity": "input_boolean.wall_display_show_map"
+                                }
+                            ],
+                            "title": "New Wall Display",
+                            "type": "entities"
                         }
                     ],
-                    "icon": "mdi:tablet-dashboard",
-                    "path": "wall-display",
-                    "title": "Wall Display"
+                    "icon": "mdi:flask",
+                    "path": "experiments",
+                    "title": "Experiments"
                 }
             ]
         }

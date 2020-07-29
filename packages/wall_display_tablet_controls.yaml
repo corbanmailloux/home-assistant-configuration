@@ -1,0 +1,39 @@
+# New wall display, made with a Samsung Galaxy Note 10.1 tablet and using Fully Kiosk browser for control.
+
+# Great structure from https://kleypot.com/fully-kiosk-rest-api-integration-in-home-assistant/
+light:
+  - platform: template
+    lights:
+      tablet_wall_display_screen:
+        friendly_name: Wall Display Screen
+        value_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "isScreenOn") }}'
+        level_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenBrightness") }}'
+        turn_on:
+          service: rest_command.tablet_wall_display_command
+          data:
+            cmd: screenOn
+        turn_off:
+          service: rest_command.tablet_wall_display_command
+          data:
+            cmd: screenOff
+        set_level:
+          service: rest_command.tablet_wall_display_command
+          data_template:
+            cmd: setStringSetting
+            key: screenBrightness
+            value: '{{ brightness }}'
+
+sensor:
+  - platform: rest
+    name: Tablet Wall Display Device Info
+    resource: !secret tablet_wall_display_get_device_info_url
+    json_attributes:
+    - screenBrightness
+    - isScreenOn
+    - plugged
+    value_template: 'OK'
+    scan_interval: 10 # seconds
+
+rest_command:
+  tablet_wall_display_command:
+    url: !secret tablet_wall_display_command_url
