@@ -1,26 +1,32 @@
-# All the lights, for Alexa
+# All the lights, for voice control.
+# TODO: Is this needed still?
 
 all_lights_custom:
   name: All Lights
   entities:
     - light.bedroom_lamp
     - light.fairy_lights
-    - light.wall_display_light
-    - light.wall_display_screen
     - light.tv_lamp
     - light.desk_lamp
+    - light.plant_lamp
+    - light.office_lamp
 
 # All lights, switches, and media_players for automations
 everything_custom:
   name: Everything
   entities:
-    # Lights (and switches that work like lights)
+    # Lights
     - light.bedroom_lamp
     - light.fairy_lights
-    - light.wall_display_light
-    - light.wall_display_screen
     - light.tv_lamp
     - light.desk_lamp
+    - light.plant_lamp
+    - light.office_lamp
+
+    # Wall Displays
+    - light.wall_display_light
+    - light.wall_display_screen
+    - light.tablet_wall_display_screen
 
     # Other devices
     - switch.living_room_tv_power
