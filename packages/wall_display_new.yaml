@@ -2,7 +2,11 @@
 
 input_boolean:
   wall_display_show_map:
-    name: Show map cards on wall display
+    name: Show Map on Wall Display
+  wall_display_show_to_do_list:
+    name: Show To Do List on Wall Display
+  wall_display_show_cat_food_times:
+    name: Show Cat Food Times on Wall Display
 
 automation:
   - alias: Show map when Maggie's on her way home
@@ -10,7 +14,7 @@ automation:
       - platform: state
         entity_id: person.maggie
         from: "re"
-        to: "away"
+        to: "not_home"
         for: "00:01:00" # Debounce for a minute
     action:
       - service: input_boolean.turn_on
@@ -21,7 +25,7 @@ automation:
     trigger:
       - platform: state
         entity_id: person.maggie
-        from: "away"
+        from: "not_home"
         to: "home"
         for: "00:03:00" # Allow a couple minute window
     action:

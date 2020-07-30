@@ -79,3 +79,4 @@ esphome/*
 esphome/secrets.yaml
 # .pioenvs/
 # .piolibdeps/
+.shopping_list.json

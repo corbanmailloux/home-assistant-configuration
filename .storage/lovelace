@@ -7,6 +7,14 @@
             "custom_header": {
                 "chevrons": false,
                 "compact_mode": true,
+                "exceptions": [
+                    {
+                        "conditions": {
+                            "user": "Wall Display"
+                        },
+                        "config": {}
+                    }
+                ],
                 "hidden_tab_redirect": false
             },
             "title": "Home",
@@ -721,18 +729,6 @@
                                 },
                                 {
                                     "entity": "automation.pagerduty_webhook_triggered_event"
-                                },
-                                {
-                                    "entity": "sensor.heat_on_time_today"
-                                },
-                                {
-                                    "entity": "sensor.heat_on_time_yesterday"
-                                },
-                                {
-                                    "entity": "sensor.obama_on_time_last_30_days"
-                                },
-                                {
-                                    "entity": "sensor.obama_cost_last_30_days"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -855,6 +851,57 @@
                             "show_header_toggle": false,
                             "title": "3D Printer",
                             "type": "entities"
+                        },
+                        {
+                            "card": {
+                                "title": "Low Batteries"
+                            },
+                            "entities": [
+                                {
+                                    "entity": "sensor.corbans_iphone_battery_level",
+                                    "name": "Corban's iPhone"
+                                },
+                                {
+                                    "entity": "sensor.jackie_battery_level",
+                                    "name": "Maggie's Phone"
+                                },
+                                {
+                                    "entity": "sensor.0x000d6ffffea6b202_battery",
+                                    "name": "IKEA Remote"
+                                },
+                                {
+                                    "entity": "sensor.corban_bedside_button_battery",
+                                    "name": "Corban's Bedside Button"
+                                },
+                                {
+                                    "entity": "sensor.maggie_bedside_button_battery",
+                                    "name": "Maggie's Bedside Remote"
+                                },
+                                {
+                                    "entity": "sensor.front_door_sensor_battery",
+                                    "name": "Front Door Sensor"
+                                },
+                                {
+                                    "entity": "sensor.office_door_sensor_battery",
+                                    "name": "Office Door Sensor"
+                                },
+                                {
+                                    "entity": "sensor.living_room_sensor_battery",
+                                    "name": "Living Room Temperature Sensor"
+                                },
+                                {
+                                    "entity": "sensor.network_closet_sensor_battery",
+                                    "name": "Network Closet Temperature Sensor"
+                                }
+                            ],
+                            "show_empty": true,
+                            "state_filter": [
+                                {
+                                    "operator": "<",
+                                    "value": 50
+                                }
+                            ],
+                            "type": "entity-filter"
                         }
                     ],
                     "icon": "mdi:settings",
@@ -985,101 +1032,341 @@
                     "badges": [],
                     "cards": [
                         {
-                            "card": {
-                                "cards": [
-                                    {
-                                        "content": "She's **{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.",
-                                        "title": "Maggie's on her way home.",
-                                        "type": "markdown"
-                                    },
-                                    {
-                                        "dark_mode": false,
-                                        "entities": [
-                                            {
-                                                "entity": "person.corban"
-                                            },
-                                            {
-                                                "entity": "person.maggie"
-                                            },
-                                            {
-                                                "entity": "zone.home"
-                                            },
-                                            {
-                                                "entity": "zone.re"
-                                            }
-                                        ],
-                                        "hours_to_show": 0,
-                                        "type": "map"
-                                    },
-                                    {
-                                        "entities": [
-                                            {
-                                                "entity": "sensor.maggie_to_home_travel_time"
-                                            }
-                                        ],
-                                        "show_header_toggle": false,
-                                        "type": "entities"
-                                    }
-                                ],
-                                "type": "vertical-stack"
-                            },
-                            "conditions": [
-                                {
-                                    "entity": "input_boolean.wall_display_show_map",
-                                    "state": "on"
-                                }
-                            ],
-                            "type": "conditional"
-                        },
-                        {
                             "cards": [
                                 {
-                                    "entity": "sensor.cat_food_tracker_most_recent_meal_1",
-                                    "name": "Last Meal",
-                                    "show_icon": false,
-                                    "show_label": false,
-                                    "show_state": true,
-                                    "styles": {
-                                        "name": [
-                                            {
-                                                "font-size": "30px"
-                                            }
-                                        ],
-                                        "state": [
-                                            {
-                                                "font-size": "50px"
-                                            }
-                                        ]
-                                    },
-                                    "type": "custom:button-card"
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.time",
+                                            "show_icon": false,
+                                            "show_label": false,
+                                            "show_name": false,
+                                            "show_state": true,
+                                            "styles": {
+                                                "state": [
+                                                    {
+                                                        "font-size": "60px"
+                                                    }
+                                                ]
+                                            },
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "cards": [
+                                                {
+                                                    "entity": "sensor.cat_food_tracker_most_recent_meal_1",
+                                                    "name": "Last Meal",
+                                                    "show_icon": false,
+                                                    "show_label": false,
+                                                    "show_state": true,
+                                                    "styles": {
+                                                        "state": [
+                                                            {
+                                                                "font-size": "30px"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "entity": "sensor.cat_food_tracker_most_recent_meal_2",
+                                                    "name": "Previous Meal",
+                                                    "show_icon": false,
+                                                    "show_label": false,
+                                                    "show_state": true,
+                                                    "styles": {
+                                                        "state": [
+                                                            {
+                                                                "font-size": "30px"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "type": "custom:button-card"
+                                                }
+                                            ],
+                                            "type": "horizontal-stack"
+                                        },
+                                        {
+                                            "cards": [
+                                                {
+                                                    "entity": "scene.living_room_off",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "icon": "mdi:circle-off-outline",
+                                                    "name": "Lights Off",
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "tap_action": {
+                                                        "action": "call-service",
+                                                        "service": "scene.turn_on"
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                {
+                                                    "entity": "scene.living_room_dim",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "icon": "mdi:moon-last-quarter",
+                                                    "name": "Lights Dim",
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "tap_action": {
+                                                        "action": "call-service",
+                                                        "service": "scene.turn_on",
+                                                        "service_data": {
+                                                            "entity_id": "scene.living_room_dim"
+                                                        }
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                {
+                                                    "entity": "scene.living_room_bright",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "icon": "mdi:moon-full",
+                                                    "name": "Lights Bright",
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "tap_action": {
+                                                        "action": "call-service",
+                                                        "service": "scene.turn_on",
+                                                        "service_data": {
+                                                            "entity_id": "scene.living_room_bright"
+                                                        }
+                                                    },
+                                                    "type": "button"
+                                                }
+                                            ],
+                                            "type": "horizontal-stack"
+                                        }
+                                    ],
+                                    "type": "vertical-stack"
                                 },
                                 {
-                                    "entity": "sensor.cat_food_tracker_most_recent_meal_2",
-                                    "name": "Previous Meal",
-                                    "show_icon": false,
-                                    "show_label": false,
-                                    "show_state": true,
-                                    "styles": {
-                                        "name": [
-                                            {
-                                                "font-size": "30px"
-                                            }
-                                        ],
-                                        "state": [
-                                            {
-                                                "font-size": "50px"
-                                            }
-                                        ]
-                                    },
-                                    "type": "custom:button-card"
+                                    "cards": [
+                                        {
+                                            "entity": "weather.kbos_daynight",
+                                            "secondary_info_attribute": "humidity",
+                                            "type": "weather-forecast"
+                                        },
+                                        {
+                                            "cards": [
+                                                {
+                                                    "entity": "sensor.living_room_temperature",
+                                                    "icon": "mdi:home-thermometer",
+                                                    "layout": "icon_name_state2nd",
+                                                    "name": "Living Room",
+                                                    "show_icon": true,
+                                                    "show_state": true,
+                                                    "styles": {
+                                                        "state": [
+                                                            {
+                                                                "font-size": "20px"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "entity": "sensor.network_closet_temperature",
+                                                    "icon": "mdi:thermometer-lines",
+                                                    "layout": "icon_name_state2nd",
+                                                    "name": "Network Closet",
+                                                    "show_icon": true,
+                                                    "show_state": true,
+                                                    "styles": {
+                                                        "state": [
+                                                            {
+                                                                "font-size": "20px"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "type": "custom:button-card"
+                                                }
+                                            ],
+                                            "type": "horizontal-stack"
+                                        }
+                                    ],
+                                    "type": "vertical-stack"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "cards": [
+                                                {
+                                                    "aspect_ratio": "1/1",
+                                                    "color_type": "label-card",
+                                                    "name": "Cards",
+                                                    "styles": {
+                                                        "name": [
+                                                            {
+                                                                "font-size": "15px"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "aspect_ratio": "1/1",
+                                                    "entity": "input_boolean.wall_display_show_to_do_list",
+                                                    "icon": "mdi:format-list-checks",
+                                                    "name": "To Do List",
+                                                    "show_name": false,
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "aspect_ratio": "1/1",
+                                                    "entity": "input_boolean.wall_display_show_map",
+                                                    "icon": "mdi:map-clock",
+                                                    "name": "Map",
+                                                    "show_name": false,
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "color_type": "blank-card",
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "color_type": "blank-card",
+                                                    "type": "custom:button-card"
+                                                }
+                                            ],
+                                            "type": "horizontal-stack"
+                                        },
+                                        {
+                                            "card": {
+                                                "title": "Low Batteries"
+                                            },
+                                            "entities": [
+                                                {
+                                                    "entity": "sensor.corbans_iphone_battery_level",
+                                                    "name": "Corban's iPhone"
+                                                },
+                                                {
+                                                    "entity": "sensor.jackie_battery_level",
+                                                    "name": "Maggie's Phone"
+                                                },
+                                                {
+                                                    "entity": "sensor.0x000d6ffffea6b202_battery",
+                                                    "name": "IKEA Remote"
+                                                },
+                                                {
+                                                    "entity": "sensor.corban_bedside_button_battery",
+                                                    "name": "Corban's Bedside Button"
+                                                },
+                                                {
+                                                    "entity": "sensor.maggie_bedside_button_battery",
+                                                    "name": "Maggie's Bedside Remote"
+                                                },
+                                                {
+                                                    "entity": "sensor.front_door_sensor_battery",
+                                                    "name": "Front Door Sensor"
+                                                },
+                                                {
+                                                    "entity": "sensor.office_door_sensor_battery",
+                                                    "name": "Office Door Sensor"
+                                                },
+                                                {
+                                                    "entity": "sensor.living_room_sensor_battery",
+                                                    "name": "Living Room Temperature Sensor"
+                                                },
+                                                {
+                                                    "entity": "sensor.network_closet_sensor_battery",
+                                                    "name": "Network Closet Temperature Sensor"
+                                                }
+                                            ],
+                                            "show_empty": false,
+                                            "state_filter": [
+                                                {
+                                                    "operator": "<",
+                                                    "value": 50
+                                                }
+                                            ],
+                                            "type": "entity-filter"
+                                        },
+                                        {
+                                            "card": {
+                                                "title": "To Do List",
+                                                "type": "shopping-list"
+                                            },
+                                            "conditions": [
+                                                {
+                                                    "entity": "input_boolean.wall_display_show_to_do_list",
+                                                    "state": "on"
+                                                }
+                                            ],
+                                            "type": "conditional"
+                                        },
+                                        {
+                                            "card": {
+                                                "cards": [
+                                                    {
+                                                        "content": "{% if is_state('person.maggie', 'home') %} \nMaggie's home now.\n{% else %}\nMaggie's **{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.\n{% endif %}",
+                                                        "type": "markdown"
+                                                    },
+                                                    {
+                                                        "dark_mode": false,
+                                                        "entities": [
+                                                            {
+                                                                "entity": "person.corban"
+                                                            },
+                                                            {
+                                                                "entity": "person.maggie"
+                                                            },
+                                                            {
+                                                                "entity": "zone.home"
+                                                            },
+                                                            {
+                                                                "entity": "zone.re"
+                                                            }
+                                                        ],
+                                                        "hours_to_show": 0,
+                                                        "type": "map"
+                                                    },
+                                                    {
+                                                        "entities": [
+                                                            {
+                                                                "entity": "sensor.maggie_to_home_travel_time"
+                                                            }
+                                                        ],
+                                                        "show_header_toggle": false,
+                                                        "type": "entities"
+                                                    }
+                                                ],
+                                                "type": "vertical-stack"
+                                            },
+                                            "conditions": [
+                                                {
+                                                    "entity": "input_boolean.wall_display_show_map",
+                                                    "state": "on"
+                                                }
+                                            ],
+                                            "type": "conditional"
+                                        }
+                                    ],
+                                    "type": "vertical-stack"
                                 }
                             ],
                             "type": "horizontal-stack"
                         }
                     ],
                     "icon": "mdi:tablet-dashboard",
+                    "panel": true,
                     "path": "wall-display",
-                    "title": "Wall Display"
+                    "title": "Wall Display",
+                    "visible": [
+                        {
+                            "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
+                        },
+                        {
+                            "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
+                        },
+                        {
+                            "user": "906ef5ceb6e2470ba3ddf18ae4277191"
+                        }
+                    ]
                 },
                 {
                     "badges": [],
@@ -1113,13 +1400,22 @@
                                     "entity": "input_boolean.wall_display_show_map"
                                 }
                             ],
+                            "show_header_toggle": false,
                             "title": "New Wall Display",
                             "type": "entities"
                         }
                     ],
                     "icon": "mdi:flask",
                     "path": "experiments",
-                    "title": "Experiments"
+                    "title": "Experiments",
+                    "visible": [
+                        {
+                            "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
+                        },
+                        {
+                            "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
+                        }
+                    ]
                 }
             ]
         }
