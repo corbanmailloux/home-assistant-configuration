@@ -144,7 +144,7 @@ automation:
       - service: light.turn_on
         data:
           entity_id: light.tv_lamp
-          brightness: 127 # 50%
+          brightness: 255
 
   # TODO: Set up for new thermostat.
   # - alias: Home Occupied - Set Nest home

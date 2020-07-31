@@ -1086,6 +1086,60 @@
                                             "type": "horizontal-stack"
                                         },
                                         {
+                                            "color_type": "label-card",
+                                            "name": "--- Living Room ---",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "homeassistant.turn_off",
+                                                "service_data": {
+                                                    "entity_id": "group.living_room_lights"
+                                                }
+                                            },
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "cards": [
+                                                {
+                                                    "entity": "switch.living_room_tv_power",
+                                                    "hold_action": {
+                                                        "action": "call-service",
+                                                        "service": "switch.turn_on",
+                                                        "service_data": {
+                                                            "entity_id": "switch.living_room_tv_power"
+                                                        }
+                                                    },
+                                                    "name": "TV",
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "entity-button"
+                                                },
+                                                {
+                                                    "entity": "script.living_room_movie_mode",
+                                                    "hold_action": {
+                                                        "action": "none"
+                                                    },
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "entity-button"
+                                                },
+                                                {
+                                                    "entity": "script.living_room_game_mode",
+                                                    "hold_action": {
+                                                        "action": "none"
+                                                    },
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "entity-button"
+                                                }
+                                            ],
+                                            "type": "horizontal-stack"
+                                        },
+                                        {
                                             "cards": [
                                                 {
                                                     "entity": "scene.living_room_off",
@@ -1135,6 +1189,59 @@
                                                         "service_data": {
                                                             "entity_id": "scene.living_room_bright"
                                                         }
+                                                    },
+                                                    "type": "button"
+                                                }
+                                            ],
+                                            "type": "horizontal-stack"
+                                        },
+                                        {
+                                            "color_type": "label-card",
+                                            "name": "--- Office ---",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "homeassistant.turn_off",
+                                                "service_data": {
+                                                    "entity_id": "group.office_lights"
+                                                }
+                                            },
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "cards": [
+                                                {
+                                                    "entity": "light.plant_lamp",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                {
+                                                    "entity": "light.desk_lamp",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "tap_action": {
+                                                        "action": "toggle"
+                                                    },
+                                                    "type": "button"
+                                                },
+                                                {
+                                                    "entity": "light.office_lamp",
+                                                    "hold_action": {
+                                                        "action": "more-info"
+                                                    },
+                                                    "show_icon": true,
+                                                    "show_name": true,
+                                                    "tap_action": {
+                                                        "action": "toggle"
                                                     },
                                                     "type": "button"
                                                 }
