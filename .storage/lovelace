@@ -137,8 +137,12 @@
                                 },
                                 {
                                     "entities": [
-                                        "sensor.maggie_location_icon",
-                                        "sensor.edna_battery_level"
+                                        {
+                                            "entity": "sensor.maggie_location_icon"
+                                        },
+                                        {
+                                            "entity": "sensor.edna_battery_level"
+                                        }
                                     ],
                                     "entity": "binary_sensor.maggie_person_home",
                                     "image": "/local/images/maggie.jpg",
@@ -1087,16 +1091,8 @@
                                             "type": "horizontal-stack"
                                         },
                                         {
-                                            "color_type": "label-card",
-                                            "name": "--- Living Room ---",
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "homeassistant.turn_off",
-                                                "service_data": {
-                                                    "entity_id": "group.living_room_lights"
-                                                }
-                                            },
-                                            "type": "custom:button-card"
+                                            "text": "Living Room",
+                                            "type": "custom:text-divider-row"
                                         },
                                         {
                                             "cards": [
@@ -1201,16 +1197,8 @@
                                             "type": "horizontal-stack"
                                         },
                                         {
-                                            "color_type": "label-card",
-                                            "name": "--- Office ---",
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "homeassistant.turn_off",
-                                                "service_data": {
-                                                    "entity_id": "group.office_lights"
-                                                }
-                                            },
-                                            "type": "custom:button-card"
+                                            "text": "Office",
+                                            "type": "custom:text-divider-row"
                                         },
                                         {
                                             "cards": [
@@ -1299,6 +1287,37 @@
                                                 }
                                             ],
                                             "type": "horizontal-stack"
+                                        },
+                                        {
+                                            "cards": [
+                                                {
+                                                    "decimals": 0,
+                                                    "entities": [
+                                                        "sensor.living_room_temperature"
+                                                    ],
+                                                    "icon": "mdi:home-thermometer",
+                                                    "name": "Living Room",
+                                                    "show": {
+                                                        "graph": true,
+                                                        "points": false
+                                                    },
+                                                    "type": "custom:mini-graph-card"
+                                                },
+                                                {
+                                                    "decimals": 0,
+                                                    "entities": [
+                                                        "sensor.network_closet_temperature"
+                                                    ],
+                                                    "icon": "mdi:thermometer-lines",
+                                                    "name": "Network Closet",
+                                                    "show": {
+                                                        "graph": true,
+                                                        "points": false
+                                                    },
+                                                    "type": "custom:mini-graph-card"
+                                                }
+                                            ],
+                                            "type": "horizontal-stack"
                                         }
                                     ],
                                     "type": "vertical-stack"
@@ -1306,20 +1325,11 @@
                                 {
                                     "cards": [
                                         {
+                                            "text": "Dynamic Cards",
+                                            "type": "custom:text-divider-row"
+                                        },
+                                        {
                                             "cards": [
-                                                {
-                                                    "aspect_ratio": "1/1",
-                                                    "color_type": "label-card",
-                                                    "name": "Cards",
-                                                    "styles": {
-                                                        "name": [
-                                                            {
-                                                                "font-size": "15px"
-                                                            }
-                                                        ]
-                                                    },
-                                                    "type": "custom:button-card"
-                                                },
                                                 {
                                                     "aspect_ratio": "1/1",
                                                     "entity": "input_boolean.wall_display_show_to_do_list",
@@ -1334,6 +1344,18 @@
                                                     "icon": "mdi:map-clock",
                                                     "name": "Map",
                                                     "show_name": false,
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "color_type": "blank-card",
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "color_type": "blank-card",
+                                                    "type": "custom:button-card"
+                                                },
+                                                {
+                                                    "color_type": "blank-card",
                                                     "type": "custom:button-card"
                                                 },
                                                 {
