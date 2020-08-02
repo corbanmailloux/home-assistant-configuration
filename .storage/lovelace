@@ -1091,8 +1091,14 @@
                                             "type": "horizontal-stack"
                                         },
                                         {
-                                            "text": "Living Room",
-                                            "type": "custom:text-divider-row"
+                                            "content": "## Living Room\n",
+                                            "style": {
+                                                ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                                "ha-markdown": {
+                                                    "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                                }
+                                            },
+                                            "type": "markdown"
                                         },
                                         {
                                             "cards": [
@@ -1197,8 +1203,14 @@
                                             "type": "horizontal-stack"
                                         },
                                         {
-                                            "text": "Office",
-                                            "type": "custom:text-divider-row"
+                                            "content": "## Office\n",
+                                            "style": {
+                                                ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                                "ha-markdown": {
+                                                    "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                                }
+                                            },
+                                            "type": "markdown"
                                         },
                                         {
                                             "cards": [
@@ -1325,8 +1337,14 @@
                                 {
                                     "cards": [
                                         {
-                                            "text": "Dynamic Cards",
-                                            "type": "custom:text-divider-row"
+                                            "content": "## Dynamic Cards\n",
+                                            "style": {
+                                                ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                                "ha-markdown": {
+                                                    "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                                }
+                                            },
+                                            "type": "markdown"
                                         },
                                         {
                                             "cards": [
@@ -1344,10 +1362,6 @@
                                                     "icon": "mdi:map-clock",
                                                     "name": "Map",
                                                     "show_name": false,
-                                                    "type": "custom:button-card"
-                                                },
-                                                {
-                                                    "color_type": "blank-card",
                                                     "type": "custom:button-card"
                                                 },
                                                 {
