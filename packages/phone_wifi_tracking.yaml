@@ -1,15 +1,3 @@
-automation:
-  - alias: "Set Maggie's Phone Location - Webhook"
-    trigger:
-      - platform: webhook
-        webhook_id: !secret jackie_wifi_location_webhook
-    action:
-      - service: mqtt.publish
-        data_template:
-          topic: !secret jackie_wifi_mqtt_topic
-          retain: true
-          payload: "{{ trigger.json.location }}"
-
 binary_sensor:
   - platform: template
     sensors:

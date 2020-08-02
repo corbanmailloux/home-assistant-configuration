@@ -62,9 +62,6 @@ logger:
     homeassistant.components.media_player.roku: critical
 
 device_tracker:
-  - platform: mqtt
-    devices:
-      jackie_wifi: !secret jackie_wifi_mqtt_topic
   - platform: google_maps
     username: !secret google_maps_username
 
