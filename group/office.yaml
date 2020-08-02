@@ -5,3 +5,4 @@ office_lights:
   entities:
     - light.plant_lamp
     - light.desk_lamp
+    - light.office_lamp
