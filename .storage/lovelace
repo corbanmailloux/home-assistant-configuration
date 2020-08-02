@@ -138,7 +138,7 @@
                                 {
                                     "entities": [
                                         "sensor.maggie_location_icon",
-                                        "sensor.jackie_battery_level"
+                                        "sensor.edna_battery_level"
                                     ],
                                     "entity": "binary_sensor.maggie_person_home",
                                     "image": "/local/images/maggie.jpg",
@@ -862,7 +862,7 @@
                                     "name": "Corban's iPhone"
                                 },
                                 {
-                                    "entity": "sensor.jackie_battery_level",
+                                    "entity": "sensor.edna_battery_level",
                                     "name": "Maggie's Phone"
                                 },
                                 {
@@ -1029,6 +1029,7 @@
                     "title": "Network"
                 },
                 {
+                    "background": "center / cover no-repeat fixed url('https://home.corb.co/local/images/wall-panel-background.png')",
                     "badges": [],
                     "cards": [
                         {
@@ -1127,12 +1128,13 @@
                                                     "type": "entity-button"
                                                 },
                                                 {
-                                                    "entity": "script.living_room_game_mode",
+                                                    "entity": "script.roku_play_pause",
                                                     "hold_action": {
                                                         "action": "none"
                                                     },
                                                     "tap_action": {
-                                                        "action": "toggle"
+                                                        "action": "call-service",
+                                                        "service": "script.roku_play_pause"
                                                     },
                                                     "type": "entity-button"
                                                 }
@@ -1152,7 +1154,10 @@
                                                     "show_name": true,
                                                     "tap_action": {
                                                         "action": "call-service",
-                                                        "service": "scene.turn_on"
+                                                        "service": "scene.turn_on",
+                                                        "service_data": {
+                                                            "entity_id": "scene.living_room_off"
+                                                        }
                                                     },
                                                     "type": "button"
                                                 },
@@ -1352,7 +1357,7 @@
                                                     "name": "Corban's iPhone"
                                                 },
                                                 {
-                                                    "entity": "sensor.jackie_battery_level",
+                                                    "entity": "sensor.edna_battery_level",
                                                     "name": "Maggie's Phone"
                                                 },
                                                 {
@@ -1388,7 +1393,7 @@
                                             "state_filter": [
                                                 {
                                                     "operator": "<",
-                                                    "value": 50
+                                                    "value": 25
                                                 }
                                             ],
                                             "type": "entity-filter"
