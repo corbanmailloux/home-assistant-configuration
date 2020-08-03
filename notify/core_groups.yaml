@@ -5,7 +5,7 @@
   platform: group
   services:
     - service: mobile_app_corbans_iphone
-    - service: mobile_app_pixel
+    - service: mobile_app_edna
 
 - name: adult_ios_phones
   platform: group
@@ -15,7 +15,7 @@
 - name: adult_android_phones
   platform: group
   services:
-    - service: mobile_app_pixel
+    - service: mobile_app_edna
 
 # I keep switching notification systems and having to refactor a bunch of configs. Extract them here:
 - name: corban
@@ -26,4 +26,4 @@
 - name: maggie
   platform: group
   services:
-    - service: mobile_app_pixel
+    - service: mobile_app_edna
