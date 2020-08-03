@@ -21,4 +21,4 @@ homeassistant:
   customize:
     light.fairy_lights:
       friendly_name: Fairy Lights
-      icon: mdi:hotel
+      icon: mdi:bed
