@@ -1,7 +1,7 @@
 sensor:
   - platform: waze_travel_time
     name: "Maggie to Home Travel Time"
-    origin: device_tracker.google_maps_106112096418399445974 # TODO: Swap for HASS Companion-based device tracker?
+    origin: person.maggie
     destination: zone.home
     region: "US"
 

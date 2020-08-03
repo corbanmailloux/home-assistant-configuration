@@ -13,7 +13,7 @@ automation:
     trigger:
       - platform: state
         entity_id: person.maggie
-        from: "re"
+        from: "RE"
         to: "not_home"
         for: "00:01:00" # Debounce for a minute
     action:
