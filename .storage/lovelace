@@ -1259,9 +1259,15 @@
                                 {
                                     "cards": [
                                         {
+                                            "current": true,
+                                            "details": false,
                                             "entity": "weather.kbos_daynight",
-                                            "secondary_info_attribute": "humidity",
-                                            "type": "weather-forecast"
+                                            "forecast": true,
+                                            "hourly_forecast": false,
+                                            "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
+                                            "name": "Home",
+                                            "number_of_forecasts": 5,
+                                            "type": "custom:weather-card"
                                         },
                                         {
                                             "cards": [
