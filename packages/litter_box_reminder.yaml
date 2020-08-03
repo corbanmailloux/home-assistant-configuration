@@ -3,6 +3,11 @@
 # This pushes a notification to both of our phones to ensure the litter box is cleaned each night.
 # If one user acknowledges the notification, the notification is dismissed on both devices.
 
+input_boolean:
+  litter_box_clean_needed:
+    name: "Litter Box Needs Cleaning"
+    icon: "mdi:broom"
+
 automation:
   - alias: Reminder to do the litter box
     trigger:
@@ -12,6 +17,16 @@ automation:
       - condition: state
         entity_id: input_boolean.vacation_mode
         state: "off"
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: input_boolean.litter_box_clean_needed
+
+  - alias: Send reminder to do the litter box
+    trigger:
+      - platform: state
+        entity_id: input_boolean.litter_box_clean_needed
+        to: "on"
     action:
       - service: notify.adult_android_phones
         data:
@@ -33,13 +48,28 @@ automation:
             apns_headers:
               "apns-collapse-id": "litter-box"
 
-  # When marking the box as complete on Android, send the update to all devices (iOS and Android).
-  - alias: Litter box reminder clicked - Android
+
+  # Dismiss notifications on all devices when acknowledged.
+  - alias: Litter box reminder clicked
     trigger:
       - platform: event
         event_type: mobile_app_notification_action
         event_data:
           action: litter_box_complete
+      - platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          actionName: COMPLETE
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: input_boolean.litter_box_clean_needed
+
+  - alias: Dismiss litter box notifications
+    trigger:
+      - platform: state
+        entity_id: input_boolean.litter_box_clean_needed
+        to: "off"
     action:
       - service: notify.adult_android_phones
         data:
@@ -56,20 +86,6 @@ automation:
             apns_headers:
               "apns-collapse-id": "litter-box"
 
-  # When marking the box as complete from iOS, only send the dismiss command to Android.
-  # This is because the iOS notification gets dismissed when clicked.
-  - alias: Litter box reminder clicked - iOS
-    trigger:
-      - platform: event
-        event_type: ios.notification_action_fired
-        event_data:
-          actionName: COMPLETE
-    action:
-      - service: notify.adult_android_phones
-        data:
-          message: clear_notification
-          data:
-            tag: 10 # Arbitrary but constant.
 
 ios:
   push:

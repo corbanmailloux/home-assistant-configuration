@@ -597,7 +597,7 @@
                             "type": "picture-elements"
                         }
                     ],
-                    "icon": "mdi:hotel",
+                    "icon": "mdi:bed",
                     "path": "fp-bedroom",
                     "title": "Bedroom"
                 },
@@ -908,7 +908,7 @@
                             "type": "entity-filter"
                         }
                     ],
-                    "icon": "mdi:settings",
+                    "icon": "mdi:cog",
                     "path": "management",
                     "title": "Management"
                 },
@@ -1041,19 +1041,14 @@
                                 {
                                     "cards": [
                                         {
-                                            "entity": "sensor.time",
-                                            "show_icon": false,
-                                            "show_label": false,
-                                            "show_name": false,
-                                            "show_state": true,
-                                            "styles": {
-                                                "state": [
-                                                    {
-                                                        "font-size": "60px"
-                                                    }
-                                                ]
+                                            "content": "{% set date = now().strftime(\"%Y-%m-%dT\") %}\n\n# {{ strptime(date + states(\"sensor.time\"), \"%H:%M\") |\nas_timestamp | timestamp_custom(\"%-I:%M%p\") }}\n",
+                                            "style": {
+                                                ".": "ha-card {\n  padding: 1em 0;\n}\n",
+                                                "ha-markdown": {
+                                                    "$": "h1 {\n  font-size: 50px;\n  font-weight: normal;\n  text-align: center;\n  white-space: nowrap;\n}\n"
+                                                }
                                             },
-                                            "type": "custom:button-card"
+                                            "type": "markdown"
                                         },
                                         {
                                             "cards": [
@@ -1383,7 +1378,14 @@
                                                     "type": "custom:button-card"
                                                 },
                                                 {
-                                                    "color_type": "blank-card",
+                                                    "aspect_ratio": "1/1",
+                                                    "entity": "script.tablet_wall_display_reload",
+                                                    "name": "Refresh",
+                                                    "show_name": false,
+                                                    "tap_action": {
+                                                        "action": "call-service",
+                                                        "service": "script.tablet_wall_display_reload"
+                                                    },
                                                     "type": "custom:button-card"
                                                 }
                                             ],
@@ -1498,6 +1500,24 @@
                                                 }
                                             ],
                                             "type": "conditional"
+                                        },
+                                        {
+                                            "card": {
+                                                "color": "red",
+                                                "entity": "input_boolean.litter_box_clean_needed",
+                                                "layout": "icon_name",
+                                                "name": "Litter Box Clean Needed",
+                                                "show_icon": true,
+                                                "show_state": false,
+                                                "type": "custom:button-card"
+                                            },
+                                            "conditions": [
+                                                {
+                                                    "entity": "input_boolean.litter_box_clean_needed",
+                                                    "state": "on"
+                                                }
+                                            ],
+                                            "type": "conditional"
                                         }
                                     ],
                                     "type": "vertical-stack"
@@ -1552,6 +1572,9 @@
                                 },
                                 {
                                     "entity": "input_boolean.wall_display_show_map"
+                                },
+                                {
+                                    "entity": "input_boolean.litter_box_clean_needed"
                                 }
                             ],
                             "show_header_toggle": false,
