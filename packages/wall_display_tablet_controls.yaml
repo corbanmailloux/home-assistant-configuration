@@ -37,3 +37,12 @@ sensor:
 rest_command:
   tablet_wall_display_command:
     url: !secret tablet_wall_display_command_url
+
+script:
+  tablet_wall_display_reload:
+    alias: "Reload the Wall Display"
+    icon: "mdi:refresh"
+    sequence:
+      - service: rest_command.tablet_wall_display_command
+        data:
+          cmd: loadStartUrl

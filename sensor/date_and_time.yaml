@@ -1,3 +1,12 @@
 - platform: time_date
   display_options:
     - 'time'
+
+- platform: template
+  sensors:
+    local_display_time:
+      friendly_name: "Time"
+      entity_id: "sensor.time" # Force and update each minute.
+      device_class: timestamp
+      value_template: >-
+        {{ now().strftime("%-I:%M%p") }}

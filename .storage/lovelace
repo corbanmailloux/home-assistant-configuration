@@ -1041,14 +1041,23 @@
                                 {
                                     "cards": [
                                         {
-                                            "content": "{% set date = now().strftime(\"%Y-%m-%dT\") %}\n\n# {{ strptime(date + states(\"sensor.time\"), \"%H:%M\") |\nas_timestamp | timestamp_custom(\"%-I:%M%p\") }}\n",
-                                            "style": {
-                                                ".": "ha-card {\n  padding: 1em 0;\n}\n",
-                                                "ha-markdown": {
-                                                    "$": "h1 {\n  font-size: 50px;\n  font-weight: normal;\n  text-align: center;\n  white-space: nowrap;\n}\n"
-                                                }
+                                            "entity": "sensor.local_display_time",
+                                            "show_icon": false,
+                                            "show_label": false,
+                                            "show_name": false,
+                                            "show_state": true,
+                                            "styles": {
+                                                "state": [
+                                                    {
+                                                        "font-size": "50px"
+                                                    }
+                                                ]
                                             },
-                                            "type": "markdown"
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "script.tablet_wall_display_reload"
+                                            },
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "cards": [
