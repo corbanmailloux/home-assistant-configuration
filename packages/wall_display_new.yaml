@@ -19,7 +19,7 @@ automation:
     action:
       - service: input_boolean.turn_on
         data:
-          entity_id: wall_display_show_map
+          entity_id: input_boolean.wall_display_show_map
 
   - alias: Hide map when Maggie gets home
     trigger:
@@ -31,4 +31,46 @@ automation:
     action:
       - service: input_boolean.turn_off
         data:
-          entity_id: wall_display_show_map
+          entity_id: input_boolean.wall_display_show_map
+
+  - alias: Update Trash Sensor
+    trigger:
+      - platform: time_pattern
+        minutes: 1 # Every hour at *:01
+    action:
+      - service: homeassistant.update_entity
+        entity_id: binary_sensor.put_trash_out
+
+
+binary_sensor:
+  - platform: template
+    sensors:
+      put_trash_out:
+        friendly_name: Time to put the trash out
+        icon_template: "mdi:delete-sweep"
+        value_template: >-
+          {% set time = now() %}
+
+          {% if 0 <= time.weekday() <= 3 %}
+            {# Monday - Thursday: 6-8PM #}
+            {% if time.hour < 18 %}
+              False
+            {% elif 18 <= time.hour <= 19 %}
+              True
+            {% else %}
+              False {# Too late #}
+            {% endif %}
+          {% elif time.weekday() == 6 %}
+            {# Sunday: 5-7PM #}
+            {% if time.hour < 17 %}
+              False
+            {% elif 17 <= time.hour <= 18 %}
+              True
+            {% else %}
+              False {# Too late #}
+            {% endif %}
+          {% else %}
+            False
+          {% endif %}
+        entity_id: []
+        device_class: problem
