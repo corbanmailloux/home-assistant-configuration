@@ -1527,6 +1527,23 @@
                                                 }
                                             ],
                                             "type": "conditional"
+                                        },
+                                        {
+                                            "card": {
+                                                "color": "green",
+                                                "entity": "binary_sensor.put_trash_out",
+                                                "layout": "icon_name",
+                                                "show_icon": true,
+                                                "show_state": false,
+                                                "type": "custom:button-card"
+                                            },
+                                            "conditions": [
+                                                {
+                                                    "entity": "binary_sensor.put_trash_out",
+                                                    "state": "on"
+                                                }
+                                            ],
+                                            "type": "conditional"
                                         }
                                     ],
                                     "type": "vertical-stack"
