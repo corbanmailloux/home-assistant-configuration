@@ -5,6 +5,12 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.bedroom_switch
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.bedroom_switch
+        from: 'on'
+        to: 'off'
     condition:
       - condition: state
         entity_id: light.bedroom_lamp
@@ -19,6 +25,12 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.bedroom_switch
+        from: 'off'
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.bedroom_switch
+        from: 'on'
+        to: 'off'
     condition:
       - condition: state
         entity_id: light.bedroom_lamp
