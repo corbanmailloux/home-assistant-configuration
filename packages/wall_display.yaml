@@ -18,9 +18,6 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.wall_display_screen
-      - service: light.turn_on
-        data:
           entity_id: light.tablet_wall_display_screen
 
 homeassistant:

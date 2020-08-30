@@ -24,8 +24,6 @@ everything_custom:
     - light.office_lamp
 
     # Wall Displays
-    - light.wall_display_light
-    - light.wall_display_screen
     - light.tablet_wall_display_screen
 
     # Other devices
