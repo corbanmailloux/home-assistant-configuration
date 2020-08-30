@@ -9,13 +9,7 @@ wifi:
   password: !secret wifi_password
   use_address: 10.0.0.245
 
-# api:
-
-mqtt:
-  broker: !secret mqtt_broker_ip
-  username: !secret mqtt_username_esphomelib
-  password: !secret mqtt_password_esphomelib
-  # discovery: clean
+api:
 
 # Enable logging
 logger:
@@ -60,40 +54,53 @@ switch:
 
 binary_sensor:
   - platform: remote_receiver
-    name: "Roku Remote: Mute Button"
-    nec:
-      address: 0x57E3
-      command: 0x04FB
-    filters:
-      - delayed_off: 200ms
-    on_release:
-      then:
-        - switch.turn_on:
-            id: sb_power
-  - platform: remote_receiver
-    name: "Roku Remote: Volume Up Button"
-    nec:
-      address: 0x57E3
-      command: 0xF00F
-    filters:
-      - delayed_off: 200ms
-    on_release:
-      then:
-        - switch.turn_on:
-            id: sb_vol_up
-  - platform: remote_receiver
-    name: "Roku Remote: Volume Down Button"
-    nec:
-      address: 0x57E3
-      command: 0x08F7
-    filters:
-      - delayed_off: 200ms
-    on_release:
-      then:
-        - switch.turn_on:
-            id: sb_vol_down
-  - platform: remote_receiver
     name: "Roku Remote: Play/Pause Button"
     nec:
       address: 0x57E3
       command: 0x32CD
+
+  - platform: remote_receiver
+    name: "Living Room Remote - Source"
+    internal: true
+    nec:
+      address: 0x00FF
+      command: 0x718E
+    filters:
+      - delayed_off: 100ms
+    on_press:
+      then:
+        - homeassistant.event:
+            event: esphome.living_room.source
+  - platform: remote_receiver
+    name: "Living Room Remote - Channel Up"
+    internal: true
+    nec:
+      address: 0x00FF
+      command: 0xD12E
+    filters:
+      - delayed_off: 100ms
+    on_press:
+      then:
+        - homeassistant.event:
+            event: esphome.living_room.channel_up
+  - platform: remote_receiver
+    name: "Living Room Remote - Channel Down"
+    internal: true
+    nec:
+      address: 0x00FF
+      command: 0x51AE
+    filters:
+      - delayed_off: 100ms
+    on_press:
+      then:
+        - homeassistant.event:
+            event: esphome.living_room.channel_down
+
+# Source / Soundbar play/pause
+# address=0x00FF, command=0x718E
+
+# Channel up / Soudbar skip forward
+# address=0x00FF, command=0xD12E
+
+# Channel down / Soudbar skip backward
+# address=0x00FF, command=0x51AE
