@@ -306,9 +306,6 @@
                                     "type": "custom:slider-entity-row"
                                 },
                                 {
-                                    "entity": "light.wall_display_screen"
-                                },
-                                {
                                     "entity": "switch.living_room_tv_power"
                                 }
                             ],
@@ -379,61 +376,6 @@
                                 }
                             ],
                             "type": "vertical-stack"
-                        },
-                        {
-                            "elements": [
-                                {
-                                    "entity": "light.tv_lamp",
-                                    "style": {
-                                        "left": "3%",
-                                        "top": "19%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.living_room_tv",
-                                    "style": {
-                                        "left": "2.5%",
-                                        "top": "39%",
-                                        "transform": "scale(1.5) rotate(270deg)"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Living Room TV",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.living_room_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "46%",
-                                        "top": "94%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Living Room Home",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.wall_display_screen",
-                                    "style": {
-                                        "left": "35.5%",
-                                        "top": "94%"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "type": "state-icon"
-                                }
-                            ],
-                            "image": "/local/images/fp-living-room.png",
-                            "type": "picture-elements"
                         }
                     ],
                     "icon": "mdi:sofa",
@@ -523,78 +465,6 @@
                                 }
                             ],
                             "type": "vertical-stack"
-                        },
-                        {
-                            "elements": [
-                                {
-                                    "entity": "light.fairy_lights",
-                                    "style": {
-                                        "left": "39%",
-                                        "top": "30%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Fairy Lights",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "fan.bedroom_fan",
-                                    "style": {
-                                        "left": "60%",
-                                        "top": "85.2%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Fan",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "light.bedroom_lamp",
-                                    "icon": "mdi:lightbulb",
-                                    "style": {
-                                        "left": "8.4%",
-                                        "top": "65.3%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
-                                    "title": "Bedroom Lamp",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.bedroom_tv",
-                                    "style": {
-                                        "left": "42%",
-                                        "top": "86%",
-                                        "transform": "scale(1.5)"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Bedroom TV",
-                                    "type": "state-icon"
-                                },
-                                {
-                                    "entity": "media_player.bedroom_speaker",
-                                    "icon": "mdi:google-home",
-                                    "style": {
-                                        "left": "38%",
-                                        "top": "91.5%"
-                                    },
-                                    "tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "title": "Bedroom Home",
-                                    "type": "state-icon"
-                                }
-                            ],
-                            "image": "/local/images/fp-bedroom.png",
-                            "type": "picture-elements"
                         }
                     ],
                     "icon": "mdi:bed",
@@ -721,22 +591,6 @@
                             ],
                             "show_header_toggle": false,
                             "title": "Maggie Travel Time",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.corban_s_time_at_work_today"
-                                },
-                                {
-                                    "entity": "sensor.corban_s_time_at_work_this_week"
-                                },
-                                {
-                                    "entity": "automation.pagerduty_webhook_triggered_event"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Fun Stuff",
                             "type": "entities"
                         },
                         {
@@ -1573,26 +1427,6 @@
                     "badges": [],
                     "cards": [
                         {
-                            "entity": "timer.zigbee_permit_join",
-                            "name": "Timer",
-                            "show_icon": false,
-                            "show_label": false,
-                            "show_state": true,
-                            "styles": {
-                                "name": [
-                                    {
-                                        "font-size": "40px"
-                                    }
-                                ],
-                                "state": [
-                                    {
-                                        "font-size": "70px"
-                                    }
-                                ]
-                            },
-                            "type": "custom:button-card"
-                        },
-                        {
                             "entities": [
                                 {
                                     "entity": "light.tablet_wall_display_screen"
@@ -1605,7 +1439,7 @@
                                 }
                             ],
                             "show_header_toggle": false,
-                            "title": "New Wall Display",
+                            "title": "Wall Display",
                             "type": "entities"
                         }
                     ],
