@@ -1,0 +1,55 @@
+automation:
+  - alias: "Living Room Remote - Channel Up: Brighten lights"
+    mode: single # Cool down delay at the end.
+    trigger:
+      - platform: event
+        event_type: esphome.living_room.channel_up
+    action:
+      - choose:
+        # Off: Turn on dim
+        - conditions:
+          - condition: state
+            entity_id: light.tv_lamp
+            state: "off"
+          sequence:
+            - service: scene.turn_on
+              entity_id: scene.living_room_dim
+        # Dim: Turn on bright
+        - conditions:
+          - condition: template
+            value_template: >-
+              {{ state_attr("light.tv_lamp", "brightness") < 150 }}
+          sequence:
+            - service: scene.turn_on
+              entity_id: scene.living_room_bright
+      - delay:
+          milliseconds: 200
+
+  - alias: "Living Room Remote - Channel Down: Dim lights"
+    mode: single # Cool down delay at the end.
+    trigger:
+      - platform: event
+        event_type: esphome.living_room.channel_down
+    action:
+      - choose:
+        # Bright: Turn on dim
+        - conditions:
+          - condition: template
+            value_template: >-
+              {{ state_attr("light.tv_lamp", "brightness") >= 150 }}
+          sequence:
+            - service: scene.turn_on
+              entity_id: scene.living_room_dim
+        # Dim: Turn off
+        - conditions:
+          - condition: template
+            value_template: >-
+              {{ state_attr("light.tv_lamp", "brightness") < 150 }}
+          sequence:
+            # This should be a scene, but the scene seems to automatically add a transition. Skip it.
+            - service: light.turn_off
+              entity_id: light.tv_lamp
+              data:
+                transition: 0
+      - delay:
+          milliseconds: 200
