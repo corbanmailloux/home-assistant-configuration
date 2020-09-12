@@ -1,9 +1,15 @@
 automation:
   - alias: Bedside Button 2 - Click - Fairy Toggle
     trigger:
-      - platform: state
-        entity_id: sensor.corban_bedside_button_click
-        to: "single"
+      - platform: device
+        domain: mqtt
+        device_id: ac01e2cb060249f980958e940eb74383
+        discovery_id: 0x00158d0001e8842e action_single
+        type: action
+        subtype: single
+      # - platform: state
+      #   entity_id: sensor.corban_bedside_button_click
+      #   to: "single"
     action:
       # Explanation of the tri-state logic:
       # If the light is off, turn it on to 100%.
@@ -25,20 +31,24 @@ automation:
 
   - alias: Bedside Button 2 - Double Click - Fan
     trigger:
-      - platform: state
-        entity_id: sensor.corban_bedside_button_click
-        to: "double"
+      - platform: device
+        domain: mqtt
+        device_id: ac01e2cb060249f980958e940eb74383
+        discovery_id: 0x00158d0001e8842e action_double
+        type: action
+        subtype: double
     action:
       - service: homeassistant.toggle
         entity_id: fan.bedroom_fan
 
   - alias: Bedside Button 2 - Hold - Everything Off
     trigger:
-      - platform: mqtt
-        topic: "zigbee2mqtt/Corban Bedside Button"
-    condition:
-      - condition: template
-        value_template: '{{ "hold" == trigger.payload_json.action }}'
+      - platform: device
+        domain: mqtt
+        device_id: ac01e2cb060249f980958e940eb74383
+        discovery_id: 0x00158d0001e8842e action_hold
+        type: action
+        subtype: hold
     action:
       - service: script.turn_on
         entity_id: script.everything_off

@@ -66,9 +66,12 @@ automation:
 
   - alias: Living Room Switch - Press On sets the home as occupied
     trigger:
-      - platform: state
-        entity_id: sensor.0x000d6ffffea6b202_click
-        to: "on" # Up
+      - platform: device
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        discovery_id: 0x000d6ffffea6b202 action_on
+        domain: mqtt
+        type: action
+        subtype: 'on' # Up
     action:
       - service: input_boolean.turn_on
         data:
@@ -76,9 +79,12 @@ automation:
 
   - alias: Living Room Switch - Press Off sets the home as unoccupied
     trigger:
-      - platform: state
-        entity_id: sensor.0x000d6ffffea6b202_click
-        to: "off" # Down
+      - platform: device
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        discovery_id: 0x000d6ffffea6b202 action_off
+        domain: mqtt
+        type: action
+        subtype: 'off' # Down
     action:
       - service: input_boolean.turn_off
         data:
@@ -86,18 +92,24 @@ automation:
 
   - alias: Living Room Switch - Hold On turns on movie mode
     trigger:
-      - platform: state
-        entity_id: sensor.0x000d6ffffea6b202_click
-        to: "brightness_up" # Hold up
+      - platform: device
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
+        domain: mqtt
+        type: action
+        subtype: brightness_move_up
     action:
       - service: script.turn_on
         entity_id: script.living_room_movie_mode
 
   - alias: Living Room Switch - Hold Off for unoccupied and vacuum run
     trigger:
-      - platform: state
-        entity_id: sensor.0x000d6ffffea6b202_click
-        to: "brightness_down" # Hold down
+      - platform: device
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
+        domain: mqtt
+        type: action
+        subtype: brightness_move_down
     action:
       - service: input_boolean.turn_off
         data:

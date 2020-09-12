@@ -1,18 +1,24 @@
 automation:
   - alias: Bedside Button 1 - Toggle Bedroom Light
     trigger:
-      platform: state
-      entity_id: sensor.maggie_bedside_button_action
-      to: "toggle"
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_toggle
+        domain: mqtt
+        type: action
+        subtype: toggle
     action:
-      service: light.toggle
-      entity_id: light.bedroom_lamp
+      - service: light.toggle
+        entity_id: light.bedroom_lamp
 
   - alias: Bedside Button 1 - Brightness Up
     trigger:
-      platform: state
-      entity_id: sensor.maggie_bedside_button_action
-      to: "brightness_up_click"
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_brightness_up_click
+        domain: mqtt
+        type: action
+        subtype: brightness_up_click
     action:
       - service: light.turn_on
         entity_id: light.bedroom_lamp
@@ -28,9 +34,12 @@ automation:
 
   - alias: Bedside Button 1 - Brightness Down
     trigger:
-      platform: state
-      entity_id: sensor.maggie_bedside_button_action
-      to: "brightness_down_click"
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_brightness_down_click
+        domain: mqtt
+        type: action
+        subtype: brightness_down_click
     condition:
       - condition: state
         entity_id: light.bedroom_lamp
@@ -49,9 +58,12 @@ automation:
 
   - alias: Bedside Button 1 - Brightness Up Hold
     trigger:
-      platform: state
-      entity_id: sensor.maggie_bedside_button_action
-      to: "brightness_up_hold"
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_brightness_up_hold
+        domain: mqtt
+        type: action
+        subtype: brightness_up_hold
     action:
       - service: light.turn_on
         entity_id: light.bedroom_lamp
@@ -60,9 +72,12 @@ automation:
 
   - alias: Bedside Button 1 - Brightness Down Hold
     trigger:
-      platform: state
-      entity_id: sensor.maggie_bedside_button_action
-      to: "brightness_down_hold"
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_brightness_down_hold
+        domain: mqtt
+        type: action
+        subtype: brightness_down_hold
     action:
       - service: light.turn_on
         entity_id: light.bedroom_lamp
@@ -71,18 +86,24 @@ automation:
 
   - alias: Bedside Button 1 - Left Button Click - Fan
     trigger:
-      platform: state
-      entity_id: sensor.maggie_bedside_button_action
-      to: "arrow_left_click"
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
+        domain: mqtt
+        type: action
+        subtype: arrow_left_click
     action:
       - service: homeassistant.toggle
         entity_id: fan.bedroom_fan
 
   - alias: Bedside Button 1 - Right Button Click - Fairy Toggle
     trigger:
-      - platform: state
-        entity_id: sensor.maggie_bedside_button_action
-        to: "arrow_right_click"
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_arrow_right_click
+        domain: mqtt
+        type: action
+        subtype: arrow_right_click
     action:
       # Explanation of the tri-state logic:
       # If the light is off, turn it on to 100%.
