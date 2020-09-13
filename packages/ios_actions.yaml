@@ -1,0 +1,11 @@
+automation:
+  - alias: iOS Event - Roku Play/Pause
+    trigger:
+      - platform: event
+        event_type: ios.action_fired
+        event_data:
+          actionID: 3BB720C8-1921-4CD8-8791-7F7D08DF4637
+          actionName: Play/Pause
+          sourceDeviceID: corbans_iphone
+    action:
+      - service: script.roku_play_pause
