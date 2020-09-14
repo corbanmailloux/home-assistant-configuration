@@ -1,6 +1,6 @@
 # Core helpers that are used in other automations and packages.
 
-# One of these is iOS and the other Android, so only the `title` and `message` are compatible with both.
+# Generic notification group. Only assume `title` and `message` are compatible with this.
 - name: adult_phones
   platform: group
   services:
