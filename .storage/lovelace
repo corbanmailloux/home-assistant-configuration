@@ -1434,43 +1434,6 @@
                                         {
                                             "cards": [
                                                 {
-                                                    "entity": "sensor.living_room_temperature",
-                                                    "icon": "mdi:home-thermometer",
-                                                    "layout": "icon_name_state2nd",
-                                                    "name": "Living Room",
-                                                    "show_icon": true,
-                                                    "show_state": true,
-                                                    "styles": {
-                                                        "state": [
-                                                            {
-                                                                "font-size": "20px"
-                                                            }
-                                                        ]
-                                                    },
-                                                    "type": "custom:button-card"
-                                                },
-                                                {
-                                                    "entity": "sensor.network_closet_temperature",
-                                                    "icon": "mdi:thermometer-lines",
-                                                    "layout": "icon_name_state2nd",
-                                                    "name": "Network Closet",
-                                                    "show_icon": true,
-                                                    "show_state": true,
-                                                    "styles": {
-                                                        "state": [
-                                                            {
-                                                                "font-size": "20px"
-                                                            }
-                                                        ]
-                                                    },
-                                                    "type": "custom:button-card"
-                                                }
-                                            ],
-                                            "type": "horizontal-stack"
-                                        },
-                                        {
-                                            "cards": [
-                                                {
                                                     "decimals": 0,
                                                     "entities": [
                                                         "sensor.living_room_temperature"

@@ -18,15 +18,15 @@ automation:
         entity_id: input_boolean.vacation_mode
         state: "on"
     action:
-      - service: notify.adult_android_phones
-        data:
-          title: "Welcome back!"
-          message: "Turn off vacation mode?"
-          data:
-            tag: 20 # Arbitrary but constant.
-            actions:
-              - action: "turn_off_vacation_mode"
-                title: "Yes, turn off."
+      # - service: notify.adult_android_phones
+      #   data:
+      #     title: "Welcome back!"
+      #     message: "Turn off vacation mode?"
+      #     data:
+      #       tag: 20 # Arbitrary but constant.
+      #       actions:
+      #         - action: "turn_off_vacation_mode"
+      #           title: "Yes, turn off."
       - service: notify.adult_ios_phones
         data:
           title: "Welcome back!"
@@ -48,12 +48,12 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacation_mode
-      # Let's be honest; it's usually Corban that clicks this, so dismiss the notification on Maggie's phone.
-      - service: notify.adult_android_phones
-        data:
-          message: clear_notification
-          data:
-            tag: 20 # Arbitrary but constant.
+      # TODO: Clean iOS notifications as well.
+      # - service: notify.adult_android_phones
+      #   data:
+      #     message: clear_notification
+      #     data:
+      #       tag: 20 # Arbitrary but constant.
 
   ## Schedule
   - alias: Schedule - Enable/Disable Automations

@@ -28,16 +28,16 @@ automation:
         entity_id: input_boolean.litter_box_clean_needed
         to: "on"
     action:
-      - service: notify.adult_android_phones
-        data:
-          title: "Litter Box Check"
-          message: "Has the litter box been done?"
-          data:
-            tag: 10 # Arbitrary but constant.
-            icon: https://home.corb.co/local/litter_box/litter_box_icon.png
-            actions:
-              - action: "litter_box_complete"
-                title: "Yes, complete."
+      # - service: notify.adult_android_phones
+      #   data:
+      #     title: "Litter Box Check"
+      #     message: "Has the litter box been done?"
+      #     data:
+      #       tag: 10 # Arbitrary but constant.
+      #       icon: https://home.corb.co/local/litter_box/litter_box_icon.png
+      #       actions:
+      #         - action: "litter_box_complete"
+      #           title: "Yes, complete."
       - service: notify.adult_ios_phones
         data:
           title: "Litter Box Check"
@@ -71,11 +71,11 @@ automation:
         entity_id: input_boolean.litter_box_clean_needed
         to: "off"
     action:
-      - service: notify.adult_android_phones
-        data:
-          message: clear_notification
-          data:
-            tag: 10 # Arbitrary but constant.
+      # - service: notify.adult_android_phones
+      #   data:
+      #     message: clear_notification
+      #     data:
+      #       tag: 10 # Arbitrary but constant.
       - service: notify.adult_ios_phones
         data:
           title: "Litter Box Check - Complete"
