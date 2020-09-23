@@ -228,7 +228,7 @@
                                                     "entity": "sensor.maggie_location_icon"
                                                 },
                                                 {
-                                                    "entity": "sensor.edna_battery_level"
+                                                    "entity": "sensor.margarets_iphone_battery_level"
                                                 }
                                             ],
                                             "entity": "binary_sensor.maggie_person_home",
