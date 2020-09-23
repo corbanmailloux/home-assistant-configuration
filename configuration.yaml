@@ -91,17 +91,7 @@ tts:
     key_file: google_cloud_credentials.json
     voice: en-US-Standard-C
 
-roku:
-  - host: !secret living_room_tv_host
-  - host: !secret bedroom_roku_host
-
 mobile_app:
-
-nzbget:
-  host: !secret tubby_host
-  port: !secret tubby_nzbget_port
-  username: !secret tubby_nzbget_user
-  password: !secret tubby_nzbget_pass
 
 # automation: !include_dir_merge_list automation
 automation: !include automations.yaml # For the automation editor

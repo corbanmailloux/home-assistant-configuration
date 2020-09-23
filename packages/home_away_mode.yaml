@@ -132,14 +132,8 @@ automation:
         after: "07:00:00"
         before: "21:00:00"
       # Check that nothing is playing in the living room (as to not interrupt someone's media).
-      # Note: With Roku, this just means that some channel is open, not necessarily that media is actually playing.
-      # This weird app_id is the "Davinci Channel" which seems to occasionally be active when the TV is turned off.
-      - condition: template
-        value_template: >-
-          {{ states("media_player.living_room_tv") != "playing" or state_attr("media_player.living_room_tv", "app_id") == "250045" }}
-      - condition: template
-        value_template: >-
-          {{ states("media_player.kitchen_speaker") != "playing" }}
+      - condition: >-
+          {{ states("media_player.living_room_tv") != "playing" }}
     action:
       - service: script.turn_on
         entity_id: script.welcome_home_announcement

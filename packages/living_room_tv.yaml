@@ -70,35 +70,32 @@ switch:
           - service: switch.turn_on
             entity_id: switch.soundbar_power
 
-rest_command:
-  # https://sdkdocs.roku.com/display/sdkdoc/External+Control+API#ExternalControlAPI-KeypressKeyValues
-  living_room_roku_keypress:
-    url: "http://10.0.0.248:8060/keypress/{{button}}"
-    method: post
-
 script:
   # Script wrappers for the Roku controls.
   roku_play_pause:
     alias: "Play/Pause"
     icon: mdi:play-pause
     sequence:
-      - service: rest_command.living_room_roku_keypress
+      - service: remote.send_command
         data:
-          button: Play
+          entity_id: remote.living_room_roku_tv
+          command: "play"
   roku_replay:
     alias: "Replay"
     icon: mdi:replay
     sequence:
-      - service: rest_command.living_room_roku_keypress
+      - service: remote.send_command
         data:
-          button: InstantReplay
+          entity_id: remote.living_room_roku_tv
+          command: "replay"
   roku_back:
     alias: "Back"
     icon: mdi:keyboard-backspace
     sequence:
-      - service: rest_command.living_room_roku_keypress
+      - service: remote.send_command
         data:
-          button: Back
+          entity_id: remote.living_room_roku_tv
+          command: "back"
 
   # esphome autoconfigures switches for these. Wrap them in scripts so they appear as buttons in the front end.
   soundbar_volume_up:
