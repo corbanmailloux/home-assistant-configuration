@@ -12,3 +12,39 @@
   - data: {}
     entity_id: light.plant_lamp
     service: light.turn_on
+- id: '1600700259497'
+  alias: Desk Lamp On When Mac Camera Turns On
+  description: ''
+  trigger:
+  - device_id: 5ca769405dd84442b3017a90f1fef185
+    domain: binary_sensor
+    entity_id: binary_sensor.corban_s_vmware_mbp_facetime_hd_camera_built_in
+    platform: device
+    type: turned_on
+  condition:
+  - condition: state
+    entity_id: binary_sensor.corban_person_home
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: light.desk_lamp
+    service: light.turn_on
+  mode: single
+- id: '1600700308805'
+  alias: Desk Lamp Off When Mac Camera Turns Off
+  description: ''
+  trigger:
+  - device_id: 5ca769405dd84442b3017a90f1fef185
+    domain: binary_sensor
+    entity_id: binary_sensor.corban_s_vmware_mbp_facetime_hd_camera_built_in
+    platform: device
+    type: turned_off
+  condition:
+  - condition: state
+    entity_id: binary_sensor.corban_person_home
+    state: 'on'
+  action:
+  - data: {}
+    entity_id: light.desk_lamp
+    service: light.turn_off
+  mode: single
