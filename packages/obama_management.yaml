@@ -4,7 +4,6 @@ switch:
       obama:
         friendly_name: Obama
         icon_template: "mdi:desktop-tower"
-        entity_id: "binary_sensor.obama_online"
         value_template: "{{ is_state('binary_sensor.obama_online', 'on') }}"
         turn_on:
           service: script.obama_wake

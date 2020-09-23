@@ -24,7 +24,6 @@ sensor:
     sensors:
       corban_location_icon:
         friendly_name: Corban's Location
-        entity_id: person.corban
         icon_template: >-
           {% set state = states('person.corban') %}
 
@@ -44,7 +43,6 @@ sensor:
 
       maggie_location_icon:
         friendly_name: Maggie's Location
-        entity_id: person.maggie
         icon_template: >-
           {% set state = states('person.maggie') %}
 

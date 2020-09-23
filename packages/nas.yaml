@@ -16,7 +16,6 @@ sensor:
       download_speed_limit:
         friendly_name: Download Speed Limit
         unit_of_measurement: MB/s
-        entity_id: input_select.download_speed
         value_template: >-
           {% set e_id = "input_select.download_speed" %}
           {% if is_state(e_id, "Full Speed") %}

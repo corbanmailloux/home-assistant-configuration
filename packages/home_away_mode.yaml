@@ -132,7 +132,8 @@ automation:
         after: "07:00:00"
         before: "21:00:00"
       # Check that nothing is playing in the living room (as to not interrupt someone's media).
-      - condition: >-
+      - condition: template
+        value_template: >-
           {{ states("media_player.living_room_tv") != "playing" }}
     action:
       - service: script.turn_on

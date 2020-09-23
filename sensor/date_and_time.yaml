@@ -6,7 +6,7 @@
   sensors:
     local_display_time:
       friendly_name: "Time"
-      entity_id: "sensor.time" # Force and update each minute.
       device_class: timestamp
       value_template: >-
+        {% set dummy = states("sensor.time") %}
         {{ now().strftime("%-I:%M%p") }}
