@@ -1,4 +1,6 @@
 {
+    "version": 1,
+    "key": "lovelace",
     "data": {
         "config": {
             "cch": {
@@ -255,14 +257,14 @@
                                         {
                                             "entity": "sensor.living_room_temperature",
                                             "icon": "mdi:home-thermometer",
-                                            "layout": "icon_name_state2nd",
+                                            "layout": "icon_state",
                                             "name": "Living Room",
                                             "show_icon": true,
                                             "show_state": true,
                                             "styles": {
                                                 "state": [
                                                     {
-                                                        "font-size": "20px"
+                                                        "font-size": "18px"
                                                     }
                                                 ]
                                             },
@@ -271,14 +273,30 @@
                                         {
                                             "entity": "sensor.network_closet_temperature",
                                             "icon": "mdi:thermometer-lines",
-                                            "layout": "icon_name_state2nd",
+                                            "layout": "icon_state",
                                             "name": "Network Closet",
                                             "show_icon": true,
                                             "show_state": true,
                                             "styles": {
                                                 "state": [
                                                     {
-                                                        "font-size": "20px"
+                                                        "font-size": "18px"
+                                                    }
+                                                ]
+                                            },
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "entity": "sensor.office_temperature",
+                                            "icon": "mdi:monitor-multiple",
+                                            "layout": "icon_state",
+                                            "name": "Office",
+                                            "show_icon": true,
+                                            "show_state": true,
+                                            "styles": {
+                                                "state": [
+                                                    {
+                                                        "font-size": "18px"
                                                     }
                                                 ]
                                             },
@@ -1458,6 +1476,19 @@
                                                         "points": false
                                                     },
                                                     "type": "custom:mini-graph-card"
+                                                },
+                                                {
+                                                    "decimals": 0,
+                                                    "entities": [
+                                                        "sensor.office_temperature"
+                                                    ],
+                                                    "icon": "mdi:monitor-multiple",
+                                                    "name": "Office",
+                                                    "show": {
+                                                        "graph": true,
+                                                        "points": false
+                                                    },
+                                                    "type": "custom:mini-graph-card"
                                                 }
                                             ],
                                             "type": "horizontal-stack"
@@ -1724,7 +1755,5 @@
                 }
             ]
         }
-    },
-    "key": "lovelace",
-    "version": 1
+    }
 }
