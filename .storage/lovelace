@@ -185,6 +185,18 @@
                                                 "action": "toggle"
                                             },
                                             "type": "button"
+                                        },
+                                        {
+                                            "entity": "light.office_video_light",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "button"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -1215,497 +1227,508 @@
                         {
                             "cards": [
                                 {
+                                    "entity": "sensor.local_display_time",
+                                    "show_icon": false,
+                                    "show_label": false,
+                                    "show_name": false,
+                                    "show_state": true,
+                                    "styles": {
+                                        "state": [
+                                            {
+                                                "font-size": "50px"
+                                            }
+                                        ]
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.tablet_wall_display_reload"
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
                                     "cards": [
                                         {
-                                            "entity": "sensor.local_display_time",
+                                            "entity": "sensor.cat_food_tracker_most_recent_meal_1",
+                                            "name": "Last Meal",
                                             "show_icon": false,
                                             "show_label": false,
-                                            "show_name": false,
                                             "show_state": true,
                                             "styles": {
                                                 "state": [
                                                     {
-                                                        "font-size": "50px"
+                                                        "font-size": "30px"
                                                     }
                                                 ]
                                             },
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "entity": "sensor.cat_food_tracker_most_recent_meal_2",
+                                            "name": "Previous Meal",
+                                            "show_icon": false,
+                                            "show_label": false,
+                                            "show_state": true,
+                                            "styles": {
+                                                "state": [
+                                                    {
+                                                        "font-size": "30px"
+                                                    }
+                                                ]
+                                            },
+                                            "type": "custom:button-card"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "content": "## Living Room\n",
+                                    "style": {
+                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                        "ha-markdown": {
+                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                        }
+                                    },
+                                    "type": "markdown"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "switch.living_room_tv_power",
+                                            "hold_action": {
+                                                "action": "call-service",
+                                                "service": "switch.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "switch.living_room_tv_power"
+                                                }
+                                            },
+                                            "name": "TV",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.living_room_movie_mode",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "entity-button"
+                                        },
+                                        {
+                                            "entity": "script.roku_play_pause",
+                                            "hold_action": {
+                                                "action": "none"
+                                            },
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "script.roku_play_pause"
+                                            },
+                                            "type": "entity-button"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "scene.living_room_off",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "icon": "mdi:circle-off-outline",
+                                            "name": "Lights Off",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "scene.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "scene.living_room_off"
+                                                }
+                                            },
+                                            "type": "button"
+                                        },
+                                        {
+                                            "entity": "scene.living_room_dim",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "icon": "mdi:moon-last-quarter",
+                                            "name": "Lights Dim",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "scene.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "scene.living_room_dim"
+                                                }
+                                            },
+                                            "type": "button"
+                                        },
+                                        {
+                                            "entity": "scene.living_room_bright",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "icon": "mdi:moon-full",
+                                            "name": "Lights Bright",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "scene.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "scene.living_room_bright"
+                                                }
+                                            },
+                                            "type": "button"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "content": "## Office\n",
+                                    "style": {
+                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                        "ha-markdown": {
+                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                        }
+                                    },
+                                    "type": "markdown"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "light.plant_lamp",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "button"
+                                        },
+                                        {
+                                            "entity": "light.desk_lamp",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "button"
+                                        },
+                                        {
+                                            "entity": "light.office_lamp",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "button"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "current": true,
+                                    "details": false,
+                                    "entity": "weather.kbos_daynight",
+                                    "forecast": true,
+                                    "hourly_forecast": false,
+                                    "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
+                                    "name": "Home",
+                                    "number_of_forecasts": 5,
+                                    "type": "custom:weather-card"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "decimals": 0,
+                                            "entities": [
+                                                "sensor.living_room_temperature"
+                                            ],
+                                            "icon": "mdi:home-thermometer",
+                                            "name": "Living Room",
+                                            "show": {
+                                                "graph": true,
+                                                "points": false
+                                            },
+                                            "type": "custom:mini-graph-card"
+                                        },
+                                        {
+                                            "decimals": 0,
+                                            "entities": [
+                                                "sensor.network_closet_temperature"
+                                            ],
+                                            "icon": "mdi:thermometer-lines",
+                                            "name": "Network Closet",
+                                            "show": {
+                                                "graph": true,
+                                                "points": false
+                                            },
+                                            "type": "custom:mini-graph-card"
+                                        },
+                                        {
+                                            "decimals": 0,
+                                            "entities": [
+                                                "sensor.office_temperature"
+                                            ],
+                                            "icon": "mdi:monitor-multiple",
+                                            "name": "Office",
+                                            "show": {
+                                                "graph": true,
+                                                "points": false
+                                            },
+                                            "type": "custom:mini-graph-card"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "content": "## Dynamic Cards\n",
+                                    "style": {
+                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                        "ha-markdown": {
+                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                        }
+                                    },
+                                    "type": "markdown"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "aspect_ratio": "1/1",
+                                            "entity": "input_boolean.wall_display_show_to_do_list",
+                                            "icon": "mdi:format-list-checks",
+                                            "name": "To Do List",
+                                            "show_name": false,
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "aspect_ratio": "1/1",
+                                            "entity": "input_boolean.wall_display_show_map",
+                                            "icon": "mdi:map-clock",
+                                            "name": "Map",
+                                            "show_name": false,
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "color_type": "blank-card",
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "color_type": "blank-card",
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "color_type": "blank-card",
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "aspect_ratio": "1/1",
+                                            "entity": "script.tablet_wall_display_reload",
+                                            "name": "Refresh",
+                                            "show_name": false,
                                             "tap_action": {
                                                 "action": "call-service",
                                                 "service": "script.tablet_wall_display_reload"
                                             },
                                             "type": "custom:button-card"
-                                        },
-                                        {
-                                            "cards": [
-                                                {
-                                                    "entity": "sensor.cat_food_tracker_most_recent_meal_1",
-                                                    "name": "Last Meal",
-                                                    "show_icon": false,
-                                                    "show_label": false,
-                                                    "show_state": true,
-                                                    "styles": {
-                                                        "state": [
-                                                            {
-                                                                "font-size": "30px"
-                                                            }
-                                                        ]
-                                                    },
-                                                    "type": "custom:button-card"
-                                                },
-                                                {
-                                                    "entity": "sensor.cat_food_tracker_most_recent_meal_2",
-                                                    "name": "Previous Meal",
-                                                    "show_icon": false,
-                                                    "show_label": false,
-                                                    "show_state": true,
-                                                    "styles": {
-                                                        "state": [
-                                                            {
-                                                                "font-size": "30px"
-                                                            }
-                                                        ]
-                                                    },
-                                                    "type": "custom:button-card"
-                                                }
-                                            ],
-                                            "type": "horizontal-stack"
-                                        },
-                                        {
-                                            "content": "## Living Room\n",
-                                            "style": {
-                                                ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                                "ha-markdown": {
-                                                    "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                                }
-                                            },
-                                            "type": "markdown"
-                                        },
-                                        {
-                                            "cards": [
-                                                {
-                                                    "entity": "switch.living_room_tv_power",
-                                                    "hold_action": {
-                                                        "action": "call-service",
-                                                        "service": "switch.turn_on",
-                                                        "service_data": {
-                                                            "entity_id": "switch.living_room_tv_power"
-                                                        }
-                                                    },
-                                                    "name": "TV",
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "entity-button"
-                                                },
-                                                {
-                                                    "entity": "script.living_room_movie_mode",
-                                                    "hold_action": {
-                                                        "action": "none"
-                                                    },
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "entity-button"
-                                                },
-                                                {
-                                                    "entity": "script.roku_play_pause",
-                                                    "hold_action": {
-                                                        "action": "none"
-                                                    },
-                                                    "tap_action": {
-                                                        "action": "call-service",
-                                                        "service": "script.roku_play_pause"
-                                                    },
-                                                    "type": "entity-button"
-                                                }
-                                            ],
-                                            "type": "horizontal-stack"
-                                        },
-                                        {
-                                            "cards": [
-                                                {
-                                                    "entity": "scene.living_room_off",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "icon": "mdi:circle-off-outline",
-                                                    "name": "Lights Off",
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "tap_action": {
-                                                        "action": "call-service",
-                                                        "service": "scene.turn_on",
-                                                        "service_data": {
-                                                            "entity_id": "scene.living_room_off"
-                                                        }
-                                                    },
-                                                    "type": "button"
-                                                },
-                                                {
-                                                    "entity": "scene.living_room_dim",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "icon": "mdi:moon-last-quarter",
-                                                    "name": "Lights Dim",
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "tap_action": {
-                                                        "action": "call-service",
-                                                        "service": "scene.turn_on",
-                                                        "service_data": {
-                                                            "entity_id": "scene.living_room_dim"
-                                                        }
-                                                    },
-                                                    "type": "button"
-                                                },
-                                                {
-                                                    "entity": "scene.living_room_bright",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "icon": "mdi:moon-full",
-                                                    "name": "Lights Bright",
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "tap_action": {
-                                                        "action": "call-service",
-                                                        "service": "scene.turn_on",
-                                                        "service_data": {
-                                                            "entity_id": "scene.living_room_bright"
-                                                        }
-                                                    },
-                                                    "type": "button"
-                                                }
-                                            ],
-                                            "type": "horizontal-stack"
-                                        },
-                                        {
-                                            "content": "## Office\n",
-                                            "style": {
-                                                ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                                "ha-markdown": {
-                                                    "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                                }
-                                            },
-                                            "type": "markdown"
-                                        },
-                                        {
-                                            "cards": [
-                                                {
-                                                    "entity": "light.plant_lamp",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "button"
-                                                },
-                                                {
-                                                    "entity": "light.desk_lamp",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "button"
-                                                },
-                                                {
-                                                    "entity": "light.office_lamp",
-                                                    "hold_action": {
-                                                        "action": "more-info"
-                                                    },
-                                                    "show_icon": true,
-                                                    "show_name": true,
-                                                    "tap_action": {
-                                                        "action": "toggle"
-                                                    },
-                                                    "type": "button"
-                                                }
-                                            ],
-                                            "type": "horizontal-stack"
                                         }
                                     ],
-                                    "type": "vertical-stack"
+                                    "type": "horizontal-stack"
                                 },
                                 {
-                                    "cards": [
+                                    "card": {
+                                        "title": "Low Batteries"
+                                    },
+                                    "entities": [
                                         {
-                                            "current": true,
-                                            "details": false,
-                                            "entity": "weather.kbos_daynight",
-                                            "forecast": true,
-                                            "hourly_forecast": false,
-                                            "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
-                                            "name": "Home",
-                                            "number_of_forecasts": 5,
-                                            "type": "custom:weather-card"
+                                            "entity": "sensor.corbans_iphone_battery_level",
+                                            "name": "Corban's iPhone"
                                         },
                                         {
-                                            "cards": [
-                                                {
-                                                    "decimals": 0,
-                                                    "entities": [
-                                                        "sensor.living_room_temperature"
-                                                    ],
-                                                    "icon": "mdi:home-thermometer",
-                                                    "name": "Living Room",
-                                                    "show": {
-                                                        "graph": true,
-                                                        "points": false
-                                                    },
-                                                    "type": "custom:mini-graph-card"
-                                                },
-                                                {
-                                                    "decimals": 0,
-                                                    "entities": [
-                                                        "sensor.network_closet_temperature"
-                                                    ],
-                                                    "icon": "mdi:thermometer-lines",
-                                                    "name": "Network Closet",
-                                                    "show": {
-                                                        "graph": true,
-                                                        "points": false
-                                                    },
-                                                    "type": "custom:mini-graph-card"
-                                                },
-                                                {
-                                                    "decimals": 0,
-                                                    "entities": [
-                                                        "sensor.office_temperature"
-                                                    ],
-                                                    "icon": "mdi:monitor-multiple",
-                                                    "name": "Office",
-                                                    "show": {
-                                                        "graph": true,
-                                                        "points": false
-                                                    },
-                                                    "type": "custom:mini-graph-card"
-                                                }
-                                            ],
-                                            "type": "horizontal-stack"
+                                            "entity": "sensor.edna_battery_level",
+                                            "name": "Maggie's Phone"
+                                        },
+                                        {
+                                            "entity": "sensor.0x000d6ffffea6b202_battery",
+                                            "name": "IKEA Remote"
+                                        },
+                                        {
+                                            "entity": "sensor.corban_bedside_button_battery",
+                                            "name": "Corban's Bedside Button"
+                                        },
+                                        {
+                                            "entity": "sensor.maggie_bedside_button_battery",
+                                            "name": "Maggie's Bedside Remote"
+                                        },
+                                        {
+                                            "entity": "sensor.front_door_sensor_battery",
+                                            "name": "Front Door Sensor"
+                                        },
+                                        {
+                                            "entity": "sensor.office_door_sensor_battery",
+                                            "name": "Office Door Sensor"
+                                        },
+                                        {
+                                            "entity": "sensor.living_room_sensor_battery",
+                                            "name": "Living Room Temperature Sensor"
+                                        },
+                                        {
+                                            "entity": "sensor.network_closet_sensor_battery",
+                                            "name": "Network Closet Temperature Sensor"
                                         }
                                     ],
-                                    "type": "vertical-stack"
+                                    "show_empty": false,
+                                    "state_filter": [
+                                        {
+                                            "operator": "<",
+                                            "value": 25
+                                        }
+                                    ],
+                                    "type": "entity-filter"
                                 },
                                 {
-                                    "cards": [
+                                    "card": {
+                                        "title": "To Do List",
+                                        "type": "shopping-list"
+                                    },
+                                    "conditions": [
                                         {
-                                            "content": "## Dynamic Cards\n",
-                                            "style": {
-                                                ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                                "ha-markdown": {
-                                                    "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                                }
+                                            "entity": "input_boolean.wall_display_show_to_do_list",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "cards": [
+                                            {
+                                                "content": "{% if is_state('person.maggie', 'home') %} \nMaggie's home now.\n{% else %}\nMaggie is **{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.\n{% endif %}",
+                                                "type": "markdown"
                                             },
-                                            "type": "markdown"
-                                        },
-                                        {
-                                            "cards": [
-                                                {
-                                                    "aspect_ratio": "1/1",
-                                                    "entity": "input_boolean.wall_display_show_to_do_list",
-                                                    "icon": "mdi:format-list-checks",
-                                                    "name": "To Do List",
-                                                    "show_name": false,
-                                                    "type": "custom:button-card"
-                                                },
-                                                {
-                                                    "aspect_ratio": "1/1",
-                                                    "entity": "input_boolean.wall_display_show_map",
-                                                    "icon": "mdi:map-clock",
-                                                    "name": "Map",
-                                                    "show_name": false,
-                                                    "type": "custom:button-card"
-                                                },
-                                                {
-                                                    "color_type": "blank-card",
-                                                    "type": "custom:button-card"
-                                                },
-                                                {
-                                                    "color_type": "blank-card",
-                                                    "type": "custom:button-card"
-                                                },
-                                                {
-                                                    "color_type": "blank-card",
-                                                    "type": "custom:button-card"
-                                                },
-                                                {
-                                                    "aspect_ratio": "1/1",
-                                                    "entity": "script.tablet_wall_display_reload",
-                                                    "name": "Refresh",
-                                                    "show_name": false,
-                                                    "tap_action": {
-                                                        "action": "call-service",
-                                                        "service": "script.tablet_wall_display_reload"
-                                                    },
-                                                    "type": "custom:button-card"
-                                                }
-                                            ],
-                                            "type": "horizontal-stack"
-                                        },
-                                        {
-                                            "card": {
-                                                "title": "Low Batteries"
-                                            },
-                                            "entities": [
-                                                {
-                                                    "entity": "sensor.corbans_iphone_battery_level",
-                                                    "name": "Corban's iPhone"
-                                                },
-                                                {
-                                                    "entity": "sensor.edna_battery_level",
-                                                    "name": "Maggie's Phone"
-                                                },
-                                                {
-                                                    "entity": "sensor.0x000d6ffffea6b202_battery",
-                                                    "name": "IKEA Remote"
-                                                },
-                                                {
-                                                    "entity": "sensor.corban_bedside_button_battery",
-                                                    "name": "Corban's Bedside Button"
-                                                },
-                                                {
-                                                    "entity": "sensor.maggie_bedside_button_battery",
-                                                    "name": "Maggie's Bedside Remote"
-                                                },
-                                                {
-                                                    "entity": "sensor.front_door_sensor_battery",
-                                                    "name": "Front Door Sensor"
-                                                },
-                                                {
-                                                    "entity": "sensor.office_door_sensor_battery",
-                                                    "name": "Office Door Sensor"
-                                                },
-                                                {
-                                                    "entity": "sensor.living_room_sensor_battery",
-                                                    "name": "Living Room Temperature Sensor"
-                                                },
-                                                {
-                                                    "entity": "sensor.network_closet_sensor_battery",
-                                                    "name": "Network Closet Temperature Sensor"
-                                                }
-                                            ],
-                                            "show_empty": false,
-                                            "state_filter": [
-                                                {
-                                                    "operator": "<",
-                                                    "value": 25
-                                                }
-                                            ],
-                                            "type": "entity-filter"
-                                        },
-                                        {
-                                            "card": {
-                                                "title": "To Do List",
-                                                "type": "shopping-list"
-                                            },
-                                            "conditions": [
-                                                {
-                                                    "entity": "input_boolean.wall_display_show_to_do_list",
-                                                    "state": "on"
-                                                }
-                                            ],
-                                            "type": "conditional"
-                                        },
-                                        {
-                                            "card": {
-                                                "cards": [
+                                            {
+                                                "dark_mode": false,
+                                                "entities": [
                                                     {
-                                                        "content": "{% if is_state('person.maggie', 'home') %} \nMaggie's home now.\n{% else %}\nMaggie is **{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.\n{% endif %}",
-                                                        "type": "markdown"
+                                                        "entity": "person.corban"
                                                     },
                                                     {
-                                                        "dark_mode": false,
-                                                        "entities": [
-                                                            {
-                                                                "entity": "person.corban"
-                                                            },
-                                                            {
-                                                                "entity": "person.maggie"
-                                                            },
-                                                            {
-                                                                "entity": "zone.home"
-                                                            },
-                                                            {
-                                                                "entity": "zone.re"
-                                                            }
-                                                        ],
-                                                        "hours_to_show": 0,
-                                                        "type": "map"
+                                                        "entity": "person.maggie"
                                                     },
                                                     {
-                                                        "entities": [
-                                                            {
-                                                                "entity": "sensor.maggie_to_home_travel_time"
-                                                            }
-                                                        ],
-                                                        "show_header_toggle": false,
-                                                        "type": "entities"
+                                                        "entity": "zone.home"
+                                                    },
+                                                    {
+                                                        "entity": "zone.re"
                                                     }
                                                 ],
-                                                "type": "vertical-stack"
+                                                "hours_to_show": 0,
+                                                "type": "map"
                                             },
-                                            "conditions": [
-                                                {
-                                                    "entity": "input_boolean.wall_display_show_map",
-                                                    "state": "on"
-                                                }
-                                            ],
-                                            "type": "conditional"
-                                        },
+                                            {
+                                                "entities": [
+                                                    {
+                                                        "entity": "sensor.maggie_to_home_travel_time"
+                                                    }
+                                                ],
+                                                "show_header_toggle": false,
+                                                "type": "entities"
+                                            }
+                                        ],
+                                        "type": "vertical-stack"
+                                    },
+                                    "conditions": [
                                         {
-                                            "card": {
-                                                "color": "red",
-                                                "entity": "input_boolean.litter_box_clean_needed",
-                                                "layout": "icon_name",
-                                                "name": "Litter Box Clean Needed",
-                                                "show_icon": true,
-                                                "show_state": false,
-                                                "type": "custom:button-card"
-                                            },
-                                            "conditions": [
-                                                {
-                                                    "entity": "input_boolean.litter_box_clean_needed",
-                                                    "state": "on"
-                                                }
-                                            ],
-                                            "type": "conditional"
-                                        },
-                                        {
-                                            "card": {
-                                                "color": "green",
-                                                "entity": "binary_sensor.put_trash_out",
-                                                "layout": "icon_name",
-                                                "show_icon": true,
-                                                "show_state": false,
-                                                "type": "custom:button-card"
-                                            },
-                                            "conditions": [
-                                                {
-                                                    "entity": "binary_sensor.put_trash_out",
-                                                    "state": "on"
-                                                }
-                                            ],
-                                            "type": "conditional"
+                                            "entity": "input_boolean.wall_display_show_map",
+                                            "state": "on"
                                         }
                                     ],
-                                    "type": "vertical-stack"
+                                    "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "color": "red",
+                                        "entity": "input_boolean.litter_box_clean_needed",
+                                        "layout": "icon_name",
+                                        "name": "Litter Box Clean Needed",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "input_boolean.litter_box_clean_needed",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "color": "green",
+                                        "entity": "binary_sensor.put_trash_out",
+                                        "layout": "icon_name",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "binary_sensor.put_trash_out",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "color": "red",
+                                        "entity": "binary_sensor.corban_on_a_call",
+                                        "layout": "icon_name",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "binary_sensor.corban_on_a_call",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
                                 }
                             ],
-                            "type": "horizontal-stack"
+                            "type": "vertical-stack"
                         }
                     ],
                     "icon": "mdi:tablet-dashboard",
-                    "panel": true,
                     "path": "wall-display",
                     "theme": "noctis_custom",
                     "title": "Wall Display",

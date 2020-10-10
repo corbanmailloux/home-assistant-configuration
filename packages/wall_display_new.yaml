@@ -72,5 +72,29 @@ binary_sensor:
           {% else %}
             False
           {% endif %}
-        entity_id: []
         device_class: problem
+
+  - platform: template
+    sensors:
+      corban_on_a_call:
+        friendly_name: Corban's On a Call
+        icon_template: >-
+          {% set camera_on = is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera', 'on')
+          or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera_2', 'on')
+          or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera_3', 'on')
+          or is_state('binary_sensor.corban_s_vmware_mbp_facetime_hd_camera_built_in', 'on') %}
+
+          {% if camera_on %}
+            mdi:video
+          {% else %}
+            mdi:video-off
+          {% endif %}
+        value_template: >-
+          {{
+            is_state('binary_sensor.corban_s_vmware_mbp_corbans_airpods_pro', 'on')
+            or is_state('binary_sensor.corban_s_vmware_mbp_macbook_pro_microphone', 'on')
+            or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera', 'on')
+            or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera_2', 'on')
+            or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera_3', 'on')
+            or is_state('binary_sensor.corban_s_vmware_mbp_facetime_hd_camera_built_in', 'on')
+          }}
