@@ -41,6 +41,22 @@ automation:
       - service: homeassistant.update_entity
         entity_id: binary_sensor.put_trash_out
 
+  # See also `package/home_away_mode.yaml`.
+  - alias: Turn on the wall display in the morning # if someone is home
+    trigger:
+      - platform: time
+        at: "06:30:00"
+    condition:
+      - condition: state
+        entity_id: input_boolean.home_occupied
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.tablet_wall_display_screen
 
 binary_sensor:
   - platform: template
