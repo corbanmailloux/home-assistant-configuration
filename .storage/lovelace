@@ -979,19 +979,6 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
-                                {
-                                    "entity": "light.wall_display_light"
-                                },
-                                {
-                                    "entity": "light.wall_display_screen"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Wall Display",
-                            "type": "entities"
-                        },
-                        {
                             "entity": "media_player.google_homes",
                             "type": "media-control"
                         },
