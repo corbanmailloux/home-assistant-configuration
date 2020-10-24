@@ -163,18 +163,6 @@
                                             "type": "button"
                                         },
                                         {
-                                            "entity": "light.desk_lamp",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "button"
-                                        },
-                                        {
                                             "entity": "light.office_lamp",
                                             "hold_action": {
                                                 "action": "more-info"
@@ -336,18 +324,14 @@
                                     "cards": [
                                         {
                                             "aspect_ratio": "1/1",
-                                            "entity": "input_boolean.wall_display_show_to_do_list",
-                                            "icon": "mdi:format-list-checks",
-                                            "name": "To Do List",
-                                            "show_name": false,
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "aspect_ratio": "1/1",
                                             "entity": "input_boolean.wall_display_show_map",
                                             "icon": "mdi:map-clock",
                                             "name": "Map",
                                             "show_name": false,
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "color_type": "blank-card",
                                             "type": "custom:button-card"
                                         },
                                         {
@@ -375,6 +359,23 @@
                                         }
                                     ],
                                     "type": "horizontal-stack"
+                                },
+                                {
+                                    "card": {
+                                        "color": "red",
+                                        "entity": "binary_sensor.corban_on_a_call",
+                                        "layout": "icon_name",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "binary_sensor.corban_on_a_call",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
                                 },
                                 {
                                     "card": {
@@ -426,19 +427,6 @@
                                         }
                                     ],
                                     "type": "entity-filter"
-                                },
-                                {
-                                    "card": {
-                                        "title": "To Do List",
-                                        "type": "shopping-list"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "input_boolean.wall_display_show_to_do_list",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
                                 },
                                 {
                                     "card": {
@@ -1404,7 +1392,7 @@
                                             "type": "button"
                                         },
                                         {
-                                            "entity": "light.desk_lamp",
+                                            "entity": "light.office_lamp",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -1416,7 +1404,7 @@
                                             "type": "button"
                                         },
                                         {
-                                            "entity": "light.office_lamp",
+                                            "entity": "light.office_video_light",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -1425,7 +1413,8 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button"
+                                            "type": "button",
+                                            "name": "Video Light"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -1509,18 +1498,14 @@
                                     "cards": [
                                         {
                                             "aspect_ratio": "1/1",
-                                            "entity": "input_boolean.wall_display_show_to_do_list",
-                                            "icon": "mdi:format-list-checks",
-                                            "name": "To Do List",
-                                            "show_name": false,
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "aspect_ratio": "1/1",
                                             "entity": "input_boolean.wall_display_show_map",
                                             "icon": "mdi:map-clock",
                                             "name": "Map",
                                             "show_name": false,
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "color_type": "blank-card",
                                             "type": "custom:button-card"
                                         },
                                         {
@@ -1548,6 +1533,23 @@
                                         }
                                     ],
                                     "type": "horizontal-stack"
+                                },
+                                {
+                                    "card": {
+                                        "color": "red",
+                                        "entity": "binary_sensor.corban_on_a_call",
+                                        "layout": "icon_name",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "binary_sensor.corban_on_a_call",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
                                 },
                                 {
                                     "card": {
@@ -1599,19 +1601,6 @@
                                         }
                                     ],
                                     "type": "entity-filter"
-                                },
-                                {
-                                    "card": {
-                                        "title": "To Do List",
-                                        "type": "shopping-list"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "input_boolean.wall_display_show_to_do_list",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
                                 },
                                 {
                                     "card": {
@@ -1689,23 +1678,6 @@
                                     "conditions": [
                                         {
                                             "entity": "binary_sensor.put_trash_out",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "card": {
-                                        "color": "red",
-                                        "entity": "binary_sensor.corban_on_a_call",
-                                        "layout": "icon_name",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "type": "custom:button-card"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "binary_sensor.corban_on_a_call",
                                             "state": "on"
                                         }
                                     ],

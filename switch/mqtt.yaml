@@ -38,7 +38,7 @@
   retain: true
 
 - platform: mqtt
-  name: Office Desk Lamp # power_tail_4
+  name: power_tail_4
   icon: mdi:desk-lamp
   state_topic: "stat/sonoff_4/POWER"
   command_topic: "cmnd/sonoff_4/POWER"

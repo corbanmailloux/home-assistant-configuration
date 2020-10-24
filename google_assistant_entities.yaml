@@ -50,10 +50,15 @@ fan.bedroom_fan:
     - Fan
   room: Bedroom
   expose: true
-light.desk_lamp:
-  name: Office Desk Lamp
+light.office_lamp:
+  name: Office  Lamp
+  room: Office
+  expose: true
+light.office_video_light:
+  name: Office Video Light
   aliases:
-    - Desk Lamp
+    - Video Lamp
+    - Video Light
   room: Office
   expose: true
 light.plant_lamp:

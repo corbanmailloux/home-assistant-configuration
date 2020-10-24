@@ -3,10 +3,6 @@
 input_boolean:
   wall_display_show_map:
     name: Show Map on Wall Display
-  wall_display_show_to_do_list:
-    name: Show To Do List on Wall Display
-  wall_display_show_cat_food_times:
-    name: Show Cat Food Times on Wall Display
 
 automation:
   - alias: Show map when Maggie's on her way home
