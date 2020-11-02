@@ -7,6 +7,12 @@ automation:
         domain: mqtt
         type: action
         subtype: toggle
+      - platform: device
+        device_id: 902fe0fc069711eb8fc8e19795714a1d
+        discovery_id: 0x680ae2fffebeb7ca action_toggle
+        domain: mqtt
+        type: action
+        subtype: toggle
     action:
       - service: light.toggle
         entity_id: light.bedroom_lamp
@@ -16,6 +22,12 @@ automation:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_brightness_up_click
+        domain: mqtt
+        type: action
+        subtype: brightness_up_click
+      - platform: device
+        device_id: 902fe0fc069711eb8fc8e19795714a1d
+        discovery_id: 0x680ae2fffebeb7ca action_brightness_up_click
         domain: mqtt
         type: action
         subtype: brightness_up_click
@@ -37,6 +49,12 @@ automation:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_brightness_down_click
+        domain: mqtt
+        type: action
+        subtype: brightness_down_click
+      - platform: device
+        device_id: 902fe0fc069711eb8fc8e19795714a1d
+        discovery_id: 0x680ae2fffebeb7ca action_brightness_down_click
         domain: mqtt
         type: action
         subtype: brightness_down_click
@@ -64,6 +82,12 @@ automation:
         domain: mqtt
         type: action
         subtype: brightness_up_hold
+      - platform: device
+        device_id: 902fe0fc069711eb8fc8e19795714a1d
+        discovery_id: 0x680ae2fffebeb7ca action_brightness_up_hold
+        domain: mqtt
+        type: action
+        subtype: brightness_up_hold
     action:
       - service: light.turn_on
         entity_id: light.bedroom_lamp
@@ -75,6 +99,12 @@ automation:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_brightness_down_hold
+        domain: mqtt
+        type: action
+        subtype: brightness_down_hold
+      - platform: device
+        device_id: 902fe0fc069711eb8fc8e19795714a1d
+        discovery_id: 0x680ae2fffebeb7ca action_brightness_down_hold
         domain: mqtt
         type: action
         subtype: brightness_down_hold
@@ -92,6 +122,12 @@ automation:
         domain: mqtt
         type: action
         subtype: arrow_left_click
+      - platform: device
+        device_id: 902fe0fc069711eb8fc8e19795714a1d
+        discovery_id: 0x680ae2fffebeb7ca action_arrow_left_click
+        domain: mqtt
+        type: action
+        subtype: arrow_left_click
     action:
       - service: homeassistant.toggle
         entity_id: fan.bedroom_fan
@@ -101,6 +137,12 @@ automation:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_arrow_right_click
+        domain: mqtt
+        type: action
+        subtype: arrow_right_click
+      - platform: device
+        device_id: 902fe0fc069711eb8fc8e19795714a1d
+        discovery_id: 0x680ae2fffebeb7ca action_arrow_right_click
         domain: mqtt
         type: action
         subtype: arrow_right_click
