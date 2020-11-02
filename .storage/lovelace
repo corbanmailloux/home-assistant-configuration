@@ -172,7 +172,8 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button"
+                                            "type": "button",
+                                            "name": "Lamp"
                                         },
                                         {
                                             "entity": "light.office_video_light",
@@ -188,6 +189,44 @@
                                         }
                                     ],
                                     "type": "horizontal-stack"
+                                },
+                                {
+                                    "content": "## Bedroom\n",
+                                    "style": {
+                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                        "ha-markdown": {
+                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                        }
+                                    },
+                                    "type": "markdown"
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.bedroom_lamp",
+                                            "name": "Lamp"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.fairy_lights"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "script.bedroom_roku_play_pause"
+                                            },
+                                            "entity": "script.bedroom_roku_play_pause"
+                                        }
+                                    ]
                                 }
                             ],
                             "type": "vertical-stack"
@@ -453,15 +492,6 @@
                                                 ],
                                                 "hours_to_show": 0,
                                                 "type": "map"
-                                            },
-                                            {
-                                                "entities": [
-                                                    {
-                                                        "entity": "sensor.maggie_to_home_travel_time"
-                                                    }
-                                                ],
-                                                "show_header_toggle": false,
-                                                "type": "entities"
                                             }
                                         ],
                                         "type": "vertical-stack"
@@ -1202,55 +1232,46 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "sensor.local_display_time",
-                                    "show_icon": false,
-                                    "show_label": false,
-                                    "show_name": false,
-                                    "show_state": true,
-                                    "styles": {
-                                        "state": [
-                                            {
-                                                "font-size": "50px"
-                                            }
-                                        ]
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "script.tablet_wall_display_reload"
-                                    },
-                                    "type": "custom:button-card"
-                                },
-                                {
                                     "cards": [
                                         {
-                                            "entity": "sensor.cat_food_tracker_most_recent_meal_1",
-                                            "name": "Last Meal",
-                                            "show_icon": false,
-                                            "show_label": false,
-                                            "show_state": true,
-                                            "styles": {
-                                                "state": [
-                                                    {
-                                                        "font-size": "30px"
-                                                    }
-                                                ]
-                                            },
-                                            "type": "custom:button-card"
+                                            "aspect_ratio": "0%",
+                                            "entities": [
+                                                {
+                                                    "entity": "sensor.corban_location_icon"
+                                                },
+                                                {
+                                                    "entity": "sensor.corbans_iphone_battery_level"
+                                                }
+                                            ],
+                                            "entity": "binary_sensor.corban_person_home",
+                                            "image": "/local/images/corban.jpg",
+                                            "type": "picture-glance"
                                         },
                                         {
-                                            "entity": "sensor.cat_food_tracker_most_recent_meal_2",
-                                            "name": "Previous Meal",
-                                            "show_icon": false,
-                                            "show_label": false,
-                                            "show_state": true,
-                                            "styles": {
-                                                "state": [
-                                                    {
-                                                        "font-size": "30px"
-                                                    }
-                                                ]
+                                            "entity": "input_boolean.home_occupied",
+                                            "hold_action": {
+                                                "action": "more-info"
                                             },
-                                            "type": "custom:button-card"
+                                            "show_icon": true,
+                                            "show_name": false,
+                                            "show_state": false,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "button"
+                                        },
+                                        {
+                                            "entities": [
+                                                {
+                                                    "entity": "sensor.maggie_location_icon"
+                                                },
+                                                {
+                                                    "entity": "sensor.margarets_iphone_battery_level"
+                                                }
+                                            ],
+                                            "entity": "binary_sensor.maggie_person_home",
+                                            "image": "/local/images/maggie.jpg",
+                                            "type": "picture-glance"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -1401,7 +1422,8 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button"
+                                            "type": "button",
+                                            "name": "Lamp"
                                         },
                                         {
                                             "entity": "light.office_video_light",
@@ -1418,12 +1440,104 @@
                                         }
                                     ],
                                     "type": "horizontal-stack"
+                                },
+                                {
+                                    "content": "## Bedroom\n",
+                                    "style": {
+                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                        "ha-markdown": {
+                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                        }
+                                    },
+                                    "type": "markdown"
+                                },
+                                {
+                                    "type": "horizontal-stack",
+                                    "cards": [
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.bedroom_lamp",
+                                            "name": "Lamp"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.fairy_lights"
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "script.bedroom_roku_play_pause"
+                                            },
+                                            "entity": "script.bedroom_roku_play_pause"
+                                        }
+                                    ]
                                 }
                             ],
                             "type": "vertical-stack"
                         },
                         {
                             "cards": [
+                                {
+                                    "entity": "sensor.local_display_time",
+                                    "show_icon": false,
+                                    "show_label": false,
+                                    "show_name": false,
+                                    "show_state": true,
+                                    "styles": {
+                                        "state": [
+                                            {
+                                                "font-size": "50px"
+                                            }
+                                        ]
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.tablet_wall_display_reload"
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "sensor.cat_food_tracker_most_recent_meal_1",
+                                            "name": "Last Meal",
+                                            "show_icon": false,
+                                            "show_label": false,
+                                            "show_state": true,
+                                            "styles": {
+                                                "state": [
+                                                    {
+                                                        "font-size": "30px"
+                                                    }
+                                                ]
+                                            },
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "entity": "sensor.cat_food_tracker_most_recent_meal_2",
+                                            "name": "Previous Meal",
+                                            "show_icon": false,
+                                            "show_label": false,
+                                            "show_state": true,
+                                            "styles": {
+                                                "state": [
+                                                    {
+                                                        "font-size": "30px"
+                                                    }
+                                                ]
+                                            },
+                                            "type": "custom:button-card"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
                                 {
                                     "current": true,
                                     "details": false,
@@ -1432,7 +1546,7 @@
                                     "hourly_forecast": false,
                                     "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
                                     "name": "Home",
-                                    "number_of_forecasts": 5,
+                                    "number_of_forecasts": "5",
                                     "type": "custom:weather-card"
                                 },
                                 {
@@ -1627,15 +1741,6 @@
                                                 ],
                                                 "hours_to_show": 0,
                                                 "type": "map"
-                                            },
-                                            {
-                                                "entities": [
-                                                    {
-                                                        "entity": "sensor.maggie_to_home_travel_time"
-                                                    }
-                                                ],
-                                                "show_header_toggle": false,
-                                                "type": "entities"
                                             }
                                         ],
                                         "type": "vertical-stack"
