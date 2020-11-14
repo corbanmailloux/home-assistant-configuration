@@ -3,22 +3,6 @@
     "key": "lovelace",
     "data": {
         "config": {
-            "cch": {
-                "chevrons": true
-            },
-            "custom_header": {
-                "chevrons": false,
-                "compact_mode": true,
-                "exceptions": [
-                    {
-                        "conditions": {
-                            "user": "Wall Display"
-                        },
-                        "config": {}
-                    }
-                ],
-                "hidden_tab_redirect": false
-            },
             "title": "Home",
             "views": [
                 {
