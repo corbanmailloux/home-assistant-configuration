@@ -63,17 +63,8 @@ binary_sensor:
         value_template: >-
           {% set time = now() %}
 
-          {% if 0 <= time.weekday() <= 3 %}
-            {# Monday - Thursday: 6-8PM #}
-            {% if time.hour < 18 %}
-              False
-            {% elif 18 <= time.hour <= 19 %}
-              True
-            {% else %}
-              False {# Too late #}
-            {% endif %}
-          {% elif time.weekday() == 6 %}
-            {# Sunday: 5-7PM #}
+          {% if 0 <= time.weekday() <= 3 or time.weekday() == 6 %}
+            {# Monday - Thursday, Sunday: 5-7PM #}
             {% if time.hour < 17 %}
               False
             {% elif 17 <= time.hour <= 18 %}
