@@ -1,5 +1,5 @@
 homeassistant:
-  # customize: !include_dir_merge_named customize
+  customize: !include customize.yaml # Allows adding customizations (mostly icon overrides) in the UI.
   packages: !include_dir_named packages
 
 # Checks for available updates
