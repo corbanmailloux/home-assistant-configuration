@@ -3,6 +3,7 @@
 # Power Tails
 - platform: mqtt
   name: power_tail_1
+  unique_id: power_tail_1
   state_topic: "stat/sonoff_1/POWER"
   command_topic: "cmnd/sonoff_1/POWER"
   availability_topic: "tele/sonoff_1/LWT"
@@ -15,6 +16,7 @@
 
 - platform: mqtt
   name: power_tail_2
+  unique_id: power_tail_2
   state_topic: "stat/sonoff_2/POWER"
   command_topic: "cmnd/sonoff_2/POWER"
   availability_topic: "tele/sonoff_2/LWT"
@@ -27,6 +29,7 @@
 
 - platform: mqtt
   name: power_tail_3
+  unique_id: power_tail_3
   state_topic: "stat/sonoff_3/POWER"
   command_topic: "cmnd/sonoff_3/POWER"
   availability_topic: "tele/sonoff_3/LWT"
@@ -39,6 +42,7 @@
 
 - platform: mqtt
   name: power_tail_4
+  unique_id: power_tail_4
   state_topic: "stat/sonoff_4/POWER"
   command_topic: "cmnd/sonoff_4/POWER"
   availability_topic: "tele/sonoff_4/LWT"
@@ -51,6 +55,7 @@
 
 - platform: mqtt
   name: power_tail_5
+  unique_id: power_tail_5
   state_topic: "stat/sonoff_5/POWER"
   command_topic: "cmnd/sonoff_5/POWER"
   availability_topic: "tele/sonoff_5/LWT"
