@@ -84,40 +84,72 @@
                                             "type": "button"
                                         },
                                         {
-                                            "entity": "scene.living_room_dim",
+                                            "entity": "light.tv_lamp",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
-                                            "icon": "mdi:moon-last-quarter",
-                                            "name": "Lights Dim",
                                             "show_icon": true,
                                             "show_name": true,
                                             "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_dim"
-                                                }
+                                                "action": "toggle"
                                             },
                                             "type": "button"
                                         },
                                         {
-                                            "entity": "scene.living_room_bright",
+                                            "entity": "light.kallax_lamp",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
-                                            "icon": "mdi:moon-full",
-                                            "name": "Lights Bright",
                                             "show_icon": true,
                                             "show_name": true,
                                             "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_bright"
-                                                }
+                                                "action": "toggle"
                                             },
                                             "type": "button"
+                                        }
+                                    ],
+                                    "type": "horizontal-stack"
+                                },
+                                {
+                                    "cards": [
+                                        {
+                                            "entity": "light.ginger_bread_tin_light",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "button",
+                                            "name": "Tin Light"
+                                        },
+                                        {
+                                            "entity": "light.couch_side_table_lamp",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "button",
+                                            "name": "Side Table"
+                                        },
+                                        {
+                                            "entity": "light.christmas_tree_lights",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "button",
+                                            "name": "Christmas Tree"
                                         }
                                     ],
                                     "type": "horizontal-stack"
