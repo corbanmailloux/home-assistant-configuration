@@ -2,7 +2,7 @@
 
 # Power Tails
 - platform: mqtt
-  name: plant_lamp # power_tail_1
+  name: power_tail_1
   state_topic: "stat/sonoff_1/POWER"
   command_topic: "cmnd/sonoff_1/POWER"
   availability_topic: "tele/sonoff_1/LWT"
@@ -14,7 +14,7 @@
   retain: true
 
 - platform: mqtt
-  name: small_fan # power_tail_2
+  name: power_tail_2
   state_topic: "stat/sonoff_2/POWER"
   command_topic: "cmnd/sonoff_2/POWER"
   availability_topic: "tele/sonoff_2/LWT"
@@ -39,7 +39,6 @@
 
 - platform: mqtt
   name: power_tail_4
-  icon: mdi:desk-lamp
   state_topic: "stat/sonoff_4/POWER"
   command_topic: "cmnd/sonoff_4/POWER"
   availability_topic: "tele/sonoff_4/LWT"
@@ -51,7 +50,7 @@
   retain: true
 
 - platform: mqtt
-  name: Office Lamp # power_tail_5
+  name: power_tail_5
   state_topic: "stat/sonoff_5/POWER"
   command_topic: "cmnd/sonoff_5/POWER"
   availability_topic: "tele/sonoff_5/LWT"

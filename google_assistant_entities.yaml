@@ -8,20 +8,12 @@
 #   name: All Lights
 #   expose: true
 
-light.tv_lamp:
-  room: Living Room
-  expose: true
+## Living Room
 switch.living_room_tv_power:
   name: Living Room TV
   aliases:
     - TV
   room: Living Room
-  expose: true
-switch.obama:
-  name: Server
-  room: Living Room
-  aliases:
-    - Obama
   expose: true
 script.living_room_game_mode:
   room: Living Room
@@ -32,17 +24,39 @@ script.living_room_movie_mode:
 script.living_room_dinner_mode:
   room: Living Room
   expose: true
+light.tv_lamp:
+  room: Living Room
+  expose: true
+light.kallax_lamp:
+  name: Kallax Lamp
+  aliases:
+    - Entry Lamp
+  room: Living Room
+  expose: true
+light.ginger_bread_tin_light:
+  name: Ginger Bread Tin Light
+  aliases:
+    - Tin Light
+    - Ginger Bread
+  room: Living Room
+  expose: true
+light.couch_side_table_lamp:
+  name: Couch Side Table Lamp
+  aliases:
+    - Couch Lamp
+  room: Living Room
+  expose: true
+light.christmas_tree_lights:
+  name: Christmas Tree
+  room: Living Room
+  expose: true
+
+## Bedroom
 light.bedroom_lamp:
   room: Bedroom
   expose: true
 light.fairy_lights:
   room: Bedroom
-  expose: true
-script.maggie_travel_time_speak:
-  name: Maggie Travel Time
-  aliases:
-    - Maggie's Travel Time
-    - Maggie's Time to Home
   expose: true
 fan.bedroom_fan:
   name: Bedroom Fan
@@ -50,8 +64,10 @@ fan.bedroom_fan:
     - Fan
   room: Bedroom
   expose: true
+
+## Office
 light.office_lamp:
-  name: Office  Lamp
+  name: Office Lamp
   room: Office
   expose: true
 light.office_video_light:
