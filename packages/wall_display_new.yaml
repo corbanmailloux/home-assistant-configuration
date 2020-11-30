@@ -1,5 +1,10 @@
 # New wall display elements. (The old wall display will be removed after this one is deployed.)
 
+camera:
+  - platform: generic
+    name: Join Our WiFi
+    still_image_url: !secret wifi_qr_code_url
+
 input_boolean:
   wall_display_show_map:
     name: Show Map on Wall Display
