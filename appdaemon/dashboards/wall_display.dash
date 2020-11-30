@@ -18,7 +18,7 @@ layout:
   - clock(2x1), weather_custom(4x1), living_room_temp, network_closet_temp
   - corban_presence, maggie_presence, spacer(4x1), everything_off, google_home_play_pause
   - input_boolean.guest, input_boolean.home_occupied
-  - spacer(5x1), script.living_room_dinner_mode, script.living_room_movie_mode, script.living_room_game_mode
+  - spacer(6x1), script.living_room_movie_mode, script.living_room_game_mode
   - scene_lr_off, scene_lr_dim, scene_lr_medium, scene_lr_bright, spacer(1x1), switch.obama, tv, living_room_play_pause
 
 

@@ -1,42 +1,236 @@
-- id: dinner_mode
-  name: Dinner Mode
-  entities:
-    light.tv_lamp:
-      state: "on"
-      transition: 2
-      brightness: 255
-      color_temp: 352
 - id: movie_mode
   name: Movie Mode
   entities:
     light.tv_lamp:
-      state: "on"
-      transition: 2
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       brightness: 51
       color_temp: 352
-- id: "1582083590078"
+      linkquality: 78
+      state: 'on'
+      update_available: false
+      friendly_name: TV Lamp
+      supported_features: 47
+    light.couch_side_table_lamp:
+      friendly_name: Couch Side Table Lamp
+      supported_features: 0
+      state: 'off'
+    light.kallax_lamp:
+      friendly_name: Kallax Lamp
+      supported_features: 0
+      state: 'off'
+    light.christmas_tree_lights:
+      friendly_name: Christmas Tree Lights
+      icon: mdi:pine-tree
+      supported_features: 0
+      state: 'on'
+    light.ginger_bread_tin_light:
+      friendly_name: Ginger Bread Tin Light
+      icon: mdi:cookie
+      supported_features: 0
+      state: 'off'
+- id: '1582083590078'
   name: Living Room - Bright
   entities:
     light.tv_lamp:
-      state: "on"
-      brightness: 255
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 254
       color_temp: 352
-- id: "1582083640118"
-  name: Living Room - Medium
-  entities:
-    light.tv_lamp:
-      state: "on"
-      brightness: 171
-      color_temp: 352
-- id: "1582083678233"
+      linkquality: 76
+      state: 'on'
+      update_available: false
+      friendly_name: TV Lamp
+      supported_features: 47
+    light.couch_side_table_lamp:
+      friendly_name: Couch Side Table Lamp
+      supported_features: 0
+      state: 'on'
+    light.kallax_lamp:
+      friendly_name: Kallax Lamp
+      supported_features: 0
+      state: 'on'
+    light.christmas_tree_lights:
+      friendly_name: Christmas Tree Lights
+      icon: mdi:pine-tree
+      supported_features: 0
+      state: 'on'
+    light.ginger_bread_tin_light:
+      friendly_name: Ginger Bread Tin Light
+      icon: mdi:cookie
+      supported_features: 0
+      state: 'on'
+- id: '1582083678233'
   name: Living Room - Dim
   entities:
     light.tv_lamp:
-      state: "on"
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
       brightness: 34
       color_temp: 352
-- id: "1582084722339"
+      linkquality: 78
+      state: 'on'
+      update_available: false
+      friendly_name: TV Lamp
+      supported_features: 47
+    light.couch_side_table_lamp:
+      friendly_name: Couch Side Table Lamp
+      supported_features: 0
+      state: 'off'
+    light.kallax_lamp:
+      friendly_name: Kallax Lamp
+      supported_features: 0
+      state: 'off'
+    light.christmas_tree_lights:
+      friendly_name: Christmas Tree Lights
+      icon: mdi:pine-tree
+      supported_features: 0
+      state: 'on'
+    light.ginger_bread_tin_light:
+      friendly_name: Ginger Bread Tin Light
+      icon: mdi:cookie
+      supported_features: 0
+      state: 'on'
+- id: '1582084722339'
   name: Living Room - Off
   entities:
     light.tv_lamp:
-      state: "off"
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 252
+      color_temp: 352
+      linkquality: 78
+      state: 'off'
+      update_available: false
+      friendly_name: TV Lamp
+      supported_features: 47
+    light.couch_side_table_lamp:
+      friendly_name: Couch Side Table Lamp
+      supported_features: 0
+      state: 'off'
+    light.kallax_lamp:
+      friendly_name: Kallax Lamp
+      supported_features: 0
+      state: 'off'
+    light.christmas_tree_lights:
+      friendly_name: Christmas Tree Lights
+      icon: mdi:pine-tree
+      supported_features: 0
+      state: 'off'
+    light.ginger_bread_tin_light:
+      friendly_name: Ginger Bread Tin Light
+      icon: mdi:cookie
+      supported_features: 0
+      state: 'off'
+- id: '1606695793173'
+  name: Office - Working
+  entities:
+    light.plant_lamp:
+      friendly_name: Plant Lamp
+      supported_features: 0
+      state: 'on'
+    light.office_lamp:
+      friendly_name: Office Lamp
+      supported_features: 0
+      state: 'on'
+    light.office_video_light:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 203
+      color_temp: 343
+      linkquality: 78
+      state: 'off'
+      update_available: true
+      friendly_name: Office Video Light
+      supported_features: 47
+- id: '1606695826977'
+  name: Office - Meeting
+  entities:
+    light.plant_lamp:
+      friendly_name: Plant Lamp
+      supported_features: 0
+      state: 'on'
+    light.office_video_light:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 203
+      color_temp: 343
+      linkquality: 78
+      state: 'on'
+      update_available: true
+      friendly_name: Office Video Light
+      supported_features: 47
+    light.office_lamp:
+      friendly_name: Office Lamp
+      supported_features: 0
+      state: 'on'
+- id: '1606695857577'
+  name: Office - Off
+  entities:
+    light.plant_lamp:
+      friendly_name: Plant Lamp
+      supported_features: 0
+      state: 'off'
+    light.office_lamp:
+      friendly_name: Office Lamp
+      supported_features: 0
+      state: 'off'
+    light.office_video_light:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 203
+      color_temp: 343
+      linkquality: 78
+      state: 'off'
+      update_available: true
+      friendly_name: Office Video Light
+      supported_features: 47

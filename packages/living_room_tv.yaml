@@ -112,14 +112,6 @@ script:
         entity_id: switch.soundbar_power
 
   # "Scenes"
-  living_room_dinner_mode:
-    alias: Dinner Mode
-    icon: mdi:silverware
-    sequence:
-      - service: scene.turn_on
-        entity_id: scene.dinner_mode
-      - service: script.living_room_tv_and_soundbar_on
-
   living_room_movie_mode:
     alias: Movie Mode
     icon: mdi:movie
