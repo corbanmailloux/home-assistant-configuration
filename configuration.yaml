@@ -9,7 +9,7 @@ updater:
 person:
 config:
 hassio:
-
+cloud:
 system_health:
 
 recorder:
@@ -78,12 +78,12 @@ google:
   client_secret: !secret google_client_secret
   track_new_calendar: false
 
-google_assistant:
-  project_id: !secret google_assistant_project_id
-  report_state: true
-  service_account: !include google_cloud_assistant_credentials.json
-  expose_by_default: false
-  entity_config: !include google_assistant_entities.yaml
+# google_assistant:
+#   project_id: !secret google_assistant_project_id
+#   report_state: true
+#   service_account: !include google_cloud_assistant_credentials.json
+#   expose_by_default: false
+#   entity_config: !include google_assistant_entities.yaml
 
 tts:
   - platform: google_translate
