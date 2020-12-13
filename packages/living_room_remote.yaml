@@ -6,30 +6,55 @@ automation:
         event_type: esphome.living_room.channel_up
     action:
       - choose:
-        # Medium: Turn on bright
+        # Off: Turn on dim
         - conditions:
           - condition: template
             value_template: >-
-              {{ 100 < state_attr("light.tv_lamp", "brightness") <= 180 }}
+              {{
+                is_state("light.tv_lamp", "off")
+              }}
           sequence:
-            - service: scene.turn_on
-              entity_id: scene.living_room_bright
+            - service: light.turn_on
+              entity_id: light.tv_lamp
+              data:
+                brightness: 34
         # Dim: Turn on medium
         - conditions:
           - condition: template
             value_template: >-
-              {{ 0 < state_attr("light.tv_lamp", "brightness") <= 100 }}
+              {{
+                is_state("light.tv_lamp", "on") and
+                0 < state_attr("light.tv_lamp", "brightness") <= 100
+              }}
           sequence:
-            - service: scene.turn_on
-              entity_id: scene.living_room_medium
-        # Off: Turn on dim
+            - service: light.turn_on
+              entity_id: light.tv_lamp
+              data:
+                brightness: 150
+        # Medium: Turn on bright
         - conditions:
-          - condition: state
-            entity_id: light.tv_lamp
-            state: "off"
+          - condition: template
+            value_template: >-
+              {{
+                is_state("light.tv_lamp", "on") and
+                100 < state_attr("light.tv_lamp", "brightness") <= 180
+              }}
+          sequence:
+            - service: light.turn_on
+              entity_id: light.tv_lamp
+              data:
+                brightness: 255
+        # Bright: Turn on the rest of the living room lights
+        - conditions:
+          - condition: template
+            value_template: >-
+              {{
+                is_state("light.tv_lamp", "on") and
+                180 < state_attr("light.tv_lamp", "brightness")
+              }}
           sequence:
             - service: scene.turn_on
-              entity_id: scene.living_room_dim
+              entity_id: scene.living_room_bright
       - delay:
           milliseconds: 200
 
@@ -40,32 +65,67 @@ automation:
         event_type: esphome.living_room.channel_down
     action:
       - choose:
+        # Bright with other lights on: Turn off the other lights.
+        - conditions:
+          - condition: template
+            value_template: >-
+              {{
+                is_state("light.tv_lamp", "on") and
+                180 < state_attr("light.tv_lamp", "brightness") and
+                is_state("light.couch_side_table_lamp", "on")
+              }}
+          sequence:
+            - service: scene.turn_on
+              entity_id: scene.living_room_dim # TODO: This needs a medium scene again. Maybe this could just cycle between a couple scenes?
         # Bright: Turn on medium
         - conditions:
           - condition: template
             value_template: >-
-              {{ 180 < state_attr("light.tv_lamp", "brightness") }}
+              {{
+                is_state("light.tv_lamp", "on") and
+                180 < state_attr("light.tv_lamp", "brightness")
+              }}
           sequence:
-            - service: scene.turn_on
-              entity_id: scene.living_room_medium
+            - service: light.turn_on
+              entity_id: light.tv_lamp
+              data:
+                brightness: 150
         # Medium: Turn on dim
         - conditions:
           - condition: template
             value_template: >-
-              {{ 100 < state_attr("light.tv_lamp", "brightness") <= 180 }}
+              {{
+                is_state("light.tv_lamp", "on") and
+                100 < state_attr("light.tv_lamp", "brightness") <= 180
+              }}
           sequence:
-            - service: scene.turn_on
-              entity_id: scene.living_room_dim
+            - service: light.turn_on
+              entity_id: light.tv_lamp
+              data:
+                brightness: 34
         # Dim: Turn off
         - conditions:
           - condition: template
             value_template: >-
-              {{ state_attr("light.tv_lamp", "brightness") <= 100 }}
+              {{
+                is_state("light.tv_lamp", "on") and
+                0 < state_attr("light.tv_lamp", "brightness") <= 100
+              }}
           sequence:
             # This should be a scene, but the scene seems to automatically add a transition. Skip it.
             - service: light.turn_off
               entity_id: light.tv_lamp
               data:
                 transition: 0
+        # Off: Turn off living room lights
+        - conditions:
+          - condition: template
+            value_template: >-
+              {{
+                is_state("light.tv_lamp", "off")
+              }}
+          sequence:
+            - service: scene.turn_on
+              entity_id: scene.living_room_off
       - delay:
           milliseconds: 200
