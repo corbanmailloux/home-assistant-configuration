@@ -201,7 +201,18 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button"
+                                            "type": "button",
+                                            "name": "Video Light",
+                                            "show_state": false
+                                        },
+                                        {
+                                            "type": "button",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "entity": "light.office_leds",
+                                            "name": "LEDs",
+                                            "show_state": false
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -299,13 +310,13 @@
                                 {
                                     "current": true,
                                     "details": false,
-                                    "entity": "weather.kbos_daynight",
+                                    "entity": "weather.openweathermap",
                                     "forecast": true,
                                     "hourly_forecast": false,
                                     "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
-                                    "name": "Home",
                                     "number_of_forecasts": "5",
-                                    "type": "custom:weather-card"
+                                    "type": "custom:weather-card",
+                                    "name": "Home"
                                 },
                                 {
                                     "cards": [
@@ -1557,7 +1568,7 @@
                                 {
                                     "current": true,
                                     "details": false,
-                                    "entity": "weather.kbos_daynight",
+                                    "entity": "weather.openweathermap",
                                     "forecast": true,
                                     "hourly_forecast": false,
                                     "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
@@ -1842,6 +1853,11 @@
                             "show_header_toggle": false,
                             "title": "Wall Display",
                             "type": "entities"
+                        },
+                        {
+                            "type": "custom:aftership-card",
+                            "entity": "sensor.aftership",
+                            "title": "Packages"
                         },
                         {
                             "type": "picture-entity",
