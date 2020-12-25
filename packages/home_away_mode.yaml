@@ -71,7 +71,7 @@ automation:
         discovery_id: 0x000d6ffffea6b202 action_on
         domain: mqtt
         type: action
-        subtype: 'on' # Up
+        subtype: "on" # Up
     action:
       - service: input_boolean.turn_on
         data:
@@ -84,7 +84,7 @@ automation:
         discovery_id: 0x000d6ffffea6b202 action_off
         domain: mqtt
         type: action
-        subtype: 'off' # Down
+        subtype: "off" # Down
     action:
       - service: input_boolean.turn_off
         data:
@@ -128,13 +128,9 @@ automation:
         entity_id: input_boolean.home_occupied
         to: "on"
     condition:
-      - condition: time # From 7AM - 9PM
+      - condition: time # From 7AM - 9:30PM
         after: "07:00:00"
-        before: "21:00:00"
-      # Check that nothing is playing in the living room (as to not interrupt someone's media).
-      - condition: template
-        value_template: >-
-          {{ states("media_player.living_room_tv") != "playing" }}
+        before: "21:30:00"
     action:
       - service: script.turn_on
         entity_id: script.welcome_home_announcement
@@ -152,6 +148,9 @@ automation:
         data:
           entity_id: light.tv_lamp
           brightness: 255
+      - service: light.turn_on
+        data:
+          entity_id: light.christmas_tree_lights
 
   # TODO: Set up for new thermostat.
   # - alias: Home Occupied - Set Nest home
@@ -187,36 +186,13 @@ automation:
 script:
   welcome_home_announcement:
     sequence:
-      # - delay:
-      #     seconds: 2
+      - delay:
+          seconds: 2
       - service: media_player.volume_set
         data:
           entity_id: media_player.kitchen_speaker
           volume_level: 0.5
-      - service: tts.google_cloud_say
+      - service: tts.cloud_say
         entity_id: media_player.kitchen_speaker
         data_template:
           message: Welcome home!
-
-  flash_wall_display_light:
-    sequence:
-      - service: light.turn_on
-        data:
-          entity_id: light.wall_display_light
-          rgb_color: [255, 0, 0] # Red
-      - delay:
-          milliseconds: 250
-      - service: light.turn_off
-        data:
-          entity_id: light.wall_display_light
-      - delay:
-          milliseconds: 250
-      - service: light.turn_on
-        data:
-          entity_id: light.wall_display_light
-          rgb_color: [255, 0, 0] # Red
-      - delay:
-          milliseconds: 250
-      - service: light.turn_off
-        data:
-          entity_id: light.wall_display_light
