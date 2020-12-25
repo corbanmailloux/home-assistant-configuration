@@ -1,40 +1,34 @@
 # Shelly mounted in the light switch in the bedroom. The relay controls a single outlet in the room.
+# TODO: Convert this to a blueprint. It's used here and in the `office_shelly.yaml` package.
 
 automation:
-  - alias: Bedroom Light Switch - Turn on lamp
+  - alias: Bedroom Light Switch - Toggle Lamp
     trigger:
       - platform: state
         entity_id: binary_sensor.bedroom_switch
-        from: 'off'
-        to: 'on'
+        from: "off"
+        to: "on"
       - platform: state
         entity_id: binary_sensor.bedroom_switch
-        from: 'on'
-        to: 'off'
-    condition:
-      - condition: state
-        entity_id: light.bedroom_lamp
-        state: 'off'
+        from: "on"
+        to: "off"
     action:
-      - service: light.turn_on
-        entity_id: light.bedroom_lamp
-        data:
-          brightness: 255
-
-  - alias: Bedroom Light Switch - Turn off lamp
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.bedroom_switch
-        from: 'off'
-        to: 'on'
-      - platform: state
-        entity_id: binary_sensor.bedroom_switch
-        from: 'on'
-        to: 'off'
-    condition:
-      - condition: state
-        entity_id: light.bedroom_lamp
-        state: 'on'
-    action:
-      - service: light.turn_off
-        entity_id: light.bedroom_lamp
+      - choose:
+          # Off, turn on full brightness.
+          - conditions:
+              - condition: state
+                entity_id: light.bedroom_lamp
+                state: "off"
+            sequence:
+              - service: light.turn_on
+                entity_id: light.bedroom_lamp
+                data:
+                  brightness: 255
+          # On, turn off.
+          - conditions:
+              - condition: state
+                entity_id: light.bedroom_lamp
+                state: "on"
+            sequence:
+              - service: light.turn_off
+                entity_id: light.bedroom_lamp
