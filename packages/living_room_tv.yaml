@@ -22,27 +22,17 @@ media_player:
       source_list: media_player.65_tcl_roku_tv|source_list
 
 switch:
-  - platform: command_line
-    switches:
-      living_room_tv_power_command_line:
-        command_on: "curl -X POST http://10.0.0.248:8060/keypress/PowerOn"
-        command_off: "curl -X POST http://10.0.0.248:8060/keypress/PowerOff"
-        command_state: 'curl -m 5 -s GET http://10.0.0.248:8060/query/device-info | grep power-mode | sed -e "s:<power-mode>DisplayOff</power-mode>:OFF:" -e "s:<power-mode>PowerOn</power-mode>:ON:"'
-        value_template: '{{ value == "ON" }}'
   - platform: template
     switches:
       living_room_tv_power:
-        value_template: "{{ is_state('switch.living_room_tv_power_command_line', 'on') }}"
+        value_template: "{{ is_state('remote.living_room_roku_tv', 'on') }}"
         turn_on:
-          - service: wake_on_lan.send_magic_packet
+          - service: media_player.turn_on
             data:
-              mac: !secret living_room_tv_mac
-          - service: switch.turn_on
-            data:
-              entity_id: switch.living_room_tv_power_command_line
+              entity_id: media_player.65_tcl_roku_tv
         turn_off:
-          - service: switch.turn_off
-            entity_id: switch.living_room_tv_power_command_line
+          - service: media_player.turn_off
+            entity_id: media_player.65_tcl_roku_tv
 
       living_room_soundbar_power:
         # On this soundbar, volume down is ignored if the soundbar is off, and volume up turns it on.
@@ -174,20 +164,7 @@ automation:
         value_template: >
           {{ not is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Chromecast') }}
     action:
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.65_tcl_roku_tv
-          source: Chromecast
-      - service: switch.turn_on
-        entity_id:
-          - switch.living_room_tv_power # No action if it's on.
-          - switch.living_room_soundbar_power # No action if it's on.
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.65_tcl_roku_tv
-          source: Chromecast
-      - delay: 00:00:03 # Try a second time in case
-      # TODO: Can you add a condition as a step in a script, so it stops here if the first attempt worked?
+      - service: script.living_room_tv_and_soundbar_on
       - service: media_player.select_source
         data:
           entity_id: media_player.65_tcl_roku_tv
