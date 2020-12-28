@@ -1,5 +1,5 @@
 # Add a simple scraper sensor for the number of packages waiting in our package lockers for the members of the household.
-# See https://github.com/corbanmailloux/home-assistant-configuration/tree/master/custom_components/package_concierge/README.md
+# See https://github.com/corbanmailloux/home-assistant-configuration/tree/master/custom_components/package_concierge
 
 sensor:
   - platform: package_concierge
