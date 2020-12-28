@@ -13,12 +13,6 @@ binary_sensor:
         value_template: >-
           {{ is_state('person.maggie', 'home') }}
 
-      maggie_home_google:
-        friendly_name: "Maggie Home - GPS"
-        device_class: presence
-        value_template: >-
-          {{ is_state('device_tracker.google_maps_106112096418399445974', 'home') }}
-
 sensor:
   - platform: template
     sensors:

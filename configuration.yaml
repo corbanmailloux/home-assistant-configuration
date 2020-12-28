@@ -54,16 +54,13 @@ sun:
 logbook:
 
 logger:
-  default: error
+  default: warning
   logs:
     # Spits out errors because I don't leave OctoPrint running.
     homeassistant.components.octoprint: critical
     # The TV is often sleeping when HASS restarts. I should force it to wake up on reboots or use standby mode, but it works for now.
     homeassistant.components.media_player.roku: critical
-
-device_tracker:
-  - platform: google_maps
-    username: !secret google_maps_username
+    custom_components.package_concierge.sensor: info # A little extra logging for custom components.
 
 map:
 
