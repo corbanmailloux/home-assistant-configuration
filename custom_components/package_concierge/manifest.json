@@ -1,0 +1,13 @@
+{
+    "domain": "package_concierge",
+    "name": "Package Concierge",
+    "documentation": "https://github.com/corbanmailloux/home-assistant-configuration/tree/master/custom_components/package_concierge/",
+    "requirements": [
+        "requests",
+        "beautifulsoup4"
+    ],
+    "dependencies": [],
+    "codeowners": [
+        "@corbanmailloux"
+    ]
+}
