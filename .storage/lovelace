@@ -1814,6 +1814,68 @@
                                         }
                                     ],
                                     "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "color": "orange",
+                                        "entity": "sensor.packages_for_maggie",
+                                        "layout": "icon_name_state2nd",
+                                        "show_icon": true,
+                                        "show_state": true,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "homeassistant.update_entity",
+                                            "service_data": {
+                                                "entity_id": "entity"
+                                            }
+                                        },
+                                        "hold_action": {
+                                            "action": "more-info"
+                                        }
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.packages_for_maggie",
+                                            "state_not": "0"
+                                        },
+                                        {
+                                            "entity": "sensor.packages_for_maggie",
+                                            "state_not": "unknown"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "color": "orange",
+                                        "entity": "sensor.packages_for_corban",
+                                        "layout": "icon_name_state2nd",
+                                        "show_icon": true,
+                                        "show_state": true,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "homeassistant.update_entity",
+                                            "service_data": {
+                                                "entity_id": "entity"
+                                            }
+                                        },
+                                        "hold_action": {
+                                            "action": "more-info"
+                                        }
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.packages_for_corban",
+                                            "state_not": "0"
+                                        },
+                                        {
+                                            "entity": "sensor.packages_for_corban",
+                                            "state_not": "unknown"
+                                        }
+                                    ],
+                                    "type": "conditional"
                                 }
                             ],
                             "type": "vertical-stack"

@@ -3,10 +3,10 @@
 
 sensor:
   - platform: package_concierge
-    name: package_concierge_corban
+    name: Packages for Corban
     username: !secret package_concierge_corban_username
     password: !secret package_concierge_corban_password
   - platform: package_concierge
-    name: package_concierge_maggie
+    name: Packages for Maggie
     username: !secret package_concierge_maggie_username
     password: !secret package_concierge_maggie_password
