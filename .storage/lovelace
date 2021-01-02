@@ -565,6 +565,68 @@
                                         }
                                     ],
                                     "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "color": "orange",
+                                        "entity": "sensor.packages_for_maggie",
+                                        "layout": "icon_name_state2nd",
+                                        "show_icon": true,
+                                        "show_state": true,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "homeassistant.update_entity",
+                                            "service_data": {
+                                                "entity_id": "entity"
+                                            }
+                                        },
+                                        "hold_action": {
+                                            "action": "more-info"
+                                        }
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.packages_for_maggie",
+                                            "state_not": "0"
+                                        },
+                                        {
+                                            "entity": "sensor.packages_for_maggie",
+                                            "state_not": "unknown"
+                                        }
+                                    ],
+                                    "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "color": "orange",
+                                        "entity": "sensor.packages_for_corban",
+                                        "layout": "icon_name_state2nd",
+                                        "show_icon": true,
+                                        "show_state": true,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "homeassistant.update_entity",
+                                            "service_data": {
+                                                "entity_id": "entity"
+                                            }
+                                        },
+                                        "hold_action": {
+                                            "action": "more-info"
+                                        }
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "sensor.packages_for_corban",
+                                            "state_not": "0"
+                                        },
+                                        {
+                                            "entity": "sensor.packages_for_corban",
+                                            "state_not": "unknown"
+                                        }
+                                    ],
+                                    "type": "conditional"
                                 }
                             ],
                             "type": "vertical-stack"
@@ -906,6 +968,9 @@
                             "entities": [
                                 {
                                     "entity": "sensor.living_room_temperature"
+                                },
+                                {
+                                    "entity": "sensor.office_temperature"
                                 }
                             ],
                             "hours_to_show": 72,
@@ -917,6 +982,9 @@
                             "entities": [
                                 {
                                     "entity": "sensor.living_room_humidity"
+                                },
+                                {
+                                    "entity": "sensor.office_humidity"
                                 }
                             ],
                             "hours_to_show": 72,
@@ -1228,24 +1296,20 @@
                             "type": "sensor"
                         },
                         {
-                            "cards": [
+                            "type": "entities",
+                            "entities": [
                                 {
-                                    "entity": "sensor.home_corb_co_certificate",
-                                    "max": 90,
-                                    "min": 0,
-                                    "name": "home.corb.co",
-                                    "type": "gauge"
+                                    "entity": "sensor.cert_expiry_timestamp_cat_corb_co",
+                                    "name": "cat.corb.co"
                                 },
                                 {
-                                    "entity": "sensor.cat_corb_co_certificate",
-                                    "max": 90,
-                                    "min": 0,
-                                    "name": "cat.corb.co",
-                                    "type": "gauge"
+                                    "entity": "sensor.cert_expiry_timestamp_home_corb_co",
+                                    "name": "home.corb.co"
                                 }
                             ],
-                            "name": "Certificates",
-                            "type": "horizontal-stack"
+                            "show_header_toggle": false,
+                            "title": "TLS Certificates",
+                            "state_color": false
                         }
                     ],
                     "icon": "mdi:server-network",
