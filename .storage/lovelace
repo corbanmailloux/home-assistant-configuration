@@ -686,12 +686,30 @@
                                 {
                                     "cards": [
                                         {
+                                            "entity": "scene.living_room_off",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "icon": "mdi:circle-off-outline",
+                                            "name": "Lights Off",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "scene.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "scene.living_room_off"
+                                                }
+                                            },
+                                            "type": "button"
+                                        },
+                                        {
                                             "entity": "scene.living_room_dim",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
-                                            "icon": "mdi:moon-new",
-                                            "name": "Dim",
+                                            "icon": "mdi:moon-last-quarter",
+                                            "name": "Lights Dim",
                                             "show_icon": true,
                                             "show_name": true,
                                             "tap_action": {
@@ -704,30 +722,12 @@
                                             "type": "button"
                                         },
                                         {
-                                            "entity": "scene.living_room_medium",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "icon": "mdi:moon-last-quarter",
-                                            "name": "Medium",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_medium"
-                                                }
-                                            },
-                                            "type": "button"
-                                        },
-                                        {
                                             "entity": "scene.living_room_bright",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
                                             "icon": "mdi:moon-full",
-                                            "name": "Bright",
+                                            "name": "Lights Bright",
                                             "show_icon": true,
                                             "show_name": true,
                                             "tap_action": {
@@ -910,13 +910,13 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "sensor.dark_sky_summary"
+                                    "entity": "sensor.openweathermap_condition"
                                 },
                                 {
-                                    "entity": "sensor.dark_sky_temperature"
+                                    "entity": "sensor.openweathermap_temperature"
                                 },
                                 {
-                                    "entity": "sensor.dark_sky_humidity"
+                                    "entity": "sensor.openweathermap_humidity"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -944,7 +944,7 @@
                                             "entity": "sensor.living_room_temperature"
                                         },
                                         {
-                                            "entity": "sensor.dark_sky_temperature"
+                                            "entity": "sensor.openweathermap_temperature"
                                         }
                                     ],
                                     "hours_to_show": 72,
@@ -954,8 +954,12 @@
                                 },
                                 {
                                     "entities": [
-                                        "sensor.living_room_humidity",
-                                        "sensor.dark_sky_humidity"
+                                        {
+                                            "entity": "sensor.living_room_humidity"
+                                        },
+                                        {
+                                            "entity": "sensor.openweathermap_humidity"
+                                        }
                                     ],
                                     "hours_to_show": 72,
                                     "title": "Humidities",
