@@ -1,14 +1,15 @@
-# Outlet sensor system used in the office. See esphome/outlet_sensor.yaml.
+# Shelly mounted in the light switch in the bedroom. The relay controls a single outlet in the room.
+# TODO: Convert this to a blueprint. It's used here and in the `office_outlet_sensor.yaml` package.
 
 automation:
-  - alias: Office Light Switch - Toggle Office Light
+  - alias: Bedroom Light Switch - Toggle Lamp
     trigger:
       - platform: state
-        entity_id: binary_sensor.shelly_switch_sensor
+        entity_id: binary_sensor.bedroom_outlet_sensor
         from: "off"
         to: "on"
       - platform: state
-        entity_id: binary_sensor.shelly_switch_sensor
+        entity_id: binary_sensor.bedroom_outlet_sensor
         from: "on"
         to: "off"
     action:
@@ -16,18 +17,18 @@ automation:
           # Off, turn on full brightness.
           - conditions:
               - condition: state
-                entity_id: light.office_lamp
+                entity_id: light.bedroom_lamp
                 state: "off"
             sequence:
               - service: light.turn_on
-                entity_id: light.office_lamp
+                entity_id: light.bedroom_lamp
                 data:
                   brightness: 255
           # On, turn off.
           - conditions:
               - condition: state
-                entity_id: light.office_lamp
+                entity_id: light.bedroom_lamp
                 state: "on"
             sequence:
               - service: light.turn_off
-                entity_id: light.office_lamp
+                entity_id: light.bedroom_lamp

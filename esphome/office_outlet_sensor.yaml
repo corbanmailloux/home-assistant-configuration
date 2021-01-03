@@ -1,5 +1,5 @@
 esphome:
-  name: shelly_1
+  name: office_outlet_sensor
   platform: ESP8266
   board: esp01_1m
 
@@ -15,10 +15,10 @@ binary_sensor:
   - platform: gpio
     pin:
       number: GPIO5
-    name: "Shelly Switch Sensor"
+    name: "Office Outlet Sensor"
     device_class: power
 
 switch:
   - platform: gpio
     pin: GPIO4
-    name: "Shelly Output"
+    name: "Office Outlet Output"

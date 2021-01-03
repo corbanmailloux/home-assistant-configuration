@@ -1,5 +1,5 @@
 esphome:
-  name: bedroom_shelly
+  name: bedroom_outlet_sensor
   platform: ESP8266
   board: esp01_1m
 
@@ -15,10 +15,10 @@ binary_sensor:
   - platform: gpio
     pin:
       number: GPIO5
-    name: "Bedroom Switch"
+    name: "Bedroom Outlet Sensor"
     device_class: power
 
 switch:
   - platform: gpio
     pin: GPIO4
-    name: "Bedroom Outlet"
+    name: "Bedroom Outlet Output"
