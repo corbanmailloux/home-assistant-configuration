@@ -1,5 +1,0 @@
-- platform: flux
-  lights:
-    - light.bedroom_lamp
-    - light.tv_lamp
-  disable_brightness_adjust: true

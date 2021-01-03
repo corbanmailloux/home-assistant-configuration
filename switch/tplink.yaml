@@ -1,3 +1,0 @@
-# - platform: tplink
-#   name: TP-Link Switch 1
-#   host: !secret tplink_switch_1_host
