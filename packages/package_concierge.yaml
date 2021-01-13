@@ -10,3 +10,16 @@ sensor:
     name: Packages for Maggie
     username: !secret package_concierge_maggie_username
     password: !secret package_concierge_maggie_password
+
+automation:
+  - alias: Update package sensors when someone gets home
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.home_occupied
+        to: "on"
+    action:
+      - service: homeassistant.update_entity
+        data:
+          entity_id:
+            - sensor.packages_for_corban
+            - sensor.packages_for_maggie
