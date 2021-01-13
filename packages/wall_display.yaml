@@ -1,4 +1,5 @@
-# New wall display elements. (The old wall display will be removed after this one is deployed.)
+# For the central living room wall-mounted tablet.
+# These are helpers used to populate the main dashboard and control some dynamic cards.
 
 camera:
   - platform: generic
@@ -8,6 +9,9 @@ camera:
 input_boolean:
   wall_display_show_map:
     name: Show Map on Wall Display
+
+  put_trash_out_display:
+    name: Display Trash Notification
 
 automation:
   - alias: Show map when Maggie's on her way home
@@ -41,6 +45,29 @@ automation:
     action:
       - service: homeassistant.update_entity
         entity_id: binary_sensor.put_trash_out
+
+  - alias: Update trash input_boolean to match template sensor
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.put_trash_out
+    action:
+      - choose:
+        - conditions:
+            - condition: state
+              entity_id: binary_sensor.put_trash_out
+              state: "on"
+          sequence:
+            - service: input_boolean.turn_on
+              data:
+                entity_id: input_boolean.put_trash_out_display
+        - conditions:
+          - condition: state
+            entity_id: binary_sensor.put_trash_out
+            state: "off"
+          sequence:
+            - service: input_boolean.turn_off
+              data:
+                entity_id: input_boolean.put_trash_out_display
 
   # See also `package/home_away_mode.yaml`.
   - alias: Turn on the wall display in the morning # if someone is home
@@ -87,10 +114,7 @@ binary_sensor:
       corban_on_a_call:
         friendly_name: Corban's On a Call
         icon_template: >-
-          {% set camera_on = is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera', 'on')
-          or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera_2', 'on')
-          or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera_3', 'on')
-          or is_state('binary_sensor.corban_s_vmware_mbp_facetime_hd_camera_built_in', 'on') %}
+          {% set camera_on = is_state('binary_sensor.corban_s_vmware_mbp_camera_in_use', 'on') %}
 
           {% if camera_on %}
             mdi:video
@@ -99,10 +123,6 @@ binary_sensor:
           {% endif %}
         value_template: >-
           {{
-            is_state('binary_sensor.corban_s_vmware_mbp_corbans_airpods_pro', 'on')
-            or is_state('binary_sensor.corban_s_vmware_mbp_macbook_pro_microphone', 'on')
-            or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera', 'on')
-            or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera_2', 'on')
-            or is_state('binary_sensor.corban_s_vmware_mbp_pc_lm1e_camera_3', 'on')
-            or is_state('binary_sensor.corban_s_vmware_mbp_facetime_hd_camera_built_in', 'on')
+            is_state('binary_sensor.corban_s_vmware_mbp_microphone_in_use', 'on')
+            or is_state('binary_sensor.corban_s_vmware_mbp_camera_in_use', 'on')
           }}

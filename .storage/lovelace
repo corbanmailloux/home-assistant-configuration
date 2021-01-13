@@ -552,15 +552,20 @@
                                 {
                                     "card": {
                                         "color": "green",
-                                        "entity": "binary_sensor.put_trash_out",
+                                        "entity": "input_boolean.put_trash_out_display",
+                                        "name": "Time to put the trash out",
+                                        "icon": "mdi:delete-sweep",
                                         "layout": "icon_name",
                                         "show_icon": true,
                                         "show_state": false,
+                                        "tap_action": {
+                                            "action": "toggle"
+                                        },
                                         "type": "custom:button-card"
                                     },
                                     "conditions": [
                                         {
-                                            "entity": "binary_sensor.put_trash_out",
+                                            "entity": "input_boolean.put_trash_out_display",
                                             "state": "on"
                                         }
                                     ],
@@ -1869,15 +1874,20 @@
                                 {
                                     "card": {
                                         "color": "green",
-                                        "entity": "binary_sensor.put_trash_out",
+                                        "entity": "input_boolean.put_trash_out_display",
+                                        "name": "Time to put the trash out",
+                                        "icon": "mdi:delete-sweep",
                                         "layout": "icon_name",
                                         "show_icon": true,
                                         "show_state": false,
+                                        "tap_action": {
+                                            "action": "toggle"
+                                        },
                                         "type": "custom:button-card"
                                     },
                                     "conditions": [
                                         {
-                                            "entity": "binary_sensor.put_trash_out",
+                                            "entity": "input_boolean.put_trash_out_display",
                                             "state": "on"
                                         }
                                     ],
