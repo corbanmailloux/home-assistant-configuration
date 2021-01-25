@@ -87,10 +87,12 @@
       - channel_change
       - finish_effect
       - stop_effect
-      brightness: 34
+      brightness: 254
       color_temp: 352
-      linkquality: 78
+      linkquality: 63
       state: 'on'
+      update:
+        state: idle
       update_available: false
       friendly_name: TV Lamp
       supported_features: 47
