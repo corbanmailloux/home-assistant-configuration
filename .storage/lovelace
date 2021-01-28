@@ -66,24 +66,6 @@
                                 {
                                     "cards": [
                                         {
-                                            "entity": "scene.living_room_off",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "icon": "mdi:circle-off-outline",
-                                            "name": "Lights Off",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_off"
-                                                }
-                                            },
-                                            "type": "button"
-                                        },
-                                        {
                                             "entity": "light.tv_lamp",
                                             "hold_action": {
                                                 "action": "more-info"
@@ -94,36 +76,6 @@
                                                 "action": "toggle"
                                             },
                                             "type": "button"
-                                        },
-                                        {
-                                            "entity": "light.kallax_lamp",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "button"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                },
-                                {
-                                    "cards": [
-                                        {
-                                            "entity": "light.ginger_bread_tin_light",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "button",
-                                            "name": "Tin Light"
                                         },
                                         {
                                             "entity": "light.couch_side_table_lamp",
@@ -139,7 +91,7 @@
                                             "name": "Side Table"
                                         },
                                         {
-                                            "entity": "light.christmas_tree_lights",
+                                            "entity": "light.kallax_lamp",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -148,8 +100,7 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button",
-                                            "name": "Christmas Tree"
+                                            "type": "button"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -409,7 +360,21 @@
                                             "type": "custom:button-card"
                                         },
                                         {
-                                            "color_type": "blank-card",
+                                            "aspect_ratio": "1/1",
+                                            "entity": "script.tablet_wall_display_reload",
+                                            "icon": "mdi:package-variant",
+                                            "name": "Refresh Package Sensors",
+                                            "show_name": false,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "homeassistant.update_entity",
+                                                "service_data": {
+                                                    "entity_id": [
+                                                        "sensor.packages_for_corban",
+                                                        "sensor.packages_for_maggie"
+                                                    ]
+                                                }
+                                            },
                                             "type": "custom:button-card"
                                         },
                                         {
@@ -1731,7 +1696,21 @@
                                             "type": "custom:button-card"
                                         },
                                         {
-                                            "color_type": "blank-card",
+                                            "aspect_ratio": "1/1",
+                                            "entity": "script.tablet_wall_display_reload",
+                                            "icon": "mdi:package-variant",
+                                            "name": "Refresh Package Sensors",
+                                            "show_name": false,
+                                            "tap_action": {
+                                                "action": "call-service",
+                                                "service": "homeassistant.update_entity",
+                                                "service_data": {
+                                                    "entity_id": [
+                                                        "sensor.packages_for_corban",
+                                                        "sensor.packages_for_maggie"
+                                                    ]
+                                                }
+                                            },
                                             "type": "custom:button-card"
                                         },
                                         {
