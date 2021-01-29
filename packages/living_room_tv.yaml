@@ -34,32 +34,6 @@ switch:
           - service: media_player.turn_off
             entity_id: media_player.65_tcl_roku_tv
 
-      living_room_soundbar_power:
-        # On this soundbar, volume down is ignored if the soundbar is off, and volume up turns it on.
-        # Using this, we can build sequences that will always turn the soundbar on and off, regardless
-        # of its starting state, and leave it at its initial volume level.
-        value_template: "false" # assumed_state, set below, because we can't tell if it's on or off.
-        turn_on:
-          - service: switch.turn_on
-            entity_id: switch.soundbar_volume_down
-          - delay:
-              milliseconds: 200
-          - service: switch.turn_on
-            entity_id: switch.soundbar_volume_up
-        turn_off:
-          # First, ensure it's on.
-          - service: switch.turn_on
-            entity_id: switch.soundbar_volume_down
-          - delay:
-              milliseconds: 200
-          - service: switch.turn_on
-            entity_id: switch.soundbar_volume_up
-          # It takes a bit after turning on before the soundbar will turn back off.
-          - delay:
-              seconds: 1
-          - service: switch.turn_on
-            entity_id: switch.soundbar_power
-
 script:
   # Script wrappers for the Roku controls.
   roku_play_pause:
@@ -134,7 +108,7 @@ script:
       - service: switch.turn_on
         entity_id:
           - switch.living_room_tv_power # Turn on the TV.
-          - switch.living_room_soundbar_power # And the soundbar.
+          - switch.soundbar # And the soundbar.
 
 automation:
   - alias: Send play/pause to Chromecast when selected
@@ -175,7 +149,3 @@ homeassistant:
     switch.living_room_tv_power:
       friendly_name: Living Room TV
       icon: mdi:television
-    switch.living_room_soundbar_power:
-      friendly_name: Soundbar Power
-      icon: mdi:surround-sound
-      assumed_state: true # Enable the separate buttons for on and off

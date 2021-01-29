@@ -29,7 +29,28 @@ remote_transmitter:
   carrier_duty_percent: 50%
 
 switch:
-  # Soundbar
+  # Soundbar Power
+  - platform: template
+    name: "Soundbar"
+    assumed_state: true
+    icon: mdi:surround-sound
+    # On this soundbar, volume down is ignored if the soundbar is off, and volume up turns it on.
+    # Using this, we can build sequences that will always turn the soundbar on and off, regardless
+    # of its starting state, and leave it at its initial volume level.
+    turn_on_action:
+      - switch.turn_on: sb_vol_down
+      - delay: 200ms
+      - switch.turn_on: sb_vol_up
+    turn_off_action:
+      # First, ensure it's on.
+      - switch.turn_on: sb_vol_down
+      - delay: 200ms
+      - switch.turn_on: sb_vol_up
+      # It takes a bit after turning on before the soundbar will turn back off.
+      - delay: 1200ms
+      - switch.turn_on: sb_power
+
+  # Soundbar - Individual Commands
   - platform: template
     id: sb_power
     name: "Soundbar: Power"
@@ -104,3 +125,21 @@ binary_sensor:
 
 # Channel down / Soudbar skip backward
 # address=0x00FF, command=0x51AE
+
+# Captures of the Roku remote application buttons:
+# Netflix:
+# Received NEC: address=0x57E3, command=0x4AB5
+# Received NEC: address=0x57E3, command=0x4BB4
+# Received NEC: address=0x57E3, command=0x4BB4
+# Amazon:
+# Received NEC: address=0x57E3, command=0xD22D
+# Received NEC: address=0x57E3, command=0xD32C
+# Received NEC: address=0x57E3, command=0xD32C
+# Hulu:
+# Received NEC: address=0x57E3, command=0xB24D
+# Received NEC: address=0x57E3, command=0xB34C
+# Received NEC: address=0x57E3, command=0xB34C
+# YouTube:
+# Received NEC: address=0x57E3, command=0x6A95
+# Received NEC: address=0x57E3, command=0x6B94
+# Received NEC: address=0x57E3, command=0x6B94
