@@ -113,9 +113,8 @@ script:
 automation:
   - alias: Send play/pause to Chromecast when selected
     trigger:
-      - platform: state
-        entity_id: binary_sensor.roku_remote_play_pause_button
-        to: "on"
+      - platform: event
+        event_type: esphome.living_room.play_pause
     condition:
       - condition: template
         value_template: >

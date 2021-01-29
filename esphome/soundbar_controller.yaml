@@ -76,55 +76,52 @@ switch:
 binary_sensor:
   - platform: remote_receiver
     name: "Roku Remote: Play/Pause Button"
+    internal: true
     nec:
       address: 0x57E3
       command: 0x32CD
+    on_press:
+      then:
+        - homeassistant.event:
+            event: esphome.living_room.play_pause
 
   - platform: remote_receiver
     name: "Living Room Remote - Source"
     internal: true
     nec:
+      # This is the soundbar's play/pause command.
       address: 0x00FF
       command: 0x718E
-    filters:
-      - delayed_off: 100ms
     on_press:
       then:
         - homeassistant.event:
             event: esphome.living_room.source
+
   - platform: remote_receiver
     name: "Living Room Remote - Channel Up"
     internal: true
     nec:
+      # This is the soundbar's skip forward command.
       address: 0x00FF
       command: 0xD12E
-    filters:
-      - delayed_off: 100ms
     on_press:
       then:
         - homeassistant.event:
             event: esphome.living_room.channel_up
+
   - platform: remote_receiver
     name: "Living Room Remote - Channel Down"
     internal: true
     nec:
+      # This is the soundbar's skip backwards command.
       address: 0x00FF
       command: 0x51AE
-    filters:
-      - delayed_off: 100ms
     on_press:
       then:
         - homeassistant.event:
             event: esphome.living_room.channel_down
 
-# Source / Soundbar play/pause
-# address=0x00FF, command=0x718E
-
-# Channel up / Soudbar skip forward
-# address=0x00FF, command=0xD12E
-
-# Channel down / Soudbar skip backward
-# address=0x00FF, command=0x51AE
+#### Reference:
 
 # Captures of the Roku remote application buttons:
 # Netflix:
