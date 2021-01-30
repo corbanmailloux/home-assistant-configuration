@@ -129,3 +129,10 @@ automation:
               entity_id: scene.living_room_off
       - delay:
           milliseconds: 200
+
+  # - alias: "Living Room Remote - Source Button"
+  #   trigger:
+  #     - platform: event
+  #       event_type: esphome.living_room.source
+  #   action:
+  #     # TODO: What do we want this to do?
