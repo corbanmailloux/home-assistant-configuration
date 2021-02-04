@@ -746,7 +746,7 @@
                                             "image": "/local/images/netflix-icon.png"
                                         },
                                         {
-                                            "app": "Plex - Stream Free TV & Movies",
+                                            "app": "Plex - Stream for Free",
                                             "image": "/local/images/plex-icon.png"
                                         },
                                         {
@@ -757,7 +757,6 @@
                                             }
                                         }
                                     ],
-                                    "entity": "media_player.65_tcl_roku_tv",
                                     "power": {
                                         "tap_action": {
                                             "action": "call-service",
@@ -788,7 +787,8 @@
                                             "action": "call-service",
                                             "service": "script.soundbar_volume_up"
                                         }
-                                    }
+                                    },
+                                    "entity": "media_player.65_tcl_roku_tv"
                                 }
                             ],
                             "type": "vertical-stack"
@@ -860,7 +860,7 @@
                                             "image": "/local/images/netflix-icon.png"
                                         },
                                         {
-                                            "app": "Plex - Stream Free TV & Movies",
+                                            "app": "Plex - Stream for Free",
                                             "image": "/local/images/plex-icon.png"
                                         },
                                         {
@@ -871,13 +871,13 @@
                                             }
                                         }
                                     ],
-                                    "entity": "media_player.bedroom_roku",
                                     "power": {
                                         "show": false
                                     },
                                     "remote": "remote.bedroom_tv",
                                     "theme": "midnight",
-                                    "type": "custom:roku-card"
+                                    "type": "custom:roku-card",
+                                    "entity": "media_player.bedroom_roku"
                                 }
                             ],
                             "type": "vertical-stack"
