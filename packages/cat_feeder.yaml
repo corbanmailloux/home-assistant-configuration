@@ -1,0 +1,46 @@
+android_ip_webcam:
+  - host: 10.0.0.33
+    port: 8080
+    sensors:
+      - light
+      - motion
+    switches:
+      - motion_detect
+      - night_vision
+      - torch
+      - video_recording
+
+binary_sensor:
+  - platform: template
+    sensors:
+      guest_bathroom_light_on:
+        friendly_name: "Lights on in the Guest Bathroom"
+        device_class: light
+        value_template: >-
+          {{ states('sensor.ip_webcam_light_level')|float > 90 }}
+
+automation:
+  - alias: Set Cat Feeder Camera Night Vision Based On Ambient Light
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.guest_bathroom_light_on
+        to:
+          - "on"
+          - "off"
+        for: "00:00:03" # Wait a few seconds to debounce a bit.
+    action:
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.guest_bathroom_light_on
+                state: "off"
+            sequence:
+              - service: switch.turn_on
+                entity_id: switch.ip_webcam_night_vision
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.guest_bathroom_light_on
+                state: "on"
+            sequence:
+              - service: switch.turn_off
+                entity_id: switch.ip_webcam_night_vision
