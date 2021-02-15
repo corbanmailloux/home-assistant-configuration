@@ -328,16 +328,6 @@
                         {
                             "cards": [
                                 {
-                                    "content": "## Dynamic Cards\n",
-                                    "style": {
-                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                        "ha-markdown": {
-                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                        }
-                                    },
-                                    "type": "markdown"
-                                },
-                                {
                                     "cards": [
                                         {
                                             "aspect_ratio": "1/1",
@@ -348,7 +338,10 @@
                                             "type": "custom:button-card"
                                         },
                                         {
-                                            "color_type": "blank-card",
+                                            "aspect_ratio": "1/1",
+                                            "entity": "input_boolean.office_bedroom",
+                                            "name": "Sleeping in Office",
+                                            "show_name": false,
                                             "type": "custom:button-card"
                                         },
                                         {
@@ -390,6 +383,16 @@
                                         }
                                     ],
                                     "type": "horizontal-stack"
+                                },
+                                {
+                                    "content": "## Dynamic Cards\n",
+                                    "style": {
+                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                        "ha-markdown": {
+                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                        }
+                                    },
+                                    "type": "markdown"
                                 },
                                 {
                                     "card": {
@@ -1664,16 +1667,6 @@
                         {
                             "cards": [
                                 {
-                                    "content": "## Dynamic Cards\n",
-                                    "style": {
-                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                        "ha-markdown": {
-                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                        }
-                                    },
-                                    "type": "markdown"
-                                },
-                                {
                                     "cards": [
                                         {
                                             "aspect_ratio": "1/1",
@@ -1684,7 +1677,10 @@
                                             "type": "custom:button-card"
                                         },
                                         {
-                                            "color_type": "blank-card",
+                                            "aspect_ratio": "1/1",
+                                            "entity": "input_boolean.office_bedroom",
+                                            "name": "Sleeping in Office",
+                                            "show_name": false,
                                             "type": "custom:button-card"
                                         },
                                         {
@@ -1726,6 +1722,16 @@
                                         }
                                     ],
                                     "type": "horizontal-stack"
+                                },
+                                {
+                                    "content": "## Dynamic Cards\n",
+                                    "style": {
+                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
+                                        "ha-markdown": {
+                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
+                                        }
+                                    },
+                                    "type": "markdown"
                                 },
                                 {
                                     "card": {
