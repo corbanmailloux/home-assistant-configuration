@@ -321,19 +321,6 @@
                                         }
                                     ],
                                     "type": "horizontal-stack"
-                                },
-                                {
-                                    "type": "picture-glance",
-                                    "title": "Maya's Feeder",
-                                    "entities": [
-                                        {
-                                            "entity": "switch.ip_webcam_night_vision"
-                                        },
-                                        {
-                                            "entity": "switch.ip_webcam_torch"
-                                        }
-                                    ],
-                                    "camera_image": "camera.ip_webcam"
                                 }
                             ],
                             "type": "vertical-stack"
@@ -1985,37 +1972,6 @@
                             "show_header_toggle": false,
                             "title": "Wall Display",
                             "type": "entities"
-                        },
-                        {
-                            "type": "picture-entity",
-                            "entity": "camera.ip_webcam",
-                            "camera_image": "camera.ip_webcam",
-                            "show_state": false,
-                            "name": "Maya's Feeder",
-                            "hold_action": {
-                                "action": "call-service",
-                                "service": "switch.toggle",
-                                "service_data": {
-                                    "entity_id": "switch.ip_webcam_night_vision"
-                                }
-                            }
-                        },
-                        {
-                            "type": "entities",
-                            "entities": [
-                                {
-                                    "entity": "switch.ip_webcam_night_vision"
-                                },
-                                {
-                                    "entity": "switch.ip_webcam_torch"
-                                },
-                                {
-                                    "entity": "switch.ip_webcam_video_recording"
-                                },
-                                {
-                                    "entity": "sensor.ip_webcam_light_level"
-                                }
-                            ]
                         },
                         {
                             "type": "custom:aftership-card",
