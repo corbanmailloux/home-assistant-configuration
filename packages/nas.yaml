@@ -1,4 +1,4 @@
-# See also `nzbget` in `configuration.yaml`.
+# Also configured the NZBGet integration in the UI.
 
 input_select:
   download_speed:
