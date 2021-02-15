@@ -1980,11 +1980,6 @@
                             "type": "entities"
                         },
                         {
-                            "type": "custom:aftership-card",
-                            "entity": "sensor.aftership",
-                            "title": "Packages"
-                        },
-                        {
                             "type": "picture-entity",
                             "entity": "camera.join_our_wifi",
                             "show_name": false,
