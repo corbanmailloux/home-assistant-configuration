@@ -141,3 +141,15 @@ automation:
     action:
       - service: light.toggle
         entity_id: light.office_lamp
+
+  - alias: Office Remote - Hold Right Button - Toggle Fan
+    trigger:
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_arrow_right_hold
+        domain: mqtt
+        type: action
+        subtype: arrow_right_hold
+    action:
+      - service: fan.toggle
+        entity_id: fan.office_fan

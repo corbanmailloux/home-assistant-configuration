@@ -8,9 +8,9 @@
   name: Kallax Lamp
   entity_id: switch.power_tail_2
 
-- platform: switch
-  name: Ginger Bread Tin Light
-  entity_id: switch.power_tail_3
+# - platform: switch
+#   name: Ginger Bread Tin Light
+#   entity_id: switch.power_tail_3
 
 - platform: switch
   name: Couch Side Table Lamp

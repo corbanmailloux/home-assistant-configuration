@@ -7,8 +7,12 @@
     entity_id: binary_sensor.office_door
     platform: device
     type: opened
-  condition: []
+  condition:
+  - condition: state
+    entity_id: input_boolean.office_bedroom
+    state: 'off'
   action:
   - data: {}
     entity_id: light.plant_lamp
     service: light.turn_on
+  mode: single
