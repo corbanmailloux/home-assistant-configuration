@@ -26,16 +26,6 @@
       friendly_name: Kallax Lamp
       supported_features: 0
       state: 'off'
-    light.christmas_tree_lights:
-      friendly_name: Christmas Tree Lights
-      icon: mdi:pine-tree
-      supported_features: 0
-      state: 'on'
-    light.ginger_bread_tin_light:
-      friendly_name: Ginger Bread Tin Light
-      icon: mdi:cookie
-      supported_features: 0
-      state: 'off'
 - id: '1582083590078'
   name: Living Room - Bright
   entities:
@@ -62,16 +52,6 @@
       state: 'on'
     light.kallax_lamp:
       friendly_name: Kallax Lamp
-      supported_features: 0
-      state: 'on'
-    light.christmas_tree_lights:
-      friendly_name: Christmas Tree Lights
-      icon: mdi:pine-tree
-      supported_features: 0
-      state: 'on'
-    light.ginger_bread_tin_light:
-      friendly_name: Ginger Bread Tin Light
-      icon: mdi:cookie
       supported_features: 0
       state: 'on'
 - id: '1582083678233'
@@ -104,16 +84,6 @@
       friendly_name: Kallax Lamp
       supported_features: 0
       state: 'off'
-    light.christmas_tree_lights:
-      friendly_name: Christmas Tree Lights
-      icon: mdi:pine-tree
-      supported_features: 0
-      state: 'on'
-    light.ginger_bread_tin_light:
-      friendly_name: Ginger Bread Tin Light
-      icon: mdi:cookie
-      supported_features: 0
-      state: 'on'
 - id: '1582084722339'
   name: Living Room - Off
   entities:
@@ -140,16 +110,6 @@
       state: 'off'
     light.kallax_lamp:
       friendly_name: Kallax Lamp
-      supported_features: 0
-      state: 'off'
-    light.christmas_tree_lights:
-      friendly_name: Christmas Tree Lights
-      icon: mdi:pine-tree
-      supported_features: 0
-      state: 'off'
-    light.ginger_bread_tin_light:
-      friendly_name: Ginger Bread Tin Light
-      icon: mdi:cookie
       supported_features: 0
       state: 'off'
 - id: '1606695793173'
