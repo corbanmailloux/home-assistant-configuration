@@ -76,6 +76,7 @@ aircast.xml
 esphome/*
 !esphome/*.yaml
 !esphome/wiring_diagrams/
+!esphome/fonts/
 esphome/secrets.yaml
 # .pioenvs/
 # .piolibdeps/

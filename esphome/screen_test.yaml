@@ -36,7 +36,7 @@ i2c:
   scl: D2
 
 font:
-  - file: "fonts/Georgia Regular font.ttf"
+  - file: "fonts/Georgia-Regular.ttf"
     id: georgia
     size: 20
     glyphs: |-
