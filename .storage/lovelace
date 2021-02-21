@@ -946,6 +946,9 @@
                                 },
                                 {
                                     "entity": "sensor.office_temperature"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_temperature"
                                 }
                             ],
                             "hours_to_show": 72,
@@ -960,6 +963,9 @@
                                 },
                                 {
                                     "entity": "sensor.office_humidity"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_humidity"
                                 }
                             ],
                             "hours_to_show": 72,
