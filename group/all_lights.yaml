@@ -10,7 +10,7 @@ all_lights_custom:
     # Office
     - light.plant_lamp
     - light.office_lamp
-    - light.office_video_light
+    - light.office_lamp_bottom
     # Living Room
     - light.tv_lamp
     - light.kallax_lamp
@@ -29,7 +29,7 @@ everything_custom:
     ## Office
     - light.plant_lamp
     - light.office_lamp
-    - light.office_video_light
+    - light.office_lamp_bottom
     ## Living Room
     - light.tv_lamp
     - light.kallax_lamp

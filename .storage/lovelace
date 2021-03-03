@@ -143,7 +143,7 @@
                                             "name": "Lamp"
                                         },
                                         {
-                                            "entity": "light.office_video_light",
+                                            "entity": "light.office_lamp_bottom",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -286,10 +286,10 @@
                                             "type": "custom:button-card"
                                         },
                                         {
-                                            "entity": "sensor.network_closet_temperature",
-                                            "icon": "mdi:thermometer-lines",
+                                            "entity": "sensor.bedroom_temperature",
+                                            "icon": "mdi:bed",
                                             "layout": "icon_state",
-                                            "name": "Network Closet",
+                                            "name": "Bedroom",
                                             "show_icon": true,
                                             "show_state": true,
                                             "styles": {
@@ -1498,7 +1498,7 @@
                                             "name": "Lamp"
                                         },
                                         {
-                                            "entity": "light.office_video_light",
+                                            "entity": "light.office_lamp_bottom",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -1639,10 +1639,10 @@
                                         {
                                             "decimals": 0,
                                             "entities": [
-                                                "sensor.network_closet_temperature"
+                                                "sensor.bedroom_temperature"
                                             ],
-                                            "icon": "mdi:thermometer-lines",
-                                            "name": "Network Closet",
+                                            "icon": "mdi:bed",
+                                            "name": "Bedroom",
                                             "show": {
                                                 "graph": true,
                                                 "points": false

@@ -1,0 +1,6 @@
+- platform: group
+  name: Office Lamp
+  entities:
+    - light.office_lamp_top
+    - light.office_lamp_middle
+    # - light.office_lamp_bottom # Controlled separately.

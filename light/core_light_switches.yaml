@@ -16,9 +16,9 @@
   name: Couch Side Table Lamp
   entity_id: switch.power_tail_4
 
-- platform: switch
-  name: Office Lamp
-  entity_id: switch.power_tail_5
+# - platform: switch
+#   name: Office Lamp
+#   entity_id: switch.power_tail_5
 
 - platform: switch
   name: Christmas Tree Lights

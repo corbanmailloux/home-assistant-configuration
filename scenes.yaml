@@ -123,7 +123,7 @@
       friendly_name: Office Lamp
       supported_features: 0
       state: 'on'
-    light.office_video_light:
+    light.office_lamp_bottom:
       min_mireds: 153
       max_mireds: 500
       effect_list:
@@ -147,7 +147,7 @@
       friendly_name: Plant Lamp
       supported_features: 0
       state: 'on'
-    light.office_video_light:
+    light.office_lamp_bottom:
       min_mireds: 153
       max_mireds: 500
       effect_list:
@@ -179,7 +179,7 @@
       friendly_name: Office Lamp
       supported_features: 0
       state: 'off'
-    light.office_video_light:
+    light.office_lamp_bottom:
       min_mireds: 153
       max_mireds: 500
       effect_list:

@@ -8,42 +8,8 @@ automation:
         type: action
         subtype: toggle
     action:
-      - choose:
-        # Lamp on, but office light off
-        - conditions:
-            - condition: state
-              entity_id: light.office_lamp
-              state: "on"
-            - condition: state
-              entity_id: light.office_video_light
-              state: "off"
-          sequence:
-            - service: light.turn_on
-              entity_id: light.office_video_light
-              # data:
-              #   brightness: 255 # Use previous setting for now.
-        # Lamp and office light on
-        - conditions:
-            - condition: state
-              entity_id: light.office_lamp
-              state: "on"
-            - condition: state
-              entity_id: light.office_video_light
-              state: "on"
-          sequence:
-            - service: light.turn_off
-              entity_id: light.office_video_light
-        # Lamp off
-        - conditions:
-            - condition: state
-              entity_id: light.office_lamp
-              state: "off"
-          sequence:
-            - service: light.turn_on
-              entity_id: light.office_lamp
-            - service: light.turn_on
-              entity_id: light.office_video_light
-
+      - service: light.toggle
+        entity_id: light.office_lamp_bottom
 
   - alias: Office Remote - Brightness Up
     trigger:
@@ -55,11 +21,11 @@ automation:
         subtype: brightness_up_click
     action:
       - service: light.turn_on
-        entity_id: light.office_video_light
+        entity_id: light.office_lamp_bottom
         data_template:
           # Handles the light being off as well, treating it as 0 brightness.
           brightness: >
-            {%- set target = (is_state('light.office_video_light', "on") and state_attr('light.office_video_light', 'brightness')) | int + 40 -%}
+            {%- set target = (is_state('light.office_lamp_bottom', "on") and state_attr('light.office_lamp_bottom', 'brightness')) | int + 40 -%}
             {%- if target > 255 -%}
               255
             {%- else -%}
@@ -76,14 +42,14 @@ automation:
         subtype: brightness_down_click
     condition:
       - condition: state
-        entity_id: light.office_video_light
+        entity_id: light.office_lamp_bottom
         state: "on"
     action:
       - service: light.turn_on
-        entity_id: light.office_video_light
+        entity_id: light.office_lamp_bottom
         data_template:
           brightness: >
-            {%- set target = state_attr('light.office_video_light', 'brightness') | int - 40 -%}
+            {%- set target = state_attr('light.office_lamp_bottom', 'brightness') | int - 40 -%}
             {%- if target < 10 -%}
               10
             {%- else -%}
@@ -100,7 +66,7 @@ automation:
         subtype: brightness_up_hold
     action:
       - service: light.turn_on
-        entity_id: light.office_video_light
+        entity_id: light.office_lamp_bottom
         data:
           brightness: 255
 
@@ -114,7 +80,7 @@ automation:
         subtype: brightness_down_hold
     action:
       - service: light.turn_on
-        entity_id: light.office_video_light
+        entity_id: light.office_lamp_bottom
         data:
           brightness: 10
 
