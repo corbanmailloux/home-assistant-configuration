@@ -30,4 +30,6 @@ automation:
                 state: "on"
             sequence:
               - service: light.turn_off
-                entity_id: light.office_lamp
+                entity_id:
+                  - light.office_lamp
+                  - light.plant_lamp
