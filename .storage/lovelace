@@ -1049,19 +1049,6 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "script.obama_shutdown"
-                                },
-                                {
-                                    "entity": "switch.obama"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Obama Management",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
                                     "entity": "input_boolean.vacation_mode"
                                 },
                                 {

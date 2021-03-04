@@ -42,4 +42,3 @@ everything_custom:
 
     # Other devices
     - switch.living_room_tv_power
-    - switch.obama
