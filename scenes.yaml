@@ -196,3 +196,89 @@
       update_available: true
       friendly_name: Office Video Light
       supported_features: 47
+- id: '1614830563185'
+  name: Studio Mode
+  entities:
+    light.office_lamp_bottom:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 254
+      color_temp: 230
+      linkquality: 55
+      state: 'on'
+      update:
+        state: available
+      update_available: true
+      friendly_name: Office Lamp - Bottom
+      supported_features: 47
+    light.office_lamp_middle:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 254
+      color_temp: 243
+      linkquality: 92
+      state: 'on'
+      friendly_name: Office Lamp - Middle
+      supported_features: 47
+    light.office_lamp_top:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 254
+      color_temp: 244
+      linkquality: 57
+      state: 'on'
+      friendly_name: Office Lamp - Top
+      supported_features: 47
+    light.tv_lamp:
+      min_mireds: 153
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      brightness: 254
+      color_temp: 250
+      linkquality: 55
+      state: 'on'
+      update:
+        state: idle
+      update_available: false
+      friendly_name: TV Lamp
+      supported_features: 47
+    light.plant_lamp:
+      friendly_name: Plant Lamp
+      supported_features: 0
+      state: 'on'
+    light.kallax_lamp:
+      friendly_name: Kallax Lamp
+      supported_features: 0
+      state: 'on'
+    light.couch_side_table_lamp:
+      friendly_name: Couch Side Table Lamp
+      supported_features: 0
+      state: 'on'
+  icon: mdi:camera
