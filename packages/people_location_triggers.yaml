@@ -1,0 +1,32 @@
+# When the front door is opened, if a phone isn't already marked as home, trigger a location update.
+# This is helpful because occasionally the Home Assistant iOS app will update the location to
+# just outside the home radius, but then coming inside doesn't count as a significant location change.
+# This leaves the device stuck as "not home" until manually refreshed.
+
+automation:
+  - alias: Door opened - Trigger phone location updates
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.front_door
+        to: "on"
+    action:
+      - choose:
+          - alias: "If Maggie isn't home, trigger an update."
+            conditions:
+              - condition: state
+                entity_id: binary_sensor.maggie_person_home
+                state: "off"
+            sequence:
+              - service: notify.mobile_app_margarets_iphone
+                data:
+                  message: "request_location_update"
+      - choose:
+          - alias: "If Corban isn't home, trigger an update."
+            conditions:
+              - condition: state
+                entity_id: binary_sensor.corban_person_home
+                state: "off"
+            sequence:
+              - service: notify.mobile_app_corbans_iphone
+                data:
+                  message: "request_location_update"
