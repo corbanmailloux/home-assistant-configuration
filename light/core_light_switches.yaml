@@ -1,8 +1,8 @@
 # Create `light` entities for many `switch`es.
 
-- platform: switch
-  name: Plant Lamp
-  entity_id: switch.power_tail_1
+# - platform: switch
+#   name: Plant Lamp
+#   entity_id: switch.power_tail_1
 
 # - platform: switch
 #   name: Kallax Lamp
@@ -20,6 +20,6 @@
 #   name: Office Lamp
 #   entity_id: switch.power_tail_5
 
-- platform: switch
-  name: Christmas Tree Lights
-  entity_id: switch.ikea_socket_1
+# - platform: switch
+#   name: Christmas Tree Lights
+#   entity_id: switch.ikea_socket_1

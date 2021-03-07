@@ -148,9 +148,6 @@ automation:
         data:
           entity_id: light.tv_lamp
           brightness: 255
-      - service: light.turn_on
-        data:
-          entity_id: light.christmas_tree_lights
 
   # TODO: Set up for new thermostat.
   # - alias: Home Occupied - Set Nest home
