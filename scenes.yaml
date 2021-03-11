@@ -30,20 +30,10 @@
   name: Living Room - Bright
   entities:
     light.tv_lamp:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
       brightness: 254
-      color_temp: 352
+      # color_temp: 352
       linkquality: 76
       state: 'on'
-      update_available: false
       friendly_name: TV Lamp
       supported_features: 47
     light.couch_side_table_lamp:
@@ -58,22 +48,9 @@
   name: Living Room - Dim
   entities:
     light.tv_lamp:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
       brightness: 254
-      color_temp: 352
-      linkquality: 63
+      # color_temp: 352
       state: 'on'
-      update:
-        state: idle
-      update_available: false
       friendly_name: TV Lamp
       supported_features: 47
     light.couch_side_table_lamp:
@@ -88,20 +65,9 @@
   name: Living Room - Off
   entities:
     light.tv_lamp:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
       brightness: 252
-      color_temp: 352
-      linkquality: 78
+      # color_temp: 352
       state: 'off'
-      update_available: false
       friendly_name: TV Lamp
       supported_features: 47
     light.couch_side_table_lamp:
@@ -134,7 +100,7 @@
       - finish_effect
       - stop_effect
       brightness: 203
-      color_temp: 343
+      # color_temp: 343
       linkquality: 78
       state: 'off'
       update_available: true
@@ -158,7 +124,7 @@
       - finish_effect
       - stop_effect
       brightness: 203
-      color_temp: 343
+      # color_temp: 343
       linkquality: 78
       state: 'on'
       update_available: true
@@ -190,7 +156,7 @@
       - finish_effect
       - stop_effect
       brightness: 203
-      color_temp: 343
+      # color_temp: 343
       linkquality: 78
       state: 'off'
       update_available: true

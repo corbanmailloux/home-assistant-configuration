@@ -69,8 +69,10 @@ google_cloud_assistant_credentials.json
 .storage/*
 !.storage/lovelace
 appdaemon/compiled
-custom_components/hacs/
 aircast.xml
+
+custom_components/hacs/
+custom_components/adaptive_lighting/
 
 # ESPHome
 esphome/*
