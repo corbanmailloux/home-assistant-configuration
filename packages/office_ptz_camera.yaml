@@ -1,0 +1,31 @@
+# There's a PTZ conference room camera on my desk that I use as a webcam. I like to move and turn it off at the end of the day,
+# but that requires setting the camera to preset location 0 (pointing away from my desk and down) and then putting it in standby.
+# Instead, I plugged it into a controllable outlet (Sonoff) and built an IR blaster for controlling it through HASS.
+
+switch:
+  - platform: template
+    switches:
+      ptz_camera:
+        friendly_name: PTZ Camera
+        icon_template: mdi:camera-wireless
+        value_template: "{{ is_state('switch.ptz_camera_power', 'on') }}"
+
+        turn_on:
+          - service: switch.turn_on
+            data:
+              entity_id: switch.ptz_camera_power
+          - delay:
+              seconds: 25
+          - service: switch.turn_on
+            data:
+              entity_id: switch.ptz_preset_1
+
+        turn_off:
+          - service: switch.turn_on
+            data:
+              entity_id: switch.ptz_preset_0
+          - delay:
+              seconds: 3
+          - service: switch.turn_off
+            data:
+              entity_id: switch.ptz_camera_power
