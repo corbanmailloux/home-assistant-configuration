@@ -110,45 +110,34 @@ automation:
           entity_id: input_select.download_speed
           option: Medium Speed
 
-  # Set speed based on input_select
-
-  - alias: Set download speed based on input_select - Full
+  - alias: Set download speed based on input_select
     trigger:
       - platform: state
         entity_id: input_select.download_speed
-        to: Full Speed
     action:
-      - service: nzbget.resume
-      - service: nzbget.set_speed
-        data:
-          speed: 0 # Unlimited
-
-  - alias: Set download speed based on input_select - Medium
-    trigger:
-      - platform: state
-        entity_id: input_select.download_speed
-        to: Medium Speed
-    action:
-      - service: nzbget.resume
-      - service: nzbget.set_speed
-        data:
-          speed: 7000 # KB/s
-
-  - alias: Set download speed based on input_select - Slow
-    trigger:
-      - platform: state
-        entity_id: input_select.download_speed
-        to: Slow Speed
-    action:
-      - service: nzbget.resume
-      - service: nzbget.set_speed
-        data:
-          speed: 1000 # KB/s
-
-  - alias: Set download speed based on input_select - Paused
-    trigger:
-      - platform: state
-        entity_id: input_select.download_speed
-        to: Paused
-    action:
-      - service: nzbget.pause
+      - choose:
+          - conditions: >
+              {{ trigger.to_state.state == "Full Speed" }}
+            sequence:
+              - service: nzbget.resume
+              - service: nzbget.set_speed
+                data:
+                  speed: 0 # Unlimited
+          - conditions: >
+              {{ trigger.to_state.state == "Medium Speed" }}
+            sequence:
+              - service: nzbget.resume
+              - service: nzbget.set_speed
+                data:
+                  speed: 7000 # KB/s
+          - conditions: >
+              {{ trigger.to_state.state == "Slow Speed" }}
+            sequence:
+              - service: nzbget.resume
+              - service: nzbget.set_speed
+                data:
+                  speed: 1000 # KB/s
+          - conditions: >
+              {{ trigger.to_state.state == "Paused" }}
+            sequence:
+              - service: nzbget.pause
