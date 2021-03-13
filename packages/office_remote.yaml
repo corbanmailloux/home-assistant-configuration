@@ -20,17 +20,40 @@ automation:
         type: action
         subtype: brightness_up_click
     action:
-      - service: light.turn_on
-        entity_id: light.office_lamp_bottom
-        data_template:
-          # Handles the light being off as well, treating it as 0 brightness.
-          brightness: >
-            {%- set target = (is_state('light.office_lamp_bottom', "on") and state_attr('light.office_lamp_bottom', 'brightness')) | int + 40 -%}
-            {%- if target > 255 -%}
-              255
-            {%- else -%}
-              {{ target}}
-            {%- endif -%}
+      - choose:
+          # If the bottom light is on, control it directly.
+          - conditions:
+              - condition: state
+                entity_id: light.office_lamp_bottom
+                state: "on"
+            sequence:
+              - service: light.turn_on
+                entity_id: light.office_lamp_bottom
+                data_template:
+                  brightness: >
+                    {%- set target = state_attr('light.office_lamp_bottom', 'brightness') | int + 40 -%}
+                    {%- if target > 255 -%}
+                      255
+                    {%- else -%}
+                      {{ target}}
+                    {%- endif -%}
+          # If the bottom light is off, control the lamp as a whole.
+          - conditions:
+              - condition: state
+                entity_id: light.office_lamp_bottom
+                state: "off"
+            sequence:
+              - service: light.turn_on
+                entity_id: light.office_lamp
+                data_template:
+                  # Handles the light being off as well, treating it as 0 brightness.
+                  brightness: >
+                    {%- set target = (is_state('light.office_lamp', "on") and state_attr('light.office_lamp', 'brightness')) | int + 40 -%}
+                    {%- if target > 255 -%}
+                      255
+                    {%- else -%}
+                      {{ target}}
+                    {%- endif -%}
 
   - alias: Office Remote - Brightness Down
     trigger:
@@ -40,21 +63,40 @@ automation:
         domain: mqtt
         type: action
         subtype: brightness_down_click
-    condition:
-      - condition: state
-        entity_id: light.office_lamp_bottom
-        state: "on"
     action:
-      - service: light.turn_on
-        entity_id: light.office_lamp_bottom
-        data_template:
-          brightness: >
-            {%- set target = state_attr('light.office_lamp_bottom', 'brightness') | int - 40 -%}
-            {%- if target < 10 -%}
-              10
-            {%- else -%}
-              {{ target}}
-            {%- endif -%}
+      - choose:
+          # If the bottom light is on, control it directly.
+          - conditions:
+              - condition: state
+                entity_id: light.office_lamp_bottom
+                state: "on"
+            sequence:
+              - service: light.turn_on
+                entity_id: light.office_lamp_bottom
+                data_template:
+                  brightness: >
+                    {%- set target = state_attr('light.office_lamp_bottom', 'brightness') | int - 40 -%}
+                    {%- if target < 10 -%}
+                      10
+                    {%- else -%}
+                      {{ target}}
+                    {%- endif -%}
+          # If the bottom light is off, control the lamp as a whole.
+          - conditions:
+              - condition: state
+                entity_id: light.office_lamp_bottom
+                state: "off"
+            sequence:
+              - service: light.turn_on
+                entity_id: light.office_lamp
+                data_template:
+                  brightness: >
+                    {%- set target = state_attr('light.office_lamp', 'brightness') | int - 40 -%}
+                    {%- if target < 10 -%}
+                      10
+                    {%- else -%}
+                      {{ target}}
+                    {%- endif -%}
 
   - alias: Office Remote - Brightness Up Hold
     trigger:
@@ -118,7 +160,9 @@ automation:
         subtype: arrow_right_click
     action:
       - service: light.toggle
-        entity_id: light.office_lamp
+        data:
+          entity_id: light.office_lamp
+          brightness: 255
 
   - alias: Office Remote - Right Button Hold - Toggle PTZ Camera
     trigger:
