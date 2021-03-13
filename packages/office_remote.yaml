@@ -96,7 +96,7 @@ automation:
       - service: light.toggle
         entity_id: light.plant_lamp
 
-  - alias: Office Remote - Left Button Hold - Toggle PTZ Camera
+  - alias: Office Remote - Left Button Hold - Toggle Fan
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -105,8 +105,8 @@ automation:
         type: action
         subtype: arrow_left_hold
     action:
-      - service: switch.toggle
-        entity_id: switch.ptz_camera # Template switch. See `office_ptz_camera` package.
+      - service: fan.toggle
+        entity_id: fan.office_fan
 
   - alias: Office Remote - Right Button Click - Toggle Lamp
     trigger:
@@ -120,7 +120,7 @@ automation:
       - service: light.toggle
         entity_id: light.office_lamp
 
-  - alias: Office Remote - Right Button Hold - Toggle Fan
+  - alias: Office Remote - Right Button Hold - Toggle PTZ Camera
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -129,5 +129,5 @@ automation:
         type: action
         subtype: arrow_right_hold
     action:
-      - service: fan.toggle
-        entity_id: fan.office_fan
+      - service: switch.toggle
+        entity_id: switch.ptz_camera # Template switch. See `office_ptz_camera` package.
