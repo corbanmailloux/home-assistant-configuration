@@ -1930,6 +1930,29 @@
                                         }
                                     ],
                                     "type": "conditional"
+                                },
+                                {
+                                    "card": {
+                                        "entity": "input_boolean.cat_claw_clip_needed",
+                                        "layout": "icon_name",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "tap_action": {
+                                            "action": "toggle"
+                                        },
+                                        "hold_action": {
+                                            "action": "call-service",
+                                            "service": "script.cat_claw_clipped_run_eve"
+                                        },
+                                        "type": "custom:button-card"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "input_boolean.cat_claw_clip_needed",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
                                 }
                             ],
                             "type": "vertical-stack"

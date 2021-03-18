@@ -1,0 +1,28 @@
+automation:
+  - alias: Show Cat Clipper Reminder
+    trigger:
+      - platform: time
+        at: "20:00:00" # 8:00PM
+    condition:
+      - condition: time
+        weekday:
+          - sat
+      - condition: template
+        # Every other week
+        value_template: "{{(as_timestamp(now())|timestamp_custom ('%U') | int % 2) == 0 }}"
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.cat_claw_clip_needed
+
+input_boolean:
+  cat_claw_clip_needed:
+    name: Time to clip some claws!
+    icon: mdi:paw
+
+script:
+  cat_claw_clipped_run_eve:
+    alias: Run Eve in Kitchen
+    sequence:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.cat_claw_clip_needed
+      # TODO: Run Eve in the kitchen.
