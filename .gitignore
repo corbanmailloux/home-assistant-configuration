@@ -71,8 +71,10 @@ google_cloud_assistant_credentials.json
 appdaemon/compiled
 aircast.xml
 
+# HACS Custom Components
 custom_components/hacs/
 custom_components/adaptive_lighting/
+custom_components/xiaomi_cloud_map_extractor/
 
 # ESPHome
 esphome/*

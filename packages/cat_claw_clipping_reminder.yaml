@@ -1,3 +1,25 @@
+# TODO: this can be moved to another core package later
+camera:
+  - platform: xiaomi_cloud_map_extractor
+    host: !secret xiaomi_vacuum_host
+    token: !secret xiaomi_vacuum_token
+    username: !secret xiaomi_cloud_username
+    password: !secret xiaomi_cloud_password
+    country: us
+    scan_interval: 60
+    draw: ["all"]
+    attributes:
+      - calibration_points
+      # - rooms
+      # - room_numbers
+      # - vacuum_room
+    map_transformation:
+      trim:
+        top: 22
+        bottom: 21
+        left: 25
+        right: 28
+
 automation:
   - alias: Show Cat Clipper Reminder
     trigger:
@@ -25,4 +47,15 @@ script:
     sequence:
       - service: input_boolean.turn_off
         entity_id: input_boolean.cat_claw_clip_needed
-      # TODO: Run Eve in the kitchen.
+      - service: xiaomi_miio.vacuum_clean_zone
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+          zone: [[18389, 24967, 20750, 29782]]
+          repeats: 1
+# Reference:
+# Kitchen: [[18389,24967,20750,29782]]
+# Cat Bath: [[18210,30896,22044,32724]]
+# Office: [[22713,29826,26725,33883]]
+# Living Room: [[20750,25056,27349,29648], [20750,29559,22178,30896]]
+# Bedroom: [[20739,21010,26718,25004]]
+# Master Bath: [[18140,20968,20697,24285]]
