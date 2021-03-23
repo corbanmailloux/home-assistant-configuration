@@ -7,10 +7,10 @@ automation:
         for:
           minutes: 5
     action:
-      service: notify.corban
-      data:
-        title: "Network Closet Too Hot"
-      data_template:
-        message: >
-          The network closet is {{ states('sensor.network_closet_temperature') | round(1) }}°F.
-          This exceeds the threshold of 90°F.
+      - service: notify.corban
+        data:
+          title: "Network Closet Too Hot"
+        data_template:
+          message: >
+            The network closet is {{ states('sensor.network_closet_temperature') | round(1) }}°F.
+            This exceeds the threshold of 90°F.

@@ -21,17 +21,17 @@ light:
           data_template:
             cmd: setStringSetting
             key: screenBrightness
-            value: '{{ brightness }}'
+            value: "{{ brightness }}"
 
 sensor:
   - platform: rest
     name: Tablet Wall Display Device Info
     resource: !secret tablet_wall_display_get_device_info_url
     json_attributes:
-    - screenBrightness
-    - isScreenOn
-    - plugged
-    value_template: 'OK'
+      - screenBrightness
+      - isScreenOn
+      - plugged
+    value_template: "OK"
     scan_interval: 10 # seconds
 
 rest_command:
@@ -46,3 +46,17 @@ script:
       - service: rest_command.tablet_wall_display_command
         data:
           cmd: loadStartUrl
+
+automation:
+  - alias: Notify if the wall display comes unplugged
+    trigger:
+      - platform: state
+        entity_id: sensor.tablet_wall_display_device_info
+        attribute: plugged
+        to: false
+        for: "00:00:30"
+    action:
+      - service: notify.corban
+        data:
+          title: "Wall Display Unplugged"
+          message: "The wall display has been unplugged for at least 30 seconds."
