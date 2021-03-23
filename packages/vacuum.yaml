@@ -1,0 +1,52 @@
+# Creates the camera entity used in the custom Lovelace card.
+camera:
+  - platform: xiaomi_cloud_map_extractor
+    host: !secret xiaomi_vacuum_host
+    token: !secret xiaomi_vacuum_token
+    username: !secret xiaomi_cloud_username
+    password: !secret xiaomi_cloud_password
+    country: us
+    # scan_interval: 60
+    auto_update: false
+    draw: ["all"]
+    attributes:
+      - calibration_points
+    map_transformation:
+      trim:
+        top: 22
+        bottom: 21
+        left: 25
+        right: 28
+
+# Approximate Room Coordinates:
+# Kitchen: [[18389,24967,20750,29782]]
+# Cat Bath: [[18210,30896,22044,32724]]
+# Office: [[22713,29826,26725,33883]]
+# Living Room: [[20750,25056,27349,29648], [20750,29559,22178,30896]]
+# Bedroom: [[20739,21010,26718,25004]]
+# Master Bath: [[18140,20968,20697,24285]]
+
+automation:
+  - alias: Update vacuum map schedule each minute when undocked
+    trigger:
+      - platform: time_pattern
+        minutes: "/1" # Trigger each minute
+    condition:
+      - condition: template
+        value_template: "{{ not is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
+    action:
+      - service: homeassistant.update_entity
+        data:
+          entity_id: camera.xiaomi_cloud_map_extractor
+
+  - alias: Update vacuum map schedule each hour when docked
+    trigger:
+      - platform: time_pattern
+        hours: "/1" # Trigger each hour
+    condition:
+      - condition: template
+        value_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
+    action:
+      - service: homeassistant.update_entity
+        data:
+          entity_id: camera.xiaomi_cloud_map_extractor
