@@ -598,6 +598,58 @@
                                         }
                                     ],
                                     "type": "conditional"
+                                },
+                                {
+                                    "type": "conditional",
+                                    "conditions": [
+                                        {
+                                            "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                            "state_not": "docked"
+                                        }
+                                    ],
+                                    "card": {
+                                        "type": "horizontal-stack",
+                                        "cards": [
+                                            {
+                                                "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                                "layout": "vertical",
+                                                "icon": "mdi:pause",
+                                                "name": "Pause Vacuum",
+                                                "show_icon": true,
+                                                "show_state": false,
+                                                "type": "custom:button-card",
+                                                "tap_action": {
+                                                    "action": "call-service",
+                                                    "service": "vacuum.pause",
+                                                    "service_data": {
+                                                        "entity_id": "entity"
+                                                    }
+                                                },
+                                                "hold_action": {
+                                                    "action": "more-info"
+                                                }
+                                            },
+                                            {
+                                                "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                                "layout": "vertical",
+                                                "icon": "mdi:stop",
+                                                "name": "Stop / Dock Vacuum",
+                                                "show_icon": true,
+                                                "show_state": false,
+                                                "type": "custom:button-card",
+                                                "tap_action": {
+                                                    "action": "call-service",
+                                                    "service": "vacuum.return_to_base",
+                                                    "service_data": {
+                                                        "entity_id": "entity"
+                                                    }
+                                                },
+                                                "hold_action": {
+                                                    "action": "more-info"
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             ],
                             "type": "vertical-stack"
@@ -1954,6 +2006,58 @@
                                         }
                                     ],
                                     "type": "conditional"
+                                },
+                                {
+                                    "type": "conditional",
+                                    "conditions": [
+                                        {
+                                            "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                            "state_not": "docked"
+                                        }
+                                    ],
+                                    "card": {
+                                        "type": "horizontal-stack",
+                                        "cards": [
+                                            {
+                                                "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                                "layout": "vertical",
+                                                "icon": "mdi:pause",
+                                                "name": "Pause Vacuum",
+                                                "show_icon": true,
+                                                "show_state": false,
+                                                "type": "custom:button-card",
+                                                "tap_action": {
+                                                    "action": "call-service",
+                                                    "service": "vacuum.pause",
+                                                    "service_data": {
+                                                        "entity_id": "entity"
+                                                    }
+                                                },
+                                                "hold_action": {
+                                                    "action": "more-info"
+                                                }
+                                            },
+                                            {
+                                                "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                                "layout": "vertical",
+                                                "icon": "mdi:stop",
+                                                "name": "Stop / Dock Vacuum",
+                                                "show_icon": true,
+                                                "show_state": false,
+                                                "type": "custom:button-card",
+                                                "tap_action": {
+                                                    "action": "call-service",
+                                                    "service": "vacuum.return_to_base",
+                                                    "service_data": {
+                                                        "entity_id": "entity"
+                                                    }
+                                                },
+                                                "hold_action": {
+                                                    "action": "more-info"
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             ],
                             "type": "vertical-stack"
