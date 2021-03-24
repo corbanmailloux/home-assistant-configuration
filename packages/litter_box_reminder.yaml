@@ -12,7 +12,7 @@ automation:
   - alias: Reminder to do the litter box
     trigger:
       - platform: time
-        at: "19:00:00" # 7 PM. TODO: Make configurable?
+        at: "19:00:00" # 7 PM.
     condition:
       - condition: state
         entity_id: input_boolean.vacation_mode

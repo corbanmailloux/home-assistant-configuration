@@ -50,3 +50,91 @@ automation:
       - service: homeassistant.update_entity
         data:
           entity_id: camera.xiaomi_cloud_map_extractor
+
+  - alias: Remind Corban to run the vacuum
+    trigger:
+      - platform: time
+        at: "11:00:00"
+    condition:
+      - alias: "Weekdays"
+        condition: time
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+      - alias: "Maggie's not home"
+        condition: state
+        entity_id: binary_sensor.maggie_person_home
+        state: "off"
+      - alias: "Home Occupied"
+        condition: state
+        entity_id: input_boolean.home_occupied
+        state: "on"
+      - alias: "Not in Vacation Mode"
+        condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
+    action:
+      - service: notify.corban
+        data:
+          title: "Time to Run Eve?"
+          message: "Choose cleaning mode:"
+          data:
+            push:
+              category: "run_vacuum" # Adds the action buttons.
+            apns_headers:
+              "apns-collapse-id": "run-vacuum"
+
+  - alias: Run vacuum full clean from notification
+    trigger:
+      - platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: RUN_VACUUM # TODO: Verify. Is this caps, or does it match below?
+          actionName: FULL_CLEAN
+    action:
+      - alias: "Run full clean"
+        service: vacuum.start
+        target:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+
+  - alias: Run vacuum partial clean from notification
+    trigger:
+      - platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: RUN_VACUUM
+          actionName: NO_OFFICE_CLEAN
+    action:
+      - service: xiaomi_miio.vacuum_clean_zone
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+          zone: # TODO: Does this support this many zones? I thought there was a 5-zone limit.
+            - [18389, 24967, 20750, 29782]
+            - [20750, 25004, 27349, 29870]
+            - [20751, 29870, 22178, 30896]
+            - [20739, 21010, 26718, 25004]
+            - [18140, 20968, 20739, 24285]
+            - [18110, 30896, 22178, 32724]
+          repeats: 1
+
+ios:
+  push:
+    categories:
+      - name: Daily Vacuum Reminder
+        identifier: "run_vacuum"
+        actions:
+          - identifier: "FULL_CLEAN"
+            title: "Full Clean"
+            activationMode: "background"
+            authenticationRequired: false # Don't require unlocking the device
+            destructive: false
+            behavior: "default"
+          - identifier: "NO_OFFICE_CLEAN"
+            title: "Skip the Office"
+            activationMode: "background"
+            authenticationRequired: false # Don't require unlocking the device
+            destructive: false
+            behavior: "default"
