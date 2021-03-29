@@ -2095,6 +2095,9 @@
                                 },
                                 {
                                     "entity": "input_boolean.cat_claw_clip_needed"
+                                },
+                                {
+                                    "entity": "vacuum.xiaomi_vacuum_cleaner"
                                 }
                             ],
                             "show_header_toggle": false,

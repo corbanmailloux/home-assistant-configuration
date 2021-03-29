@@ -92,13 +92,20 @@ automation:
       - platform: event
         event_type: ios.notification_action_fired
         event_data:
-          categoryName: RUN_VACUUM # TODO: Verify. Is this caps, or does it match below?
+          categoryName: RUN_VACUUM
           actionName: FULL_CLEAN
     action:
-      - alias: "Run full clean"
-        service: vacuum.start
-        target:
+      - alias: "Clean First Rooms"
+        service: xiaomi_miio.vacuum_clean_zone
+        data:
           entity_id: vacuum.xiaomi_vacuum_cleaner
+          zone:
+            - [22713, 29870, 26725, 33883] # Office
+            - [18110, 30896, 22178, 32724] # Guest Bathroom
+            - [18389, 24967, 20750, 29782] # Kitchen
+            - [20739, 21010, 26718, 25004] # Bedroom
+          repeats: 1
+      - service: script.vacuum_wait_and_alert # Moved to shared logic.
 
   - alias: Run vacuum partial clean from notification
     trigger:
@@ -108,17 +115,87 @@ automation:
           categoryName: RUN_VACUUM
           actionName: NO_OFFICE_CLEAN
     action:
-      - service: xiaomi_miio.vacuum_clean_zone
+      - alias: "Clean First Rooms"
+        service: xiaomi_miio.vacuum_clean_zone
         data:
           entity_id: vacuum.xiaomi_vacuum_cleaner
-          zone: # TODO: Does this support this many zones? I thought there was a 5-zone limit.
-            - [18389, 24967, 20750, 29782]
-            - [20750, 25004, 27349, 29870]
-            - [20751, 29870, 22178, 30896]
-            - [20739, 21010, 26718, 25004]
-            - [18140, 20968, 20739, 24285]
-            - [18110, 30896, 22178, 32724]
+          zone:
+            - [18110, 30896, 22178, 32724] # Guest Bathroom
+            - [18389, 24967, 20750, 29782] # Kitchen
+            - [20739, 21010, 26718, 25004] # Bedroom
           repeats: 1
+      - service: script.vacuum_wait_and_alert # Moved to shared logic.
+
+  - alias: Resume Vacuum Cleaning From Notification
+    trigger:
+      - platform: event
+        event_type: ios.notification_action_fired
+        event_data:
+          categoryName: RUN_VACUUM_CONT
+          actionName: RESUME_CLEAN
+    action:
+      - alias: "Finish Clean"
+        service: xiaomi_miio.vacuum_clean_zone
+        data:
+          entity_id: vacuum.xiaomi_vacuum_cleaner
+          zone:
+            - [18140, 20968, 20739, 24285] # Master Bathroom
+            - [20751, 29870, 22178, 30896] # Living Room - Ext
+            - [20750, 25004, 27349, 29870] # Living Room - Main
+          repeats: 1
+      - delay:
+          seconds: 30
+      - wait_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
+        timeout:
+          minutes: 60
+      - choose:
+          - conditions: "{{ not wait.completed }}"
+            sequence:
+              - service: notify.corban
+                data:
+                  title: "Cleaning Error"
+                  message: "Vacuum didn't return to dock before timeout."
+                  data:
+                    apns_headers:
+                      "apns-collapse-id": "run-vacuum"
+        default:
+          - service: notify.corban
+            data:
+              title: "Vacuum Done"
+              message: "Remember to empty the bin."
+              data:
+                apns_headers:
+                  "apns-collapse-id": "run-vacuum"
+
+script:
+  vacuum_wait_and_alert:
+    alias: "Vacuum Helper: Wait for completion and send notification."
+    sequence:
+      - delay:
+          seconds: 30
+      - wait_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
+        timeout:
+          minutes: 60
+      - choose:
+          - conditions: "{{ not wait.completed }}"
+            sequence:
+              - service: notify.corban
+                data:
+                  title: "Cleaning Error"
+                  message: "Vacuum didn't return to dock before timeout."
+                  data:
+                    apns_headers:
+                      "apns-collapse-id": "run-vacuum"
+        default:
+          - service: notify.corban
+            data:
+              title: "Empty Eve's Bin"
+              message: "Confirm when the bin has been emptied."
+              data:
+                push:
+                  category: "run_vacuum_cont" # Adds the action buttons.
+                apns_headers:
+                  "apns-collapse-id": "run-vacuum"
 
 ios:
   push:
@@ -134,6 +211,15 @@ ios:
             behavior: "default"
           - identifier: "NO_OFFICE_CLEAN"
             title: "Skip the Office"
+            activationMode: "background"
+            authenticationRequired: false # Don't require unlocking the device
+            destructive: false
+            behavior: "default"
+      - name: Daily Vacuum Reminder - Follow Up
+        identifier: "run_vacuum_cont"
+        actions:
+          - identifier: "RESUME_CLEAN"
+            title: "Resume Cleaning"
             activationMode: "background"
             authenticationRequired: false # Don't require unlocking the device
             destructive: false
