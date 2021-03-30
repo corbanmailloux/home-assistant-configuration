@@ -37,14 +37,15 @@ automation:
 
   - alias: Turn off vacation mode notification clicked
     trigger:
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: turn_off_vacation_mode
+      # - platform: event
+      #   event_type: mobile_app_notification_action
+      #   event_data:
+      #     action: turn_off_vacation_mode
       - platform: event
         event_type: ios.notification_action_fired
         event_data:
-          actionName: COMPLETE
+          categoryName: disable_vacation_mode
+          actionName: DISABLE
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacation_mode

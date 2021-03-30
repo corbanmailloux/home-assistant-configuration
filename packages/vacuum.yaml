@@ -92,7 +92,7 @@ automation:
       - platform: event
         event_type: ios.notification_action_fired
         event_data:
-          categoryName: RUN_VACUUM
+          categoryName: run_vacuum
           actionName: FULL_CLEAN
     action:
       - alias: "Clean First Rooms"
@@ -112,7 +112,7 @@ automation:
       - platform: event
         event_type: ios.notification_action_fired
         event_data:
-          categoryName: RUN_VACUUM
+          categoryName: run_vacuum
           actionName: NO_OFFICE_CLEAN
     action:
       - alias: "Clean First Rooms"
