@@ -11,6 +11,7 @@ all_lights_custom:
     - light.plant_lamp
     - light.office_lamp
     - light.office_lamp_bottom
+    - light.office_leds
     # Living Room
     - light.tv_lamp
     - light.kallax_lamp
@@ -30,6 +31,7 @@ everything_custom:
     - light.plant_lamp
     - light.office_lamp
     - light.office_lamp_bottom
+    - light.office_leds
     ## Living Room
     - light.tv_lamp
     - light.kallax_lamp
