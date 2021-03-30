@@ -18,6 +18,12 @@ camera:
         left: 25
         right: 28
 
+input_datetime:
+  last_vacuum_run:
+    name: Last Vacuum Run
+    has_date: true
+    has_time: false
+
 # Approximate Room Coordinates:
 # Kitchen: [[18389,24967,20750,29782]]
 # Cat Bath: [[18210,30896,22044,32724]]
@@ -76,6 +82,10 @@ automation:
         condition: state
         entity_id: input_boolean.vacation_mode
         state: "off"
+      - alias: "Vacuum didn't run yesterday"
+        condition: template
+        value_template: >
+          {{ states('input_datetime.last_vacuum_run') > (now().timestamp() - 30*60*60) | timestamp_custom('%Y-%m-%d') }}
     action:
       - service: notify.corban
         data:
@@ -166,6 +176,12 @@ automation:
               data:
                 apns_headers:
                   "apns-collapse-id": "run-vacuum"
+          - service: input_datetime.set_datetime
+            alias: Store the last run time
+            target:
+              entity_id: input_datetime.last_vacuum_run
+            data:
+              timestamp: "{{ now().timestamp() }}"
 
 script:
   vacuum_wait_and_alert:
