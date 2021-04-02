@@ -85,7 +85,7 @@ automation:
       - alias: "Vacuum didn't run yesterday"
         condition: template
         value_template: >
-          {{ states('input_datetime.last_vacuum_run') > (now().timestamp() - 30*60*60) | timestamp_custom('%Y-%m-%d') }}
+          {{ states('input_datetime.last_vacuum_run') < (now().timestamp() - 30*60*60) | timestamp_custom('%Y-%m-%d') }}
     action:
       - service: notify.corban
         data:
@@ -141,7 +141,7 @@ automation:
       - platform: event
         event_type: ios.notification_action_fired
         event_data:
-          categoryName: RUN_VACUUM_CONT
+          categoryName: run_vacuum_cont
           actionName: RESUME_CLEAN
     action:
       - alias: "Finish Clean"
@@ -154,7 +154,7 @@ automation:
             - [20750, 25004, 27349, 29870] # Living Room - Main
           repeats: 1
       - delay:
-          seconds: 30
+          seconds: 60
       - wait_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
         timeout:
           minutes: 60
@@ -188,7 +188,7 @@ script:
     alias: "Vacuum Helper: Wait for completion and send notification."
     sequence:
       - delay:
-          seconds: 30
+          seconds: 60
       - wait_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
         timeout:
           minutes: 60
