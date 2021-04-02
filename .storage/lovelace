@@ -931,33 +931,10 @@
                     "badges": [],
                     "cards": [
                         {
-                            "entities": [
-                                {
-                                    "entity": "sensor.openweathermap_condition"
-                                },
-                                {
-                                    "entity": "sensor.openweathermap_temperature"
-                                },
-                                {
-                                    "entity": "sensor.openweathermap_humidity"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Outside",
-                            "type": "entities"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "sensor.living_room_temperature"
-                                },
-                                {
-                                    "entity": "sensor.living_room_humidity"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "Inside",
-                            "type": "entities"
+                            "type": "custom:simple-thermostat",
+                            "entity": "climate.thermostat",
+                            "show_header": false,
+                            "step_layout": "row"
                         },
                         {
                             "cards": [
@@ -990,6 +967,42 @@
                                 }
                             ],
                             "type": "vertical-stack"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.openweathermap_condition"
+                                },
+                                {
+                                    "entity": "sensor.openweathermap_temperature"
+                                },
+                                {
+                                    "entity": "sensor.openweathermap_humidity"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Outside",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "sensor.thermostat_temperature"
+                                },
+                                {
+                                    "entity": "sensor.living_room_temperature"
+                                },
+                                {
+                                    "entity": "sensor.office_temperature"
+                                },
+                                {
+                                    "entity": "sensor.bedroom_temperature"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Inside",
+                            "type": "entities",
+                            "state_color": false
                         },
                         {
                             "entities": [
