@@ -24,3 +24,27 @@ sensor:
       - name
       - upc
     json_attributes_path: "$.entries[1].product"
+
+automation:
+  - id: dc5364e0-0b05-49dd-9e55-e357226af28b
+    alias: Update Cat Food Scanner on Webhook
+    trigger:
+      - platform: webhook
+        webhook_id: !secret cat_food_scanner_update_webhook
+    action:
+      - alias: Update CFT sensors
+        service: homeassistant.update_entity
+        data:
+          entity_id:
+            - sensor.cat_food_tracker_most_recent_meal_1
+            - sensor.cat_food_tracker_most_recent_meal_2
+      - alias: Turn on kitchen display
+        service: light.turn_on
+        target:
+          entity_id: light.kitchen_display_screen
+      - alias: Display toast on kitchen display
+        service: browser_mod.toast
+        data:
+          deviceID: browser_mod_kitchen_display
+          message: Cat food scan registered.
+          duration: 10000
