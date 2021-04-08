@@ -1,0 +1,73 @@
+{
+    "version": 1,
+    "key": "lovelace_resources",
+    "data": {
+        "items": [
+            {
+                "id": "28c4a145735f43cc87c5a24a7fb4f4b6",
+                "type": "module",
+                "url": "/hacsfiles/lovelace-card-tools/card-tools.js"
+            },
+            {
+                "id": "9fb206a7694a4cdcb5fa596e6914ee83",
+                "type": "module",
+                "url": "/hacsfiles/roku-card/roku-card.js"
+            },
+            {
+                "id": "4047cd6f267f4453bfddfd94708537d8",
+                "type": "module",
+                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js"
+            },
+            {
+                "id": "67bafd0677544c748363f9561ce64446",
+                "type": "module",
+                "url": "/hacsfiles/lovelace-slider-entity-row/slider-entity-row.js"
+            },
+            {
+                "id": "220c76e6863c4c1f831d5aaa2a58b793",
+                "type": "module",
+                "url": "/hacsfiles/simple-thermostat/simple-thermostat.js"
+            },
+            {
+                "id": "2ecb0875b3bc4c8ab53a257f098adf41",
+                "type": "module",
+                "url": "/hacsfiles/button-card/button-card.js"
+            },
+            {
+                "id": "e577585c2be34a5ea55084e31269460e",
+                "type": "module",
+                "url": "/hacsfiles/text-divider-row/text-divider-row.js"
+            },
+            {
+                "id": "49dae12118f643c19955e01675348008",
+                "type": "module",
+                "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js"
+            },
+            {
+                "id": "b9ec5fec89054ffeb91508eafed17d54",
+                "type": "module",
+                "url": "/hacsfiles/lovelace-card-mod/card-mod.js"
+            },
+            {
+                "id": "9717aed771b445c5965d83897ccb1714",
+                "type": "module",
+                "url": "/hacsfiles/weather-card/weather-card.js"
+            },
+            {
+                "url": "/hacsfiles/aftership-card/aftership-card.js",
+                "type": "module",
+                "id": "33c35f7aba4849e5a9c1e31f44a8bdba"
+            },
+            {
+                "url": "/hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js",
+                "type": "module",
+                "id": "1d8a12691e514ff68368527b49482d08"
+            },
+            {
+                "url": "/hacsfiles/google_home_timers_card/googletimers-card.js",
+                "type": "module",
+                "id": "35185b85c10b415696425cfa04a66d1f"
+            }
+        ]
+    }
+}

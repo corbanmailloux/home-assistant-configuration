@@ -66,15 +66,17 @@ plex.conf
 .tradfri_psk.conf
 google_cloud_credentials.json
 google_cloud_assistant_credentials.json
-.storage/*
-!.storage/lovelace
 appdaemon/compiled
 aircast.xml
+# Hide all of the storage directory, but keep the UI config.
+.storage/*
+!.storage/lovelace*
 
 # HACS Custom Components
 custom_components/hacs/
 custom_components/adaptive_lighting/
 custom_components/xiaomi_cloud_map_extractor/
+custom_components/google_home/
 
 # ESPHome
 esphome/*
