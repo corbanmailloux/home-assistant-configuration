@@ -1,0 +1,61 @@
+# Phone mounted on the side of the fridge in the kitchen.
+
+light:
+  - platform: template
+    lights:
+      kitchen_display_screen:
+        friendly_name: Kitchen Display Screen
+        value_template: '{{ state_attr("sensor.kitchen_display_device_info", "screenOn") }}'
+        level_template: '{{ state_attr("sensor.kitchen_display_device_info", "screenBrightness") }}'
+        turn_on:
+          service: rest_command.kitchen_display_command
+          data:
+            cmd: screenOn
+        turn_off:
+          service: rest_command.kitchen_display_command
+          data:
+            cmd: screenOff
+        set_level:
+          service: rest_command.kitchen_display_command
+          data_template:
+            cmd: setStringSetting
+            key: screenBrightness
+            value: "{{ brightness }}"
+
+sensor:
+  - platform: rest
+    name: Kitchen Display Device Info
+    resource: !secret kitchen_display_get_device_info_url
+    json_attributes:
+      - screenBrightness
+      - screenOn
+      - plugged
+    value_template: "OK"
+    scan_interval: 10 # seconds
+
+rest_command:
+  kitchen_display_command:
+    url: !secret kitchen_display_command_url
+
+script:
+  kitchen_display_reload:
+    alias: "Reload the Wall Display"
+    icon: "mdi:refresh"
+    sequence:
+      - service: rest_command.kitchen_display_command
+        data:
+          cmd: loadStartUrl
+
+automation:
+  - alias: Notify if the kitchen display comes unplugged
+    trigger:
+      - platform: state
+        entity_id: sensor.kitchen_display_device_info
+        attribute: plugged
+        to: false
+        for: "00:00:30"
+    action:
+      - service: notify.corban
+        data:
+          title: "Kitchen Display Unplugged"
+          message: "The kitchen display has been unplugged for at least 30 seconds."
