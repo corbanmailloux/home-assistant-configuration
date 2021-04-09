@@ -4,7 +4,7 @@ sensor:
     resource: !secret cat_food_tracker_url
     headers:
       API-Key: !secret cat_food_tracker_api_key
-    scan_interval: 60 # seconds
+    scan_interval: 300 # 5 minutes
     value_template: >-
       {{ strptime(value_json.entries[0].submission_time, "%Y-%m-%dT%H:%M:%S%z") | as_timestamp | timestamp_custom("%-I:%M%p") }}
     json_attributes:
@@ -17,7 +17,7 @@ sensor:
     resource: !secret cat_food_tracker_url
     headers:
       API-Key: !secret cat_food_tracker_api_key
-    scan_interval: 60 # seconds
+    scan_interval: 300 # 5 minutes
     value_template: >-
       {{ strptime(value_json.entries[1].submission_time, "%Y-%m-%dT%H:%M:%S%z") | as_timestamp | timestamp_custom("%-I:%M%p") }}
     json_attributes:
