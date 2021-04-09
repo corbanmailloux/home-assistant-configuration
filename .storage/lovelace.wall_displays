@@ -283,41 +283,6 @@
                                     "type": "custom:button-card"
                                 },
                                 {
-                                    "cards": [
-                                        {
-                                            "entity": "sensor.cat_food_tracker_most_recent_meal_1",
-                                            "name": "Last Meal",
-                                            "show_icon": false,
-                                            "show_label": false,
-                                            "show_state": true,
-                                            "styles": {
-                                                "state": [
-                                                    {
-                                                        "font-size": "30px"
-                                                    }
-                                                ]
-                                            },
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "entity": "sensor.cat_food_tracker_most_recent_meal_2",
-                                            "name": "Previous Meal",
-                                            "show_icon": false,
-                                            "show_label": false,
-                                            "show_state": true,
-                                            "styles": {
-                                                "state": [
-                                                    {
-                                                        "font-size": "30px"
-                                                    }
-                                                ]
-                                            },
-                                            "type": "custom:button-card"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                },
-                                {
                                     "current": true,
                                     "details": false,
                                     "entity": "weather.openweathermap",
@@ -762,6 +727,91 @@
                     ]
                 },
                 {
+                    "title": "Wall Display - More",
+                    "path": "wall-display-more",
+                    "icon": "mdi:page-next-outline",
+                    "theme": "noctis_custom",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "type": "picture-entity",
+                            "entity": "camera.join_our_wifi",
+                            "show_name": false,
+                            "show_state": false,
+                            "tap_action": {
+                                "action": "more-info"
+                            },
+                            "hold_action": {
+                                "action": "none"
+                            }
+                        },
+                        {
+                            "type": "custom:xiaomi-vacuum-map-card",
+                            "entity": "vacuum.xiaomi_vacuum_cleaner",
+                            "map_camera": "camera.xiaomi_cloud_map_extractor",
+                            "camera_calibration": true,
+                            "debug": false,
+                            "default_mode": "predefined_zones",
+                            "zones": [
+                                [
+                                    [
+                                        18389,
+                                        24967,
+                                        20750,
+                                        29782
+                                    ]
+                                ],
+                                [
+                                    [
+                                        18110,
+                                        30896,
+                                        22178,
+                                        32724
+                                    ]
+                                ],
+                                [
+                                    [
+                                        22713,
+                                        29870,
+                                        26725,
+                                        33883
+                                    ]
+                                ],
+                                [
+                                    [
+                                        20750,
+                                        25004,
+                                        27349,
+                                        29870
+                                    ],
+                                    [
+                                        20751,
+                                        29870,
+                                        22178,
+                                        30896
+                                    ]
+                                ],
+                                [
+                                    [
+                                        20739,
+                                        21010,
+                                        26718,
+                                        25004
+                                    ]
+                                ],
+                                [
+                                    [
+                                        18140,
+                                        20968,
+                                        20739,
+                                        24285
+                                    ]
+                                ]
+                            ]
+                        }
+                    ]
+                },
+                {
                     "title": "Kitchen Display",
                     "path": "kitchen-display",
                     "icon": "mdi:fridge-outline",
@@ -771,34 +821,12 @@
                         {
                             "cards": [
                                 {
-                                    "entity": "sensor.cat_food_tracker_most_recent_meal_1",
-                                    "name": "Last Meal",
-                                    "show_icon": false,
-                                    "show_label": false,
-                                    "show_state": true,
-                                    "styles": {
-                                        "state": [
-                                            {
-                                                "font-size": "30px"
-                                            }
-                                        ]
-                                    },
-                                    "type": "custom:button-card"
+                                    "type": "markdown",
+                                    "content": "### Last Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_1\") }}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_1\", \"name\") }}"
                                 },
                                 {
-                                    "entity": "sensor.cat_food_tracker_most_recent_meal_2",
-                                    "name": "Previous Meal",
-                                    "show_icon": false,
-                                    "show_label": false,
-                                    "show_state": true,
-                                    "styles": {
-                                        "state": [
-                                            {
-                                                "font-size": "30px"
-                                            }
-                                        ]
-                                    },
-                                    "type": "custom:button-card"
+                                    "type": "markdown",
+                                    "content": "### Previous Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_2\") }}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_2\", \"name\") }}"
                                 }
                             ],
                             "type": "horizontal-stack"

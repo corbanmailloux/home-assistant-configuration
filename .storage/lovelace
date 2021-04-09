@@ -1358,6 +1358,9 @@
                                     "entity": "light.tablet_wall_display_screen"
                                 },
                                 {
+                                    "entity": "script.tablet_wall_display_reload"
+                                },
+                                {
                                     "entity": "input_boolean.wall_display_show_map"
                                 },
                                 {
@@ -1375,80 +1378,21 @@
                             "type": "entities"
                         },
                         {
-                            "type": "custom:xiaomi-vacuum-map-card",
-                            "entity": "vacuum.xiaomi_vacuum_cleaner",
-                            "map_camera": "camera.xiaomi_cloud_map_extractor",
-                            "camera_calibration": true,
-                            "debug": false,
-                            "default_mode": "predefined_zones",
-                            "zones": [
-                                [
-                                    [
-                                        18389,
-                                        24967,
-                                        20750,
-                                        29782
-                                    ]
-                                ],
-                                [
-                                    [
-                                        18110,
-                                        30896,
-                                        22178,
-                                        32724
-                                    ]
-                                ],
-                                [
-                                    [
-                                        22713,
-                                        29870,
-                                        26725,
-                                        33883
-                                    ]
-                                ],
-                                [
-                                    [
-                                        20750,
-                                        25004,
-                                        27349,
-                                        29870
-                                    ],
-                                    [
-                                        20751,
-                                        29870,
-                                        22178,
-                                        30896
-                                    ]
-                                ],
-                                [
-                                    [
-                                        20739,
-                                        21010,
-                                        26718,
-                                        25004
-                                    ]
-                                ],
-                                [
-                                    [
-                                        18140,
-                                        20968,
-                                        20739,
-                                        24285
-                                    ]
-                                ]
-                            ]
-                        },
-                        {
-                            "type": "picture-entity",
-                            "entity": "camera.join_our_wifi",
-                            "show_name": false,
-                            "show_state": false,
-                            "tap_action": {
-                                "action": "more-info"
-                            },
-                            "hold_action": {
-                                "action": "none"
-                            }
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "light.kitchen_display_screen"
+                                },
+                                {
+                                    "entity": "script.kitchen_display_reload"
+                                },
+                                {
+                                    "entity": "sensor.kitchen_speaker_timers"
+                                }
+                            ],
+                            "title": "Kitchen Display",
+                            "show_header_toggle": false,
+                            "state_color": true
                         }
                     ],
                     "icon": "mdi:flask",
