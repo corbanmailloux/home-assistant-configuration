@@ -39,7 +39,7 @@ rest_command:
 
 script:
   kitchen_display_reload:
-    alias: "Reload the Wall Display"
+    alias: "Reload the Kitchen Display"
     icon: "mdi:refresh"
     sequence:
       - service: rest_command.kitchen_display_command
