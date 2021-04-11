@@ -822,14 +822,33 @@
                             "cards": [
                                 {
                                     "type": "markdown",
-                                    "content": "### Last Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_1\") }}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_1\", \"name\") }}"
+                                    "content": "### Last Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_1\") }}\n{% if state_attr(\"sensor.cat_food_tracker_most_recent_meal_1\", \"name\") is none -%}\nUnknown Name\n{%- else -%}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_1\", \"name\") }}\n{%- endif -%}"
                                 },
                                 {
                                     "type": "markdown",
-                                    "content": "### Previous Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_2\") }}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_2\", \"name\") }}"
+                                    "content": "### Previous Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_2\") }}\n{% if state_attr(\"sensor.cat_food_tracker_most_recent_meal_2\", \"name\") is none -%}\nUnknown Name\n{%- else -%}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_2\", \"name\") }}\n{%- endif -%}"
                                 }
                             ],
                             "type": "horizontal-stack"
+                        },
+                        {
+                            "type": "button",
+                            "entity": "script.cat_food_log_dry_food",
+                            "show_icon": false,
+                            "tap_action": {
+                                "action": "toggle"
+                            },
+                            "hold_action": {
+                                "action": "call-service",
+                                "service": "homeassistant.update_entity",
+                                "service_data": {},
+                                "target": {
+                                    "entity_id": [
+                                        "sensor.cat_food_tracker_most_recent_meal_1",
+                                        "sensor.cat_food_tracker_most_recent_meal_2"
+                                    ]
+                                }
+                            }
                         },
                         {
                             "type": "conditional",

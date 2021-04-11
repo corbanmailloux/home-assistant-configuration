@@ -25,6 +25,23 @@ sensor:
       - upc
     json_attributes_path: "$.entries[1].product"
 
+rest_command:
+  cat_food_log_entry:
+    url: !secret cat_food_tracker_log_entry_url
+    method: post
+    headers:
+      API-Key: !secret cat_food_tracker_api_key
+    content_type: "application/json"
+    payload: '{ "upc": "{{ upc }}" }'
+
+script:
+  cat_food_log_dry_food:
+    alias: "Log Dry Food Entry"
+    sequence:
+      - service: rest_command.cat_food_log_entry
+        data:
+          upc: "dry-food"
+
 automation:
   - id: dc5364e0-0b05-49dd-9e55-e357226af28b
     alias: Update Cat Food Scanner on Webhook
