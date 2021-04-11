@@ -54,11 +54,6 @@
                 "url": "/hacsfiles/weather-card/weather-card.js"
             },
             {
-                "url": "/hacsfiles/aftership-card/aftership-card.js",
-                "type": "module",
-                "id": "33c35f7aba4849e5a9c1e31f44a8bdba"
-            },
-            {
                 "url": "/hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js",
                 "type": "module",
                 "id": "1d8a12691e514ff68368527b49482d08"
