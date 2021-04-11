@@ -64,4 +64,4 @@ automation:
         data:
           deviceID: browser_mod_kitchen_display
           message: Cat food scan registered.
-          duration: 10000
+          duration: 10000 # 10 seconds
