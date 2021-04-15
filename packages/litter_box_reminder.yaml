@@ -27,7 +27,7 @@ automation:
       - choose:
           - conditions:
               - condition: state
-                entity_id: binary_sensor.litter_box_clean_skip
+                entity_id: input_boolean.litter_box_clean_skip
                 state: "on"
             sequence:
               - service: input_boolean.turn_off
