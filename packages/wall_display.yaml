@@ -9,9 +9,11 @@ camera:
 input_boolean:
   wall_display_show_map:
     name: Show Map on Wall Display
+    icon: mdi:map-clock
 
   put_trash_out_display:
     name: Display Trash Notification
+    icon: mdi:delete-sweep
 
 automation:
   - alias: Show map when Maggie's on her way home

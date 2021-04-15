@@ -329,9 +329,7 @@
                                     "cards": [
                                         {
                                             "aspect_ratio": "1/1",
-                                            "entity": "input_boolean.wall_display_show_map",
-                                            "icon": "mdi:map-clock",
-                                            "name": "Map",
+                                            "entity": "input_boolean.litter_box_clean_skip",
                                             "show_name": false,
                                             "type": "custom:button-card"
                                         },
@@ -520,7 +518,6 @@
                                         "color": "green",
                                         "entity": "input_boolean.put_trash_out_display",
                                         "name": "Time to put the trash out",
-                                        "icon": "mdi:delete-sweep",
                                         "layout": "icon_name",
                                         "show_icon": true,
                                         "show_state": false,
@@ -649,6 +646,20 @@
                                                 }
                                             }
                                         ]
+                                    }
+                                },
+                                {
+                                    "type": "conditional",
+                                    "conditions": [
+                                        {
+                                            "entity": "media_player.google_homes",
+                                            "state_not": "off"
+                                        }
+                                    ],
+                                    "card": {
+                                        "type": "custom:mini-media-player",
+                                        "toggle_power": true,
+                                        "entity": "media_player.google_homes"
                                     }
                                 }
                             ],
@@ -1365,6 +1376,9 @@
                                 },
                                 {
                                     "entity": "input_boolean.litter_box_clean_needed"
+                                },
+                                {
+                                    "entity": "input_boolean.litter_box_clean_skip"
                                 },
                                 {
                                     "entity": "input_boolean.cat_claw_clip_needed"
