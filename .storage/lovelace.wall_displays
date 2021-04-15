@@ -819,6 +819,25 @@
                     "badges": [],
                     "cards": [
                         {
+                            "entity": "sensor.local_display_time",
+                            "show_icon": false,
+                            "show_label": false,
+                            "show_name": false,
+                            "show_state": true,
+                            "styles": {
+                                "state": [
+                                    {
+                                        "font-size": "50px"
+                                    }
+                                ]
+                            },
+                            "tap_action": {
+                                "action": "call-service",
+                                "service": "script.tablet_wall_display_reload"
+                            },
+                            "type": "custom:button-card"
+                        },
+                        {
                             "cards": [
                                 {
                                     "type": "markdown",
@@ -848,6 +867,20 @@
                                         "sensor.cat_food_tracker_most_recent_meal_2"
                                     ]
                                 }
+                            }
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "media_player.kitchen_speaker",
+                                    "state_not": "off"
+                                }
+                            ],
+                            "card": {
+                                "type": "custom:mini-media-player",
+                                "entity": "media_player.kitchen_speaker",
+                                "toggle_power": true
                             }
                         },
                         {
