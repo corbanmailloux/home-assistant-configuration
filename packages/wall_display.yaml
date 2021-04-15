@@ -37,6 +37,12 @@ automation:
         from: "not_home"
         to: "home"
         for: "00:03:00" # Allow a couple minute window
+      # Hide the map right away if Maggie gets back to work.
+      # This is mostly for the occasional incorrect location, or lunch breaks.
+      - platform: state
+        entity_id: person.maggie
+        from: "not_home"
+        to: "RE"
     action:
       - service: input_boolean.turn_off
         data:

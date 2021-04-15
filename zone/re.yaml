@@ -1,5 +1,0 @@
-- name: RE
-  latitude: !secret re_latitude
-  longitude: !secret re_longitude
-  radius: 600
-  icon: mdi:flask-outline
