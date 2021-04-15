@@ -7,9 +7,13 @@ input_boolean:
   litter_box_clean_needed:
     name: "Litter Box Needs Cleaning"
     icon: "mdi:broom"
+  litter_box_clean_skip:
+    name: "Skip Next Litter Box Cleaning Reminder"
+    icon: "mdi:debug-step-over"
 
 automation:
   - alias: Reminder to do the litter box
+    id: c4dcc56f-1797-444f-90d5-db1abc436a19
     trigger:
       - platform: time
         at: "19:00:00" # 7 PM.
@@ -18,11 +22,24 @@ automation:
         entity_id: input_boolean.vacation_mode
         state: "off"
     action:
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.litter_box_clean_needed
+      # If the skip setting is on, just turn it off.
+      # Otherwise, send the notification.
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.litter_box_clean_skip
+                state: "on"
+            sequence:
+              - service: input_boolean.turn_off
+                data:
+                  entity_id: input_boolean.litter_box_clean_skip
+        default:
+          - service: input_boolean.turn_on
+            data:
+              entity_id: input_boolean.litter_box_clean_needed
 
   - alias: Send reminder to do the litter box
+    id: 6d7045a8-d073-45f0-b752-e8292f2ff875
     trigger:
       - platform: state
         entity_id: input_boolean.litter_box_clean_needed
@@ -48,9 +65,9 @@ automation:
             apns_headers:
               "apns-collapse-id": "litter-box"
 
-
   # Dismiss notifications on all devices when acknowledged.
   - alias: Litter box reminder clicked
+    id: b3132070-58f0-47c2-acec-ac471ba040ce
     trigger:
       - platform: event
         event_type: mobile_app_notification_action
@@ -66,6 +83,7 @@ automation:
           entity_id: input_boolean.litter_box_clean_needed
 
   - alias: Dismiss litter box notifications
+    id: bced3701-219b-4c41-824f-b38416cb0506
     trigger:
       - platform: state
         entity_id: input_boolean.litter_box_clean_needed
@@ -86,6 +104,31 @@ automation:
             apns_headers:
               "apns-collapse-id": "litter-box"
 
+  - alias: Litter Box Button - Click
+    id: 6bca1452-eb94-4cfd-b396-82f8555d8f2b
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: 24d7573f0424b71156560a74fede5da7
+        discovery_id: 0x00158d00027bee0b action_single
+        type: action
+        subtype: single
+    action:
+      # If the reminder is already issued, just turn it off.
+      # If not, skip it for the day.
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: input_boolean.litter_box_clean_needed
+                state: "on"
+            sequence:
+              - service: input_boolean.turn_off
+                data:
+                  entity_id: input_boolean.litter_box_clean_needed
+        default:
+          - service: input_boolean.turn_on
+            data:
+              entity_id: input_boolean.litter_box_clean_skip
 
 ios:
   push:
