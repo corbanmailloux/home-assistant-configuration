@@ -5,6 +5,7 @@
 
 automation:
   - alias: Door opened - Trigger phone location updates
+    id: 85f0013d-587a-444c-a7c9-9b427a99d335
     trigger:
       - platform: state
         entity_id: binary_sensor.front_door

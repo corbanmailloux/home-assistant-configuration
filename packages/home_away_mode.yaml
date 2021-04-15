@@ -18,6 +18,7 @@ binary_sensor:
 
 automation:
   - alias: Mark home occupied when the door opens
+    id: 9abcaf04-6f2a-41dc-b392-9c29d4d2b2e8
     trigger:
       - platform: state
         entity_id: binary_sensor.front_door
@@ -36,6 +37,7 @@ automation:
           entity_id: input_boolean.home_occupied
 
   - alias: Mark home occupied when someone is home for a few minutes
+    id: fb337c2f-3474-43db-9269-21c4658c8d27
     # This functions as a backup in case the door sensor didn't trip somehow.
     trigger:
       - platform: state
@@ -50,6 +52,7 @@ automation:
           entity_id: input_boolean.home_occupied
 
   - alias: Automatically mark the home as unoccupied if no one is home
+    id: f024de99-f4dd-4d30-9aeb-cb3f0252a676
     trigger:
       - platform: state
         entity_id: group.adults
@@ -65,6 +68,7 @@ automation:
   ## Switch Actions ##
 
   - alias: Living Room Switch - Press On sets the home as occupied
+    id: e639851a-63db-4fdb-8e21-1dbb35384b36
     trigger:
       - platform: device
         device_id: c267d3d48bf04135851855dc4be36cbb
@@ -78,6 +82,7 @@ automation:
           entity_id: input_boolean.home_occupied
 
   - alias: Living Room Switch - Press Off sets the home as unoccupied
+    id: 3742c4ea-fd85-4332-9660-25d5f5b9b69a
     trigger:
       - platform: device
         device_id: c267d3d48bf04135851855dc4be36cbb
@@ -91,6 +96,7 @@ automation:
           entity_id: input_boolean.home_occupied
 
   - alias: Living Room Switch - Hold On turns on movie mode
+    id: a3c6ff1d-63d0-45b1-8d4c-48d05e31a1fe
     trigger:
       - platform: device
         device_id: c267d3d48bf04135851855dc4be36cbb
@@ -103,6 +109,7 @@ automation:
         entity_id: script.living_room_movie_mode
 
   - alias: Living Room Switch - Hold Off for unoccupied and vacuum run
+    id: 9952b92c-fa1c-47d9-9ded-11e59e12c62e
     trigger:
       - platform: device
         device_id: c267d3d48bf04135851855dc4be36cbb
@@ -123,6 +130,7 @@ automation:
   # When someone gets home, play a welcome message on the Google Home Mini that is near the front door.
   # This welcome message will only play if it wouldn't be a disruption to the current occupants of the apartment.
   - alias: Welcome Home announcement when someone gets home
+    id: b5c7eeb6-bd12-435f-98b3-ead8610cf95a
     trigger:
       - platform: state
         entity_id: input_boolean.home_occupied
@@ -136,6 +144,7 @@ automation:
         entity_id: script.welcome_home_announcement
 
   - alias: Home Occupied - Lights, Wall Display on
+    id: e2855b3b-04a7-4e28-b4d9-97091b1975fd
     trigger:
       - platform: state
         entity_id: input_boolean.home_occupied
@@ -151,6 +160,7 @@ automation:
 
   # TODO: Set up for new thermostat.
   # - alias: Home Occupied - Set Nest home
+  #   id: 7bd1fd35-6ef1-4767-b9e1-fec037e6c186
   #   trigger:
   #     - platform: state
   #       entity_id: input_boolean.home_occupied
@@ -161,6 +171,7 @@ automation:
   #         away_mode: home
 
   - alias: Home Unoccupied - Turn everything off
+    id: 230957ce-f646-4c5d-8819-9b6b069d3628
     trigger:
       - platform: state
         entity_id: input_boolean.home_occupied
@@ -171,6 +182,7 @@ automation:
 
   # TODO: Set up for new thermostat.
   # - alias: Home Unoccupied - Set Nest away
+  #   id: 52a24388-93aa-40dc-b779-fcaceaf18681
   #   trigger:
   #     - platform: state
   #       entity_id: input_boolean.home_occupied

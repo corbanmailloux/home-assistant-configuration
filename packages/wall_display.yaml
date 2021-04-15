@@ -15,6 +15,7 @@ input_boolean:
 
 automation:
   - alias: Show map when Maggie's on her way home
+    id: 229ee037-4e8d-43bc-a5ab-acd4f19bb2a0
     trigger:
       - platform: state
         entity_id: person.maggie
@@ -27,6 +28,7 @@ automation:
           entity_id: input_boolean.wall_display_show_map
 
   - alias: Hide map when Maggie gets home
+    id: df202fb6-6230-4c51-bcc5-18572973fbba
     trigger:
       - platform: state
         entity_id: person.maggie
@@ -39,6 +41,7 @@ automation:
           entity_id: input_boolean.wall_display_show_map
 
   - alias: Update Trash Sensor
+    id: 1354f5a5-6b37-496e-8fe2-1742e4fd891f
     trigger:
       - platform: time_pattern
         minutes: 1 # Every hour at *:01
@@ -47,30 +50,32 @@ automation:
         entity_id: binary_sensor.put_trash_out
 
   - alias: Update trash input_boolean to match template sensor
+    id: 37ff0633-5063-4342-9faf-7b27c316cc16
     trigger:
       - platform: state
         entity_id: binary_sensor.put_trash_out
     action:
       - choose:
-        - conditions:
-            - condition: state
-              entity_id: binary_sensor.put_trash_out
-              state: "on"
-          sequence:
-            - service: input_boolean.turn_on
-              data:
-                entity_id: input_boolean.put_trash_out_display
-        - conditions:
-          - condition: state
-            entity_id: binary_sensor.put_trash_out
-            state: "off"
-          sequence:
-            - service: input_boolean.turn_off
-              data:
-                entity_id: input_boolean.put_trash_out_display
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.put_trash_out
+                state: "on"
+            sequence:
+              - service: input_boolean.turn_on
+                data:
+                  entity_id: input_boolean.put_trash_out_display
+          - conditions:
+              - condition: state
+                entity_id: binary_sensor.put_trash_out
+                state: "off"
+            sequence:
+              - service: input_boolean.turn_off
+                data:
+                  entity_id: input_boolean.put_trash_out_display
 
   # See also `package/home_away_mode.yaml`.
   - alias: Turn on the wall display in the morning # if someone is home
+    id: ec56904d-4cc0-4966-9b98-8c790bf6e76d
     trigger:
       - platform: time
         at: "06:00:00"

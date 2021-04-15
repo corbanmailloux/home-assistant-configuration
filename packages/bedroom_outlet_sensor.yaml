@@ -3,6 +3,7 @@
 
 automation:
   - alias: Bedroom Light Switch - Toggle Lamp
+    id: b188c66e-48d6-46a6-8326-22cf0492a8df
     trigger:
       - platform: state
         entity_id: binary_sensor.bedroom_outlet_sensor

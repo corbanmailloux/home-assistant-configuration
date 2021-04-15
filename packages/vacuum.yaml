@@ -34,6 +34,7 @@ input_datetime:
 
 automation:
   - alias: Update vacuum map schedule each minute when undocked
+    id: d1c3097b-6bfb-4a14-a8c4-34aad20e2abf
     trigger:
       - platform: time_pattern
         minutes: "/1" # Trigger each minute
@@ -46,6 +47,7 @@ automation:
           entity_id: camera.xiaomi_cloud_map_extractor
 
   - alias: Update vacuum map schedule each hour when docked
+    id: d82ab546-4dac-49cb-a585-3d49de0897a1
     trigger:
       - platform: time_pattern
         hours: "/1" # Trigger each hour
@@ -58,6 +60,7 @@ automation:
           entity_id: camera.xiaomi_cloud_map_extractor
 
   - alias: Remind Corban to run the vacuum
+    id: e3cb3255-914c-458c-83e6-d400d5ec50b8
     trigger:
       - platform: time
         at: "11:00:00"
@@ -98,6 +101,7 @@ automation:
               "apns-collapse-id": "run-vacuum"
 
   - alias: Run vacuum full clean from notification
+    id: 9df6c398-3721-4f52-9ace-b7082489c551
     trigger:
       - platform: event
         event_type: ios.notification_action_fired
@@ -118,6 +122,7 @@ automation:
       - service: script.vacuum_wait_and_alert # Moved to shared logic.
 
   - alias: Run vacuum partial clean from notification
+    id: e5a473c0-7f63-4d5f-ac2e-20ed0a7512c0
     trigger:
       - platform: event
         event_type: ios.notification_action_fired
@@ -137,6 +142,7 @@ automation:
       - service: script.vacuum_wait_and_alert # Moved to shared logic.
 
   - alias: Resume Vacuum Cleaning From Notification
+    id: f9a4979c-3857-4c12-8d70-9f8422695c32
     trigger:
       - platform: event
         event_type: ios.notification_action_fired

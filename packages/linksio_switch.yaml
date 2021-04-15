@@ -9,7 +9,7 @@ switch:
     payload_available: "Online"
     payload_not_available: "Offline"
     retain: true
-  
+
 sensor:
   - platform: mqtt
     name: "Linksio Energy Today"

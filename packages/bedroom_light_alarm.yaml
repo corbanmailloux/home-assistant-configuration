@@ -11,18 +11,16 @@ input_number:
 input_datetime:
   alarm_target_time:
     name: Target Time
-    initial: "06:20"
     has_date: false
     has_time: true
   alarm_start_time:
-    initial: "06:10"
     name: Start Time
     has_date: false
     has_time: true
 
 automation:
   - alias: "Sunrise Alarm"
-    initial_state: "on"
+    id: cc8e52c9-a310-4b0d-8ec1-69296230588c
     trigger:
       - platform: template
         value_template: >-

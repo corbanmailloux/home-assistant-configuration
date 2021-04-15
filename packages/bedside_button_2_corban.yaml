@@ -1,5 +1,6 @@
 automation:
   - alias: Bedside Button 2 - Click - Fairy Toggle
+    id: df5766b0-ce91-4e2e-bb13-2f0a95969653
     trigger:
       - platform: device
         domain: mqtt
@@ -30,6 +31,7 @@ automation:
             {{ (percent / 100 * 255) | int}}
 
   - alias: Bedside Button 2 - Double Click - Fan
+    id: 4d6d4222-b744-4ca3-ad30-4aba59d88353
     trigger:
       - platform: device
         domain: mqtt
@@ -42,6 +44,7 @@ automation:
         entity_id: fan.bedroom_fan
 
   - alias: Bedside Button 2 - Hold - Everything Off
+    id: 10bcb4b9-5b6f-4063-8c0c-10938cc9bcd3
     trigger:
       - platform: device
         domain: mqtt

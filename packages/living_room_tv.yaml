@@ -114,6 +114,7 @@ script:
 
 automation:
   - alias: Send play/pause to Chromecast when selected
+    id: 29bd3071-1a72-45f7-a4f8-7ce8deb7210f
     trigger:
       - platform: event
         event_type: esphome.living_room.play_pause
@@ -127,6 +128,7 @@ automation:
           entity_id: media_player.living_room_chromecast
 
   - alias: Switch the TV to the Chromecast when someone starts casting
+    id: bf9d5943-b3d9-427b-b028-ac00085b2428
     trigger:
       - platform: state
         entity_id: media_player.living_room_chromecast
@@ -146,11 +148,12 @@ automation:
           source: Chromecast
 
   - alias: Turn on the soundbar when the TV turns on
+    id: d7bedd79-cc08-4fec-bf25-5971f0fbcaad
     trigger:
       - platform: state
         entity_id: switch.living_room_tv_power
-        from: 'off'
-        to: 'on'
+        from: "off"
+        to: "on"
     action:
       - service: switch.turn_on
         entity_id: switch.soundbar

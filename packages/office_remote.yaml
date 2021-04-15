@@ -1,5 +1,6 @@
 automation:
   - alias: Office Remote - Toggle
+    id: e8cfeb3b-e051-4b20-9d80-fd19a96a16dd
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -12,6 +13,7 @@ automation:
         entity_id: light.office_lamp_bottom
 
   - alias: Office Remote - Brightness Up
+    id: 917b79fd-9825-4100-bca6-d44847d8ef10
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -56,6 +58,7 @@ automation:
                     {%- endif -%}
 
   - alias: Office Remote - Brightness Down
+    id: 664afecb-08e5-4d33-bdca-c11ebe09bf12
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -99,6 +102,7 @@ automation:
                     {%- endif -%}
 
   - alias: Office Remote - Brightness Up Hold
+    id: 0a1f28ae-c8f2-40d6-b664-43b7969de628
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -113,6 +117,7 @@ automation:
           brightness: 255
 
   - alias: Office Remote - Brightness Down Hold
+    id: 47437150-269c-46d4-b9d7-da8c4efa1695
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -127,6 +132,7 @@ automation:
           brightness: 10
 
   - alias: Office Remote - Left Button Click - Toggle Plant Lamp
+    id: 4f982672-4257-4cb7-a498-1df044a30150
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -139,6 +145,7 @@ automation:
         entity_id: light.plant_lamp
 
   - alias: Office Remote - Left Button Hold - Toggle Fan
+    id: df89803c-e20a-4418-ae99-1371f154ecd4
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -151,6 +158,7 @@ automation:
         entity_id: fan.office_fan
 
   - alias: Office Remote - Right Button Click - Toggle Lamp
+    id: 74eee1be-0bea-4009-9621-59e44cc2d8a4
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
@@ -165,6 +173,7 @@ automation:
           brightness: 255
 
   - alias: Office Remote - Right Button Hold - Toggle PTZ Camera
+    id: e4f83809-9377-42ee-9a19-8cfe4966e944
     trigger:
       - platform: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3

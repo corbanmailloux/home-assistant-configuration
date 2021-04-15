@@ -1,5 +1,6 @@
 automation:
   - alias: Bedside Button 1 - Toggle Bedroom Light
+    id: 725241e1-3311-4dbd-a9a7-2d7693bff407
     trigger:
       - platform: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
@@ -12,6 +13,7 @@ automation:
         entity_id: light.bedroom_lamp
 
   - alias: Bedside Button 1 - Brightness Up
+    id: ab376db0-75fe-4dfd-80ed-e79aa7fbe7b5
     trigger:
       - platform: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
@@ -33,6 +35,7 @@ automation:
             {%- endif -%}
 
   - alias: Bedside Button 1 - Brightness Down
+    id: 40de4391-a6b7-4ed4-a679-7257f6353a82
     trigger:
       - platform: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
@@ -57,6 +60,7 @@ automation:
             {%- endif -%}
 
   - alias: Bedside Button 1 - Brightness Up Hold
+    id: 6eb4c698-0b5a-43cb-a878-7d9d0b718d3b
     trigger:
       - platform: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
@@ -71,6 +75,7 @@ automation:
           brightness: 255
 
   - alias: Bedside Button 1 - Brightness Down Hold
+    id: 20ce4286-315e-495b-b4ed-d88a4862a1f6
     trigger:
       - platform: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
@@ -85,6 +90,7 @@ automation:
           brightness: 10
 
   - alias: Bedside Button 1 - Left Button Click - Fan
+    id: 486310de-869d-4c86-88c5-d06a28f7fd2b
     trigger:
       - platform: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
@@ -97,6 +103,7 @@ automation:
         entity_id: fan.bedroom_fan
 
   - alias: Bedside Button 1 - Right Button Click - Fairy Toggle
+    id: 1d146753-e4ca-4514-883d-7bb0efd99554
     trigger:
       - platform: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d

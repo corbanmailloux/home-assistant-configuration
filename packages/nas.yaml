@@ -35,6 +35,7 @@ input_boolean:
 
 automation:
   - alias: Slow down downloading when someone is home
+    id: f3a700e3-6a72-405e-b0c3-9297c2e59863
     trigger:
       - platform: state
         entity_id: input_boolean.home_occupied
@@ -50,6 +51,7 @@ automation:
           option: Slow Speed
 
   - alias: Run downloads at full speed when no one is home
+    id: 9a369e71-6b1a-4ea3-ac23-3dfac244a9dc
     trigger:
       - platform: state
         entity_id: input_boolean.home_occupied
@@ -65,6 +67,7 @@ automation:
           option: Full Speed
 
   - alias: Run downloads at full speed overnight
+    id: 0ba2ae8b-097e-48b0-aa3c-051e4a1c3ae2
     trigger:
       # TODO: Consider adding a "night mode" that's activated by the bedside button/phone notification.
       - platform: time
@@ -80,6 +83,7 @@ automation:
           option: Full Speed
 
   - alias: Run downloads at slow speed in the morning if someone is home
+    id: 1e79b053-788e-4d87-9a06-e90453d2ed38
     trigger:
       - platform: time
         at: "06:00:00"
@@ -97,6 +101,7 @@ automation:
           option: Slow Speed
 
   - alias: Run downloads at medium speed after business hours
+    id: 59856c82-9e5a-492a-af7d-8cddca438fb3
     trigger:
       - platform: time
         at: "18:00:00"
@@ -111,6 +116,7 @@ automation:
           option: Medium Speed
 
   - alias: Set download speed based on input_select
+    id: 9a27930f-dd38-4a66-a7f1-85f7c600a89c
     trigger:
       - platform: state
         entity_id: input_select.download_speed

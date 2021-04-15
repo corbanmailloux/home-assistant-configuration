@@ -13,6 +13,7 @@ sensor:
 
 automation:
   - alias: Update package sensors when someone gets home
+    id: 2a77a2b9-e64d-4a5a-b41d-69524c6a1db2
     trigger:
       - platform: state
         entity_id: binary_sensor.home_occupied

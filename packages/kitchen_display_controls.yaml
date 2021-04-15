@@ -48,6 +48,7 @@ script:
 
 automation:
   - alias: Notify if the kitchen display comes unplugged
+    id: 9c620f99-9651-4a07-82f3-b87d72d2ebbb
     trigger:
       - platform: state
         entity_id: sensor.kitchen_display_device_info

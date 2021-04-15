@@ -8,7 +8,7 @@ sensor:
 script:
   maggie_travel_time_speak:
     alias: "Announce Maggie's Travel Time"
-    icon: mdi:voice
+    icon: mdi:account-voice
     sequence:
       - delay:
           seconds: 5
@@ -32,6 +32,7 @@ script:
 
 automation:
   - alias: Notify Corban when Maggie is almost home
+    id: 5277f05f-3f90-4eb7-8ba2-973a54482623
     trigger:
       - platform: numeric_state
         entity_id: sensor.maggie_to_home_travel_time

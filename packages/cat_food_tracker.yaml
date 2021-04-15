@@ -43,8 +43,8 @@ script:
           upc: "dry-food"
 
 automation:
-  - id: dc5364e0-0b05-49dd-9e55-e357226af28b
-    alias: Update Cat Food Scanner on Webhook
+  - alias: Update Cat Food Scanner on Webhook
+    id: dc5364e0-0b05-49dd-9e55-e357226af28b
     trigger:
       - platform: webhook
         webhook_id: !secret cat_food_scanner_update_webhook

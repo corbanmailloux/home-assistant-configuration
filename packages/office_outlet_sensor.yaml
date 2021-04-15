@@ -2,6 +2,7 @@
 
 automation:
   - alias: Office Light Switch - Toggle Office Light
+    id: a8cad28a-ce45-43de-b2ec-f1479c9e9976
     trigger:
       - platform: state
         entity_id: binary_sensor.office_outlet_sensor

@@ -49,6 +49,7 @@ script:
 
 automation:
   - alias: Notify if the wall display comes unplugged
+    id: 6885c896-0a99-4cbe-bbf5-16fc703f1c32
     trigger:
       - platform: state
         entity_id: sensor.tablet_wall_display_device_info

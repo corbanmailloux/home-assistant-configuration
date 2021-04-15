@@ -1,5 +1,6 @@
 automation:
   - alias: Show Cat Clipper Reminder
+    id: 9c2a9c9e-d13c-4635-9a56-ce76eafaca0c
     trigger:
       - platform: time
         at: "20:00:00" # 8:00PM

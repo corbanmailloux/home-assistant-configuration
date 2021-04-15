@@ -1,5 +1,6 @@
 automation:
   - alias: Notify Corban if the network closet gets too hot
+    id: d26651d1-1891-40c8-aebb-305f66c2e49d
     trigger:
       - platform: numeric_state
         entity_id: sensor.network_closet_temperature
