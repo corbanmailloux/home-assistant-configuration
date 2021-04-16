@@ -37,18 +37,18 @@ automation:
         entity_id: input_boolean.vacation_mode
         state: "off"
     action:
-      - service: script.turn_on
-        entity_id: script.alarm_start_fade
-
-script:
-  alarm_start_fade:
-    sequence:
       - service: light.turn_on
         entity_id: light.fairy_lights
         data_template:
           brightness: "{{ ((states.input_number.alarm_max_brightness.state | int) / 100 * 255) | int }}"
           # Get the difference in seconds of the two times
           transition: "{{ states.input_datetime.alarm_target_time.attributes.timestamp - states.input_datetime.alarm_start_time.attributes.timestamp }}"
+      - delay:
+          hours: 2
+      - service: light.turn_off
+        entity_id: light.fairy_lights
+        data:
+          transition: 20
 
 homeassistant:
   customize:
