@@ -367,18 +367,15 @@
                                         },
                                         {
                                             "aspect_ratio": "1/1",
-                                            "entity": "script.tablet_wall_display_reload",
+                                            "entity": "script.update_package_sensors",
                                             "icon": "mdi:package-variant",
                                             "name": "Refresh Package Sensors",
                                             "show_name": false,
                                             "tap_action": {
                                                 "action": "call-service",
-                                                "service": "homeassistant.update_entity",
+                                                "service": "script.turn_on",
                                                 "service_data": {
-                                                    "entity_id": [
-                                                        "sensor.packages_for_corban",
-                                                        "sensor.packages_for_maggie"
-                                                    ]
+                                                    "entity_id": "entity"
                                                 }
                                             },
                                             "type": "custom:button-card"
@@ -390,7 +387,10 @@
                                             "show_name": false,
                                             "tap_action": {
                                                 "action": "call-service",
-                                                "service": "script.tablet_wall_display_reload"
+                                                "service": "script.turn_on",
+                                                "service_data": {
+                                                    "entity_id": "entity"
+                                                }
                                             },
                                             "type": "custom:button-card"
                                         }
@@ -844,15 +844,107 @@
                             },
                             "tap_action": {
                                 "action": "call-service",
-                                "service": "script.tablet_wall_display_reload"
+                                "service": "script.kitchen_display_reload"
                             },
                             "type": "custom:button-card"
                         },
                         {
                             "cards": [
                                 {
-                                    "type": "markdown",
-                                    "content": "### Last Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_1\") }}\n{% if state_attr(\"sensor.cat_food_tracker_most_recent_meal_1\", \"name\") is none -%}\nUnknown Name\n{%- else -%}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_1\", \"name\") }}\n{%- endif -%}"
+                                    "type": "custom:button-card",
+                                    "entity": "sensor.cat_food_tracker_most_recent_meal_1",
+                                    "name": "Last Meal",
+                                    "aspect_ratio": "1.6/1",
+                                    "show_icon": false,
+                                    "show_name": true,
+                                    "show_state": false,
+                                    "show_label": true,
+                                    "label": "[[[\n  if (entity.attributes.name === undefined) {\n    return \"Unknown Name\"\n  } else {\n    return `${entity.attributes.name}`\n  }\n]]]\n",
+                                    "styles": {
+                                        "card": [
+                                            {
+                                                "padding": "16px"
+                                            }
+                                        ],
+                                        "grid": [
+                                            {
+                                                "grid-template-areas": "\"n\" \"state\" \"l\""
+                                            },
+                                            {
+                                                "grid-template-columns": "1fr"
+                                            },
+                                            {
+                                                "grid-template-rows": "min-content min-content min-content"
+                                            }
+                                        ],
+                                        "name": [
+                                            {
+                                                "align-self": "left"
+                                            },
+                                            {
+                                                "justify-self": "start"
+                                            },
+                                            {
+                                                "font-weight": "bold"
+                                            }
+                                        ],
+                                        "label": [
+                                            {
+                                                "align-self": "left"
+                                            },
+                                            {
+                                                "justify-self": "start"
+                                            },
+                                            {
+                                                "text-align": "left"
+                                            },
+                                            {
+                                                "font-size": "0.9em"
+                                            },
+                                            {
+                                                "white-space": "unset"
+                                            }
+                                        ],
+                                        "custom_fields": {
+                                            "state": [
+                                                {
+                                                    "align-self": "left"
+                                                },
+                                                {
+                                                    "justify-self": "start"
+                                                },
+                                                {
+                                                    "font-size": "1.7em"
+                                                },
+                                                {
+                                                    "font-weight": "bold"
+                                                },
+                                                {
+                                                    "padding-top": "0.4em"
+                                                },
+                                                {
+                                                    "padding-bottom": "0.4em"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "custom_fields": {
+                                        "state": "[[[\n  return `${entity.state}`\n]]]\n"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.cat_food_log_dry_food"
+                                    },
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "service": "homeassistant.update_entity",
+                                        "service_data": {
+                                            "entity_id": [
+                                                "sensor.cat_food_tracker_most_recent_meal_1",
+                                                "sensor.cat_food_tracker_most_recent_meal_2"
+                                            ]
+                                        }
+                                    }
                                 },
                                 {
                                     "type": "markdown",

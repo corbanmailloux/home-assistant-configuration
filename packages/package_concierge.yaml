@@ -19,6 +19,12 @@ automation:
         entity_id: binary_sensor.home_occupied
         to: "on"
     action:
+      - service: script.update_package_sensors
+
+script:
+  update_package_sensors:
+    alias: "Update Package Sensors"
+    sequence:
       - service: homeassistant.update_entity
         data:
           entity_id:
