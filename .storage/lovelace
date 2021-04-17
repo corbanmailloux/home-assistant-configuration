@@ -1407,6 +1407,19 @@
                             "title": "Kitchen Display",
                             "show_header_toggle": false,
                             "state_color": true
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "type": "markdown",
+                                    "content": "### Last Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_1\") }}\n{% if state_attr(\"sensor.cat_food_tracker_most_recent_meal_1\", \"name\") is none -%}\nUnknown Name\n{%- else -%}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_1\", \"name\") }}\n{%- endif -%}"
+                                },
+                                {
+                                    "type": "markdown",
+                                    "content": "### Previous Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_2\") }}\n{% if state_attr(\"sensor.cat_food_tracker_most_recent_meal_2\", \"name\") is none -%}\nUnknown Name\n{%- else -%}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_2\", \"name\") }}\n{%- endif -%}"
+                                }
+                            ],
+                            "type": "horizontal-stack"
                         }
                     ],
                     "icon": "mdi:flask",

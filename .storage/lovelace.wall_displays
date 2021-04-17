@@ -272,7 +272,12 @@
                                     "styles": {
                                         "state": [
                                             {
-                                                "font-size": "50px"
+                                                "font-size": "4rem"
+                                            }
+                                        ],
+                                        "card": [
+                                            {
+                                                "padding": "0.4rem"
                                             }
                                         ]
                                     },
@@ -838,7 +843,12 @@
                             "styles": {
                                 "state": [
                                     {
-                                        "font-size": "50px"
+                                        "font-size": "4rem"
+                                    }
+                                ],
+                                "card": [
+                                    {
+                                        "padding": "0.2rem"
                                     }
                                 ]
                             },
@@ -854,7 +864,6 @@
                                     "type": "custom:button-card",
                                     "entity": "sensor.cat_food_tracker_most_recent_meal_1",
                                     "name": "Last Meal",
-                                    "aspect_ratio": "1.6/1",
                                     "show_icon": false,
                                     "show_name": true,
                                     "show_state": false,
@@ -863,7 +872,10 @@
                                     "styles": {
                                         "card": [
                                             {
-                                                "padding": "16px"
+                                                "padding": "1rem"
+                                            },
+                                            {
+                                                "height": "10.3rem"
                                             }
                                         ],
                                         "grid": [
@@ -902,7 +914,7 @@
                                                 "font-size": "0.9em"
                                             },
                                             {
-                                                "white-space": "unset"
+                                                "white-space": "normal"
                                             }
                                         ],
                                         "custom_fields": {
@@ -914,7 +926,7 @@
                                                     "justify-self": "start"
                                                 },
                                                 {
-                                                    "font-size": "1.7em"
+                                                    "font-size": "1.8em"
                                                 },
                                                 {
                                                     "font-weight": "bold"
@@ -947,8 +959,102 @@
                                     }
                                 },
                                 {
-                                    "type": "markdown",
-                                    "content": "### Previous Meal\n# {{ states(\"sensor.cat_food_tracker_most_recent_meal_2\") }}\n{% if state_attr(\"sensor.cat_food_tracker_most_recent_meal_2\", \"name\") is none -%}\nUnknown Name\n{%- else -%}\n{{ state_attr(\"sensor.cat_food_tracker_most_recent_meal_2\", \"name\") }}\n{%- endif -%}"
+                                    "type": "custom:button-card",
+                                    "entity": "sensor.cat_food_tracker_most_recent_meal_2",
+                                    "name": "Previous Meal",
+                                    "show_icon": false,
+                                    "show_name": true,
+                                    "show_state": false,
+                                    "show_label": true,
+                                    "label": "[[[\n  if (entity.attributes.name === undefined) {\n    return \"Unknown Name\"\n  } else {\n    return `${entity.attributes.name}`\n  }\n]]]\n",
+                                    "styles": {
+                                        "card": [
+                                            {
+                                                "padding": "1rem"
+                                            },
+                                            {
+                                                "height": "10.3rem"
+                                            }
+                                        ],
+                                        "grid": [
+                                            {
+                                                "grid-template-areas": "\"n\" \"state\" \"l\""
+                                            },
+                                            {
+                                                "grid-template-columns": "1fr"
+                                            },
+                                            {
+                                                "grid-template-rows": "min-content min-content min-content"
+                                            }
+                                        ],
+                                        "name": [
+                                            {
+                                                "align-self": "left"
+                                            },
+                                            {
+                                                "justify-self": "start"
+                                            },
+                                            {
+                                                "font-weight": "bold"
+                                            }
+                                        ],
+                                        "label": [
+                                            {
+                                                "align-self": "left"
+                                            },
+                                            {
+                                                "justify-self": "start"
+                                            },
+                                            {
+                                                "text-align": "left"
+                                            },
+                                            {
+                                                "font-size": "0.9em"
+                                            },
+                                            {
+                                                "white-space": "normal"
+                                            }
+                                        ],
+                                        "custom_fields": {
+                                            "state": [
+                                                {
+                                                    "align-self": "left"
+                                                },
+                                                {
+                                                    "justify-self": "start"
+                                                },
+                                                {
+                                                    "font-size": "1.8em"
+                                                },
+                                                {
+                                                    "font-weight": "bold"
+                                                },
+                                                {
+                                                    "padding-top": "0.4em"
+                                                },
+                                                {
+                                                    "padding-bottom": "0.4em"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "custom_fields": {
+                                        "state": "[[[\n  return `${entity.state}`\n]]]\n"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.cat_food_log_dry_food"
+                                    },
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "service": "homeassistant.update_entity",
+                                        "service_data": {
+                                            "entity_id": [
+                                                "sensor.cat_food_tracker_most_recent_meal_1",
+                                                "sensor.cat_food_tracker_most_recent_meal_2"
+                                            ]
+                                        }
+                                    }
                                 }
                             ],
                             "type": "horizontal-stack"
