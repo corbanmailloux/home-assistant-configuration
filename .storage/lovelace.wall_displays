@@ -3,6 +3,107 @@
     "key": "lovelace.wall_displays",
     "data": {
         "config": {
+            "button_card_templates": {
+                "header": {
+                    "show_icon": false,
+                    "show_name": true,
+                    "show_state": false,
+                    "show_label": false,
+                    "styles": {
+                        "card": [
+                            {
+                                "padding": "1rem"
+                            },
+                            {
+                                "--ha-card-background": "none"
+                            },
+                            {
+                                "box-shadow": "none"
+                            }
+                        ],
+                        "grid": [
+                            {
+                                "grid-template-areas": "\"spacer1 . n . spacer2\""
+                            },
+                            {
+                                "grid-template-columns": "1fr 1rem min-content 1rem 1fr"
+                            },
+                            {
+                                "grid-template-rows": "min-content"
+                            }
+                        ],
+                        "name": [
+                            {
+                                "justify-self": "center"
+                            },
+                            {
+                                "font-weight": "bold"
+                            },
+                            {
+                                "text-align": "center"
+                            },
+                            {
+                                "align-items": "center"
+                            },
+                            {
+                                "font-size": "1.5rem"
+                            },
+                            {
+                                "font-weight": "bold"
+                            }
+                        ],
+                        "custom_fields": {
+                            "spacer1": [
+                                {
+                                    "background": "rgb(255, 255, 255)"
+                                },
+                                {
+                                    "height": "1px"
+                                },
+                                {
+                                    "width": "100%"
+                                },
+                                {
+                                    "align-self": "center"
+                                },
+                                {
+                                    "justify-self": "start"
+                                }
+                            ],
+                            "spacer2": [
+                                {
+                                    "background": "rgb(255, 255, 255)"
+                                },
+                                {
+                                    "height": "1px"
+                                },
+                                {
+                                    "width": "100%"
+                                },
+                                {
+                                    "align-self": "center"
+                                },
+                                {
+                                    "justify-self": "end"
+                                }
+                            ]
+                        }
+                    },
+                    "custom_fields": {
+                        "spacer1": "",
+                        "spacer2": ""
+                    },
+                    "tap_action": {
+                        "action": "none"
+                    }
+                },
+                "header_clickable": {
+                    "template": "header",
+                    "tap_action": {
+                        "action": "toggle"
+                    }
+                }
+            },
             "views": [
                 {
                     "background": "center / cover no-repeat fixed url('https://home.corb.co/local/images/wall-panel-background.png')",
@@ -56,14 +157,10 @@
                                     "type": "horizontal-stack"
                                 },
                                 {
-                                    "content": "## Living Room\n",
-                                    "style": {
-                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                        "ha-markdown": {
-                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                        }
-                                    },
-                                    "type": "markdown"
+                                    "type": "custom:button-card",
+                                    "entity": "group.living_room_lights",
+                                    "name": "Living Room",
+                                    "template": "header_clickable"
                                 },
                                 {
                                     "cards": [
@@ -168,14 +265,10 @@
                                     "type": "horizontal-stack"
                                 },
                                 {
-                                    "content": "## Office\n",
-                                    "style": {
-                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                        "ha-markdown": {
-                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                        }
-                                    },
-                                    "type": "markdown"
+                                    "type": "custom:button-card",
+                                    "entity": "group.office_lights",
+                                    "name": "Office",
+                                    "template": "header_clickable"
                                 },
                                 {
                                     "cards": [
@@ -221,14 +314,10 @@
                                     "type": "horizontal-stack"
                                 },
                                 {
-                                    "content": "## Bedroom\n",
-                                    "style": {
-                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                        "ha-markdown": {
-                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                        }
-                                    },
-                                    "type": "markdown"
+                                    "type": "custom:button-card",
+                                    "entity": "group.bedroom_lights",
+                                    "name": "Bedroom",
+                                    "template": "header_clickable"
                                 },
                                 {
                                     "type": "horizontal-stack",
@@ -403,14 +492,9 @@
                                     "type": "horizontal-stack"
                                 },
                                 {
-                                    "content": "## Dynamic Cards\n",
-                                    "style": {
-                                        ".": "ha-card {\n  --ha-card-background: none !important;\n  box-shadow: none !important;\n}\n",
-                                        "ha-markdown": {
-                                            "$": "h2 {\n  text-align: center;\n  align-items: center;\n  display: flex;\n  white-space: nowrap;\n}\nh2:before, h2:after {\n  content: '';\n  background: rgb(255, 255, 255);\n  display: block;\n  height: 1px;\n  width: 100%;\n  margin: 0 0.5em;\n}\n"
-                                        }
-                                    },
-                                    "type": "markdown"
+                                    "type": "custom:button-card",
+                                    "name": "Dynamic Cards",
+                                    "template": "header"
                                 },
                                 {
                                     "card": {
@@ -750,18 +834,6 @@
                     "badges": [],
                     "cards": [
                         {
-                            "type": "picture-entity",
-                            "entity": "camera.join_our_wifi",
-                            "show_name": false,
-                            "show_state": false,
-                            "tap_action": {
-                                "action": "more-info"
-                            },
-                            "hold_action": {
-                                "action": "none"
-                            }
-                        },
-                        {
                             "type": "custom:xiaomi-vacuum-map-card",
                             "entity": "vacuum.xiaomi_vacuum_cleaner",
                             "map_camera": "camera.xiaomi_cloud_map_extractor",
@@ -824,6 +896,18 @@
                                     ]
                                 ]
                             ]
+                        },
+                        {
+                            "type": "picture-entity",
+                            "entity": "camera.join_our_wifi",
+                            "show_name": false,
+                            "show_state": false,
+                            "tap_action": {
+                                "action": "more-info"
+                            },
+                            "hold_action": {
+                                "action": "none"
+                            }
                         }
                     ]
                 },
