@@ -60,10 +60,14 @@ automation:
           title: "Litter Box Check"
           message: "Has the litter box been done?"
           data:
-            push:
-              category: "litter_box" # Adds the action button.
-            apns_headers:
-              "apns-collapse-id": "litter-box"
+            tag: "litter_box_reminder"
+            actions:
+              - action: "LITTER_COMPLETE"
+                title: "Yes, complete."
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+                destructive: false
+                behavior: "default"
 
   # Dismiss notifications on all devices when acknowledged.
   - alias: Litter box reminder clicked
@@ -72,11 +76,7 @@ automation:
       - platform: event
         event_type: mobile_app_notification_action
         event_data:
-          action: litter_box_complete
-      - platform: event
-        event_type: ios.notification_action_fired
-        event_data:
-          actionName: COMPLETE
+          action: "LITTER_COMPLETE"
     action:
       - service: input_boolean.turn_off
         data:
@@ -89,20 +89,11 @@ automation:
         entity_id: input_boolean.litter_box_clean_needed
         to: "off"
     action:
-      # - service: notify.adult_android_phones
-      #   data:
-      #     message: clear_notification
-      #     data:
-      #       tag: 10 # Arbitrary but constant.
       - service: notify.adult_ios_phones
         data:
-          title: "Litter Box Check - Complete"
-          message: "Litter box has been done."
+          message: clear_notification
           data:
-            push:
-              sound: none
-            apns_headers:
-              "apns-collapse-id": "litter-box"
+            tag: "litter_box_reminder"
 
   - alias: Litter Box Button - Click
     id: 6bca1452-eb94-4cfd-b396-82f8555d8f2b
@@ -129,16 +120,3 @@ automation:
           - service: input_boolean.turn_on
             data:
               entity_id: input_boolean.litter_box_clean_skip
-
-ios:
-  push:
-    categories:
-      - name: Litter Box
-        identifier: "litter_box"
-        actions:
-          - identifier: "COMPLETE"
-            title: "Yes, complete."
-            activationMode: "background"
-            authenticationRequired: false # Don't require unlocking the device
-            destructive: false
-            behavior: "default"
