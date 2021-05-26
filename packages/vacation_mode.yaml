@@ -26,7 +26,7 @@ automation:
           data:
             tag: "vacation_mode_disable"
             actions:
-              - identifier: "VACATION_MODE_DISABLE"
+              - action: "VACATION_MODE_DISABLE"
                 title: "Yes, turn off."
                 activationMode: "background"
                 authenticationRequired: false # Don't require unlocking the device

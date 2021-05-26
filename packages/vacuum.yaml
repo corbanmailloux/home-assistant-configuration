@@ -95,19 +95,28 @@ automation:
           title: "Time to Run Eve?"
           message: "Choose cleaning mode:"
           data:
-            push:
-              category: "run_vacuum" # Adds the action buttons.
-            apns_headers:
-              "apns-collapse-id": "run-vacuum"
+            group: "run_vacuum"
+            actions:
+              - action: "VACUUM_FULL_CLEAN"
+                title: "Full Clean"
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+                destructive: false
+                behavior: "default"
+              - action: "VACUUM_NO_OFFICE_CLEAN"
+                title: "Skip the Office"
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+                destructive: false
+                behavior: "default"
 
   - alias: Run vacuum full clean from notification
     id: 9df6c398-3721-4f52-9ace-b7082489c551
     trigger:
       - platform: event
-        event_type: ios.notification_action_fired
+        event_type: mobile_app_notification_action
         event_data:
-          categoryName: RUN_VACUUM
-          actionName: FULL_CLEAN
+          action: "VACUUM_FULL_CLEAN"
     action:
       - alias: "Clean First Rooms"
         service: xiaomi_miio.vacuum_clean_zone
@@ -125,10 +134,9 @@ automation:
     id: e5a473c0-7f63-4d5f-ac2e-20ed0a7512c0
     trigger:
       - platform: event
-        event_type: ios.notification_action_fired
+        event_type: mobile_app_notification_action
         event_data:
-          categoryName: RUN_VACUUM
-          actionName: NO_OFFICE_CLEAN
+          action: "VACUUM_NO_OFFICE_CLEAN"
     action:
       - alias: "Clean First Rooms"
         service: xiaomi_miio.vacuum_clean_zone
@@ -145,10 +153,9 @@ automation:
     id: f9a4979c-3857-4c12-8d70-9f8422695c32
     trigger:
       - platform: event
-        event_type: ios.notification_action_fired
+        event_type: mobile_app_notification_action
         event_data:
-          categoryName: RUN_VACUUM_CONT
-          actionName: RESUME_CLEAN
+          action: "VACUUM_RESUME_CLEAN"
     action:
       - alias: "Finish Clean"
         service: xiaomi_miio.vacuum_clean_zone
@@ -172,16 +179,14 @@ automation:
                   title: "Cleaning Error"
                   message: "Vacuum didn't return to dock before timeout."
                   data:
-                    apns_headers:
-                      "apns-collapse-id": "run-vacuum"
+                    group: "run_vacuum"
         default:
           - service: notify.corban
             data:
               title: "Vacuum Done"
               message: "Remember to empty the bin."
               data:
-                apns_headers:
-                  "apns-collapse-id": "run-vacuum"
+                group: "run_vacuum"
           - service: input_datetime.set_datetime
             alias: Store the last run time
             target:
@@ -206,43 +211,18 @@ script:
                   title: "Cleaning Error"
                   message: "Vacuum didn't return to dock before timeout."
                   data:
-                    apns_headers:
-                      "apns-collapse-id": "run-vacuum"
+                    group: "run_vacuum"
         default:
           - service: notify.corban
             data:
               title: "Empty Eve's Bin"
               message: "Confirm when the bin has been emptied."
               data:
-                push:
-                  category: "run_vacuum_cont" # Adds the action buttons.
-                apns_headers:
-                  "apns-collapse-id": "run-vacuum"
-
-ios:
-  push:
-    categories:
-      - name: Daily Vacuum Reminder
-        identifier: "run_vacuum"
-        actions:
-          - identifier: "FULL_CLEAN"
-            title: "Full Clean"
-            activationMode: "background"
-            authenticationRequired: false # Don't require unlocking the device
-            destructive: false
-            behavior: "default"
-          - identifier: "NO_OFFICE_CLEAN"
-            title: "Skip the Office"
-            activationMode: "background"
-            authenticationRequired: false # Don't require unlocking the device
-            destructive: false
-            behavior: "default"
-      - name: Daily Vacuum Reminder - Follow Up
-        identifier: "run_vacuum_cont"
-        actions:
-          - identifier: "RESUME_CLEAN"
-            title: "Resume Cleaning"
-            activationMode: "background"
-            authenticationRequired: false # Don't require unlocking the device
-            destructive: false
-            behavior: "default"
+                group: "run_vacuum"
+                actions:
+                  - action: "VACUUM_RESUME_CLEAN"
+                    title: "Resume Cleaning"
+                    activationMode: "background"
+                    authenticationRequired: false # Don't require unlocking the device
+                    destructive: false
+                    behavior: "default"

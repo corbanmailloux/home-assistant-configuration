@@ -11,22 +11,25 @@ alert:
     notifiers:
       - corban
     data:
+      group: "hass_update"
+      actions:
+        - action: "SILENCE_HASS_UPDATE_ALERT"
+          title: "Acknowledge Alert"
+          activationMode: "background"
+          authenticationRequired: true
+          destructive: true
+          behavior: "default"
       push:
-        # Add silence button
-        category: hass_update
         sound: none
-      # Combine/replace notifications as needed.
-      apns_headers:
-        "apns-collapse-id": "hass_update"
 
 automation:
   - alias: "Alert Silence - HASS Update"
     id: 872a9e5b-941c-4af4-9da8-7de156440670
     trigger:
       - platform: event
-        event_type: ios.notification_action_fired
+        event_type: mobile_app_notification_action
         event_data:
-          actionName: SILENCE_HASS_UPDATE_ALERT
+          action: "SILENCE_HASS_UPDATE_ALERT"
     condition:
       - condition: state
         entity_id: alert.hass_update_available
@@ -55,16 +58,3 @@ automation:
   #     data_template:
   #       message: >-
   #         Home Assistant version {{ state_attr('binary_sensor.updater', 'newest_version') }} is now available.
-
-ios:
-  push:
-    categories:
-      - name: HASS Update Notification
-        identifier: "hass_update"
-        actions:
-          - identifier: "SILENCE_HASS_UPDATE_ALERT"
-            title: "Acknowledge Alert"
-            activationMode: "background"
-            authenticationRequired: true
-            destructive: true
-            behavior: "default"
