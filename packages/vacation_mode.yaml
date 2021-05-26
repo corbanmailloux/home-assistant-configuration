@@ -19,44 +19,35 @@ automation:
         entity_id: input_boolean.vacation_mode
         state: "on"
     action:
-      # - service: notify.adult_android_phones
-      #   data:
-      #     title: "Welcome back!"
-      #     message: "Turn off vacation mode?"
-      #     data:
-      #       tag: 20 # Arbitrary but constant.
-      #       actions:
-      #         - action: "turn_off_vacation_mode"
-      #           title: "Yes, turn off."
       - service: notify.adult_ios_phones
         data:
           title: "Welcome back!"
           message: "Turn off vacation mode?"
           data:
-            push:
-              category: "disable_vacation_mode" # Adds the action button.
+            tag: "vacation_mode_disable"
+            actions:
+              - identifier: "VACATION_MODE_DISABLE"
+                title: "Yes, turn off."
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+                destructive: false
+                behavior: "default"
 
   - alias: Turn off vacation mode notification clicked
     id: 89fa50e0-26af-422b-b527-fae14c20da8b
     trigger:
-      # - platform: event
-      #   event_type: mobile_app_notification_action
-      #   event_data:
-      #     action: turn_off_vacation_mode
       - platform: event
-        event_type: ios.notification_action_fired
+        event_type: mobile_app_notification_action
         event_data:
-          categoryName: disable_vacation_mode
-          actionName: DISABLE
+          action: "VACATION_MODE_DISABLE"
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacation_mode
-      # TODO: Clean iOS notifications as well.
-      # - service: notify.adult_android_phones
-      #   data:
-      #     message: clear_notification
-      #     data:
-      #       tag: 20 # Arbitrary but constant.
+      - service: notify.adult_ios_phones
+        data:
+          message: clear_notification
+          data:
+            tag: "vacation_mode_disable"
 
   ## Schedule
   - alias: Schedule - Enable/Disable Automations
@@ -163,16 +154,3 @@ group:
       - automation.schedule_3_maggs_to_bed
       - automation.schedule_4_maggs_sleep
       - automation.schedule_5_everything_off
-
-ios:
-  push:
-    categories:
-      - name: Vacation Mode Reminder
-        identifier: "disable_vacation_mode"
-        actions:
-          - identifier: "DISABLE"
-            title: "Yes, turn off."
-            activationMode: "background"
-            authenticationRequired: false # Don't require unlocking the device
-            destructive: false
-            behavior: "default"
