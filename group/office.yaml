@@ -6,3 +6,4 @@ office_lights:
     - light.plant_lamp
     - light.office_lamp
     - light.office_lamp_bottom
+    - light.office_leds
