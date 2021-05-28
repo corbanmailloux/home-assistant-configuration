@@ -805,6 +805,23 @@
                                         "toggle_power": true,
                                         "entity": "media_player.google_homes"
                                     }
+                                },
+                                {
+                                    "card": {
+                                        "color": "red",
+                                        "entity": "input_boolean.vacation_mode",
+                                        "layout": "icon_name",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card"
+                                    },
+                                    "conditions": [
+                                        {
+                                            "entity": "input_boolean.vacation_mode",
+                                            "state": "on"
+                                        }
+                                    ],
+                                    "type": "conditional"
                                 }
                             ],
                             "type": "vertical-stack"
