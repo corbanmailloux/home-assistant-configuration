@@ -11,6 +11,12 @@ input_boolean:
     name: "Skip Next Litter Box Cleaning Reminder"
     icon: "mdi:debug-step-over"
 
+input_datetime:
+  last_litter_box_replacement:
+    name: Last Full Litter Box Clean
+    has_date: true
+    has_time: false
+
 automation:
   - alias: Reminder to do the litter box
     id: c4dcc56f-1797-444f-90d5-db1abc436a19
@@ -120,3 +126,20 @@ automation:
           - service: input_boolean.turn_on
             data:
               entity_id: input_boolean.litter_box_clean_skip
+
+  - alias: Litter Box Button - Hold - Mark Litter Replaced
+    id: 96061bdd-3ec0-472d-9d20-b336ac8421ef
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: 24d7573f0424b71156560a74fede5da7
+        type: action
+        subtype: hold
+        discovery_id: 0x00158d00027bee0b action_hold
+    action:
+      - service: input_datetime.set_datetime
+        alias: Store the last clean time
+        target:
+          entity_id: input_datetime.last_litter_box_replacement
+        data:
+          timestamp: "{{ now().timestamp() }}"

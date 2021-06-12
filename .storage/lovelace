@@ -1197,6 +1197,12 @@
                                 }
                             ],
                             "type": "vertical-stack"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "input_datetime.last_litter_box_replacement"
+                            ]
                         }
                     ],
                     "icon": "mdi:airballoon",
