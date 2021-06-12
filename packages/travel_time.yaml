@@ -1,10 +1,3 @@
-sensor:
-  - platform: waze_travel_time
-    name: "Maggie to Home Travel Time"
-    origin: person.maggie
-    destination: zone.home
-    region: "US"
-
 script:
   maggie_travel_time_speak:
     alias: "Announce Maggie's Travel Time"

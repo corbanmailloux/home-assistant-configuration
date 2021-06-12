@@ -11,6 +11,13 @@ hassio:
 cloud:
 system_health:
 
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.0/24
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+
 recorder:
   db_url: !secret mariadb_url
   purge_keep_days: 60
