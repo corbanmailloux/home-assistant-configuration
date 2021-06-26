@@ -2,7 +2,3 @@ input_boolean:
   guest_mode:
     name: Guest Mode
     icon: mdi:bag-checked
-
-  office_bedroom:
-    name: Sleeping in the Office
-    icon: mdi:sofa

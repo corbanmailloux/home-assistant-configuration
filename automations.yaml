@@ -1,24 +1,24 @@
-- id: '1595563887136'
+- id: "1595563887136"
   alias: Office Door Lights
   description: Turn on some lights when the office door opens
   trigger:
-  - device_id: 0cc4e6ef3c1747b0b33a048502be98ab
-    domain: binary_sensor
-    entity_id: binary_sensor.office_door
-    platform: device
-    type: opened
+    - device_id: 0cc4e6ef3c1747b0b33a048502be98ab
+      domain: binary_sensor
+      entity_id: binary_sensor.office_door
+      platform: device
+      type: opened
   condition:
-  - condition: state
-    entity_id: input_boolean.office_bedroom
-    state: 'off'
+    - condition: state
+      entity_id: input_boolean.guest_mode
+      state: "off"
   action:
-  - data: {}
-    entity_id: light.plant_lamp
-    service: light.turn_on
+    - data: {}
+      entity_id: light.plant_lamp
+      service: light.turn_on
   mode: single
-- id: '1620308365564'
+- id: "1620308365564"
   alias: Motion-activated Light
-  description: ''
+  description: ""
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:

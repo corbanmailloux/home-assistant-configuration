@@ -446,8 +446,8 @@
                                         },
                                         {
                                             "aspect_ratio": "1/1",
-                                            "entity": "input_boolean.office_bedroom",
-                                            "name": "Sleeping in Office",
+                                            "entity": "input_boolean.guest_mode",
+                                            "name": "Guest Mode",
                                             "show_name": false,
                                             "type": "custom:button-card"
                                         },
@@ -924,7 +924,8 @@
                             },
                             "hold_action": {
                                 "action": "none"
-                            }
+                            },
+                            "name": "Join the WiFi"
                         }
                     ]
                 },

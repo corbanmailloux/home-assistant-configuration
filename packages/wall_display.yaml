@@ -5,6 +5,7 @@ camera:
   - platform: generic
     name: Join Our WiFi
     still_image_url: !secret wifi_qr_code_url
+    limit_refetch_to_url_change: true
 
 input_boolean:
   wall_display_show_map:
