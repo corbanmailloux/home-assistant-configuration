@@ -6,9 +6,10 @@ esphome:
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  use_address: 10.0.0.242
+  fast_connect: true
 
-# 10.0.0.242 - Reserved by router
+  # If I have problems again, try this:
+  # power_save_mode: none
 
 # Enable logging
 logger:
@@ -16,6 +17,11 @@ logger:
 
 ota:
 api:
+
+sensor:
+  - platform: wifi_signal
+    name: "Fairy Lights - WiFi Signal"
+    update_interval: 60s
 
 output:
   - platform: ledc

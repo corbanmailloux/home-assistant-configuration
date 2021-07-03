@@ -11,6 +11,11 @@ logger:
 api:
 ota:
 
+sensor:
+  - platform: wifi_signal
+    name: "Office Outlet Sensor - WiFi Signal"
+    update_interval: 60s
+
 binary_sensor:
   - platform: gpio
     pin:
