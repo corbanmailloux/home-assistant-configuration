@@ -62,11 +62,6 @@
                 "url": "/hacsfiles/google_home_timers_card/googletimers-card.js",
                 "type": "module",
                 "id": "35185b85c10b415696425cfa04a66d1f"
-            },
-            {
-                "url": "/hacsfiles/lovelace-swipe-navigation/swipe-navigation.js",
-                "type": "module",
-                "id": "c9b4fead8acb4989b35a9663fde6b45e"
             }
         ]
     }

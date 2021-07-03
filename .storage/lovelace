@@ -424,8 +424,8 @@
                                         },
                                         {
                                             "aspect_ratio": "1/1",
-                                            "entity": "input_boolean.office_bedroom",
-                                            "name": "Sleeping in Office",
+                                            "entity": "input_boolean.guest_mode",
+                                            "name": "Guest Mode",
                                             "show_name": false,
                                             "type": "custom:button-card"
                                         },
@@ -686,6 +686,10 @@
                                         {
                                             "entity": "vacuum.xiaomi_vacuum_cleaner",
                                             "state_not": "docked"
+                                        },
+                                        {
+                                            "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                            "state_not": "unavailable"
                                         }
                                     ],
                                     "card": {

@@ -732,6 +732,10 @@
                                         {
                                             "entity": "vacuum.xiaomi_vacuum_cleaner",
                                             "state_not": "docked"
+                                        },
+                                        {
+                                            "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                            "state_not": "unavailable"
                                         }
                                     ],
                                     "card": {
