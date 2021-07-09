@@ -16,13 +16,3 @@
       entity_id: light.plant_lamp
       service: light.turn_on
   mode: single
-- id: "1620308365564"
-  alias: Motion-activated Light
-  description: ""
-  use_blueprint:
-    path: homeassistant/motion_light.yaml
-    input:
-      motion_entity: binary_sensor.motion_sensor_occupancy
-      light_target:
-        device_id: 6cc8647613174a1b841a85d08e6cb127
-      no_motion_wait: 180

@@ -12,11 +12,11 @@ sensor:
     password: !secret package_concierge_maggie_password
 
 automation:
-  - alias: Update package sensors when someone gets home
+  - alias: Update package sensors when the door opens
     id: 2a77a2b9-e64d-4a5a-b41d-69524c6a1db2
     trigger:
       - platform: state
-        entity_id: binary_sensor.home_occupied
+        entity_id: binary_sensor.front_door
         to: "on"
     action:
       - service: script.update_package_sensors
