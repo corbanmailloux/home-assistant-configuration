@@ -50,6 +50,7 @@ automation:
         entity_id: binary_sensor.sliding_door
         from: "off"
         to: "on" # Open
+        for: "00:00:30"
     condition:
       - alias: "Home occupied"
         condition: state
@@ -74,15 +75,17 @@ automation:
           hvac_mode: "off"
         target:
           entity_id: climate.thermostat
-      - alias: "Show wall display card"
-        service: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.display_hvac_reset_card
       - alias: "Flash couch lamp"
         service: script.flash_light
         data:
           light: light.couch_side_table_lamp
           count: 2
+      - alias: "Wait until the door is closed"
+        wait_template: "{{ is_state('binary_sensor.sliding_door', 'off') }}"
+      - alias: "Show wall display card"
+        service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.display_hvac_reset_card
 
   - alias: Dismiss HVAC card if the HVAC is adjusted manually
     id: b4d233d1-5228-4047-91eb-5988610a9f86
