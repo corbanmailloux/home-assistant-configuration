@@ -742,6 +742,7 @@
                                         "type": "horizontal-stack",
                                         "cards": [
                                             {
+                                                "aspect_ratio": "2/1",
                                                 "entity": "vacuum.xiaomi_vacuum_cleaner",
                                                 "layout": "vertical",
                                                 "icon": "mdi:pause",
@@ -761,6 +762,7 @@
                                                 }
                                             },
                                             {
+                                                "aspect_ratio": "2/1",
                                                 "entity": "vacuum.xiaomi_vacuum_cleaner",
                                                 "layout": "vertical",
                                                 "icon": "mdi:stop",
@@ -826,6 +828,49 @@
                                         }
                                     ],
                                     "type": "conditional"
+                                },
+                                {
+                                    "type": "conditional",
+                                    "conditions": [
+                                        {
+                                            "entity": "input_boolean.display_hvac_reset_card",
+                                            "state_not": "off"
+                                        }
+                                    ],
+                                    "card": {
+                                        "type": "horizontal-stack",
+                                        "cards": [
+                                            {
+                                                "layout": "vertical",
+                                                "aspect_ratio": "2/1",
+                                                "icon": "mdi:notification-clear-all",
+                                                "name": "Dismiss",
+                                                "show_icon": true,
+                                                "show_state": false,
+                                                "type": "custom:button-card",
+                                                "tap_action": {
+                                                    "action": "call-service",
+                                                    "service": "input_boolean.turn_off",
+                                                    "service_data": {
+                                                        "entity_id": "entity"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "aspect_ratio": "2/1",
+                                                "layout": "vertical",
+                                                "icon": "[[[\n  var entity2 = states[\"input_text.hvac_previous_state\"].state;\n  var icon_name = 'toggle-switch';\n  switch(entity2) {\n    case 'cool':\n      icon_name = 'air-conditioner';\n      break;\n    case 'heat':\n      icon_name = 'fire';\n      break;\n  }\n  return `mdi:${icon_name}`;\n]]]\n",
+                                                "name": "[[[\n  var entity2 = states[\"input_text.hvac_previous_state\"].state;\n  var state_str = entity2.charAt(0).toUpperCase() + entity2.substr(1).toLowerCase();\n  return `Set HVAC to ${state_str}`\n]]]\n",
+                                                "show_icon": true,
+                                                "show_state": false,
+                                                "type": "custom:button-card",
+                                                "tap_action": {
+                                                    "action": "call-service",
+                                                    "service": "script.reset_hvac_state"
+                                                }
+                                            }
+                                        ]
+                                    }
                                 }
                             ],
                             "type": "vertical-stack"

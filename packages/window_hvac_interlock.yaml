@@ -1,0 +1,102 @@
+# If a window is opened while the HVAC is on, disable the HVAC.
+# See https://github.com/corbanmailloux/home-assistant-configuration/issues/83.
+
+input_text:
+  hvac_previous_state:
+    name: Previous HVAC State - Window Interlock
+
+input_boolean:
+  display_hvac_reset_card:
+    name: Display card for HVAC reset - Window Interlock
+
+script:
+  # This should probably be moved to a core helpers file.
+  flash_light:
+    mode: single
+    sequence:
+      - alias: "Cycle light 'count' times"
+        repeat:
+          count: "{{ count|int * 2  }}"
+          sequence:
+            - delay: 0.6
+            - service: light.toggle
+              target:
+                entity_id: "{{ light }}"
+
+  reset_hvac_state:
+    alias: Reset HVAC State
+    sequence:
+      - alias: "Hide the card"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.display_hvac_reset_card
+      - alias: "Set HVAC to previous state"
+        service: climate.set_hvac_mode
+        data_template:
+          hvac_mode: "{{ states('input_text.hvac_previous_state') }}"
+        target:
+          entity_id: climate.thermostat
+      - alias: "Flash couch lamp"
+        service: script.flash_light
+        data:
+          light: light.couch_side_table_lamp
+          count: 2
+
+automation:
+  - alias: Disable HVAC when a window is opened
+    id: 3f5fac00-1d34-4536-b26b-77f48cf13c26
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.sliding_door
+        from: "off"
+        to: "on" # Open
+    condition:
+      - alias: "Home occupied"
+        condition: state
+        entity_id: input_boolean.home_occupied
+        state: "on"
+      - condition: not
+        conditions:
+          - alias: "HVAC on, wrapped in a not"
+            condition: state
+            entity_id: climate.thermostat
+            state: "off"
+    action:
+      - alias: "Store current HVAC state"
+        service: input_text.set_value
+        target:
+          entity_id: input_text.hvac_previous_state
+        data_template:
+          value: "{{ states('climate.thermostat') }}"
+      - alias: "Turn off HVAC"
+        service: climate.set_hvac_mode
+        data:
+          hvac_mode: "off"
+        target:
+          entity_id: climate.thermostat
+      - alias: "Show wall display card"
+        service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.display_hvac_reset_card
+      - alias: "Flash couch lamp"
+        service: script.flash_light
+        data:
+          light: light.couch_side_table_lamp
+          count: 2
+
+  - alias: Dismiss HVAC card if the HVAC is adjusted manually
+    id: b4d233d1-5228-4047-91eb-5988610a9f86
+    trigger:
+      - platform: state
+        entity_id: climate.thermostat
+        from: "off"
+    condition:
+      - alias: "If the card is displayed"
+        condition: state
+        entity_id: input_boolean.display_hvac_reset_card
+        state: "on"
+    action:
+      - alias: "Hide the card"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.display_hvac_reset_card

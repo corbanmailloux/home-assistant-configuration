@@ -696,6 +696,7 @@
                                         "type": "horizontal-stack",
                                         "cards": [
                                             {
+                                                "aspect_ratio": "2/1",
                                                 "entity": "vacuum.xiaomi_vacuum_cleaner",
                                                 "layout": "vertical",
                                                 "icon": "mdi:pause",
@@ -715,6 +716,7 @@
                                                 }
                                             },
                                             {
+                                                "aspect_ratio": "2/1",
                                                 "entity": "vacuum.xiaomi_vacuum_cleaner",
                                                 "layout": "vertical",
                                                 "icon": "mdi:stop",
