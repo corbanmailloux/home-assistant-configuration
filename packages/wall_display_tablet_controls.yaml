@@ -47,6 +47,14 @@ script:
         data:
           cmd: loadStartUrl
 
+  tablet_wall_display_restart:
+    alias: "Restart the Wall Display"
+    icon: "mdi:power"
+    sequence:
+      - service: rest_command.tablet_wall_display_command
+        data:
+          cmd: rebootDevice
+
 automation:
   - alias: Notify if the wall display comes unplugged
     id: 6885c896-0a99-4cbe-bbf5-16fc703f1c32
