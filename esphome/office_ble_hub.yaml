@@ -1,0 +1,33 @@
+esphome:
+  name: office_ble_hub
+  platform: ESP32
+  board: esp32doit-devkit-v1
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  # fast_connect: true
+
+# Enable logging
+logger:
+  level: INFO
+
+ota:
+api:
+
+esp32_ble_tracker:
+
+sensor:
+  - platform: wifi_signal
+    name: "Office BLE Hub - WiFi Signal"
+    update_interval: 60s
+  - platform: xiaomi_hhccjcy01
+    mac_address: 'C4:7C:8D:63:E4:1B'
+    temperature:
+      name: "Basil Temperature"
+    moisture:
+      name: "Basil Moisture"
+    illuminance:
+      name: "Basil Illuminance"
+    conductivity:
+      name: "Basil Soil Conductivity"

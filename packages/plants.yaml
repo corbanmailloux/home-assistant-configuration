@@ -1,0 +1,19 @@
+# See also: esphome/office_ble_hub.yaml
+
+plant:
+  basil:
+    sensors:
+      moisture: sensor.basil_moisture
+      temperature: sensor.basil_temperature
+      conductivity: sensor.basil_soil_conductivity
+      brightness: sensor.basil_illuminance
+    # Ranges pulled from the "Flower Care" app.
+    min_moisture: 15
+    max_moisture: 60
+    min_conductivity: 350
+    max_conductivity: 2000
+    min_temperature: 46
+    max_temperature: 89
+    min_brightness: 2500
+    max_brightness: 60000
+    check_days: 3 # default

@@ -1209,6 +1209,11 @@
                             "entities": [
                                 "input_datetime.last_litter_box_replacement"
                             ]
+                        },
+                        {
+                            "type": "plant-status",
+                            "entity": "plant.basil",
+                            "name": "Basil Plant"
                         }
                     ],
                     "icon": "mdi:airballoon",
@@ -1466,6 +1471,9 @@
                                 },
                                 {
                                     "entity": "script.tablet_wall_display_reload"
+                                },
+                                {
+                                    "entity": "script.tablet_wall_display_restart"
                                 },
                                 {
                                     "entity": "input_boolean.wall_display_show_map"
