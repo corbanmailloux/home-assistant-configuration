@@ -1137,8 +1137,8 @@
                                 "name2": "Previous Meal",
                                 "state": "[[[\n  return `${entity.state}`\n]]]\n",
                                 "state2": "[[[\n  var entity2 = states[\"sensor.cat_food_tracker_most_recent_meal_2\"];\n  return `${entity2.state}`\n]]]\n",
-                                "label": "[[[\n  if (entity.attributes.name === undefined) {\n    return \"Unknown Name\"\n  } else {\n    return `${entity.attributes.name}`\n  }\n]]]\n",
-                                "label2": "[[[\n  var entity2 = states[\"sensor.cat_food_tracker_most_recent_meal_2\"];\n  if (entity2.attributes.name === undefined) {\n    return \"Unknown Name\"\n  } else {\n    return `${entity2.attributes.name}`\n  }\n]]]\n"
+                                "label": "[[[\n  if (entity.attributes.name === null) {\n    return \"Unknown Name\"\n  } else {\n    return `${entity.attributes.name}`\n  }\n]]]\n",
+                                "label2": "[[[\n  var entity2 = states[\"sensor.cat_food_tracker_most_recent_meal_2\"];\n  if (entity2.attributes.name === null) {\n    return \"Unknown Name\"\n  } else {\n    return `${entity2.attributes.name}`\n  }\n]]]\n"
                             },
                             "tap_action": {
                                 "action": "call-service",

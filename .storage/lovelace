@@ -1035,7 +1035,9 @@
                             "type": "custom:simple-thermostat",
                             "entity": "climate.thermostat",
                             "show_header": false,
-                            "step_layout": "row"
+                            "step_layout": "row",
+                            "decimals": "0",
+                            "step_size": "1"
                         },
                         {
                             "cards": [
