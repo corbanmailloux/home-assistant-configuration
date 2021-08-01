@@ -1216,6 +1216,16 @@
                             "type": "plant-status",
                             "entity": "plant.basil",
                             "name": "Basil Plant"
+                        },
+                        {
+                            "type": "history-graph",
+                            "entities": [
+                                {
+                                    "entity": "sensor.basil_illuminance"
+                                }
+                            ],
+                            "hours_to_show": 96,
+                            "refresh_interval": 0
                         }
                     ],
                     "icon": "mdi:airballoon",
