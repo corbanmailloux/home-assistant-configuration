@@ -11,7 +11,7 @@ automation:
       - condition: template
         value_template: >
           {# Set the PagerDuty user ID here. #}
-          {% set user_id = "PXGT5OA" %}
+          {% set user_id = "PC9G1DE" %}
 
           {# Set the message type to listen for here. #}
           {% set message_type = "incident.trigger" %}
