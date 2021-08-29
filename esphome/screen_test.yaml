@@ -1,8 +1,10 @@
 esphome:
-  name: screen_test
+  name: screen-test
   platform: ESP8266
   board: nodemcuv2
   arduino_version: recommended
+
+# Inspiration: https://esphome.io/cookbook/display_time_temp_oled.html
 
 wifi:
   ssid: !secret wifi_ssid
@@ -16,7 +18,27 @@ logger:
 
 ota:
 
+time:
+  - platform: homeassistant
+    id: esptime
+
+sensor:
+  - platform: homeassistant
+    id: inside_temperature
+    entity_id: sensor.living_room_temperature
+    internal: true
+
+  - platform: homeassistant
+    id: outside_temperature
+    entity_id: sensor.openweathermap_temperature
+    internal: true
+
 binary_sensor:
+  - platform: homeassistant
+    id: meeting_active
+    entity_id: binary_sensor.corban_on_a_call
+    internal: true
+
   - platform: gpio
     pin:
       number: D3
@@ -39,8 +61,29 @@ font:
   - file: "fonts/Georgia-Regular.ttf"
     id: georgia
     size: 20
+    # Add the '<' character.
     glyphs: |-
       !"%()+,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz?<
+  
+  - file: "fonts/Georgia-Regular.ttf"
+    id: georgia_small
+    size: 16
+  - file: 'fonts/BebasNeue-Regular.ttf'
+    id: clock_font
+    size: 48
+  - file: 'fonts/Roboto-Light.ttf'
+    id: roboto_small
+    size: 16
+
+  # Bring in MDI icons.
+  # Ref: https://community.home-assistant.io/t/display-materialdesign-icons-on-esphome-attached-to-screen/199790/14?u=corbanmailloux
+  # Reference codepoint list: https://pictogrammers.github.io/@mdi/font/5.3.45/
+  - file: 'fonts/materialdesignicons-webfont.ttf'
+    id: mdi_font
+    size: 20
+    glyphs: 
+      - "\U000F0567" # mdi-video
+      - "\U000F0568" # mdi-video-off
 
 display:
   - platform: ssd1306_i2c
@@ -51,15 +94,31 @@ display:
     pages:
       - id: page1
         lambda: |-
+          // Top message and icon
+          if (id(meeting_active).has_state() && id(meeting_active).state) {
+            it.printf(0, 0, id(georgia_small), TextAlign::TOP_LEFT, "In a meeting");
+            it.printf(127, 0, id(mdi_font), TextAlign::TOP_RIGHT, "\U000F0567");
+          } else {
+            it.printf(64, 0, id(georgia_small), TextAlign::TOP_CENTER, "Hello there!");
+          }
+
+          // Print time in HH:MM format
+          it.strftime(0, 60, id(clock_font), TextAlign::BASELINE_LEFT, "%I:%M", id(esptime).now());
+
+          // Print inside temperature (from homeassistant sensor)
+          if (id(inside_temperature).has_state()) {
+            it.printf(127, 23, id(roboto_small), TextAlign::TOP_RIGHT , "%.1f°", id(inside_temperature).state);
+          }
+
+          // Print outside temperature (from homeassistant sensor)
+          if (id(outside_temperature).has_state()) {
+            it.printf(127, 60, id(roboto_small), TextAlign::BASELINE_RIGHT , "%.1f°", id(outside_temperature).state);
+          }
+      - id: page2
+        lambda: |-
           it.print(0, 0, id(georgia), "Welcome! <3");
           it.print(0, 21, id(georgia), "Button:");
           it.printf(0, 42, id(georgia), "State: %s", id(button_1).state ? "ON" : "OFF");
-      - id: page2
-        lambda: |-
-          it.print(0, 0, id(georgia), "Put me back!");
-          it.filled_circle(22, 43, 20);
-          it.circle(64, 43, 20);
-          it.filled_circle(106, 43, 20);
 
 # interval:
 #   - interval: 5s
