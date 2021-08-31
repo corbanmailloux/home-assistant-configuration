@@ -2,14 +2,22 @@ homeassistant:
   customize: !include customize.yaml # Allows adding customizations (mostly icon overrides) in the UI.
   packages: !include_dir_named packages
 
-# Checks for available updates
-updater:
+default_config:
 
-person:
-config:
+# These are all of the individual things I used to have before switching to default_config.
+# updater:
+# person:
+# config:
+# cloud:
+# system_health:
+# ssdp:
+# zeroconf:
+# sun:
+# logbook:
+# map:
+# mobile_app:
+
 hassio:
-cloud:
-system_health:
 
 http:
   use_x_forwarded_for: true
@@ -55,19 +63,8 @@ browser_mod:
   disable:
     - all
 
-# Discover some devices automatically
-# discovery:
-ssdp:
-zeroconf:
-
 # Allows sending a magic packet directly.
 wake_on_lan:
-
-# Track the sun
-sun:
-
-# View all events in a logbook
-logbook:
 
 logger:
   default: warning
@@ -77,8 +74,6 @@ logger:
     # The TV is often sleeping when HASS restarts. I should force it to wake up on reboots or use standby mode, but it works for now.
     homeassistant.components.media_player.roku: critical
     custom_components.package_concierge.sensor: info # A little extra logging for custom components.
-
-map:
 
 ifttt:
   key: !secret ifttt_key
@@ -103,8 +98,6 @@ tts:
   - platform: google_cloud
     key_file: google_cloud_credentials.json
     voice: en-US-Standard-C
-
-mobile_app:
 
 # automation: !include_dir_merge_list automation
 automation: !include automations.yaml # For the automation editor
