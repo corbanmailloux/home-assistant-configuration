@@ -1,228 +1,228 @@
-# Creates the camera entity used in the custom Lovelace card.
-camera:
-  - platform: xiaomi_cloud_map_extractor
-    host: !secret xiaomi_vacuum_host
-    token: !secret xiaomi_vacuum_token
-    username: !secret xiaomi_cloud_username
-    password: !secret xiaomi_cloud_password
-    country: us
-    # scan_interval: 60
-    auto_update: false
-    draw: ["all"]
-    attributes:
-      - calibration_points
-    map_transformation:
-      trim:
-        top: 22
-        bottom: 21
-        left: 25
-        right: 28
+# # Creates the camera entity used in the custom Lovelace card.
+# camera:
+#   - platform: xiaomi_cloud_map_extractor
+#     host: !secret xiaomi_vacuum_host
+#     token: !secret xiaomi_vacuum_token
+#     username: !secret xiaomi_cloud_username
+#     password: !secret xiaomi_cloud_password
+#     country: us
+#     # scan_interval: 60
+#     auto_update: false
+#     draw: ["all"]
+#     attributes:
+#       - calibration_points
+#     map_transformation:
+#       trim:
+#         top: 22
+#         bottom: 21
+#         left: 25
+#         right: 28
 
-input_datetime:
-  last_vacuum_run:
-    name: Last Vacuum Run
-    has_date: true
-    has_time: false
+# input_datetime:
+#   last_vacuum_run:
+#     name: Last Vacuum Run
+#     has_date: true
+#     has_time: false
 
-# Approximate Room Coordinates:
-# Kitchen: [[18389,24967,20750,29782]]
-# Cat Bath: [[18210,30896,22044,32724]]
-# Office: [[22713,29826,26725,33883]]
-# Living Room: [[20750,25056,27349,29648], [20750,29559,22178,30896]]
-# Bedroom: [[20739,21010,26718,25004]]
-# Master Bath: [[18140,20968,20697,24285]]
+# # Approximate Room Coordinates:
+# # Kitchen: [[18389,24967,20750,29782]]
+# # Cat Bath: [[18210,30896,22044,32724]]
+# # Office: [[22713,29826,26725,33883]]
+# # Living Room: [[20750,25056,27349,29648], [20750,29559,22178,30896]]
+# # Bedroom: [[20739,21010,26718,25004]]
+# # Master Bath: [[18140,20968,20697,24285]]
 
-automation:
-  - alias: Update vacuum map schedule each minute when undocked
-    id: d1c3097b-6bfb-4a14-a8c4-34aad20e2abf
-    trigger:
-      - platform: time_pattern
-        minutes: "/1" # Trigger each minute
-    condition:
-      - condition: template
-        value_template: "{{ not is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
-    action:
-      - service: homeassistant.update_entity
-        data:
-          entity_id: camera.xiaomi_cloud_map_extractor
+# automation:
+#   - alias: Update vacuum map schedule each minute when undocked
+#     id: d1c3097b-6bfb-4a14-a8c4-34aad20e2abf
+#     trigger:
+#       - platform: time_pattern
+#         minutes: "/1" # Trigger each minute
+#     condition:
+#       - condition: template
+#         value_template: "{{ not is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
+#     action:
+#       - service: homeassistant.update_entity
+#         data:
+#           entity_id: camera.xiaomi_cloud_map_extractor
 
-  - alias: Update vacuum map schedule each hour when docked
-    id: d82ab546-4dac-49cb-a585-3d49de0897a1
-    trigger:
-      - platform: time_pattern
-        hours: "/1" # Trigger each hour
-    condition:
-      - condition: template
-        value_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
-    action:
-      - service: homeassistant.update_entity
-        data:
-          entity_id: camera.xiaomi_cloud_map_extractor
+#   - alias: Update vacuum map schedule each hour when docked
+#     id: d82ab546-4dac-49cb-a585-3d49de0897a1
+#     trigger:
+#       - platform: time_pattern
+#         hours: "/1" # Trigger each hour
+#     condition:
+#       - condition: template
+#         value_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
+#     action:
+#       - service: homeassistant.update_entity
+#         data:
+#           entity_id: camera.xiaomi_cloud_map_extractor
 
-  - alias: Remind Corban to run the vacuum
-    id: e3cb3255-914c-458c-83e6-d400d5ec50b8
-    trigger:
-      - platform: time
-        at: "11:00:00"
-    condition:
-      - alias: "Weekdays"
-        condition: time
-        weekday:
-          - mon
-          - tue
-          - wed
-          - thu
-          - fri
-      - alias: "Maggie's not home"
-        condition: state
-        entity_id: binary_sensor.maggie_person_home
-        state: "off"
-      - alias: "Home Occupied"
-        condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
-      - alias: "Not in Vacation Mode"
-        condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
-      - alias: "Vacuum didn't run yesterday"
-        condition: template
-        value_template: >
-          {{ states('input_datetime.last_vacuum_run') < (now().timestamp() - 30*60*60) | timestamp_custom('%Y-%m-%d') }}
-    action:
-      - service: notify.corban
-        data:
-          title: "Time to Run Eve?"
-          message: "Choose cleaning mode:"
-          data:
-            group: "run_vacuum"
-            actions:
-              - action: "VACUUM_FULL_CLEAN"
-                title: "Full Clean"
-                activationMode: "background"
-                authenticationRequired: false # Don't require unlocking the device
-                destructive: false
-                behavior: "default"
-              - action: "VACUUM_NO_OFFICE_CLEAN"
-                title: "Skip the Office"
-                activationMode: "background"
-                authenticationRequired: false # Don't require unlocking the device
-                destructive: false
-                behavior: "default"
+#   - alias: Remind Corban to run the vacuum
+#     id: e3cb3255-914c-458c-83e6-d400d5ec50b8
+#     trigger:
+#       - platform: time
+#         at: "11:00:00"
+#     condition:
+#       - alias: "Weekdays"
+#         condition: time
+#         weekday:
+#           - mon
+#           - tue
+#           - wed
+#           - thu
+#           - fri
+#       - alias: "Maggie's not home"
+#         condition: state
+#         entity_id: binary_sensor.maggie_person_home
+#         state: "off"
+#       - alias: "Home Occupied"
+#         condition: state
+#         entity_id: input_boolean.home_occupied
+#         state: "on"
+#       - alias: "Not in Vacation Mode"
+#         condition: state
+#         entity_id: input_boolean.vacation_mode
+#         state: "off"
+#       - alias: "Vacuum didn't run yesterday"
+#         condition: template
+#         value_template: >
+#           {{ states('input_datetime.last_vacuum_run') < (now().timestamp() - 30*60*60) | timestamp_custom('%Y-%m-%d') }}
+#     action:
+#       - service: notify.corban
+#         data:
+#           title: "Time to Run Eve?"
+#           message: "Choose cleaning mode:"
+#           data:
+#             group: "run_vacuum"
+#             actions:
+#               - action: "VACUUM_FULL_CLEAN"
+#                 title: "Full Clean"
+#                 activationMode: "background"
+#                 authenticationRequired: false # Don't require unlocking the device
+#                 destructive: false
+#                 behavior: "default"
+#               - action: "VACUUM_NO_OFFICE_CLEAN"
+#                 title: "Skip the Office"
+#                 activationMode: "background"
+#                 authenticationRequired: false # Don't require unlocking the device
+#                 destructive: false
+#                 behavior: "default"
 
-  - alias: Run vacuum full clean from notification
-    id: 9df6c398-3721-4f52-9ace-b7082489c551
-    trigger:
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: "VACUUM_FULL_CLEAN"
-    action:
-      - alias: "Clean First Rooms"
-        service: xiaomi_miio.vacuum_clean_zone
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          zone:
-            - [22713, 29870, 26725, 33883] # Office
-            - [18110, 30896, 22178, 32724] # Guest Bathroom
-            - [18389, 24967, 20750, 29782] # Kitchen
-            - [20739, 21010, 26718, 25004] # Bedroom
-          repeats: 1
-      - service: script.vacuum_wait_and_alert # Moved to shared logic.
+#   - alias: Run vacuum full clean from notification
+#     id: 9df6c398-3721-4f52-9ace-b7082489c551
+#     trigger:
+#       - platform: event
+#         event_type: mobile_app_notification_action
+#         event_data:
+#           action: "VACUUM_FULL_CLEAN"
+#     action:
+#       - alias: "Clean First Rooms"
+#         service: xiaomi_miio.vacuum_clean_zone
+#         data:
+#           entity_id: vacuum.xiaomi_vacuum_cleaner
+#           zone:
+#             - [22713, 29870, 26725, 33883] # Office
+#             - [18110, 30896, 22178, 32724] # Guest Bathroom
+#             - [18389, 24967, 20750, 29782] # Kitchen
+#             - [20739, 21010, 26718, 25004] # Bedroom
+#           repeats: 1
+#       - service: script.vacuum_wait_and_alert # Moved to shared logic.
 
-  - alias: Run vacuum partial clean from notification
-    id: e5a473c0-7f63-4d5f-ac2e-20ed0a7512c0
-    trigger:
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: "VACUUM_NO_OFFICE_CLEAN"
-    action:
-      - alias: "Clean First Rooms"
-        service: xiaomi_miio.vacuum_clean_zone
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          zone:
-            - [18110, 30896, 22178, 32724] # Guest Bathroom
-            - [18389, 24967, 20750, 29782] # Kitchen
-            - [20739, 21010, 26718, 25004] # Bedroom
-          repeats: 1
-      - service: script.vacuum_wait_and_alert # Moved to shared logic.
+#   - alias: Run vacuum partial clean from notification
+#     id: e5a473c0-7f63-4d5f-ac2e-20ed0a7512c0
+#     trigger:
+#       - platform: event
+#         event_type: mobile_app_notification_action
+#         event_data:
+#           action: "VACUUM_NO_OFFICE_CLEAN"
+#     action:
+#       - alias: "Clean First Rooms"
+#         service: xiaomi_miio.vacuum_clean_zone
+#         data:
+#           entity_id: vacuum.xiaomi_vacuum_cleaner
+#           zone:
+#             - [18110, 30896, 22178, 32724] # Guest Bathroom
+#             - [18389, 24967, 20750, 29782] # Kitchen
+#             - [20739, 21010, 26718, 25004] # Bedroom
+#           repeats: 1
+#       - service: script.vacuum_wait_and_alert # Moved to shared logic.
 
-  - alias: Resume Vacuum Cleaning From Notification
-    id: f9a4979c-3857-4c12-8d70-9f8422695c32
-    trigger:
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: "VACUUM_RESUME_CLEAN"
-    action:
-      - alias: "Finish Clean"
-        service: xiaomi_miio.vacuum_clean_zone
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          zone:
-            - [18140, 20968, 20739, 24285] # Master Bathroom
-            - [20751, 29870, 22178, 30896] # Living Room - Ext
-            - [20750, 25004, 27349, 29870] # Living Room - Main
-          repeats: 1
-      - delay:
-          seconds: 60
-      - wait_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
-        timeout:
-          minutes: 60
-      - choose:
-          - conditions: "{{ not wait.completed }}"
-            sequence:
-              - service: notify.corban
-                data:
-                  title: "Cleaning Error"
-                  message: "Vacuum didn't return to dock before timeout."
-                  data:
-                    group: "run_vacuum"
-        default:
-          - service: notify.corban
-            data:
-              title: "Vacuum Done"
-              message: "Remember to empty the bin."
-              data:
-                group: "run_vacuum"
-          - service: input_datetime.set_datetime
-            alias: Store the last run time
-            target:
-              entity_id: input_datetime.last_vacuum_run
-            data:
-              timestamp: "{{ now().timestamp() }}"
+#   - alias: Resume Vacuum Cleaning From Notification
+#     id: f9a4979c-3857-4c12-8d70-9f8422695c32
+#     trigger:
+#       - platform: event
+#         event_type: mobile_app_notification_action
+#         event_data:
+#           action: "VACUUM_RESUME_CLEAN"
+#     action:
+#       - alias: "Finish Clean"
+#         service: xiaomi_miio.vacuum_clean_zone
+#         data:
+#           entity_id: vacuum.xiaomi_vacuum_cleaner
+#           zone:
+#             - [18140, 20968, 20739, 24285] # Master Bathroom
+#             - [20751, 29870, 22178, 30896] # Living Room - Ext
+#             - [20750, 25004, 27349, 29870] # Living Room - Main
+#           repeats: 1
+#       - delay:
+#           seconds: 60
+#       - wait_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
+#         timeout:
+#           minutes: 60
+#       - choose:
+#           - conditions: "{{ not wait.completed }}"
+#             sequence:
+#               - service: notify.corban
+#                 data:
+#                   title: "Cleaning Error"
+#                   message: "Vacuum didn't return to dock before timeout."
+#                   data:
+#                     group: "run_vacuum"
+#         default:
+#           - service: notify.corban
+#             data:
+#               title: "Vacuum Done"
+#               message: "Remember to empty the bin."
+#               data:
+#                 group: "run_vacuum"
+#           - service: input_datetime.set_datetime
+#             alias: Store the last run time
+#             target:
+#               entity_id: input_datetime.last_vacuum_run
+#             data:
+#               timestamp: "{{ now().timestamp() }}"
 
-script:
-  vacuum_wait_and_alert:
-    alias: "Vacuum Helper: Wait for completion and send notification."
-    sequence:
-      - delay:
-          seconds: 60
-      - wait_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
-        timeout:
-          minutes: 60
-      - choose:
-          - conditions: "{{ not wait.completed }}"
-            sequence:
-              - service: notify.corban
-                data:
-                  title: "Cleaning Error"
-                  message: "Vacuum didn't return to dock before timeout."
-                  data:
-                    group: "run_vacuum"
-        default:
-          - service: notify.corban
-            data:
-              title: "Empty Eve's Bin"
-              message: "Confirm when the bin has been emptied."
-              data:
-                group: "run_vacuum"
-                actions:
-                  - action: "VACUUM_RESUME_CLEAN"
-                    title: "Resume Cleaning"
-                    activationMode: "background"
-                    authenticationRequired: false # Don't require unlocking the device
-                    destructive: false
-                    behavior: "default"
+# script:
+#   vacuum_wait_and_alert:
+#     alias: "Vacuum Helper: Wait for completion and send notification."
+#     sequence:
+#       - delay:
+#           seconds: 60
+#       - wait_template: "{{ is_state('vacuum.xiaomi_vacuum_cleaner', 'docked') }}"
+#         timeout:
+#           minutes: 60
+#       - choose:
+#           - conditions: "{{ not wait.completed }}"
+#             sequence:
+#               - service: notify.corban
+#                 data:
+#                   title: "Cleaning Error"
+#                   message: "Vacuum didn't return to dock before timeout."
+#                   data:
+#                     group: "run_vacuum"
+#         default:
+#           - service: notify.corban
+#             data:
+#               title: "Empty Eve's Bin"
+#               message: "Confirm when the bin has been emptied."
+#               data:
+#                 group: "run_vacuum"
+#                 actions:
+#                   - action: "VACUUM_RESUME_CLEAN"
+#                     title: "Resume Cleaning"
+#                     activationMode: "background"
+#                     authenticationRequired: false # Don't require unlocking the device
+#                     destructive: false
+#                     behavior: "default"
