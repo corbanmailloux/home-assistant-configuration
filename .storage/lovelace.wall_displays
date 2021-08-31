@@ -900,6 +900,19 @@
                     "badges": [],
                     "cards": [
                         {
+                            "type": "custom:valetudo-map-card",
+                            "entity": "camera.map_data",
+                            "vacuum_entity": "vacuum.eve",
+                            "rotate": 0,
+                            "crop": {
+                                "top": 0,
+                                "bottom": 0,
+                                "left": 0,
+                                "right": 0
+                            },
+                            "min_height": 0
+                        },
+                        {
                             "type": "custom:xiaomi-vacuum-map-card",
                             "entity": "vacuum.xiaomi_vacuum_cleaner",
                             "map_camera": "camera.xiaomi_cloud_map_extractor",
