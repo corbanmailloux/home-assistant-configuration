@@ -93,6 +93,10 @@ google:
 #   expose_by_default: false
 #   entity_config: !include google_assistant_entities.yaml
 
+spotify:
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+
 tts:
   - platform: google_translate
   - platform: google_cloud
