@@ -118,9 +118,6 @@
                                             "entities": [
                                                 {
                                                     "entity": "sensor.corban_location_icon"
-                                                },
-                                                {
-                                                    "entity": "sensor.corbans_iphone_battery_level"
                                                 }
                                             ],
                                             "entity": "binary_sensor.corban_person_home",
@@ -144,9 +141,6 @@
                                             "entities": [
                                                 {
                                                     "entity": "sensor.maggie_location_icon"
-                                                },
-                                                {
-                                                    "entity": "sensor.margarets_iphone_battery_level"
                                                 }
                                             ],
                                             "entity": "binary_sensor.maggie_person_home",
@@ -904,77 +898,13 @@
                             "entity": "camera.map_data",
                             "vacuum_entity": "vacuum.eve",
                             "rotate": 0,
+                            "map_scale": 1.7,
                             "crop": {
-                                "top": 0,
-                                "bottom": 0,
-                                "left": 0,
-                                "right": 0
-                            },
-                            "min_height": 0
-                        },
-                        {
-                            "type": "custom:xiaomi-vacuum-map-card",
-                            "entity": "vacuum.xiaomi_vacuum_cleaner",
-                            "map_camera": "camera.xiaomi_cloud_map_extractor",
-                            "camera_calibration": true,
-                            "debug": false,
-                            "default_mode": "predefined_zones",
-                            "zones": [
-                                [
-                                    [
-                                        18389,
-                                        24967,
-                                        20750,
-                                        29782
-                                    ]
-                                ],
-                                [
-                                    [
-                                        18110,
-                                        30896,
-                                        22178,
-                                        32724
-                                    ]
-                                ],
-                                [
-                                    [
-                                        22713,
-                                        29870,
-                                        26725,
-                                        33883
-                                    ]
-                                ],
-                                [
-                                    [
-                                        20750,
-                                        25004,
-                                        27349,
-                                        29870
-                                    ],
-                                    [
-                                        20751,
-                                        29870,
-                                        22178,
-                                        30896
-                                    ]
-                                ],
-                                [
-                                    [
-                                        20739,
-                                        21010,
-                                        26718,
-                                        25004
-                                    ]
-                                ],
-                                [
-                                    [
-                                        18140,
-                                        20968,
-                                        20739,
-                                        24285
-                                    ]
-                                ]
-                            ]
+                                "top": 15,
+                                "bottom": 21,
+                                "left": 34,
+                                "right": 108
+                            }
                         },
                         {
                             "type": "picture-entity",

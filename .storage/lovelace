@@ -340,9 +340,6 @@
                                             "entities": [
                                                 {
                                                     "entity": "sensor.corban_location_icon"
-                                                },
-                                                {
-                                                    "entity": "sensor.corbans_iphone_battery_level"
                                                 }
                                             ],
                                             "entity": "binary_sensor.corban_person_home",
@@ -366,9 +363,6 @@
                                             "entities": [
                                                 {
                                                     "entity": "sensor.maggie_location_icon"
-                                                },
-                                                {
-                                                    "entity": "sensor.margarets_iphone_battery_level"
                                                 }
                                             ],
                                             "entity": "binary_sensor.maggie_person_home",
@@ -1133,6 +1127,9 @@
                                 },
                                 {
                                     "entity": "sensor.bedroom_temperature"
+                                },
+                                {
+                                    "entity": "sensor.living_room_humidity"
                                 }
                             ],
                             "show_header_toggle": false,
@@ -1432,29 +1429,15 @@
                             "type": "vertical-stack"
                         },
                         {
+                            "type": "entities",
                             "entities": [
-                                {
-                                    "entity": "sensor.zigbee2mqtt_bridge_state"
-                                },
-                                {
-                                    "entity": "sensor.zigbee2mqtt_version"
-                                },
-                                {
-                                    "entity": "sensor.coordinator_version"
-                                },
-                                {
-                                    "entity": "input_select.zigbee2mqtt_log_level"
-                                },
-                                {
-                                    "entity": "switch.zigbee2mqtt_allow_joining"
-                                },
-                                {
-                                    "entity": "timer.zigbee_permit_join"
-                                }
+                                "switch.adguard_protection",
+                                "sensor.adguard_dns_queries",
+                                "sensor.adguard_dns_queries_blocked_ratio",
+                                "sensor.adguard_average_processing_speed"
                             ],
-                            "show_header_toggle": false,
-                            "title": "Zigbee2mqtt",
-                            "type": "entities"
+                            "title": "AdGuard",
+                            "show_header_toggle": false
                         },
                         {
                             "cards": [
@@ -1531,9 +1514,6 @@
                                 },
                                 {
                                     "entity": "input_boolean.cat_claw_clip_needed"
-                                },
-                                {
-                                    "entity": "vacuum.xiaomi_vacuum_cleaner"
                                 }
                             ],
                             "show_header_toggle": false,
