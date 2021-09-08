@@ -1440,33 +1440,14 @@
                             "show_header_toggle": false
                         },
                         {
-                            "cards": [
-                                {
-                                    "entities": [
-                                        "sensor.speedtest_ping"
-                                    ],
-                                    "show_header_toggle": false,
-                                    "title": "Internet",
-                                    "type": "entities"
-                                },
-                                {
-                                    "entities": [
-                                        "sensor.speedtest_download",
-                                        "sensor.speedtest_upload"
-                                    ],
-                                    "hours_to_show": 168,
-                                    "type": "history-graph"
-                                }
+                            "entities": [
+                                "sensor.speedtest_download",
+                                "sensor.speedtest_upload"
                             ],
-                            "type": "vertical-stack"
-                        },
-                        {
-                            "detail": 2,
-                            "entity": "sensor.network_closet_temperature",
-                            "graph": "line",
-                            "hours_to_show": 8,
-                            "icon": "mdi:thermometer-lines",
-                            "type": "sensor"
+                            "hours_to_show": 168,
+                            "type": "history-graph",
+                            "refresh_interval": 0,
+                            "title": "Internet"
                         },
                         {
                             "type": "entities",
@@ -1483,6 +1464,14 @@
                             "show_header_toggle": false,
                             "title": "TLS Certificates",
                             "state_color": false
+                        },
+                        {
+                            "detail": 2,
+                            "entity": "sensor.network_closet_temperature",
+                            "graph": "line",
+                            "hours_to_show": 8,
+                            "icon": "mdi:thermometer-lines",
+                            "type": "sensor"
                         }
                     ],
                     "icon": "mdi:server-network",
