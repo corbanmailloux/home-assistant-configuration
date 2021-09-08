@@ -1,8 +1,7 @@
 esphome:
   name: office-status-screen
   platform: ESP8266
-  board: nodemcuv2
-  arduino_version: recommended
+  board: d1_mini
 
 # Inspiration: https://esphome.io/cookbook/display_time_temp_oled.html
 
@@ -45,6 +44,17 @@ binary_sensor:
     entity_id: binary_sensor.corban_on_a_call
     internal: true
 
+  # When the front door is opened, display an animation for a few seconds.
+  - platform: homeassistant
+    id: front_door_open
+    entity_id: binary_sensor.front_door
+    internal: true
+    on_press:
+      then:
+        - display.page.show: page_door
+        - delay: 6s
+        - display.page.show: page_main
+
   - platform: gpio
     pin:
       number: D3
@@ -57,39 +67,42 @@ binary_sensor:
     on_press:
       then:
         - display.page.show_next: display_1
-        - component.update: display_1
 
 i2c:
   sda: D1
   scl: D2
 
 font:
-  - file: "fonts/Georgia-Regular.ttf"
+  - file: "resources/fonts/Georgia-Regular.ttf"
     id: georgia
     size: 20
     # Add the '<' character.
     glyphs: |-
       !"%()+,-_.:°0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqrstuvwxyz?<
   
-  - file: "fonts/Georgia-Regular.ttf"
+  - file: "resources/fonts/Georgia-Regular.ttf"
     id: georgia_small
     size: 16
-  - file: 'fonts/BebasNeue-Regular.ttf'
+  - file: 'resources/fonts/BebasNeue-Regular.ttf'
     id: clock_font
     size: 48
-  - file: 'fonts/Roboto-Light.ttf'
+  - file: 'resources/fonts/Roboto-Light.ttf'
     id: roboto_small
     size: 16
 
   # Bring in MDI icons.
   # Ref: https://community.home-assistant.io/t/display-materialdesign-icons-on-esphome-attached-to-screen/199790/14?u=corbanmailloux
   # Reference codepoint list: https://pictogrammers.github.io/@mdi/font/5.3.45/
-  - file: 'fonts/materialdesignicons-webfont.ttf'
+  - file: 'resources/fonts/materialdesignicons-webfont.ttf'
     id: mdi_font
     size: 20
     glyphs: 
       - "\U000F0567" # mdi-video
       - "\U000F0568" # mdi-video-off
+
+animation:
+  - file: "resources/images/door_opening.gif"
+    id: door_animation
 
 display:
   - platform: ssd1306_i2c
@@ -98,7 +111,7 @@ display:
     address: 0x3C
     # Pixel range: x: 0 - 127, y: 0 - 63
     pages:
-      - id: page1
+      - id: page_main
         lambda: |-
           // Top message and icon
           if (id(meeting_active).has_state() && id(meeting_active).state) {
@@ -120,14 +133,13 @@ display:
           if (id(outside_temperature).has_state()) {
             it.printf(127, 60, id(roboto_small), TextAlign::BASELINE_RIGHT , "%.1f°", id(outside_temperature).state);
           }
-      - id: page2
+      # This page has WiFi and button status on it.
+      - id: page_debug
         lambda: |-
           it.printf(0, 0, id(georgia_small), "WiFi: %.1f dBm", id(wifi_signal_sensor).state);
           it.printf(0, 20, id(georgia_small), "Button: %s", id(button_1).state ? "ON" : "OFF");
           // it.printf(0, 40, id(georgia_small), "Button: %s", id(button_1).state ? "ON" : "OFF");
-
-# interval:
-#   - interval: 5s
-#     then:
-#       - display.page.show_next: display_1
-#       - component.update: display_1
+      - id: page_door
+        lambda: |-
+          id(door_animation).next_frame();
+          it.image(32, 0, id(door_animation), COLOR_ON, COLOR_OFF);
