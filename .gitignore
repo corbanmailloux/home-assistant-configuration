@@ -83,7 +83,7 @@ custom_components/browser_mod/
 esphome/*
 !esphome/*.yaml
 !esphome/wiring_diagrams/
-!esphome/fonts/
+!esphome/resources/
 esphome/secrets.yaml
 # .pioenvs/
 # .piolibdeps/
