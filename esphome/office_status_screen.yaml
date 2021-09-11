@@ -43,6 +43,10 @@ binary_sensor:
     id: meeting_active
     entity_id: binary_sensor.corban_on_a_call
     internal: true
+  - platform: homeassistant
+    id: meeting_camera_active
+    entity_id: binary_sensor.corban_s_vmware_mbp_camera_in_use
+    internal: true
 
   # When the front door is opened, display an animation for a few seconds.
   - platform: homeassistant
@@ -67,6 +71,14 @@ binary_sensor:
     on_press:
       then:
         - display.page.show_next: display_1
+
+# Basil plant sensor imports.
+# When the basil has a problem, report it on the top status line.
+text_sensor:
+  - platform: homeassistant
+    internal: true
+    id: basil_problem
+    entity_id: sensor.basil_problem_display
 
 i2c:
   sda: D1
@@ -99,6 +111,7 @@ font:
     glyphs: 
       - "\U000F0567" # mdi-video
       - "\U000F0568" # mdi-video-off
+      - "\U000F032A" # mdi-leaf
 
 animation:
   - file: "resources/images/door_opening.gif"
@@ -115,8 +128,17 @@ display:
         lambda: |-
           // Top message and icon
           if (id(meeting_active).has_state() && id(meeting_active).state) {
-            it.printf(0, 0, id(georgia_small), TextAlign::TOP_LEFT, "In a meeting");
-            it.printf(127, 0, id(mdi_font), TextAlign::TOP_RIGHT, "\U000F0567");
+            if (id(meeting_camera_active).has_state() && id(meeting_camera_active).state) {
+              // Camera on
+              it.printf(0, 0, id(mdi_font), TextAlign::TOP_LEFT, "\U000F0567");  
+            } else {
+              // Camera off
+              it.printf(0, 0, id(mdi_font), TextAlign::TOP_LEFT, "\U000F0568");  
+            }
+            it.printf(22, 0, id(georgia_small), TextAlign::TOP_LEFT, "In a meeting");
+          } else if (id(basil_problem).has_state() && id(basil_problem).state != "Nothing") {
+            it.printf(0, 0, id(mdi_font), TextAlign::TOP_LEFT, "\U000F032A");
+            it.printf(22, 0, id(georgia_small), TextAlign::TOP_LEFT, "%s", id(basil_problem).state.c_str());
           } else {
             it.printf(64, 0, id(georgia_small), TextAlign::TOP_CENTER, "Hello there!");
           }

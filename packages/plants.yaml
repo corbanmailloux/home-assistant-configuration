@@ -17,3 +17,16 @@ plant:
     min_brightness: 2500
     max_brightness: 60000
     check_days: 3 # default
+
+sensor:
+  - platform: template
+    sensors:
+      # Basil problem for display on the office status screen (ESPHome)
+      basil_problem_display:
+        friendly_name: Basil Problem
+        value_template: >-
+          {%- if is_state_attr('plant.basil', 'problem', 'none') -%}
+            Nothing
+          {%- else -%}
+            {{ state_attr('plant.basil', 'problem') | title }}
+          {%- endif -%}

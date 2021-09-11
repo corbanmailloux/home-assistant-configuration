@@ -40,7 +40,7 @@ ENV/
 .vscode/
 
 # Home Assistant
-*.log
+*.log*
 .HA_VERSION
 deps/
 home-assistant_v2.db
