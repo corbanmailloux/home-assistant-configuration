@@ -846,7 +846,7 @@
                                                     "action": "call-service",
                                                     "service": "input_boolean.turn_off",
                                                     "service_data": {
-                                                        "entity_id": "entity"
+                                                        "entity_id": "input_boolean.display_hvac_reset_card"
                                                     }
                                                 }
                                             },
