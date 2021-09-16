@@ -81,8 +81,9 @@ text_sensor:
     entity_id: sensor.basil_problem_display
 
 i2c:
-  sda: D1
-  scl: D2
+  sda: D2
+  scl: D1
+  frequency: 400kHz
 
 font:
   - file: "resources/fonts/Georgia-Regular.ttf"
