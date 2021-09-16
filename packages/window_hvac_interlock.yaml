@@ -52,7 +52,7 @@ automation:
         entity_id: binary_sensor.sliding_door
         from: "off"
         to: "on" # Open
-        for: "00:00:20"
+        for: "00:00:30"
     condition:
       - alias: "Home occupied"
         condition: state
