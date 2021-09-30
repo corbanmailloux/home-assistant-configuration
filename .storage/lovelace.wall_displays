@@ -827,8 +827,8 @@
                                     "type": "conditional",
                                     "conditions": [
                                         {
-                                            "entity": "input_boolean.display_hvac_reset_card",
-                                            "state_not": "off"
+                                            "entity": "input_select.hvac_interlock_state_machine",
+                                            "state": "Reminding"
                                         }
                                     ],
                                     "card": {
@@ -844,23 +844,20 @@
                                                 "type": "custom:button-card",
                                                 "tap_action": {
                                                     "action": "call-service",
-                                                    "service": "input_boolean.turn_off",
-                                                    "service_data": {
-                                                        "entity_id": "input_boolean.display_hvac_reset_card"
-                                                    }
+                                                    "service": "script.hvac_interlock_dismiss_card"
                                                 }
                                             },
                                             {
                                                 "aspect_ratio": "2/1",
                                                 "layout": "vertical",
-                                                "icon": "[[[\n  var entity2 = states[\"input_text.hvac_previous_state\"].state;\n  var icon_name = 'toggle-switch';\n  switch(entity2) {\n    case 'cool':\n      icon_name = 'air-conditioner';\n      break;\n    case 'heat':\n      icon_name = 'fire';\n      break;\n  }\n  return `mdi:${icon_name}`;\n]]]\n",
-                                                "name": "[[[\n  var entity2 = states[\"input_text.hvac_previous_state\"].state;\n  var state_str = entity2.charAt(0).toUpperCase() + entity2.substr(1).toLowerCase();\n  return `Set HVAC to ${state_str}`\n]]]\n",
+                                                "icon": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var icon_name = 'toggle-switch';\n  switch(entity2) {\n    case 'cool':\n      icon_name = 'air-conditioner';\n      break;\n    case 'heat':\n      icon_name = 'fire';\n      break;\n  }\n  return `mdi:${icon_name}`;\n]]]\n",
+                                                "name": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var state_str = entity2.charAt(0).toUpperCase() + entity2.substr(1).toLowerCase();\n  return `Set HVAC to ${state_str}`\n]]]\n",
                                                 "show_icon": true,
                                                 "show_state": false,
                                                 "type": "custom:button-card",
                                                 "tap_action": {
                                                     "action": "call-service",
-                                                    "service": "script.reset_hvac_state"
+                                                    "service": "script.hvac_interlock_reset_hvac_state"
                                                 }
                                             }
                                         ]

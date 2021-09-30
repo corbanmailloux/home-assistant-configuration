@@ -1,15 +1,17 @@
 # If a window is opened while the HVAC is on, disable the HVAC.
 # See https://github.com/corbanmailloux/home-assistant-configuration/issues/83.
 
-input_text:
-  hvac_previous_state:
-    name: Previous HVAC State - Window Interlock
+input_select:
+  hvac_interlock_state_machine:
+    name: HVAC Interlock - State Machine
+    options:
+      - "Armed" # Closed windows, HVAC running or stopped
+      - "Waiting for close"
+      - "Reminding"
 
-input_boolean:
-  display_hvac_reset_card:
-    name: Display card for HVAC reset - Window Interlock
-  primed_to_display_reset_card:
-    name: Primed to display HVAC reset card when door is closed - Window Interlock
+input_text:
+  hvac_interlock_previous_state:
+    name: HVAC Interlock - Previous HVAC State
 
 script:
   # This should probably be moved to a core helpers file.
@@ -25,17 +27,23 @@ script:
               target:
                 entity_id: "{{ light }}"
 
-  reset_hvac_state:
-    alias: Reset HVAC State
+  hvac_interlock_dismiss_card:
+    alias: HVAC Interlock - Dismiss Reminder
     sequence:
-      - alias: "Hide the card"
-        service: input_boolean.turn_off
+      - alias: "State machine: Move to Armed"
+        service: input_select.select_option
         target:
-          entity_id: input_boolean.display_hvac_reset_card
+          entity_id: input_select.hvac_interlock_state_machine
+        data:
+          option: "Armed"
+
+  hvac_interlock_reset_hvac_state:
+    alias: HVAC Interlock - Reset HVAC State
+    sequence:
       - alias: "Set HVAC to previous state"
         service: climate.set_hvac_mode
         data_template:
-          hvac_mode: "{{ states('input_text.hvac_previous_state') }}"
+          hvac_mode: "{{ states('input_text.hvac_interlock_previous_state') }}"
         target:
           entity_id: climate.thermostat
       - alias: "Flash couch lamp"
@@ -43,10 +51,18 @@ script:
         data:
           light: light.couch_side_table_lamp
           count: 2
+      - alias: "Move to armed state"
+        service: input_select.select_option
+        target:
+          entity_id: input_select.hvac_interlock_state_machine
+        data:
+          option: "Armed"
 
 automation:
-  - alias: Disable HVAC when a window is opened
-    id: 3f5fac00-1d34-4536-b26b-77f48cf13c26
+  ## State machine: Armed
+
+  - alias: HVAC Interlock - Disable HVAC when a window is opened
+    id: 84f195d9-2900-44f0-b668-7e9aecf4e18c
     trigger:
       - platform: state
         entity_id: binary_sensor.sliding_door
@@ -54,10 +70,10 @@ automation:
         to: "on" # Open
         for: "00:00:30"
     condition:
-      - alias: "Home occupied"
+      - alias: "State machine: Armed"
         condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
+        entity_id: input_select.hvac_interlock_state_machine
+        state: "Armed"
       - condition: not
         conditions:
           - alias: "HVAC on, wrapped in a not"
@@ -68,7 +84,7 @@ automation:
       - alias: "Store current HVAC state"
         service: input_text.set_value
         target:
-          entity_id: input_text.hvac_previous_state
+          entity_id: input_text.hvac_interlock_previous_state
         data_template:
           value: "{{ states('climate.thermostat') }}"
       - alias: "Turn off HVAC"
@@ -82,46 +98,89 @@ automation:
         data:
           light: light.couch_side_table_lamp
           count: 2
-      - alias: "Prime the next automation to display the card when the door is closed"
-        service: input_boolean.turn_on
+      - alias: "State machine: Move to Waiting for close"
+        service: input_select.select_option
         target:
-          entity_id: input_boolean.primed_to_display_reset_card
+          entity_id: input_select.hvac_interlock_state_machine
+        data:
+          option: "Waiting for close"
 
-  - alias: Display HVAC reset card when door is closed
-    id: 7c89943f-af8a-4571-84cc-25845b79f6ce
+  ## State machine: Waiting for close
+
+  - alias: HVAC Interlock - Display HVAC reset card when door is closed
+    id: 2e5906e7-59df-4026-98d6-43b1eeb4784b
     trigger:
       - platform: state
         entity_id: binary_sensor.sliding_door
         from: "on"
         to: "off" # Closed
     condition:
-      - alias: "Primed to display by previous automation"
+      - alias: "State machine: Waiting for close"
         condition: state
-        entity_id: input_boolean.primed_to_display_reset_card
-        state: "on"
+        entity_id: input_select.hvac_interlock_state_machine
+        state: "Waiting for close"
     action:
-      - alias: "Reset automation for next run"
-        service: input_boolean.turn_off
+      - alias: "State machine: Move to Reminding"
+        service: input_select.select_option
         target:
-          entity_id: input_boolean.primed_to_display_reset_card
-      - alias: "Show wall display card"
-        service: input_boolean.turn_on
-        target:
-          entity_id: input_boolean.display_hvac_reset_card
+          entity_id: input_select.hvac_interlock_state_machine
+        data:
+          option: "Reminding"
 
-  - alias: Dismiss HVAC card if the HVAC is adjusted manually
-    id: b4d233d1-5228-4047-91eb-5988610a9f86
+  - alias: HVAC Interlock - Warn if HVAC is manually enabled with windows open
+    id: 6bcac30d-c551-41fe-9217-beb64a7c18c0
     trigger:
       - platform: state
         entity_id: climate.thermostat
         from: "off"
     condition:
-      - alias: "If the card is displayed"
+      - alias: "State machine: Waiting for close"
         condition: state
-        entity_id: input_boolean.display_hvac_reset_card
-        state: "on"
+        entity_id: input_select.hvac_interlock_state_machine
+        state: "Waiting for close"
     action:
-      - alias: "Hide the card"
-        service: input_boolean.turn_off
+      - alias: "Notify Corban"
+        service: notify.corban
+        data:
+          title: "HVAC Enabled with the Door Open"
+          message: "Was that intentional? It's possible this breaks the interlock flow. Double-check."
+          # TODO: I could add a button to this notification to disable the HVAC directly.
+
+  ## State machine: Reminding
+
+  # Execute button directly executes `script.hvac_interlock_reset_hvac_state` (to "Armed" state.)
+  # Dismiss button directly executes `script.hvac_interlock_dismiss_card` (to "Armed" state)
+
+  - alias: HVAC Interlock - Dismiss card if door is opened while reminding
+    id: dd09a9cc-06f3-4601-be9b-e4742373f3ba
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.sliding_door
+        from: "off"
+        to: "on" # Open
+    condition:
+      - alias: "State machine: Reminding"
+        condition: state
+        entity_id: input_select.hvac_interlock_state_machine
+        state: "Reminding"
+    action:
+      - alias: "State machine: Move to Waiting for close"
+        service: input_select.select_option
         target:
-          entity_id: input_boolean.display_hvac_reset_card
+          entity_id: input_select.hvac_interlock_state_machine
+        data:
+          option: "Waiting for close"
+
+  - alias: HVAC Interlock - Dismiss HVAC card if the HVAC is adjusted manually
+    id: 945eed1f-6895-4b18-9c52-71a05c529576
+    trigger:
+      - platform: state
+        entity_id: climate.thermostat
+        from: "off"
+    condition:
+      - alias: "State machine: Reminding"
+        condition: state
+        entity_id: input_select.hvac_interlock_state_machine
+        state: "Reminding"
+    action:
+      - service: script.hvac_interlock_dismiss_card
