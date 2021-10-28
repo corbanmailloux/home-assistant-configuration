@@ -1,0 +1,251 @@
+esphome:
+  name: office-status-lcd
+  platform: ESP32
+  board: esp32dev
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: true
+
+time:
+  - platform: homeassistant
+    id: esptime
+
+spi:
+  clk_pin: GPIO18
+  mosi_pin: GPIO19
+
+color:
+  - id: color_red
+    red: 100%
+    green: 0%
+    blue: 0%
+  - id: color_yellow
+    red: 100%
+    green: 100%
+    blue: 0%
+  - id: color_orange
+    red: 96%
+    green: 63%
+    blue: 26%
+  - id: color_green
+    red: 0%
+    green: 100%
+    blue: 0%
+  - id: color_blue
+    red: 0%
+    green: 0%
+    blue: 100%
+  - id: color_gray
+    red: 50%
+    green: 50%
+    blue: 50%
+  - id: color_white
+    red: 100%
+    green: 100%
+    blue: 100%
+
+sensor:
+  - platform: homeassistant
+    id: inside_temperature
+    entity_id: sensor.living_room_temperature
+    internal: true
+
+  - platform: homeassistant
+    id: outside_temperature
+    entity_id: sensor.openweathermap_temperature
+    internal: true
+
+  # Maggie's ETA
+  - platform: homeassistant
+    internal: true
+    id: maggie_eta
+    entity_id: sensor.maggie_to_home_travel_time
+
+binary_sensor:
+  - platform: status
+    name: "Node Status"
+    id: system_status
+
+  # Onboard Buttons
+  - platform: gpio
+    pin:
+      number: GPIO0
+      inverted: true
+      mode: INPUT_PULLUP
+    name: "Office Display Button 1"
+    id: tdisplay_button_input_1
+  - platform: gpio
+    pin:
+      number: GPIO35
+      inverted: true
+    name: "Office Display Button 2"
+    id: tdisplay_button_input_2
+
+  # Meeting Status:
+  # Display whether or not the camera is on when in a meeting.
+  - platform: homeassistant
+    id: meeting_active
+    entity_id: binary_sensor.corban_on_a_call
+    internal: true
+  - platform: homeassistant
+    id: meeting_camera_active
+    entity_id: binary_sensor.corban_s_vmware_mbp_camera_in_use
+    internal: true
+
+  # When Maggie is on her way home, show her ETA.
+  - platform: homeassistant
+    id: display_maggie_eta
+    entity_id: input_boolean.wall_display_show_map
+    internal: true
+
+  # Front Door Status:
+  # When the front door is opened, display an animation for a few seconds.
+  - platform: homeassistant
+    id: front_door_open
+    entity_id: binary_sensor.front_door
+    internal: true
+    on_press:
+      then:
+        - display.page.show: page_door
+        - delay: 10s
+        - display.page.show: page_main
+
+text_sensor:
+  # Basil Plant Sensor Status:
+  # When the basil has a problem, report it on the top status line.
+  - platform: homeassistant
+    internal: true
+    id: basil_problem
+    entity_id: sensor.basil_problem_display
+
+switch:
+  - platform: gpio
+    pin: GPIO4
+    name: "Backlight"
+    id: backlight
+
+animation:
+  - file: "resources/images/door_opening_color.gif"
+    id: door_animation
+    type: RGB24
+
+font:
+  # Georgia, for normal text
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_48
+    size: 48
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_24
+    size: 24
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_16
+    size: 16
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_12
+    size: 12
+
+  # Roboto
+  - file: 'resources/fonts/Roboto-Light.ttf'
+    id: roboto
+    size: 25
+
+  # Clock Font
+  - file: 'resources/fonts/BebasNeue-Regular.ttf'
+    id: clock_font
+    size: 72
+
+  # MDI icons
+  # Ref: https://community.home-assistant.io/t/display-materialdesign-icons-on-esphome-attached-to-screen/199790/14?u=corbanmailloux
+  # Reference codepoint list: https://pictogrammers.github.io/@mdi/font/5.3.45/
+  - file: "resources/fonts/materialdesignicons-webfont.ttf"
+    id: mdi_font
+    size: 30
+    glyphs: 
+      - "\U000F0567" # mdi-video
+      - "\U000F0568" # mdi-video-off
+      - "\U000F032A" # mdi-leaf
+      - "\U000F0F55" # mdi-home-thermometer-outline
+      - "\U000F0590" # mdi-weather-cloudy
+      - "\U000F010B" # mdi-car
+
+display:
+  - platform: st7789v
+    backlight_pin: GPIO4
+    cs_pin: GPIO5
+    dc_pin: GPIO16
+    reset_pin: GPIO23
+    rotation: 270
+    update_interval: 1s
+    # Dimensions, landscape: x=240, y=135
+    pages:
+      - id: page_main
+        lambda: |-
+          int border_padding = 2;
+          int mdi_width_offset = 35;
+
+          // Border
+          // it.rectangle(0,  0, it.get_width(), it.get_height(), id(color_blue));
+          
+          // Header Box
+          // it.rectangle(0, 40, it.get_width(), it.get_height(), id(color_blue));
+          // it.print(border_padding, border_padding, id(georgia_12), id(color_yellow), TextAlign::TOP_LEFT, "ESPHome");
+          
+          // Header Message
+          if (id(meeting_active).has_state() && id(meeting_active).state) {
+            if (id(meeting_camera_active).has_state() && id(meeting_camera_active).state) {
+              // Camera on
+              it.printf(border_padding, border_padding, id(mdi_font), id(color_red), TextAlign::TOP_LEFT, "\U000F0567");  
+            } else {
+              // Camera off
+              it.printf(border_padding, border_padding, id(mdi_font), id(color_yellow), TextAlign::TOP_LEFT, "\U000F0568");  
+            }
+            it.printf(mdi_width_offset + border_padding, border_padding, id(georgia_24), id(color_orange), TextAlign::TOP_LEFT, "In a meeting");
+          } else if (id(basil_problem).has_state() && id(basil_problem).state != "Nothing") {
+            it.printf(border_padding, border_padding, id(mdi_font), id(color_orange), TextAlign::TOP_LEFT, "\U000F032A");
+            it.printf(mdi_width_offset + border_padding, border_padding, id(georgia_24), id(color_orange), TextAlign::TOP_LEFT, "%s", id(basil_problem).state.c_str());
+          } else if (id(display_maggie_eta).has_state() && id(display_maggie_eta).state && id(maggie_eta).has_state()) {
+            it.printf(border_padding, border_padding, id(mdi_font), id(color_orange), TextAlign::TOP_LEFT, "\U000F010B");
+            // Slide this down a bit because I'm using Roboto for it.
+            it.printf(mdi_width_offset + border_padding, border_padding + 3, id(roboto), id(color_white), TextAlign::TOP_LEFT, "%.0f minutes away", id(maggie_eta).state);
+          } else {
+            it.printf(it.get_width() / 2, border_padding, id(georgia_24), id(color_gray), TextAlign::TOP_CENTER, "Hello there!");
+          }
+
+          // Online Status, top-right
+          if (id(system_status).state) {
+            // it.filled_circle(it.get_width(), 0, 10, id(color_green));
+          } else {
+            it.filled_circle(it.get_width() - border_padding - 10, border_padding + 10, 10, id(color_red));
+          }
+
+          // Time, bottom-left
+          it.strftime(border_padding, it.get_height() - border_padding, id(clock_font), id(color_gray), TextAlign::BASELINE_LEFT, "%I:%M", id(esptime).now());
+          
+          // Temperatures, bottom-right
+          if (id(inside_temperature).has_state()) {
+            it.printf(it.get_width() - border_padding - 60, it.get_height() - border_padding - 30 + 3, id(mdi_font), id(color_white), TextAlign::BASELINE_RIGHT , "\U000F0F55");
+            it.printf(it.get_width() - border_padding, it.get_height() - border_padding - 30, id(roboto), id(color_white), TextAlign::BASELINE_RIGHT , "%.1f°", id(inside_temperature).state);
+          }
+          if (id(outside_temperature).has_state()) {
+            it.printf(it.get_width() - border_padding - 60, it.get_height() - border_padding + 3, id(mdi_font), id(color_white), TextAlign::BASELINE_RIGHT , "\U000F0590");
+            it.printf(it.get_width() - border_padding, it.get_height() - border_padding, id(roboto), id(color_white), TextAlign::BASELINE_RIGHT , "%.1f°", id(outside_temperature).state);
+          }
+
+          // Comment out the above lines to see the image without text overlaid
+          // it.image(0, 0, id(my_image));
+      - id: page_door
+        lambda: |-
+          id(door_animation).next_frame();
+          // Image is 91px wide
+          it.image(it.get_width() / 2 - 45, 0, id(door_animation));
