@@ -134,10 +134,13 @@ automation:
 
   - alias: "Living Room Remote - Source Button - Toggle Office Lights"
     id: e44385f5-c0be-46e0-b965-6e987c965374
+    mode: single # Cooldown timer at the end
     trigger:
       - platform: event
         event_type: esphome.living_room.source
     action:
-      - service: homeassistant.toggle
+      - service: light.toggle
         target:
-          entity_id: group.office_lights
+          entity_id: light.office_lights
+      - delay:
+          milliseconds: 250
