@@ -121,6 +121,10 @@
                                     "cards": [
                                         {
                                             "entity": "switch.living_room_tv_power",
+                                            "name": "TV",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
                                             "hold_action": {
                                                 "action": "call-service",
                                                 "service": "switch.turn_on",
@@ -128,13 +132,9 @@
                                                     "entity_id": "switch.living_room_tv_power"
                                                 }
                                             },
-                                            "name": "TV",
                                             "show_icon": true,
                                             "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "entity-button"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "script.living_room_movie_mode",
@@ -144,7 +144,9 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "entity-button"
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "script.roku_play_pause",
@@ -155,7 +157,9 @@
                                                 "action": "call-service",
                                                 "service": "script.roku_play_pause"
                                             },
-                                            "type": "entity-button"
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "type": "custom:button-card"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -175,10 +179,11 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "light.couch_side_table_lamp",
+                                            "name": "Side Table",
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -190,8 +195,7 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button",
-                                            "name": "Side Table"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "light.kallax_lamp",
@@ -206,7 +210,7 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button"
+                                            "type": "custom:button-card"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -221,6 +225,9 @@
                                     "cards": [
                                         {
                                             "entity": "light.plant_lamp",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -229,13 +236,14 @@
                                             },
                                             "show_icon": true,
                                             "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "button"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "light.office_lamp",
+                                            "name": "Lamp",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -244,14 +252,14 @@
                                             },
                                             "show_icon": true,
                                             "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "button",
-                                            "name": "Lamp"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "light.office_lamp_bottom",
+                                            "name": "Video Light",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
@@ -260,24 +268,24 @@
                                             },
                                             "show_icon": true,
                                             "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "button",
-                                            "name": "Video Light",
-                                            "show_state": false
+                                            "type": "custom:button-card"
                                         },
                                         {
-                                            "type": "button",
+                                            "entity": "light.office_leds",
+                                            "name": "LEDs",
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "entity": "light.office_leds",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
                                             "double_tap_action": {
                                                 "action": "more-info"
                                             },
-                                            "name": "LEDs",
-                                            "show_state": false
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "color": "auto",
+                                            "type": "custom:button-card"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -292,39 +300,45 @@
                                     "type": "horizontal-stack",
                                     "cards": [
                                         {
-                                            "type": "button",
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "double_tap_action": {
-                                                "action": "more-info"
-                                            },
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
                                             "entity": "light.bedroom_lamp",
-                                            "name": "Lamp"
-                                        },
-                                        {
-                                            "type": "button",
+                                            "name": "Lamp",
                                             "tap_action": {
                                                 "action": "toggle"
-                                            },
-                                            "double_tap_action": {
-                                                "action": "more-info"
                                             },
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
-                                            "entity": "light.fairy_lights"
+                                            "double_tap_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "type": "custom:button-card"
                                         },
                                         {
-                                            "type": "button",
+                                            "entity": "light.fairy_lights",
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "double_tap_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "type": "custom:button-card"
+                                        },
+                                        {
+                                            "entity": "script.bedroom_roku_play_pause",
                                             "tap_action": {
                                                 "action": "call-service",
                                                 "service": "script.bedroom_roku_play_pause"
                                             },
-                                            "entity": "script.bedroom_roku_play_pause"
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "type": "custom:button-card"
                                         }
                                     ]
                                 }
@@ -466,18 +480,15 @@
                                         },
                                         {
                                             "aspect_ratio": "1/1",
-                                            "entity": "script.tablet_wall_display_reload",
+                                            "entity": "script.update_package_sensors",
                                             "icon": "mdi:package-variant",
                                             "name": "Refresh Package Sensors",
                                             "show_name": false,
                                             "tap_action": {
                                                 "action": "call-service",
-                                                "service": "homeassistant.update_entity",
+                                                "service": "script.turn_on",
                                                 "service_data": {
-                                                    "entity_id": [
-                                                        "sensor.packages_for_corban",
-                                                        "sensor.packages_for_maggie"
-                                                    ]
+                                                    "entity_id": "entity"
                                                 }
                                             },
                                             "type": "custom:button-card"

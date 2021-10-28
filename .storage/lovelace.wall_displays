@@ -173,17 +173,19 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "entity-button"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "script.living_room_movie_mode",
                                             "hold_action": {
                                                 "action": "none"
                                             },
+                                            "show_icon": true,
+                                            "show_name": true,
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "entity-button"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "script.roku_play_pause",
@@ -194,7 +196,9 @@
                                                 "action": "call-service",
                                                 "service": "script.roku_play_pause"
                                             },
-                                            "type": "entity-button"
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "type": "custom:button-card"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -217,7 +221,8 @@
                                                     "entity_id": "scene.living_room_off"
                                                 }
                                             },
-                                            "type": "button"
+                                            "color": "var(--paper-item-icon-color)",
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "scene.living_room_dim",
@@ -235,7 +240,8 @@
                                                     "entity_id": "scene.living_room_dim"
                                                 }
                                             },
-                                            "type": "button"
+                                            "color": "var(--paper-item-icon-color)",
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "scene.living_room_bright",
@@ -244,8 +250,6 @@
                                             },
                                             "icon": "mdi:moon-full",
                                             "name": "Lights Bright",
-                                            "show_icon": true,
-                                            "show_name": true,
                                             "tap_action": {
                                                 "action": "call-service",
                                                 "service": "scene.turn_on",
@@ -253,7 +257,10 @@
                                                     "entity_id": "scene.living_room_bright"
                                                 }
                                             },
-                                            "type": "button"
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "color": "var(--paper-item-icon-color)",
+                                            "type": "custom:button-card"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -271,16 +278,23 @@
                                             "hold_action": {
                                                 "action": "more-info"
                                             },
+                                            "double_tap_action": {
+                                                "action": "more-info"
+                                            },
                                             "show_icon": true,
                                             "show_name": true,
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "light.office_lamp",
+                                            "name": "Lamp",
                                             "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "double_tap_action": {
                                                 "action": "more-info"
                                             },
                                             "show_icon": true,
@@ -288,12 +302,15 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button",
-                                            "name": "Lamp"
+                                            "type": "custom:button-card"
                                         },
                                         {
                                             "entity": "light.office_lamp_bottom",
+                                            "name": "Video Light",
                                             "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "double_tap_action": {
                                                 "action": "more-info"
                                             },
                                             "show_icon": true,
@@ -301,8 +318,7 @@
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "type": "button",
-                                            "name": "Video Light"
+                                            "type": "custom:button-card"
                                         }
                                     ],
                                     "type": "horizontal-stack"
@@ -317,27 +333,45 @@
                                     "type": "horizontal-stack",
                                     "cards": [
                                         {
-                                            "type": "button",
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
                                             "entity": "light.bedroom_lamp",
-                                            "name": "Lamp"
-                                        },
-                                        {
-                                            "type": "button",
+                                            "name": "Lamp",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "double_tap_action": {
+                                                "action": "none"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
                                             "tap_action": {
                                                 "action": "toggle"
                                             },
-                                            "entity": "light.fairy_lights"
+                                            "type": "custom:button-card"
                                         },
                                         {
-                                            "type": "button",
+                                            "entity": "light.fairy_lights",
+                                            "hold_action": {
+                                                "action": "more-info"
+                                            },
+                                            "double_tap_action": {
+                                                "action": "more-info"
+                                            },
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "tap_action": {
+                                                "action": "toggle"
+                                            },
+                                            "type": "custom:button-card"
+                                        },
+                                        {
                                             "tap_action": {
                                                 "action": "call-service",
                                                 "service": "script.bedroom_roku_play_pause"
                                             },
-                                            "entity": "script.bedroom_roku_play_pause"
+                                            "entity": "script.bedroom_roku_play_pause",
+                                            "show_icon": true,
+                                            "show_name": true,
+                                            "type": "custom:button-card"
                                         }
                                     ]
                                 }
@@ -1122,6 +1156,43 @@
                                 "entity": "sensor.kitchen_speaker_timers",
                                 "title": "Kitchen"
                             }
+                        },
+                        {
+                            "card": {
+                                "cards": [
+                                    {
+                                        "content": "{% if is_state('person.maggie', 'home') %} \nMaggie's home now.\n{% else %}\nMaggie is **{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.\n{% endif %}",
+                                        "type": "markdown"
+                                    },
+                                    {
+                                        "dark_mode": false,
+                                        "entities": [
+                                            {
+                                                "entity": "person.corban"
+                                            },
+                                            {
+                                                "entity": "person.maggie"
+                                            },
+                                            {
+                                                "entity": "zone.home"
+                                            },
+                                            {
+                                                "entity": "zone.re"
+                                            }
+                                        ],
+                                        "hours_to_show": 0,
+                                        "type": "map"
+                                    }
+                                ],
+                                "type": "vertical-stack"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.wall_display_show_map",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
                         }
                     ]
                 }
