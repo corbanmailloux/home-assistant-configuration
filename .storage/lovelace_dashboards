@@ -11,6 +11,15 @@
                 "url_path": "wall-displays",
                 "mode": "storage",
                 "id": "wall_displays"
+            },
+            {
+                "require_admin": false,
+                "show_in_sidebar": true,
+                "icon": "mdi:cog-box",
+                "title": "Management",
+                "url_path": "lovelace-management",
+                "mode": "storage",
+                "id": "lovelace_management"
             }
         ]
     }

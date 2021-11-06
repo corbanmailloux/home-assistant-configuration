@@ -11,17 +11,17 @@
             {
                 "id": "9fb206a7694a4cdcb5fa596e6914ee83",
                 "type": "module",
-                "url": "/hacsfiles/roku-card/roku-card.js"
+                "url": "/hacsfiles/roku-card/roku-card.js?hacstag=164367214123"
             },
             {
                 "id": "4047cd6f267f4453bfddfd94708537d8",
                 "type": "module",
-                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381130"
+                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381140"
             },
             {
                 "id": "67bafd0677544c748363f9561ce64446",
                 "type": "module",
-                "url": "/hacsfiles/lovelace-slider-entity-row/slider-entity-row.js"
+                "url": "/hacsfiles/lovelace-slider-entity-row/slider-entity-row.js?hacstag=1448997001721"
             },
             {
                 "id": "220c76e6863c4c1f831d5aaa2a58b793",
@@ -46,7 +46,7 @@
             {
                 "id": "b9ec5fec89054ffeb91508eafed17d54",
                 "type": "module",
-                "url": "/hacsfiles/lovelace-card-mod/card-mod.js"
+                "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=1909275243013"
             },
             {
                 "id": "9717aed771b445c5965d83897ccb1714",
@@ -67,6 +67,11 @@
                 "url": "/hacsfiles/lovelace-valetudo-map-card/valetudo-map-card.js?hacstag=20303610820210812",
                 "type": "module",
                 "id": "1cf10dc4f7744e18b1b9f06015ba439e"
+            },
+            {
+                "url": "/hacsfiles/lovelace-layout-card/layout-card.js?hacstag=156434866231",
+                "type": "module",
+                "id": "ad5e2552f9ec4dbb96308ac020109a99"
             }
         ]
     }

@@ -107,800 +107,6 @@
             "views": [
                 {
                     "background": "center / cover no-repeat fixed url('https://home.corb.co/local/images/wall-panel-background.png')",
-                    "badges": [],
-                    "cards": [
-                        {
-                            "cards": [
-                                {
-                                    "cards": [
-                                        {
-                                            "aspect_ratio": "0%",
-                                            "entities": [
-                                                {
-                                                    "entity": "sensor.corban_location_icon"
-                                                }
-                                            ],
-                                            "entity": "binary_sensor.corban_person_home",
-                                            "image": "/local/images/corban.jpg",
-                                            "type": "picture-glance"
-                                        },
-                                        {
-                                            "entity": "input_boolean.home_occupied",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": false,
-                                            "show_state": false,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "button"
-                                        },
-                                        {
-                                            "entities": [
-                                                {
-                                                    "entity": "sensor.maggie_location_icon"
-                                                }
-                                            ],
-                                            "entity": "binary_sensor.maggie_person_home",
-                                            "image": "/local/images/maggie.jpg",
-                                            "type": "picture-glance"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                },
-                                {
-                                    "type": "custom:button-card",
-                                    "entity": "group.living_room_lights",
-                                    "name": "Living Room",
-                                    "template": "header_clickable"
-                                },
-                                {
-                                    "cards": [
-                                        {
-                                            "entity": "switch.living_room_tv_power",
-                                            "hold_action": {
-                                                "action": "call-service",
-                                                "service": "switch.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "switch.living_room_tv_power"
-                                                }
-                                            },
-                                            "name": "TV",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "entity": "script.living_room_movie_mode",
-                                            "hold_action": {
-                                                "action": "none"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "entity": "script.roku_play_pause",
-                                            "hold_action": {
-                                                "action": "none"
-                                            },
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.roku_play_pause"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "type": "custom:button-card"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                },
-                                {
-                                    "cards": [
-                                        {
-                                            "entity": "scene.living_room_off",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "icon": "mdi:circle-off-outline",
-                                            "name": "Lights Off",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_off"
-                                                }
-                                            },
-                                            "color": "var(--paper-item-icon-color)",
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "entity": "scene.living_room_dim",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "icon": "mdi:moon-last-quarter",
-                                            "name": "Lights Dim",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_dim"
-                                                }
-                                            },
-                                            "color": "var(--paper-item-icon-color)",
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "entity": "scene.living_room_bright",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "icon": "mdi:moon-full",
-                                            "name": "Lights Bright",
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_bright"
-                                                }
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "color": "var(--paper-item-icon-color)",
-                                            "type": "custom:button-card"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                },
-                                {
-                                    "type": "custom:button-card",
-                                    "entity": "group.office_lights",
-                                    "name": "Office",
-                                    "template": "header_clickable"
-                                },
-                                {
-                                    "cards": [
-                                        {
-                                            "entity": "light.plant_lamp",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "double_tap_action": {
-                                                "action": "more-info"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "entity": "light.office_lamp",
-                                            "name": "Lamp",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "double_tap_action": {
-                                                "action": "more-info"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "entity": "light.office_lamp_bottom",
-                                            "name": "Video Light",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "double_tap_action": {
-                                                "action": "more-info"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "custom:button-card"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                },
-                                {
-                                    "type": "custom:button-card",
-                                    "entity": "group.bedroom_lights",
-                                    "name": "Bedroom",
-                                    "template": "header_clickable"
-                                },
-                                {
-                                    "type": "horizontal-stack",
-                                    "cards": [
-                                        {
-                                            "entity": "light.bedroom_lamp",
-                                            "name": "Lamp",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "double_tap_action": {
-                                                "action": "none"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "entity": "light.fairy_lights",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "double_tap_action": {
-                                                "action": "more-info"
-                                            },
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.bedroom_roku_play_pause"
-                                            },
-                                            "entity": "script.bedroom_roku_play_pause",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "type": "custom:button-card"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "type": "vertical-stack"
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "entity": "sensor.local_display_time",
-                                    "show_icon": false,
-                                    "show_label": false,
-                                    "show_name": false,
-                                    "show_state": true,
-                                    "styles": {
-                                        "state": [
-                                            {
-                                                "font-size": "4rem"
-                                            }
-                                        ],
-                                        "card": [
-                                            {
-                                                "padding": "0.4rem"
-                                            }
-                                        ]
-                                    },
-                                    "tap_action": {
-                                        "action": "call-service",
-                                        "service": "script.tablet_wall_display_reload"
-                                    },
-                                    "type": "custom:button-card"
-                                },
-                                {
-                                    "current": true,
-                                    "details": false,
-                                    "entity": "weather.openweathermap",
-                                    "forecast": true,
-                                    "hourly_forecast": false,
-                                    "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
-                                    "name": "Home",
-                                    "number_of_forecasts": "5",
-                                    "type": "custom:weather-card"
-                                },
-                                {
-                                    "cards": [
-                                        {
-                                            "decimals": 0,
-                                            "entities": [
-                                                "sensor.living_room_temperature"
-                                            ],
-                                            "icon": "mdi:home-thermometer",
-                                            "name": "Living Room",
-                                            "show": {
-                                                "graph": true,
-                                                "points": false
-                                            },
-                                            "type": "custom:mini-graph-card"
-                                        },
-                                        {
-                                            "decimals": 0,
-                                            "entities": [
-                                                "sensor.bedroom_temperature"
-                                            ],
-                                            "icon": "mdi:bed",
-                                            "name": "Bedroom",
-                                            "show": {
-                                                "graph": true,
-                                                "points": false
-                                            },
-                                            "type": "custom:mini-graph-card"
-                                        },
-                                        {
-                                            "decimals": 0,
-                                            "entities": [
-                                                "sensor.office_temperature"
-                                            ],
-                                            "icon": "mdi:monitor-multiple",
-                                            "name": "Office",
-                                            "show": {
-                                                "graph": true,
-                                                "points": false
-                                            },
-                                            "type": "custom:mini-graph-card"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                }
-                            ],
-                            "type": "vertical-stack"
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "cards": [
-                                        {
-                                            "aspect_ratio": "1/1",
-                                            "entity": "input_boolean.litter_box_clean_skip",
-                                            "show_name": false,
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "aspect_ratio": "1/1",
-                                            "entity": "input_boolean.guest_mode",
-                                            "name": "Guest Mode",
-                                            "show_name": false,
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "color_type": "blank-card",
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "color_type": "blank-card",
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "aspect_ratio": "1/1",
-                                            "entity": "script.update_package_sensors",
-                                            "icon": "mdi:package-variant",
-                                            "name": "Refresh Package Sensors",
-                                            "show_name": false,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "entity"
-                                                }
-                                            },
-                                            "type": "custom:button-card"
-                                        },
-                                        {
-                                            "aspect_ratio": "1/1",
-                                            "entity": "script.tablet_wall_display_reload",
-                                            "name": "Refresh",
-                                            "show_name": false,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "script.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "entity"
-                                                }
-                                            },
-                                            "type": "custom:button-card"
-                                        }
-                                    ],
-                                    "type": "horizontal-stack"
-                                },
-                                {
-                                    "type": "custom:button-card",
-                                    "name": "Dynamic Cards",
-                                    "template": "header"
-                                },
-                                {
-                                    "card": {
-                                        "color": "red",
-                                        "entity": "binary_sensor.corban_on_a_call",
-                                        "layout": "icon_name",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "type": "custom:button-card"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "binary_sensor.corban_on_a_call",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "card": {
-                                        "title": "Low Batteries"
-                                    },
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.corbans_iphone_battery_level",
-                                            "name": "Corban's iPhone"
-                                        },
-                                        {
-                                            "entity": "sensor.edna_battery_level",
-                                            "name": "Maggie's Phone"
-                                        },
-                                        {
-                                            "entity": "sensor.0x000d6ffffea6b202_battery",
-                                            "name": "IKEA Remote"
-                                        },
-                                        {
-                                            "entity": "sensor.corban_bedside_button_battery",
-                                            "name": "Corban's Bedside Button"
-                                        },
-                                        {
-                                            "entity": "sensor.maggie_bedside_button_battery",
-                                            "name": "Maggie's Bedside Remote"
-                                        },
-                                        {
-                                            "entity": "sensor.front_door_sensor_battery",
-                                            "name": "Front Door Sensor"
-                                        },
-                                        {
-                                            "entity": "sensor.office_door_sensor_battery",
-                                            "name": "Office Door Sensor"
-                                        },
-                                        {
-                                            "entity": "sensor.living_room_sensor_battery",
-                                            "name": "Living Room Temperature Sensor"
-                                        },
-                                        {
-                                            "entity": "sensor.network_closet_sensor_battery",
-                                            "name": "Network Closet Temperature Sensor"
-                                        }
-                                    ],
-                                    "show_empty": false,
-                                    "state_filter": [
-                                        {
-                                            "operator": "<",
-                                            "value": 25
-                                        }
-                                    ],
-                                    "type": "entity-filter"
-                                },
-                                {
-                                    "card": {
-                                        "cards": [
-                                            {
-                                                "content": "{% if is_state('person.maggie', 'home') %} \nMaggie's home now.\n{% else %}\nMaggie is **{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.\n{% endif %}",
-                                                "type": "markdown"
-                                            },
-                                            {
-                                                "dark_mode": false,
-                                                "entities": [
-                                                    {
-                                                        "entity": "person.corban"
-                                                    },
-                                                    {
-                                                        "entity": "person.maggie"
-                                                    },
-                                                    {
-                                                        "entity": "zone.home"
-                                                    },
-                                                    {
-                                                        "entity": "zone.re"
-                                                    }
-                                                ],
-                                                "hours_to_show": 0,
-                                                "type": "map"
-                                            }
-                                        ],
-                                        "type": "vertical-stack"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "input_boolean.wall_display_show_map",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "card": {
-                                        "color": "red",
-                                        "entity": "input_boolean.litter_box_clean_needed",
-                                        "layout": "icon_name",
-                                        "name": "Litter Box Clean Needed",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "type": "custom:button-card"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "input_boolean.litter_box_clean_needed",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "card": {
-                                        "color": "green",
-                                        "entity": "input_boolean.put_trash_out_display",
-                                        "name": "Time to put the trash out",
-                                        "layout": "icon_name",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "tap_action": {
-                                            "action": "toggle"
-                                        },
-                                        "type": "custom:button-card"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "input_boolean.put_trash_out_display",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "card": {
-                                        "color": "orange",
-                                        "entity": "sensor.packages_for_maggie",
-                                        "layout": "icon_name_state2nd",
-                                        "show_icon": true,
-                                        "show_state": true,
-                                        "type": "custom:button-card",
-                                        "tap_action": {
-                                            "action": "call-service",
-                                            "service": "homeassistant.update_entity",
-                                            "service_data": {
-                                                "entity_id": "entity"
-                                            }
-                                        },
-                                        "hold_action": {
-                                            "action": "more-info"
-                                        }
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "sensor.packages_for_maggie",
-                                            "state_not": "0"
-                                        },
-                                        {
-                                            "entity": "sensor.packages_for_maggie",
-                                            "state_not": "unknown"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "card": {
-                                        "color": "orange",
-                                        "entity": "sensor.packages_for_corban",
-                                        "layout": "icon_name_state2nd",
-                                        "show_icon": true,
-                                        "show_state": true,
-                                        "type": "custom:button-card",
-                                        "tap_action": {
-                                            "action": "call-service",
-                                            "service": "homeassistant.update_entity",
-                                            "service_data": {
-                                                "entity_id": "entity"
-                                            }
-                                        },
-                                        "hold_action": {
-                                            "action": "more-info"
-                                        }
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "sensor.packages_for_corban",
-                                            "state_not": "0"
-                                        },
-                                        {
-                                            "entity": "sensor.packages_for_corban",
-                                            "state_not": "unknown"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "card": {
-                                        "entity": "input_boolean.cat_claw_clip_needed",
-                                        "layout": "icon_name",
-                                        "color": "yellow",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "tap_action": {
-                                            "action": "toggle"
-                                        },
-                                        "hold_action": {
-                                            "action": "call-service",
-                                            "service": "script.cat_claw_clipped_run_eve"
-                                        },
-                                        "type": "custom:button-card"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "input_boolean.cat_claw_clip_needed",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "type": "conditional",
-                                    "conditions": [
-                                        {
-                                            "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                            "state_not": "docked"
-                                        },
-                                        {
-                                            "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                            "state_not": "unavailable"
-                                        }
-                                    ],
-                                    "card": {
-                                        "type": "horizontal-stack",
-                                        "cards": [
-                                            {
-                                                "aspect_ratio": "2/1",
-                                                "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                                "layout": "vertical",
-                                                "icon": "mdi:pause",
-                                                "name": "Pause Vacuum",
-                                                "show_icon": true,
-                                                "show_state": false,
-                                                "type": "custom:button-card",
-                                                "tap_action": {
-                                                    "action": "call-service",
-                                                    "service": "vacuum.pause",
-                                                    "service_data": {
-                                                        "entity_id": "entity"
-                                                    }
-                                                },
-                                                "hold_action": {
-                                                    "action": "more-info"
-                                                }
-                                            },
-                                            {
-                                                "aspect_ratio": "2/1",
-                                                "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                                "layout": "vertical",
-                                                "icon": "mdi:stop",
-                                                "name": "Stop / Dock Vacuum",
-                                                "show_icon": true,
-                                                "show_state": false,
-                                                "type": "custom:button-card",
-                                                "tap_action": {
-                                                    "action": "call-service",
-                                                    "service": "vacuum.return_to_base",
-                                                    "service_data": {
-                                                        "entity_id": "entity"
-                                                    }
-                                                },
-                                                "hold_action": {
-                                                    "action": "more-info"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                },
-                                {
-                                    "type": "conditional",
-                                    "conditions": [
-                                        {
-                                            "entity": "sensor.kitchen_speaker_timers",
-                                            "state_not": "unavailable"
-                                        }
-                                    ],
-                                    "card": {
-                                        "type": "custom:googletimers-card",
-                                        "entity": "sensor.kitchen_speaker_timers",
-                                        "title": "Kitchen"
-                                    }
-                                },
-                                {
-                                    "type": "conditional",
-                                    "conditions": [
-                                        {
-                                            "entity": "media_player.google_homes",
-                                            "state_not": "off"
-                                        }
-                                    ],
-                                    "card": {
-                                        "type": "custom:mini-media-player",
-                                        "toggle_power": true,
-                                        "entity": "media_player.google_homes"
-                                    }
-                                },
-                                {
-                                    "card": {
-                                        "color": "red",
-                                        "entity": "input_boolean.vacation_mode",
-                                        "layout": "icon_name",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "type": "custom:button-card"
-                                    },
-                                    "conditions": [
-                                        {
-                                            "entity": "input_boolean.vacation_mode",
-                                            "state": "on"
-                                        }
-                                    ],
-                                    "type": "conditional"
-                                },
-                                {
-                                    "type": "conditional",
-                                    "conditions": [
-                                        {
-                                            "entity": "input_select.hvac_interlock_state_machine",
-                                            "state": "Reminding"
-                                        }
-                                    ],
-                                    "card": {
-                                        "type": "horizontal-stack",
-                                        "cards": [
-                                            {
-                                                "layout": "vertical",
-                                                "aspect_ratio": "2/1",
-                                                "icon": "mdi:notification-clear-all",
-                                                "name": "Dismiss",
-                                                "show_icon": true,
-                                                "show_state": false,
-                                                "type": "custom:button-card",
-                                                "tap_action": {
-                                                    "action": "call-service",
-                                                    "service": "script.hvac_interlock_dismiss_card"
-                                                }
-                                            },
-                                            {
-                                                "aspect_ratio": "2/1",
-                                                "layout": "vertical",
-                                                "icon": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var icon_name = 'toggle-switch';\n  switch(entity2) {\n    case 'cool':\n      icon_name = 'air-conditioner';\n      break;\n    case 'heat':\n      icon_name = 'fire';\n      break;\n  }\n  return `mdi:${icon_name}`;\n]]]\n",
-                                                "name": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var state_str = entity2.charAt(0).toUpperCase() + entity2.substr(1).toLowerCase();\n  return `Set HVAC to ${state_str}`\n]]]\n",
-                                                "show_icon": true,
-                                                "show_state": false,
-                                                "type": "custom:button-card",
-                                                "tap_action": {
-                                                    "action": "call-service",
-                                                    "service": "script.hvac_interlock_reset_hvac_state"
-                                                }
-                                            }
-                                        ]
-                                    }
-                                }
-                            ],
-                            "type": "vertical-stack"
-                        }
-                    ],
                     "icon": "mdi:tablet-dashboard",
                     "path": "wall-display",
                     "theme": "noctis_custom",
@@ -915,6 +121,784 @@
                         {
                             "user": "906ef5ceb6e2470ba3ddf18ae4277191"
                         }
+                    ],
+                    "type": "custom:vertical-layout",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "aspect_ratio": "0%",
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.corban_location_icon"
+                                        }
+                                    ],
+                                    "entity": "binary_sensor.corban_person_home",
+                                    "image": "/local/images/corban.jpg",
+                                    "type": "picture-glance"
+                                },
+                                {
+                                    "entity": "input_boolean.home_occupied",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": false,
+                                    "show_state": false,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "button"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.maggie_location_icon"
+                                        }
+                                    ],
+                                    "entity": "binary_sensor.maggie_person_home",
+                                    "image": "/local/images/maggie.jpg",
+                                    "type": "picture-glance"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "type": "custom:button-card",
+                            "entity": "group.living_room_lights",
+                            "name": "Living Room",
+                            "template": "header_clickable"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "switch.living_room_tv_power",
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "service": "switch.turn_on",
+                                        "service_data": {
+                                            "entity_id": "switch.living_room_tv_power"
+                                        }
+                                    },
+                                    "name": "TV",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "script.living_room_movie_mode",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "script.roku_play_pause",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.roku_play_pause"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "type": "custom:button-card"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "scene.living_room_off",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "icon": "mdi:circle-off-outline",
+                                    "name": "Lights Off",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "scene.living_room_off"
+                                        }
+                                    },
+                                    "color": "var(--paper-item-icon-color)",
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "scene.living_room_dim",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "icon": "mdi:moon-last-quarter",
+                                    "name": "Lights Dim",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "scene.living_room_dim"
+                                        }
+                                    },
+                                    "color": "var(--paper-item-icon-color)",
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "scene.living_room_bright",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "icon": "mdi:moon-full",
+                                    "name": "Lights Bright",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "scene.living_room_bright"
+                                        }
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "color": "var(--paper-item-icon-color)",
+                                    "type": "custom:button-card"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "type": "custom:button-card",
+                            "entity": "group.office_lights",
+                            "name": "Office",
+                            "template": "header_clickable"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "light.plant_lamp",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "double_tap_action": {
+                                        "action": "more-info"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "light.office_lamp",
+                                    "name": "Lamp",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "double_tap_action": {
+                                        "action": "more-info"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "light.office_lamp_bottom",
+                                    "name": "Video Light",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "double_tap_action": {
+                                        "action": "more-info"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "custom:button-card"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "type": "custom:button-card",
+                            "entity": "group.bedroom_lights",
+                            "name": "Bedroom",
+                            "template": "header_clickable"
+                        },
+                        {
+                            "type": "horizontal-stack",
+                            "cards": [
+                                {
+                                    "entity": "light.bedroom_lamp",
+                                    "name": "Lamp",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "double_tap_action": {
+                                        "action": "none"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "light.fairy_lights",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "double_tap_action": {
+                                        "action": "more-info"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.bedroom_roku_play_pause"
+                                    },
+                                    "entity": "script.bedroom_roku_play_pause",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "type": "custom:button-card"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "custom:layout-break"
+                        },
+                        {
+                            "entity": "sensor.local_display_time",
+                            "show_icon": false,
+                            "show_label": false,
+                            "show_name": false,
+                            "show_state": true,
+                            "styles": {
+                                "state": [
+                                    {
+                                        "font-size": "4rem"
+                                    }
+                                ],
+                                "card": [
+                                    {
+                                        "padding": "0.4rem"
+                                    }
+                                ]
+                            },
+                            "tap_action": {
+                                "action": "call-service",
+                                "service": "script.tablet_wall_display_reload"
+                            },
+                            "type": "custom:button-card"
+                        },
+                        {
+                            "current": true,
+                            "details": false,
+                            "entity": "weather.openweathermap",
+                            "forecast": true,
+                            "hourly_forecast": false,
+                            "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
+                            "name": "Home",
+                            "number_of_forecasts": "5",
+                            "type": "custom:weather-card"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "decimals": 0,
+                                    "entities": [
+                                        "sensor.living_room_temperature"
+                                    ],
+                                    "icon": "mdi:home-thermometer",
+                                    "name": "Living Room",
+                                    "show": {
+                                        "graph": true,
+                                        "points": false
+                                    },
+                                    "type": "custom:mini-graph-card"
+                                },
+                                {
+                                    "decimals": 0,
+                                    "entities": [
+                                        "sensor.bedroom_temperature"
+                                    ],
+                                    "icon": "mdi:bed",
+                                    "name": "Bedroom",
+                                    "show": {
+                                        "graph": true,
+                                        "points": false
+                                    },
+                                    "type": "custom:mini-graph-card"
+                                },
+                                {
+                                    "decimals": 0,
+                                    "entities": [
+                                        "sensor.office_temperature"
+                                    ],
+                                    "icon": "mdi:monitor-multiple",
+                                    "name": "Office",
+                                    "show": {
+                                        "graph": true,
+                                        "points": false
+                                    },
+                                    "type": "custom:mini-graph-card"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "type": "custom:layout-break"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "aspect_ratio": "1/1",
+                                    "entity": "input_boolean.litter_box_clean_skip",
+                                    "show_name": false,
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "aspect_ratio": "1/1",
+                                    "entity": "input_boolean.guest_mode",
+                                    "name": "Guest Mode",
+                                    "show_name": false,
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "aspect_ratio": "1/1",
+                                    "entity": "input_boolean.wall_display_show_map",
+                                    "name": "Show Map",
+                                    "show_name": false,
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "color_type": "blank-card",
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "color_type": "blank-card",
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "aspect_ratio": "1/1",
+                                    "entity": "script.update_package_sensors",
+                                    "icon": "mdi:package-variant",
+                                    "name": "Refresh Package Sensors",
+                                    "show_name": false,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.turn_on",
+                                        "service_data": {
+                                            "entity_id": "entity"
+                                        }
+                                    },
+                                    "type": "custom:button-card"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "type": "custom:button-card",
+                            "name": "Dynamic Cards",
+                            "template": "header"
+                        },
+                        {
+                            "card": {
+                                "color": "red",
+                                "entity": "binary_sensor.corban_on_a_call",
+                                "layout": "icon_name",
+                                "show_icon": true,
+                                "show_state": false,
+                                "type": "custom:button-card"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "binary_sensor.corban_on_a_call",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "card": {
+                                "title": "Low Batteries"
+                            },
+                            "entities": [
+                                {
+                                    "entity": "sensor.corbans_iphone_battery_level",
+                                    "name": "Corban's iPhone"
+                                },
+                                {
+                                    "entity": "sensor.edna_battery_level",
+                                    "name": "Maggie's Phone"
+                                },
+                                {
+                                    "entity": "sensor.0x000d6ffffea6b202_battery",
+                                    "name": "IKEA Remote"
+                                },
+                                {
+                                    "entity": "sensor.corban_bedside_button_battery",
+                                    "name": "Corban's Bedside Button"
+                                },
+                                {
+                                    "entity": "sensor.maggie_bedside_button_battery",
+                                    "name": "Maggie's Bedside Remote"
+                                },
+                                {
+                                    "entity": "sensor.front_door_sensor_battery",
+                                    "name": "Front Door Sensor"
+                                },
+                                {
+                                    "entity": "sensor.office_door_sensor_battery",
+                                    "name": "Office Door Sensor"
+                                },
+                                {
+                                    "entity": "sensor.living_room_sensor_battery",
+                                    "name": "Living Room Temperature Sensor"
+                                },
+                                {
+                                    "entity": "sensor.network_closet_sensor_battery",
+                                    "name": "Network Closet Temperature Sensor"
+                                }
+                            ],
+                            "show_empty": false,
+                            "state_filter": [
+                                {
+                                    "operator": "<",
+                                    "value": 25
+                                }
+                            ],
+                            "type": "entity-filter"
+                        },
+                        {
+                            "card": {
+                                "cards": [
+                                    {
+                                        "content": "{% if is_state('person.maggie', 'home') %} \nMaggie's home now.\n{% else %}\nMaggie is \n**{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.\n{% endif %}",
+                                        "type": "markdown"
+                                    },
+                                    {
+                                        "dark_mode": false,
+                                        "entities": [
+                                            {
+                                                "entity": "person.corban"
+                                            },
+                                            {
+                                                "entity": "zone.home"
+                                            },
+                                            {
+                                                "entity": "zone.re"
+                                            }
+                                        ],
+                                        "type": "map",
+                                        "hours_to_show": 1,
+                                        "default_zoom": 9,
+                                        "aspect_ratio": "1.5"
+                                    }
+                                ],
+                                "type": "horizontal-stack"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.wall_display_show_map",
+                                    "state": "off"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "card": {
+                                "color": "red",
+                                "entity": "input_boolean.litter_box_clean_needed",
+                                "layout": "icon_name",
+                                "name": "Litter Box Clean Needed",
+                                "show_icon": true,
+                                "show_state": false,
+                                "type": "custom:button-card"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.litter_box_clean_needed",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "card": {
+                                "color": "green",
+                                "entity": "input_boolean.put_trash_out_display",
+                                "name": "Time to put the trash out",
+                                "layout": "icon_name",
+                                "show_icon": true,
+                                "show_state": false,
+                                "tap_action": {
+                                    "action": "toggle"
+                                },
+                                "type": "custom:button-card"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.put_trash_out_display",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "card": {
+                                "color": "orange",
+                                "entity": "sensor.packages_for_maggie",
+                                "layout": "icon_name_state2nd",
+                                "show_icon": true,
+                                "show_state": true,
+                                "type": "custom:button-card",
+                                "tap_action": {
+                                    "action": "call-service",
+                                    "service": "homeassistant.update_entity",
+                                    "service_data": {
+                                        "entity_id": "entity"
+                                    }
+                                },
+                                "hold_action": {
+                                    "action": "more-info"
+                                }
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "sensor.packages_for_maggie",
+                                    "state_not": "0"
+                                },
+                                {
+                                    "entity": "sensor.packages_for_maggie",
+                                    "state_not": "unknown"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "card": {
+                                "color": "orange",
+                                "entity": "sensor.packages_for_corban",
+                                "layout": "icon_name_state2nd",
+                                "show_icon": true,
+                                "show_state": true,
+                                "type": "custom:button-card",
+                                "tap_action": {
+                                    "action": "call-service",
+                                    "service": "homeassistant.update_entity",
+                                    "service_data": {
+                                        "entity_id": "entity"
+                                    }
+                                },
+                                "hold_action": {
+                                    "action": "more-info"
+                                }
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "sensor.packages_for_corban",
+                                    "state_not": "0"
+                                },
+                                {
+                                    "entity": "sensor.packages_for_corban",
+                                    "state_not": "unknown"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "card": {
+                                "entity": "input_boolean.cat_claw_clip_needed",
+                                "layout": "icon_name",
+                                "color": "yellow",
+                                "show_icon": true,
+                                "show_state": false,
+                                "tap_action": {
+                                    "action": "toggle"
+                                },
+                                "hold_action": {
+                                    "action": "call-service",
+                                    "service": "script.cat_claw_clipped_run_eve"
+                                },
+                                "type": "custom:button-card"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.cat_claw_clip_needed",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                    "state_not": "docked"
+                                },
+                                {
+                                    "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                    "state_not": "unavailable"
+                                }
+                            ],
+                            "card": {
+                                "type": "horizontal-stack",
+                                "cards": [
+                                    {
+                                        "aspect_ratio": "2/1",
+                                        "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                        "layout": "vertical",
+                                        "icon": "mdi:pause",
+                                        "name": "Pause Vacuum",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "vacuum.pause",
+                                            "service_data": {
+                                                "entity_id": "entity"
+                                            }
+                                        },
+                                        "hold_action": {
+                                            "action": "more-info"
+                                        }
+                                    },
+                                    {
+                                        "aspect_ratio": "2/1",
+                                        "entity": "vacuum.xiaomi_vacuum_cleaner",
+                                        "layout": "vertical",
+                                        "icon": "mdi:stop",
+                                        "name": "Stop / Dock Vacuum",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "vacuum.return_to_base",
+                                            "service_data": {
+                                                "entity_id": "entity"
+                                            }
+                                        },
+                                        "hold_action": {
+                                            "action": "more-info"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "sensor.kitchen_speaker_timers",
+                                    "state_not": "unavailable"
+                                }
+                            ],
+                            "card": {
+                                "type": "custom:googletimers-card",
+                                "entity": "sensor.kitchen_speaker_timers",
+                                "title": "Kitchen"
+                            }
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "media_player.google_homes",
+                                    "state_not": "off"
+                                }
+                            ],
+                            "card": {
+                                "type": "custom:mini-media-player",
+                                "toggle_power": true,
+                                "entity": "media_player.google_homes"
+                            }
+                        },
+                        {
+                            "card": {
+                                "color": "red",
+                                "entity": "input_boolean.vacation_mode",
+                                "layout": "icon_name",
+                                "show_icon": true,
+                                "show_state": false,
+                                "type": "custom:button-card"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.vacation_mode",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "input_select.hvac_interlock_state_machine",
+                                    "state": "Reminding"
+                                }
+                            ],
+                            "card": {
+                                "type": "horizontal-stack",
+                                "cards": [
+                                    {
+                                        "layout": "vertical",
+                                        "aspect_ratio": "2/1",
+                                        "icon": "mdi:notification-clear-all",
+                                        "name": "Dismiss",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "script.hvac_interlock_dismiss_card"
+                                        }
+                                    },
+                                    {
+                                        "aspect_ratio": "2/1",
+                                        "layout": "vertical",
+                                        "icon": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var icon_name = 'toggle-switch';\n  switch(entity2) {\n    case 'cool':\n      icon_name = 'air-conditioner';\n      break;\n    case 'heat':\n      icon_name = 'fire';\n      break;\n  }\n  return `mdi:${icon_name}`;\n]]]\n",
+                                        "name": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var state_str = entity2.charAt(0).toUpperCase() + entity2.substr(1).toLowerCase();\n  return `Set HVAC to ${state_str}`\n]]]\n",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "script.hvac_interlock_reset_hvac_state"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
                     ]
                 },
                 {
@@ -922,6 +906,7 @@
                     "path": "wall-display-more",
                     "icon": "mdi:page-next-outline",
                     "theme": "noctis_custom",
+                    "type": "custom:vertical-layout",
                     "badges": [],
                     "cards": [
                         {
@@ -936,6 +921,9 @@
                                 "left": 34,
                                 "right": 108
                             }
+                        },
+                        {
+                            "type": "custom:layout-break"
                         },
                         {
                             "type": "picture-entity",

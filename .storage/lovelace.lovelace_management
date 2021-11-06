@@ -1,0 +1,300 @@
+{
+    "version": 1,
+    "key": "lovelace.lovelace_management",
+    "data": {
+        "config": {
+            "views": [
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_boolean.vacation_mode"
+                                },
+                                {
+                                    "entity": "input_boolean.vacation_mode_light_schedule"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Vacation Mode",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "input_number.gh_volume_target_living_room",
+                                    "name": "Living Room"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_bedroom",
+                                    "name": "Bedroom"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_office",
+                                    "name": "Office"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_kitchen",
+                                    "name": "Kitchen"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_bathroom",
+                                    "name": "Bathroom"
+                                },
+                                {
+                                    "entity": "script.set_optimal_volumes_on_google_homes",
+                                    "icon": "mdi:volume-medium",
+                                    "name": "Set Target Volumes"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Reset Google Home Volumes",
+                            "type": "entities"
+                        },
+                        {
+                            "entities": [
+                                {
+                                    "entity": "switch.linksio",
+                                    "icon": "mdi:power",
+                                    "name": "Main Switch"
+                                },
+                                {
+                                    "entity": "sensor.linksio_energy_today",
+                                    "icon": "mdi:chart-line",
+                                    "name": "Energy Used Today"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "3D Printer",
+                            "type": "entities"
+                        },
+                        {
+                            "card": {
+                                "title": "Low Batteries"
+                            },
+                            "entities": [
+                                {
+                                    "entity": "sensor.corbans_iphone_battery_level",
+                                    "name": "Corban's iPhone"
+                                },
+                                {
+                                    "entity": "sensor.edna_battery_level",
+                                    "name": "Maggie's Phone"
+                                },
+                                {
+                                    "entity": "sensor.0x000d6ffffea6b202_battery",
+                                    "name": "IKEA Remote"
+                                },
+                                {
+                                    "entity": "sensor.corban_bedside_button_battery",
+                                    "name": "Corban's Bedside Button"
+                                },
+                                {
+                                    "entity": "sensor.maggie_bedside_button_battery",
+                                    "name": "Maggie's Bedside Remote"
+                                },
+                                {
+                                    "entity": "sensor.front_door_sensor_battery",
+                                    "name": "Front Door Sensor"
+                                },
+                                {
+                                    "entity": "sensor.office_door_sensor_battery",
+                                    "name": "Office Door Sensor"
+                                },
+                                {
+                                    "entity": "sensor.living_room_sensor_battery",
+                                    "name": "Living Room Temperature Sensor"
+                                },
+                                {
+                                    "entity": "sensor.network_closet_sensor_battery",
+                                    "name": "Network Closet Temperature Sensor"
+                                }
+                            ],
+                            "show_empty": true,
+                            "state_filter": [
+                                {
+                                    "operator": "<",
+                                    "value": 50
+                                }
+                            ],
+                            "type": "entity-filter"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "binary_sensor.motion_sensor_occupancy"
+                                },
+                                {
+                                    "entity": "automation.office_motion_lights"
+                                }
+                            ],
+                            "title": "Motion Lights",
+                            "show_header_toggle": false
+                        }
+                    ],
+                    "icon": "mdi:cog",
+                    "path": "management",
+                    "title": "Management"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "input_select.download_speed"
+                                        },
+                                        {
+                                            "entity": "input_boolean.download_mode_change_lock"
+                                        },
+                                        {
+                                            "entity": "sensor.nzbget_speed",
+                                            "icon": "mdi:progress-download",
+                                            "name": "Current Download Speed"
+                                        }
+                                    ],
+                                    "show_header_toggle": false,
+                                    "title": "Automatic Downloads",
+                                    "type": "entities"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.download_speed_limit",
+                                            "name": "Limit"
+                                        },
+                                        {
+                                            "entity": "sensor.nzbget_speed",
+                                            "name": "Download Speed"
+                                        }
+                                    ],
+                                    "hours_to_show": 2,
+                                    "refresh_interval": 20,
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                "switch.adguard_protection",
+                                "sensor.adguard_dns_queries",
+                                "sensor.adguard_dns_queries_blocked_ratio",
+                                "sensor.adguard_average_processing_speed"
+                            ],
+                            "title": "AdGuard",
+                            "show_header_toggle": false
+                        },
+                        {
+                            "entities": [
+                                "sensor.speedtest_download",
+                                "sensor.speedtest_upload"
+                            ],
+                            "hours_to_show": 168,
+                            "type": "history-graph",
+                            "refresh_interval": 0,
+                            "title": "Internet"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "sensor.cert_expiry_timestamp_cat_corb_co",
+                                    "name": "cat.corb.co"
+                                },
+                                {
+                                    "entity": "sensor.cert_expiry_timestamp_home_corb_co",
+                                    "name": "home.corb.co"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "TLS Certificates",
+                            "state_color": false
+                        },
+                        {
+                            "detail": 2,
+                            "entity": "sensor.network_closet_temperature",
+                            "graph": "line",
+                            "hours_to_show": 8,
+                            "icon": "mdi:thermometer-lines",
+                            "type": "sensor"
+                        }
+                    ],
+                    "icon": "mdi:server-network",
+                    "path": "network",
+                    "title": "Network"
+                },
+                {
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.tablet_wall_display_screen"
+                                },
+                                {
+                                    "entity": "script.tablet_wall_display_reload"
+                                },
+                                {
+                                    "entity": "script.tablet_wall_display_restart"
+                                },
+                                {
+                                    "entity": "input_boolean.wall_display_show_map"
+                                },
+                                {
+                                    "entity": "input_boolean.litter_box_clean_needed"
+                                },
+                                {
+                                    "entity": "input_boolean.litter_box_clean_skip"
+                                },
+                                {
+                                    "entity": "input_boolean.cat_claw_clip_needed"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Wall Display",
+                            "type": "entities"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "light.kitchen_display_screen"
+                                },
+                                {
+                                    "entity": "script.kitchen_display_reload"
+                                },
+                                {
+                                    "entity": "sensor.kitchen_speaker_timers"
+                                }
+                            ],
+                            "title": "Kitchen Display",
+                            "show_header_toggle": false,
+                            "state_color": true
+                        },
+                        {
+                            "entity": "media_player.google_homes",
+                            "type": "media-control"
+                        }
+                    ],
+                    "icon": "mdi:flask",
+                    "path": "experiments",
+                    "title": "Experiments",
+                    "visible": [
+                        {
+                            "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
+                        },
+                        {
+                            "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
