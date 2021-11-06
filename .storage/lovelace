@@ -1070,6 +1070,10 @@
                     ]
                 },
                 {
+                    "icon": "mdi:white-balance-sunny",
+                    "path": "environment",
+                    "title": "Environment",
+                    "type": "custom:vertical-layout",
                     "badges": [],
                     "cards": [
                         {
@@ -1079,38 +1083,6 @@
                             "step_layout": "row",
                             "decimals": "0",
                             "step_size": "1"
-                        },
-                        {
-                            "cards": [
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.living_room_temperature"
-                                        },
-                                        {
-                                            "entity": "sensor.openweathermap_temperature"
-                                        }
-                                    ],
-                                    "hours_to_show": 72,
-                                    "refresh_interval": 0,
-                                    "title": "Temperatures",
-                                    "type": "history-graph"
-                                },
-                                {
-                                    "entities": [
-                                        {
-                                            "entity": "sensor.living_room_humidity"
-                                        },
-                                        {
-                                            "entity": "sensor.openweathermap_humidity"
-                                        }
-                                    ],
-                                    "hours_to_show": 72,
-                                    "title": "Humidities",
-                                    "type": "history-graph"
-                                }
-                            ],
-                            "type": "vertical-stack"
                         },
                         {
                             "entities": [
@@ -1152,6 +1124,44 @@
                             "state_color": false
                         },
                         {
+                            "type": "custom:layout-break"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.living_room_temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.openweathermap_temperature"
+                                        }
+                                    ],
+                                    "hours_to_show": 72,
+                                    "refresh_interval": 0,
+                                    "title": "Temperatures",
+                                    "type": "history-graph"
+                                },
+                                {
+                                    "entities": [
+                                        {
+                                            "entity": "sensor.living_room_humidity"
+                                        },
+                                        {
+                                            "entity": "sensor.openweathermap_humidity"
+                                        }
+                                    ],
+                                    "hours_to_show": 72,
+                                    "title": "Humidities",
+                                    "type": "history-graph"
+                                }
+                            ],
+                            "type": "vertical-stack"
+                        },
+                        {
+                            "type": "custom:layout-break"
+                        },
+                        {
                             "entities": [
                                 {
                                     "entity": "sensor.living_room_temperature"
@@ -1185,10 +1195,7 @@
                             "title": "Internal Humidity",
                             "type": "history-graph"
                         }
-                    ],
-                    "icon": "mdi:white-balance-sunny",
-                    "path": "environment",
-                    "title": "Environment"
+                    ]
                 },
                 {
                     "badges": [],
