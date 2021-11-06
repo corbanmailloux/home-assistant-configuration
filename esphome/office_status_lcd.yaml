@@ -70,7 +70,7 @@ sensor:
   - platform: homeassistant
     internal: true
     id: maggie_eta
-    entity_id: sensor.maggie_to_home_travel_time
+    entity_id: sensor.maggie_time_to_home_for_display
 
 binary_sensor:
   - platform: status
