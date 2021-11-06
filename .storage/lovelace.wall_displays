@@ -599,14 +599,26 @@
                             "card": {
                                 "cards": [
                                     {
-                                        "content": "{% if is_state('person.maggie', 'home') %} \nMaggie's home now.\n{% else %}\nMaggie is \n**{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.\n{% endif %}",
-                                        "type": "markdown"
+                                        "type": "gauge",
+                                        "entity": "sensor.maggie_time_to_home_for_display",
+                                        "min": 0,
+                                        "needle": true,
+                                        "severity": {
+                                            "green": 30,
+                                            "yellow": 10,
+                                            "red": 0
+                                        },
+                                        "unit": " ",
+                                        "max": 60
                                     },
                                     {
                                         "dark_mode": false,
                                         "entities": [
                                             {
                                                 "entity": "person.corban"
+                                            },
+                                            {
+                                                "entity": "person.maggie"
                                             },
                                             {
                                                 "entity": "zone.home"
@@ -617,8 +629,8 @@
                                         ],
                                         "type": "map",
                                         "hours_to_show": 1,
-                                        "default_zoom": 9,
-                                        "aspect_ratio": "1.5"
+                                        "default_zoom": 8,
+                                        "aspect_ratio": "1"
                                     }
                                 ],
                                 "type": "horizontal-stack"
@@ -626,7 +638,7 @@
                             "conditions": [
                                 {
                                     "entity": "input_boolean.wall_display_show_map",
-                                    "state": "off"
+                                    "state": "on"
                                 }
                             ],
                             "type": "conditional"
@@ -1149,8 +1161,17 @@
                             "card": {
                                 "cards": [
                                     {
-                                        "content": "{% if is_state('person.maggie', 'home') %} \nMaggie's home now.\n{% else %}\nMaggie is **{{ states('sensor.maggie_to_home_travel_time') }} minutes** away.\n{% endif %}",
-                                        "type": "markdown"
+                                        "type": "gauge",
+                                        "entity": "sensor.maggie_time_to_home_for_display",
+                                        "min": 0,
+                                        "needle": true,
+                                        "severity": {
+                                            "green": 30,
+                                            "yellow": 10,
+                                            "red": 0
+                                        },
+                                        "unit": " ",
+                                        "max": 60
                                     },
                                     {
                                         "dark_mode": false,
@@ -1168,11 +1189,13 @@
                                                 "entity": "zone.re"
                                             }
                                         ],
-                                        "hours_to_show": 0,
-                                        "type": "map"
+                                        "type": "map",
+                                        "hours_to_show": 1,
+                                        "default_zoom": 8,
+                                        "aspect_ratio": "1"
                                     }
                                 ],
-                                "type": "vertical-stack"
+                                "type": "horizontal-stack"
                             },
                             "conditions": [
                                 {

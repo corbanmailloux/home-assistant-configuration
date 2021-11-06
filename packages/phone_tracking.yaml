@@ -16,6 +16,16 @@ binary_sensor:
 sensor:
   - platform: template
     sensors:
+      maggie_time_to_home_for_display:
+        friendly_name: "Maggie's ETA"
+        unit_of_measurement: "minutes"
+        value_template: >-
+          {% if is_state('person.maggie', 'home') %} 
+            0
+          {% else %}
+            {{ states('sensor.maggie_to_home_travel_time') }}
+          {% endif %}
+
       corban_location_icon:
         friendly_name: Corban's Location
         icon_template: >-
