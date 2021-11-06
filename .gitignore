@@ -79,6 +79,7 @@ custom_components/xiaomi_cloud_map_extractor/
 custom_components/google_home/
 custom_components/browser_mod/
 custom_components/frigate/
+custom_components/apple_tv/
 
 # ESPHome
 esphome/*

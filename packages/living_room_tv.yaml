@@ -3,6 +3,8 @@ media_player:
     name: Living Room TV
     children:
       - media_player.plex_living_room_roku_tv
+      - media_player.plex_for_living_room_apple_tv
+      - media_player.living_room_apple_tv
       - media_player.living_room_chromecast
       - media_player.65_tcl_roku_tv
     commands:
