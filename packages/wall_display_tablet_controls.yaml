@@ -6,7 +6,7 @@ light:
     lights:
       tablet_wall_display_screen:
         friendly_name: Wall Display Screen
-        value_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "isScreenOn") }}'
+        value_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenOn") }}'
         level_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenBrightness") }}'
         turn_on:
           service: rest_command.tablet_wall_display_command
@@ -29,7 +29,7 @@ sensor:
     resource: !secret tablet_wall_display_get_device_info_url
     json_attributes:
       - screenBrightness
-      - isScreenOn
+      - screenOn
       - plugged
     value_template: "OK"
     scan_interval: 10 # seconds
