@@ -1,0 +1,35 @@
+script:
+  bedroom_love_time:
+    alias: "Love Time"
+    sequence:
+      - service: media_player.media_stop
+        target:
+          entity_id: media_player.bedroom_speaker
+      - service: media_player.volume_set
+        data:
+          entity_id: media_player.bedroom_speaker
+          volume_level: 0.4
+      - service: tts.cloud_say
+        entity_id: media_player.bedroom_speaker
+        data_template:
+          message: You kids have fun!
+
+      - service: light.turn_on
+        data:
+          entity_id: light.fairy_lights
+          brightness: 255
+          transition: 2
+      - service: light.turn_on
+        data:
+          entity_id: light.bedroom_lamp
+          brightness: 10
+          transition: 5
+
+      # Delay for the TTS message to stop.
+      - delay: 00:00:05
+
+      - service: spotcast.start
+        data:
+          entity_id: media_player.bedroom_speaker
+          uri: spotify:playlist:1MQIqlJW4eulSUk76p8mbX
+          start_volume: 37
