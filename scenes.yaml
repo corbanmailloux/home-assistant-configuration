@@ -2,7 +2,40 @@
   name: Movie Mode
   entities:
     light.tv_lamp:
-      min_mireds: 153
+      min_mireds: 150
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - channel_change
+      - finish_effect
+      - okay
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 76
+      color_temp: 370
+      hs_color:
+      - 28.391
+      - 65.659
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      xy_color:
+      - 0.526
+      - 0.387
+      entity_id:
+      - light.tv_lamp_top
+      - light.tv_lamp_middle
+      - light.tv_lamp_bottom
+      friendly_name: TV Lamp
+      icon: mdi:lightbulb-group
+      supported_features: 44
+      state: 'on'
+    light.couch_side_table_lamp:
+      min_mireds: 150
       max_mireds: 500
       effect_list:
       - blink
@@ -11,27 +44,61 @@
       - channel_change
       - finish_effect
       - stop_effect
-      brightness: 51
-      color_temp: 352
-      linkquality: 78
-      state: 'on'
-      update_available: false
-      friendly_name: TV Lamp
-      supported_features: 47
-    light.couch_side_table_lamp:
+      supported_color_modes:
+      - color_temp
+      linkquality: 57
       friendly_name: Couch Side Table Lamp
-      supported_features: 0
+      supported_features: 47
       state: 'off'
     light.kallax_lamp:
+      min_mireds: 150
+      max_mireds: 500
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      linkquality: 75
       friendly_name: Kallax Lamp
-      supported_features: 0
+      supported_features: 47
       state: 'off'
+    switch.living_room_tv_power:
+      friendly_name: Living Room TV
+      icon: mdi:television
+      state: 'on'
+    switch.soundbar_power:
+      friendly_name: 'Soundbar: Power'
+      state: 'off'
+    switch.soundbar_volume_up:
+      friendly_name: 'Soundbar: Volume Up'
+      state: 'off'
+    switch.soundbar_volume_down:
+      friendly_name: 'Soundbar: Volume Down'
+      state: 'off'
+    switch.soundbar:
+      friendly_name: Soundbar
+      icon: mdi:surround-sound
+      assumed_state: true
+      state: 'off'
+    group.office_lights:
+      entity_id:
+      - light.plant_lamp
+      - light.office_lamp
+      - light.office_lamp_bottom
+      - light.office_leds
+      order: 5
+      friendly_name: Office Lights
+      state: 'off'
+  icon: mdi:movie-open-play
 - id: '1582083590078'
   name: Living Room - Bright
   entities:
     light.tv_lamp:
       brightness: 254
-      # color_temp: 352
       linkquality: 76
       state: 'on'
       friendly_name: TV Lamp
@@ -49,7 +116,6 @@
   entities:
     light.tv_lamp:
       brightness: 254
-      # color_temp: 352
       state: 'on'
       friendly_name: TV Lamp
       supported_features: 47
@@ -66,7 +132,6 @@
   entities:
     light.tv_lamp:
       brightness: 252
-      # color_temp: 352
       state: 'off'
       friendly_name: TV Lamp
       supported_features: 47
@@ -100,7 +165,6 @@
       - finish_effect
       - stop_effect
       brightness: 203
-      # color_temp: 343
       linkquality: 78
       state: 'off'
       update_available: true
@@ -124,7 +188,6 @@
       - finish_effect
       - stop_effect
       brightness: 203
-      # color_temp: 343
       linkquality: 78
       state: 'on'
       update_available: true
@@ -156,7 +219,6 @@
       - finish_effect
       - stop_effect
       brightness: 203
-      # color_temp: 343
       linkquality: 78
       state: 'off'
       update_available: true

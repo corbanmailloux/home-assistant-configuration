@@ -109,7 +109,7 @@
                     "background": "center / cover no-repeat fixed url('https://home.corb.co/local/images/wall-panel-background.png')",
                     "icon": "mdi:tablet-dashboard",
                     "path": "wall-display",
-                    "theme": "noctis_custom",
+                    "theme": "",
                     "title": "Wall Display",
                     "visible": [
                         {
@@ -190,15 +190,20 @@
                                     "type": "custom:button-card"
                                 },
                                 {
-                                    "entity": "script.living_room_movie_mode",
+                                    "entity": "scene.movie_mode",
                                     "hold_action": {
                                         "action": "none"
                                     },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "entity"
+                                        }
+                                    },
                                     "show_icon": true,
                                     "show_name": true,
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
+                                    "color": "var(--paper-item-icon-color)",
                                     "type": "custom:button-card"
                                 },
                                 {
@@ -521,11 +526,6 @@
                                 }
                             ],
                             "type": "horizontal-stack"
-                        },
-                        {
-                            "type": "custom:button-card",
-                            "name": "Dynamic Cards",
-                            "template": "header"
                         },
                         {
                             "card": {
@@ -956,7 +956,7 @@
                     "title": "Kitchen Display",
                     "path": "kitchen-display",
                     "icon": "mdi:fridge-outline",
-                    "theme": "noctis_custom",
+                    "theme": "",
                     "badges": [],
                     "cards": [
                         {

@@ -105,8 +105,8 @@ automation:
         type: action
         subtype: brightness_move_up
     action:
-      - service: script.turn_on
-        entity_id: script.living_room_movie_mode
+      - service: scene.turn_on
+        entity_id: scene.movie_mode
 
   - alias: Living Room Switch - Hold Off for unoccupied and vacuum run
     id: 9952b92c-fa1c-47d9-9ded-11e59e12c62e

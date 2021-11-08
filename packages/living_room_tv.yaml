@@ -79,41 +79,6 @@ script:
       - service: switch.turn_on
         entity_id: switch.soundbar_power
 
-  # "Scenes"
-  living_room_movie_mode:
-    alias: Movie Mode
-    icon: mdi:movie
-    sequence:
-      - service: scene.turn_on
-        entity_id: scene.movie_mode
-      - service: script.living_room_tv_and_soundbar_on
-
-  living_room_game_mode:
-    alias: Game Mode
-    icon: mdi:google-controller
-    sequence:
-      - service: scene.turn_on
-        entity_id: scene.movie_mode # At least until I make a game mode scene.
-      - service: script.living_room_tv_and_soundbar_on
-      - delay: 00:00:02
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.65_tcl_roku_tv
-          source: Switch
-      - delay: 00:00:03 # Try a second time in case
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.65_tcl_roku_tv
-          source: Switch
-
-  # Other
-  living_room_tv_and_soundbar_on:
-    sequence:
-      - service: switch.turn_on
-        entity_id:
-          - switch.living_room_tv_power # Turn on the TV.
-          - switch.soundbar # And the soundbar.
-
 automation:
   - alias: Send play/pause to Chromecast when selected
     id: 29bd3071-1a72-45f7-a4f8-7ce8deb7210f

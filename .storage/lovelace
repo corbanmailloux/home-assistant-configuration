@@ -139,15 +139,20 @@
                                     "type": "custom:button-card"
                                 },
                                 {
-                                    "entity": "script.living_room_movie_mode",
+                                    "entity": "scene.movie_mode",
                                     "hold_action": {
                                         "action": "none"
                                     },
                                     "tap_action": {
-                                        "action": "toggle"
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "entity"
+                                        }
                                     },
                                     "show_icon": true,
                                     "show_name": true,
+                                    "color": "var(--paper-item-icon-color)",
                                     "type": "custom:button-card"
                                 },
                                 {
@@ -798,113 +803,128 @@
                     ]
                 },
                 {
+                    "icon": "mdi:sofa",
+                    "path": "fp-livingroom",
+                    "title": "Living Room",
+                    "type": "custom:vertical-layout",
                     "badges": [],
                     "cards": [
                         {
                             "cards": [
                                 {
-                                    "cards": [
-                                        {
-                                            "entity": "switch.living_room_tv_power",
-                                            "hold_action": {
-                                                "action": "call-service",
-                                                "service": "switch.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "switch.living_room_tv_power"
-                                                }
-                                            },
-                                            "name": "TV",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "entity-button"
-                                        },
-                                        {
-                                            "entity": "script.living_room_movie_mode",
-                                            "hold_action": {
-                                                "action": "none"
-                                            },
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "entity-button"
-                                        },
-                                        {
-                                            "entity": "script.living_room_game_mode",
-                                            "hold_action": {
-                                                "action": "none"
-                                            },
-                                            "tap_action": {
-                                                "action": "toggle"
-                                            },
-                                            "type": "entity-button"
+                                    "entity": "switch.living_room_tv_power",
+                                    "hold_action": {
+                                        "action": "call-service",
+                                        "service": "switch.turn_on",
+                                        "service_data": {
+                                            "entity_id": "switch.living_room_tv_power"
                                         }
-                                    ],
-                                    "type": "horizontal-stack"
+                                    },
+                                    "name": "TV",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "toggle"
+                                    },
+                                    "type": "custom:button-card"
                                 },
                                 {
-                                    "cards": [
-                                        {
-                                            "entity": "scene.living_room_off",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "icon": "mdi:circle-off-outline",
-                                            "name": "Lights Off",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_off"
-                                                }
-                                            },
-                                            "type": "button"
-                                        },
-                                        {
-                                            "entity": "scene.living_room_dim",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "icon": "mdi:moon-last-quarter",
-                                            "name": "Lights Dim",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_dim"
-                                                }
-                                            },
-                                            "type": "button"
-                                        },
-                                        {
-                                            "entity": "scene.living_room_bright",
-                                            "hold_action": {
-                                                "action": "more-info"
-                                            },
-                                            "icon": "mdi:moon-full",
-                                            "name": "Lights Bright",
-                                            "show_icon": true,
-                                            "show_name": true,
-                                            "tap_action": {
-                                                "action": "call-service",
-                                                "service": "scene.turn_on",
-                                                "service_data": {
-                                                    "entity_id": "scene.living_room_bright"
-                                                }
-                                            },
-                                            "type": "button"
+                                    "entity": "scene.movie_mode",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "entity"
                                         }
-                                    ],
-                                    "type": "horizontal-stack"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "color": "var(--paper-item-icon-color)",
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "script.roku_play_pause",
+                                    "hold_action": {
+                                        "action": "none"
+                                    },
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "script.roku_play_pause"
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "type": "custom:button-card"
                                 }
                             ],
-                            "type": "vertical-stack"
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "cards": [
+                                {
+                                    "entity": "scene.living_room_off",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "icon": "mdi:circle-off-outline",
+                                    "name": "Lights Off",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "scene.living_room_off"
+                                        }
+                                    },
+                                    "color": "var(--paper-item-icon-color)",
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "scene.living_room_dim",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "icon": "mdi:moon-last-quarter",
+                                    "name": "Lights Dim",
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "scene.living_room_dim"
+                                        }
+                                    },
+                                    "color": "var(--paper-item-icon-color)",
+                                    "type": "custom:button-card"
+                                },
+                                {
+                                    "entity": "scene.living_room_bright",
+                                    "hold_action": {
+                                        "action": "more-info"
+                                    },
+                                    "icon": "mdi:moon-full",
+                                    "name": "Lights Bright",
+                                    "tap_action": {
+                                        "action": "call-service",
+                                        "service": "scene.turn_on",
+                                        "service_data": {
+                                            "entity_id": "scene.living_room_bright"
+                                        }
+                                    },
+                                    "show_icon": true,
+                                    "show_name": true,
+                                    "color": "var(--paper-item-icon-color)",
+                                    "type": "custom:button-card"
+                                }
+                            ],
+                            "type": "horizontal-stack"
+                        },
+                        {
+                            "type": "custom:layout-break"
                         },
                         {
                             "cards": [
@@ -971,10 +991,7 @@
                             ],
                             "type": "vertical-stack"
                         }
-                    ],
-                    "icon": "mdi:sofa",
-                    "path": "fp-livingroom",
-                    "title": "Living Room"
+                    ]
                 },
                 {
                     "icon": "mdi:bed",
