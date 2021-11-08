@@ -27,3 +27,4 @@
         entity_id:
           - light.office_lamp
           - light.plant_lamp
+      no_motion_wait: 180

@@ -1,0 +1,41 @@
+# See also automations.yaml. The main automation is in there because it uses blueprints.
+
+binary_sensor:
+  # - platform: template
+  #   sensors:
+  #     office_occupied:
+  #       friendly_name: "Office Occupied"
+  #       device_class: occupancy
+  #       value_template: >-
+  #         {{ is_state('binary_sensor.motion_sensor_occupancy', 'on') }}
+
+  - platform: bayesian
+    name: Office Occupied
+    prior: 0.5
+    probability_threshold: 0.7
+    observations:
+      - entity_id: "binary_sensor.motion_sensor_occupancy"
+        prob_given_true: 0.9
+        prob_given_false: 0.3
+        platform: "state"
+        to_state: "on"
+      - entity_id: "sensor.corban_s_vmware_mbp_displays"
+        prob_given_true: 1.0
+        prob_given_false: 0.4
+        platform: "state"
+        to_state: 3
+      - entity_id: "sensor.fillmore_displays"
+        prob_given_true: 1.0
+        prob_given_false: 0.4
+        platform: "state"
+        to_state: 3
+      - platform: template
+        value_template: >-
+          {{ "Unite" in states('sensor.corban_s_vmware_mbp_active_camera')
+          or "Unite" in states('sensor.fillmore_active_camera') }}
+        prob_given_true: 1.0
+        prob_given_false: 0.5
+
+      # Other sources:
+      # Put a power monitor on the monitor power cable. If the monitor is on, I'm probably at my desk (which would work across computers).
+      # Set up IoTLink on my PC for activity status.
