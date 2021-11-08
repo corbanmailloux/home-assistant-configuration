@@ -127,6 +127,9 @@
                                     "entity": "binary_sensor.motion_sensor_occupancy"
                                 },
                                 {
+                                    "entity": "binary_sensor.office_occupied"
+                                },
+                                {
                                     "entity": "automation.office_motion_lights"
                                 }
                             ],
