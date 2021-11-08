@@ -485,7 +485,9 @@
                                     "type": "custom:button-card"
                                 },
                                 {
-                                    "color_type": "blank-card",
+                                    "aspect_ratio": "1/1",
+                                    "entity": "input_boolean.training_mode",
+                                    "show_name": false,
                                     "type": "custom:button-card"
                                 },
                                 {
