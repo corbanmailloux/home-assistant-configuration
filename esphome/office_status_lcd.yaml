@@ -193,6 +193,7 @@ display:
         lambda: |-
           int border_padding = 2;
           int mdi_width_offset = 35;
+          int second_line_y_offset = 33;
 
           // Border
           // it.rectangle(0,  0, it.get_width(), it.get_height(), id(color_blue));
@@ -201,7 +202,7 @@ display:
           // it.rectangle(0, 40, it.get_width(), it.get_height(), id(color_blue));
           // it.print(border_padding, border_padding, id(georgia_12), id(color_yellow), TextAlign::TOP_LEFT, "ESPHome");
           
-          // Header Message
+          // First Line Message
           if (id(meeting_active).has_state() && id(meeting_active).state) {
             if (id(meeting_camera_active).has_state() && id(meeting_camera_active).state) {
               // Camera on
@@ -214,12 +215,15 @@ display:
           } else if (id(basil_problem).has_state() && id(basil_problem).state != "Nothing") {
             it.printf(border_padding, border_padding, id(mdi_font), id(color_orange), TextAlign::TOP_LEFT, "\U000F032A");
             it.printf(mdi_width_offset + border_padding, border_padding, id(georgia_24), id(color_orange), TextAlign::TOP_LEFT, "%s", id(basil_problem).state.c_str());
-          } else if (id(display_maggie_eta).has_state() && id(display_maggie_eta).state && id(maggie_eta).has_state()) {
-            it.printf(border_padding, border_padding, id(mdi_font), id(color_orange), TextAlign::TOP_LEFT, "\U000F010B");
-            // Slide this down a bit because I'm using Roboto for it.
-            it.printf(mdi_width_offset + border_padding, border_padding + 3, id(roboto), id(color_white), TextAlign::TOP_LEFT, "%.0f minutes away", id(maggie_eta).state);
           } else {
             it.printf(it.get_width() / 2, border_padding, id(georgia_24), id(color_gray), TextAlign::TOP_CENTER, "Hello there!");
+          }
+
+          // Second Line Message
+          if (id(display_maggie_eta).has_state() && id(display_maggie_eta).state && id(maggie_eta).has_state()) {
+            it.printf(border_padding, border_padding + second_line_y_offset, id(mdi_font), id(color_orange), TextAlign::TOP_LEFT, "\U000F010B");
+            // Slide this down a bit because I'm using Roboto for it.
+            it.printf(mdi_width_offset + border_padding, border_padding + second_line_y_offset + 3, id(roboto), id(color_white), TextAlign::TOP_LEFT, "%.0f minutes away", id(maggie_eta).state);
           }
 
           // Online Status, top-right
