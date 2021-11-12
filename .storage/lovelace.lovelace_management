@@ -53,23 +53,6 @@
                             "type": "entities"
                         },
                         {
-                            "entities": [
-                                {
-                                    "entity": "switch.linksio",
-                                    "icon": "mdi:power",
-                                    "name": "Main Switch"
-                                },
-                                {
-                                    "entity": "sensor.linksio_energy_today",
-                                    "icon": "mdi:chart-line",
-                                    "name": "Energy Used Today"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "3D Printer",
-                            "type": "entities"
-                        },
-                        {
                             "card": {
                                 "title": "Low Batteries"
                             },
@@ -140,6 +123,59 @@
                     "icon": "mdi:cog",
                     "path": "management",
                     "title": "Management"
+                },
+                {
+                    "icon": "mdi:tablet-dashboard",
+                    "title": "Wall Displays",
+                    "path": "wall-displays",
+                    "badges": [],
+                    "cards": [
+                        {
+                            "entities": [
+                                {
+                                    "entity": "light.tablet_wall_display_screen"
+                                },
+                                {
+                                    "entity": "script.tablet_wall_display_reload"
+                                },
+                                {
+                                    "entity": "script.tablet_wall_display_restart"
+                                },
+                                {
+                                    "entity": "input_boolean.wall_display_show_map"
+                                },
+                                {
+                                    "entity": "input_boolean.litter_box_clean_needed"
+                                },
+                                {
+                                    "entity": "input_boolean.litter_box_clean_skip"
+                                },
+                                {
+                                    "entity": "input_boolean.cat_claw_clip_needed"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "title": "Wall Display",
+                            "type": "entities"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "light.kitchen_display_screen"
+                                },
+                                {
+                                    "entity": "script.kitchen_display_reload"
+                                },
+                                {
+                                    "entity": "sensor.kitchen_speaker_timers"
+                                }
+                            ],
+                            "title": "Kitchen Display",
+                            "show_header_toggle": false,
+                            "state_color": true
+                        }
+                    ]
                 },
                 {
                     "badges": [],
@@ -236,53 +272,60 @@
                     "badges": [],
                     "cards": [
                         {
+                            "entity": "media_player.google_homes",
+                            "type": "media-control"
+                        },
+                        {
                             "entities": [
                                 {
-                                    "entity": "light.tablet_wall_display_screen"
+                                    "entity": "switch.linksio",
+                                    "icon": "mdi:power",
+                                    "name": "Main Switch"
                                 },
                                 {
-                                    "entity": "script.tablet_wall_display_reload"
-                                },
-                                {
-                                    "entity": "script.tablet_wall_display_restart"
-                                },
-                                {
-                                    "entity": "input_boolean.wall_display_show_map"
-                                },
-                                {
-                                    "entity": "input_boolean.litter_box_clean_needed"
-                                },
-                                {
-                                    "entity": "input_boolean.litter_box_clean_skip"
-                                },
-                                {
-                                    "entity": "input_boolean.cat_claw_clip_needed"
+                                    "entity": "sensor.linksio_energy_today",
+                                    "icon": "mdi:chart-line",
+                                    "name": "Energy Used Today"
                                 }
                             ],
                             "show_header_toggle": false,
-                            "title": "Wall Display",
+                            "title": "3D Printer",
                             "type": "entities"
                         },
                         {
                             "type": "entities",
                             "entities": [
                                 {
-                                    "entity": "light.kitchen_display_screen"
+                                    "entity": "binary_sensor.updater",
+                                    "name": "Home Assistant",
+                                    "icon": "mdi:home-assistant"
                                 },
                                 {
-                                    "entity": "script.kitchen_display_reload"
+                                    "entity": "sensor.hacs",
+                                    "name": "HACS"
                                 },
                                 {
-                                    "entity": "sensor.kitchen_speaker_timers"
+                                    "entity": "sensor.supervisor_updates",
+                                    "icon": "mdi:docker",
+                                    "name": "Addons"
+                                },
+                                {
+                                    "entity": "binary_sensor.updater_hacs",
+                                    "name": "HACS Update Available",
+                                    "icon": "hacs:hacs"
+                                },
+                                {
+                                    "entity": "binary_sensor.updater_addons",
+                                    "name": "Addon Update Available"
+                                },
+                                {
+                                    "entity": "binary_sensor.updater_supervisor",
+                                    "name": "Home Assistant Update Available"
                                 }
                             ],
-                            "title": "Kitchen Display",
+                            "title": "Updates",
                             "show_header_toggle": false,
                             "state_color": true
-                        },
-                        {
-                            "entity": "media_player.google_homes",
-                            "type": "media-control"
                         }
                     ],
                     "icon": "mdi:flask",
