@@ -22,9 +22,9 @@
   use_blueprint:
     path: homeassistant/motion_light.yaml
     input:
-      motion_entity: binary_sensor.motion_sensor_occupancy
+      motion_entity: binary_sensor.office_occupied
       light_target:
         entity_id:
           - light.office_lamp
           - light.plant_lamp
-      no_motion_wait: 180
+      no_motion_wait: 30

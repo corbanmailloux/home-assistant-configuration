@@ -1,41 +1,68 @@
 # See also automations.yaml. The main automation is in there because it uses blueprints.
 
 binary_sensor:
-  # - platform: template
-  #   sensors:
-  #     office_occupied:
-  #       friendly_name: "Office Occupied"
-  #       device_class: occupancy
-  #       value_template: >-
-  #         {{ is_state('binary_sensor.motion_sensor_occupancy', 'on') }}
-
-  - platform: bayesian
-    name: Office Occupied
-    prior: 0.5
-    probability_threshold: 0.7
-    observations:
-      - entity_id: "binary_sensor.motion_sensor_occupancy"
-        prob_given_true: 0.9
-        prob_given_false: 0.3
-        platform: "state"
-        to_state: "on"
-      - entity_id: "sensor.corban_s_vmware_mbp_displays"
-        prob_given_true: 1.0
-        prob_given_false: 0.4
-        platform: "state"
-        to_state: 3
-      - entity_id: "sensor.fillmore_displays"
-        prob_given_true: 1.0
-        prob_given_false: 0.4
-        platform: "state"
-        to_state: 3
-      - platform: template
+  - platform: template
+    sensors:
+      office_occupied:
+        friendly_name: "Office Occupied"
+        device_class: motion # Really should be occupancy, but the blueprint doesn't support that.
         value_template: >-
-          {{ "Unite" in states('sensor.corban_s_vmware_mbp_active_camera')
-          or "Unite" in states('sensor.fillmore_active_camera') }}
-        prob_given_true: 1.0
-        prob_given_false: 0.5
+          {# Either computer is actively using the desk camera. #}
+          {# This is a good insurance that the lights won't turn off while I'm on a call. #}
+          {% set office_camera_in_use =
+            "Unite" in states('sensor.corban_s_vmware_mbp_active_camera') or 
+            "Unite" in states('sensor.fillmore_active_camera') %}
 
-      # Other sources:
-      # Put a power monitor on the monitor power cable. If the monitor is on, I'm probably at my desk (which would work across computers).
-      # Set up IoTLink on my PC for activity status.
+          {# Standard PIR motion sensor. #}
+          {% set motion_detected = 
+            is_state('binary_sensor.motion_sensor_occupancy', 'on') %}
+
+          {# Either MacBook is active and plugged into external monitors (docked on my desk) #}
+          {% set macbook_docked_and_active =
+            ( is_state('binary_sensor.corban_s_vmware_mbp_active', 'on') and 
+              is_state('sensor.corban_s_vmware_mbp_displays', '3') )
+            or
+            ( is_state('binary_sensor.binary_sensor.fillmore_active', 'on') and 
+              is_state('sensor.fillmore_displays', '3') ) %}
+
+          {{ office_camera_in_use or motion_detected or macbook_docked_and_active }}
+
+  # - platform: bayesian
+  #   name: Office Occupied - Bayesian
+  #   prior: 0.5
+  #   probability_threshold: 0.7
+  #   observations:
+  #     # Motion sensor, which catches people walking in and general movement.
+  #     - entity_id: "binary_sensor.motion_sensor_occupancy"
+  #       prob_given_true: 0.9
+  #       prob_given_false: 0.3
+  #       platform: "state"
+  #       to_state: "on"
+
+  #     # Either MacBook is active and plugged into external monitors (docked on my desk)
+  #     - platform: template
+  #       prob_given_true: 1.0
+  #       prob_given_false: 0.4
+  #       value_template: >-
+  #         {{
+  #           ( is_state('binary_sensor.corban_s_vmware_mbp_active', 'on') and
+  #             is_state('sensor.corban_s_vmware_mbp_displays', '3') )
+  #           or
+  #           ( is_state('binary_sensor.binary_sensor.fillmore_active', 'on') and
+  #             is_state('sensor.fillmore_displays', '3') )
+  #         }}
+
+  #     # Either computer is actively using the desk camera.
+  #     # This is a good insurance that the lights won't turn off while I'm on a call.
+  #     - platform: template
+  #       value_template: >-
+  #         {{
+  #           "Unite" in states('sensor.corban_s_vmware_mbp_active_camera') or
+  #           "Unite" in states('sensor.fillmore_active_camera')
+  #         }}
+  #       prob_given_true: 1.0
+  #       prob_given_false: 0.5
+
+  # Other sources:
+  # Put a power monitor on the monitor power cable. If the monitor is on, I'm probably at my desk (which would work across computers).
+  # Set up IoTLink on my PC for activity status.
