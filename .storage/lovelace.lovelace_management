@@ -301,8 +301,19 @@
                                     "icon": "mdi:home-assistant"
                                 },
                                 {
-                                    "entity": "sensor.hacs",
-                                    "name": "HACS"
+                                    "entity": "binary_sensor.updater_hacs",
+                                    "name": "HACS",
+                                    "icon": "hacs:hacs"
+                                },
+                                {
+                                    "entity": "binary_sensor.updater_addons",
+                                    "name": "Addons",
+                                    "icon": "mdi:docker"
+                                },
+                                {
+                                    "entity": "binary_sensor.updater_supervisor",
+                                    "name": "Supervisor",
+                                    "icon": "mdi:home-assistant"
                                 },
                                 {
                                     "entity": "sensor.supervisor_updates",
@@ -310,17 +321,8 @@
                                     "name": "Addons"
                                 },
                                 {
-                                    "entity": "binary_sensor.updater_hacs",
-                                    "name": "HACS Update Available",
-                                    "icon": "hacs:hacs"
-                                },
-                                {
-                                    "entity": "binary_sensor.updater_addons",
-                                    "name": "Addon Update Available"
-                                },
-                                {
-                                    "entity": "binary_sensor.updater_supervisor",
-                                    "name": "Home Assistant Update Available"
+                                    "entity": "sensor.hacs",
+                                    "name": "HACS"
                                 }
                             ],
                             "title": "Updates",
