@@ -18,7 +18,6 @@
 #   services:
 #     # None right now.
 
-# I keep switching notification systems and having to refactor a bunch of configs. Extract them here:
 - name: corban
   platform: group
   services:

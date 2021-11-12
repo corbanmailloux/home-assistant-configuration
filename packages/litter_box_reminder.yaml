@@ -61,7 +61,8 @@ automation:
       #       actions:
       #         - action: "litter_box_complete"
       #           title: "Yes, complete."
-      - service: notify.adult_ios_phones
+      # - service: notify.adult_ios_phones
+      - service: notify.maggie
         data:
           title: "Litter Box Check"
           message: "Has the litter box been done?"
@@ -95,7 +96,8 @@ automation:
         entity_id: input_boolean.litter_box_clean_needed
         to: "off"
     action:
-      - service: notify.adult_ios_phones
+      # - service: notify.adult_ios_phones
+      - service: notify.maggie
         data:
           message: clear_notification
           data:
