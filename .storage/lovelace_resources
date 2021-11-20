@@ -26,7 +26,7 @@
             {
                 "id": "220c76e6863c4c1f831d5aaa2a58b793",
                 "type": "module",
-                "url": "/hacsfiles/simple-thermostat/simple-thermostat.js"
+                "url": "/hacsfiles/simple-thermostat/simple-thermostat.js?hacstag=158654878243"
             },
             {
                 "id": "2ecb0875b3bc4c8ab53a257f098adf41",
@@ -52,11 +52,6 @@
                 "id": "9717aed771b445c5965d83897ccb1714",
                 "type": "module",
                 "url": "/hacsfiles/weather-card/weather-card.js"
-            },
-            {
-                "url": "/hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js",
-                "type": "module",
-                "id": "1d8a12691e514ff68368527b49482d08"
             },
             {
                 "url": "/hacsfiles/google_home_timers_card/googletimers-card.js",

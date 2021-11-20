@@ -481,7 +481,10 @@
                                     "type": "custom:button-card"
                                 },
                                 {
-                                    "color_type": "blank-card",
+                                    "aspect_ratio": "1/1",
+                                    "entity": "input_boolean.wall_display_show_vacuum",
+                                    "name": "Show Map",
+                                    "show_name": false,
                                     "type": "custom:button-card"
                                 },
                                 {
@@ -507,11 +510,6 @@
                                 }
                             ],
                             "type": "horizontal-stack"
-                        },
-                        {
-                            "type": "custom:button-card",
-                            "name": "Dynamic Cards",
-                            "template": "header"
                         },
                         {
                             "card": {
@@ -734,64 +732,6 @@
                             "type": "conditional",
                             "conditions": [
                                 {
-                                    "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                    "state_not": "docked"
-                                },
-                                {
-                                    "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                    "state_not": "unavailable"
-                                }
-                            ],
-                            "card": {
-                                "type": "horizontal-stack",
-                                "cards": [
-                                    {
-                                        "aspect_ratio": "2/1",
-                                        "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                        "layout": "vertical",
-                                        "icon": "mdi:pause",
-                                        "name": "Pause Vacuum",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "type": "custom:button-card",
-                                        "tap_action": {
-                                            "action": "call-service",
-                                            "service": "vacuum.pause",
-                                            "service_data": {
-                                                "entity_id": "entity"
-                                            }
-                                        },
-                                        "hold_action": {
-                                            "action": "more-info"
-                                        }
-                                    },
-                                    {
-                                        "aspect_ratio": "2/1",
-                                        "entity": "vacuum.xiaomi_vacuum_cleaner",
-                                        "layout": "vertical",
-                                        "icon": "mdi:stop",
-                                        "name": "Stop / Dock Vacuum",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "type": "custom:button-card",
-                                        "tap_action": {
-                                            "action": "call-service",
-                                            "service": "vacuum.return_to_base",
-                                            "service_data": {
-                                                "entity_id": "entity"
-                                            }
-                                        },
-                                        "hold_action": {
-                                            "action": "more-info"
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "type": "conditional",
-                            "conditions": [
-                                {
                                     "entity": "media_player.google_homes",
                                     "state_not": "off"
                                 }
@@ -800,6 +740,126 @@
                                 "type": "custom:mini-media-player",
                                 "toggle_power": true,
                                 "entity": "media_player.google_homes"
+                            }
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.wall_display_show_vacuum",
+                                    "state": "on"
+                                }
+                            ],
+                            "card": {
+                                "type": "vertical-stack",
+                                "cards": [
+                                    {
+                                        "type": "custom:button-card",
+                                        "name": "Vacuum",
+                                        "template": "header"
+                                    },
+                                    {
+                                        "cards": [
+                                            {
+                                                "entity": "input_boolean.vacuum_office",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "custom:button-card"
+                                            },
+                                            {
+                                                "entity": "input_boolean.vacuum_guest_bath",
+                                                "name": "Guest Bath",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "custom:button-card"
+                                            },
+                                            {
+                                                "entity": "input_boolean.vacuum_kitchen",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "custom:button-card"
+                                            },
+                                            {
+                                                "entity": "input_boolean.vacuum_livingroom",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "custom:button-card"
+                                            }
+                                        ],
+                                        "type": "horizontal-stack"
+                                    },
+                                    {
+                                        "cards": [
+                                            {
+                                                "entity": "input_boolean.vacuum_bedroom",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "custom:button-card"
+                                            },
+                                            {
+                                                "entity": "input_boolean.vacuum_master_bath",
+                                                "name": "Master Bath",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "custom:button-card"
+                                            },
+                                            {
+                                                "entity": "script.toggle_all_room_selections",
+                                                "name": "Toggle All",
+                                                "icon": "mdi:toggle-switch-off-outline",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "custom:button-card"
+                                            },
+                                            {
+                                                "entity": "script.vacuum_clean_segments",
+                                                "name": "Start",
+                                                "show_icon": true,
+                                                "show_name": true,
+                                                "tap_action": {
+                                                    "action": "toggle"
+                                                },
+                                                "type": "custom:button-card"
+                                            }
+                                        ],
+                                        "type": "horizontal-stack"
+                                    },
+                                    {
+                                        "title": "",
+                                        "type": "custom:valetudo-map-card",
+                                        "entity": "camera.map_data",
+                                        "vacuum_entity": "vacuum.eve",
+                                        "rotate": 0,
+                                        "map_scale": 1,
+                                        "crop": {
+                                            "top": 26,
+                                            "bottom": 22,
+                                            "left": 34,
+                                            "right": 108
+                                        }
+                                    }
+                                ]
                             }
                         }
                     ]

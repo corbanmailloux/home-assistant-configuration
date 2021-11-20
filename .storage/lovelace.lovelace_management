@@ -21,36 +21,26 @@
                             "type": "entities"
                         },
                         {
+                            "type": "entities",
                             "entities": [
                                 {
-                                    "entity": "input_number.gh_volume_target_living_room",
-                                    "name": "Living Room"
+                                    "entity": "automation.office_motion_lights"
                                 },
                                 {
-                                    "entity": "input_number.gh_volume_target_bedroom",
-                                    "name": "Bedroom"
+                                    "entity": "binary_sensor.office_occupied"
                                 },
                                 {
-                                    "entity": "input_number.gh_volume_target_office",
-                                    "name": "Office"
+                                    "entity": "binary_sensor.motion_sensor_occupancy"
                                 },
                                 {
-                                    "entity": "input_number.gh_volume_target_kitchen",
-                                    "name": "Kitchen"
+                                    "entity": "binary_sensor.corban_s_vmware_mbp_active"
                                 },
                                 {
-                                    "entity": "input_number.gh_volume_target_bathroom",
-                                    "name": "Bathroom"
-                                },
-                                {
-                                    "entity": "script.set_optimal_volumes_on_google_homes",
-                                    "icon": "mdi:volume-medium",
-                                    "name": "Set Target Volumes"
+                                    "entity": "sensor.corban_s_vmware_mbp_displays"
                                 }
                             ],
-                            "show_header_toggle": false,
-                            "title": "Reset Google Home Volumes",
-                            "type": "entities"
+                            "title": "Motion Lights",
+                            "show_header_toggle": false
                         },
                         {
                             "card": {
@@ -104,20 +94,36 @@
                             "type": "entity-filter"
                         },
                         {
-                            "type": "entities",
                             "entities": [
                                 {
-                                    "entity": "binary_sensor.motion_sensor_occupancy"
+                                    "entity": "input_number.gh_volume_target_living_room",
+                                    "name": "Living Room"
                                 },
                                 {
-                                    "entity": "binary_sensor.office_occupied"
+                                    "entity": "input_number.gh_volume_target_bedroom",
+                                    "name": "Bedroom"
                                 },
                                 {
-                                    "entity": "automation.office_motion_lights"
+                                    "entity": "input_number.gh_volume_target_office",
+                                    "name": "Office"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_kitchen",
+                                    "name": "Kitchen"
+                                },
+                                {
+                                    "entity": "input_number.gh_volume_target_bathroom",
+                                    "name": "Bathroom"
+                                },
+                                {
+                                    "entity": "script.set_optimal_volumes_on_google_homes",
+                                    "icon": "mdi:volume-medium",
+                                    "name": "Set Target Volumes"
                                 }
                             ],
-                            "title": "Motion Lights",
-                            "show_header_toggle": false
+                            "show_header_toggle": false,
+                            "title": "Reset Google Home Volumes",
+                            "type": "entities"
                         }
                     ],
                     "icon": "mdi:cog",
@@ -272,27 +278,6 @@
                     "badges": [],
                     "cards": [
                         {
-                            "entity": "media_player.google_homes",
-                            "type": "media-control"
-                        },
-                        {
-                            "entities": [
-                                {
-                                    "entity": "switch.linksio",
-                                    "icon": "mdi:power",
-                                    "name": "Main Switch"
-                                },
-                                {
-                                    "entity": "sensor.linksio_energy_today",
-                                    "icon": "mdi:chart-line",
-                                    "name": "Energy Used Today"
-                                }
-                            ],
-                            "show_header_toggle": false,
-                            "title": "3D Printer",
-                            "type": "entities"
-                        },
-                        {
                             "type": "entities",
                             "entities": [
                                 {
@@ -327,6 +312,37 @@
                             ],
                             "title": "Updates",
                             "show_header_toggle": false,
+                            "state_color": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "input_boolean.vacuum_office"
+                                },
+                                {
+                                    "entity": "input_boolean.vacuum_guest_bath"
+                                },
+                                {
+                                    "entity": "input_boolean.vacuum_kitchen"
+                                },
+                                {
+                                    "entity": "input_boolean.vacuum_livingroom"
+                                },
+                                {
+                                    "entity": "input_boolean.vacuum_bedroom"
+                                },
+                                {
+                                    "entity": "input_boolean.vacuum_master_bath"
+                                },
+                                {
+                                    "entity": "script.vacuum_clean_segments",
+                                    "name": "Clean Selected Rooms",
+                                    "secondary_info": "last-triggered"
+                                }
+                            ],
+                            "show_header_toggle": true,
+                            "title": "Vacuum Rooms",
                             "state_color": true
                         }
                     ],

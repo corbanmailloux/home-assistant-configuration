@@ -16,6 +16,10 @@ input_boolean:
     name: Display Trash Notification
     icon: mdi:delete-sweep
 
+  wall_display_show_vacuum:
+    name: Show Vacuum Cards on Wall Display
+    icon: mdi:robot-vacuum
+
 automation:
   - alias: Show map when Maggie's on her way home
     id: 229ee037-4e8d-43bc-a5ab-acd4f19bb2a0
