@@ -339,6 +339,9 @@
                                     "entity": "script.vacuum_clean_segments",
                                     "name": "Clean Selected Rooms",
                                     "secondary_info": "last-triggered"
+                                },
+                                {
+                                    "entity": "sensor.eve_bin"
                                 }
                             ],
                             "show_header_toggle": true,
