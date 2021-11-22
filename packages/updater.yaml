@@ -57,12 +57,12 @@ binary_sensor:
   # True if there's updates available for any HACS components or Addons
   - platform: threshold
     name: Updater HACS
-    device_class: problem
+    # device_class: problem
     entity_id: sensor.hacs
     upper: 0.5
   - platform: threshold
     name: Updater Addons
-    device_class: problem
+    # device_class: problem
     entity_id: sensor.supervisor_updates
     upper: 0.5
 
