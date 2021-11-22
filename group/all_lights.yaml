@@ -16,8 +16,8 @@ all_lights_custom:
     - light.tv_lamp
     - light.kallax_lamp
     - light.couch_side_table_lamp
-    # - light.christmas_tree_lights
-    # - light.ginger_bread_tin_light
+    - light.christmas_tree_lights
+    - light.ginger_bread_tin_light
 
 # All lights, switches, and media_players for automations
 everything_custom:
@@ -36,8 +36,8 @@ everything_custom:
     - light.tv_lamp
     - light.kallax_lamp
     - light.couch_side_table_lamp
-    # - light.christmas_tree_lights
-    # - light.ginger_bread_tin_light
+    - light.christmas_tree_lights
+    - light.ginger_bread_tin_light
 
     # Wall Displays
     - light.tablet_wall_display_screen
