@@ -96,29 +96,38 @@
                         {
                             "entities": [
                                 {
-                                    "entity": "input_number.gh_volume_target_living_room",
-                                    "name": "Living Room"
-                                },
-                                {
-                                    "entity": "input_number.gh_volume_target_bedroom",
-                                    "name": "Bedroom"
-                                },
-                                {
-                                    "entity": "input_number.gh_volume_target_office",
-                                    "name": "Office"
-                                },
-                                {
-                                    "entity": "input_number.gh_volume_target_kitchen",
-                                    "name": "Kitchen"
-                                },
-                                {
-                                    "entity": "input_number.gh_volume_target_bathroom",
-                                    "name": "Bathroom"
-                                },
-                                {
                                     "entity": "script.set_optimal_volumes_on_google_homes",
                                     "icon": "mdi:volume-medium",
                                     "name": "Set Target Volumes"
+                                },
+                                {
+                                    "type": "custom:fold-entity-row",
+                                    "head": {
+                                        "type": "section",
+                                        "label": "Configuration"
+                                    },
+                                    "entities": [
+                                        {
+                                            "entity": "input_number.gh_volume_target_living_room",
+                                            "name": "Living Room"
+                                        },
+                                        {
+                                            "entity": "input_number.gh_volume_target_bedroom",
+                                            "name": "Bedroom"
+                                        },
+                                        {
+                                            "entity": "input_number.gh_volume_target_office",
+                                            "name": "Office"
+                                        },
+                                        {
+                                            "entity": "input_number.gh_volume_target_kitchen",
+                                            "name": "Kitchen"
+                                        },
+                                        {
+                                            "entity": "input_number.gh_volume_target_bathroom",
+                                            "name": "Bathroom"
+                                        }
+                                    ]
                                 }
                             ],
                             "show_header_toggle": false,
@@ -342,6 +351,9 @@
                                 },
                                 {
                                     "entity": "sensor.eve_bin"
+                                },
+                                {
+                                    "entity": "sensor.rockbin_version"
                                 }
                             ],
                             "show_header_toggle": true,

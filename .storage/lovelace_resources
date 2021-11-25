@@ -16,7 +16,7 @@
             {
                 "id": "4047cd6f267f4453bfddfd94708537d8",
                 "type": "module",
-                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381140"
+                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381150"
             },
             {
                 "id": "67bafd0677544c748363f9561ce64446",
@@ -46,7 +46,7 @@
             {
                 "id": "b9ec5fec89054ffeb91508eafed17d54",
                 "type": "module",
-                "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524310"
+                "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524311"
             },
             {
                 "id": "9717aed771b445c5965d83897ccb1714",
@@ -67,6 +67,11 @@
                 "url": "/hacsfiles/lovelace-layout-card/layout-card.js?hacstag=156434866231",
                 "type": "module",
                 "id": "ad5e2552f9ec4dbb96308ac020109a99"
+            },
+            {
+                "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=1507819942012",
+                "type": "module",
+                "id": "3be86917498147c08cb200b17d63894b"
             }
         ]
     }
