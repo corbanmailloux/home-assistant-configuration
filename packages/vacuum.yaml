@@ -110,6 +110,14 @@ automation:
       - service: homeassistant.turn_off
         target:
           entity_id: group.vacuum_rooms
+
+# Add a basic REST sensor for confirming that Rockbin is running.
+# https://github.com/johnDorian/rockbin
+sensor:
+  - platform: rest
+    resource: http://10.0.0.239:9999/status
+    name: Rockbin Version
+    value_template: "{{ value_json.version }}"
 ###
 # Below here is the old automation code for the vacuum integration.
 # I'm leaving it around because I want to rebuild it for Valetudo.
