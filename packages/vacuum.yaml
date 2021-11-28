@@ -1,15 +1,6 @@
 # The Roborock S5 vacuum is now running Vatetudo and connected over MQTT.
 # See also: https://valetudo.cloud/pages/integrations/home-assistant-integration.html
 
-# Valetudo room IDs:
-# 16 Bedroom
-# 17 Kitchen
-# 18 Out of bounds
-# 19 Guest Bathroom
-# 20 Master Bathroom
-# 21 Living Room
-# 22 Office
-
 # Set up individual switches for selecting zones to clean.
 input_boolean:
   vacuum_bedroom:
@@ -34,17 +25,17 @@ input_boolean:
 homeassistant:
   customize:
     input_boolean.vacuum_bedroom:
-      room_id: "16"
+      room_id: "21"
     input_boolean.vacuum_master_bath:
       room_id: "20"
     input_boolean.vacuum_livingroom:
-      room_id: "21"
+      room_id: "18"
     input_boolean.vacuum_kitchen:
-      room_id: "17"
+      room_id: "16"
     input_boolean.vacuum_office:
-      room_id: "22"
+      room_id: "5"
     input_boolean.vacuum_guest_bath:
-      room_id: "19"
+      room_id: "17"
 
 group:
   vacuum_rooms:

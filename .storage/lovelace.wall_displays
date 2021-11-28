@@ -1010,10 +1010,10 @@
                                         "rotate": 0,
                                         "map_scale": 1,
                                         "crop": {
-                                            "top": 26,
-                                            "bottom": 22,
-                                            "left": 34,
-                                            "right": 108
+                                            "top": 25,
+                                            "bottom": 26,
+                                            "left": 40,
+                                            "right": 102
                                         }
                                     }
                                 ]
