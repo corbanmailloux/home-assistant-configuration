@@ -241,19 +241,7 @@
                                     "type": "custom:button-card"
                                 },
                                 {
-                                    "entity": "light.ginger_bread_tin_light",
-                                    "name": "Tin Lights",
-                                    "hold_action": {
-                                        "action": "more-info"
-                                    },
-                                    "double_tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "show_icon": true,
-                                    "show_name": true,
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
+                                    "color_type": "blank-card",
                                     "type": "custom:button-card"
                                 },
                                 {

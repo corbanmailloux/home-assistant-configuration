@@ -1,8 +1,4 @@
-# Create `light` entities for many `switch`es.
-
-- platform: switch
-  name: Ginger Bread Tin Light
-  entity_id: switch.power_tail_4
+# Create light entities for relevant switches.
 
 - platform: switch
   name: Christmas Tree Lights
