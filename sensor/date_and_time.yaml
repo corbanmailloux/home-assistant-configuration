@@ -7,7 +7,6 @@
   sensors:
     local_display_time:
       friendly_name: "Time"
-      device_class: timestamp
       value_template: >-
         {% set dummy = states("sensor.time") %}
         {{ now().strftime("%-I:%M%p") }}
