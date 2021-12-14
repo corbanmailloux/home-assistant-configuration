@@ -350,6 +350,9 @@
                                     "secondary_info": "last-triggered"
                                 },
                                 {
+                                    "entity": "vacuum.eve"
+                                },
+                                {
                                     "entity": "sensor.eve_bin"
                                 },
                                 {
