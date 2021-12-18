@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace_resources",
     "data": {
         "items": [
@@ -11,7 +12,7 @@
             {
                 "id": "9fb206a7694a4cdcb5fa596e6914ee83",
                 "type": "module",
-                "url": "/hacsfiles/roku-card/roku-card.js?hacstag=164367214123"
+                "url": "/hacsfiles/roku-card/roku-card.js?hacstag=164367214124"
             },
             {
                 "id": "4047cd6f267f4453bfddfd94708537d8",
@@ -36,7 +37,7 @@
             {
                 "id": "e577585c2be34a5ea55084e31269460e",
                 "type": "module",
-                "url": "/hacsfiles/text-divider-row/text-divider-row.js"
+                "url": "/hacsfiles/text-divider-row/text-divider-row.js?hacstag=179788256141"
             },
             {
                 "id": "49dae12118f643c19955e01675348008",
