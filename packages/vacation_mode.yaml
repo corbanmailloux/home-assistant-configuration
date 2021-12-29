@@ -7,6 +7,44 @@ input_boolean:
     icon: mdi:av-timer
 
 automation:
+  ## After we've both been away for 24 hours, remind Corban to turn on vacation mode.
+  - alias: Remind to enable vacation mode
+    id: fecb932d-1057-4dcd-86ef-02aa781ad1cb
+    trigger:
+      - platform: state
+        entity_id: group.adults
+        to: "not_home"
+        for: "24:00:00" # 1 day
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
+    action:
+      - service: notify.corban
+        data:
+          title: "Are you on vacation?"
+          message: "Would you like to turn on vacation mode?"
+          data:
+            tag: "vacation_mode_enable"
+            actions:
+              - action: "VACATION_MODE_ENABLE"
+                title: "Yes, turn on."
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+                destructive: false
+                behavior: "default"
+
+  - alias: Turn on vacation mode notification clicked
+    id: 4d882b21-3b3e-4623-a56a-a0613e116f2d
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "VACATION_MODE_ENABLE"
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.vacation_mode
+
   ## Disable vacation mode
   - alias: Remind us to turn off vacation mode when we get home
     id: 6ef4ff8e-8071-40b8-a733-dc82174b4cdc
