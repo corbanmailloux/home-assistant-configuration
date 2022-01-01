@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace",
     "data": {
         "config": {
@@ -890,6 +891,30 @@
                                     }
                                 ]
                             }
+                        },
+                        {
+                            "card": {
+                                "type": "custom:threedy-card",
+                                "base_entity": "sensor.octoprint",
+                                "printer_type": "Cantilever",
+                                "name": "OctoPi",
+                                "monitored": [
+                                    "Status",
+                                    "Hotend",
+                                    "Elapsed",
+                                    "Remaining"
+                                ],
+                                "temperature_unit": "C",
+                                "round_temperature": true,
+                                "round_time": true
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "binary_sensor.display_printer_card",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
                         }
                     ]
                 },
@@ -1033,19 +1058,7 @@
                                     "type": "custom:button-card"
                                 },
                                 {
-                                    "entity": "light.ginger_bread_tin_light",
-                                    "name": "Tin Lights",
-                                    "hold_action": {
-                                        "action": "more-info"
-                                    },
-                                    "double_tap_action": {
-                                        "action": "more-info"
-                                    },
-                                    "show_icon": true,
-                                    "show_name": true,
-                                    "tap_action": {
-                                        "action": "toggle"
-                                    },
+                                    "color_type": "blank-card",
                                     "type": "custom:button-card"
                                 },
                                 {

@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace.lovelace_management",
     "data": {
         "config": {
@@ -327,29 +328,6 @@
                             "type": "entities",
                             "entities": [
                                 {
-                                    "entity": "input_boolean.vacuum_office"
-                                },
-                                {
-                                    "entity": "input_boolean.vacuum_guest_bath"
-                                },
-                                {
-                                    "entity": "input_boolean.vacuum_kitchen"
-                                },
-                                {
-                                    "entity": "input_boolean.vacuum_livingroom"
-                                },
-                                {
-                                    "entity": "input_boolean.vacuum_bedroom"
-                                },
-                                {
-                                    "entity": "input_boolean.vacuum_master_bath"
-                                },
-                                {
-                                    "entity": "script.vacuum_clean_segments",
-                                    "name": "Clean Selected Rooms",
-                                    "secondary_info": "last-triggered"
-                                },
-                                {
                                     "entity": "vacuum.eve"
                                 },
                                 {
@@ -360,8 +338,24 @@
                                 }
                             ],
                             "show_header_toggle": true,
-                            "title": "Vacuum Rooms",
+                            "title": "Vacuum Status",
                             "state_color": true
+                        },
+                        {
+                            "type": "custom:threedy-card",
+                            "base_entity": "sensor.octoprint",
+                            "printer_type": "Cantilever",
+                            "name": "OctoPi",
+                            "monitored": [
+                                "Status",
+                                "Hotend",
+                                "Elapsed",
+                                "Remaining"
+                            ],
+                            "temperature_unit": "C",
+                            "round_temperature": true,
+                            "round_time": true,
+                            "scale": 1
                         }
                     ],
                     "icon": "mdi:flask",

@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace.wall_displays",
     "data": {
         "config": {
@@ -1006,6 +1007,30 @@
                                     }
                                 ]
                             }
+                        },
+                        {
+                            "card": {
+                                "type": "custom:threedy-card",
+                                "base_entity": "sensor.octoprint",
+                                "printer_type": "Cantilever",
+                                "name": "OctoPi",
+                                "monitored": [
+                                    "Status",
+                                    "Hotend",
+                                    "Elapsed",
+                                    "Remaining"
+                                ],
+                                "temperature_unit": "C",
+                                "round_temperature": true,
+                                "round_time": true
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "binary_sensor.display_printer_card",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
                         }
                     ]
                 },

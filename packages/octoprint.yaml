@@ -1,0 +1,49 @@
+sensor:
+  - platform: template
+    sensors:
+      octoprint_time_elapsed:
+        friendly_name: OctoPrint Time Elapsed
+        unit_of_measurement: "s"
+        availability_template: >
+          {{ not is_state('sensor.octoprint_start_time', 'unavailable') }}
+        value_template: >
+          {% set start = as_timestamp(states('sensor.octoprint_start_time'), None) %}
+          {% if is_number(start) %}
+            {{ (as_timestamp(now()) - start) | int }}
+          {% else %}
+            unknown
+          {% endif %}
+        attribute_templates:
+          start_time: "states('sensor.octoprint_start_time')"
+
+      octoprint_time_remaining:
+        friendly_name: OctoPrint Time Remaining
+        unit_of_measurement: "s"
+        availability_template: >
+          {{ not is_state('sensor.octoprint_estimated_finish_time', 'unavailable') }}
+        value_template: >
+          {% set finish = as_timestamp(states('sensor.octoprint_estimated_finish_time'), None) %}
+          {% if is_number(finish) %}
+            {{ (finish - as_timestamp(now())) | int }}
+          {% else %}
+            unknown
+          {% endif %}
+        attribute_templates:
+          start_time: "states('sensor.octoprint_estimated_finish_time')"
+
+binary_sensor:
+  - platform: template
+    sensors:
+      display_printer_card:
+        friendly_name: "Display 3D Printer Card"
+        value_template: >-
+          {# Print is running. #}
+          {% set printing = is_state('binary_sensor.octoprint_printing', 'on') %}
+
+          {# Explicit states, including idle (operational) #}
+          {% set in_good_state = 
+            is_state('sensor.octoprint_current_state', 'Printing')
+            or
+            is_state('sensor.octoprint_current_state', 'Operational') %}
+            
+          {{ printing or in_good_state }}
