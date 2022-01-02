@@ -340,7 +340,26 @@
                             "show_header_toggle": true,
                             "title": "Vacuum Status",
                             "state_color": true
+                        }
+                    ],
+                    "icon": "mdi:flask",
+                    "path": "experiments",
+                    "title": "Experiments",
+                    "visible": [
+                        {
+                            "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
                         },
+                        {
+                            "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
+                        }
+                    ]
+                },
+                {
+                    "title": "3D Printing",
+                    "path": "3d-printing",
+                    "icon": "mdi:printer-3d",
+                    "badges": [],
+                    "cards": [
                         {
                             "type": "custom:threedy-card",
                             "base_entity": "sensor.octoprint",
@@ -355,18 +374,33 @@
                             "temperature_unit": "C",
                             "round_temperature": true,
                             "round_time": true,
-                            "scale": 1
-                        }
-                    ],
-                    "icon": "mdi:flask",
-                    "path": "experiments",
-                    "title": "Experiments",
-                    "visible": [
-                        {
-                            "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
+                            "scale": 1,
+                            "power_entity": "switch.3d_printer_main_power"
                         },
                         {
-                            "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "switch.3d_printer_main_power"
+                                },
+                                {
+                                    "entity": "sensor.octoprint_current_state"
+                                },
+                                {
+                                    "entity": "sensor.octoprint_job_percentage"
+                                },
+                                {
+                                    "entity": "sensor.3d_printer_power_draw"
+                                },
+                                {
+                                    "entity": "sensor.3d_printer_energy_today"
+                                },
+                                {
+                                    "entity": "script.shutdown_octopi"
+                                }
+                            ],
+                            "show_header_toggle": false,
+                            "state_color": true
                         }
                     ]
                 }
