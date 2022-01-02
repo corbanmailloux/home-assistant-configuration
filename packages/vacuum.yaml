@@ -95,7 +95,7 @@ automation:
     id: 725a0f27-9925-4fc8-b29c-702c0029d971
     trigger:
       - platform: state
-        entity_id: vacuum.eve
+        entity_id: vacuum.valetudo_eve
         to: "docked"
     action:
       - service: homeassistant.turn_off
