@@ -123,5 +123,5 @@ scene: !include scenes.yaml # For the scene editor
 # script: !include_dir_merge_named script
 sensor: !include_dir_merge_list sensor
 # shell_command: !include_dir_merge_named shell_command
-switch: !include_dir_merge_list switch
+# switch: !include_dir_merge_list switch
 zone: !include_dir_merge_list zone
