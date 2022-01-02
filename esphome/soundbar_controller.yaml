@@ -56,30 +56,30 @@ switch:
     name: "Soundbar: Power"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x00FF
-        command: 0x02FD
+        address: 0xFF00
+        command: 0xBF40
   - platform: template
     id: sb_vol_up
     name: "Soundbar: Volume Up"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x00FF
-        command: 0x827D
+        address: 0xFF00
+        command: 0xBE41
   - platform: template
     id: sb_vol_down
     name: "Soundbar: Volume Down"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x00FF
-        command: 0xA25D
+        address: 0xFF00
+        command: 0xBA45
 
 binary_sensor:
   - platform: remote_receiver
     name: "Roku Remote: Play/Pause Button"
     internal: true
     nec:
-      address: 0x57E3
-      command: 0x32CD
+      address: 0xC7EA
+      command: 0xB34C
     on_press:
       then:
         - homeassistant.event:
@@ -90,7 +90,7 @@ binary_sensor:
     internal: true
     nec:
       # This is the soundbar's play/pause command.
-      address: 0x00FF
+      address: 0xFF00
       command: 0x718E
     on_press:
       then:
@@ -102,8 +102,8 @@ binary_sensor:
     internal: true
     nec:
       # This is the soundbar's skip forward command.
-      address: 0x00FF
-      command: 0xD12E
+      address: 0xFF00
+      command: 0x748B
     on_press:
       then:
         - homeassistant.event:
@@ -114,8 +114,8 @@ binary_sensor:
     internal: true
     nec:
       # This is the soundbar's skip backwards command.
-      address: 0x00FF
-      command: 0x51AE
+      address: 0xFF00
+      command: 0x758A
     on_press:
       then:
         - homeassistant.event:
@@ -125,18 +125,18 @@ binary_sensor:
 
 # Captures of the Roku remote application buttons:
 # Netflix:
-# Received NEC: address=0x57E3, command=0x4AB5
-# Received NEC: address=0x57E3, command=0x4BB4
-# Received NEC: address=0x57E3, command=0x4BB4
+# Received NEC: address=0xC7EA, command=0xAD52
+# Received NEC: address=0xC7EA, command=0x2DD2
+# Received NEC: address=0xC7EA, command=0x2DD2
 # Amazon:
-# Received NEC: address=0x57E3, command=0xD22D
-# Received NEC: address=0x57E3, command=0xD32C
-# Received NEC: address=0x57E3, command=0xD32C
+# Received NEC: address=0xC7EA, command=0xB44B
+# Received NEC: address=0xC7EA, command=0x34CB
+# Received NEC: address=0xC7EA, command=0x34CB
 # Hulu:
-# Received NEC: address=0x57E3, command=0xB24D
-# Received NEC: address=0x57E3, command=0xB34C
-# Received NEC: address=0x57E3, command=0xB34C
+# Received NEC: address=0xC7EA, command=0xB24D
+# Received NEC: address=0xC7EA, command=0x32CD
+# Received NEC: address=0xC7EA, command=0x32CD
 # YouTube:
-# Received NEC: address=0x57E3, command=0x6A95
-# Received NEC: address=0x57E3, command=0x6B94
-# Received NEC: address=0x57E3, command=0x6B94
+# Received NEC: address=0xC7EA, command=0xA956
+# Received NEC: address=0xC7EA, command=0x29D6
+# Received NEC: address=0xC7EA, command=0x29D6

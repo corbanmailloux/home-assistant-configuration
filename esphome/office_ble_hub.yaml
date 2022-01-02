@@ -45,40 +45,40 @@ switch:
     name: "PTZ: Preset 0"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x22DD
-        command: 0xB847
+        address: 0xBB44
+        command: 0xE21D
   - platform: template
     name: "PTZ: Preset 1"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x22DD
-        command: 0x30CF
+        address: 0xBB44
+        command: 0xF30C
   - platform: template
     name: "PTZ: Preset 4"
     turn_on_action:
       remote_transmitter.transmit_nec:
-        address: 0x22DD
-        command: 0x08F7
+        address: 0xBB44
+        command: 0xEF10
 
 #### Reference: Captures of the PTZ remote:
-# Power: address=0x22DD, command=0xD827
-# Home: address=0x22DD, command=0x906F
-# Up: address=0x22DD, command=0xA05F
-# Down: address=0x22DD, command=0xB04F
-# Left: address=0x22DD, command=0x10EF
-# Right: address=0x22DD, command=0x50AF
-# Zoom In: address=0x22DD, command=0x00FF
-# Zoom Out: address=0x22DD, command=0x20DF
-# Preset 1: address=0x22DD, command=0x30CF
-# Preset 2: address=0x22DD, command=0x8877
-# Preset 3: address=0x22DD, command=0x708F
-# Preset 4: address=0x22DD, command=0x08F7
-# Preset 5: address=0x22DD, command=0xA857
-# Preset 6: address=0x22DD, command=0x48B7
-# Preset 7: address=0x22DD, command=0x28D7
-# Preset 8: address=0x22DD, command=0x9867
-# Preset 9: address=0x22DD, command=0x6897
-# Preset 0: address=0x22DD, command=0xB847
-# Backlight: address=0x22DD, command=0xE817
-# PTZ Reset: address=0x22DD, command=0x38C7
-# Preset: address=0x22DD, command=0xF00F
+# Power: address=0xBB44, command=0xE41B
+# Home: address=0xBB44, command=0xF609
+# Up: address=0xBB44, command=0xFA05
+# Down: address=0xBB44, command=0xF20D
+# Left: address=0xBB44, command=0xF708
+# Right: address=0xBB44, command=0xF50A
+# Zoom In: address=0xBB44, command=0xFF00
+# Zoom Out: address=0xBB44, command=0xFB04
+# Preset 1: address=0xBB44, command=0xF30C
+# Preset 2: address=0xBB44, command=0xEE11
+# Preset 3: address=0xBB44, command=0xF10E
+# Preset 4: address=0xBB44, command=0xEF10
+# Preset 5: address=0xBB44, command=0xEA15
+# Preset 6: address=0xBB44, command=0xED12
+# Preset 7: address=0xBB44, command=0xEB14
+# Preset 8: address=0xBB44, command=0xE619
+# Preset 9: address=0xBB44, command=0xE916
+# Preset 0: address=0xBB44, command=0xE21D
+# Backlight: address=0xBB44, command=0xE817
+# PTZ Reset: address=0xBB44, command=0xE31C
+# Preset: address=0xBB44, command=0xF00F
