@@ -878,8 +878,7 @@
                                     {
                                         "title": "",
                                         "type": "custom:valetudo-map-card",
-                                        "entity": "camera.map_data",
-                                        "vacuum_entity": "vacuum.eve",
+                                        "vacuum": "valetudo_eve",
                                         "rotate": 0,
                                         "map_scale": 1,
                                         "crop": {

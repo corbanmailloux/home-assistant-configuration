@@ -328,7 +328,7 @@
                             "type": "entities",
                             "entities": [
                                 {
-                                    "entity": "vacuum.eve"
+                                    "entity": "vacuum.valetudo_eve"
                                 },
                                 {
                                     "entity": "sensor.eve_bin"
