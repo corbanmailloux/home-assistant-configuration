@@ -47,3 +47,16 @@ binary_sensor:
             is_state('sensor.octoprint_current_state', 'Operational') %}
             
           {{ printing or in_good_state }}
+
+rest_command:
+  shutdown_octoprint:
+    url: http://octopi.local/api/system/commands/core/shutdown
+    method: POST
+    headers:
+      X-Api-Key: !secret octoprint_api_key
+
+script:
+  shutdown_octopi:
+    alias: "Shutdown OctoPi"
+    sequence:
+      - service: rest_command.shutdown_octoprint
