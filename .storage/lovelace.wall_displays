@@ -1021,7 +1021,8 @@
                                 ],
                                 "temperature_unit": "C",
                                 "round_temperature": true,
-                                "round_time": true
+                                "round_time": true,
+                                "power_entity": "switch.3d_printer_main_power"
                             },
                             "conditions": [
                                 {
