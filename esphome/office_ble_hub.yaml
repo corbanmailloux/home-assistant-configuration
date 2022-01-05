@@ -59,6 +59,12 @@ switch:
       remote_transmitter.transmit_nec:
         address: 0xBB44
         command: 0xEF10
+  - platform: template
+    name: "PTZ: Backlight"
+    turn_on_action:
+      remote_transmitter.transmit_nec:
+        address: 0xBB44
+        command: 0xE817
 
 #### Reference: Captures of the PTZ remote:
 # Power: address=0xBB44, command=0xE41B
