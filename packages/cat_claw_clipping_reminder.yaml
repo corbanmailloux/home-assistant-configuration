@@ -24,10 +24,15 @@ script:
   cat_claw_clipped_run_eve:
     alias: Run Eve in Kitchen
     sequence:
-      - service: input_boolean.turn_off
+      - alias: Hide the card on the wall display
+        service: input_boolean.turn_off
         entity_id: input_boolean.cat_claw_clip_needed
-      - service: xiaomi_miio.vacuum_clean_zone
-        data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
-          zone: [[18389, 24967, 20750, 29782]] # Kitchen
-          repeats: 1
+      - alias: Make sure no rooms are selected
+        service: homeassistant.turn_off
+        target:
+          entity_id: group.vacuum_rooms
+      - alias: Turn on the kitchen
+        service: input_boolean.turn_on
+        entity_id: input_boolean.vacuum_kitchen
+      - alias: Start cleaning
+        service: script.vacuum_clean_segments
