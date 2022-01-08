@@ -1043,22 +1043,6 @@
                     "badges": [],
                     "cards": [
                         {
-                            "type": "custom:valetudo-map-card",
-                            "entity": "camera.map_data",
-                            "vacuum_entity": "vacuum.eve",
-                            "rotate": 0,
-                            "map_scale": 1.7,
-                            "crop": {
-                                "top": 35,
-                                "bottom": 21,
-                                "left": 34,
-                                "right": 108
-                            }
-                        },
-                        {
-                            "type": "custom:layout-break"
-                        },
-                        {
                             "type": "picture-entity",
                             "entity": "camera.join_our_wifi",
                             "show_name": false,
