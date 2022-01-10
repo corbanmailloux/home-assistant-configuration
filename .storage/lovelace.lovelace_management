@@ -335,6 +335,9 @@
                                 },
                                 {
                                     "entity": "sensor.rockbin_version"
+                                },
+                                {
+                                    "entity": "input_datetime.last_vacuum_run"
                                 }
                             ],
                             "show_header_toggle": true,
