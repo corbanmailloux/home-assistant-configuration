@@ -979,6 +979,24 @@
                             }
                         },
                         {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "sensor.eve_bin",
+                                    "state_not": "0"
+                                }
+                            ],
+                            "card": {
+                                "color": "red",
+                                "entity": "sensor.eve_bin",
+                                "layout": "icon_name_state2nd",
+                                "name": "Empty Eve's Bin",
+                                "show_icon": true,
+                                "show_state": true,
+                                "type": "custom:button-card"
+                            }
+                        },
+                        {
                             "card": {
                                 "type": "custom:threedy-card",
                                 "base_entity": "sensor.octoprint",
