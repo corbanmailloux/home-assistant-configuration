@@ -108,7 +108,7 @@ automation:
       - service: scene.turn_on
         entity_id: scene.movie_mode
 
-  - alias: Living Room Switch - Hold Off for unoccupied and vacuum run
+  - alias: Living Room Switch - Hold Off for unoccupied and light on for cats
     id: 9952b92c-fa1c-47d9-9ded-11e59e12c62e
     trigger:
       - platform: device
@@ -121,9 +121,12 @@ automation:
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.home_occupied
-      - service: vacuum.start
+      - delay: 1s
+      - service: light.turn_on
         data:
-          entity_id: vacuum.xiaomi_vacuum_cleaner
+          brightness_pct: 30
+        target:
+          entity_id: light.tv_lamp
 
   ## Outputs/actions from Home/Away Changes ##
 
