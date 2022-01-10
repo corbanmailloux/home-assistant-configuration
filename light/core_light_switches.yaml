@@ -1,5 +1,5 @@
 # Create light entities for relevant switches.
 
-- platform: switch
-  name: Christmas Tree Lights
-  entity_id: switch.power_tail_5
+# - platform: switch
+#   name: Christmas Tree Lights
+#   entity_id: switch.power_tail_5
