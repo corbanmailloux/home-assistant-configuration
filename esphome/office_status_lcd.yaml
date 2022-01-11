@@ -71,6 +71,11 @@ sensor:
     internal: true
     id: maggie_eta
     entity_id: sensor.maggie_time_to_home_for_display
+  
+  - platform: homeassistant
+    id: print_percentage
+    entity_id: sensor.octoprint_job_percentage
+    internal: true
 
 binary_sensor:
   - platform: status
@@ -129,6 +134,11 @@ text_sensor:
     id: basil_problem
     entity_id: sensor.basil_problem_display
 
+  - platform: homeassistant
+    internal: true
+    id: print_status
+    entity_id: sensor.octoprint_current_state
+
 switch:
   - platform: gpio
     pin: GPIO4
@@ -178,6 +188,7 @@ font:
       - "\U000F0F55" # mdi-home-thermometer-outline
       - "\U000F0590" # mdi-weather-cloudy
       - "\U000F010B" # mdi-car
+      - "\U000F0E5B" # mdi-printer-3d-nozzle
 
 display:
   - platform: st7789v
@@ -224,6 +235,9 @@ display:
             it.printf(border_padding, border_padding + second_line_y_offset, id(mdi_font), id(color_orange), TextAlign::TOP_LEFT, "\U000F010B");
             // Slide this down a bit because I'm using Roboto for it.
             it.printf(mdi_width_offset + border_padding, border_padding + second_line_y_offset + 3, id(roboto), id(color_white), TextAlign::TOP_LEFT, "%.0f minutes away", id(maggie_eta).state);
+          } else if (id(print_percentage).has_state() && id(print_status).has_state() && id(print_status).state != "unavailable" && !isnan(id(print_percentage).state)) {
+            it.printf(border_padding, border_padding + second_line_y_offset, id(mdi_font), id(color_green), TextAlign::TOP_LEFT, "\U000F0E5B");
+            it.printf(mdi_width_offset + border_padding, border_padding + second_line_y_offset + 3, id(roboto), id(color_white), TextAlign::TOP_LEFT, "%s: %.0f%%", id(print_status).state.c_str(), id(print_percentage).state);
           }
 
           // Online Status, top-right
