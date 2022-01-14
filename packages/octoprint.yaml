@@ -57,6 +57,11 @@ rest_command:
 
 script:
   shutdown_octopi:
-    alias: "Shutdown OctoPi"
+    alias: "Shutdown OctoPi and Power Off"
     sequence:
       - service: rest_command.shutdown_octoprint
+      - delay:
+          seconds: 45 # Give some time for shutdown
+      - service: switch.turn_off
+        target:
+          entity_id: switch.3d_printer_main_power

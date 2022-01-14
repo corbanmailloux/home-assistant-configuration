@@ -400,6 +400,12 @@
                                 },
                                 {
                                     "entity": "script.shutdown_octopi"
+                                },
+                                {
+                                    "type": "weblink",
+                                    "name": "OctoPi",
+                                    "url": "http://octopi.local",
+                                    "icon": "mdi:cloud-print-outline"
                                 }
                             ],
                             "show_header_toggle": false,
