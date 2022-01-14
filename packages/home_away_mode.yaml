@@ -121,7 +121,8 @@ automation:
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.home_occupied
-      - delay: 1s
+      - delay:
+          seconds: 5
       - service: light.turn_on
         data:
           brightness_pct: 30
