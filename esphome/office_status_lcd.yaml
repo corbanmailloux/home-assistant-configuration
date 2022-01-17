@@ -137,7 +137,7 @@ text_sensor:
   - platform: homeassistant
     internal: true
     id: print_status
-    entity_id: sensor.octoprint_current_state
+    entity_id: sensor.octoprint_status_display
 
 switch:
   - platform: gpio
