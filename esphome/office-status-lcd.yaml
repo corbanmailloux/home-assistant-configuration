@@ -1,7 +1,10 @@
 esphome:
   name: office-status-lcd
-  platform: ESP32
+
+esp32:
   board: esp32dev
+  framework:
+    type: arduino
 
 # Enable logging
 logger:
@@ -138,6 +141,7 @@ text_sensor:
     internal: true
     id: print_status
     entity_id: sensor.octoprint_status_display
+    # TODO: Move this custom display logic out of HASS and use a map here: https://esphome.io/components/text_sensor/index.html#map
 
 switch:
   - platform: gpio

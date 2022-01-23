@@ -1,11 +1,12 @@
 esphome:
-  name: office_outlet_sensor
+  name: bedroom-outlet-sensor
   platform: ESP8266
   board: esp01_1m
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
+  fast_connect: true
 
 logger:
   level: INFO
@@ -14,17 +15,17 @@ ota:
 
 sensor:
   - platform: wifi_signal
-    name: "Office Outlet Sensor - WiFi Signal"
+    name: "Bedroom Outlet Sensor - WiFi Signal"
     update_interval: 60s
 
 binary_sensor:
   - platform: gpio
     pin:
       number: GPIO5
-    name: "Office Outlet Sensor"
+    name: "Bedroom Outlet Sensor"
     device_class: power
 
 switch:
   - platform: gpio
     pin: GPIO4
-    name: "Office Outlet Output"
+    name: "Bedroom Outlet Output"

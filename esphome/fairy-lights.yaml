@@ -1,5 +1,5 @@
 esphome:
-  name: fairy_lights_32
+  name: fairy-lights
   platform: ESP32
   board: esp32doit-devkit-v1
 

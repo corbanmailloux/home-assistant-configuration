@@ -1,12 +1,12 @@
 esphome:
-  name: office_ble_hub
+  name: office-ble-hub
   platform: ESP32
   board: esp32doit-devkit-v1
 
 wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
-  # fast_connect: true
+  fast_connect: true
 
 # Enable logging
 logger:

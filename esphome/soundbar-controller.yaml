@@ -1,5 +1,5 @@
 esphome:
-  name: soundbar_controller
+  name: soundbar-controller
   platform: ESP8266
   board: d1_mini
   arduino_version: recommended
