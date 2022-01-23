@@ -82,7 +82,7 @@ sensor:
 
 binary_sensor:
   - platform: status
-    name: "Node Status"
+    internal: true
     id: system_status
 
   # Onboard Buttons
@@ -146,7 +146,7 @@ text_sensor:
 switch:
   - platform: gpio
     pin: GPIO4
-    name: "Backlight"
+    name: "Office Status LCD - Backlight"
     id: backlight
 
 animation:
