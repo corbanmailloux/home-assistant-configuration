@@ -141,8 +141,11 @@ automation:
           entity_id:
             - input_boolean.vacuum_master_bath
             - input_boolean.vacuum_livingroom
+            # TODO: These run in the wrong order. Either change the way messages are posted to retain ordering, or break this to two separate calls like the office example above.
       - alias: Start cleaning
         service: script.vacuum_clean_segments
+      - delay:
+          seconds: 30 # So the vacuum can get off the dock first.
       - alias: Wait for room clean to complete
         wait_template: "{{ is_state('vacuum.valetudo_eve', 'docked') }}"
         timeout:
