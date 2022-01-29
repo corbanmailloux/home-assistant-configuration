@@ -33,3 +33,5 @@ automation:
               - service: homeassistant.turn_off
                 target:
                   entity_id: group.office_lights
+      - delay:
+          milliseconds: 250
