@@ -1,0 +1,61 @@
+scene:
+  - id: fba0c238-d0cd-41ac-8567-4c7c94169503
+    name: Flying
+    entities:
+      light.tv_lamp:
+        brightness: 255
+        state: "on"
+      light.couch_side_table_lamp:
+        brightness: 255
+        state: "on"
+      light.kallax_lamp:
+        brightness: 255
+        state: "on"
+      light.plant_lamp:
+        brightness: 255
+        state: "on"
+      light.office_lamp:
+        brightness: 255
+        state: "on"
+      light.bedroom_lamp:
+        brightness: 255
+        state: "on"
+    icon: mdi:trophy-outline
+
+input_boolean:
+  flying_mode:
+    name: Flying
+    icon: mdi:quadcopter
+
+automation:
+  - alias: Flying Mode Start
+    id: e87e88ab-5216-4734-8de6-df601071b6c4
+    trigger:
+      - platform: state
+        entity_id: input_boolean.flying_mode
+        to: "on"
+    action:
+      - service: scene.create
+        data:
+          scene_id: state_before_flying
+          snapshot_entities:
+            - light.tv_lamp
+            - light.couch_side_table_lamp
+            - light.kallax_lamp
+            - light.plant_lamp
+            - light.office_lamp
+            - light.bedroom_lamp
+      - service: scene.turn_on
+        target:
+          entity_id: scene.training
+
+  - alias: Flying Mode Stop
+    id: 6f484faf-0626-41d4-bc91-e1a52af5e68b
+    trigger:
+      - platform: state
+        entity_id: input_boolean.flying_mode
+        to: "off"
+    action:
+      - service: scene.turn_on
+        target:
+          entity_id: scene.state_before_flying
