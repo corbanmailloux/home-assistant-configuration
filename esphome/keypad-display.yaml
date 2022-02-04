@@ -1,0 +1,195 @@
+esphome:
+  name: keypad-display
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+#######
+
+external_components:
+  - source:
+      type: git
+      url: https://github.com/ssieb/custom_components
+    components: [ keypad ]
+
+keypad:
+  id: mykeypad
+  rows:
+    - pin: 21
+    - pin: 27
+    - pin: 26
+    - pin: 22
+  columns:
+    - pin: 33
+    - pin: 32
+    - pin: 25
+  keys: "123456789*0#"
+  has_diodes: false
+
+text_sensor:
+  - platform: keypad
+    id: reader
+    keypad_id: mykeypad
+    max_length: 4
+    end_keys: "#"
+    back_keys: "*"
+    allowed_keys: "0123456789"
+    on_progress:
+      - logger.log: 
+          format: "input progress: '%s'"
+          args: [ 'x.c_str()' ]
+      - text_sensor.template.publish:
+          id: keypad_display_text
+          state: !lambda 'return x.c_str();'
+    on_value:
+      - logger.log: 
+          format: "input result: '%s'"
+          args: [ 'x.c_str()' ]
+      - delay: 300ms # To avoid race condition with `on_progress`
+      - text_sensor.template.publish:
+          id: keypad_display_text
+          state: !lambda 'return x.c_str();'
+      # Set the output for Home Assistant
+      - text_sensor.template.publish:
+          id: keypad_value
+          state: !lambda 'return x.c_str();'
+      - delay: 3s
+      - text_sensor.template.publish:
+          id: keypad_display_text
+          state: ''
+      # Clear the output for next time
+      - text_sensor.template.publish:
+          id: keypad_value
+          state: ''
+
+
+  - platform: template
+    name: "Keypad Entry Display"
+    internal: true
+    id: keypad_display_text
+  
+  - platform: template
+    name: "Keypad Entry Value"
+    internal: false
+    id: keypad_value
+
+binary_sensor:
+  - platform: keypad
+    id: key_star
+    key: '*'
+
+  - platform: status
+    name: "Node Status"
+    id: system_status
+
+  # Onboard Buttons
+  - platform: gpio
+    pin:
+      number: GPIO0
+      inverted: true
+      mode: INPUT_PULLUP
+    name: "Keypad Display Button 1"
+    id: tdisplay_button_input_1
+  - platform: gpio
+    pin:
+      number: GPIO35
+      inverted: true
+    name: "Keypad Display Button 2"
+    id: tdisplay_button_input_2
+
+time:
+  - platform: homeassistant
+    id: esptime
+
+spi:
+  clk_pin: GPIO18
+  mosi_pin: GPIO19
+
+color:
+  - id: color_red
+    red: 100%
+    green: 0%
+    blue: 0%
+  - id: color_yellow
+    red: 100%
+    green: 100%
+    blue: 0%
+  - id: color_orange
+    red: 96%
+    green: 63%
+    blue: 26%
+  - id: color_green
+    red: 0%
+    green: 100%
+    blue: 0%
+  - id: color_blue
+    red: 0%
+    green: 0%
+    blue: 100%
+  - id: color_gray
+    red: 50%
+    green: 50%
+    blue: 50%
+  - id: color_white
+    red: 100%
+    green: 100%
+    blue: 100%
+
+switch:
+  - platform: gpio
+    pin: GPIO4
+    name: "Backlight"
+    id: backlight
+
+font:
+  # Clock Font
+  - file: 'resources/fonts/BebasNeue-Regular.ttf'
+    id: clock_font
+    size: 72
+
+  # Georgia, for normal text
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_48
+    size: 48
+
+display:
+  - platform: st7789v
+    backlight_pin: GPIO4
+    cs_pin: GPIO5
+    dc_pin: GPIO16
+    reset_pin: GPIO23
+    rotation: 90
+    update_interval: 250ms
+    # Dimensions, landscape: x=240, y=135
+    pages:
+      - id: page_main
+        lambda: |-
+          int border_padding = 2;
+
+          // Online Status, top-right
+          if (id(system_status).state) {
+            // it.filled_circle(it.get_width(), 0, 10, id(color_green));
+          } else {
+            it.filled_circle(it.get_width() - border_padding - 10, border_padding + 10, 10, id(color_red));
+          }
+
+          it.printf(border_padding, border_padding, id(georgia_48), id(color_orange), TextAlign::TOP_LEFT, "%s", id(keypad_display_text).state.c_str());
+
+          // Time, bottom-left
+          it.strftime(border_padding, it.get_height() - border_padding, id(clock_font), id(color_gray), TextAlign::BASELINE_LEFT, "%I:%M", id(esptime).now());
+          
