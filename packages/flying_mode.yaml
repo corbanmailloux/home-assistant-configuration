@@ -20,7 +20,7 @@ scene:
       light.bedroom_lamp:
         brightness: 255
         state: "on"
-    icon: mdi:trophy-outline
+    icon: mdi:quadcopter
 
 input_boolean:
   flying_mode:
