@@ -1311,6 +1311,10 @@
                     ]
                 },
                 {
+                    "icon": "mdi:airballoon",
+                    "path": "fun",
+                    "title": "Fun Stuff",
+                    "type": "custom:vertical-layout",
                     "badges": [],
                     "cards": [
                         {
@@ -1338,6 +1342,9 @@
                             "show_header_toggle": false,
                             "title": "Make the Homes Speak",
                             "type": "entities"
+                        },
+                        {
+                            "type": "custom:layout-break"
                         },
                         {
                             "cards": [
@@ -1377,6 +1384,14 @@
                             ]
                         },
                         {
+                            "type": "custom:layout-break"
+                        },
+                        {
+                            "type": "plant-status",
+                            "entity": "plant.jade",
+                            "name": "Jade Plant"
+                        },
+                        {
                             "type": "plant-status",
                             "entity": "plant.basil",
                             "name": "Basil Plant"
@@ -1391,10 +1406,7 @@
                             "hours_to_show": 96,
                             "refresh_interval": 0
                         }
-                    ],
-                    "icon": "mdi:airballoon",
-                    "path": "fun",
-                    "title": "Fun Stuff"
+                    ]
                 }
             ]
         }
