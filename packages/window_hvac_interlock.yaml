@@ -40,6 +40,13 @@ script:
   hvac_interlock_reset_hvac_state:
     alias: HVAC Interlock - Reset HVAC State
     sequence:
+      # Do this first to make the UI on the dashboard more responsive.
+      - alias: "Move to armed state"
+        service: input_select.select_option
+        target:
+          entity_id: input_select.hvac_interlock_state_machine
+        data:
+          option: "Armed"
       - alias: "Set HVAC to previous state"
         service: climate.set_hvac_mode
         data_template:
@@ -51,12 +58,6 @@ script:
         data:
           light: light.couch_side_table_lamp
           count: 2
-      - alias: "Move to armed state"
-        service: input_select.select_option
-        target:
-          entity_id: input_select.hvac_interlock_state_machine
-        data:
-          option: "Armed"
 
 automation:
   ## State machine: Armed
