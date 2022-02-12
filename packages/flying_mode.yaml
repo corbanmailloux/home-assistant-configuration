@@ -47,7 +47,7 @@ automation:
             - light.bedroom_lamp
       - service: scene.turn_on
         target:
-          entity_id: scene.training
+          entity_id: scene.flying
 
   - alias: Flying Mode Stop
     id: 6f484faf-0626-41d4-bc91-e1a52af5e68b
