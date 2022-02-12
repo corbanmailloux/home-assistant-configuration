@@ -1,0 +1,44 @@
+input_boolean:
+  cat_sitter_mode:
+    name: Cat Sitter Mode
+    icon: mdi:exit-run
+
+automation:
+  - alias: Cat Sitter - Door Opened
+    id: 94d03ec3-81b3-4402-903d-3cd85ea8cf93
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.front_door
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.cat_sitter_mode
+        state: "on"
+    action:
+      - service: notify.corban
+        data:
+          title: "Cat Sitter's Here"
+          message: "Front door opened. Take action?"
+          data:
+            tag: "vacation_cat_sitter"
+            actions:
+              - action: "VACATION_SITTER_HOME_UNOCCUPIED"
+                title: "Mark home unoccupied."
+                activationMode: "background"
+                authenticationRequired: false
+                destructive: false
+                behavior: "default"
+
+  - alias: Cat Sitter - Unoccupied Notification Clicked
+    id: 80c08868-f03b-4fb8-bff2-e169f3c6bbb5
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "VACATION_SITTER_HOME_UNOCCUPIED"
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.home_occupied

@@ -15,6 +15,9 @@
                                 },
                                 {
                                     "entity": "input_boolean.vacation_mode_light_schedule"
+                                },
+                                {
+                                    "entity": "input_boolean.cat_sitter_mode"
                                 }
                             ],
                             "show_header_toggle": false,
