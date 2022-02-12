@@ -47,7 +47,7 @@
             {
                 "id": "b9ec5fec89054ffeb91508eafed17d54",
                 "type": "module",
-                "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524311"
+                "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524312"
             },
             {
                 "id": "9717aed771b445c5965d83897ccb1714",
@@ -70,7 +70,7 @@
                 "id": "ad5e2552f9ec4dbb96308ac020109a99"
             },
             {
-                "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994210",
+                "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994220",
                 "type": "module",
                 "id": "3be86917498147c08cb200b17d63894b"
             },
