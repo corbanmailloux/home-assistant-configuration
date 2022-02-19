@@ -33,7 +33,7 @@ homeassistant:
     input_boolean.vacuum_kitchen:
       room_id: "16"
     input_boolean.vacuum_office:
-      room_id: "5"
+      room_id: "1"
     input_boolean.vacuum_guest_bath:
       room_id: "17"
 
