@@ -66,6 +66,10 @@ automation:
         event_data:
           action: "VACUUM_FULL_CLEAN"
     action:
+      - alias: Show the vacuum card
+        service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.wall_display_show_vacuum
       - alias: Make sure no rooms are selected
         service: homeassistant.turn_off
         target:
@@ -108,6 +112,10 @@ automation:
         event_data:
           action: "VACUUM_NO_OFFICE_CLEAN"
     action:
+      - alias: Show the vacuum card
+        service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.wall_display_show_vacuum
       - alias: Make sure no rooms are selected
         service: homeassistant.turn_off
         target:
@@ -167,6 +175,10 @@ automation:
               entity_id: input_datetime.last_vacuum_run
             data:
               timestamp: "{{ now().timestamp() }}"
+          - alias: Hide the vacuum card
+            service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.wall_display_show_vacuum
 
 script:
   vacuum_alert_timeout:
