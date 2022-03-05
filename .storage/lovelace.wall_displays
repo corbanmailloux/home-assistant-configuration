@@ -751,115 +751,6 @@
                             "type": "conditional"
                         },
                         {
-                            "card": {
-                                "entity": "input_boolean.cat_claw_clip_needed",
-                                "layout": "icon_name",
-                                "color": "yellow",
-                                "show_icon": true,
-                                "show_state": false,
-                                "tap_action": {
-                                    "action": "toggle"
-                                },
-                                "hold_action": {
-                                    "action": "call-service",
-                                    "service": "script.cat_claw_clipped_run_eve"
-                                },
-                                "type": "custom:button-card"
-                            },
-                            "conditions": [
-                                {
-                                    "entity": "input_boolean.cat_claw_clip_needed",
-                                    "state": "on"
-                                }
-                            ],
-                            "type": "conditional"
-                        },
-                        {
-                            "type": "conditional",
-                            "conditions": [
-                                {
-                                    "entity": "sensor.kitchen_speaker_timers",
-                                    "state_not": "unavailable"
-                                }
-                            ],
-                            "card": {
-                                "type": "custom:googletimers-card",
-                                "entity": "sensor.kitchen_speaker_timers",
-                                "title": "Kitchen"
-                            }
-                        },
-                        {
-                            "type": "conditional",
-                            "conditions": [
-                                {
-                                    "entity": "media_player.google_homes",
-                                    "state_not": "off"
-                                }
-                            ],
-                            "card": {
-                                "type": "custom:mini-media-player",
-                                "toggle_power": true,
-                                "entity": "media_player.google_homes"
-                            }
-                        },
-                        {
-                            "card": {
-                                "color": "red",
-                                "entity": "input_boolean.vacation_mode",
-                                "layout": "icon_name",
-                                "show_icon": true,
-                                "show_state": false,
-                                "type": "custom:button-card"
-                            },
-                            "conditions": [
-                                {
-                                    "entity": "input_boolean.vacation_mode",
-                                    "state": "on"
-                                }
-                            ],
-                            "type": "conditional"
-                        },
-                        {
-                            "type": "conditional",
-                            "conditions": [
-                                {
-                                    "entity": "input_select.hvac_interlock_state_machine",
-                                    "state": "Reminding"
-                                }
-                            ],
-                            "card": {
-                                "type": "horizontal-stack",
-                                "cards": [
-                                    {
-                                        "layout": "vertical",
-                                        "aspect_ratio": "2/1",
-                                        "icon": "mdi:notification-clear-all",
-                                        "name": "Dismiss",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "type": "custom:button-card",
-                                        "tap_action": {
-                                            "action": "call-service",
-                                            "service": "script.hvac_interlock_dismiss_card"
-                                        }
-                                    },
-                                    {
-                                        "aspect_ratio": "2/1",
-                                        "layout": "vertical",
-                                        "icon": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var icon_name = 'toggle-switch';\n  switch(entity2) {\n    case 'cool':\n      icon_name = 'air-conditioner';\n      break;\n    case 'heat':\n      icon_name = 'fire';\n      break;\n  }\n  return `mdi:${icon_name}`;\n]]]\n",
-                                        "name": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var state_str = entity2.charAt(0).toUpperCase() + entity2.substr(1).toLowerCase();\n  return `Set HVAC to ${state_str}`\n]]]\n",
-                                        "show_icon": true,
-                                        "show_state": false,
-                                        "type": "custom:button-card",
-                                        "tap_action": {
-                                            "action": "call-service",
-                                            "service": "script.hvac_interlock_reset_hvac_state"
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-                        {
                             "type": "conditional",
                             "conditions": [
                                 {
@@ -973,6 +864,115 @@
                                             "bottom": 26,
                                             "left": 40,
                                             "right": 102
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "card": {
+                                "entity": "input_boolean.cat_claw_clip_needed",
+                                "layout": "icon_name",
+                                "color": "yellow",
+                                "show_icon": true,
+                                "show_state": false,
+                                "tap_action": {
+                                    "action": "toggle"
+                                },
+                                "hold_action": {
+                                    "action": "call-service",
+                                    "service": "script.cat_claw_clipped_run_eve"
+                                },
+                                "type": "custom:button-card"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.cat_claw_clip_needed",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "sensor.kitchen_speaker_timers",
+                                    "state_not": "unavailable"
+                                }
+                            ],
+                            "card": {
+                                "type": "custom:googletimers-card",
+                                "entity": "sensor.kitchen_speaker_timers",
+                                "title": "Kitchen"
+                            }
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "media_player.google_homes",
+                                    "state_not": "off"
+                                }
+                            ],
+                            "card": {
+                                "type": "custom:mini-media-player",
+                                "toggle_power": true,
+                                "entity": "media_player.google_homes"
+                            }
+                        },
+                        {
+                            "card": {
+                                "color": "red",
+                                "entity": "input_boolean.vacation_mode",
+                                "layout": "icon_name",
+                                "show_icon": true,
+                                "show_state": false,
+                                "type": "custom:button-card"
+                            },
+                            "conditions": [
+                                {
+                                    "entity": "input_boolean.vacation_mode",
+                                    "state": "on"
+                                }
+                            ],
+                            "type": "conditional"
+                        },
+                        {
+                            "type": "conditional",
+                            "conditions": [
+                                {
+                                    "entity": "input_select.hvac_interlock_state_machine",
+                                    "state": "Reminding"
+                                }
+                            ],
+                            "card": {
+                                "type": "horizontal-stack",
+                                "cards": [
+                                    {
+                                        "layout": "vertical",
+                                        "aspect_ratio": "2/1",
+                                        "icon": "mdi:notification-clear-all",
+                                        "name": "Dismiss",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "script.hvac_interlock_dismiss_card"
+                                        }
+                                    },
+                                    {
+                                        "aspect_ratio": "2/1",
+                                        "layout": "vertical",
+                                        "icon": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var icon_name = 'toggle-switch';\n  switch(entity2) {\n    case 'cool':\n      icon_name = 'air-conditioner';\n      break;\n    case 'heat':\n      icon_name = 'fire';\n      break;\n  }\n  return `mdi:${icon_name}`;\n]]]\n",
+                                        "name": "[[[\n  var entity2 = states[\"input_text.hvac_interlock_previous_state\"].state;\n  var state_str = entity2.charAt(0).toUpperCase() + entity2.substr(1).toLowerCase();\n  return `Set HVAC to ${state_str}`\n]]]\n",
+                                        "show_icon": true,
+                                        "show_state": false,
+                                        "type": "custom:button-card",
+                                        "tap_action": {
+                                            "action": "call-service",
+                                            "service": "script.hvac_interlock_reset_hvac_state"
                                         }
                                     }
                                 ]
