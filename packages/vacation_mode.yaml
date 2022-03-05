@@ -83,3 +83,56 @@ automation:
           message: clear_notification
           data:
             tag: "vacation_mode_disable"
+
+  - alias: Notify when door opened while on vacation
+    id: e7e99aed-348c-4fb8-b607-df0b902f1387
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.front_door
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "on"
+      - condition: state
+        entity_id: input_boolean.cat_sitter_mode
+        state: "off" # If on, this is handled by the cat sitter mode.
+    action:
+      - service: notify.corban
+        data:
+          title: "Warning: Door Opened"
+          message: "Front door opened."
+          data:
+            tag: "vacation_alarm"
+            actions:
+              - action: "VACATION_ALARM"
+                title: "Trigger Alarm"
+                activationMode: "background"
+                authenticationRequired: false
+                destructive: true
+                behavior: "default"
+              - action: "VACATION_MODE_DISABLE" # Reusing the one from above.
+                title: "Disable Vacation Mode"
+                activationMode: "background"
+                authenticationRequired: false
+                destructive: false
+                behavior: "default"
+
+  - alias: Vacation Alarm Notification Action
+    id: fb1b06e3-4897-4d16-98bf-a66cef5f414d
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "VACATION_ALARM"
+    action:
+      - service: tts.cloud_say
+        entity_id: media_player.kitchen_speaker
+        data_template:
+          message: Intruder. The resident has been notified.
+      - delay:
+          seconds: 15
+      - service: tts.cloud_say
+        entity_id: media_player.kitchen_speaker
+        data_template:
+          message: Intruder. The resident has been notified.

@@ -42,3 +42,13 @@ automation:
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.home_occupied
+
+  - alias: Cat Sitter - Disable When Vacation Mode is Disabled
+    id: 9279c070-a11d-4315-abcd-1e6a6201b5c9
+    trigger:
+      - platform: state
+        entity_id: input_boolean.vacation_mode
+        to: "off"
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.cat_sitter_mode
