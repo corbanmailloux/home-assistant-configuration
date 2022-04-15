@@ -1,11 +1,12 @@
 # For the central living room wall-mounted tablet.
 # These are helpers used to populate the main dashboard and control some dynamic cards.
 
-camera:
-  - platform: generic
-    name: Join Our WiFi
-    still_image_url: !secret wifi_qr_code_url
-    limit_refetch_to_url_change: true
+# Moved to a UI integration.
+# camera:
+#   - platform: generic
+#     name: Join Our WiFi
+#     still_image_url: !secret wifi_qr_code_url
+#     limit_refetch_to_url_change: true
 
 input_boolean:
   wall_display_show_map:

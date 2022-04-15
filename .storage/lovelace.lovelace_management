@@ -197,6 +197,11 @@
                     ]
                 },
                 {
+                    "theme": "Backend-selected",
+                    "icon": "mdi:server-network",
+                    "path": "network",
+                    "title": "Network",
+                    "type": "custom:vertical-layout",
                     "badges": [],
                     "cards": [
                         {
@@ -249,6 +254,9 @@
                             "show_header_toggle": false
                         },
                         {
+                            "type": "custom:layout-break"
+                        },
+                        {
                             "entities": [
                                 "sensor.speedtest_download",
                                 "sensor.speedtest_upload"
@@ -275,17 +283,57 @@
                             "state_color": false
                         },
                         {
-                            "detail": 2,
-                            "entity": "sensor.network_closet_temperature",
-                            "graph": "line",
-                            "hours_to_show": 8,
-                            "icon": "mdi:thermometer-lines",
-                            "type": "sensor"
+                            "type": "custom:layout-break"
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
+                                    "entity": "sensor.ups_input_voltage",
+                                    "name": "Input Voltage"
+                                },
+                                {
+                                    "entity": "sensor.ups_load",
+                                    "name": "Load"
+                                },
+                                {
+                                    "entity": "sensor.ups_status",
+                                    "name": "Status"
+                                }
+                            ],
+                            "title": "UPS"
+                        },
+                        {
+                            "type": "horizontal-stack",
+                            "cards": [
+                                {
+                                    "type": "gauge",
+                                    "entity": "sensor.ups_battery_charge",
+                                    "needle": true,
+                                    "severity": {
+                                        "green": 80,
+                                        "yellow": 20,
+                                        "red": 0
+                                    },
+                                    "min": 0,
+                                    "max": 100,
+                                    "name": "UPS Battery"
+                                },
+                                {
+                                    "type": "gauge",
+                                    "entity": "sensor.ups_load",
+                                    "severity": {
+                                        "green": 0,
+                                        "yellow": 80,
+                                        "red": 90
+                                    },
+                                    "needle": false,
+                                    "max": 100,
+                                    "min": 0
+                                }
+                            ]
                         }
-                    ],
-                    "icon": "mdi:server-network",
-                    "path": "network",
-                    "title": "Network"
+                    ]
                 },
                 {
                     "badges": [],
@@ -293,11 +341,6 @@
                         {
                             "type": "entities",
                             "entities": [
-                                {
-                                    "entity": "binary_sensor.updater",
-                                    "name": "Home Assistant",
-                                    "icon": "mdi:home-assistant"
-                                },
                                 {
                                     "entity": "binary_sensor.updater_hacs",
                                     "name": "HACS",

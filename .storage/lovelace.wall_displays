@@ -1047,10 +1047,11 @@
                     ]
                 },
                 {
+                    "theme": "",
                     "title": "Kitchen Display",
                     "path": "kitchen-display",
                     "icon": "mdi:fridge-outline",
-                    "theme": "",
+                    "type": "custom:vertical-layout",
                     "badges": [],
                     "cards": [
                         {

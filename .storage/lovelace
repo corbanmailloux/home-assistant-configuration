@@ -1307,6 +1307,61 @@
                             "refresh_interval": 0,
                             "title": "Internal Humidity",
                             "type": "history-graph"
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "entities": [
+                                {
+                                    "entity": "sensor.refrigerator_temperature",
+                                    "aggregate_func": "min",
+                                    "name": "Min",
+                                    "color": "#2b76c4"
+                                },
+                                {
+                                    "entity": "sensor.refrigerator_temperature",
+                                    "aggregate_func": "max",
+                                    "name": "Max",
+                                    "color": "#c4612b"
+                                },
+                                {
+                                    "entity": "sensor.refrigerator_temperature",
+                                    "aggregate_func": "avg",
+                                    "name": "Avg",
+                                    "color": "grey"
+                                }
+                            ],
+                            "name": "Fridge Temp: Last 7 Days",
+                            "show": {
+                                "state": false,
+                                "fill": false,
+                                "points": true,
+                                "legend": false,
+                                "average": true,
+                                "extrema": true,
+                                "labels": true
+                            },
+                            "smoothing": false,
+                            "hours_to_show": 168,
+                            "group_by": "date"
+                        },
+                        {
+                            "type": "custom:mini-graph-card",
+                            "name": "Fridge Temp: Last 24 Hours",
+                            "entities": [
+                                {
+                                    "entity": "sensor.refrigerator_temperature"
+                                }
+                            ],
+                            "show": {
+                                "fill": false,
+                                "points": false,
+                                "legend": false,
+                                "average": false,
+                                "extrema": false,
+                                "labels": true
+                            },
+                            "hours_to_show": 24,
+                            "points_per_hour": 4
                         }
                     ]
                 },
