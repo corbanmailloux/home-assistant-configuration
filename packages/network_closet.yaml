@@ -15,3 +15,80 @@ automation:
           message: >
             The network closet is {{ states('sensor.network_closet_temperature') | round(1) }}°F.
             This exceeds the threshold of 90°F.
+
+  - alias: UPS Power Outage Notification
+    id: 249c1373-c037-4b3c-80b8-8460daa3c79f
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.ups_power_normal
+        to: "off"
+        variables:
+          outage_start_time: "{{ now().timestamp() }}"
+    action:
+      - service: input_datetime.set_datetime
+        alias: Store the start time
+        target:
+          entity_id: input_datetime.power_outage_start_time
+        data:
+          timestamp: "{{ outage_start_time }}"
+      - service: notify.corban
+        data:
+          title: "Power Outage at Home"
+          message: >-
+            The power went out at {{ outage_start_time | float | timestamp_custom("%-I:%M %p") }}.
+          data:
+            tag: "power_outage"
+            actions:
+              - action: "POWER_OUTAGE_SHUTDOWN_NAS"
+                title: "Shutdown NAS"
+                activationMode: "background"
+                authenticationRequired: true
+                destructive: true
+                behavior: "default"
+  - alias: UPS Power Outage Notification Action - Shutdown NAS
+    id: 4f983a53-9c85-4f66-8a7a-9239c00d37c4
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "POWER_OUTAGE_SHUTDOWN_NAS"
+    action:
+      - service: button.press
+        target:
+          entity_id: button.tubby_shutdown
+
+  - alias: UPS Power Outage - Back On Notification
+    id: b0c8df7d-160e-4ae8-b2a2-6372a9736aec
+    mode: single
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.ups_power_normal
+        to: "on"
+        variables:
+          outage_stop_time: >-
+            {{ now().timestamp() }}
+          outage_start_time: >-
+            {{ states("input_datetime.power_outage_start_time") | as_timestamp }}
+    action:
+      - service: notify.corban
+        data:
+          title: "Power Outage at Home - Recovered"
+          message: >-
+            The power went out at {{ outage_start_time | float | timestamp_custom("%-I:%M %p") }} and returned at {{ outage_stop_time | float | timestamp_custom("%-I:%M %p") }} ({{ ((outage_stop_time | float) - (outage_start_time | float)) | int }} seconds).
+          data:
+            tag: "power_outage"
+            # Note that this replaces the previous notification. If power were to flicker repeatedly, there would only be one final notification.
+
+template:
+  - binary_sensor:
+      - name: "UPS Power Normal"
+        device_class: power
+        state: >-
+          {{ states('sensor.ups_input_voltage')|float > 100 }}
+
+input_datetime:
+  power_outage_start_time:
+    name: Power Outage Start Time
+    has_date: true
+    has_time: true
