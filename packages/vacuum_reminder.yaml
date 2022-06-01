@@ -11,7 +11,7 @@ automation:
     id: e3cb3255-914c-458c-83e6-d400d5ec50b8
     trigger:
       - platform: time
-        at: "11:00:00"
+        at: "10:00:00"
     condition:
       - alias: "Weekdays"
         condition: time
@@ -46,13 +46,19 @@ automation:
             group: "run_vacuum"
             actions:
               - action: "VACUUM_FULL_CLEAN"
-                title: "Full Clean"
+                title: "Clean - Full"
                 activationMode: "background"
                 authenticationRequired: false # Don't require unlocking the device
                 destructive: false
                 behavior: "default"
               - action: "VACUUM_NO_OFFICE_CLEAN"
-                title: "Skip the Office"
+                title: "Clean - No Office"
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+                destructive: false
+                behavior: "default"
+              - action: "VACUUM_SKIP"
+                title: "Skip This Cycle"
                 activationMode: "background"
                 authenticationRequired: false # Don't require unlocking the device
                 destructive: false
@@ -130,6 +136,21 @@ automation:
       - alias: Start cleaning
         service: script.vacuum_clean_segments
       - service: script.vacuum_wait_and_alert # Moved to shared logic.
+
+  - alias: Skip vacuum cycle from notification
+    id: c3c4dc5d-306f-40db-859c-69cd173f53ef
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "VACUUM_SKIP"
+    action:
+      - alias: Store the last run time
+        service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.last_vacuum_run
+        data:
+          timestamp: "{{ now().timestamp() }}"
 
   - alias: Resume Vacuum Cleaning From Notification
     id: f9a4979c-3857-4c12-8d70-9f8422695c32
