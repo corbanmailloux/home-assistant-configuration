@@ -1,0 +1,75 @@
+esphome:
+  name: camera-test
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+# Enable logging
+logger:
+  level: INFO
+
+# Enable Home Assistant API
+api:
+
+ota:
+  password: !secret ota_password
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+binary_sensor:
+  - platform: gpio
+    pin: GPIO33
+    name: "Doorbell Motion"
+    device_class: motion
+  
+  - platform: gpio
+    pin:
+      number: GPIO34
+      inverted: true
+    name: "Doorbell Button"
+
+# esp32_camera:
+#   external_clock:
+#     pin: GPIO32
+#     frequency: 20MHz
+#   i2c_pins:
+#     sda: GPIO13
+#     scl: GPIO12
+#   data_pins: [GPIO5, GPIO14, GPIO4, GPIO15, GPIO18, GPIO23, GPIO36, GPIO39]
+#   vsync_pin: GPIO27
+#   href_pin: GPIO25
+#   pixel_clock_pin: GPIO19
+#   resolution: 320x240
+#   max_framerate: 2 fps
+#   name: Doorbell Camera
+
+i2c:
+  sda: GPIO21
+  scl: GPIO22
+  frequency: 400kHz
+
+font:
+  # Georgia, for normal text
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_48
+    size: 48
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_24
+    size: 24
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_16
+    size: 16
+  - file: "resources/fonts/Georgia-Regular.ttf"
+    id: georgia_12
+    size: 12
+
+display:
+  - platform: ssd1306_i2c
+    model: "SSD1306 128x64"
+    rotation: 180
+    lambda: |-
+      it.print(0, 0, id(georgia_16), "Hello World!");
