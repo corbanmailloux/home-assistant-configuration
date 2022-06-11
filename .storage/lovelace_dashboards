@@ -1,5 +1,6 @@
 {
     "version": 1,
+    "minor_version": 1,
     "key": "lovelace_dashboards",
     "data": {
         "items": [
@@ -20,6 +21,15 @@
                 "url_path": "lovelace-management",
                 "mode": "storage",
                 "id": "lovelace_management"
+            },
+            {
+                "show_in_sidebar": true,
+                "icon": "mdi:mushroom",
+                "title": "Mushroom",
+                "require_admin": false,
+                "mode": "storage",
+                "url_path": "lovelace-mushroom",
+                "id": "lovelace_mushroom"
             }
         ]
     }
