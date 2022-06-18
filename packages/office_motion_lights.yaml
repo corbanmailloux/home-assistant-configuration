@@ -11,7 +11,7 @@ binary_sensor:
           {# This is a good insurance that the lights won't turn off while I'm on a call. #}
           {% set office_camera_in_use =
             "Unite" in states('sensor.corban_s_vmware_mbp_active_camera') or 
-            "Unite" in states('sensor.fillmore_active_camera') %}
+            "Unite" in states('sensor.corban_s_personal_macbook_pro_active_camera') %}
 
           {# Standard PIR motion sensor. #}
           {% set motion_detected = 
@@ -22,8 +22,8 @@ binary_sensor:
             ( is_state('binary_sensor.corban_s_vmware_mbp_active', 'on') and 
               is_state('sensor.corban_s_vmware_mbp_displays', '3') )
             or
-            ( is_state('binary_sensor.binary_sensor.fillmore_active', 'on') and 
-              is_state('sensor.fillmore_displays', '3') ) %}
+            ( is_state('binary_sensor.corban_s_personal_macbook_pro_active', 'on') and 
+              is_state('sensor.corban_s_personal_macbook_pro_displays', '3') ) %}
 
           {{ office_camera_in_use or motion_detected or macbook_docked_and_active }}
 
