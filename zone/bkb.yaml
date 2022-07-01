@@ -1,5 +1,0 @@
-- name: BKB
-  latitude: !secret bkb_latitude
-  longitude: !secret bkb_longitude
-  radius: 100
-  icon: mdi:dumbbell
