@@ -984,6 +984,10 @@
                                 {
                                     "entity": "sensor.eve_bin",
                                     "state_not": "0"
+                                },
+                                {
+                                    "entity": "sensor.eve_bin",
+                                    "state_not": "unknown"
                                 }
                             ],
                             "card": {
