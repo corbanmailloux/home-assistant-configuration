@@ -1140,14 +1140,6 @@
                     "badges": [],
                     "cards": [
                         {
-                            "type": "custom:simple-thermostat",
-                            "entity": "climate.thermostat",
-                            "show_header": false,
-                            "step_layout": "row",
-                            "decimals": "0",
-                            "step_size": "1"
-                        },
-                        {
                             "entities": [
                                 {
                                     "entity": "sensor.openweathermap_condition"
@@ -1165,9 +1157,6 @@
                         },
                         {
                             "entities": [
-                                {
-                                    "entity": "sensor.thermostat_temperature"
-                                },
                                 {
                                     "entity": "sensor.living_room_temperature"
                                 },
@@ -1197,6 +1186,12 @@
                                             "entity": "sensor.living_room_temperature"
                                         },
                                         {
+                                            "entity": "sensor.office_temperature"
+                                        },
+                                        {
+                                            "entity": "sensor.bedroom_temperature"
+                                        },
+                                        {
                                             "entity": "sensor.openweathermap_temperature"
                                         }
                                     ],
@@ -1209,6 +1204,12 @@
                                     "entities": [
                                         {
                                             "entity": "sensor.living_room_humidity"
+                                        },
+                                        {
+                                            "entity": "sensor.office_humidity"
+                                        },
+                                        {
+                                            "entity": "sensor.bedroom_humidity"
                                         },
                                         {
                                             "entity": "sensor.openweathermap_humidity"
