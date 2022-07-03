@@ -143,12 +143,6 @@ text_sensor:
     entity_id: sensor.octoprint_status_display
     # TODO: Move this custom display logic out of HASS and use a map here: https://esphome.io/components/text_sensor/index.html#map
 
-  - platform: homeassistant
-    internal: true
-    id: thermostat_action
-    entity_id: climate.thermostat
-    attribute: hvac_action
-
 switch:
   - platform: gpio
     pin: GPIO4
@@ -262,18 +256,7 @@ display:
           
           // Temperatures, bottom-right
           if (id(inside_temperature).has_state()) {
-            Color icon_color = id(color_gray);
-            if (id(thermostat_action).has_state()) {
-              if (id(thermostat_action).state == "idle") {
-                icon_color = id(color_white);
-              }
-              else if (id(thermostat_action).state == "cooling") {
-                icon_color = id(color_blue);
-              } else if (id(thermostat_action).state == "heating") {
-                icon_color = id(color_orange);
-              }
-            }
-
+            Color icon_color = id(color_white);
             it.printf(it.get_width() - border_padding - 60, it.get_height() - border_padding - 30 + 3, id(mdi_font), icon_color, TextAlign::BASELINE_RIGHT , "\U000F0F55");
             it.printf(it.get_width() - border_padding, it.get_height() - border_padding - 30, id(roboto), id(color_white), TextAlign::BASELINE_RIGHT , "%.1f°", id(inside_temperature).state);
           }
