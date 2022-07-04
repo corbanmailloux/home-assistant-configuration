@@ -8,6 +8,7 @@ esp32:
 
 # Enable logging
 logger:
+  level: INFO
 
 # Enable Home Assistant API
 api:
