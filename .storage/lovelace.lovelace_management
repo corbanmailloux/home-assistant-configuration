@@ -342,6 +342,32 @@
                             "type": "entities",
                             "entities": [
                                 {
+                                    "entity": "light.kitchen_counter_light_1"
+                                },
+                                {
+                                    "entity": "switch.kitchen_counter_light_2"
+                                },
+                                {
+                                    "entity": "light.kitchen_counter_light_3"
+                                },
+                                {
+                                    "entity": "automation.kitchen_counter_lights_toggle_all_based_on_one"
+                                },
+                                {
+                                    "entity": "binary_sensor.motion_sensor_occupancy"
+                                },
+                                {
+                                    "entity": "automation.kitchen_motion_lights"
+                                }
+                            ],
+                            "title": "Kitchen Motion Testing",
+                            "show_header_toggle": false,
+                            "state_color": true
+                        },
+                        {
+                            "type": "entities",
+                            "entities": [
+                                {
                                     "entity": "binary_sensor.updater_hacs",
                                     "name": "HACS",
                                     "icon": "hacs:hacs"

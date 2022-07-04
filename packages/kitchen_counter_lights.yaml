@@ -1,0 +1,55 @@
+# In the kitchen, there are 3 separate counter lights. I have all of them on Zigbee smart plugs to allow automation.
+
+automation:
+  - id: 82f4ed0d-77ed-4afc-9d63-5ea44e85a955
+    alias: Kitchen Counter Lights - Toggle all based on one
+    description: Use the one easily-accessible switch button to control all of the kitchen counter lights.
+    trigger:
+      - platform: state
+        entity_id: light.kitchen_counter_light_3
+    action:
+      - service: >-
+          {% if trigger.to_state.state == "on" %}
+            light.turn_on
+          {% else %}
+            light.turn_off
+          {% endif %}
+        target:
+          entity_id: light.kitchen_counter_lights
+    mode: single
+
+  - id: 95a3a27b-a251-4665-8976-17ae27132e22
+    alias: Kitchen Motion Lights
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.motion_sensor_occupancy
+        from: "off"
+        to: "on"
+    action:
+      - alias: "Time-based selection"
+        choose:
+          - conditions:
+              - alias: "10 PM to 6 AM"
+                condition: time
+                after: "22:00:00"
+                before: "06:00:00"
+            sequence:
+              - alias: "Turn on just the snack counter light"
+                service: light.turn_on
+                target:
+                  entity_id: light.kitchen_counter_light_1
+        default:
+          - alias: "Turn on all counter lights"
+            service: light.turn_on
+            target:
+              entity_id: light.kitchen_counter_lights
+      - wait_for_trigger:
+          platform: state
+          entity_id: binary_sensor.motion_sensor_occupancy
+          from: "on"
+          to: "off"
+      - delay: 120 # seconds
+      - alias: "Turn off all counter lights"
+        service: light.turn_off
+        target:
+          entity_id: light.kitchen_counter_lights
