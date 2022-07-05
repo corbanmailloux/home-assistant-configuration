@@ -20,6 +20,9 @@ automation:
 
   - id: 95a3a27b-a251-4665-8976-17ae27132e22
     alias: Kitchen Motion Lights
+    # If motion is detected within the delay,
+    # we restart the script.
+    mode: restart
     trigger:
       - platform: state
         entity_id: binary_sensor.motion_sensor_occupancy
