@@ -2,7 +2,7 @@
 
 automation:
   - id: 666f0048-d937-49aa-a42a-104f93a8795e
-    alias: Living Room Switch - On
+    alias: Living Room Switch - On - Lights
     trigger:
       - platform: device
         domain: mqtt
@@ -50,7 +50,7 @@ automation:
                 entity_id: scene.living_room_bright
 
   - id: f3012019-cddb-4c26-803a-96b5f355e25d
-    alias: Living Room Switch - Off
+    alias: Living Room Switch - Off - Lights
     trigger:
       - platform: device
         domain: mqtt
@@ -110,17 +110,19 @@ automation:
               - service: scene.turn_on
                 entity_id: scene.living_room_off
 
-  # - id: e28f0500-362d-4222-90fe-a092b6d68a38
-  #   alias: Living Room Switch - Hold On
-  #   trigger:
-  #     - platform: device
-  #       domain: mqtt
-  #       device_id: c267d3d48bf04135851855dc4be36cbb
-  #       type: action
-  #       subtype: brightness_move_up
-  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
-  #   condition:
-  #   action:
+  - id: e28f0500-362d-4222-90fe-a092b6d68a38
+    alias: Living Room Switch - Hold On - Vacuum
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        type: action
+        subtype: brightness_move_up
+        discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
+    action:
+      - service: vacuum.start
+        target:
+          entity_id: vacuum.valetudo_eve
 
   # - id: 7d3730d4-093c-4340-b10c-03e517fcd74d
   #   alias: Living Room Switch - Hold Off
