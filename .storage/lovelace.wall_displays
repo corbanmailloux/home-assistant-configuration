@@ -706,7 +706,7 @@
                                                 "type": "custom:button-card"
                                             },
                                             {
-                                                "entity": "input_boolean.vacuum_guest_bath",
+                                                "entity": "input_boolean.vacuum_1st_floor_bath",
                                                 "name": "1st Fl. Bath",
                                                 "show_icon": true,
                                                 "show_name": true,
