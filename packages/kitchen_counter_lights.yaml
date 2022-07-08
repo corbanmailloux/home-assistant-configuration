@@ -51,7 +51,8 @@ automation:
           entity_id: binary_sensor.motion_sensor_occupancy
           from: "on"
           to: "off"
-      - delay: 120 # seconds
+      - delay:
+          minutes: 5
       - alias: "Turn off all counter lights"
         service: light.turn_off
         target:
