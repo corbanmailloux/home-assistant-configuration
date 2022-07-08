@@ -82,23 +82,6 @@ ifttt:
 
 ffmpeg:
 
-# Google Calendar
-google:
-  client_id: !secret google_client_id
-  client_secret: !secret google_client_secret
-  track_new_calendar: false
-
-# google_assistant:
-#   project_id: !secret google_assistant_project_id
-#   report_state: true
-#   service_account: !include google_cloud_assistant_credentials.json
-#   expose_by_default: false
-#   entity_config: !include google_assistant_entities.yaml
-
-spotify:
-  client_id: !secret spotify_client_id
-  client_secret: !secret spotify_client_secret
-
 spotcast:
   sp_dc: !secret spotcast_sp_dc
   sp_key: !secret spotcast_sp_key
