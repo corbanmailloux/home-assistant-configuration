@@ -1,0 +1,135 @@
+# Similar to `packages/living_room_remote.yaml`. Stepped control of the living room lights.
+
+automation:
+  - id: 666f0048-d937-49aa-a42a-104f93a8795e
+    alias: Living Room Switch - On
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        type: action
+        subtype: "on"
+        discovery_id: 0x000d6ffffea6b202 action_on
+    action:
+      - choose:
+          # Off: Turn on TV lamp full brightness
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{
+                    is_state("light.tv_lamp", "off")
+                  }}
+            sequence:
+              - service: light.turn_on
+                entity_id: light.tv_lamp
+                data:
+                  brightness: 255
+          # On but dim: Turn on to full brightness
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{
+                    is_state("light.tv_lamp", "on") and
+                    state_attr("light.tv_lamp", "brightness") <= 180
+                  }}
+            sequence:
+              - service: light.turn_on
+                entity_id: light.tv_lamp
+                data:
+                  brightness: 255
+          # Bright: Turn on the rest of the living room lights
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{
+                    is_state("light.tv_lamp", "on") and
+                    180 < state_attr("light.tv_lamp", "brightness")
+                  }}
+            sequence:
+              - service: scene.turn_on
+                entity_id: scene.living_room_bright
+
+  - id: f3012019-cddb-4c26-803a-96b5f355e25d
+    alias: Living Room Switch - Off
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        type: action
+        subtype: "off"
+        discovery_id: 0x000d6ffffea6b202 action_off
+    action:
+      - choose:
+          # Bright with other lights on: Turn off the other lights.
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{
+                    is_state("light.tv_lamp", "on") and
+                    180 < state_attr("light.tv_lamp", "brightness") and
+                    is_state("light.couch_side_table_lamp", "on")
+                  }}
+            sequence:
+              - service: scene.turn_on
+                entity_id: scene.living_room_dim # TODO: This needs a medium scene again. Maybe this could just cycle between a couple scenes?
+          # Bright: Turn on medium
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{
+                    is_state("light.tv_lamp", "on") and
+                    100 < state_attr("light.tv_lamp", "brightness")
+                  }}
+            sequence:
+              - service: light.turn_on
+                entity_id: light.tv_lamp
+                data:
+                  brightness: 100
+          # Medium: Turn off
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{
+                    is_state("light.tv_lamp", "on") and
+                    0 < state_attr("light.tv_lamp", "brightness") <= 100
+                  }}
+            sequence:
+              # This should be a scene, but the scene seems to automatically add a transition. Skip it.
+              - service: light.turn_off
+                entity_id: light.tv_lamp
+                data:
+                  transition: 0
+          # Off: Turn off living room lights
+          - conditions:
+              - condition: template
+                value_template: >-
+                  {{
+                    is_state("light.tv_lamp", "off")
+                  }}
+            sequence:
+              - service: scene.turn_on
+                entity_id: scene.living_room_off
+
+  # - id: e28f0500-362d-4222-90fe-a092b6d68a38
+  #   alias: Living Room Switch - Hold On
+  #   trigger:
+  #     - platform: device
+  #       domain: mqtt
+  #       device_id: c267d3d48bf04135851855dc4be36cbb
+  #       type: action
+  #       subtype: brightness_move_up
+  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
+  #   condition:
+  #   action:
+
+  # - id: 7d3730d4-093c-4340-b10c-03e517fcd74d
+  #   alias: Living Room Switch - Hold Off
+  #   trigger:
+  #     - platform: device
+  #       domain: mqtt
+  #       device_id: c267d3d48bf04135851855dc4be36cbb
+  #       type: action
+  #       subtype: brightness_move_down
+  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
+  #   condition:
+  #   action:
