@@ -16,14 +16,14 @@ switch:
               entity_id: switch.ptz_camera_power
           - delay:
               seconds: 25
-          - service: switch.turn_on
+          - service: button.press
             data:
-              entity_id: switch.ptz_preset_1
+              entity_id: button.ptz_preset_1
 
         turn_off:
-          - service: switch.turn_on
+          - service: button.press
             data:
-              entity_id: switch.ptz_preset_0
+              entity_id: button.ptz_preset_0
           - delay:
               seconds: 3
           - service: switch.turn_off

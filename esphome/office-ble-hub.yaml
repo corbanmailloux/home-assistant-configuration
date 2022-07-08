@@ -52,28 +52,40 @@ remote_transmitter:
   pin: GPIO4
   carrier_duty_percent: 50%
 
-switch:
+button:
   - platform: template
     name: "PTZ: Preset 0"
-    turn_on_action:
+    on_press:
       remote_transmitter.transmit_nec:
         address: 0xBB44
         command: 0xE21D
   - platform: template
     name: "PTZ: Preset 1"
-    turn_on_action:
+    on_press:
       remote_transmitter.transmit_nec:
         address: 0xBB44
         command: 0xF30C
   - platform: template
+    name: "PTZ: Preset 2"
+    on_press:
+      remote_transmitter.transmit_nec:
+        address: 0xBB44
+        command: 0xEE11
+  - platform: template
+    name: "PTZ: Preset 3"
+    on_press:
+      remote_transmitter.transmit_nec:
+        address: 0xBB44
+        command: 0xF10E
+  - platform: template
     name: "PTZ: Preset 4"
-    turn_on_action:
+    on_press:
       remote_transmitter.transmit_nec:
         address: 0xBB44
         command: 0xEF10
   - platform: template
     name: "PTZ: Backlight"
-    turn_on_action:
+    on_press:
       remote_transmitter.transmit_nec:
         address: 0xBB44
         command: 0xE817
