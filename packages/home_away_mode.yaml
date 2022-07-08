@@ -44,7 +44,7 @@ automation:
         entity_id: group.adults
         to: "home"
         for:
-          minutes: 5
+          minutes: 3
     # TODO: Guest mode condition
     action:
       - service: input_boolean.turn_on
@@ -58,76 +58,80 @@ automation:
         entity_id: group.adults
         to: "not_home"
         for:
-          minutes: 60
+          minutes: 5
     # TODO: Guest mode condition
     action:
+      - service: notify.corban
+        data:
+          title: "Away Mode Activating"
+          message: "Marking home unoccupied."
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.home_occupied
 
   ## Switch Actions ##
 
-  - alias: Living Room Switch - Press On sets the home as occupied
-    id: e639851a-63db-4fdb-8e21-1dbb35384b36
-    trigger:
-      - platform: device
-        device_id: c267d3d48bf04135851855dc4be36cbb
-        discovery_id: 0x000d6ffffea6b202 action_on
-        domain: mqtt
-        type: action
-        subtype: "on" # Up
-    action:
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.home_occupied
+  # - alias: Living Room Switch - Press On sets the home as occupied
+  #   id: e639851a-63db-4fdb-8e21-1dbb35384b36
+  #   trigger:
+  #     - platform: device
+  #       device_id: c267d3d48bf04135851855dc4be36cbb
+  #       discovery_id: 0x000d6ffffea6b202 action_on
+  #       domain: mqtt
+  #       type: action
+  #       subtype: "on" # Up
+  #   action:
+  #     - service: input_boolean.turn_on
+  #       data:
+  #         entity_id: input_boolean.home_occupied
 
-  - alias: Living Room Switch - Press Off sets the home as unoccupied
-    id: 3742c4ea-fd85-4332-9660-25d5f5b9b69a
-    trigger:
-      - platform: device
-        device_id: c267d3d48bf04135851855dc4be36cbb
-        discovery_id: 0x000d6ffffea6b202 action_off
-        domain: mqtt
-        type: action
-        subtype: "off" # Down
-    action:
-      - service: input_boolean.turn_off
-        data:
-          entity_id: input_boolean.home_occupied
+  # - alias: Living Room Switch - Press Off sets the home as unoccupied
+  #   id: 3742c4ea-fd85-4332-9660-25d5f5b9b69a
+  #   trigger:
+  #     - platform: device
+  #       device_id: c267d3d48bf04135851855dc4be36cbb
+  #       discovery_id: 0x000d6ffffea6b202 action_off
+  #       domain: mqtt
+  #       type: action
+  #       subtype: "off" # Down
+  #   action:
+  #     - service: input_boolean.turn_off
+  #       data:
+  #         entity_id: input_boolean.home_occupied
 
-  - alias: Living Room Switch - Hold On turns on movie mode
-    id: a3c6ff1d-63d0-45b1-8d4c-48d05e31a1fe
-    trigger:
-      - platform: device
-        device_id: c267d3d48bf04135851855dc4be36cbb
-        discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
-        domain: mqtt
-        type: action
-        subtype: brightness_move_up
-    action:
-      - service: scene.turn_on
-        entity_id: scene.movie_mode
+  # - alias: Living Room Switch - Hold On turns on movie mode
+  #   id: a3c6ff1d-63d0-45b1-8d4c-48d05e31a1fe
+  #   trigger:
+  #     - platform: device
+  #       device_id: c267d3d48bf04135851855dc4be36cbb
+  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
+  #       domain: mqtt
+  #       type: action
+  #       subtype: brightness_move_up
+  #   action:
+  #     - service: scene.turn_on
+  #       entity_id: scene.movie_mode
 
-  - alias: Living Room Switch - Hold Off for unoccupied and light on for cats
-    id: 9952b92c-fa1c-47d9-9ded-11e59e12c62e
-    trigger:
-      - platform: device
-        device_id: c267d3d48bf04135851855dc4be36cbb
-        discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
-        domain: mqtt
-        type: action
-        subtype: brightness_move_down
-    action:
-      - service: input_boolean.turn_off
-        data:
-          entity_id: input_boolean.home_occupied
-      - delay:
-          seconds: 5
-      - service: light.turn_on
-        data:
-          brightness_pct: 30
-        target:
-          entity_id: light.tv_lamp
+  # - alias: Living Room Switch - Hold Off for unoccupied and light on for cats
+  #   id: 9952b92c-fa1c-47d9-9ded-11e59e12c62e
+  #   trigger:
+  #     - platform: device
+  #       device_id: c267d3d48bf04135851855dc4be36cbb
+  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
+  #       domain: mqtt
+  #       type: action
+  #       subtype: brightness_move_down
+  #   action:
+  #     - service: input_boolean.turn_off
+  #       data:
+  #         entity_id: input_boolean.home_occupied
+  #     - delay:
+  #         seconds: 5
+  #     - service: light.turn_on
+  #       data:
+  #         brightness_pct: 30
+  #       target:
+  #         entity_id: light.tv_lamp
 
   ## Outputs/actions from Home/Away Changes ##
 
@@ -204,7 +208,7 @@ script:
       - service: media_player.volume_set
         data:
           entity_id: media_player.kitchen_speaker
-          volume_level: 0.5
+          volume_level: 0.6
       - service: tts.cloud_say
         entity_id: media_player.kitchen_speaker
         data_template:
