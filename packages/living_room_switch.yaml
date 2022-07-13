@@ -124,14 +124,16 @@ automation:
         target:
           entity_id: vacuum.valetudo_eve
 
-  # - id: 7d3730d4-093c-4340-b10c-03e517fcd74d
-  #   alias: Living Room Switch - Hold Off
-  #   trigger:
-  #     - platform: device
-  #       domain: mqtt
-  #       device_id: c267d3d48bf04135851855dc4be36cbb
-  #       type: action
-  #       subtype: brightness_move_down
-  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
-  #   condition:
-  #   action:
+  - id: 7d3730d4-093c-4340-b10c-03e517fcd74d
+    alias: Living Room Switch - Hold Off - Pause TV
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        type: action
+        subtype: brightness_move_down
+        discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
+    action:
+      - service: media_player.media_play_pause
+        target:
+          entity_id: media_player.living_room_apple_tv
