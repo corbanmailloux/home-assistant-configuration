@@ -57,3 +57,101 @@ automation:
         service: light.turn_off
         target:
           entity_id: light.kitchen_counter_lights
+
+script:
+  kitchen_light_show_on_off:
+    alias: "Kitchen Light Show - On/Off"
+    sequence:
+      - alias: "Disable kitchen light automation"
+        service: automation.turn_off
+        target:
+          entity_id: automation.kitchen_counter_lights_toggle_all_based_on_one
+      - alias: "All off"
+        service: light.turn_off
+        target:
+          entity_id: light.kitchen_counter_lights
+      - delay:
+          milliseconds: 150
+      - service: light.turn_on
+        target:
+          entity_id: light.kitchen_counter_light_1
+      - delay:
+          milliseconds: 150
+      - service: light.turn_on
+        target:
+          entity_id: light.kitchen_counter_light_2
+      - delay:
+          milliseconds: 150
+      - service: light.turn_on
+        target:
+          entity_id: light.kitchen_counter_light_3
+      - delay:
+          milliseconds: 300
+      - service: light.turn_off
+        target:
+          entity_id: light.kitchen_counter_light_3
+      - delay:
+          milliseconds: 150
+      - service: light.turn_off
+        target:
+          entity_id: light.kitchen_counter_light_2
+      - delay:
+          milliseconds: 150
+      - service: light.turn_off
+        target:
+          entity_id: light.kitchen_counter_light_1
+      - alias: "Enable kitchen light automation"
+        service: automation.turn_on
+        target:
+          entity_id: automation.kitchen_counter_lights_toggle_all_based_on_one
+
+  kitchen_light_show_round:
+    alias: "Kitchen Light Show - Round"
+    sequence:
+      - alias: "Disable kitchen light automation"
+        service: automation.turn_off
+        target:
+          entity_id: automation.kitchen_counter_lights_toggle_all_based_on_one
+      - alias: "All off"
+        service: light.turn_off
+        target:
+          entity_id: light.kitchen_counter_lights
+      - delay:
+          milliseconds: 150
+
+      - repeat:
+          count: 4
+          sequence:
+            - service: light.turn_on
+              target:
+                entity_id: light.kitchen_counter_light_1
+            - service: light.turn_off
+              target:
+                entity_id: light.kitchen_counter_light_3
+            - delay:
+                milliseconds: 200
+            - service: light.turn_on
+              target:
+                entity_id: light.kitchen_counter_light_2
+            - service: light.turn_off
+              target:
+                entity_id: light.kitchen_counter_light_1
+            - delay:
+                milliseconds: 200
+            - service: light.turn_on
+              target:
+                entity_id: light.kitchen_counter_light_3
+            - service: light.turn_off
+              target:
+                entity_id: light.kitchen_counter_light_2
+            - delay:
+                milliseconds: 200
+
+      - alias: "All off"
+        service: light.turn_off
+        target:
+          entity_id: light.kitchen_counter_lights
+      - alias: "Enable kitchen light automation"
+        service: automation.turn_on
+        target:
+          entity_id: automation.kitchen_counter_lights_toggle_all_based_on_one
