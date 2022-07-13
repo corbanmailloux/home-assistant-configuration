@@ -22,6 +22,7 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.ups_power_normal
+        from: "on"
         to: "off"
         variables:
           outage_start_time: "{{ now().timestamp() }}"
@@ -64,6 +65,7 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.ups_power_normal
+        from: "off"
         to: "on"
         variables:
           outage_stop_time: >-
@@ -75,7 +77,7 @@ automation:
         data:
           title: "Power Outage at Home - Recovered"
           message: >-
-            The power went out at {{ outage_start_time | float | timestamp_custom("%-I:%M %p") }} and returned at {{ outage_stop_time | float | timestamp_custom("%-I:%M %p") }} ({{ ((outage_stop_time | float) - (outage_start_time | float)) | int }} seconds).
+            The power went out at {{ outage_start_time | float | timestamp_custom("%-I:%M %p") }} and returned at {{ outage_stop_time | float | timestamp_custom("%-I:%M %p") }} ({{ ((outage_stop_time | float) - (outage_start_time | float)) | int / 60 }} minutes).
           data:
             tag: "power_outage"
             # Note that this replaces the previous notification. If power were to flicker repeatedly, there would only be one final notification.
