@@ -368,38 +368,6 @@
                             "type": "entities",
                             "entities": [
                                 {
-                                    "entity": "binary_sensor.updater_hacs",
-                                    "name": "HACS",
-                                    "icon": "hacs:hacs"
-                                },
-                                {
-                                    "entity": "binary_sensor.updater_addons",
-                                    "name": "Addons",
-                                    "icon": "mdi:docker"
-                                },
-                                {
-                                    "entity": "binary_sensor.updater_supervisor",
-                                    "name": "Supervisor",
-                                    "icon": "mdi:home-assistant"
-                                },
-                                {
-                                    "entity": "sensor.supervisor_updates",
-                                    "icon": "mdi:docker",
-                                    "name": "Addons"
-                                },
-                                {
-                                    "entity": "sensor.hacs",
-                                    "name": "HACS"
-                                }
-                            ],
-                            "title": "Updates",
-                            "show_header_toggle": false,
-                            "state_color": true
-                        },
-                        {
-                            "type": "entities",
-                            "entities": [
-                                {
                                     "entity": "vacuum.valetudo_eve"
                                 },
                                 {
