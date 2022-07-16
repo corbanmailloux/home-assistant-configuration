@@ -1,31 +1,278 @@
 {
-    "version": 1,
-    "minor_version": 1,
-    "key": "lovelace.lovelace_mushroom",
-    "data": {
-        "config": {
-            "views": [
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.lovelace_mushroom",
+  "data": {
+    "config": {
+      "button_card_templates": {
+        "header": {
+          "show_icon": false,
+          "show_name": true,
+          "show_state": false,
+          "show_label": false,
+          "styles": {
+            "card": [
+              {
+                "padding": "1rem"
+              },
+              {
+                "--ha-card-background": "none"
+              },
+              {
+                "box-shadow": "none"
+              }
+            ],
+            "grid": [
+              {
+                "grid-template-areas": "\"spacer1 . n . spacer2\""
+              },
+              {
+                "grid-template-columns": "1fr 1rem min-content 1rem 1fr"
+              },
+              {
+                "grid-template-rows": "min-content"
+              }
+            ],
+            "name": [
+              {
+                "justify-self": "center"
+              },
+              {
+                "font-weight": "bold"
+              },
+              {
+                "text-align": "center"
+              },
+              {
+                "align-items": "center"
+              },
+              {
+                "font-size": "1.5rem"
+              },
+              {
+                "font-weight": "bold"
+              }
+            ],
+            "custom_fields": {
+              "spacer1": [
                 {
-                    "title": "Home",
-                    "cards": [
-                        {
-                            "type": "custom:mushroom-media-player-card",
-                            "entity": "media_player.living_room_apple_tv",
-                            "icon": "mdi:television",
-                            "fill_container": false,
-                            "use_media_info": true,
-                            "use_media_artwork": false,
-                            "show_volume_level": false,
-                            "volume_controls": [],
-                            "media_controls": [
-                                "play_pause_stop",
-                                "on_off"
-                            ],
-                            "collapsible_controls": true
-                        }
-                    ]
+                  "background": "rgb(255, 255, 255)"
+                },
+                {
+                  "height": "1px"
+                },
+                {
+                  "width": "100%"
+                },
+                {
+                  "align-self": "center"
+                },
+                {
+                  "justify-self": "start"
                 }
-            ]
+              ],
+              "spacer2": [
+                {
+                  "background": "rgb(255, 255, 255)"
+                },
+                {
+                  "height": "1px"
+                },
+                {
+                  "width": "100%"
+                },
+                {
+                  "align-self": "center"
+                },
+                {
+                  "justify-self": "end"
+                }
+              ]
+            }
+          },
+          "custom_fields": {
+            "spacer1": "",
+            "spacer2": ""
+          },
+          "tap_action": {
+            "action": "none"
+          }
+        },
+        "header_clickable": {
+          "template": "header",
+          "tap_action": {
+            "action": "toggle"
+          }
         }
+      },
+      "views": [
+        {
+          "theme": "Backend-selected",
+          "title": "Home",
+          "type": "custom:vertical-layout",
+          "badges": [],
+          "cards": [
+            {
+              "type": "custom:button-card",
+              "name": "Living Room",
+              "template": "header"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.tv_lamp",
+                  "fill_container": true,
+                  "use_light_color": false,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": false,
+                  "show_color_control": false,
+                  "collapsible_controls": true
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.living_room_fan",
+                  "fill_container": true,
+                  "show_percentage_control": false,
+                  "collapsible_controls": false,
+                  "icon_animation": true,
+                  "name": "Fan",
+                  "layout": "vertical"
+                },
+                {
+                  "type": "custom:mushroom-media-player-card",
+                  "entity": "media_player.living_room_tv",
+                  "icon": "mdi:television",
+                  "fill_container": true,
+                  "name": "TV",
+                  "use_media_info": false,
+                  "show_volume_level": false,
+                  "media_controls": [
+                    "on_off",
+                    "play_pause_stop"
+                  ],
+                  "hold_action": {
+                    "action": "call-service",
+                    "service": "switch.turn_on",
+                    "data": {},
+                    "target": {
+                      "entity_id": "switch.living_room_tv_power"
+                    }
+                  },
+                  "volume_controls": [
+                    "volume_buttons"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "custom:button-card",
+              "name": "Bedroom",
+              "template": "header"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.bedroom_lamp",
+                  "fill_container": true,
+                  "use_light_color": false,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": false,
+                  "show_color_control": false,
+                  "collapsible_controls": true,
+                  "name": "Lamp"
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.bedroom_fan",
+                  "fill_container": true,
+                  "show_percentage_control": false,
+                  "collapsible_controls": false,
+                  "icon_animation": true,
+                  "name": "Fan"
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.fairy_lights",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "name": "Fairy",
+                  "collapsible_controls": true
+                }
+              ]
+            },
+            {
+              "type": "custom:button-card",
+              "name": "Office",
+              "template": "header"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office_lamp",
+                  "name": "Lamp",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "collapsible_controls": true
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.office_fan",
+                  "fill_container": true,
+                  "show_percentage_control": false,
+                  "collapsible_controls": false,
+                  "icon_animation": true,
+                  "name": "Fan"
+                }
+              ]
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "type": "custom:button-card",
+              "name": "Kitchen",
+              "template": "header"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.kitchen_counter_lights",
+                  "fill_container": true,
+                  "show_brightness_control": false,
+                  "collapsible_controls": true,
+                  "name": "Counter Lights",
+                  "layout": "vertical"
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "input_boolean.kitchen_lights_lock_on",
+                  "name": "Motion Lock",
+                  "layout": "vertical",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-vacuum-card",
+                  "entity": "vacuum.valetudo_eve",
+                  "fill_container": true,
+                  "commands": [
+                    "start_pause"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
+  }
 }
