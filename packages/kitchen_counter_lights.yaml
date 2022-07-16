@@ -1,5 +1,10 @@
 # In the kitchen, there are 3 separate counter lights. I have all of them on Zigbee smart plugs to allow automation.
 
+input_boolean:
+  kitchen_lights_lock_on:
+    name: Lock On Kitchen Lights
+    icon: mdi:upload-lock
+
 automation:
   - id: 82f4ed0d-77ed-4afc-9d63-5ea44e85a955
     alias: Kitchen Counter Lights - Toggle all based on one
@@ -16,6 +21,10 @@ automation:
           {% endif %}
         target:
           entity_id: light.kitchen_counter_lights
+      - alias: "Reset lock lockout"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.kitchen_lights_lock_on
     mode: single
 
   - id: 95a3a27b-a251-4665-8976-17ae27132e22
@@ -53,6 +62,14 @@ automation:
           to: "off"
       - delay:
           minutes: 5
+      - alias: "Wait if the lights are locked on"
+        wait_template: "{{ is_state('input_boolean.kitchen_lights_lock_on', 'off') }}"
+      - alias: "Turn off one light as a warning"
+        service: light.turn_off
+        target:
+          entity_id: light.kitchen_counter_light_1
+      - delay:
+          seconds: 10
       - alias: "Turn off all counter lights"
         service: light.turn_off
         target:
