@@ -1,0 +1,46 @@
+# The washer is plugged into a power-monitoring smart plug (Linksio).
+# It's flashed with Tasmota, and `PowerOnState 4` means that it's always on.
+
+template:
+  - binary_sensor:
+      - name: "Washing Machine Running"
+        unique_id: 5b770b3c-326a-49ca-87ee-fa3de53fdeff
+        device_class: running
+        delay_off:
+          minutes: 3
+        state: >-
+          {{ states('sensor.washing_machine_power_draw')|float > 3 }}
+        icon: >
+          {% if is_state("binary_sensor.washing_machine_running", "on") %}
+            mdi:washing-machine
+          {% else %}
+            mdi:washing-machine-off
+          {% endif %}
+
+automation:
+  - id: e3edfa1f-a705-4394-bedb-945151332a3c
+    alias: Notify when washing machine finishes
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.washing_machine_running
+        from: "on"
+        to: "off"
+    action:
+      - alias: "Notify both adults"
+        service: notify.adult_phones
+        data:
+          title: "Laundry Reminder"
+          message: "Washing machine done."
+
+  - id: e9c61496-aaf4-476a-9f14-dce6ad87ebfc
+    alias: Notify Corban when washing machine starts - temporary for testing
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.washing_machine_running
+        from: "off"
+        to: "on"
+    action:
+      - service: notify.corban
+        data:
+          title: "Laundry Reminder - Debug"
+          message: "Washing machine starting. Draw: {{ states('sensor.washing_machine_power_draw')|float }} W."
