@@ -7,7 +7,7 @@ template:
         unique_id: 5b770b3c-326a-49ca-87ee-fa3de53fdeff
         device_class: running
         delay_off:
-          minutes: 3
+          minutes: 6
         state: >-
           {{ states('sensor.washing_machine_power_draw')|float > 3 }}
         icon: >
