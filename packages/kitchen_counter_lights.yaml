@@ -61,7 +61,7 @@ automation:
           from: "on"
           to: "off"
       - delay:
-          minutes: 5
+          minutes: 10
       - alias: "Wait if the lights are locked on"
         wait_template: "{{ is_state('input_boolean.kitchen_lights_lock_on', 'off') }}"
       - alias: "Turn off one light as a warning"

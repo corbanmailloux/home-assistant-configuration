@@ -44,7 +44,7 @@ automation:
         entity_id: group.adults
         to: "home"
         for:
-          minutes: 3
+          minutes: 2
     # TODO: Guest mode condition
     action:
       - service: input_boolean.turn_on
@@ -58,8 +58,12 @@ automation:
         entity_id: group.adults
         to: "not_home"
         for:
-          minutes: 5
+          minutes: 3
     # TODO: Guest mode condition
+    condition:
+      - condition: state
+        entity_id: input_boolean.home_occupied
+        state: "on"
     action:
       - service: notify.corban
         data:
