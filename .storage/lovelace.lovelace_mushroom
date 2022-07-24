@@ -103,11 +103,121 @@
           "tap_action": {
             "action": "toggle"
           }
+        },
+        "header_temperature_clickable": {
+          "show_icon": false,
+          "show_name": true,
+          "show_state": true,
+          "show_label": false,
+          "styles": {
+            "card": [
+              {
+                "padding": "1rem"
+              },
+              {
+                "--ha-card-background": "none"
+              },
+              {
+                "box-shadow": "none"
+              }
+            ],
+            "grid": [
+              {
+                "grid-template-areas": "\"spacer1 . n . s . spacer2\""
+              },
+              {
+                "grid-template-columns": "1fr 1rem min-content 1rem min-content 1rem 1fr"
+              },
+              {
+                "grid-template-rows": "min-content"
+              }
+            ],
+            "name": [
+              {
+                "justify-self": "center"
+              },
+              {
+                "text-align": "center"
+              },
+              {
+                "align-items": "center"
+              },
+              {
+                "font-size": "1.4rem"
+              },
+              {
+                "font-weight": "bold"
+              },
+              {
+                "margin": "auto"
+              }
+            ],
+            "state": [
+              {
+                "justify-self": "center"
+              },
+              {
+                "text-align": "center"
+              },
+              {
+                "align-items": "center"
+              },
+              {
+                "font-size": "1.2rem"
+              },
+              {
+                "margin": "auto"
+              }
+            ],
+            "custom_fields": {
+              "spacer1": [
+                {
+                  "background": "rgb(255, 255, 255)"
+                },
+                {
+                  "height": "1px"
+                },
+                {
+                  "width": "100%"
+                },
+                {
+                  "align-self": "center"
+                },
+                {
+                  "justify-self": "start"
+                }
+              ],
+              "spacer2": [
+                {
+                  "background": "rgb(255, 255, 255)"
+                },
+                {
+                  "height": "1px"
+                },
+                {
+                  "width": "100%"
+                },
+                {
+                  "align-self": "center"
+                },
+                {
+                  "justify-self": "end"
+                }
+              ]
+            }
+          },
+          "custom_fields": {
+            "spacer1": "",
+            "spacer2": ""
+          },
+          "tap_action": {
+            "action": "more-info"
+          }
         }
       },
       "views": [
         {
-          "theme": "Backend-selected",
+          "theme": "Mushroom Square",
           "title": "Home",
           "type": "custom:vertical-layout",
           "badges": [],
@@ -115,7 +225,8 @@
             {
               "type": "custom:button-card",
               "name": "Living Room",
-              "template": "header"
+              "entity": "sensor.living_room_temperature",
+              "template": "header_temperature_clickable"
             },
             {
               "type": "horizontal-stack",
@@ -129,8 +240,34 @@
                   "show_color_temp_control": false,
                   "show_color_control": false,
                   "collapsible_controls": true,
-                  "name": "Lamp"
+                  "name": "Lamp",
+                  "hold_action": {
+                    "action": "more-info"
+                  }
                 },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.living_room_wall_light_1",
+                  "fill_container": true,
+                  "use_light_color": false,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": false,
+                  "show_color_control": false,
+                  "collapsible_controls": true,
+                  "name": "Ceiling Light 1",
+                  "icon": "mdi:ceiling-light",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
                 {
                   "type": "custom:mushroom-fan-card",
                   "entity": "fan.living_room_fan",
@@ -138,8 +275,7 @@
                   "show_percentage_control": false,
                   "collapsible_controls": false,
                   "icon_animation": true,
-                  "name": "Fan",
-                  "layout": "vertical"
+                  "name": "Fan"
                 },
                 {
                   "type": "custom:mushroom-media-player-card",
@@ -168,37 +304,10 @@
               ]
             },
             {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.tv_lamp",
-                  "fill_container": true,
-                  "use_light_color": false,
-                  "show_brightness_control": true,
-                  "show_color_temp_control": false,
-                  "show_color_control": false,
-                  "collapsible_controls": true,
-                  "name": "Lamp"
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.living_room_wall_light_1",
-                  "fill_container": true,
-                  "use_light_color": false,
-                  "show_brightness_control": true,
-                  "show_color_temp_control": false,
-                  "show_color_control": false,
-                  "collapsible_controls": true,
-                  "name": "Ceiling Light 1",
-                  "icon": "mdi:ceiling-light"
-                }
-              ]
-            },
-            {
               "type": "custom:button-card",
               "name": "Bedroom",
-              "template": "header"
+              "entity": "sensor.bedroom_temperature",
+              "template": "header_temperature_clickable"
             },
             {
               "type": "horizontal-stack",
@@ -236,7 +345,8 @@
             {
               "type": "custom:button-card",
               "name": "Office",
-              "template": "header"
+              "entity": "sensor.office_temperature",
+              "template": "header_temperature_clickable"
             },
             {
               "type": "horizontal-stack",
@@ -257,6 +367,33 @@
                   "collapsible_controls": false,
                   "icon_animation": true,
                   "name": "Fan"
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.corbans_office_ac",
+                  "name": "AC",
+                  "icon": "mdi:air-conditioner",
+                  "fill_container": true,
+                  "hvac_modes": [
+                    "cool",
+                    "off"
+                  ],
+                  "show_temperature_control": true,
+                  "collapsible_controls": true,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "primary_info": "state",
+                  "secondary_info": "none",
+                  "layout": "horizontal",
+                  "tap_action": {
+                    "action": "more-info"
+                  }
                 }
               ]
             },
