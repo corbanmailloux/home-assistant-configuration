@@ -72,15 +72,14 @@ aircast.xml
 .storage/*
 !.storage/lovelace*
 
-# HACS Custom Components
-custom_components/hacs/
-custom_components/adaptive_lighting/
-custom_components/xiaomi_cloud_map_extractor/
-custom_components/google_home/
-custom_components/browser_mod/
-custom_components/frigate/
-custom_components/apple_tv/
-custom_components/spotcast/
+# Most of my custom components are managed by HACS.
+custom_components/
+!custom_components/package_concierge/
+
+# Themes: These are managed by HACS
+themes/midnight/
+themes/mushroom/
+themes/noctis/
 
 # ESPHome
 esphome/*
