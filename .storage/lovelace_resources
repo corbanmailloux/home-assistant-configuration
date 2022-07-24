@@ -1,89 +1,89 @@
 {
-    "version": 1,
-    "minor_version": 1,
-    "key": "lovelace_resources",
-    "data": {
-        "items": [
-            {
-                "id": "28c4a145735f43cc87c5a24a7fb4f4b6",
-                "type": "module",
-                "url": "/hacsfiles/lovelace-card-tools/card-tools.js"
-            },
-            {
-                "id": "9fb206a7694a4cdcb5fa596e6914ee83",
-                "type": "module",
-                "url": "/hacsfiles/roku-card/roku-card.js?hacstag=164367214124"
-            },
-            {
-                "id": "4047cd6f267f4453bfddfd94708537d8",
-                "type": "module",
-                "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381164"
-            },
-            {
-                "id": "67bafd0677544c748363f9561ce64446",
-                "type": "module",
-                "url": "/hacsfiles/lovelace-slider-entity-row/slider-entity-row.js?hacstag=1448997001721"
-            },
-            {
-                "id": "220c76e6863c4c1f831d5aaa2a58b793",
-                "type": "module",
-                "url": "/hacsfiles/simple-thermostat/simple-thermostat.js?hacstag=158654878243"
-            },
-            {
-                "id": "2ecb0875b3bc4c8ab53a257f098adf41",
-                "type": "module",
-                "url": "/hacsfiles/button-card/button-card.js"
-            },
-            {
-                "id": "e577585c2be34a5ea55084e31269460e",
-                "type": "module",
-                "url": "/hacsfiles/text-divider-row/text-divider-row.js?hacstag=179788256141"
-            },
-            {
-                "id": "49dae12118f643c19955e01675348008",
-                "type": "module",
-                "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620110"
-            },
-            {
-                "id": "b9ec5fec89054ffeb91508eafed17d54",
-                "type": "module",
-                "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524315"
-            },
-            {
-                "id": "9717aed771b445c5965d83897ccb1714",
-                "type": "module",
-                "url": "/hacsfiles/weather-card/weather-card.js"
-            },
-            {
-                "url": "/hacsfiles/google_home_timers_card/googletimers-card.js",
-                "type": "module",
-                "id": "35185b85c10b415696425cfa04a66d1f"
-            },
-            {
-                "url": "/hacsfiles/lovelace-valetudo-map-card/valetudo-map-card.js?hacstag=2030361082022012",
-                "type": "module",
-                "id": "1cf10dc4f7744e18b1b9f06015ba439e"
-            },
-            {
-                "url": "/hacsfiles/lovelace-layout-card/layout-card.js?hacstag=156434866242",
-                "type": "module",
-                "id": "ad5e2552f9ec4dbb96308ac020109a99"
-            },
-            {
-                "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994220",
-                "type": "module",
-                "id": "3be86917498147c08cb200b17d63894b"
-            },
-            {
-                "url": "/hacsfiles/threedy/threedy-card.js?hacstag=33288368520211125",
-                "type": "module",
-                "id": "ff34917b3c6a44b4b37d905f037ebc51"
-            },
-            {
-                "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375200",
-                "type": "module",
-                "id": "39a732e40929449aab2045af85893af1"
-            }
-        ]
-    }
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace_resources",
+  "data": {
+    "items": [
+      {
+        "id": "28c4a145735f43cc87c5a24a7fb4f4b6",
+        "type": "module",
+        "url": "/hacsfiles/lovelace-card-tools/card-tools.js"
+      },
+      {
+        "id": "9fb206a7694a4cdcb5fa596e6914ee83",
+        "type": "module",
+        "url": "/hacsfiles/roku-card/roku-card.js?hacstag=164367214124"
+      },
+      {
+        "id": "4047cd6f267f4453bfddfd94708537d8",
+        "type": "module",
+        "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381164"
+      },
+      {
+        "id": "67bafd0677544c748363f9561ce64446",
+        "type": "module",
+        "url": "/hacsfiles/lovelace-slider-entity-row/slider-entity-row.js?hacstag=1448997001721"
+      },
+      {
+        "id": "220c76e6863c4c1f831d5aaa2a58b793",
+        "type": "module",
+        "url": "/hacsfiles/simple-thermostat/simple-thermostat.js?hacstag=158654878243"
+      },
+      {
+        "id": "2ecb0875b3bc4c8ab53a257f098adf41",
+        "type": "module",
+        "url": "/hacsfiles/button-card/button-card.js"
+      },
+      {
+        "id": "e577585c2be34a5ea55084e31269460e",
+        "type": "module",
+        "url": "/hacsfiles/text-divider-row/text-divider-row.js?hacstag=179788256141"
+      },
+      {
+        "id": "49dae12118f643c19955e01675348008",
+        "type": "module",
+        "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620110"
+      },
+      {
+        "id": "b9ec5fec89054ffeb91508eafed17d54",
+        "type": "module",
+        "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524315"
+      },
+      {
+        "id": "9717aed771b445c5965d83897ccb1714",
+        "type": "module",
+        "url": "/hacsfiles/weather-card/weather-card.js"
+      },
+      {
+        "url": "/hacsfiles/google_home_timers_card/googletimers-card.js",
+        "type": "module",
+        "id": "35185b85c10b415696425cfa04a66d1f"
+      },
+      {
+        "url": "/hacsfiles/lovelace-valetudo-map-card/valetudo-map-card.js?hacstag=2030361082022012",
+        "type": "module",
+        "id": "1cf10dc4f7744e18b1b9f06015ba439e"
+      },
+      {
+        "url": "/hacsfiles/lovelace-layout-card/layout-card.js?hacstag=156434866242",
+        "type": "module",
+        "id": "ad5e2552f9ec4dbb96308ac020109a99"
+      },
+      {
+        "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994220",
+        "type": "module",
+        "id": "3be86917498147c08cb200b17d63894b"
+      },
+      {
+        "url": "/hacsfiles/threedy/threedy-card.js?hacstag=33288368520211125",
+        "type": "module",
+        "id": "ff34917b3c6a44b4b37d905f037ebc51"
+      },
+      {
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375211",
+        "type": "module",
+        "id": "39a732e40929449aab2045af85893af1"
+      }
+    ]
+  }
 }
