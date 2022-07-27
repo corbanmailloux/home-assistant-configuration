@@ -103,188 +103,410 @@
           "tap_action": {
             "action": "toggle"
           }
+        },
+        "header_temperature_clickable": {
+          "show_icon": false,
+          "show_name": true,
+          "show_state": true,
+          "show_label": false,
+          "styles": {
+            "card": [
+              {
+                "padding": "1rem"
+              },
+              {
+                "--ha-card-background": "none"
+              },
+              {
+                "box-shadow": "none"
+              }
+            ],
+            "grid": [
+              {
+                "grid-template-areas": "\"spacer1 . n . s . spacer2\""
+              },
+              {
+                "grid-template-columns": "1fr 1rem min-content 1rem min-content 1rem 1fr"
+              },
+              {
+                "grid-template-rows": "min-content"
+              }
+            ],
+            "name": [
+              {
+                "justify-self": "center"
+              },
+              {
+                "text-align": "center"
+              },
+              {
+                "align-items": "center"
+              },
+              {
+                "font-size": "1.4rem"
+              },
+              {
+                "font-weight": "bold"
+              },
+              {
+                "margin": "auto"
+              }
+            ],
+            "state": [
+              {
+                "justify-self": "center"
+              },
+              {
+                "text-align": "center"
+              },
+              {
+                "align-items": "center"
+              },
+              {
+                "font-size": "1.2rem"
+              },
+              {
+                "margin": "auto"
+              }
+            ],
+            "custom_fields": {
+              "spacer1": [
+                {
+                  "background": "rgb(255, 255, 255)"
+                },
+                {
+                  "height": "1px"
+                },
+                {
+                  "width": "100%"
+                },
+                {
+                  "align-self": "center"
+                },
+                {
+                  "justify-self": "start"
+                }
+              ],
+              "spacer2": [
+                {
+                  "background": "rgb(255, 255, 255)"
+                },
+                {
+                  "height": "1px"
+                },
+                {
+                  "width": "100%"
+                },
+                {
+                  "align-self": "center"
+                },
+                {
+                  "justify-self": "end"
+                }
+              ]
+            }
+          },
+          "custom_fields": {
+            "spacer1": "",
+            "spacer2": ""
+          },
+          "tap_action": {
+            "action": "more-info"
+          }
         }
       },
-      "title": "Home",
       "views": [
         {
-          "icon": "mdi:home",
-          "path": "home",
+          "theme": "Mushroom Square",
           "title": "Home",
           "type": "custom:vertical-layout",
+          "icon": "mdi:home",
           "badges": [],
           "cards": [
             {
-              "type": "custom:button-card",
-              "entity": "group.living_room_lights",
-              "name": "Living Room",
-              "template": "header_clickable"
-            },
-            {
-              "cards": [
+              "type": "custom:mushroom-chips-card",
+              "chips": [
                 {
-                  "entity": "switch.living_room_tv_power",
-                  "name": "TV",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "hold_action": {
-                    "action": "call-service",
-                    "service": "switch.turn_on",
-                    "service_data": {
-                      "entity_id": "switch.living_room_tv_power"
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "input_boolean.vacation_mode",
+                      "state": "on"
                     }
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "type": "custom:button-card"
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.vacation_mode",
+                    "icon_color": "blue",
+                    "content_info": "name",
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "hold_action": {
+                      "action": "more-info"
+                    },
+                    "double_tap_action": {
+                      "action": "none"
+                    }
+                  }
                 },
                 {
-                  "entity": "light.tv_lamp",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "type": "custom:button-card"
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "input_boolean.litter_box_clean_needed",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.litter_box_clean_needed",
+                    "icon_color": "red",
+                    "use_entity_picture": false,
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "icon": "mdi:broom",
+                    "content_info": "name",
+                    "hold_action": {
+                      "action": "more-info"
+                    },
+                    "double_tap_action": {
+                      "action": "none"
+                    }
+                  }
                 },
                 {
-                  "entity": "fan.living_room_fan",
-                  "name": "Fan",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "type": "custom:button-card"
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "input_boolean.cat_claw_clip_needed",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.cat_claw_clip_needed",
+                    "icon_color": "yellow",
+                    "content_info": "name",
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "hold_action": {
+                      "action": "call-service",
+                      "service": "script.cat_claw_clipped_run_eve",
+                      "data": {},
+                      "target": {}
+                    },
+                    "double_tap_action": {
+                      "action": "none"
+                    }
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "sensor.eve_bin",
+                      "state_not": "0"
+                    },
+                    {
+                      "entity": "sensor.eve_bin",
+                      "state_not": "unknown"
+                    }
+                  ],
+                  "chip": {
+                    "type": "template",
+                    "entity": "sensor.eve_bin",
+                    "icon": "mdi:delete-variant",
+                    "content": "Eve's Bin: {{ states('sensor.eve_bin') | int }} min",
+                    "icon_color": "red",
+                    "double_tap_action": {
+                      "action": "none"
+                    },
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "hold_action": {
+                      "action": "more-info"
+                    }
+                  }
                 }
               ],
-              "type": "horizontal-stack"
+              "alignment": "center"
             },
             {
               "type": "custom:button-card",
-              "entity": "group.office_lights",
-              "name": "Office",
-              "template": "header_clickable"
-            },
-            {
-              "cards": [
-                {
-                  "entity": "light.office_lamp",
-                  "name": "Lamp",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "light.office_leds",
-                  "name": "LEDs",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "color": "auto",
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "fan.office_fan",
-                  "name": "Fan",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "type": "custom:button-card",
-              "entity": "group.bedroom_lights",
-              "name": "Bedroom",
-              "template": "header_clickable"
+              "name": "Living Room",
+              "entity": "sensor.living_room_temperature",
+              "template": "header_temperature_clickable"
             },
             {
               "type": "horizontal-stack",
               "cards": [
                 {
-                  "entity": "light.bedroom_lamp",
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.tv_lamp",
+                  "fill_container": true,
+                  "use_light_color": false,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": false,
+                  "show_color_control": false,
+                  "collapsible_controls": true,
                   "name": "Lamp",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.living_room_wall_light_1",
+                  "fill_container": true,
+                  "use_light_color": false,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": false,
+                  "show_color_control": false,
+                  "collapsible_controls": true,
+                  "name": "Ceiling Light 1",
+                  "icon": "mdi:ceiling-light",
                   "hold_action": {
                     "action": "more-info"
                   },
                   "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "type": "custom:button-card"
+                    "action": "none"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.living_room_fan",
+                  "fill_container": true,
+                  "show_percentage_control": false,
+                  "collapsible_controls": false,
+                  "icon_animation": true,
+                  "name": "Fan"
                 },
                 {
-                  "entity": "light.fairy_lights",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
+                  "type": "custom:mushroom-media-player-card",
+                  "entity": "media_player.living_room_tv",
+                  "icon": "mdi:television",
+                  "fill_container": true,
+                  "name": "TV",
+                  "use_media_info": false,
+                  "show_volume_level": false,
+                  "media_controls": [
+                    "on_off",
+                    "play_pause_stop"
+                  ],
                   "hold_action": {
-                    "action": "more-info"
+                    "action": "call-service",
+                    "service": "switch.turn_on",
+                    "data": {},
+                    "target": {
+                      "entity_id": "switch.living_room_tv_power"
+                    }
                   },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "type": "custom:button-card"
+                  "volume_controls": [
+                    "volume_buttons"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "custom:button-card",
+              "name": "Bedroom",
+              "entity": "sensor.bedroom_temperature",
+              "template": "header_temperature_clickable"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.bedroom_lamp",
+                  "fill_container": true,
+                  "use_light_color": false,
+                  "show_brightness_control": true,
+                  "show_color_temp_control": false,
+                  "show_color_control": false,
+                  "collapsible_controls": true,
+                  "name": "Lamp"
                 },
                 {
+                  "type": "custom:mushroom-fan-card",
                   "entity": "fan.bedroom_fan",
-                  "name": "Fan",
+                  "fill_container": true,
+                  "show_percentage_control": false,
+                  "collapsible_controls": false,
+                  "icon_animation": true,
+                  "name": "Fan"
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.fairy_lights",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "name": "Fairy",
+                  "collapsible_controls": true
+                }
+              ]
+            },
+            {
+              "type": "custom:button-card",
+              "name": "Office",
+              "entity": "sensor.office_temperature",
+              "template": "header_temperature_clickable"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office_lamp",
+                  "name": "Lamp",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "collapsible_controls": true
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.office_fan",
+                  "fill_container": true,
+                  "show_percentage_control": false,
+                  "collapsible_controls": false,
+                  "icon_animation": true,
+                  "name": "Fan"
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.corbans_office_ac",
+                  "name": "AC",
+                  "icon": "mdi:air-conditioner",
+                  "fill_container": true,
+                  "hvac_modes": [
+                    "cool",
+                    "off"
+                  ],
+                  "show_temperature_control": true,
+                  "collapsible_controls": true,
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
+                  "primary_info": "state",
+                  "secondary_info": "none",
+                  "layout": "horizontal",
                   "tap_action": {
-                    "action": "toggle"
-                  },
-                  "type": "custom:button-card"
+                    "action": "more-info"
+                  }
                 }
               ]
             },
@@ -292,784 +514,94 @@
               "type": "custom:layout-break"
             },
             {
+              "type": "custom:button-card",
+              "name": "Kitchen",
+              "template": "header"
+            },
+            {
+              "type": "horizontal-stack",
               "cards": [
                 {
-                  "aspect_ratio": "0%",
-                  "entities": [
-                    {
-                      "entity": "sensor.corban_location_icon"
-                    }
-                  ],
-                  "entity": "binary_sensor.corban_person_home",
-                  "image": "/local/images/corban.jpg",
-                  "type": "picture-glance"
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.kitchen_counter_lights",
+                  "fill_container": true,
+                  "show_brightness_control": false,
+                  "collapsible_controls": true,
+                  "name": "Counter Lights",
+                  "layout": "vertical"
                 },
                 {
-                  "entity": "input_boolean.home_occupied",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "show_state": false,
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "input_boolean.kitchen_lights_lock_on",
+                  "name": "Motion Lock",
+                  "layout": "vertical",
                   "tap_action": {
                     "action": "toggle"
-                  },
-                  "type": "button"
+                  }
                 },
                 {
-                  "entities": [
-                    {
-                      "entity": "sensor.maggie_location_icon"
-                    }
-                  ],
-                  "entity": "binary_sensor.maggie_person_home",
-                  "image": "/local/images/maggie.jpg",
-                  "type": "picture-glance"
+                  "type": "custom:mushroom-vacuum-card",
+                  "entity": "vacuum.valetudo_eve",
+                  "fill_container": true,
+                  "commands": [
+                    "start_pause"
+                  ]
                 }
-              ],
-              "type": "horizontal-stack"
+              ]
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "environment",
+          "path": "environment",
+          "icon": "mdi:thermometer-lines",
+          "type": "custom:vertical-layout",
+          "badges": [
+            {
+              "entity": "sensor.openweathermap_temperature"
             },
             {
-              "current": true,
-              "details": false,
-              "entity": "weather.openweathermap",
-              "forecast": true,
-              "hourly_forecast": false,
-              "icons": "https://cdn.jsdelivr.net/gh/bramkragten/weather-card@latest/icons/static/",
-              "number_of_forecasts": "5",
-              "type": "custom:weather-card",
-              "name": "Home"
+              "entity": "sensor.office_temperature"
             },
             {
-              "cards": [
+              "entity": "sensor.living_room_temperature"
+            },
+            {
+              "entity": "sensor.bedroom_temperature"
+            }
+          ],
+          "cards": [
+            {
+              "type": "custom:mini-graph-card",
+              "name": "Temperatures",
+              "hours_to_show": 24,
+              "points_per_hour": 2,
+              "height": 400,
+              "show": {
+                "fill": false,
+                "state": false,
+                "legend": true,
+                "labels": true
+              },
+              "entities": [
                 {
                   "entity": "sensor.living_room_temperature",
-                  "icon": "mdi:home-thermometer",
-                  "layout": "icon_state",
-                  "name": "Living Room",
-                  "show_icon": true,
-                  "show_state": true,
-                  "styles": {
-                    "state": [
-                      {
-                        "font-size": "18px"
-                      }
-                    ]
-                  },
-                  "type": "custom:button-card"
+                  "name": "Living Room"
                 },
                 {
                   "entity": "sensor.bedroom_temperature",
-                  "icon": "mdi:bed",
-                  "layout": "icon_state",
-                  "name": "Bedroom",
-                  "show_icon": true,
-                  "show_state": true,
-                  "styles": {
-                    "state": [
-                      {
-                        "font-size": "18px"
-                      }
-                    ]
-                  },
-                  "type": "custom:button-card"
+                  "name": "Bedroom"
                 },
                 {
                   "entity": "sensor.office_temperature",
-                  "icon": "mdi:monitor-multiple",
-                  "layout": "icon_state",
-                  "name": "Office",
-                  "show_icon": true,
-                  "show_state": true,
-                  "styles": {
-                    "state": [
-                      {
-                        "font-size": "18px"
-                      }
-                    ]
-                  },
-                  "type": "custom:button-card"
+                  "name": "Office"
+                },
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "Outside"
                 }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "cards": [
-                {
-                  "aspect_ratio": "1/1",
-                  "entity": "input_boolean.litter_box_clean_skip",
-                  "show_name": false,
-                  "type": "custom:button-card"
-                },
-                {
-                  "aspect_ratio": "1/1",
-                  "entity": "input_boolean.guest_mode",
-                  "name": "Guest Mode",
-                  "show_name": false,
-                  "type": "custom:button-card"
-                },
-                {
-                  "aspect_ratio": "1/1",
-                  "entity": "input_boolean.wall_display_show_map",
-                  "name": "Show Map",
-                  "show_name": false,
-                  "type": "custom:button-card"
-                },
-                {
-                  "aspect_ratio": "1/1",
-                  "entity": "input_boolean.wall_display_show_vacuum",
-                  "name": "Show Map",
-                  "show_name": false,
-                  "type": "custom:button-card"
-                },
-                {
-                  "aspect_ratio": "1/1",
-                  "entity": "input_boolean.training_mode",
-                  "show_name": false,
-                  "type": "custom:button-card"
-                },
-                {
-                  "aspect_ratio": "1/1",
-                  "color_type": "blank-card",
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "card": {
-                "color": "red",
-                "entity": "binary_sensor.corban_on_a_call",
-                "layout": "icon_name",
-                "show_icon": true,
-                "show_state": false,
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "binary_sensor.corban_on_a_call",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "card": {
-                "title": "Low Batteries"
-              },
-              "entities": [
-                {
-                  "entity": "sensor.corbans_iphone_battery_level",
-                  "name": "Corban's iPhone"
-                },
-                {
-                  "entity": "sensor.edna_battery_level",
-                  "name": "Maggie's Phone"
-                },
-                {
-                  "entity": "sensor.0x000d6ffffea6b202_battery",
-                  "name": "IKEA Remote"
-                },
-                {
-                  "entity": "sensor.corban_bedside_button_battery",
-                  "name": "Corban's Bedside Button"
-                },
-                {
-                  "entity": "sensor.maggie_bedside_button_battery",
-                  "name": "Maggie's Bedside Remote"
-                },
-                {
-                  "entity": "sensor.front_door_sensor_battery",
-                  "name": "Front Door Sensor"
-                },
-                {
-                  "entity": "sensor.office_door_sensor_battery",
-                  "name": "Office Door Sensor"
-                },
-                {
-                  "entity": "sensor.living_room_sensor_battery",
-                  "name": "Living Room Temperature Sensor"
-                },
-                {
-                  "entity": "sensor.network_closet_sensor_battery",
-                  "name": "Network Closet Temperature Sensor"
-                }
-              ],
-              "show_empty": false,
-              "state_filter": [
-                {
-                  "operator": "<",
-                  "value": 25
-                }
-              ],
-              "type": "entity-filter"
-            },
-            {
-              "card": {
-                "cards": [
-                  {
-                    "type": "gauge",
-                    "entity": "sensor.maggie_time_to_home_for_display",
-                    "min": 0,
-                    "needle": true,
-                    "severity": {
-                      "green": 30,
-                      "yellow": 10,
-                      "red": 0
-                    },
-                    "unit": " ",
-                    "max": 60
-                  },
-                  {
-                    "dark_mode": false,
-                    "entities": [
-                      {
-                        "entity": "person.corban"
-                      },
-                      {
-                        "entity": "person.maggie"
-                      },
-                      {
-                        "entity": "zone.home"
-                      },
-                      {
-                        "entity": "zone.re"
-                      }
-                    ],
-                    "type": "map",
-                    "hours_to_show": 1,
-                    "default_zoom": 8,
-                    "aspect_ratio": "1"
-                  }
-                ],
-                "type": "horizontal-stack"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.wall_display_show_map",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "card": {
-                "color": "red",
-                "entity": "input_boolean.litter_box_clean_needed",
-                "layout": "icon_name",
-                "name": "Litter Box Clean Needed",
-                "show_icon": true,
-                "show_state": false,
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.litter_box_clean_needed",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "card": {
-                "color": "green",
-                "entity": "input_boolean.put_trash_out_display",
-                "name": "Time to put the trash out",
-                "layout": "icon_name",
-                "show_icon": true,
-                "show_state": false,
-                "tap_action": {
-                  "action": "toggle"
-                },
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.put_trash_out_display",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "media_player.google_homes",
-                  "state_not": "off"
-                }
-              ],
-              "card": {
-                "type": "custom:mini-media-player",
-                "toggle_power": true,
-                "entity": "media_player.google_homes"
-              }
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "input_boolean.wall_display_show_vacuum",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "type": "vertical-stack",
-                "cards": [
-                  {
-                    "type": "custom:button-card",
-                    "name": "Vacuum",
-                    "template": "header"
-                  },
-                  {
-                    "cards": [
-                      {
-                        "entity": "input_boolean.vacuum_kitchen",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "input_boolean.vacuum_1st_floor_bath",
-                        "name": "1st Fl. Bath",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "script.toggle_all_room_selections",
-                        "name": "Toggle All",
-                        "icon": "mdi:toggle-switch-off-outline",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "script.vacuum_clean_segments",
-                        "name": "Start",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      }
-                    ],
-                    "type": "horizontal-stack"
-                  },
-                  {
-                    "title": "",
-                    "type": "custom:valetudo-map-card",
-                    "vacuum": "valetudo_eve",
-                    "rotate": 0,
-                    "map_scale": 1.5,
-                    "crop": {
-                      "top": 45,
-                      "bottom": 0,
-                      "left": 70,
-                      "right": 0
-                    }
-                  }
-                ]
-              }
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "sensor.eve_bin",
-                  "state_not": "0"
-                },
-                {
-                  "entity": "sensor.eve_bin",
-                  "state_not": "unknown"
-                }
-              ],
-              "card": {
-                "color": "red",
-                "entity": "sensor.eve_bin",
-                "layout": "icon_name_state2nd",
-                "name": "Empty Eve's Bin",
-                "show_icon": true,
-                "show_state": true,
-                "type": "custom:button-card"
-              }
-            },
-            {
-              "card": {
-                "type": "custom:threedy-card",
-                "base_entity": "sensor.octoprint",
-                "printer_type": "Cantilever",
-                "name": "OctoPi",
-                "monitored": [
-                  "Status",
-                  "Hotend",
-                  "Elapsed",
-                  "Remaining"
-                ],
-                "temperature_unit": "C",
-                "round_temperature": true,
-                "round_time": true,
-                "power_entity": "switch.3d_printer_main_power"
-              },
-              "conditions": [
-                {
-                  "entity": "binary_sensor.display_printer_card",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            }
-          ]
-        },
-        {
-          "icon": "mdi:sofa",
-          "path": "fp-livingroom",
-          "title": "Living Room",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "cards": [
-                {
-                  "entity": "switch.living_room_tv_power",
-                  "hold_action": {
-                    "action": "call-service",
-                    "service": "switch.turn_on",
-                    "service_data": {
-                      "entity_id": "switch.living_room_tv_power"
-                    }
-                  },
-                  "name": "TV",
-                  "show_icon": true,
-                  "show_name": true,
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "scene.movie_mode",
-                  "hold_action": {
-                    "action": "none"
-                  },
-                  "tap_action": {
-                    "action": "call-service",
-                    "service": "scene.turn_on",
-                    "service_data": {
-                      "entity_id": "entity"
-                    }
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "color": "var(--paper-item-icon-color)",
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "script.roku_play_pause",
-                  "hold_action": {
-                    "action": "none"
-                  },
-                  "tap_action": {
-                    "action": "call-service",
-                    "service": "script.roku_play_pause"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "cards": [
-                {
-                  "entity": "scene.living_room_off",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "icon": "mdi:circle-off-outline",
-                  "name": "Lights Off",
-                  "show_icon": true,
-                  "show_name": true,
-                  "tap_action": {
-                    "action": "call-service",
-                    "service": "scene.turn_on",
-                    "service_data": {
-                      "entity_id": "scene.living_room_off"
-                    }
-                  },
-                  "color": "var(--paper-item-icon-color)",
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "scene.living_room_dim",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "icon": "mdi:moon-last-quarter",
-                  "name": "Lights Dim",
-                  "show_icon": true,
-                  "show_name": true,
-                  "tap_action": {
-                    "action": "call-service",
-                    "service": "scene.turn_on",
-                    "service_data": {
-                      "entity_id": "scene.living_room_dim"
-                    }
-                  },
-                  "color": "var(--paper-item-icon-color)",
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "scene.living_room_bright",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "icon": "mdi:moon-full",
-                  "name": "Lights Bright",
-                  "tap_action": {
-                    "action": "call-service",
-                    "service": "scene.turn_on",
-                    "service_data": {
-                      "entity_id": "scene.living_room_bright"
-                    }
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "color": "var(--paper-item-icon-color)",
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "cards": [
-                {
-                  "entity": "media_player.living_room_tv",
-                  "hide": {
-                    "power": true,
-                    "volume": true
-                  },
-                  "type": "custom:mini-media-player",
-                  "volume_stateless": true
-                },
-                {
-                  "apps": [
-                    {
-                      "app": "Netflix",
-                      "image": "/local/images/netflix-icon.png"
-                    },
-                    {
-                      "app": "Plex - Free Movies & TV",
-                      "image": "/local/images/plex-icon.png"
-                    },
-                    {
-                      "image": "/local/images/replay-icon-white.png",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "script.roku_replay"
-                      }
-                    }
-                  ],
-                  "power": {
-                    "tap_action": {
-                      "action": "call-service",
-                      "service": "switch.toggle",
-                      "service_data": {
-                        "entity_id": "switch.living_room_tv_power"
-                      }
-                    }
-                  },
-                  "remote": "remote.living_room_roku_tv",
-                  "theme": "midnight",
-                  "tv": true,
-                  "type": "custom:roku-card",
-                  "volume_down": {
-                    "tap_action": {
-                      "action": "call-service",
-                      "service": "script.soundbar_volume_down"
-                    }
-                  },
-                  "volume_mute": {
-                    "tap_action": {
-                      "action": "call-service",
-                      "service": "script.soundbar_power"
-                    }
-                  },
-                  "volume_up": {
-                    "tap_action": {
-                      "action": "call-service",
-                      "service": "script.soundbar_volume_up"
-                    }
-                  },
-                  "entity": "media_player.65_tcl_roku_tv"
-                }
-              ],
-              "type": "vertical-stack"
-            }
-          ]
-        },
-        {
-          "icon": "mdi:bed",
-          "path": "fp-bedroom",
-          "title": "Bedroom",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "cards": [
-                {
-                  "entity": "light.fairy_lights",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "type": "light"
-                },
-                {
-                  "entity": "light.bedroom_lamp",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "type": "light"
-                },
-                {
-                  "entity": "fan.bedroom_fan",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "type": "button"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "entities": [
-                "automation.sunrise_alarm",
-                {
-                  "type": "custom:fold-entity-row",
-                  "head": {
-                    "type": "section",
-                    "label": "Configuration"
-                  },
-                  "entities": [
-                    "input_number.alarm_max_brightness",
-                    "input_datetime.alarm_start_time",
-                    "input_datetime.alarm_target_time"
-                  ]
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Sunrise Alarm",
-              "type": "entities"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "cards": [
-                {
-                  "entity": "media_player.bedroom_tv",
-                  "hide": {
-                    "power": true,
-                    "volume": true
-                  },
-                  "type": "custom:mini-media-player"
-                },
-                {
-                  "apps": [
-                    {
-                      "app": "Netflix",
-                      "image": "/local/images/netflix-icon.png"
-                    },
-                    {
-                      "app": "Plex - Free Movies & TV",
-                      "image": "/local/images/plex-icon.png"
-                    },
-                    {
-                      "image": "/local/images/replay-icon-white.png",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "script.bedroom_roku_replay"
-                      }
-                    }
-                  ],
-                  "power": {
-                    "show": false
-                  },
-                  "remote": "remote.bedroom_tv",
-                  "theme": "midnight",
-                  "type": "custom:roku-card",
-                  "entity": "media_player.bedroom_roku"
-                }
-              ],
-              "type": "vertical-stack"
-            }
-          ]
-        },
-        {
-          "icon": "mdi:white-balance-sunny",
-          "path": "environment",
-          "title": "Environment",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "entities": [
-                {
-                  "entity": "sensor.openweathermap_condition"
-                },
-                {
-                  "entity": "sensor.openweathermap_temperature"
-                },
-                {
-                  "entity": "sensor.openweathermap_humidity"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Outside",
-              "type": "entities"
-            },
-            {
-              "entities": [
-                {
-                  "entity": "sensor.living_room_temperature"
-                },
-                {
-                  "entity": "sensor.office_temperature"
-                },
-                {
-                  "entity": "sensor.bedroom_temperature"
-                },
-                {
-                  "entity": "sensor.living_room_humidity"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Inside",
-              "type": "entities",
-              "state_color": false
+              ]
             },
             {
               "type": "custom:layout-break"
@@ -1117,136 +649,78 @@
                 }
               ],
               "type": "vertical-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "entities": [
-                {
-                  "entity": "sensor.living_room_temperature"
-                },
-                {
-                  "entity": "sensor.office_temperature"
-                },
-                {
-                  "entity": "sensor.bedroom_temperature"
-                }
-              ],
-              "hours_to_show": 48,
-              "refresh_interval": 0,
-              "title": "Internal Temperature",
-              "type": "history-graph"
-            },
-            {
-              "entities": [
-                {
-                  "entity": "sensor.living_room_humidity"
-                },
-                {
-                  "entity": "sensor.office_humidity"
-                },
-                {
-                  "entity": "sensor.bedroom_humidity"
-                }
-              ],
-              "hours_to_show": 48,
-              "refresh_interval": 0,
-              "title": "Internal Humidity",
-              "type": "history-graph"
-            },
-            {
-              "type": "custom:mini-graph-card",
-              "entities": [
-                {
-                  "entity": "sensor.refrigerator_temperature",
-                  "aggregate_func": "min",
-                  "name": "Min",
-                  "color": "#2b76c4"
-                },
-                {
-                  "entity": "sensor.refrigerator_temperature",
-                  "aggregate_func": "max",
-                  "name": "Max",
-                  "color": "#c4612b"
-                },
-                {
-                  "entity": "sensor.refrigerator_temperature",
-                  "aggregate_func": "avg",
-                  "name": "Avg",
-                  "color": "grey"
-                }
-              ],
-              "name": "Fridge Temp: Last 7 Days",
-              "show": {
-                "state": false,
-                "fill": false,
-                "points": true,
-                "legend": false,
-                "average": true,
-                "extrema": true,
-                "labels": true
-              },
-              "smoothing": false,
-              "hours_to_show": 168,
-              "group_by": "date"
-            },
-            {
-              "type": "custom:mini-graph-card",
-              "name": "Fridge Temp: Last 24 Hours",
-              "entities": [
-                {
-                  "entity": "sensor.refrigerator_temperature"
-                }
-              ],
-              "show": {
-                "fill": false,
-                "points": false,
-                "legend": false,
-                "average": false,
-                "extrema": false,
-                "labels": true
-              },
-              "hours_to_show": 24,
-              "points_per_hour": 4
             }
           ]
         },
         {
-          "icon": "mdi:airballoon",
-          "path": "fun",
-          "title": "Fun Stuff",
-          "type": "custom:vertical-layout",
+          "theme": "Backend-selected",
+          "title": "Vacuum",
+          "path": "vacuum",
+          "icon": "mdi:robot-vacuum",
           "badges": [],
           "cards": [
             {
-              "type": "entities",
-              "entities": [
-                "input_datetime.last_litter_box_replacement"
-              ]
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "type": "plant-status",
-              "entity": "plant.jade",
-              "name": "Jade Plant"
-            },
-            {
-              "type": "plant-status",
-              "entity": "plant.basil",
-              "name": "Basil Plant"
-            },
-            {
-              "type": "history-graph",
-              "entities": [
+              "type": "vertical-stack",
+              "cards": [
                 {
-                  "entity": "sensor.basil_illuminance"
+                  "cards": [
+                    {
+                      "entity": "input_boolean.vacuum_kitchen",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "input_boolean.vacuum_1st_floor_bath",
+                      "name": "1st Fl. Bath",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "script.toggle_all_room_selections",
+                      "name": "Toggle All",
+                      "icon": "mdi:toggle-switch-off-outline",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "script.vacuum_clean_segments",
+                      "name": "Start",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    }
+                  ],
+                  "type": "horizontal-stack"
+                },
+                {
+                  "title": "",
+                  "type": "custom:valetudo-map-card",
+                  "vacuum": "valetudo_eve",
+                  "rotate": 0,
+                  "map_scale": 1.5,
+                  "crop": {
+                    "top": 45,
+                    "bottom": 0,
+                    "left": 90,
+                    "right": 0
+                  }
                 }
-              ],
-              "hours_to_show": 96,
-              "refresh_interval": 0
+              ]
             }
           ]
         }
