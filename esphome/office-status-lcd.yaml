@@ -228,9 +228,10 @@ display:
               it.printf(border_padding, border_padding, id(mdi_font), id(color_yellow), TextAlign::TOP_LEFT, "\U000F0568");  
             }
             it.printf(mdi_width_offset + border_padding, border_padding, id(georgia_24), id(color_orange), TextAlign::TOP_LEFT, "In a meeting");
-          } else if (id(basil_problem).has_state() && id(basil_problem).state != "Nothing") {
-            it.printf(border_padding, border_padding, id(mdi_font), id(color_orange), TextAlign::TOP_LEFT, "\U000F032A");
-            it.printf(mdi_width_offset + border_padding, border_padding, id(georgia_24), id(color_orange), TextAlign::TOP_LEFT, "%s", id(basil_problem).state.c_str());
+          // Temporarily disabled for the move.
+          //} else if (id(basil_problem).has_state() && id(basil_problem).state != "Nothing") {
+          //  it.printf(border_padding, border_padding, id(mdi_font), id(color_orange), TextAlign::TOP_LEFT, "\U000F032A");
+          //  it.printf(mdi_width_offset + border_padding, border_padding, id(georgia_24), id(color_orange), TextAlign::TOP_LEFT, "%s", id(basil_problem).state.c_str());
           } else {
             it.printf(it.get_width() / 2, border_padding, id(georgia_24), id(color_gray), TextAlign::TOP_CENTER, "Hello there!");
           }
