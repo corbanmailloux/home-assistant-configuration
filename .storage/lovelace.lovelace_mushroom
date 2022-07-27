@@ -556,6 +556,7 @@
           "title": "environment",
           "path": "environment",
           "icon": "mdi:thermometer-lines",
+          "type": "custom:vertical-layout",
           "badges": [
             {
               "entity": "sensor.openweathermap_temperature"
@@ -601,6 +602,53 @@
                   "name": "Outside"
                 }
               ]
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "cards": [
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.living_room_temperature"
+                    },
+                    {
+                      "entity": "sensor.office_temperature"
+                    },
+                    {
+                      "entity": "sensor.bedroom_temperature"
+                    },
+                    {
+                      "entity": "sensor.openweathermap_temperature"
+                    }
+                  ],
+                  "hours_to_show": 48,
+                  "refresh_interval": 0,
+                  "title": "Temperatures",
+                  "type": "history-graph"
+                },
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.living_room_humidity"
+                    },
+                    {
+                      "entity": "sensor.office_humidity"
+                    },
+                    {
+                      "entity": "sensor.bedroom_humidity"
+                    },
+                    {
+                      "entity": "sensor.openweathermap_humidity"
+                    }
+                  ],
+                  "hours_to_show": 48,
+                  "title": "Humidities",
+                  "type": "history-graph"
+                }
+              ],
+              "type": "vertical-stack"
             }
           ]
         },
