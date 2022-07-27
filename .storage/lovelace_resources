@@ -27,7 +27,7 @@
       {
         "id": "220c76e6863c4c1f831d5aaa2a58b793",
         "type": "module",
-        "url": "/hacsfiles/simple-thermostat/simple-thermostat.js?hacstag=158654878243"
+        "url": "/hacsfiles/simple-thermostat/simple-thermostat.js?hacstag=158654878250"
       },
       {
         "id": "2ecb0875b3bc4c8ab53a257f098adf41",
@@ -80,7 +80,7 @@
         "id": "ff34917b3c6a44b4b37d905f037ebc51"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375211",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375213",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       }
