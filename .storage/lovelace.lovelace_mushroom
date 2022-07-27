@@ -220,8 +220,121 @@
           "theme": "Mushroom Square",
           "title": "Home",
           "type": "custom:vertical-layout",
+          "icon": "mdi:home",
           "badges": [],
           "cards": [
+            {
+              "type": "custom:mushroom-chips-card",
+              "chips": [
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "input_boolean.vacation_mode",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.vacation_mode",
+                    "icon_color": "blue",
+                    "content_info": "name",
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "hold_action": {
+                      "action": "more-info"
+                    },
+                    "double_tap_action": {
+                      "action": "none"
+                    }
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "input_boolean.litter_box_clean_needed",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.litter_box_clean_needed",
+                    "icon_color": "red",
+                    "use_entity_picture": false,
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "icon": "mdi:broom",
+                    "content_info": "name",
+                    "hold_action": {
+                      "action": "more-info"
+                    },
+                    "double_tap_action": {
+                      "action": "none"
+                    }
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "input_boolean.cat_claw_clip_needed",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.cat_claw_clip_needed",
+                    "icon_color": "yellow",
+                    "content_info": "name",
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "hold_action": {
+                      "action": "call-service",
+                      "service": "script.cat_claw_clipped_run_eve",
+                      "data": {},
+                      "target": {}
+                    },
+                    "double_tap_action": {
+                      "action": "none"
+                    }
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "sensor.eve_bin",
+                      "state_not": "0"
+                    },
+                    {
+                      "entity": "sensor.eve_bin",
+                      "state_not": "unknown"
+                    }
+                  ],
+                  "chip": {
+                    "type": "template",
+                    "entity": "sensor.eve_bin",
+                    "icon": "mdi:delete-variant",
+                    "content": "Eve's Bin: {{ states('sensor.eve_bin') | int }} min",
+                    "icon_color": "red",
+                    "double_tap_action": {
+                      "action": "none"
+                    },
+                    "tap_action": {
+                      "action": "more-info"
+                    },
+                    "hold_action": {
+                      "action": "more-info"
+                    }
+                  }
+                }
+              ],
+              "alignment": "center"
+            },
             {
               "type": "custom:button-card",
               "name": "Living Room",
@@ -433,6 +546,131 @@
                   "commands": [
                     "start_pause"
                   ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "environment",
+          "path": "environment",
+          "icon": "mdi:thermometer-lines",
+          "badges": [
+            {
+              "entity": "sensor.openweathermap_temperature"
+            },
+            {
+              "entity": "sensor.office_temperature"
+            },
+            {
+              "entity": "sensor.living_room_temperature"
+            },
+            {
+              "entity": "sensor.bedroom_temperature"
+            }
+          ],
+          "cards": [
+            {
+              "type": "custom:mini-graph-card",
+              "name": "Temperatures",
+              "hours_to_show": 24,
+              "points_per_hour": 2,
+              "height": 400,
+              "show": {
+                "fill": false,
+                "state": false,
+                "legend": true,
+                "labels": true
+              },
+              "entities": [
+                {
+                  "entity": "sensor.living_room_temperature",
+                  "name": "Living Room"
+                },
+                {
+                  "entity": "sensor.bedroom_temperature",
+                  "name": "Bedroom"
+                },
+                {
+                  "entity": "sensor.office_temperature",
+                  "name": "Office"
+                },
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "Outside"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "Vacuum",
+          "path": "vacuum",
+          "icon": "mdi:robot-vacuum",
+          "badges": [],
+          "cards": [
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "cards": [
+                    {
+                      "entity": "input_boolean.vacuum_kitchen",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "input_boolean.vacuum_1st_floor_bath",
+                      "name": "1st Fl. Bath",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "script.toggle_all_room_selections",
+                      "name": "Toggle All",
+                      "icon": "mdi:toggle-switch-off-outline",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "script.vacuum_clean_segments",
+                      "name": "Start",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    }
+                  ],
+                  "type": "horizontal-stack"
+                },
+                {
+                  "title": "",
+                  "type": "custom:valetudo-map-card",
+                  "vacuum": "valetudo_eve",
+                  "rotate": 0,
+                  "map_scale": 1.5,
+                  "crop": {
+                    "top": 45,
+                    "bottom": 0,
+                    "left": 90,
+                    "right": 0
+                  }
                 }
               ]
             }
