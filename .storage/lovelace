@@ -1220,35 +1220,6 @@
           "badges": [],
           "cards": [
             {
-              "entities": [
-                "sensor.maggie_to_home_travel_time",
-                "script.maggie_travel_time_speak"
-              ],
-              "show_header_toggle": false,
-              "title": "Maggie Travel Time",
-              "type": "entities"
-            },
-            {
-              "entities": [
-                {
-                  "entity": "input_text.text_to_speak"
-                },
-                {
-                  "entity": "input_select.text_to_speak_destination"
-                },
-                {
-                  "entity": "script.speak_chosen_text_on_google_home",
-                  "name": "Speak!"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Make the Homes Speak",
-              "type": "entities"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
               "cards": [
                 {
                   "content": "In the last 14 days, **Corban** has been home for **{{ states(\"sensor.quarantine_o_meter_corban_home\") }}%** of the time. On average, he **left the house {{ (states(\"sensor.quarantine_o_meter_corban_left\") | int / 14) | round(1) }} times per day.**\n\nIn the last 14 days, **Maggie** has been home for **{{ states(\"sensor.quarantine_o_meter_maggie_home\") }}%** of the time. On average, she **left the house {{ (states(\"sensor.quarantine_o_meter_maggie_left\") | int / 14) | round(1) }} times per day.**",
