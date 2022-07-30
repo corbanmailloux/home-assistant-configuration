@@ -1,6 +1,9 @@
 # The washer is plugged into a power-monitoring smart plug (Linksio).
 # It's flashed with Tasmota, and `PowerOnState 4` means that it's always on.
 
+# TODO/Ideas:
+# - The average washer cycle here is ~58 minutes. When starting, set a countdown timer on a wall display for an estimated completion.
+
 template:
   - binary_sensor:
       - name: "Washing Machine Running"
@@ -17,6 +20,22 @@ template:
             mdi:washing-machine-off
           {% endif %}
 
+      - name: "Dryer Running"
+        unique_id: a23ea7c7-bf17-4115-86ee-c9db0a54e359
+        device_class: running
+        delay_on:
+          minutes: 7 # Avoid accidental triggers from bumping the machine.
+        delay_off:
+          minutes: 5
+        state: >-
+          {{ is_state('binary_sensor.vibration_sensor_vibration', 'on') }}
+        icon: >-
+          {% if is_state('binary_sensor.dryer_running', 'on') %}
+            mdi:tumble-dryer
+          {% else %}
+            mdi:tumble-dryer-off
+          {% endif %}
+
 automation:
   - id: e3edfa1f-a705-4394-bedb-945151332a3c
     alias: Notify when washing machine finishes
@@ -29,18 +48,35 @@ automation:
       - alias: "Notify both adults"
         service: notify.adult_phones
         data:
+          tag: "laundry_reminder_washer"
           title: "Laundry Reminder"
           message: "Washing machine done."
 
-  - id: e9c61496-aaf4-476a-9f14-dce6ad87ebfc
-    alias: Notify Corban when washing machine starts - temporary for testing
+  - id: b7bfbfd8-569c-4ca2-9eae-f1bd4ba3a539
+    alias: Notify when dryer finishes
     trigger:
       - platform: state
-        entity_id: binary_sensor.washing_machine_running
+        entity_id: binary_sensor.dryer_running
+        from: "on"
+        to: "off"
+    action:
+      - alias: "Notify both adults"
+        service: notify.adult_phones
+        data:
+          tag: "laundry_reminder_dryer"
+          title: "Laundry Reminder"
+          message: "Dryer done."
+
+  - id: ededc678-7213-41e3-85bd-dba525236d56
+    alias: Notify Corban when dryer starts - temporary for testing
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.dryer_running
         from: "off"
         to: "on"
     action:
       - service: notify.corban
         data:
+          tag: "laundry_reminder_dryer"
           title: "Laundry Reminder - Debug"
-          message: "Washing machine starting. Draw: {{ states('sensor.washing_machine_power_draw')|float }} W."
+          message: "Dryer starting."
