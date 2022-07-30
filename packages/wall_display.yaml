@@ -13,10 +13,6 @@ input_boolean:
     name: Show Map on Wall Display
     icon: mdi:map-clock
 
-  put_trash_out_display:
-    name: Display Trash Notification
-    icon: mdi:delete-sweep
-
   wall_display_show_vacuum:
     name: Show Vacuum Cards on Wall Display
     icon: mdi:robot-vacuum
@@ -54,39 +50,6 @@ automation:
         data:
           entity_id: input_boolean.wall_display_show_map
 
-  - alias: Update Trash Sensor
-    id: 1354f5a5-6b37-496e-8fe2-1742e4fd891f
-    trigger:
-      - platform: time_pattern
-        minutes: 1 # Every hour at *:01
-    action:
-      - service: homeassistant.update_entity
-        entity_id: binary_sensor.put_trash_out
-
-  - alias: Update trash input_boolean to match template sensor
-    id: 37ff0633-5063-4342-9faf-7b27c316cc16
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.put_trash_out
-    action:
-      - choose:
-          - conditions:
-              - condition: state
-                entity_id: binary_sensor.put_trash_out
-                state: "on"
-            sequence:
-              - service: input_boolean.turn_on
-                data:
-                  entity_id: input_boolean.put_trash_out_display
-          - conditions:
-              - condition: state
-                entity_id: binary_sensor.put_trash_out
-                state: "off"
-            sequence:
-              - service: input_boolean.turn_off
-                data:
-                  entity_id: input_boolean.put_trash_out_display
-
   # See also `package/home_away_mode.yaml`.
   - alias: Turn on the wall display in the morning # if someone is home
     id: ec56904d-4cc0-4966-9b98-8c790bf6e76d
@@ -106,28 +69,6 @@ automation:
           entity_id: light.tablet_wall_display_screen
 
 binary_sensor:
-  - platform: template
-    sensors:
-      put_trash_out:
-        friendly_name: Time to put the trash out
-        icon_template: "mdi:delete-sweep"
-        value_template: >-
-          {% set time = now() %}
-
-          {% if 0 <= time.weekday() <= 3 or time.weekday() == 6 %}
-            {# Monday - Thursday, Sunday: 5-7PM #}
-            {% if time.hour < 17 %}
-              False
-            {% elif 17 <= time.hour <= 18 %}
-              True
-            {% else %}
-              False {# Too late #}
-            {% endif %}
-          {% else %}
-            False
-          {% endif %}
-        device_class: problem
-
   - platform: template
     sensors:
       corban_on_a_call:

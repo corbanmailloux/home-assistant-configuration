@@ -575,27 +575,6 @@
               "type": "conditional"
             },
             {
-              "card": {
-                "color": "green",
-                "entity": "input_boolean.put_trash_out_display",
-                "name": "Time to put the trash out",
-                "layout": "icon_name",
-                "show_icon": true,
-                "show_state": false,
-                "tap_action": {
-                  "action": "toggle"
-                },
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.put_trash_out_display",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
               "type": "conditional",
               "conditions": [
                 {
