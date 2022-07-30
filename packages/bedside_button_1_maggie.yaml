@@ -9,8 +9,36 @@ automation:
         type: action
         subtype: toggle
     action:
-      - service: light.toggle
-        entity_id: light.bedroom_lamp
+      - if:
+          - alias: "Light On"
+            condition: state
+            entity_id: light.bedroom_lamp
+            state: "on"
+        then:
+          - alias: "Turn off"
+            service: light.turn_off
+            target:
+              entity_id: light.bedroom_lamp
+        else:
+          - if:
+              - alias: "Nighttime"
+                condition: time
+                after: "21:00:00" # 9 PM
+                before: "06:00:00"
+            then:
+              - alias: "Turn on at 50%"
+                service: light.turn_on
+                target:
+                  entity_id: light.bedroom_lamp
+                data_template:
+                  brightness: 127 # 50%
+            else:
+              - alias: "Turn on at 100%"
+                service: light.turn_on
+                target:
+                  entity_id: light.bedroom_lamp
+                data_template:
+                  brightness: 255
 
   - alias: Bedside Button 1 - Brightness Up
     id: ab376db0-75fe-4dfd-80ed-e79aa7fbe7b5
