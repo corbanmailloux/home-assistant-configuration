@@ -4,12 +4,35 @@ automation:
     trigger:
       - platform: state
         entity_id: binary_sensor.laundry_room_door_sensor_contact
+        not_from:
+          - "unknown"
+          - "unavailable"
     action:
       - service: >-
           {% if trigger.to_state.state == "on" %}
-            light.turn_off
-          {% else %}
             light.turn_on
+          {% else %}
+            light.turn_off
           {% endif %}
+        target:
+          entity_id: light.laundry_room_light
+
+  - id: 2b741f6a-6112-4890-816a-1dd9ba52c310
+    alias: Turn off laundry room light after 30 minutes
+    trigger:
+      - platform: state
+        entity_id: light.laundry_room_light
+        from: "off"
+        to: "on"
+        for:
+          minutes: 30
+    action:
+      - alias: "Debug - Notify"
+        service: notify.corban
+        data:
+          title: "Laundry room light left on."
+          message: "Turning off after 30 minutes."
+      - alias: "Turn off"
+        service: light.turn_off
         target:
           entity_id: light.laundry_room_light
