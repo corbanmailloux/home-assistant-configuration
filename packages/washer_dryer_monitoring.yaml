@@ -12,7 +12,7 @@ template:
         delay_off:
           minutes: 6
         state: >-
-          {{ states('sensor.washing_machine_power_draw')|float > 3 }}
+          {{ states('sensor.washing_machine_power_draw') | float(default=0) > 3 }}
         icon: >
           {% if is_state("binary_sensor.washing_machine_running", "on") %}
             mdi:washing-machine
