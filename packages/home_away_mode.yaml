@@ -65,10 +65,6 @@ automation:
         entity_id: input_boolean.home_occupied
         state: "on"
     action:
-      - service: notify.corban
-        data:
-          title: "Away Mode Activating"
-          message: "Marking home unoccupied."
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.home_occupied

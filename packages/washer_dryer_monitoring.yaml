@@ -48,9 +48,10 @@ automation:
       - alias: "Notify both adults"
         service: notify.adult_phones
         data:
-          tag: "laundry_reminder_washer"
           title: "Laundry Reminder"
           message: "Washing machine done."
+          data:
+            tag: "laundry_reminder_washer"
 
   - id: b7bfbfd8-569c-4ca2-9eae-f1bd4ba3a539
     alias: Notify when dryer finishes
@@ -63,9 +64,10 @@ automation:
       - alias: "Notify both adults"
         service: notify.adult_phones
         data:
-          tag: "laundry_reminder_dryer"
           title: "Laundry Reminder"
           message: "Dryer done."
+          data:
+            tag: "laundry_reminder_dryer"
 
   - id: ededc678-7213-41e3-85bd-dba525236d56
     alias: Notify Corban when dryer starts - temporary for testing
@@ -77,6 +79,7 @@ automation:
     action:
       - service: notify.corban
         data:
-          tag: "laundry_reminder_dryer"
           title: "Laundry Reminder - Debug"
           message: "Dryer starting."
+          data:
+            tag: "laundry_reminder_dryer"
