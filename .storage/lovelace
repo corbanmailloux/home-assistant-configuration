@@ -575,37 +575,6 @@
           ],
           "cards": [
             {
-              "type": "custom:mini-graph-card",
-              "name": "Temperatures",
-              "hours_to_show": 24,
-              "points_per_hour": 2,
-              "height": 400,
-              "show": {
-                "fill": false,
-                "state": false,
-                "legend": true,
-                "labels": true
-              },
-              "entities": [
-                {
-                  "entity": "sensor.living_room_temperature",
-                  "name": "Living Room"
-                },
-                {
-                  "entity": "sensor.bedroom_temperature",
-                  "name": "Bedroom"
-                },
-                {
-                  "entity": "sensor.office_temperature",
-                  "name": "Office"
-                },
-                {
-                  "entity": "sensor.openweathermap_temperature",
-                  "name": "Outside"
-                }
-              ]
-            },
-            {
               "cards": [
                 {
                   "entities": [
@@ -677,7 +646,7 @@
                   ],
                   "hours_to_show": 48,
                   "refresh_interval": 0,
-                  "title": "Temperatures",
+                  "title": "Temperatures (2 day)",
                   "type": "history-graph"
                 },
                 {
@@ -699,7 +668,7 @@
                     }
                   ],
                   "hours_to_show": 48,
-                  "title": "Humidities",
+                  "title": "Humidities (2 day)",
                   "type": "history-graph"
                 }
               ],
