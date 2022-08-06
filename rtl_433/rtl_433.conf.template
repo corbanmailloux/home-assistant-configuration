@@ -1,0 +1,32 @@
+# Example reference:
+# https://github.com/merbanan/rtl_433/blob/master/conf/rtl_433.example.conf
+
+output mqtt://${host}:${port},user=${username},pass=${password},retain=${retain}
+
+# Uncomment the following line to also enable the default "table" output to the
+# addon logs.
+# output kv
+
+#### Frequency
+
+# 433 for the Acurite sensor and LaCrosse TX141-Bv3 nearby.
+frequency 433.92M
+
+# 915M appears to have our gas/electric meters. I'll validate.
+# frequency 915M
+
+# Nothing on 315M initially except a TPMS sensor.
+# Nothing on 345M, 868M
+
+# Suggested from https://github.com/pbkhrv/rtl_433-hass-addons/tree/main/rtl_433#configuration
+convert     si
+report_meta newmodel
+report_meta time:iso:tz:local
+
+
+# Filter to just my sensor
+# See supported devices here: https://github.com/merbanan/rtl_433/blob/master/README.md
+# protocol    40
+
+# Include the other random sensor nearby
+# protocol 73  # LaCrosse TX141-Bv3
