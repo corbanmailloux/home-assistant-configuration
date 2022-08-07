@@ -457,21 +457,13 @@
             },
             {
               "type": "custom:button-card",
-              "name": "Office",
+              "name": "Corban's Office",
               "entity": "sensor.office_temperature",
               "template": "header_temperature_clickable"
             },
             {
               "type": "horizontal-stack",
               "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.office_lamp",
-                  "name": "Lamp",
-                  "fill_container": true,
-                  "show_brightness_control": true,
-                  "collapsible_controls": true
-                },
                 {
                   "type": "custom:mushroom-fan-card",
                   "entity": "fan.office_fan",
@@ -480,12 +472,7 @@
                   "collapsible_controls": false,
                   "icon_animation": true,
                   "name": "Fan"
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
+                },
                 {
                   "type": "custom:mushroom-climate-card",
                   "entity": "climate.corbans_office_ac",
@@ -503,7 +490,7 @@
                   },
                   "primary_info": "state",
                   "secondary_info": "none",
-                  "layout": "horizontal",
+                  "layout": "vertical",
                   "tap_action": {
                     "action": "more-info"
                   }
@@ -512,6 +499,25 @@
             },
             {
               "type": "custom:layout-break"
+            },
+            {
+              "type": "custom:button-card",
+              "name": "Maggie's Office",
+              "entity": "sensor.office_temperature",
+              "template": "header"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office_lamp",
+                  "name": "Lamp",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "collapsible_controls": true
+                }
+              ]
             },
             {
               "type": "custom:button-card",
