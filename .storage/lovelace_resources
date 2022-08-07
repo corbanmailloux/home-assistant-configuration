@@ -83,6 +83,11 @@
         "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375213",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
+      },
+      {
+        "url": "/hacsfiles/apexcharts-card/apexcharts-card.js?hacstag=331701152201",
+        "type": "module",
+        "id": "1a480f1e8ae24f60808f839d79ef7ff6"
       }
     ]
   }
