@@ -1,5 +1,25 @@
 # In the kitchen, there are 3 separate counter lights. I have all of them on Zigbee smart plugs to allow automation.
 
+template:
+  - trigger:
+      - platform: state
+        entity_id: input_boolean.home_occupied
+        from: "off"
+        to: "on"
+    binary_sensor:
+      - name: "just_got_home"
+        unique_id: 0e6d69ef-6fc5-4abf-a2d8-69e8395d9fbf
+        auto_off:
+          minutes: 2
+        state: >-
+          {{ is_state('input_boolean.home_occupied', 'on') }}
+  - binary_sensor:
+      - name: "Kitchen Assumed Motion"
+        unique_id: 348607b5-5c4f-4a94-be3c-044370fe76f3
+        device_class: occupancy
+        state: >-
+          {{ is_state('binary_sensor.just_got_home', 'on') or is_state('binary_sensor.motion_sensor_occupancy', 'on') }}
+
 input_boolean:
   kitchen_lights_lock_on:
     name: Lock On Kitchen Lights
@@ -34,7 +54,7 @@ automation:
     mode: restart
     trigger:
       - platform: state
-        entity_id: binary_sensor.motion_sensor_occupancy
+        entity_id: binary_sensor.kitchen_assumed_motion
         from: "off"
         to: "on"
     action:
@@ -57,7 +77,7 @@ automation:
               entity_id: light.kitchen_counter_lights
       - wait_for_trigger:
           platform: state
-          entity_id: binary_sensor.motion_sensor_occupancy
+          entity_id: binary_sensor.kitchen_assumed_motion
           from: "on"
           to: "off"
       - delay:

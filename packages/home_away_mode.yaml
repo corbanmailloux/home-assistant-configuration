@@ -44,7 +44,7 @@ automation:
         entity_id: group.adults
         to: "home"
         for:
-          minutes: 2
+          minutes: 10 # 2 is good for rapid response, but this way the door switch usually covers it.
     # TODO: Guest mode condition
     action:
       - service: input_boolean.turn_on
@@ -161,22 +161,6 @@ automation:
       - service: light.turn_on
         data:
           entity_id: light.tablet_wall_display_screen
-      - service: light.turn_on
-        data:
-          entity_id: light.tv_lamp
-          brightness: 255
-
-  # TODO: Set up for new thermostat.
-  # - alias: Home Occupied - Set Nest home
-  #   id: 7bd1fd35-6ef1-4767-b9e1-fec037e6c186
-  #   trigger:
-  #     - platform: state
-  #       entity_id: input_boolean.home_occupied
-  #       to: "on"
-  #   action:
-  #     - service: nest.set_away_mode
-  #       data:
-  #         away_mode: home
 
   - alias: Home Unoccupied - Turn everything off
     id: 230957ce-f646-4c5d-8819-9b6b069d3628
@@ -187,18 +171,6 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.everything_off
-
-  # TODO: Set up for new thermostat.
-  # - alias: Home Unoccupied - Set Nest away
-  #   id: 52a24388-93aa-40dc-b779-fcaceaf18681
-  #   trigger:
-  #     - platform: state
-  #       entity_id: input_boolean.home_occupied
-  #       to: "off"
-  #   action:
-  #     - service: nest.set_away_mode
-  #       data:
-  #         away_mode: away
 
 script:
   welcome_home_announcement:
