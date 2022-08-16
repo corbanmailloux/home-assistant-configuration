@@ -74,7 +74,6 @@ aircast.xml
 
 # Most of my custom components are managed by HACS.
 custom_components/
-!custom_components/package_concierge/
 
 # Themes: These are managed by HACS
 themes/midnight/
