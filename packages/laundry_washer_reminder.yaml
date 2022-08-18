@@ -1,0 +1,196 @@
+# Notification System for our Washing Machine
+# -------
+# The washer is plugged into a power-monitoring smart plug (Linksio).
+# It's flashed with Tasmota, and `PowerOnState 4` means that it's always on.
+# Using the real-time power usage, Home Assistant can see when the washer is running.
+#
+# When the washer finishes, send a notification to our phones.
+# Additional features:
+# - Only send the “washer done” notification to people who are home.
+# - If the notification should have been sent but you weren’t home, send it when you do get home.
+# - Opening the laundry room door acknowledges and dismisses the notification automatically on all devices.
+# - The notification has an action button added to acknowledge and dismiss on all devices.
+
+# TODO/Ideas:
+# - The average washer cycle here is ~58 minutes. When starting, set a countdown timer on a wall display for an estimated completion.
+
+template:
+  - binary_sensor:
+      - name: "Washing Machine Running"
+        unique_id: 5b770b3c-326a-49ca-87ee-fa3de53fdeff
+        device_class: running
+        delay_off:
+          minutes: 5
+        state: >-
+          {{ states('sensor.washing_machine_power_draw') | float(default=0) > 3 }}
+        icon: >
+          {% if is_state("binary_sensor.washing_machine_running", "on") %}
+            mdi:washing-machine
+          {% else %}
+            mdi:washing-machine-off
+          {% endif %}
+
+input_boolean:
+  washer_reminder_notifying:
+    name: Washer Reminder - Notifying
+
+automation:
+  - id: e3edfa1f-a705-4394-bedb-945151332a3c
+    alias: Washer Reminder - Notify when washing machine finishes
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.washing_machine_running
+        from: "on"
+        to: "off"
+    condition:
+      # Skip the notification if the laundry room door was opened in the last 5 minutes.
+      # This covers for the case where we catch the washer before the sensor triggers.
+      - alias: "Laundry door has been closed for at least 5 minutes."
+        condition: state
+        entity_id: binary_sensor.laundry_room_door_sensor_contact
+        state: "off" # Closed
+        for:
+          minutes: 5
+    action:
+      - alias: "Turn on notify switch"
+        service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.washer_reminder_notifying
+
+  - id: 1ede28c4-0132-418b-b526-373b02b53798
+    alias: Washer Reminder - Send notifications based on boolean
+    trigger:
+      - platform: state
+        entity_id: input_boolean.washer_reminder_notifying
+        from: "off"
+        to: "on"
+    action:
+      - if:
+          - alias: "Is Corban home?"
+            condition: state
+            entity_id: person.corban
+            state: "home"
+        then:
+          - alias: "Notify Corban"
+            service: script.washer_reminder_send_notification_to_variable
+            data:
+              notify_device: corban
+              dismiss_notification: false
+      - if:
+          - alias: "Is Maggie home?"
+            condition: state
+            entity_id: person.maggie
+            state: "home"
+        then:
+          - alias: "Notify Maggie"
+            service: script.washer_reminder_send_notification_to_variable
+            data:
+              notify_device: maggie
+              dismiss_notification: false
+
+  - id: 93b3840e-76d3-4cbe-a1ed-179aac220154
+    alias: Washer Reminder - Dismiss notifications based on boolean
+    trigger:
+      - platform: state
+        entity_id: input_boolean.washer_reminder_notifying
+        from: "on"
+        to: "off"
+    action:
+      - alias: "Clear notifications"
+        service: script.washer_reminder_send_notification_to_variable
+        data:
+          notify_device: adult_phones
+          dismiss_notification: true
+
+  - id: d5b0370d-5043-4835-909f-88e4a1e24836
+    alias: Washer Reminder - Acknowledge alert when opening the laundry room door
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.laundry_room_door_sensor_contact
+        from: "off"
+        to: "on"
+        for:
+          seconds: 3
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.washer_reminder_notifying
+        state: "on"
+    action:
+      - alias: "Turn off boolean"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.washer_reminder_notifying
+
+  - id: 19098e11-621e-4f4c-a0f4-aee3c5d8e8cf
+    alias: Washer Reminder - Acknowledge alert from notification
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "WASHER_REMINDER_ACK"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.washer_reminder_notifying
+        state: "on"
+    action:
+      - alias: "Turn off boolean"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.washer_reminder_notifying
+
+  - id: 7201114f-3317-4c7b-8488-8930f2722faf
+    alias: Washer Reminder - Send delayed notification if someone gets home
+    mode: parallel
+    trigger:
+      - platform: state
+        entity_id: person.corban
+        to: "home"
+        id: "corban"
+      - platform: state
+        entity_id: person.maggie
+        to: "home"
+        id: "maggie"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.washer_reminder_notifying
+        state: "on"
+    action:
+      - alias: "Notify the right person"
+        service: script.washer_reminder_send_notification_to_variable
+        data:
+          notify_device: >-
+            {{ trigger.id }}
+          dismiss_notification: false
+
+script:
+  washer_reminder_send_notification_to_variable:
+    description: "Washer Reminder - Send notification to variable"
+    fields:
+      notify_device:
+        description: "The service call to use for notification: notify.X"
+        example: "corban"
+      dismiss_notification:
+        description: "true to dismiss the notification"
+        example: "true"
+    sequence:
+      - if:
+          - "{{ dismiss_notification == true }}"
+        then:
+          - service: notify.{{ notify_device }}
+            data:
+              message: clear_notification
+              data:
+                tag: "laundry_reminder_washer"
+        else:
+          - service: notify.{{ notify_device }}
+            data:
+              title: "Laundry Reminder"
+              message: Washing machine done.
+              data:
+                tag: "laundry_reminder_washer"
+                actions:
+                  - action: "WASHER_REMINDER_ACK"
+                    title: "Mark complete."
