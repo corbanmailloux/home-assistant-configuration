@@ -562,6 +562,7 @@
           "title": "environment",
           "path": "environment",
           "icon": "mdi:thermometer-lines",
+          "type": "custom:vertical-layout",
           "badges": [
             {
               "entity": "sensor.openweathermap_temperature"
@@ -580,6 +581,56 @@
             }
           ],
           "cards": [
+            {
+              "cards": [
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "Out (OWM)",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.outdoor_porch_temperature",
+                  "name": "Out (Local)",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
+              "cards": [
+                {
+                  "entity": "sensor.living_room_temperature",
+                  "name": "Living Room",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.office_temperature",
+                  "name": "Office",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.bedroom_temperature",
+                  "name": "Bedroom",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
             {
               "cards": [
                 {
@@ -629,6 +680,9 @@
                 }
               ],
               "type": "vertical-stack"
+            },
+            {
+              "type": "custom:layout-break"
             },
             {
               "cards": [
@@ -742,12 +796,12 @@
                   "type": "custom:valetudo-map-card",
                   "vacuum": "valetudo_eve",
                   "rotate": 0,
-                  "map_scale": 1.5,
+                  "map_scale": 2,
                   "crop": {
-                    "top": 45,
+                    "top": 60,
                     "bottom": 0,
-                    "left": 90,
-                    "right": 0
+                    "left": 120,
+                    "right": 40
                   }
                 }
               ]
