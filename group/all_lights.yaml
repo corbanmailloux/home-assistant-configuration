@@ -16,6 +16,7 @@ all_lights_custom:
     - light.tv_lamp
     - light.kallax_lamp
     - light.couch_side_table_lamp
+    - light.living_room_wall_light_1
     # - light.christmas_tree_lights
     # Kitchen
     - light.kitchen_counter_lights
@@ -37,6 +38,7 @@ everything_custom:
     - light.tv_lamp
     - light.kallax_lamp
     - light.couch_side_table_lamp
+    - light.living_room_wall_light_1
     # - light.christmas_tree_lights
     ## Kitchen
     - light.kitchen_counter_lights
