@@ -437,6 +437,19 @@
                   "name": "Lamp"
                 },
                 {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.fairy_lights",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "name": "Fairy",
+                  "collapsible_controls": true
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
                   "type": "custom:mushroom-fan-card",
                   "entity": "fan.bedroom_fan",
                   "fill_container": true,
@@ -446,12 +459,26 @@
                   "name": "Fan"
                 },
                 {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.fairy_lights",
+                  "type": "custom:mushroom-media-player-card",
+                  "entity": "media_player.bedroom_tv",
+                  "name": "TV",
                   "fill_container": true,
-                  "show_brightness_control": true,
-                  "name": "Fairy",
-                  "collapsible_controls": true
+                  "primary_info": "name",
+                  "show_volume_level": false,
+                  "use_media_info": true,
+                  "media_controls": [
+                    "play_pause_stop"
+                  ],
+                  "collapsible_controls": true,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  }
                 }
               ]
             },
