@@ -776,6 +776,15 @@
                 {
                   "cards": [
                     {
+                      "entity": "input_boolean.vacuum_livingroom",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
                       "entity": "input_boolean.vacuum_kitchen",
                       "show_icon": true,
                       "show_name": true,
@@ -823,12 +832,12 @@
                   "type": "custom:valetudo-map-card",
                   "vacuum": "valetudo_eve",
                   "rotate": 0,
-                  "map_scale": 2,
+                  "map_scale": 1.8,
                   "crop": {
-                    "top": 60,
+                    "top": 50,
                     "bottom": 0,
-                    "left": 120,
-                    "right": 40
+                    "left": 100,
+                    "right": 0
                   }
                 }
               ]
