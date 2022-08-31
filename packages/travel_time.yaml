@@ -1,14 +1,28 @@
 script:
   maggie_travel_time_send:
-    alias: "Notify Corban that Maggie's Almost Home"
+    description: "Notify Corban that Maggie's Almost Home"
+    fields:
+      dismiss_notification:
+        description: "true to dismiss the notification"
+        example: "true"
     sequence:
-      - service: notify.corban
-        data:
-          title: "Maggie's Almost Home"
-          message: "She's less than 10 minutes away." # TODO: Could I have this notification silently updated every couple minutes to show the current time?
-          data:
-            push:
-              sound: "US-EN-Alexa-Wife-Is-Arriving.wav"
+      - if:
+          - "{{ dismiss_notification == true }}"
+        then:
+          - service: notify.corban
+            data:
+              message: clear_notification
+              data:
+                tag: "maggie_home_warning"
+        else:
+          - service: notify.corban
+            data:
+              title: "Maggie's Almost Home"
+              message: "She's less than 10 minutes away." # TODO: Could I have this notification silently updated every couple minutes to show the current time?
+              data:
+                tag: "maggie_home_warning"
+                push:
+                  sound: "US-EN-Alexa-Wife-Is-Arriving.wav"
 
 automation:
   - alias: Notify Corban when Maggie is almost home
@@ -23,7 +37,7 @@ automation:
         state: "home"
       - condition: state
         entity_id: person.maggie
-        state: "not_home" # Only run if Maggie isn't home. Prevents some false triggers.
+        state: "not_home" # Only run if Maggie isn't home or another named zone.
       - condition: state
         entity_id: timer.maggie_home_notification_cooldown
         state: idle
@@ -34,12 +48,28 @@ automation:
         entity_id: input_boolean.vacation_mode
         state: "off"
     action:
-      - service: script.turn_on
-        entity_id: script.maggie_travel_time_send
+      - alias: "Notify Corban"
+        service: script.maggie_travel_time_send
+        data:
+          dismiss_notification: false
       - service: timer.start
         entity_id: timer.maggie_home_notification_cooldown
         data:
           duration: "00:10:00" # 10 minute cooldown before retriggering.
+
+  - id: 380345d6-b3ab-4cc1-908d-741051bb8ccf
+    alias: Dismiss the notification after Maggie arrives
+    trigger:
+      - platform: state
+        entity_id: person.maggie
+        to: "home"
+        for:
+          minutes: 1
+    action:
+      - alias: "Dismiss notification"
+        service: script.maggie_travel_time_send
+        data:
+          dismiss_notification: true
 
 timer:
   maggie_home_notification_cooldown:
