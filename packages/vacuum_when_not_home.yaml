@@ -1,0 +1,85 @@
+# Automatically trigger the vacuum when no one is home, at most once a day.
+
+# Note: This is also in `vacuum_reminder.yaml`, but currently disabled. If we re-enable that, merge.
+input_datetime:
+  last_vacuum_run:
+    name: Last Vacuum Run
+    has_date: true
+    has_time: false
+
+automation:
+  - alias: Trigger vacuum when noone is home for 5 minutes
+    id: b789d523-89bf-4bd6-884d-6ad7a4e63b06
+    trigger:
+      - platform: state
+        entity_id: input_boolean.home_occupied
+        from: "on"
+        to: "off"
+        for:
+          minutes: 5
+    condition:
+      - alias: "Not in Vacation Mode" # just in case Eve were to get stuck
+        condition: state
+        entity_id: input_boolean.vacation_mode
+        state: "off"
+      - alias: "Vacuum didn't run already today"
+        condition: template
+        value_template: >
+          {{ states('input_datetime.last_vacuum_run') < (now().timestamp()) | timestamp_custom('%Y-%m-%d') }}
+    action:
+      - alias: "Make sure no rooms are selected"
+        service: homeassistant.turn_off
+        target:
+          entity_id: group.vacuum_rooms
+      - alias: "Start cleaning"
+        service: script.vacuum_clean_segments
+      - alias: Wait for room clean to complete, or for someone to get home
+        wait_for_trigger:
+          - platform: state
+            entity_id: vacuum.valetudo_eve
+            to: "returning"
+            id: "complete"
+          - platform: state
+            entity_id: input_boolean.home_occupied
+            to: "on"
+            id: "someone_home"
+        timeout:
+          minutes: 45
+      - choose:
+          # Timeout: Notify Corban
+          - conditions: "{{ not wait.completed }}"
+            sequence:
+              - service: script.vacuum_alert_timeout
+
+          # Someone got home during the clean: Return to base.
+          - conditions:
+              condition: trigger
+              id: "someone_home"
+            sequence:
+              - service: vacuum.return_to_base
+                target:
+                  entity_id: vacuum.valetudo_eve
+
+          # Cleaning finished normally: Update timestamp
+          - conditions:
+              condition: trigger
+              id: "complete"
+            sequence:
+              - service: input_datetime.set_datetime
+                alias: Store the last run time
+                target:
+                  entity_id: input_datetime.last_vacuum_run
+                data:
+                  timestamp: "{{ now().timestamp() }}"
+
+script:
+  # Duplicated in `vacuum_reminder.yaml`, but commented out.
+  vacuum_alert_timeout:
+    alias: "Vacuum Helper: Notify Corban of a timeout"
+    sequence:
+      - service: notify.corban
+        data:
+          title: "Cleaning Error"
+          message: "Vacuum didn't complete before timeout."
+          data:
+            group: "run_vacuum"
