@@ -492,13 +492,20 @@
               "type": "horizontal-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-fan-card",
-                  "entity": "fan.office_fan",
-                  "fill_container": true,
-                  "show_percentage_control": false,
-                  "collapsible_controls": false,
-                  "icon_animation": true,
-                  "name": "Fan"
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office_leds",
+                  "name": "WLED",
+                  "hold_action": {
+                    "action": "toggle"
+                  },
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "use_light_color": false,
+                  "show_brightness_control": true,
+                  "show_color_control": false,
+                  "collapsible_controls": true,
+                  "fill_container": true
                 },
                 {
                   "type": "custom:mushroom-climate-card",
