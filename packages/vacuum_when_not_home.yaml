@@ -8,7 +8,7 @@ input_datetime:
     has_time: false
 
 automation:
-  - alias: Trigger vacuum when noone is home for 5 minutes
+  - alias: Trigger vacuum when no one is home for 5 minutes
     id: b789d523-89bf-4bd6-884d-6ad7a4e63b06
     trigger:
       - platform: state
@@ -47,23 +47,22 @@ automation:
           minutes: 45
       - choose:
           # Timeout: Notify Corban
-          - conditions: "{{ not wait.completed }}"
+          - conditions: >-
+              {{ wait.trigger == None }}
             sequence:
               - service: script.vacuum_alert_timeout
 
           # Someone got home during the clean: Return to base.
-          - conditions:
-              condition: trigger
-              id: "someone_home"
+          - conditions: >-
+              {{ wait.trigger.id == "someone_home" }}
             sequence:
               - service: vacuum.return_to_base
                 target:
                   entity_id: vacuum.valetudo_eve
 
           # Cleaning finished normally: Update timestamp
-          - conditions:
-              condition: trigger
-              id: "complete"
+          - conditions: >-
+              {{ wait.trigger.id == "complete" }}
             sequence:
               - service: input_datetime.set_datetime
                 alias: Store the last run time
