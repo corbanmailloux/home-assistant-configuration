@@ -71,6 +71,54 @@ automation:
                 data:
                   timestamp: "{{ now().timestamp() }}"
 
+  - id: 5bc9a472-22c6-486a-9ced-bc01ad2ff2cd
+    alias: "Vacuum Bin Reminder: Remind Corban to empty Eve"
+    trigger:
+      # Check at 9 PM, to match treat time.
+      - platform: time
+        at: "21:00:00"
+      # Check when Corban gets home, after 10 minutes.
+      - platform: state
+        entity_id: person.corban
+        to: "home"
+        for:
+          minutes: 10
+    condition:
+      - alias: "Home Occupied"
+        condition: state
+        entity_id: input_boolean.home_occupied
+        state: "on"
+      - alias: "Corban home"
+        condition: state
+        entity_id: person.corban
+        state: "home"
+      - alias: "Bin needs to be emptied"
+        condition: numeric_state
+        entity_id: sensor.eve_bin
+        above: 20 # minutes
+    action:
+      - alias: "Notify Corban"
+        service: notify.corban
+        data:
+          title: "Empty Vacuum Bin"
+          message: "Runtime since last empty: {{ states('sensor.eve_bin') }} minutes."
+          data:
+            tag: "vacuum_empty_reminder"
+
+  - id: 49ed6267-ad76-4b5b-8b45-aaf0e3d923ff
+    alias: "Vacuum Bin Reminder: Dismiss notification when emptied"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.eve_bin
+        below: 1 # Resets to 0 when emptied.
+    action:
+      - alias: "Clear notification"
+        service: notify.corban
+        data:
+          message: "clear_notification"
+          data:
+            tag: "vacuum_empty_reminder"
+
 script:
   # Duplicated in `vacuum_reminder.yaml`, but commented out.
   vacuum_alert_timeout:
