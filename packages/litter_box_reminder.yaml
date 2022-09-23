@@ -145,3 +145,24 @@ automation:
           entity_id: input_datetime.last_litter_box_replacement
         data:
           timestamp: "{{ now().timestamp() }}"
+
+  - alias: Litter Box Button - Double Click - Run Vacuum in Bathroom
+    id: bcb873f5-a1c2-47e6-a3b9-5fb963e19fcb
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: 24d7573f0424b71156560a74fede5da7
+        type: action
+        subtype: double
+        discovery_id: 0x00158d00027bee0b action_double
+    action:
+      - alias: "Make sure no rooms are selected"
+        service: homeassistant.turn_off
+        target:
+          entity_id: group.vacuum_rooms
+      - alias: "Select just the bathoom"
+        service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.vacuum_1st_floor_bath
+      - alias: "Start cleaning"
+        service: script.vacuum_clean_segments
