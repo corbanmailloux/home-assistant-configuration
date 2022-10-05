@@ -18,7 +18,7 @@ automation:
                 entity_id: binary_sensor.maggie_person_home
                 state: "off"
             sequence:
-              - service: notify.mobile_app_margarets_iphone
+              - service: notify.maggie
                 data:
                   message: "request_location_update"
       - choose:
@@ -28,6 +28,6 @@ automation:
                 entity_id: binary_sensor.corban_person_home
                 state: "off"
             sequence:
-              - service: notify.mobile_app_corbans_iphone
+              - service: notify.corban
                 data:
                   message: "request_location_update"
