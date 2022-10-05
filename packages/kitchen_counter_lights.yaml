@@ -57,6 +57,11 @@ automation:
         entity_id: binary_sensor.kitchen_assumed_motion
         from: "off"
         to: "on"
+    condition:
+      - alias: "Home Occupied"
+        condition: state
+        entity_id: input_boolean.home_occupied
+        state: "on"
     action:
       - alias: "Time-based selection"
         choose:
