@@ -506,28 +506,6 @@
                   "show_color_control": false,
                   "collapsible_controls": true,
                   "fill_container": true
-                },
-                {
-                  "type": "custom:mushroom-climate-card",
-                  "entity": "climate.corbans_office_ac",
-                  "name": "AC",
-                  "icon": "mdi:air-conditioner",
-                  "fill_container": true,
-                  "hvac_modes": [
-                    "cool",
-                    "off"
-                  ],
-                  "show_temperature_control": true,
-                  "collapsible_controls": true,
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "primary_info": "state",
-                  "secondary_info": "none",
-                  "layout": "vertical",
-                  "tap_action": {
-                    "action": "more-info"
-                  }
                 }
               ]
             },
