@@ -2,8 +2,8 @@
   name: Movie Mode
   entities:
     light.tv_lamp:
-      min_mireds: 150
-      max_mireds: 500
+      min_mireds: 153
+      max_mireds: 370
       effect_list:
       - blink
       - breathe
@@ -13,30 +13,19 @@
       - stop_effect
       supported_color_modes:
       - color_temp
-      color_mode: color_temp
-      brightness: 76
-      color_temp: 370
-      hs_color:
-      - 28.391
-      - 65.659
-      rgb_color:
-      - 255
-      - 166
-      - 87
-      xy_color:
-      - 0.526
-      - 0.387
       entity_id:
       - light.tv_lamp_top
       - light.tv_lamp_middle
       - light.tv_lamp_bottom
-      friendly_name: TV Lamp
       icon: mdi:lightbulb-group
+      friendly_name: TV Lamp
       supported_features: 44
+      color_mode: color_temp
+      brightness: 76
       state: 'on'
-    light.couch_side_table_lamp:
-      min_mireds: 150
-      max_mireds: 500
+    light.living_room_wall_light_1:
+      min_mireds: 153
+      max_mireds: 370
       effect_list:
       - blink
       - breathe
@@ -46,267 +35,98 @@
       - stop_effect
       supported_color_modes:
       - color_temp
-      linkquality: 57
-      friendly_name: Couch Side Table Lamp
+      linkquality: 131
+      friendly_name: Living Room Wall Light 1
       supported_features: 47
-      state: 'off'
-    light.kallax_lamp:
-      min_mireds: 150
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      supported_color_modes:
-      - color_temp
-      linkquality: 75
-      friendly_name: Kallax Lamp
-      supported_features: 47
-      state: 'off'
-    switch.living_room_tv_power:
-      friendly_name: Living Room TV
-      icon: mdi:television
-      state: 'on'
-    switch.soundbar_power:
-      friendly_name: 'Soundbar: Power'
-      state: 'off'
-    switch.soundbar_volume_up:
-      friendly_name: 'Soundbar: Volume Up'
-      state: 'off'
-    switch.soundbar_volume_down:
-      friendly_name: 'Soundbar: Volume Down'
-      state: 'off'
-    switch.soundbar:
-      friendly_name: Soundbar
-      icon: mdi:surround-sound
-      assumed_state: true
-      state: 'off'
-    group.office_lights:
-      entity_id:
-      - light.plant_lamp
-      - light.office_lamp
-      - light.office_lamp_bottom
-      - light.office_leds
-      order: 5
-      friendly_name: Office Lights
       state: 'off'
   icon: mdi:movie-open-play
+  metadata:
+    light.living_room_wall_light_1:
+      entity_only: true
 - id: '1582083590078'
   name: Living Room - Bright
   entities:
     light.tv_lamp:
-      brightness: 254
-      linkquality: 76
-      state: 'on'
+      min_mireds: 153
+      max_mireds: 370
+      effect_list:
+      - blink
+      - breathe
+      - channel_change
+      - finish_effect
+      - okay
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      entity_id:
+      - light.tv_lamp_top
+      - light.tv_lamp_middle
+      - light.tv_lamp_bottom
+      icon: mdi:lightbulb-group
       friendly_name: TV Lamp
-      supported_features: 47
-    light.couch_side_table_lamp:
-      friendly_name: Couch Side Table Lamp
-      supported_features: 0
+      supported_features: 44
+      color_mode: color_temp
+      brightness: 253
       state: 'on'
-    light.kallax_lamp:
-      friendly_name: Kallax Lamp
-      supported_features: 0
-      state: 'on'
+  metadata: {}
 - id: '1582083678233'
   name: Living Room - Dim
   entities:
     light.tv_lamp:
-      brightness: 254
-      state: 'on'
+      min_mireds: 153
+      max_mireds: 370
+      effect_list:
+      - blink
+      - breathe
+      - channel_change
+      - finish_effect
+      - okay
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      entity_id:
+      - light.tv_lamp_top
+      - light.tv_lamp_middle
+      - light.tv_lamp_bottom
+      icon: mdi:lightbulb-group
       friendly_name: TV Lamp
-      supported_features: 47
-    light.couch_side_table_lamp:
-      friendly_name: Couch Side Table Lamp
-      supported_features: 0
-      state: 'off'
-    light.kallax_lamp:
-      friendly_name: Kallax Lamp
-      supported_features: 0
-      state: 'off'
+      supported_features: 44
+      color_mode: color_temp
+      brightness: 122
+      color_temp: 181
+      hs_color:
+      - 28.004
+      - 12.556
+      rgb_color:
+      - 255
+      - 237
+      - 222
+      xy_color:
+      - 0.354
+      - 0.343
+      state: 'on'
+  metadata: {}
 - id: '1582084722339'
   name: Living Room - Off
   entities:
     light.tv_lamp:
-      brightness: 252
-      state: 'off'
+      min_mireds: 153
+      max_mireds: 370
+      effect_list:
+      - blink
+      - breathe
+      - channel_change
+      - finish_effect
+      - okay
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      entity_id:
+      - light.tv_lamp_top
+      - light.tv_lamp_middle
+      - light.tv_lamp_bottom
+      icon: mdi:lightbulb-group
       friendly_name: TV Lamp
-      supported_features: 47
-    light.couch_side_table_lamp:
-      friendly_name: Couch Side Table Lamp
-      supported_features: 0
+      supported_features: 44
       state: 'off'
-    light.kallax_lamp:
-      friendly_name: Kallax Lamp
-      supported_features: 0
-      state: 'off'
-- id: '1606695793173'
-  name: Office - Working
-  entities:
-    light.plant_lamp:
-      friendly_name: Plant Lamp
-      supported_features: 0
-      state: 'on'
-    light.office_lamp:
-      friendly_name: Office Lamp
-      supported_features: 0
-      state: 'on'
-    light.office_lamp_bottom:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      brightness: 203
-      linkquality: 78
-      state: 'off'
-      update_available: true
-      friendly_name: Office Video Light
-      supported_features: 47
-- id: '1606695826977'
-  name: Office - Meeting
-  entities:
-    light.plant_lamp:
-      friendly_name: Plant Lamp
-      supported_features: 0
-      state: 'on'
-    light.office_lamp_bottom:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      brightness: 203
-      linkquality: 78
-      state: 'on'
-      update_available: true
-      friendly_name: Office Video Light
-      supported_features: 47
-    light.office_lamp:
-      friendly_name: Office Lamp
-      supported_features: 0
-      state: 'on'
-- id: '1606695857577'
-  name: Office - Off
-  entities:
-    light.plant_lamp:
-      friendly_name: Plant Lamp
-      supported_features: 0
-      state: 'off'
-    light.office_lamp:
-      friendly_name: Office Lamp
-      supported_features: 0
-      state: 'off'
-    light.office_lamp_bottom:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      brightness: 203
-      linkquality: 78
-      state: 'off'
-      update_available: true
-      friendly_name: Office Video Light
-      supported_features: 47
-- id: '1614830563185'
-  name: Studio Mode
-  entities:
-    light.office_lamp_bottom:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      brightness: 254
-      color_temp: 230
-      linkquality: 55
-      state: 'on'
-      update:
-        state: available
-      update_available: true
-      friendly_name: Office Lamp - Bottom
-      supported_features: 47
-    light.office_lamp_middle:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      brightness: 254
-      color_temp: 243
-      linkquality: 92
-      state: 'on'
-      friendly_name: Office Lamp - Middle
-      supported_features: 47
-    light.office_lamp_top:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      brightness: 254
-      color_temp: 244
-      linkquality: 57
-      state: 'on'
-      friendly_name: Office Lamp - Top
-      supported_features: 47
-    light.tv_lamp:
-      min_mireds: 153
-      max_mireds: 500
-      effect_list:
-      - blink
-      - breathe
-      - okay
-      - channel_change
-      - finish_effect
-      - stop_effect
-      brightness: 254
-      color_temp: 250
-      linkquality: 55
-      state: 'on'
-      update:
-        state: idle
-      update_available: false
-      friendly_name: TV Lamp
-      supported_features: 47
-    light.plant_lamp:
-      friendly_name: Plant Lamp
-      supported_features: 0
-      state: 'on'
-    light.kallax_lamp:
-      friendly_name: Kallax Lamp
-      supported_features: 0
-      state: 'on'
-    light.couch_side_table_lamp:
-      friendly_name: Couch Side Table Lamp
-      supported_features: 0
-      state: 'on'
-  icon: mdi:camera
+  metadata: {}
