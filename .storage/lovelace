@@ -484,7 +484,7 @@
             },
             {
               "type": "custom:button-card",
-              "name": "Corban's Office",
+              "name": "Office",
               "entity": "sensor.office_temperature",
               "template": "header_temperature_clickable"
             },
@@ -506,6 +506,25 @@
                   "show_color_control": false,
                   "collapsible_controls": true,
                   "fill_container": true
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.key_light_air_1",
+                  "name": "Key Light",
+                  "icon": "mdi:light-flood-down",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "use_light_color": false,
+                  "show_color_temp_control": true,
+                  "collapsible_controls": true,
+                  "show_color_control": false
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.corban_s_office_ceiling_light",
+                  "name": "Ceiling Light",
+                  "fill_container": true,
+                  "show_brightness_control": true
                 }
               ]
             },
@@ -514,7 +533,7 @@
             },
             {
               "type": "custom:button-card",
-              "name": "Maggie's Office",
+              "name": "Craft Room",
               "entity": "sensor.office_temperature",
               "template": "header"
             },
@@ -528,6 +547,13 @@
                   "fill_container": true,
                   "show_brightness_control": true,
                   "collapsible_controls": true
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office_lamp_bottom",
+                  "name": "Bottom Light",
+                  "icon": "mdi:light-flood-down",
+                  "fill_container": true
                 }
               ]
             },
