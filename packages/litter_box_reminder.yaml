@@ -18,7 +18,7 @@ input_datetime:
     has_time: false
 
 automation:
-  - alias: Reminder to do the litter box
+  - alias: Litter Box Reminder - Time Trigger
     id: c4dcc56f-1797-444f-90d5-db1abc436a19
     trigger:
       - platform: time
@@ -44,40 +44,87 @@ automation:
             data:
               entity_id: input_boolean.litter_box_clean_needed
 
-  - alias: Send reminder to do the litter box
+  - alias: Litter Box Reminder - Send reminder based on boolean
     id: 6d7045a8-d073-45f0-b752-e8292f2ff875
     trigger:
       - platform: state
         entity_id: input_boolean.litter_box_clean_needed
         to: "on"
     action:
-      # - service: notify.adult_android_phones
-      #   data:
-      #     title: "Litter Box Check"
-      #     message: "Has the litter box been done?"
-      #     data:
-      #       tag: 10 # Arbitrary but constant.
-      #       icon: https://home.corb.co/local/litter_box/litter_box_icon.png
-      #       actions:
-      #         - action: "litter_box_complete"
-      #           title: "Yes, complete."
-      # - service: notify.adult_ios_phones
-      - service: notify.maggie
-        data:
-          title: "Litter Box Check"
-          message: "Has the litter box been done?"
-          data:
-            tag: "litter_box_reminder"
-            actions:
-              - action: "LITTER_COMPLETE"
-                title: "Yes, complete."
-                activationMode: "background"
-                authenticationRequired: false # Don't require unlocking the device
-                destructive: false
-                behavior: "default"
+      - if:
+          - alias: "Is Corban home?"
+            condition: state
+            entity_id: person.corban
+            state: "home"
+        then:
+          - alias: "Notify Corban"
+            service: script.litter_box_reminder_send_notification_to_variable
+            data:
+              notify_device: corban
+              dismiss_notification: false
+      - if:
+          - alias: "Is Maggie home?"
+            condition: state
+            entity_id: person.maggie
+            state: "home"
+        then:
+          - alias: "Notify Maggie"
+            service: script.litter_box_reminder_send_notification_to_variable
+            data:
+              notify_device: maggie
+              dismiss_notification: false
 
-  # Dismiss notifications on all devices when acknowledged.
-  - alias: Litter box reminder clicked
+  - id: ef7565cd-e7ca-4fa4-a126-462c56174ce8
+    alias: Litter Box Reminder - Send delayed notification if someone gets home
+    mode: parallel
+    trigger:
+      - platform: state
+        entity_id: person.corban
+        to: "home"
+        id: "corban"
+      - platform: state
+        entity_id: person.maggie
+        to: "home"
+        id: "maggie"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.litter_box_clean_needed
+        state: "on"
+    action:
+      - alias: "Notify the right person"
+        service: script.litter_box_reminder_send_notification_to_variable
+        data:
+          notify_device: >-
+            {{ trigger.id }}
+          dismiss_notification: false
+
+  - id: b1f5c43d-247f-452d-8808-5b33f329b92d
+    alias: Litter Box Reminder - Dismiss notification if someone leaves home
+    mode: parallel
+    trigger:
+      - platform: state
+        entity_id: person.corban
+        from: "home"
+        id: "corban"
+      - platform: state
+        entity_id: person.maggie
+        from: "home"
+        id: "maggie"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.litter_box_clean_needed
+        state: "on"
+    action:
+      - alias: "Dismiss the notification"
+        service: script.litter_box_reminder_send_notification_to_variable
+        data:
+          notify_device: >-
+            {{ trigger.id }}
+          dismiss_notification: true
+
+  - alias: Litter Box Reminder - Acknowledge from notification
     id: b3132070-58f0-47c2-acec-ac471ba040ce
     trigger:
       - platform: event
@@ -89,21 +136,22 @@ automation:
         data:
           entity_id: input_boolean.litter_box_clean_needed
 
-  - alias: Dismiss litter box notifications
+  - alias: Litter Box Reminder - Dismiss notification based on boolean
     id: bced3701-219b-4c41-824f-b38416cb0506
     trigger:
       - platform: state
         entity_id: input_boolean.litter_box_clean_needed
         to: "off"
     action:
-      # - service: notify.adult_ios_phones
-      - service: notify.maggie
+      - alias: "Clear notifications"
+        service: script.litter_box_reminder_send_notification_to_variable
         data:
-          message: clear_notification
-          data:
-            tag: "litter_box_reminder"
+          notify_device: adult_phones
+          dismiss_notification: true
 
-  - alias: Litter Box Button - Click
+  #### Button Actions
+
+  - alias: Litter Box Button - Click - Dismiss / Skip today
     id: 6bca1452-eb94-4cfd-b396-82f8555d8f2b
     trigger:
       - platform: device
@@ -166,3 +214,37 @@ automation:
           entity_id: input_boolean.vacuum_1st_floor_bath
       - alias: "Start cleaning"
         service: script.vacuum_clean_segments
+
+script:
+  litter_box_reminder_send_notification_to_variable:
+    description: "Litter Box Reminder - Send notification to variable"
+    fields:
+      notify_device:
+        description: "The service call to use for notification: notify.X"
+        example: "corban"
+      dismiss_notification:
+        description: "true to dismiss the notification"
+        example: "true"
+    sequence:
+      - if:
+          - "{{ dismiss_notification == true }}"
+        then:
+          - service: notify.{{ notify_device }}
+            data:
+              message: clear_notification
+              data:
+                tag: "litter_box_reminder"
+        else:
+          - service: notify.{{ notify_device }}
+            data:
+              title: "Litter Box Check"
+              message: "Has the litter box been done?"
+              data:
+                tag: "litter_box_reminder"
+                actions:
+                  - action: "LITTER_COMPLETE"
+                    title: "Yes, complete."
+                    activationMode: "background"
+                    authenticationRequired: false # Don't require unlocking the device
+                    destructive: false
+                    behavior: "default"

@@ -167,6 +167,31 @@ automation:
             {{ trigger.id }}
           dismiss_notification: false
 
+  - id: 9d4ec00e-140f-458e-a2ab-84ec7e45069b
+    alias: Washer Reminder - Dismiss notification if someone leaves home
+    mode: parallel
+    trigger:
+      - platform: state
+        entity_id: person.corban
+        from: "home"
+        id: "corban"
+      - platform: state
+        entity_id: person.maggie
+        from: "home"
+        id: "maggie"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.washer_reminder_notifying
+        state: "on"
+    action:
+      - alias: "Notify the right person"
+        service: script.washer_reminder_send_notification_to_variable
+        data:
+          notify_device: >-
+            {{ trigger.id }}
+          dismiss_notification: true
+
 script:
   washer_reminder_send_notification_to_variable:
     description: "Washer Reminder - Send notification to variable"
