@@ -230,6 +230,32 @@
                   "type": "conditional",
                   "conditions": [
                     {
+                      "entity": "input_boolean.training_mode",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.training_mode",
+                    "icon_color": "cyan",
+                    "name": "Training",
+                    "content_info": "name",
+                    "use_entity_picture": false,
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "hold_action": {
+                      "action": "more-info"
+                    },
+                    "double_tap_action": {
+                      "action": "none"
+                    }
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
                       "entity": "input_boolean.vacation_mode",
                       "state": "on"
                     }

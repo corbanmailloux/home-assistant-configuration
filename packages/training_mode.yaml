@@ -5,19 +5,10 @@ scene:
       light.tv_lamp:
         brightness: 255
         state: "on"
-      light.couch_side_table_lamp:
-        brightness: 255
-        state: "on"
-      light.kallax_lamp:
-        brightness: 255
-        state: "on"
-      light.plant_lamp:
+      light.corban_s_office_ceiling_light:
         brightness: 255
         state: "on"
       light.office_lamp:
-        brightness: 255
-        state: "on"
-      light.office_lamp_bottom:
         brightness: 255
         state: "on"
     icon: mdi:trophy-outline
@@ -40,11 +31,8 @@ automation:
           scene_id: state_before_training
           snapshot_entities:
             - light.tv_lamp
-            - light.couch_side_table_lamp
-            - light.kallax_lamp
-            - light.plant_lamp
+            - light.corban_s_office_ceiling_light
             - light.office_lamp
-            - light.office_lamp_bottom
       - service: scene.turn_on
         target:
           entity_id: scene.training
