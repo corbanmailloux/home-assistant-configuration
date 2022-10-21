@@ -13,6 +13,19 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      color_mode: color_temp
+      brightness: 97
+      color_temp: 370
+      hs_color:
+      - 28.391
+      - 65.659
+      rgb_color:
+      - 255
+      - 166
+      - 87
+      xy_color:
+      - 0.526
+      - 0.387
       entity_id:
       - light.tv_lamp_top
       - light.tv_lamp_middle
@@ -20,8 +33,6 @@
       icon: mdi:lightbulb-group
       friendly_name: TV Lamp
       supported_features: 44
-      color_mode: color_temp
-      brightness: 76
       state: 'on'
     light.living_room_wall_light_1:
       min_mireds: 153
@@ -35,7 +46,7 @@
       - stop_effect
       supported_color_modes:
       - color_temp
-      linkquality: 131
+      linkquality: 127
       friendly_name: Living Room Wall Light 1
       supported_features: 47
       state: 'off'
