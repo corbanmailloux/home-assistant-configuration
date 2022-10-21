@@ -7,15 +7,16 @@ all_lights_custom:
     # Bedroom
     - light.bedroom_lamp
     - light.fairy_lights
-    # Office
-    - light.plant_lamp
+    # Maggie's Office / Craft Room
     - light.office_lamp
     - light.office_lamp_bottom
+    # Corban's Office
+    - light.corban_s_office_ceiling_lamp_1
+    - light.corban_s_office_ceiling_lamp_2
+    - light.key_light_air_1
     - light.office_leds
     # Living Room
     - light.tv_lamp
-    - light.kallax_lamp
-    - light.couch_side_table_lamp
     - light.living_room_wall_light_1
     # - light.christmas_tree_lights
     # Kitchen
@@ -29,15 +30,16 @@ everything_custom:
     ## Bedroom
     - light.bedroom_lamp
     - light.fairy_lights
-    ## Office
-    - light.plant_lamp
+    ## Maggie's Office / Craft Room
     - light.office_lamp
     - light.office_lamp_bottom
+    ## Corban's Office
+    - light.corban_s_office_ceiling_lamp_1
+    - light.corban_s_office_ceiling_lamp_2
+    - light.key_light_air_1
     - light.office_leds
     ## Living Room
     - light.tv_lamp
-    - light.kallax_lamp
-    - light.couch_side_table_lamp
     - light.living_room_wall_light_1
     # - light.christmas_tree_lights
     ## Kitchen

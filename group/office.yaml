@@ -1,9 +1,15 @@
 # Office Group
 
-office_lights:
-  name: Office Lights
+corbans_office_lights:
+  name: "Corban's Office Lights"
   entities:
-    - light.plant_lamp
+    - light.office_leds
+    - light.corban_s_office_ceiling_lamp_1
+    - light.corban_s_office_ceiling_lamp_2
+    - light.key_light_air_1
+
+maggies_office_lights:
+  name: "Maggie's Office Lights"
+  entities:
     - light.office_lamp
     - light.office_lamp_bottom
-    - light.office_leds

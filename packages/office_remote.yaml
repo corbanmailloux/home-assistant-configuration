@@ -1,5 +1,5 @@
 automation:
-  - alias: Office Remote - Toggle
+  - alias: Office Remote - Toggle - Toggle Key Light
     id: e8cfeb3b-e051-4b20-9d80-fd19a96a16dd
     trigger:
       - platform: device
@@ -10,7 +10,7 @@ automation:
         subtype: toggle
     action:
       - service: light.toggle
-        entity_id: light.office_lamp_bottom
+        entity_id: light.key_light_air_1
 
   - alias: Office Remote - Brightness Up
     id: 917b79fd-9825-4100-bca6-d44847d8ef10
@@ -23,34 +23,34 @@ automation:
         subtype: brightness_up_click
     action:
       - choose:
-          # If the bottom light is on, control it directly.
+          # If the key light is on, control it directly.
           - conditions:
               - condition: state
-                entity_id: light.office_lamp_bottom
+                entity_id: light.key_light_air_1
                 state: "on"
             sequence:
               - service: light.turn_on
-                entity_id: light.office_lamp_bottom
+                entity_id: light.key_light_air_1
                 data_template:
                   brightness: >
-                    {%- set target = state_attr('light.office_lamp_bottom', 'brightness') | int + 40 -%}
+                    {%- set target = state_attr('light.key_light_air_1', 'brightness') | int + 3 -%}
                     {%- if target > 255 -%}
                       255
                     {%- else -%}
                       {{ target}}
                     {%- endif -%}
-          # If the bottom light is off, control the lamp as a whole.
+          # If the key light is off, control the ceiling lights.
           - conditions:
               - condition: state
-                entity_id: light.office_lamp_bottom
+                entity_id: light.key_light_air_1
                 state: "off"
             sequence:
               - service: light.turn_on
-                entity_id: light.office_lamp
+                entity_id: light.corban_s_office_ceiling_light
                 data_template:
                   # Handles the light being off as well, treating it as 0 brightness.
                   brightness: >
-                    {%- set target = (is_state('light.office_lamp', "on") and state_attr('light.office_lamp', 'brightness')) | int + 40 -%}
+                    {%- set target = (is_state('light.corban_s_office_ceiling_light', "on") and state_attr('light.corban_s_office_ceiling_light', 'brightness')) | int + 51 -%}
                     {%- if target > 255 -%}
                       255
                     {%- else -%}
@@ -68,33 +68,33 @@ automation:
         subtype: brightness_down_click
     action:
       - choose:
-          # If the bottom light is on, control it directly.
+          # If the key light is on, control it directly.
           - conditions:
               - condition: state
-                entity_id: light.office_lamp_bottom
+                entity_id: light.key_light_air_1
                 state: "on"
             sequence:
               - service: light.turn_on
-                entity_id: light.office_lamp_bottom
+                entity_id: light.key_light_air_1
                 data_template:
                   brightness: >
-                    {%- set target = state_attr('light.office_lamp_bottom', 'brightness') | int - 40 -%}
-                    {%- if target < 10 -%}
-                      10
+                    {%- set target = state_attr('light.key_light_air_1', 'brightness') | int - 3 -%}
+                    {%- if target < 1 -%}
+                      1
                     {%- else -%}
                       {{ target}}
                     {%- endif -%}
-          # If the bottom light is off, control the lamp as a whole.
+          # If the key light is off, control the ceiling light.
           - conditions:
               - condition: state
-                entity_id: light.office_lamp_bottom
+                entity_id: light.key_light_air_1
                 state: "off"
             sequence:
               - service: light.turn_on
-                entity_id: light.office_lamp
+                entity_id: light.corban_s_office_ceiling_light
                 data_template:
                   brightness: >
-                    {%- set target = state_attr('light.office_lamp', 'brightness') | int - 40 -%}
+                    {%- set target = state_attr('light.corban_s_office_ceiling_light', 'brightness') | int - 51 -%}
                     {%- if target < 10 -%}
                       10
                     {%- else -%}
@@ -111,8 +111,9 @@ automation:
         type: action
         subtype: brightness_up_hold
     action:
-      - service: light.turn_on
-        entity_id: light.office_lamp_bottom
+      - alias: "Ceiling light full brighness"
+        service: light.turn_on
+        entity_id: light.corban_s_office_ceiling_light
         data:
           brightness: 255
 
@@ -126,23 +127,23 @@ automation:
         type: action
         subtype: brightness_down_hold
     action:
-      - service: light.turn_on
-        entity_id: light.office_lamp_bottom
-        data:
-          brightness: 10
+      - alias: "Ceiling light off"
+        service: light.turn_off
+        entity_id: light.corban_s_office_ceiling_light
 
-  - alias: Office Remote - Left Button Click - Toggle Plant Lamp
-    id: 4f982672-4257-4cb7-a498-1df044a30150
-    trigger:
-      - platform: device
-        device_id: 66f76df28bdd462e84227f8f164ee7c3
-        discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
-        domain: mqtt
-        type: action
-        subtype: arrow_left_click
-    action:
-      - service: light.toggle
-        entity_id: light.plant_lamp
+  # TODO
+  # - alias: Office Remote - Left Button Click - Video Scene
+  #   id: 4f982672-4257-4cb7-a498-1df044a30150
+  #   trigger:
+  #     - platform: device
+  #       device_id: 66f76df28bdd462e84227f8f164ee7c3
+  #       discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
+  #       domain: mqtt
+  #       type: action
+  #       subtype: arrow_left_click
+  #   action:
+  #     - service: light.toggle
+  #       entity_id: light.key_light_air_1
 
   - alias: Office Remote - Left Button Hold - Toggle Fan
     id: df89803c-e20a-4418-ae99-1371f154ecd4
@@ -157,7 +158,7 @@ automation:
       - service: fan.toggle
         entity_id: fan.office_fan
 
-  - alias: Office Remote - Right Button Click - Toggle Lamp
+  - alias: Office Remote - Right Button Click - Toggle Ceiling Light
     id: 74eee1be-0bea-4009-9621-59e44cc2d8a4
     trigger:
       - platform: device
@@ -169,7 +170,7 @@ automation:
     action:
       - service: light.toggle
         data:
-          entity_id: light.office_lamp
+          entity_id: light.corban_s_office_ceiling_light
           brightness: 255
 
   - alias: Office Remote - Right Button Hold - Toggle PTZ Camera
