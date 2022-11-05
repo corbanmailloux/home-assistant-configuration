@@ -30,13 +30,17 @@ automation:
         data:
           entity_id: input_boolean.wall_display_show_map
 
-  - alias: Hide map when Maggie gets home
+  - alias: Hide map when Maggie gets home or to work
     id: df202fb6-6230-4c51-bcc5-18572973fbba
     trigger:
       - platform: state
         entity_id: person.maggie
         to: "home"
-        for: "00:01:00" # Allow a couple minute window
+        for: "00:01:00"
+      - platform: state
+        entity_id: person.maggie
+        to: "L3Harris"
+        for: "00:01:00"
     action:
       - service: input_boolean.turn_off
         data:
