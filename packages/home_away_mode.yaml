@@ -177,11 +177,7 @@ script:
     sequence:
       - delay:
           seconds: 2
-      - service: media_player.volume_set
-        data:
-          entity_id: media_player.kitchen_speaker
-          volume_level: 0.6
       - service: tts.cloud_say
-        entity_id: media_player.kitchen_speaker
+        entity_id: media_player.kitchen
         data_template:
           message: Welcome home!

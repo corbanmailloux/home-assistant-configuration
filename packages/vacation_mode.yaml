@@ -127,12 +127,12 @@ automation:
           action: "VACATION_ALARM"
     action:
       - service: tts.cloud_say
-        entity_id: media_player.kitchen_speaker
+        entity_id: media_player.kitchen
         data_template:
-          message: Intruder. The resident has been notified.
+          message: Intruder. The owner has been notified.
       - delay:
           seconds: 15
       - service: tts.cloud_say
-        entity_id: media_player.kitchen_speaker
+        entity_id: media_player.kitchen
         data_template:
-          message: Intruder. The resident has been notified.
+          message: Intruder. The owner has been notified.
