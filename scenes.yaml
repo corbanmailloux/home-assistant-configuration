@@ -141,3 +141,63 @@
       supported_features: 44
       state: 'off'
   metadata: {}
+- id: '1666717493593'
+  name: Office Meeting
+  entities:
+    light.key_light_air_1:
+      min_mireds: 143
+      max_mireds: 344
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 15
+      color_temp: 216
+      hs_color:
+      - 26.758
+      - 24.53
+      rgb_color:
+      - 255
+      - 220
+      - 192
+      xy_color:
+      - 0.388
+      - 0.355
+      friendly_name: Key Light Air 1
+      supported_features: 0
+      state: 'on'
+    light.corban_s_office_ceiling_light:
+      min_mireds: 153
+      max_mireds: 370
+      effect_list:
+      - blink
+      - breathe
+      - channel_change
+      - finish_effect
+      - okay
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 150
+      color_temp: 182
+      hs_color:
+      - 27.913
+      - 12.917
+      rgb_color:
+      - 255
+      - 237
+      - 222
+      xy_color:
+      - 0.354
+      - 0.343
+      entity_id:
+      - light.corban_s_office_ceiling_lamp_1
+      - light.corban_s_office_ceiling_lamp_2
+      icon: mdi:lightbulb-group
+      friendly_name: Corban's Office Ceiling Light
+      supported_features: 44
+      state: 'on'
+  icon: mdi:video
+  metadata:
+    light.corban_s_office_ceiling_light:
+      entity_only: true

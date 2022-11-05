@@ -131,19 +131,18 @@ automation:
         service: light.turn_off
         entity_id: light.corban_s_office_ceiling_light
 
-  # TODO
-  # - alias: Office Remote - Left Button Click - Video Scene
-  #   id: 4f982672-4257-4cb7-a498-1df044a30150
-  #   trigger:
-  #     - platform: device
-  #       device_id: 66f76df28bdd462e84227f8f164ee7c3
-  #       discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
-  #       domain: mqtt
-  #       type: action
-  #       subtype: arrow_left_click
-  #   action:
-  #     - service: light.toggle
-  #       entity_id: light.key_light_air_1
+  - alias: Office Remote - Left Button Click - Meeting Scene
+    id: 4f982672-4257-4cb7-a498-1df044a30150
+    trigger:
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
+        domain: mqtt
+        type: action
+        subtype: arrow_left_click
+    action:
+      - service: scene.turn_on
+        entity_id: scene.office_meeting
 
   - alias: Office Remote - Left Button Hold - Toggle Fan
     id: df89803c-e20a-4418-ae99-1371f154ecd4
