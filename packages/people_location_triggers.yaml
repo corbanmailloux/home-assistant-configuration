@@ -31,3 +31,18 @@ automation:
               - service: notify.corban
                 data:
                   message: "request_location_update"
+
+script:
+  request_maggie_location_update:
+    alias: "Request a location update from Maggie's phone"
+    sequence:
+      - service: notify.maggie
+        data:
+          message: "request_location_update"
+
+  request_corban_location_update:
+    alias: "Request a location update from Corban's phone"
+    sequence:
+      - service: notify.corban
+        data:
+          message: "request_location_update"

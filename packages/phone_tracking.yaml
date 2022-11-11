@@ -33,12 +33,6 @@ sensor:
 
           {% if state == "home" %}
             mdi:home
-          {% elif state == "BKB" %}
-            mdi:dumbbell
-          {% elif state == "CHT" %}
-            mdi:laptop
-          {% elif state == "RE" %}
-            mdi:flask-outline
           {% else %}
             mdi:account-outline
           {% endif %}
@@ -52,12 +46,8 @@ sensor:
 
           {% if state == "home" %}
             mdi:home
-          {% elif state == "BKB" %}
-            mdi:dumbbell
-          {% elif state == "CHT" %}
-            mdi:laptop
-          {% elif state == "RE" %}
-            mdi:flask-outline
+          {% elif state == "L3Harris" %}
+            mdi:telescope
           {% else %}
             mdi:account-outline
           {% endif %}
