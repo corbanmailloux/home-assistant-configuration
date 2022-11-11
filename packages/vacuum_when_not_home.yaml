@@ -65,7 +65,6 @@ automation:
               {{ wait.trigger.id == "complete" }}
             sequence:
               - service: input_datetime.set_datetime
-                alias: Store the last run time
                 target:
                   entity_id: input_datetime.last_vacuum_run
                 data:
@@ -82,3 +81,12 @@ script:
           message: "Vacuum didn't complete before timeout."
           data:
             group: "run_vacuum"
+
+  vacuum_skip_today:
+    alias: Skip today's automatic run of the vacuum
+    sequence:
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.last_vacuum_run
+        data:
+          timestamp: "{{ now().timestamp() }}"

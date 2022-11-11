@@ -227,6 +227,44 @@
               "type": "custom:mushroom-chips-card",
               "chips": [
                 {
+                  "type": "template",
+                  "entity": "sensor.corban_location_icon",
+                  "content": "Corban",
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "icon": "{{ state_attr('sensor.corban_location_icon', 'icon') }}",
+                  "icon_color": "{% if is_state('sensor.corban_location_icon', 'home') %}\nblue\n{% else %}\norange\n{% endif %}",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "call-service",
+                    "service": "script.request_corban_location_update",
+                    "data": {},
+                    "target": {}
+                  }
+                },
+                {
+                  "type": "template",
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "entity": "sensor.maggie_location_icon",
+                  "icon_color": "{% if is_state('sensor.maggie_location_icon', 'home') %}\nblue\n{% else %}\norange\n{% endif %}",
+                  "icon": "{{ state_attr('sensor.maggie_location_icon', 'icon') }}",
+                  "content": "Maggie",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "call-service",
+                    "service": "script.request_maggie_location_update",
+                    "data": {},
+                    "target": {}
+                  }
+                },
+                {
                   "type": "conditional",
                   "conditions": [
                     {
@@ -805,8 +843,39 @@
           "title": "Vacuum",
           "path": "vacuum",
           "icon": "mdi:robot-vacuum",
+          "type": "custom:vertical-layout",
           "badges": [],
           "cards": [
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "sensor.eve_bin",
+                  "state_not": "0"
+                },
+                {
+                  "entity": "sensor.eve_bin",
+                  "state_not": "unknown"
+                }
+              ],
+              "card": {
+                "type": "custom:mushroom-entity-card",
+                "entity": "sensor.eve_bin",
+                "icon_color": "red",
+                "primary_info": "name",
+                "secondary_info": "state",
+                "hold_action": {
+                  "action": "more-info"
+                },
+                "double_tap_action": {
+                  "action": "none"
+                },
+                "tap_action": {
+                  "action": "more-info"
+                },
+                "name": "Empty Eve's Bin"
+              }
+            },
             {
               "type": "vertical-stack",
               "cards": [
@@ -880,25 +949,17 @@
               ]
             },
             {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "sensor.eve_bin",
-                  "state_not": "0"
-                },
-                {
-                  "entity": "sensor.eve_bin",
-                  "state_not": "unknown"
-                }
-              ],
-              "card": {
-                "color": "red",
-                "entity": "sensor.eve_bin",
-                "layout": "icon_name_state2nd",
-                "name": "Empty Eve's Bin",
-                "show_icon": true,
-                "show_state": true,
-                "type": "custom:button-card"
+              "type": "custom:mushroom-entity-card",
+              "entity": "script.vacuum_skip_today",
+              "name": "Skip Vacuuming Today",
+              "icon": "mdi:debug-step-over",
+              "primary_info": "name",
+              "secondary_info": "last-changed",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "hold_action": {
+                "action": "more-info"
               }
             }
           ]
