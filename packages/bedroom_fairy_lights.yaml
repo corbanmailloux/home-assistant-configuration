@@ -22,7 +22,7 @@ automation:
     id: c901fb8b-1858-4533-8dae-96c5f01d15c3
     trigger:
       - platform: time
-        at: "22:45"
+        at: "22:30"
     condition:
       - condition: state
         entity_id: light.fairy_lights

@@ -33,7 +33,7 @@ automation:
                 entity_id: light.key_light_air_1
                 data_template:
                   brightness: >
-                    {%- set target = state_attr('light.key_light_air_1', 'brightness') | int + 3 -%}
+                    {%- set target = state_attr('light.key_light_air_1', 'brightness') | int + 4 -%}
                     {%- if target > 255 -%}
                       255
                     {%- else -%}
@@ -78,7 +78,7 @@ automation:
                 entity_id: light.key_light_air_1
                 data_template:
                   brightness: >
-                    {%- set target = state_attr('light.key_light_air_1', 'brightness') | int - 3 -%}
+                    {%- set target = state_attr('light.key_light_air_1', 'brightness') | int - 4 -%}
                     {%- if target < 1 -%}
                       1
                     {%- else -%}
