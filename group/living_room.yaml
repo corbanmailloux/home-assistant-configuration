@@ -2,4 +2,4 @@ living_room_lights:
   name: Living Room Lights
   entities:
     - light.tv_lamp
-    # - light.christmas_tree_lights
+    - light.christmas_tree_lights

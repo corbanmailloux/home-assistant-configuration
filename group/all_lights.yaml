@@ -18,7 +18,7 @@ all_lights_custom:
     # Living Room
     - light.tv_lamp
     - light.living_room_wall_light_1
-    # - light.christmas_tree_lights
+    - light.christmas_tree_lights
     # Kitchen
     - light.kitchen_counter_lights
 
@@ -41,7 +41,7 @@ everything_custom:
     ## Living Room
     - light.tv_lamp
     - light.living_room_wall_light_1
-    # - light.christmas_tree_lights
+    - light.christmas_tree_lights
     ## Kitchen
     - light.kitchen_counter_lights
 
