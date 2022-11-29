@@ -113,47 +113,6 @@
                 }
               ],
               "type": "entity-filter"
-            },
-            {
-              "entities": [
-                {
-                  "entity": "script.set_optimal_volumes_on_google_homes",
-                  "icon": "mdi:volume-medium",
-                  "name": "Set Target Volumes"
-                },
-                {
-                  "type": "custom:fold-entity-row",
-                  "head": {
-                    "type": "section",
-                    "label": "Configuration"
-                  },
-                  "entities": [
-                    {
-                      "entity": "input_number.gh_volume_target_living_room",
-                      "name": "Living Room"
-                    },
-                    {
-                      "entity": "input_number.gh_volume_target_bedroom",
-                      "name": "Bedroom"
-                    },
-                    {
-                      "entity": "input_number.gh_volume_target_office",
-                      "name": "Office"
-                    },
-                    {
-                      "entity": "input_number.gh_volume_target_kitchen",
-                      "name": "Kitchen"
-                    },
-                    {
-                      "entity": "input_number.gh_volume_target_bathroom",
-                      "name": "Bathroom"
-                    }
-                  ]
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Reset Google Home Volumes",
-              "type": "entities"
             }
           ],
           "icon": "mdi:cog",
@@ -294,10 +253,6 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "sensor.cert_expiry_timestamp_cat_corb_co",
-                  "name": "cat.corb.co"
-                },
-                {
                   "entity": "sensor.cert_expiry_timestamp_home_corb_co",
                   "name": "home.corb.co"
                 }
@@ -356,6 +311,21 @@
                   "min": 0
                 }
               ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.biden_lastactive"
+                },
+                {
+                  "entity": "binary_sensor.biden_microphoneactive"
+                },
+                {
+                  "entity": "button.biden_shutdown"
+                }
+              ],
+              "title": "Gaming PC"
             }
           ]
         },
