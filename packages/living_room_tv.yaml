@@ -103,26 +103,6 @@ automation:
         data:
           entity_id: media_player.living_room_chromecast
 
-  - alias: Switch the TV to the Chromecast when someone starts casting
-    id: bf9d5943-b3d9-427b-b028-ac00085b2428
-    trigger:
-      - platform: state
-        entity_id: media_player.living_room_chromecast
-        to: "idle"
-      - platform: state
-        entity_id: media_player.living_room_chromecast
-        to: "playing"
-    condition:
-      - condition: template
-        value_template: >
-          {{ not is_state_attr('media_player.65_tcl_roku_tv', 'source', 'Chromecast') }}
-    action:
-      - service: script.living_room_tv_and_soundbar_on
-      - service: media_player.select_source
-        data:
-          entity_id: media_player.65_tcl_roku_tv
-          source: Chromecast
-
   - alias: Turn on the soundbar when the TV turns on
     id: d7bedd79-cc08-4fec-bf25-5971f0fbcaad
     trigger:
