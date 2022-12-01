@@ -79,6 +79,7 @@ custom_components/
 themes/midnight/
 themes/mushroom/
 themes/noctis/
+themes/ios-themes/
 
 # ESPHome
 esphome/*
