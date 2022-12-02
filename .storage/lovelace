@@ -400,6 +400,65 @@
               "alignment": "center"
             },
             {
+              "cards": [
+                {
+                  "type": "picture-elements",
+                  "elements": [
+                    {
+                      "type": "state-icon",
+                      "entity": "sensor.corban_location_icon",
+                      "style": {
+                        "top": "15%",
+                        "left": "85%",
+                        "--paper-item-icon-color": "dimgrey"
+                      }
+                    }
+                  ],
+                  "image": "/local/images/corban-memoji.png"
+                },
+                {
+                  "type": "picture-elements",
+                  "elements": [
+                    {
+                      "type": "state-icon",
+                      "entity": "sensor.corban_location_icon",
+                      "style": {
+                        "top": "10%",
+                        "left": "72%",
+                        "--paper-item-icon-color": "dimgrey"
+                      }
+                    },
+                    {
+                      "type": "state-icon",
+                      "entity": "sensor.corban_location_icon",
+                      "style": {
+                        "top": "25%",
+                        "left": "89%",
+                        "--paper-item-icon-color": "dimgrey"
+                      }
+                    }
+                  ],
+                  "image": "/local/images/cats.png"
+                },
+                {
+                  "type": "picture-elements",
+                  "elements": [
+                    {
+                      "type": "state-icon",
+                      "entity": "sensor.maggie_location_icon",
+                      "style": {
+                        "top": "15%",
+                        "left": "85%",
+                        "--paper-item-icon-color": "dimgrey"
+                      }
+                    }
+                  ],
+                  "image": "/local/images/maggie-memoji.png"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
               "type": "custom:button-card",
               "name": "Living Room",
               "entity": "sensor.living_room_temperature",
