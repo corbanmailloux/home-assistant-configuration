@@ -18,7 +18,7 @@ template:
         unique_id: 348607b5-5c4f-4a94-be3c-044370fe76f3
         device_class: occupancy
         state: >-
-          {{ is_state('binary_sensor.just_got_home', 'on') or is_state('binary_sensor.motion_sensor_occupancy', 'on') }}
+          {{ is_state('binary_sensor.just_got_home', 'on') or is_state('binary_sensor.kitchen_cabinet_motion_sensor_occupancy', 'on') }}
 
 input_boolean:
   kitchen_lights_lock_on:
