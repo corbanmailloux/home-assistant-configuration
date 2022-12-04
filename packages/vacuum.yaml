@@ -113,6 +113,30 @@ automation:
         target:
           entity_id: group.vacuum_rooms
 
+  - alias: Show vacuum card when the vacuum is running
+    id: 32242978-ed0b-4d36-84b9-923482d4393f
+    trigger:
+      - platform: state
+        entity_id: vacuum.valetudo_eve
+        from: "docked"
+    action:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.wall_display_show_vacuum
+
+  - alias: Hide vacuum card when the vacuum is docked
+    id: adc11425-bdb3-497c-a81b-0b7fecc2c3aa
+    trigger:
+      - platform: state
+        entity_id: vacuum.valetudo_eve
+        to: "docked"
+        for:
+          minutes: 3
+    action:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.wall_display_show_vacuum
+
 # Add a basic REST sensor for confirming that Rockbin is running.
 # https://github.com/johnDorian/rockbin
 sensor:

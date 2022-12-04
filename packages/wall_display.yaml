@@ -8,6 +8,30 @@
 #     still_image_url: !secret wifi_qr_code_url
 #     limit_refetch_to_url_change: true
 
+template:
+  - binary_sensor:
+      - name: "Wall Display: Show Kitchen Media Card"
+        unique_id: 8447646c-fbf8-4200-9e87-26a6b0ea2104
+        delay_off:
+          minutes: 30
+        state: >-
+          {{ is_state('media_player.kitchen', 'playing') }}
+        icon: mdi:music-circle-outline
+
+      - name: Corban On a Call
+        state: >-
+          {{
+            is_state('binary_sensor.corban_s_vmware_mbp_microphone_in_use', 'on')
+            or is_state('binary_sensor.corban_s_vmware_mbp_camera_in_use', 'on')
+          }}
+        icon: >-
+          {% set camera_on = is_state('binary_sensor.corban_s_vmware_mbp_camera_in_use', 'on') %}
+          {% if camera_on %}
+            mdi:video
+          {% else %}
+            mdi:video-off
+          {% endif %}
+
 input_boolean:
   wall_display_show_map:
     name: Show Map on Wall Display
@@ -63,22 +87,3 @@ automation:
       - service: light.turn_on
         data:
           entity_id: light.tablet_wall_display_screen
-
-binary_sensor:
-  - platform: template
-    sensors:
-      corban_on_a_call:
-        friendly_name: Corban's On a Call
-        icon_template: >-
-          {% set camera_on = is_state('binary_sensor.corban_s_vmware_mbp_camera_in_use', 'on') %}
-
-          {% if camera_on %}
-            mdi:video
-          {% else %}
-            mdi:video-off
-          {% endif %}
-        value_template: >-
-          {{
-            is_state('binary_sensor.corban_s_vmware_mbp_microphone_in_use', 'on')
-            or is_state('binary_sensor.corban_s_vmware_mbp_camera_in_use', 'on')
-          }}
