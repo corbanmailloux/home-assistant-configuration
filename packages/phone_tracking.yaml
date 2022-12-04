@@ -33,6 +33,8 @@ sensor:
 
           {% if state == "home" %}
             mdi:home
+          {% elif state == "Gym" %}
+            mdi:kettlebell
           {% else %}
             mdi:account-outline
           {% endif %}
@@ -48,6 +50,10 @@ sensor:
             mdi:home
           {% elif state == "L3Harris" %}
             mdi:telescope
+          {% elif state == "Clay Studio" %}
+            mdi:glass-mug
+          {% elif state == "Gym" %}
+            mdi:kettlebell
           {% else %}
             mdi:account-outline
           {% endif %}

@@ -135,12 +135,18 @@
                       "entity": "sensor.corban_location_icon",
                       "style": {
                         "top": "15%",
-                        "left": "85%",
-                        "--paper-item-icon-color": "dimgrey"
+                        "left": "85%"
+                      },
+                      "card_mod": {
+                        "style": ":host {\n  --paper-item-icon-color:\n    {% if states(config.entity) == \"home\" %} \n      dimgray\n    {% elif states(config.entity) == \"not_home\"%}\n      black\n    {% else %}\n      red\n    {% endif %};\n}\n"
                       }
                     }
                   ],
-                  "image": "/local/images/corban-memoji.png"
+                  "image": "/local/images/corban-memoji.png",
+                  "entity": "binary_sensor.corban_person_home",
+                  "state_filter": {
+                    "off": "grayscale(100%)"
+                  }
                 },
                 {
                   "type": "picture-elements",
@@ -174,12 +180,18 @@
                       "entity": "sensor.maggie_location_icon",
                       "style": {
                         "top": "15%",
-                        "left": "85%",
-                        "--paper-item-icon-color": "dimgrey"
+                        "left": "85%"
+                      },
+                      "card_mod": {
+                        "style": ":host {\n  --paper-item-icon-color:\n    {% if states(config.entity) == \"home\" %} \n      dimgray\n    {% elif states(config.entity) == \"not_home\"%}\n      black\n    {% else %}\n      red\n    {% endif %};\n}\n"
                       }
                     }
                   ],
-                  "image": "/local/images/maggie-memoji.png"
+                  "image": "/local/images/maggie-memoji.png",
+                  "entity": "binary_sensor.maggie_person_home",
+                  "state_filter": {
+                    "off": "grayscale(100%)"
+                  }
                 }
               ],
               "type": "horizontal-stack"
@@ -438,12 +450,16 @@
                         "entity": "zone.home"
                       },
                       {
-                        "entity": "zone.re"
+                        "entity": "zone.clay_studio"
+                      },
+                      {
+                        "entity": "zone.l3harris"
                       }
                     ],
                     "type": "map",
                     "hours_to_show": 1,
-                    "default_zoom": 8,
+                    "default_zoom": 13,
+                    "auto_fit": true,
                     "aspect_ratio": "1"
                   }
                 ],
