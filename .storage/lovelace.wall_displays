@@ -407,6 +407,23 @@
             {
               "card": {
                 "color": "red",
+                "entity": "input_boolean.vacation_mode",
+                "layout": "icon_name",
+                "show_icon": true,
+                "show_state": false,
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "entity": "input_boolean.vacation_mode",
+                  "state": "on"
+                }
+              ],
+              "type": "conditional"
+            },
+            {
+              "card": {
+                "color": "red",
                 "entity": "binary_sensor.corban_on_a_call",
                 "layout": "icon_name",
                 "show_icon": true,
@@ -610,23 +627,6 @@
               "type": "conditional"
             },
             {
-              "card": {
-                "color": "red",
-                "entity": "input_boolean.vacation_mode",
-                "layout": "icon_name",
-                "show_icon": true,
-                "show_state": false,
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.vacation_mode",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
               "type": "conditional",
               "conditions": [
                 {
@@ -647,6 +647,26 @@
                 "show_state": true,
                 "type": "custom:button-card"
               }
+            },
+            {
+              "card": {
+                "entity": "input_boolean.washer_reminder_notifying",
+                "layout": "icon_name",
+                "name": "Washing Machine Done",
+                "color": "red",
+                "show_icon": true,
+                "show_state": false,
+                "tap_action": "none",
+                "hold_action": "none",
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "entity": "input_boolean.washer_reminder_notifying",
+                  "state": "on"
+                }
+              ],
+              "type": "conditional"
             },
             {
               "card": {

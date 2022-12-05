@@ -35,6 +35,7 @@ template:
 input_boolean:
   washer_reminder_notifying:
     name: Washer Reminder - Notifying
+    icon: mdi:washing-machine
 
 automation:
   - id: e3edfa1f-a705-4394-bedb-945151332a3c
