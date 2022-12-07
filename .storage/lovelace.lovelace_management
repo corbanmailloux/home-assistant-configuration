@@ -28,11 +28,9 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "automation.office_motion_lights"
-                },
-                {
                   "entity": "binary_sensor.office_occupied",
-                  "secondary_info": "last-changed"
+                  "secondary_info": "last-changed",
+                  "name": "Output: Office Occupied"
                 },
                 {
                   "entity": "binary_sensor.office_motion_sensor_occupancy",
@@ -64,10 +62,20 @@
                   "entity": "sensor.corban_s_personal_macbook_pro_displays",
                   "name": "Personal Mac Displays",
                   "secondary_info": "last-updated"
+                },
+                {
+                  "entity": "binary_sensor.cmaillouxtjq31_active"
+                },
+                {
+                  "entity": "sensor.cmaillouxtjq31_displays"
+                },
+                {
+                  "entity": "binary_sensor.biden_microphoneactive"
                 }
               ],
-              "title": "Motion Lights",
-              "show_header_toggle": false
+              "title": "Office Motion Lights Debugging",
+              "show_header_toggle": false,
+              "state_color": true
             },
             {
               "card": {

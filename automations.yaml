@@ -16,15 +16,3 @@
     entity_id: light.plant_lamp
     service: light.turn_on
   mode: single
-- id: '1636236117288'
-  alias: Office Motion Lights
-  description: ''
-  use_blueprint:
-    path: homeassistant/motion_light.yaml
-    input:
-      motion_entity: binary_sensor.office_occupied
-      light_target:
-        entity_id:
-        - light.office_lamp
-        - light.plant_lamp
-      no_motion_wait: 120
