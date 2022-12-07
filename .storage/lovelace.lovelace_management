@@ -31,7 +31,13 @@
                   "entity": "automation.office_motion_lights"
                 },
                 {
-                  "entity": "binary_sensor.office_occupied"
+                  "entity": "binary_sensor.office_occupied",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.office_motion_sensor_occupancy",
+                  "name": "Motion Sensor",
+                  "secondary_info": "last-changed"
                 },
                 {
                   "entity": "binary_sensor.vibration_sensor_vibration",
@@ -161,9 +167,6 @@
                 },
                 {
                   "entity": "script.kitchen_display_reload"
-                },
-                {
-                  "entity": "sensor.kitchen_speaker_timers"
                 }
               ],
               "title": "Kitchen Display",
@@ -336,25 +339,19 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "light.kitchen_counter_light_1"
+                  "entity": "binary_sensor.kitchen_cabinet_motion_sensor_occupancy"
                 },
                 {
-                  "entity": "switch.kitchen_counter_light_2"
+                  "entity": "binary_sensor.kitchen_assumed_motion"
                 },
                 {
-                  "entity": "light.kitchen_counter_light_3"
+                  "entity": "binary_sensor.office_motion_sensor_occupancy"
                 },
                 {
-                  "entity": "automation.kitchen_counter_lights_toggle_all_based_on_one"
-                },
-                {
-                  "entity": "binary_sensor.motion_sensor_occupancy"
-                },
-                {
-                  "entity": "automation.kitchen_motion_lights"
+                  "entity": "binary_sensor.stairs_motion_sensor_occupancy"
                 }
               ],
-              "title": "Kitchen Motion Testing",
+              "title": "Motion Sensors",
               "show_header_toggle": false,
               "state_color": true
             },
@@ -418,19 +415,10 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "switch.3d_printer_main_power"
-                },
-                {
                   "entity": "sensor.octoprint_current_state"
                 },
                 {
                   "entity": "sensor.octoprint_job_percentage"
-                },
-                {
-                  "entity": "sensor.3d_printer_power_draw"
-                },
-                {
-                  "entity": "sensor.3d_printer_energy_today"
                 },
                 {
                   "entity": "script.shutdown_octopi"

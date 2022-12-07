@@ -848,57 +848,6 @@
                   },
                   "type": "custom:mini-media-player",
                   "volume_stateless": true
-                },
-                {
-                  "apps": [
-                    {
-                      "app": "Netflix",
-                      "image": "/local/images/netflix-icon.png"
-                    },
-                    {
-                      "app": "Plex - Free Movies & TV",
-                      "image": "/local/images/plex-icon.png"
-                    },
-                    {
-                      "image": "/local/images/replay-icon-white.png",
-                      "tap_action": {
-                        "action": "call-service",
-                        "service": "script.roku_replay"
-                      }
-                    }
-                  ],
-                  "power": {
-                    "tap_action": {
-                      "action": "call-service",
-                      "service": "switch.toggle",
-                      "service_data": {
-                        "entity_id": "switch.living_room_tv_power"
-                      }
-                    }
-                  },
-                  "remote": "remote.living_room_roku_tv",
-                  "theme": "midnight",
-                  "tv": true,
-                  "type": "custom:roku-card",
-                  "volume_down": {
-                    "tap_action": {
-                      "action": "call-service",
-                      "service": "script.soundbar_volume_down"
-                    }
-                  },
-                  "volume_mute": {
-                    "tap_action": {
-                      "action": "call-service",
-                      "service": "script.soundbar_power"
-                    }
-                  },
-                  "volume_up": {
-                    "tap_action": {
-                      "action": "call-service",
-                      "service": "script.soundbar_volume_up"
-                    }
-                  },
-                  "entity": "media_player.65_tcl_roku_tv"
                 }
               ],
               "type": "vertical-stack"

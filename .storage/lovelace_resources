@@ -88,6 +88,11 @@
         "url": "/hacsfiles/apexcharts-card/apexcharts-card.js?hacstag=331701152201",
         "type": "module",
         "id": "1a480f1e8ae24f60808f839d79ef7ff6"
+      },
+      {
+        "url": "/browser_mod.js?automatically-added",
+        "type": "module",
+        "id": "b9781c9d8ab340f089a8a0da2cc2a497"
       }
     ]
   }

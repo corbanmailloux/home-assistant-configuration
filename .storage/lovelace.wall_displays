@@ -312,7 +312,10 @@
               "show_forecast": false,
               "type": "weather-forecast",
               "entity": "weather.openweathermap",
-              "name": "Northampton, MA"
+              "name": "Northampton, MA",
+              "card_mod": {
+                "style": "ha-card .temp-attribute .temp {\n  font-size: 3rem;\n}\n"
+              }
             },
             {
               "cards": [
@@ -736,164 +739,6 @@
                 "action": "none"
               },
               "name": "Join the WiFi"
-            },
-            {
-              "cards": [
-                {
-                  "type": "picture-elements",
-                  "elements": [
-                    {
-                      "type": "state-icon",
-                      "entity": "sensor.corban_location_icon",
-                      "style": {
-                        "top": "15%",
-                        "left": "85%",
-                        "--paper-item-icon-color": "dimgrey"
-                      }
-                    }
-                  ],
-                  "image": "/local/images/corban-memoji.png"
-                },
-                {
-                  "entity": "input_boolean.home_occupied",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "show_icon": true,
-                  "show_name": false,
-                  "show_state": false,
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "type": "button"
-                },
-                {
-                  "type": "picture-elements",
-                  "elements": [
-                    {
-                      "type": "state-icon",
-                      "entity": "sensor.maggie_location_icon",
-                      "style": {
-                        "top": "15%",
-                        "left": "85%",
-                        "--paper-item-icon-color": "dimgrey"
-                      }
-                    }
-                  ],
-                  "image": "/local/images/maggie-memoji.png"
-                }
-              ],
-              "type": "horizontal-stack"
-            }
-          ]
-        },
-        {
-          "theme": "",
-          "title": "Kitchen Display",
-          "path": "kitchen-display",
-          "icon": "mdi:fridge-outline",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "entity": "sensor.local_display_time",
-              "show_icon": false,
-              "show_label": false,
-              "show_name": false,
-              "show_state": true,
-              "styles": {
-                "state": [
-                  {
-                    "font-size": "4rem"
-                  }
-                ],
-                "card": [
-                  {
-                    "padding": "0.2rem"
-                  }
-                ]
-              },
-              "tap_action": {
-                "action": "call-service",
-                "service": "script.kitchen_display_reload"
-              },
-              "type": "custom:button-card"
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "media_player.google_homes",
-                  "state_not": "off"
-                }
-              ],
-              "card": {
-                "type": "custom:mini-media-player",
-                "toggle_power": true,
-                "entity": "media_player.google_homes"
-              }
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "sensor.kitchen_speaker_timers",
-                  "state_not": "unavailable"
-                }
-              ],
-              "card": {
-                "type": "custom:googletimers-card",
-                "entity": "sensor.kitchen_speaker_timers",
-                "title": "Kitchen"
-              }
-            },
-            {
-              "card": {
-                "cards": [
-                  {
-                    "type": "gauge",
-                    "entity": "sensor.maggie_time_to_home_for_display",
-                    "min": 0,
-                    "needle": true,
-                    "severity": {
-                      "green": 30,
-                      "yellow": 10,
-                      "red": 0
-                    },
-                    "unit": " ",
-                    "max": 60
-                  },
-                  {
-                    "dark_mode": false,
-                    "entities": [
-                      {
-                        "entity": "person.corban"
-                      },
-                      {
-                        "entity": "person.maggie"
-                      },
-                      {
-                        "entity": "zone.home"
-                      },
-                      {
-                        "entity": "zone.re"
-                      }
-                    ],
-                    "type": "map",
-                    "hours_to_show": 1,
-                    "default_zoom": 8,
-                    "aspect_ratio": "1"
-                  }
-                ],
-                "type": "horizontal-stack"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.wall_display_show_map",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
             }
           ]
         }
