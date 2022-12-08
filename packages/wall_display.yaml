@@ -21,11 +21,11 @@ template:
       - name: Corban On a Call
         state: >-
           {{
-            is_state('binary_sensor.corban_s_vmware_mbp_microphone_in_use', 'on')
-            or is_state('binary_sensor.corban_s_vmware_mbp_camera_in_use', 'on')
+            is_state('binary_sensor.cmaillouxtjq31_audio_input_in_use', 'on')
+            or is_state('binary_sensor.cmaillouxtjq31_camera_in_use', 'on')
           }}
         icon: >-
-          {% set camera_on = is_state('binary_sensor.corban_s_vmware_mbp_camera_in_use', 'on') %}
+          {% set camera_on = is_state('binary_sensor.cmaillouxtjq31_camera_in_use', 'on') %}
           {% if camera_on %}
             mdi:video
           {% else %}
