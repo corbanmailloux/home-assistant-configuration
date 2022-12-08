@@ -59,3 +59,14 @@ sensor:
           {% endif %}
         value_template: >-
           {{ states('person.maggie') }}
+
+      cat_location_icon:
+        friendly_name: Cat's Location
+        icon_template: >-
+          {% if is_state('input_boolean.cats_are_home', 'on') %}
+            mdi:home-heart
+          {% else %}
+            mdi:heart-broken
+          {% endif %}
+        value_template: >-
+          {{ states('input_boolean.cats_are_home') }}

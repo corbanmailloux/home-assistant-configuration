@@ -145,32 +145,53 @@
                   "image": "/local/images/corban-memoji.png",
                   "entity": "binary_sensor.corban_person_home",
                   "state_filter": {
-                    "off": "grayscale(100%)"
+                    "off": "grayscale(100%) brightness(40%)"
                   }
                 },
                 {
                   "type": "picture-elements",
                   "elements": [
                     {
-                      "type": "state-icon",
-                      "entity": "sensor.corban_location_icon",
+                      "type": "image",
+                      "entity": "input_boolean.cats_are_home",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "hold_action": "none",
+                      "image": "/local/images/cats.png",
                       "style": {
-                        "top": "10%",
-                        "left": "72%",
-                        "--paper-item-icon-color": "dimgrey"
+                        "top": "50%",
+                        "left": "50%",
+                        "width": "100%"
+                      },
+                      "state_filter": {
+                        "off": "grayscale(100%) brightness(40%)"
                       }
                     },
                     {
                       "type": "state-icon",
-                      "entity": "sensor.corban_location_icon",
+                      "entity": "sensor.cat_location_icon",
+                      "style": {
+                        "top": "10%",
+                        "left": "72%"
+                      },
+                      "card_mod": {
+                        "style": ":host {\n  --paper-item-icon-color:\n    {% if states(config.entity) == \"on\" %} \n      dimgray\n    {% else %}\n      red\n    {% endif %};\n}\n"
+                      }
+                    },
+                    {
+                      "type": "state-icon",
+                      "entity": "sensor.cat_location_icon",
                       "style": {
                         "top": "25%",
-                        "left": "89%",
-                        "--paper-item-icon-color": "dimgrey"
+                        "left": "89%"
+                      },
+                      "card_mod": {
+                        "style": ":host {\n  --paper-item-icon-color:\n    {% if states(config.entity) == \"on\" %} \n      dimgray\n    {% else %}\n      red\n    {% endif %};\n}\n"
                       }
                     }
                   ],
-                  "image": "/local/images/cats.png"
+                  "image": "/local/images/empty.png"
                 },
                 {
                   "type": "picture-elements",
@@ -190,7 +211,7 @@
                   "image": "/local/images/maggie-memoji.png",
                   "entity": "binary_sensor.maggie_person_home",
                   "state_filter": {
-                    "off": "grayscale(100%)"
+                    "off": "grayscale(100%) brightness(40%)"
                   }
                 }
               ],
