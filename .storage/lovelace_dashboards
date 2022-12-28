@@ -21,15 +21,6 @@
         "url_path": "lovelace-management",
         "mode": "storage",
         "id": "lovelace_management"
-      },
-      {
-        "show_in_sidebar": true,
-        "icon": "mdi:archive",
-        "title": "Old Default",
-        "require_admin": false,
-        "mode": "storage",
-        "url_path": "old-default",
-        "id": "old_default"
       }
     ]
   }
