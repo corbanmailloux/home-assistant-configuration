@@ -107,9 +107,9 @@
       },
       "views": [
         {
+          "theme": "ios-dark-mode-dark-blue",
           "icon": "mdi:tablet-dashboard",
           "path": "wall-display",
-          "theme": "",
           "title": "Wall Display",
           "visible": [
             {
@@ -349,20 +349,8 @@
                   "name": "Living",
                   "show": {
                     "graph": true,
-                    "points": false
-                  },
-                  "type": "custom:mini-graph-card"
-                },
-                {
-                  "decimals": 0,
-                  "entities": [
-                    "sensor.bedroom_temperature"
-                  ],
-                  "icon": "mdi:bed",
-                  "name": "Bedroom",
-                  "show": {
-                    "graph": true,
-                    "points": false
+                    "points": false,
+                    "icon": false
                   },
                   "type": "custom:mini-graph-card"
                 },
@@ -375,7 +363,35 @@
                   "name": "Office",
                   "show": {
                     "graph": true,
-                    "points": false
+                    "points": false,
+                    "icon": false
+                  },
+                  "type": "custom:mini-graph-card"
+                },
+                {
+                  "decimals": 0,
+                  "entities": [
+                    "sensor.bedroom_temperature"
+                  ],
+                  "icon": "mdi:bed",
+                  "name": "Bedroom",
+                  "show": {
+                    "graph": true,
+                    "points": false,
+                    "icon": false
+                  },
+                  "type": "custom:mini-graph-card"
+                },
+                {
+                  "decimals": 0,
+                  "entities": [
+                    "sensor.craft_room_temperature_sensor_temperature"
+                  ],
+                  "name": "Craft",
+                  "show": {
+                    "graph": true,
+                    "points": false,
+                    "icon": false
                   },
                   "type": "custom:mini-graph-card"
                 }
