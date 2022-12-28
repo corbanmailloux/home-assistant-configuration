@@ -35,12 +35,15 @@ automation:
     id: 15766a62-8506-4300-b76a-7beac8dbe97f
     trigger:
       - platform: time
-        at: "17:03:00"
+        at: "17:33:00" # 5:33 PM
     condition:
       - condition: state
         entity_id: input_boolean.vacation_mode_light_schedule
         state: "on"
     action:
+      - service: light.turn_on
+        data:
+          entity_id: light.office_leds
       - service: light.turn_on
         data:
           entity_id: light.tv_lamp
@@ -86,11 +89,14 @@ automation:
       - service: light.turn_off
         data:
           entity_id: light.bedroom_lamp
+      - service: light.turn_off
+        data:
+          entity_id: light.office_leds
   - alias: Schedule - 5 - Everything off
     id: 29494677-5ec8-407d-a5a9-adda62a9eb39
     trigger:
       - platform: time
-        at: "23:05:00" # 11:05 PM
+        at: "22:32:00" # 10:32 PM
     condition:
       - condition: state
         entity_id: input_boolean.vacation_mode_light_schedule
