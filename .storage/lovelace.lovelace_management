@@ -347,26 +347,6 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "binary_sensor.kitchen_cabinet_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.kitchen_assumed_motion"
-                },
-                {
-                  "entity": "binary_sensor.office_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.stairs_motion_sensor_occupancy"
-                }
-              ],
-              "title": "Motion Sensors",
-              "show_header_toggle": false,
-              "state_color": true
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
                   "entity": "vacuum.valetudo_eve"
                 },
                 {
@@ -382,6 +362,32 @@
               "show_header_toggle": true,
               "title": "Vacuum Status",
               "state_color": true
+            },
+            {
+              "entities": [
+                "automation.sunrise_alarm",
+                {
+                  "type": "custom:fold-entity-row",
+                  "head": {
+                    "type": "section",
+                    "label": "Configuration"
+                  },
+                  "entities": [
+                    "input_number.alarm_max_brightness",
+                    "input_datetime.alarm_start_time",
+                    "input_datetime.alarm_target_time"
+                  ]
+                }
+              ],
+              "show_header_toggle": false,
+              "title": "Sunrise Alarm",
+              "type": "entities"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "input_datetime.last_litter_box_replacement"
+              ]
             }
           ],
           "icon": "mdi:flask",
@@ -440,6 +446,60 @@
               ],
               "show_header_toggle": false,
               "state_color": true
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "Security",
+          "path": "security",
+          "icon": "mdi:shield-lock",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.kitchen_cabinet_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.office_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.stairs_motion_sensor_occupancy"
+                }
+              ],
+              "title": "Motion Sensors",
+              "show_header_toggle": false,
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.front_door"
+                },
+                {
+                  "entity": "binary_sensor.office_door_sensor_contact",
+                  "name": "Office Door"
+                },
+                {
+                  "entity": "binary_sensor.laundry_room_door_sensor_contact",
+                  "name": "Laundry Room Door"
+                }
+              ],
+              "title": "Doors and Windows"
+            },
+            {
+              "show_state": true,
+              "show_name": true,
+              "camera_view": "auto",
+              "type": "picture-entity",
+              "entity": "light.kitchen_counter_lights",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "camera_image": "camera.wall_display_camera"
             }
           ]
         }
