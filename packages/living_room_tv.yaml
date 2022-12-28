@@ -1,13 +1,14 @@
 media_player:
   - platform: universal
     name: Living Room TV
+    unique_id: aea9df25-cb3a-4d61-88b8-4412ecc69d92
     device_class: tv
     children:
-      - media_player.plex_living_room_roku_tv
-      - media_player.plex_for_living_room_apple_tv
+      # - media_player.plex_living_room_roku_tv
+      # - media_player.plex_plex_for_apple_tv_apple_tv
       - media_player.living_room_apple_tv
       - media_player.living_room_chromecast
-      - media_player.65_tcl_roku_tv
+      # - media_player.65_tcl_roku_tv
     commands:
       turn_on:
         service: media_player.turn_on
@@ -18,19 +19,22 @@ media_player:
         data:
           entity_id: media_player.65_tcl_roku_tv
       volume_up:
-        service: script.soundbar_volume_up
+        service: media_player.volume_up
+        target:
+          entity_id: media_player.living_room_apple_tv
       volume_down:
-        service: script.soundbar_volume_down
-      volume_mute:
-        service: script.soundbar_power
-      select_source:
-        service: media_player.select_source
-        data_template:
-          entity_id: media_player.65_tcl_roku_tv
-          source: "{{ source }}"
+        service: media_player.volume_down
+        target:
+          entity_id: media_player.living_room_apple_tv
+      # select_source:
+      #   service: media_player.select_source
+      #   data_template:
+      #     entity_id: media_player.65_tcl_roku_tv
+      #     source: "{{ source }}"
     attributes:
-      source: media_player.65_tcl_roku_tv|source
-      source_list: media_player.65_tcl_roku_tv|source_list
+      state: switch.living_room_tv_power
+      # source: media_player.65_tcl_roku_tv|source
+      # source_list: media_player.65_tcl_roku_tv|source_list
 
 switch:
   - platform: template
@@ -73,20 +77,6 @@ script:
         data:
           entity_id: remote.living_room_roku_tv
           command: "back"
-
-  # esphome autoconfigures switches for these. Wrap them in scripts so they appear as buttons in the front end.
-  soundbar_volume_up:
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.soundbar_volume_up
-  soundbar_volume_down:
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.soundbar_volume_down
-  soundbar_power:
-    sequence:
-      - service: switch.turn_on
-        entity_id: switch.soundbar_power
 
 automation:
   - alias: Send play/pause to Chromecast when selected

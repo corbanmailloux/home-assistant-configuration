@@ -227,44 +227,6 @@
               "type": "custom:mushroom-chips-card",
               "chips": [
                 {
-                  "type": "template",
-                  "entity": "sensor.corban_location_icon",
-                  "content": "Corban",
-                  "double_tap_action": {
-                    "action": "none"
-                  },
-                  "icon": "{{ state_attr('sensor.corban_location_icon', 'icon') }}",
-                  "icon_color": "{% if is_state('sensor.corban_location_icon', 'home') %}\nblue\n{% else %}\norange\n{% endif %}",
-                  "tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "call-service",
-                    "service": "script.request_corban_location_update",
-                    "data": {},
-                    "target": {}
-                  }
-                },
-                {
-                  "type": "template",
-                  "double_tap_action": {
-                    "action": "none"
-                  },
-                  "entity": "sensor.maggie_location_icon",
-                  "icon_color": "{% if is_state('sensor.maggie_location_icon', 'home') %}\nblue\n{% else %}\norange\n{% endif %}",
-                  "icon": "{{ state_attr('sensor.maggie_location_icon', 'icon') }}",
-                  "content": "Maggie",
-                  "tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "call-service",
-                    "service": "script.request_maggie_location_update",
-                    "data": {},
-                    "target": {}
-                  }
-                },
-                {
                   "type": "conditional",
                   "conditions": [
                     {
@@ -508,11 +470,14 @@
                   "show_brightness_control": true,
                   "show_color_temp_control": false,
                   "show_color_control": false,
-                  "collapsible_controls": true,
-                  "name": "Lamp",
+                  "collapsible_controls": false,
                   "hold_action": {
                     "action": "more-info"
-                  }
+                  },
+                  "layout": "horizontal",
+                  "name": "Lamp",
+                  "primary_info": "none",
+                  "secondary_info": "none"
                 },
                 {
                   "type": "custom:mushroom-entity-card",
@@ -526,51 +491,30 @@
               ]
             },
             {
-              "type": "horizontal-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.living_room_wall_light_1",
-                  "fill_container": true,
-                  "use_light_color": false,
-                  "show_brightness_control": true,
-                  "show_color_temp_control": false,
-                  "show_color_control": false,
-                  "collapsible_controls": true,
-                  "name": "Ceiling Light 1",
-                  "icon": "mdi:ceiling-light",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "none"
-                  }
-                },
-                {
-                  "type": "custom:mushroom-media-player-card",
                   "entity": "media_player.living_room_tv",
-                  "icon": "mdi:television",
-                  "fill_container": true,
-                  "name": "TV",
-                  "use_media_info": false,
-                  "show_volume_level": false,
-                  "media_controls": [
-                    "on_off",
-                    "play_pause_stop"
-                  ],
-                  "hold_action": {
-                    "action": "call-service",
-                    "service": "switch.turn_on",
-                    "data": {},
-                    "target": {
-                      "entity_id": "switch.living_room_tv_power"
-                    }
+                  "hide": {
+                    "power": false,
+                    "power_state": false,
+                    "volume": true,
+                    "source": true,
+                    "controls": false,
+                    "prev": true,
+                    "next": true
                   },
-                  "volume_controls": [
-                    "volume_buttons"
-                  ]
+                  "icon": "mdi:television-box",
+                  "type": "custom:mini-media-player",
+                  "volume_stateless": true,
+                  "toggle_power": true,
+                  "source": "full",
+                  "info": "short",
+                  "artwork": "cover",
+                  "replace_mute": "play_pause",
+                  "name": "TV"
                 }
-              ]
+              ],
+              "type": "vertical-stack"
             },
             {
               "type": "custom:button-card",
@@ -589,8 +533,11 @@
                   "show_brightness_control": true,
                   "show_color_temp_control": false,
                   "show_color_control": false,
-                  "collapsible_controls": true,
-                  "name": "Lamp"
+                  "collapsible_controls": false,
+                  "name": "Lamp",
+                  "primary_info": "none",
+                  "secondary_info": "none",
+                  "layout": "horizontal"
                 },
                 {
                   "type": "custom:mushroom-light-card",
@@ -598,7 +545,10 @@
                   "fill_container": true,
                   "show_brightness_control": true,
                   "name": "Fairy",
-                  "collapsible_controls": true
+                  "collapsible_controls": false,
+                  "primary_info": "none",
+                  "secondary_info": "none",
+                  "layout": "horizontal"
                 }
               ]
             },
