@@ -233,13 +233,13 @@
                   "show_brightness_control": false,
                   "collapsible_controls": true,
                   "name": "Counter Lights",
-                  "layout": "vertical"
+                  "layout": "horizontal"
                 },
                 {
                   "type": "custom:mushroom-entity-card",
                   "entity": "input_boolean.kitchen_lights_lock_on",
                   "name": "Motion Lock",
-                  "layout": "vertical",
+                  "layout": "horizontal",
                   "tap_action": {
                     "action": "toggle"
                   }
@@ -397,6 +397,49 @@
                 }
               ],
               "type": "horizontal-stack"
+            },
+            {
+              "type": "custom:atomic-calendar-revive",
+              "entities": [
+                {
+                  "entity": "calendar.corban_mailloux_gmail_com",
+                  "name": "Corban"
+                },
+                {
+                  "entity": "calendar.margaret",
+                  "name": "Maggie"
+                },
+                {
+                  "entity": "calendar.family",
+                  "name": "Family",
+                  "icon": "mdi:home-heart"
+                }
+              ],
+              "enableModeChange": true,
+              "firstDayOfWeek": 1,
+              "maxDaysToShow": 3,
+              "hideDeclined": true,
+              "showLocation": false,
+              "disableLocationLink": true,
+              "showNoEventDays": true,
+              "refreshInterval": 60,
+              "calShowDescription": false,
+              "showMultiDay": true,
+              "showMultiDayEventParts": true,
+              "showMonth": false,
+              "showProgressBar": true,
+              "showWeekDay": true,
+              "disableEventLink": true,
+              "showNoEventsForToday": true,
+              "showDescription": false,
+              "showCurrentEventLine": false,
+              "showFullDayProgress": false,
+              "showCalendarName": true,
+              "showEventDate": true,
+              "showHiddenText": false,
+              "showWeekNumber": false,
+              "showDatePerEvent": false,
+              "dimFinishedEvents": true
             },
             {
               "type": "custom:layout-break"

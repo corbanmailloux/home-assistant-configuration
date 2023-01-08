@@ -499,7 +499,10 @@
               "tap_action": {
                 "action": "toggle"
               },
-              "camera_image": "camera.wall_display_camera"
+              "camera_image": "camera.wall_display_camera",
+              "hold_action": {
+                "action": "more-info"
+              }
             }
           ]
         }
