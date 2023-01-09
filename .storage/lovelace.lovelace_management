@@ -357,6 +357,12 @@
                 },
                 {
                   "entity": "input_datetime.last_vacuum_run"
+                },
+                {
+                  "type": "weblink",
+                  "name": "Valetudo Home",
+                  "url": "http://10.0.0.239/",
+                  "icon": "mdi:lan-connect"
                 }
               ],
               "show_header_toggle": true,
