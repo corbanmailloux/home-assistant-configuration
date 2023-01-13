@@ -600,25 +600,25 @@
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.office_leds",
-                  "name": "WLED",
                   "hold_action": {
-                    "action": "toggle"
+                    "action": "more-info"
                   },
                   "tap_action": {
-                    "action": "more-info"
+                    "action": "toggle"
                   },
                   "use_light_color": false,
                   "show_brightness_control": true,
                   "show_color_control": false,
                   "collapsible_controls": true,
-                  "fill_container": true
+                  "fill_container": false,
+                  "name": "WLED"
                 },
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.key_light_air_1",
                   "name": "Key Light",
                   "icon": "mdi:light-flood-down",
-                  "fill_container": true,
+                  "fill_container": false,
                   "show_brightness_control": true,
                   "use_light_color": false,
                   "show_color_temp_control": true,
@@ -628,9 +628,10 @@
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.corban_s_office_ceiling_light",
-                  "name": "Ceiling Light",
-                  "fill_container": true,
-                  "show_brightness_control": true
+                  "name": "Ceiling",
+                  "fill_container": false,
+                  "show_brightness_control": true,
+                  "collapsible_controls": true
                 }
               ]
             },
