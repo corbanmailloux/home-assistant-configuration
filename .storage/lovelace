@@ -751,7 +751,7 @@
               "cards": [
                 {
                   "entity": "sensor.living_room_temperature",
-                  "name": "Living Room",
+                  "name": "Living",
                   "layout": "vertical",
                   "show_icon": false,
                   "show_state": true,
@@ -772,6 +772,14 @@
                   "show_icon": false,
                   "show_state": true,
                   "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.craft_room_temperature_sensor_temperature",
+                  "name": "Craft",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
                 }
               ],
               "type": "horizontal-stack"
@@ -788,6 +796,9 @@
                     },
                     {
                       "entity": "sensor.bedroom_temperature"
+                    },
+                    {
+                      "entity": "sensor.craft_room_temperature_sensor_temperature"
                     },
                     {
                       "entity": "sensor.openweathermap_temperature"
@@ -811,6 +822,9 @@
                     },
                     {
                       "entity": "sensor.bedroom_humidity"
+                    },
+                    {
+                      "entity": "sensor.craft_room_temperature_sensor_humidity"
                     },
                     {
                       "entity": "sensor.openweathermap_humidity"
