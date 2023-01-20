@@ -427,7 +427,7 @@
               "showMultiDay": true,
               "showMultiDayEventParts": true,
               "showMonth": false,
-              "showProgressBar": true,
+              "showProgressBar": false,
               "showWeekDay": true,
               "disableEventLink": true,
               "showNoEventsForToday": true,
