@@ -11,13 +11,13 @@ media_player:
       # - media_player.65_tcl_roku_tv
     commands:
       turn_on:
-        service: media_player.turn_on
+        service: switch.turn_on
         data:
-          entity_id: media_player.65_tcl_roku_tv
+          entity_id: switch.living_room_tv_power
       turn_off:
-        service: media_player.turn_off
+        service: switch.turn_off
         data:
-          entity_id: media_player.65_tcl_roku_tv
+          entity_id: switch.living_room_tv_power
       volume_up:
         service: media_player.volume_up
         target:
@@ -92,14 +92,3 @@ automation:
       - service: media_player.media_play_pause
         data:
           entity_id: media_player.living_room_chromecast
-
-  - alias: Turn on the soundbar when the TV turns on
-    id: d7bedd79-cc08-4fec-bf25-5971f0fbcaad
-    trigger:
-      - platform: state
-        entity_id: switch.living_room_tv_power
-        from: "off"
-        to: "on"
-    action:
-      - service: switch.turn_on
-        entity_id: switch.soundbar
