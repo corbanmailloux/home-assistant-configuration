@@ -474,19 +474,10 @@
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "layout": "horizontal",
                   "name": "Lamp",
-                  "primary_info": "none",
-                  "secondary_info": "none"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "light.christmas_tree_lights",
-                  "name": "Christmas Tree",
-                  "fill_container": true,
-                  "tap_action": {
-                    "action": "toggle"
-                  }
+                  "primary_info": "name",
+                  "secondary_info": "state",
+                  "layout": "horizontal"
                 }
               ]
             },

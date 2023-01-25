@@ -255,36 +255,6 @@
             {
               "cards": [
                 {
-                  "entity": "switch.living_room_tv_power",
-                  "hold_action": {
-                    "action": "call-service",
-                    "service": "switch.turn_on",
-                    "service_data": {
-                      "entity_id": "switch.living_room_tv_power"
-                    }
-                  },
-                  "name": "TV",
-                  "show_icon": true,
-                  "show_name": true,
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "light.christmas_tree_lights",
-                  "name": "Tree",
-                  "hold_action": {
-                    "action": "none"
-                  },
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "show_icon": true,
-                  "show_name": true,
-                  "type": "custom:button-card"
-                },
-                {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.tv_lamp",
                   "fill_container": true,
@@ -292,14 +262,38 @@
                   "show_brightness_control": true,
                   "show_color_temp_control": false,
                   "show_color_control": false,
-                  "collapsible_controls": true,
-                  "name": "Lamp",
+                  "collapsible_controls": false,
                   "hold_action": {
                     "action": "more-info"
-                  }
+                  },
+                  "name": "Lamp",
+                  "primary_info": "name",
+                  "secondary_info": "state",
+                  "layout": "horizontal"
+                },
+                {
+                  "entity": "media_player.living_room_tv",
+                  "hide": {
+                    "power": false,
+                    "power_state": false,
+                    "volume": true,
+                    "source": true,
+                    "controls": false,
+                    "prev": true,
+                    "next": true
+                  },
+                  "icon": "mdi:television-box",
+                  "type": "custom:mini-media-player",
+                  "volume_stateless": true,
+                  "toggle_power": true,
+                  "source": "full",
+                  "info": "short",
+                  "artwork": "cover",
+                  "replace_mute": "play_pause",
+                  "name": "TV"
                 }
               ],
-              "type": "horizontal-stack"
+              "type": "vertical-stack"
             },
             {
               "type": "custom:layout-break"
