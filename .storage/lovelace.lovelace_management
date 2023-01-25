@@ -279,16 +279,17 @@
               "type": "entities",
               "entities": [
                 {
+                  "entity": "sensor.ups_status",
+                  "name": "Status"
+                },
+                {
                   "entity": "sensor.ups_input_voltage",
                   "name": "Input Voltage"
                 },
                 {
-                  "entity": "sensor.ups_load",
-                  "name": "Load"
-                },
-                {
-                  "entity": "sensor.ups_status",
-                  "name": "Status"
+                  "entity": "sensor.ups_load_w",
+                  "name": "Load",
+                  "icon": "mdi:gauge-low"
                 }
               ],
               "title": "UPS"
@@ -317,7 +318,7 @@
                     "yellow": 80,
                     "red": 90
                   },
-                  "needle": false,
+                  "needle": true,
                   "max": 100,
                   "min": 0
                 }
@@ -497,18 +498,24 @@
               "title": "Doors and Windows"
             },
             {
-              "show_state": true,
-              "show_name": true,
-              "camera_view": "auto",
-              "type": "picture-entity",
-              "entity": "light.kitchen_counter_lights",
-              "tap_action": {
-                "action": "toggle"
-              },
-              "camera_image": "camera.wall_display_camera",
-              "hold_action": {
-                "action": "more-info"
-              }
+              "square": false,
+              "columns": 1,
+              "type": "grid",
+              "cards": [
+                {
+                  "show_state": true,
+                  "show_name": true,
+                  "camera_view": "auto",
+                  "type": "picture-entity",
+                  "entity": "camera.wall_display_camera"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    "light.kitchen_counter_lights"
+                  ]
+                }
+              ]
             }
           ]
         }

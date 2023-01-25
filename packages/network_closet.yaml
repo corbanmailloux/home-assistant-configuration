@@ -88,6 +88,12 @@ template:
         device_class: power
         state: >-
           {{ states('sensor.ups_input_voltage')|float > 100 }}
+  - sensor:
+      - name: "UPS Load (W)"
+        unit_of_measurement: W
+        device_class: power
+        state: >-
+          {{ states("sensor.ups_load") | float * 0.01 * 560 }}
 
 input_datetime:
   power_outage_start_time:
