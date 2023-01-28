@@ -22,10 +22,8 @@ automation:
   - alias: "Sunrise Alarm"
     id: cc8e52c9-a310-4b0d-8ec1-69296230588c
     trigger:
-      - platform: template
-        value_template: >-
-          {{ (strptime(states.sensor.time.state, "%H:%M").hour | int == states.input_datetime.alarm_start_time.attributes.hour | int)
-          and (strptime(states.sensor.time.state, "%H:%M").minute | int == states.input_datetime.alarm_start_time.attributes.minute | int) }}
+      - platform: time
+        at: input_datetime.alarm_start_time
     condition:
       - condition: state
         entity_id: binary_sensor.workday_sensor
