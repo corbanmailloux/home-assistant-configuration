@@ -1,27 +1,3 @@
-# All the lights, for voice control.
-# TODO: Is this needed still?
-
-all_lights_custom:
-  name: All Lights
-  entities:
-    # Bedroom
-    - light.bedroom_lamp
-    - light.fairy_lights
-    # Maggie's Office / Craft Room
-    - light.office_lamp
-    - light.office_lamp_bottom
-    # Corban's Office
-    - light.corban_s_office_ceiling_lamp_1
-    - light.corban_s_office_ceiling_lamp_2
-    - light.key_light_air_1
-    - light.office_leds
-    # Living Room
-    - light.tv_lamp
-    - light.living_room_wall_light_1
-    - light.christmas_tree_lights
-    # Kitchen
-    - light.kitchen_counter_lights
-
 # All lights, switches, and media_players for automations
 everything_custom:
   name: Everything
@@ -41,7 +17,31 @@ everything_custom:
     ## Living Room
     - light.tv_lamp
     - light.living_room_wall_light_1
-    - light.christmas_tree_lights
+    # - light.christmas_tree_lights
+    ## Kitchen
+    - light.kitchen_counter_lights
+
+    # Wall Displays
+    - light.tablet_wall_display_screen
+
+    # Other devices
+    - switch.living_room_tv_power
+
+everything_custom_for_guest_mode:
+  # TODO: This could probably be done with nested groups instead.
+  name: Everything without Guest Room
+  entities:
+    # Lights
+    ## Bedroom
+    - light.bedroom_lamp
+    - light.fairy_lights
+    ## Maggie's Office / Craft Room
+    - light.office_lamp
+    - light.office_lamp_bottom
+    ## Living Room
+    - light.tv_lamp
+    - light.living_room_wall_light_1
+    # - light.christmas_tree_lights
     ## Kitchen
     - light.kitchen_counter_lights
 

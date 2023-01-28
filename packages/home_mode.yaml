@@ -23,8 +23,19 @@ automation:
         entity_id: input_select.home_mode
         to: "Sleep"
     action:
-      - service: script.turn_on
-        entity_id: script.everything_off
+      - if:
+          - alias: "Guest Mode On"
+            condition: state
+            entity_id: input_boolean.guest_mode
+            state: "on"
+        then:
+          - alias: "Turn everything off except guest room"
+            service: homeassistant.turn_off
+            entity_id: group.everything_custom_for_guest_mode
+        else:
+          - alias: "Turn everything off"
+            service: script.turn_on
+            entity_id: script.everything_off
 
   - alias: Sleep Mode - Disable in Morning
     id: 60dc7343-2499-4137-bfc9-7fa7bbc50540

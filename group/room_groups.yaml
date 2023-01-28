@@ -1,4 +1,8 @@
-# Office Group
+living_room_lights:
+  name: Living Room Lights
+  entities:
+    - light.tv_lamp
+    - light.christmas_tree_lights
 
 corbans_office_lights:
   name: "Corban's Office Lights"
@@ -13,3 +17,9 @@ maggies_office_lights:
   entities:
     - light.office_lamp
     - light.office_lamp_bottom
+
+bedroom_lights:
+  name: Bedroom Lights
+  entities:
+    - light.fairy_lights
+    - light.bedroom_lamp # Tradfri

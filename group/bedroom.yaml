@@ -1,7 +1,0 @@
-# Bedroom Group
-
-bedroom_lights:
-  name: Bedroom Lights
-  entities:
-    - light.fairy_lights
-    - light.bedroom_lamp # Tradfri
