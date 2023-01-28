@@ -43,7 +43,7 @@ automation:
       - service: homeassistant.toggle
         entity_id: fan.bedroom_fan
 
-  - alias: Bedside Button 2 - Hold - Everything Off
+  - alias: Bedside Button 2 - Hold - Sleep Mode and Everything Off
     id: 10bcb4b9-5b6f-4063-8c0c-10938cc9bcd3
     trigger:
       - platform: device
@@ -53,5 +53,17 @@ automation:
         type: action
         subtype: hold
     action:
-      - service: script.turn_on
-        entity_id: script.everything_off
+      - alias: "If in sleep mode is on, force everything off."
+        choose:
+          - conditions:
+              - condition: state
+                entity_id: input_select.sleep_mode
+                state: "Sleep"
+            sequence:
+              - service: script.turn_on
+                entity_id: script.everything_off
+        default:
+          - service: input_select.select_option
+            data:
+              entity_id: input_select.home_mode
+              option: "Sleep"

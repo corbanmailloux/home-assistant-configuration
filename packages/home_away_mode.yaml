@@ -39,6 +39,10 @@ automation:
       - service: input_boolean.turn_on
         data:
           entity_id: input_boolean.home_occupied
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Home"
 
   - alias: Mark home occupied when someone is home for a few minutes
     id: fb337c2f-3474-43db-9269-21c4658c8d27
@@ -54,6 +58,10 @@ automation:
       - service: input_boolean.turn_on
         data:
           entity_id: input_boolean.home_occupied
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Home"
 
   - alias: Automatically mark the home as unoccupied if no one is home
     id: f024de99-f4dd-4d30-9aeb-cb3f0252a676
@@ -72,6 +80,11 @@ automation:
       - service: input_boolean.turn_off
         data:
           entity_id: input_boolean.home_occupied
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Away"
+        # TODO: Migrate condition above as well.
 
   ## Switch Actions ##
 

@@ -376,6 +376,15 @@
                       "card_mod": {
                         "style": ":host {\n  --paper-item-icon-color:\n    {% if states(config.entity) == \"home\" %} \n      dimgray\n    {% elif states(config.entity) == \"not_home\"%}\n      black\n    {% else %}\n      red\n    {% endif %};\n}\n"
                       }
+                    },
+                    {
+                      "type": "state-label",
+                      "entity": "input_select.home_mode",
+                      "style": {
+                        "top": "90%",
+                        "left": "50%",
+                        "color": "yellow"
+                      }
                     }
                   ],
                   "image": "/local/images/corban-memoji.png",
@@ -632,8 +641,8 @@
             {
               "type": "custom:button-card",
               "name": "Craft Room",
-              "entity": "sensor.office_temperature",
-              "template": "header"
+              "entity": "sensor.craft_room_temperature_sensor_temperature",
+              "template": "header_temperature_clickable"
             },
             {
               "type": "horizontal-stack",

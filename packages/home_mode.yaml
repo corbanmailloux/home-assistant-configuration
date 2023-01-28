@@ -1,0 +1,43 @@
+# Home Modes
+# The overall state of the home, used for modifying other automations.
+# See also: https://github.com/corbanmailloux/home-assistant-configuration/issues/96
+
+input_select:
+  home_mode:
+    name: Home Mode
+    options:
+      - Home
+      - Away
+      - Sleep
+      - Vacation
+    icon: mdi:home-circle
+# Note: Guest "mode" is a separate concept because the home can be in any mode while guests are being considered.
+
+automation:
+  # See also: `bedside_button_1_corban.yaml`, which has automations for entering Sleep Mode.
+
+  - alias: Sleep Mode - Enabled - Turn Everything Off
+    id: a0fb5a75-9d4f-4bf4-a6fb-81b6bf3f8682
+    trigger:
+      - platform: state
+        entity_id: input_select.home_mode
+        to: "Sleep"
+    action:
+      - service: script.turn_on
+        entity_id: script.everything_off
+
+  - alias: Sleep Mode - Disable in Morning
+    id: 60dc7343-2499-4137-bfc9-7fa7bbc50540
+    trigger:
+      - platform: time
+        at: "06:00:00"
+        # TODO: Move to a input_datetime. Share with wall display wake up time.
+    condition:
+      - condition: state
+        entity_id: input_select.home_mode
+        state: "Sleep"
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Home"
