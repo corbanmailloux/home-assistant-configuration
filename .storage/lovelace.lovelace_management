@@ -209,7 +209,7 @@
                     },
                     {
                       "entity": "sensor.nzbget_queue_size",
-                      "name": "Remaining Download Bytes",
+                      "name": "Remaining Download Queue Size",
                       "icon": "mdi:trending-down",
                       "secondary_info": "last-updated"
                     }
