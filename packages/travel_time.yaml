@@ -45,8 +45,8 @@ automation:
         after: "07:00:00"
         before: "21:00:00"
       - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
+        entity_id: input_select.home_mode
+        state: "Home"
     action:
       - alias: "Notify Corban"
         service: script.maggie_travel_time_send

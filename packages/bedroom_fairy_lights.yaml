@@ -28,11 +28,8 @@ automation:
         entity_id: light.fairy_lights
         state: "off"
       - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
-      - condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
+        entity_id: input_select.home_mode
+        state: "Home"
     action:
       - service: light.turn_on
         entity_id: light.fairy_lights

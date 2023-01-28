@@ -3,16 +3,16 @@
 template:
   - trigger:
       - platform: state
-        entity_id: input_boolean.home_occupied
-        from: "off"
-        to: "on"
+        entity_id: input_select.home_mode
+        from: "Away"
+        to: "Home"
     binary_sensor:
       - name: "just_got_home"
         unique_id: 0e6d69ef-6fc5-4abf-a2d8-69e8395d9fbf
         auto_off:
           minutes: 2
         state: >-
-          {{ is_state('input_boolean.home_occupied', 'on') }}
+          {{ is_state('input_select.home_mode', 'Home') }}
   - binary_sensor:
       - name: "Kitchen Assumed Motion"
         unique_id: 348607b5-5c4f-4a94-be3c-044370fe76f3
@@ -58,10 +58,9 @@ automation:
         from: "off"
         to: "on"
     condition:
-      - alias: "Home Occupied"
-        condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
+      - condition: state
+        entity_id: input_select.home_mode
+        state: "Home"
     action:
       - alias: "Time-based selection"
         choose:

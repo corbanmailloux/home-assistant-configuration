@@ -12,8 +12,8 @@ automation:
         to: "on"
     condition:
       - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "on"
+        entity_id: input_select.home_mode
+        state: "Vacation"
       - condition: state
         entity_id: input_boolean.cat_sitter_mode
         state: "on"
@@ -26,7 +26,13 @@ automation:
             tag: "vacation_cat_sitter"
             actions:
               - action: "VACATION_SITTER_HOME_UNOCCUPIED"
-                title: "Mark home unoccupied."
+                title: "Re-enable vacation mode."
+                activationMode: "background"
+                authenticationRequired: false
+                destructive: false
+                behavior: "default"
+              - action: "VACATION_SITTER_HOME_CLEAR"
+                title: "We're home. Reset."
                 activationMode: "background"
                 authenticationRequired: false
                 destructive: false
@@ -40,15 +46,22 @@ automation:
         event_data:
           action: "VACATION_SITTER_HOME_UNOCCUPIED"
     action:
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.home_occupied
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Vacation"
 
-  - alias: Cat Sitter - Disable When Vacation Mode is Disabled
-    id: 9279c070-a11d-4315-abcd-1e6a6201b5c9
+  - alias: Cat Sitter - Reset Notification Clicked
+    id: ac5ed0e3-798e-4682-ba51-9fc54eb309f6
     trigger:
-      - platform: state
-        entity_id: input_boolean.vacation_mode
-        to: "off"
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "VACATION_SITTER_HOME_CLEAR"
     action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Home"
       - service: input_boolean.turn_off
         entity_id: input_boolean.cat_sitter_mode

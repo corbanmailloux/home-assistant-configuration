@@ -12,16 +12,12 @@ automation:
     id: b789d523-89bf-4bd6-884d-6ad7a4e63b06
     trigger:
       - platform: state
-        entity_id: input_boolean.home_occupied
-        from: "on"
-        to: "off"
+        entity_id: input_select.home_mode
+        from: "Home"
+        to: "Away"
         for:
           minutes: 5
     condition:
-      - alias: "Not in Vacation Mode" # just in case Eve were to get stuck
-        condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
       - alias: "Vacuum didn't run already today"
         condition: template
         value_template: >
@@ -40,8 +36,8 @@ automation:
             to: "returning"
             id: "complete"
           - platform: state
-            entity_id: input_boolean.home_occupied
-            to: "on"
+            entity_id: input_select.home_mode
+            to: "Home"
             id: "someone_home"
         timeout:
           minutes: 45

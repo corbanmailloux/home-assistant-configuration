@@ -492,8 +492,8 @@
               },
               "conditions": [
                 {
-                  "entity": "input_boolean.vacation_mode",
-                  "state": "on"
+                  "entity": "input_select.home_mode",
+                  "state": "Vacation"
                 }
               ],
               "type": "conditional"

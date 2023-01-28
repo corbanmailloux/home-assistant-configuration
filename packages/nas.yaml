@@ -38,8 +38,8 @@ automation:
     id: f3a700e3-6a72-405e-b0c3-9297c2e59863
     trigger:
       - platform: state
-        entity_id: input_boolean.home_occupied
-        to: "on"
+        entity_id: input_select.home_mode
+        to: "Home"
     condition:
       - condition: state
         entity_id: input_boolean.download_mode_change_lock
@@ -54,8 +54,10 @@ automation:
     id: 9a369e71-6b1a-4ea3-ac23-3dfac244a9dc
     trigger:
       - platform: state
-        entity_id: input_boolean.home_occupied
-        to: "off"
+        entity_id: input_select.home_mode
+        to:
+          - "Away"
+          - "Vacation"
     condition:
       - condition: state
         entity_id: input_boolean.download_mode_change_lock
@@ -89,8 +91,8 @@ automation:
         at: "06:00:00"
     condition:
       - condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
+        entity_id: input_select.home_mode
+        state: "Home"
       - condition: state
         entity_id: input_boolean.download_mode_change_lock
         state: "off"

@@ -30,8 +30,8 @@ automation:
         entity_id: person.corban
         state: "home"
       - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
+        entity_id: input_select.home_mode
+        state: "Home"
       - condition: time
         after: "22:00:00"
         before: "07:00:00"

@@ -14,10 +14,9 @@ automation:
         for:
           minutes: 10
     condition:
-      - alias: "Home Occupied"
-        condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
+      - condition: state
+        entity_id: input_select.home_mode
+        state: "Home"
       - alias: "Corban home"
         condition: state
         entity_id: person.corban

@@ -1,8 +1,3 @@
-input_boolean:
-  vacation_mode:
-    name: Vacation Mode
-    icon: mdi:airplane
-
 automation:
   ## After we've both been away for 24 hours, remind Corban to turn on vacation mode.
   - alias: Remind to enable vacation mode
@@ -14,8 +9,10 @@ automation:
         for: "24:00:00" # 1 day
     condition:
       - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
+        entity_id: input_select.home_mode
+        state:
+          - "Home"
+          - "Away"
     action:
       - service: notify.corban
         data:
@@ -39,8 +36,10 @@ automation:
         event_data:
           action: "VACATION_MODE_ENABLE"
     action:
-      - service: input_boolean.turn_on
-        entity_id: input_boolean.vacation_mode
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Vacation"
 
   ## Disable vacation mode
   - alias: Remind us to turn off vacation mode when we get home
@@ -51,8 +50,8 @@ automation:
         to: "home"
     condition:
       - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "on"
+        entity_id: input_select.home_mode
+        state: "Vacation"
     action:
       - service: notify.adult_ios_phones
         data:
@@ -76,8 +75,10 @@ automation:
         event_data:
           action: "VACATION_MODE_DISABLE"
     action:
-      - service: input_boolean.turn_off
-        entity_id: input_boolean.vacation_mode
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.home_mode
+          option: "Home"
       - service: notify.adult_ios_phones
         data:
           message: clear_notification
@@ -92,8 +93,8 @@ automation:
         to: "on"
     condition:
       - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "on"
+        entity_id: input_select.home_mode
+        state: "Vacation"
       - condition: state
         entity_id: input_boolean.cat_sitter_mode
         state: "off" # If on, this is handled by the cat sitter mode.

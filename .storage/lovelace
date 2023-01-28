@@ -256,8 +256,8 @@
                   "type": "conditional",
                   "conditions": [
                     {
-                      "entity": "input_boolean.vacation_mode",
-                      "state": "on"
+                      "entity": "input_select.home_mode",
+                      "state": "Vacation"
                     }
                   ],
                   "chip": {
@@ -266,7 +266,14 @@
                     "icon_color": "blue",
                     "content_info": "name",
                     "tap_action": {
-                      "action": "toggle"
+                      "action": "call-service",
+                      "service": "input_select.select_option",
+                      "data": {
+                        "option": "Home"
+                      },
+                      "target": {
+                        "entity_id": "input_select.home_mode"
+                      }
                     },
                     "hold_action": {
                       "action": "more-info"

@@ -1,24 +1,9 @@
-# Simplify the tracking of whether or not someone is home. Device trackers have been complicated and frustrating, so let's start over with a switch.
-# If no one is home and a door is opened, assume someone got home.
-# Pressing the button by the door (when leaving the house) indicates that no one is home.
+# To be merged with `home_mode.yaml`.
 
 input_boolean:
-  home_occupied:
-    name: Home Occupied
-    icon: mdi:home
-
   cats_are_home:
     name: Cats Are Home
     icon: mdi:home-heart
-
-binary_sensor:
-  - platform: template
-    sensors:
-      home_occupied:
-        friendly_name: "Home Occupied"
-        device_class: occupancy
-        value_template: >-
-          {{ is_state('input_boolean.home_occupied', 'on') }}
 
 automation:
   - alias: Mark home occupied when the door opens
@@ -31,14 +16,11 @@ automation:
       # Only count this as someone coming home if the home has been unoccupied for at least 1 minute.
       # This allows a grace period to leave, much like alarm systems.
       - condition: state
-        entity_id: input_boolean.home_occupied
-        state: "off"
+        entity_id: input_select.home_mode
+        state: "Away"
         for:
           minutes: 1
     action:
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.home_occupied
       - service: input_select.select_option
         data:
           entity_id: input_select.home_mode
@@ -53,11 +35,11 @@ automation:
         to: "home"
         for:
           minutes: 10 # 2 is good for rapid response, but this way the door switch usually covers it.
-    # TODO: Guest mode condition
+    condition:
+      - condition: state
+        entity_id: input_select.home_mode
+        state: "Away"
     action:
-      - service: input_boolean.turn_on
-        data:
-          entity_id: input_boolean.home_occupied
       - service: input_select.select_option
         data:
           entity_id: input_select.home_mode
@@ -71,11 +53,10 @@ automation:
         to: "not_home"
         for:
           minutes: 3
-    # TODO: Guest mode condition
     condition:
       - condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
+        entity_id: input_select.home_mode
+        state: "Home"
     action:
       - service: input_boolean.turn_off
         data:
@@ -84,71 +65,6 @@ automation:
         data:
           entity_id: input_select.home_mode
           option: "Away"
-        # TODO: Migrate condition above as well.
-
-  ## Switch Actions ##
-
-  # - alias: Living Room Switch - Press On sets the home as occupied
-  #   id: e639851a-63db-4fdb-8e21-1dbb35384b36
-  #   trigger:
-  #     - platform: device
-  #       device_id: c267d3d48bf04135851855dc4be36cbb
-  #       discovery_id: 0x000d6ffffea6b202 action_on
-  #       domain: mqtt
-  #       type: action
-  #       subtype: "on" # Up
-  #   action:
-  #     - service: input_boolean.turn_on
-  #       data:
-  #         entity_id: input_boolean.home_occupied
-
-  # - alias: Living Room Switch - Press Off sets the home as unoccupied
-  #   id: 3742c4ea-fd85-4332-9660-25d5f5b9b69a
-  #   trigger:
-  #     - platform: device
-  #       device_id: c267d3d48bf04135851855dc4be36cbb
-  #       discovery_id: 0x000d6ffffea6b202 action_off
-  #       domain: mqtt
-  #       type: action
-  #       subtype: "off" # Down
-  #   action:
-  #     - service: input_boolean.turn_off
-  #       data:
-  #         entity_id: input_boolean.home_occupied
-
-  # - alias: Living Room Switch - Hold On turns on movie mode
-  #   id: a3c6ff1d-63d0-45b1-8d4c-48d05e31a1fe
-  #   trigger:
-  #     - platform: device
-  #       device_id: c267d3d48bf04135851855dc4be36cbb
-  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
-  #       domain: mqtt
-  #       type: action
-  #       subtype: brightness_move_up
-  #   action:
-  #     - service: scene.turn_on
-  #       entity_id: scene.movie_mode
-
-  # - alias: Living Room Switch - Hold Off for unoccupied and light on for cats
-  #   id: 9952b92c-fa1c-47d9-9ded-11e59e12c62e
-  #   trigger:
-  #     - platform: device
-  #       device_id: c267d3d48bf04135851855dc4be36cbb
-  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
-  #       domain: mqtt
-  #       type: action
-  #       subtype: brightness_move_down
-  #   action:
-  #     - service: input_boolean.turn_off
-  #       data:
-  #         entity_id: input_boolean.home_occupied
-  #     - delay:
-  #         seconds: 5
-  #     - service: light.turn_on
-  #       data:
-  #         brightness_pct: 30
-  #       target:
-  #         entity_id: light.tv_lamp
 
   ## Outputs/actions from Home/Away Changes ##
 
@@ -158,8 +74,8 @@ automation:
     id: b5c7eeb6-bd12-435f-98b3-ead8610cf95a
     trigger:
       - platform: state
-        entity_id: input_boolean.home_occupied
-        to: "on"
+        entity_id: input_select.home_mode
+        to: "Home"
     condition:
       - condition: time # From 7AM - 9:30PM
         after: "07:00:00"
@@ -172,8 +88,8 @@ automation:
     id: e2855b3b-04a7-4e28-b4d9-97091b1975fd
     trigger:
       - platform: state
-        entity_id: input_boolean.home_occupied
-        to: "on"
+        entity_id: input_select.home_mode
+        to: "Home"
     action:
       - service: light.turn_on
         data:
@@ -183,21 +99,23 @@ automation:
     id: 230957ce-f646-4c5d-8819-9b6b069d3628
     trigger:
       - platform: state
-        entity_id: input_boolean.home_occupied
-        to: "off"
+        entity_id: input_select.home_mode
+        to:
+          - "Away"
+          - "Vacation"
     action:
       - service: script.turn_on
         entity_id: script.everything_off
       # Okay, so I should really rebuild this part, but...
       # If the cats are home, turn some lighting back on for them.
-      - condition: state
-        entity_id: input_boolean.cats_are_home
-        state: "on"
-      - delay:
-          seconds: 3
-      - service: light.turn_on
-        data:
-          entity_id: light.christmas_tree_lights
+      # - condition: state
+      #   entity_id: input_boolean.cats_are_home
+      #   state: "on"
+      # - delay:
+      #     seconds: 3
+      # - service: light.turn_on
+      #   data:
+      #     entity_id: light.christmas_tree_lights
 
 script:
   welcome_home_announcement:

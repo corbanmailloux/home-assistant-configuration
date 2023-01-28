@@ -25,8 +25,8 @@ automation:
     id: 8adc1a54-a9de-43f6-bc08-9037b230e574
     trigger:
       - platform: state
-        entity_id: input_boolean.vacation_mode
-        to: "off"
+        entity_id: input_select.home_mode
+        from: "Vacation"
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.vacation_mode_light_schedule

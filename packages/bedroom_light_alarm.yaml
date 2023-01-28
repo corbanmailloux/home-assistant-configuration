@@ -26,13 +26,13 @@ automation:
         at: input_datetime.alarm_start_time
     condition:
       - condition: state
+        entity_id: input_select.home_mode
+        state: "Home"
+      - condition: state
         entity_id: binary_sensor.workday_sensor
         state: "on"
       - condition: state
         entity_id: light.fairy_lights
-        state: "off"
-      - condition: state
-        entity_id: input_boolean.vacation_mode
         state: "off"
     action:
       - service: light.turn_on

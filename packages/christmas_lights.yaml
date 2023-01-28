@@ -13,11 +13,8 @@ automation:
         at: "06:00:00"
     condition:
       - condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
-      - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
+        entity_id: input_select.home_mode
+        state: "Home"
     action:
       - service: light.turn_on
         data:
@@ -28,8 +25,8 @@ automation:
     id: 515b458d-c596-434e-a356-c824bf229171
     trigger:
       - platform: state
-        entity_id: input_boolean.home_occupied
-        to: "on"
+        entity_id: input_select.home_mode
+        to: "Home"
     action:
       - service: light.turn_on
         data:

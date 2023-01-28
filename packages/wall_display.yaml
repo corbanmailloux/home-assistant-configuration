@@ -78,11 +78,8 @@ automation:
         at: "06:00:00"
     condition:
       - condition: state
-        entity_id: input_boolean.home_occupied
-        state: "on"
-      - condition: state
-        entity_id: input_boolean.vacation_mode
-        state: "off"
+        entity_id: input_select.home_mode
+        state: "Home"
     action:
       - service: light.turn_on
         data:
