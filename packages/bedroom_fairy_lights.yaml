@@ -29,7 +29,7 @@ automation:
         state: "off"
       - condition: state
         entity_id: input_select.home_mode
-        state: "Home"
+        state: "Home" # Don't run if we're away or asleep.
     action:
       - service: light.turn_on
         entity_id: light.fairy_lights
