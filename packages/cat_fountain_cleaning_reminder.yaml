@@ -1,0 +1,21 @@
+automation:
+  - alias: Show Cat Fountain Reminder
+    id: 54ad428f-9383-4e23-8f73-37b14575035b
+    trigger:
+      - platform: time
+        at: "19:00:00" # 7:00PM
+    condition:
+      - condition: time
+        weekday:
+          - fri
+      - condition: template
+        # Every other week
+        value_template: "{{ (as_timestamp(now())|timestamp_custom ('%U') | int % 2) == 0 }}"
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.cat_fountain_clean_needed
+
+input_boolean:
+  cat_fountain_clean_needed:
+    name: Time to clean the fountain.
+    icon: mdi:fountain

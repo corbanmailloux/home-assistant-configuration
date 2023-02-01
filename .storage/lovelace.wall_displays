@@ -681,6 +681,26 @@
             },
             {
               "card": {
+                "entity": "input_boolean.washer_reminder_notifying",
+                "layout": "icon_name",
+                "name": "Washing Machine Done",
+                "color": "red",
+                "show_icon": true,
+                "show_state": false,
+                "tap_action": "none",
+                "hold_action": "none",
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "entity": "input_boolean.washer_reminder_notifying",
+                  "state": "on"
+                }
+              ],
+              "type": "conditional"
+            },
+            {
+              "card": {
                 "entity": "input_boolean.cat_claw_clip_needed",
                 "layout": "icon_name",
                 "color": "yellow",
@@ -727,19 +747,19 @@
             },
             {
               "card": {
-                "entity": "input_boolean.washer_reminder_notifying",
+                "entity": "input_boolean.cat_fountain_clean_needed",
                 "layout": "icon_name",
-                "name": "Washing Machine Done",
-                "color": "red",
+                "color": "green",
                 "show_icon": true,
                 "show_state": false,
-                "tap_action": "none",
-                "hold_action": "none",
+                "tap_action": {
+                  "action": "toggle"
+                },
                 "type": "custom:button-card"
               },
               "conditions": [
                 {
-                  "entity": "input_boolean.washer_reminder_notifying",
+                  "entity": "input_boolean.cat_fountain_clean_needed",
                   "state": "on"
                 }
               ],
