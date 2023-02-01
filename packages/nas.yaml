@@ -34,11 +34,14 @@ input_boolean:
     icon: mdi:download-lock
 
 automation:
-  - alias: Slow down downloading when someone is home
+  - alias: Slow down downloading when someone arrives home
     id: f3a700e3-6a72-405e-b0c3-9297c2e59863
     trigger:
       - platform: state
         entity_id: input_select.home_mode
+        from:
+          - "Away"
+          - "Vacation"
         to: "Home"
     condition:
       - condition: state
@@ -68,12 +71,12 @@ automation:
           entity_id: input_select.download_speed
           option: Full Speed
 
-  - alias: Run downloads at full speed overnight
+  - alias: Run downloads at full speed when in sleep mode
     id: 0ba2ae8b-097e-48b0-aa3c-051e4a1c3ae2
     trigger:
-      # TODO: Consider adding a "night mode" that's activated by the bedside button/phone notification.
-      - platform: time
-        at: "23:30:00"
+      - platform: state
+        entity_id: input_select.home_mode
+        to: "Sleep"
     condition:
       - condition: state
         entity_id: input_boolean.download_mode_change_lock
@@ -87,12 +90,11 @@ automation:
   - alias: Run downloads at slow speed in the morning if someone is home
     id: 1e79b053-788e-4d87-9a06-e90453d2ed38
     trigger:
-      - platform: time
-        at: "06:00:00"
-    condition:
-      - condition: state
+      - platform: state
         entity_id: input_select.home_mode
-        state: "Home"
+        from: "Sleep"
+        to: "Home"
+    condition:
       - condition: state
         entity_id: input_boolean.download_mode_change_lock
         state: "off"
