@@ -1,7 +1,10 @@
 esphome:
   name: office-ble-hub
-  platform: ESP32
+
+esp32:
   board: esp32doit-devkit-v1
+  framework:
+    type: esp-idf
 
 wifi:
   ssid: !secret wifi_ssid
@@ -17,35 +20,42 @@ api:
 
 # BLE Hub
 esp32_ble_tracker:
+  scan_parameters:
+    interval: 1100ms
+    window: 1100ms
+    active: true
+
+bluetooth_proxy:
+  active: true
 
 sensor:
   - platform: wifi_signal
     name: "Office BLE Hub - WiFi Signal"
     update_interval: 60s
 
-  # Basil
-  - platform: xiaomi_hhccjcy01
-    mac_address: 'C4:7C:8D:63:E4:1B'
-    temperature:
-      name: "Basil Temperature"
-    moisture:
-      name: "Basil Moisture"
-    illuminance:
-      name: "Basil Illuminance"
-    conductivity:
-      name: "Basil Soil Conductivity"
+  # # Basil
+  # - platform: xiaomi_hhccjcy01
+  #   mac_address: 'C4:7C:8D:63:E4:1B'
+  #   temperature:
+  #     name: "Basil Temperature"
+  #   moisture:
+  #     name: "Basil Moisture"
+  #   illuminance:
+  #     name: "Basil Illuminance"
+  #   conductivity:
+  #     name: "Basil Soil Conductivity"
 
-  # Jade
-  - platform: xiaomi_hhccjcy01
-    mac_address: 'C4:7C:8D:6D:94:B8'
-    temperature:
-      name: "Jade Temperature"
-    moisture:
-      name: "Jade Moisture"
-    illuminance:
-      name: "Jade Illuminance"
-    conductivity:
-      name: "Jade Soil Conductivity"
+  # # Jade
+  # - platform: xiaomi_hhccjcy01
+  #   mac_address: 'C4:7C:8D:6D:94:B8'
+  #   temperature:
+  #     name: "Jade Temperature"
+  #   moisture:
+  #     name: "Jade Moisture"
+  #   illuminance:
+  #     name: "Jade Illuminance"
+  #   conductivity:
+  #     name: "Jade Soil Conductivity"
 
 # IR Remote Transmitter for the PTZ Camera
 remote_transmitter:
