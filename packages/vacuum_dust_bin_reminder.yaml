@@ -1,5 +1,7 @@
 # When the vacuum's bin has dust in it, remind Corban at convenient times to empty it.
 
+## Disabled for now.
+
 automation:
   - id: 5bc9a472-22c6-486a-9ced-bc01ad2ff2cd
     alias: "Vacuum Bin Reminder: Remind Corban to empty Eve"

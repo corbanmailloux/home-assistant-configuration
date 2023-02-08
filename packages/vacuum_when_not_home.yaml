@@ -22,6 +22,10 @@ automation:
         condition: template
         value_template: >
           {{ states('input_datetime.last_vacuum_run') < (now().timestamp()) | timestamp_custom('%Y-%m-%d') }}
+      - alias: "Vacuum is docked"
+        condition: state
+        entity_id: vacuum.valetudo_eve
+        state: "docked"
     action:
       - alias: "Make sure no rooms are selected"
         service: homeassistant.turn_off
