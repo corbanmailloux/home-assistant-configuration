@@ -1,16 +1,30 @@
 automation:
-  - alias: Show Cat Fountain Reminder
-    id: 54ad428f-9383-4e23-8f73-37b14575035b
+  # - alias: Show Cat Fountain Reminder
+  #   id: 54ad428f-9383-4e23-8f73-37b14575035b
+  #   trigger:
+  #     - platform: time
+  #       at: "19:00:00" # 7:00PM
+  #   condition:
+  #     - condition: time
+  #       weekday:
+  #         - fri
+  #     - condition: template
+  #       # Every other week
+  #       value_template: "{{ (as_timestamp(now())|timestamp_custom ('%U') | int % 2) == 0 }}"
+  #   action:
+  #     - service: input_boolean.turn_on
+  #       entity_id: input_boolean.cat_fountain_clean_needed
+
+  - alias: Show Cat Fountain Reminder - Calendar Automation
+    id: 2b837114-1867-4836-9a66-91dfe7c7a25f
+    mode: queued
     trigger:
-      - platform: time
-        at: "19:00:00" # 7:00PM
+      - platform: calendar
+        event: start
+        entity_id: calendar.chores
     condition:
-      - condition: time
-        weekday:
-          - fri
       - condition: template
-        # Every other week
-        value_template: "{{ (as_timestamp(now())|timestamp_custom ('%U') | int % 2) == 0 }}"
+        value_template: "{{ 'Cat Fountain Cleaning' in trigger.calendar_event.summary }}"
     action:
       - service: input_boolean.turn_on
         entity_id: input_boolean.cat_fountain_clean_needed

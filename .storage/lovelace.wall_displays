@@ -407,6 +407,10 @@
                   "entity": "calendar.family",
                   "name": "Family",
                   "icon": "mdi:home-heart"
+                },
+                {
+                  "entity": "calendar.chores",
+                  "name": "Chores"
                 }
               ],
               "enableModeChange": true,
