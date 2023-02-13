@@ -37,7 +37,7 @@ automation:
     action:
       - service: script.brightness_cycle
         data:
-          light_entity_id: light.tv_lamp
+          light_entity_id: light.corban_s_office_ceiling_light
 
   - alias: Office Single Button - Release - Stop Cycle
     id: 4d4b8963-b9b0-424e-8b02-d1e1fe8e286b
