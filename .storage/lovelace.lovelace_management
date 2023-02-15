@@ -200,10 +200,16 @@
                 },
                 {
                   "entity": "input_boolean.cat_sitter_mode"
+                },
+                {
+                  "entity": "input_boolean.guest_mode"
+                },
+                {
+                  "entity": "input_boolean.cats_are_home"
                 }
               ],
               "show_header_toggle": false,
-              "title": "Vacation Mode",
+              "title": "Home Modes",
               "type": "entities"
             },
             {
