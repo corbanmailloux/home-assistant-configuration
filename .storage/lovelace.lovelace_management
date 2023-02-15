@@ -6,184 +6,6 @@
     "config": {
       "views": [
         {
-          "badges": [],
-          "cards": [
-            {
-              "entities": [
-                {
-                  "entity": "input_boolean.vacation_mode"
-                },
-                {
-                  "entity": "input_boolean.vacation_mode_light_schedule"
-                },
-                {
-                  "entity": "input_boolean.cat_sitter_mode"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Vacation Mode",
-              "type": "entities"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.office_occupied",
-                  "secondary_info": "last-changed",
-                  "name": "Output: Office Occupied"
-                },
-                {
-                  "entity": "binary_sensor.office_motion_sensor_occupancy",
-                  "name": "Motion Sensor",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.vibration_sensor_vibration",
-                  "name": "Chair Vibration",
-                  "secondary_info": "last-updated",
-                  "icon": ""
-                },
-                {
-                  "entity": "binary_sensor.cmailloux_a01_active",
-                  "name": "VMW Mac Active",
-                  "secondary_info": "last-updated"
-                },
-                {
-                  "entity": "sensor.cmailloux_a01_displays",
-                  "name": "VMW Mac Displays",
-                  "secondary_info": "last-updated"
-                },
-                {
-                  "entity": "binary_sensor.corban_s_personal_macbook_pro_active",
-                  "name": "Personal Mac Active",
-                  "secondary_info": "last-updated"
-                },
-                {
-                  "entity": "sensor.corban_s_personal_macbook_pro_displays",
-                  "name": "Personal Mac Displays",
-                  "secondary_info": "last-updated"
-                },
-                {
-                  "entity": "binary_sensor.cmaillouxtjq31_active"
-                },
-                {
-                  "entity": "sensor.cmaillouxtjq31_displays"
-                },
-                {
-                  "entity": "binary_sensor.biden_microphoneactive"
-                }
-              ],
-              "title": "Office Motion Lights Debugging",
-              "show_header_toggle": false,
-              "state_color": true
-            },
-            {
-              "card": {
-                "title": "Low Batteries"
-              },
-              "entities": [
-                {
-                  "entity": "sensor.corbans_iphone_battery_level",
-                  "name": "Corban's iPhone"
-                },
-                {
-                  "entity": "sensor.edna_battery_level",
-                  "name": "Maggie's Phone"
-                },
-                {
-                  "entity": "sensor.0x000d6ffffea6b202_battery",
-                  "name": "IKEA Remote"
-                },
-                {
-                  "entity": "sensor.corban_bedside_button_battery",
-                  "name": "Corban's Bedside Button"
-                },
-                {
-                  "entity": "sensor.maggie_bedside_button_battery",
-                  "name": "Maggie's Bedside Remote"
-                },
-                {
-                  "entity": "sensor.front_door_sensor_battery",
-                  "name": "Front Door Sensor"
-                },
-                {
-                  "entity": "sensor.office_door_sensor_battery",
-                  "name": "Office Door Sensor"
-                },
-                {
-                  "entity": "sensor.living_room_sensor_battery",
-                  "name": "Living Room Temperature Sensor"
-                },
-                {
-                  "entity": "sensor.network_closet_sensor_battery",
-                  "name": "Network Closet Temperature Sensor"
-                }
-              ],
-              "show_empty": true,
-              "state_filter": [
-                {
-                  "operator": "<",
-                  "value": 50
-                }
-              ],
-              "type": "entity-filter"
-            }
-          ],
-          "icon": "mdi:cog",
-          "path": "management",
-          "title": "Management"
-        },
-        {
-          "icon": "mdi:tablet-dashboard",
-          "title": "Wall Displays",
-          "path": "wall-displays",
-          "badges": [],
-          "cards": [
-            {
-              "entities": [
-                {
-                  "entity": "light.tablet_wall_display_screen"
-                },
-                {
-                  "entity": "script.tablet_wall_display_reload"
-                },
-                {
-                  "entity": "script.tablet_wall_display_restart"
-                },
-                {
-                  "entity": "input_boolean.wall_display_show_map"
-                },
-                {
-                  "entity": "input_boolean.litter_box_clean_needed"
-                },
-                {
-                  "entity": "input_boolean.litter_box_clean_skip"
-                },
-                {
-                  "entity": "input_boolean.cat_claw_clip_needed"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Wall Display",
-              "type": "entities"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "light.kitchen_display_screen"
-                },
-                {
-                  "entity": "script.kitchen_display_reload"
-                }
-              ],
-              "title": "Kitchen Display",
-              "show_header_toggle": false,
-              "state_color": true
-            }
-          ]
-        },
-        {
           "theme": "Backend-selected",
           "icon": "mdi:server-network",
           "path": "network",
@@ -342,6 +164,134 @@
           ]
         },
         {
+          "theme": "Backend-selected",
+          "title": "Security",
+          "path": "security",
+          "icon": "mdi:shield-lock",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.kitchen_cabinet_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.kitchen_counter_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.stairs_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.hlk_ld2410b_3d68_occupancy"
+                }
+              ],
+              "title": "Motion Sensors",
+              "show_header_toggle": false,
+              "state_color": true
+            },
+            {
+              "entities": [
+                {
+                  "entity": "input_select.home_mode"
+                },
+                {
+                  "entity": "input_boolean.vacation_mode_light_schedule"
+                },
+                {
+                  "entity": "input_boolean.cat_sitter_mode"
+                }
+              ],
+              "show_header_toggle": false,
+              "title": "Vacation Mode",
+              "type": "entities"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.front_door"
+                },
+                {
+                  "entity": "binary_sensor.laundry_room_door_sensor_contact",
+                  "name": "Laundry Room Door"
+                }
+              ],
+              "title": "Doors and Windows"
+            },
+            {
+              "square": false,
+              "columns": 1,
+              "type": "grid",
+              "cards": [
+                {
+                  "show_state": true,
+                  "show_name": true,
+                  "camera_view": "auto",
+                  "type": "picture-entity",
+                  "entity": "camera.wall_display_camera"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    "light.kitchen_counter_lights"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "icon": "mdi:tablet-dashboard",
+          "title": "Wall Displays",
+          "path": "wall-displays",
+          "badges": [],
+          "cards": [
+            {
+              "entities": [
+                {
+                  "entity": "light.tablet_wall_display_screen"
+                },
+                {
+                  "entity": "script.tablet_wall_display_reload"
+                },
+                {
+                  "entity": "script.tablet_wall_display_restart"
+                },
+                {
+                  "entity": "input_boolean.wall_display_show_map"
+                },
+                {
+                  "entity": "input_boolean.litter_box_clean_needed"
+                },
+                {
+                  "entity": "input_boolean.litter_box_clean_skip"
+                },
+                {
+                  "entity": "input_boolean.cat_claw_clip_needed"
+                }
+              ],
+              "show_header_toggle": false,
+              "title": "Wall Display",
+              "type": "entities"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.kitchen_display_screen"
+                },
+                {
+                  "entity": "script.kitchen_display_reload"
+                }
+              ],
+              "title": "Kitchen Display",
+              "show_header_toggle": false,
+              "state_color": true
+            }
+          ]
+        },
+        {
           "badges": [],
           "cards": [
             {
@@ -395,6 +345,54 @@
               "entities": [
                 "input_datetime.last_litter_box_replacement"
               ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.office_occupied",
+                  "secondary_info": "last-changed",
+                  "name": "Output: Office Occupied"
+                },
+                {
+                  "entity": "binary_sensor.vibration_sensor_vibration",
+                  "name": "Chair Vibration",
+                  "secondary_info": "last-updated",
+                  "icon": ""
+                },
+                {
+                  "entity": "binary_sensor.cmailloux_a01_active",
+                  "name": "VMW Mac Active",
+                  "secondary_info": "last-updated"
+                },
+                {
+                  "entity": "sensor.cmailloux_a01_displays",
+                  "name": "VMW Mac Displays",
+                  "secondary_info": "last-updated"
+                },
+                {
+                  "entity": "binary_sensor.corban_s_personal_macbook_pro_active",
+                  "name": "Personal Mac Active",
+                  "secondary_info": "last-updated"
+                },
+                {
+                  "entity": "sensor.corban_s_personal_macbook_pro_displays",
+                  "name": "Personal Mac Displays",
+                  "secondary_info": "last-updated"
+                },
+                {
+                  "entity": "binary_sensor.cmaillouxtjq31_active"
+                },
+                {
+                  "entity": "sensor.cmaillouxtjq31_displays"
+                },
+                {
+                  "entity": "binary_sensor.biden_microphoneactive"
+                }
+              ],
+              "title": "Office Motion Lights Debugging",
+              "show_header_toggle": false,
+              "state_color": true
             }
           ],
           "icon": "mdi:flask",
@@ -453,68 +451,6 @@
               ],
               "show_header_toggle": false,
               "state_color": true
-            }
-          ]
-        },
-        {
-          "theme": "Backend-selected",
-          "title": "Security",
-          "path": "security",
-          "icon": "mdi:shield-lock",
-          "badges": [],
-          "cards": [
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.kitchen_cabinet_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.kitchen_counter_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.stairs_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.hlk_ld2410b_3d68_occupancy"
-                }
-              ],
-              "title": "Motion Sensors",
-              "show_header_toggle": false,
-              "state_color": true
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.front_door"
-                },
-                {
-                  "entity": "binary_sensor.laundry_room_door_sensor_contact",
-                  "name": "Laundry Room Door"
-                }
-              ],
-              "title": "Doors and Windows"
-            },
-            {
-              "square": false,
-              "columns": 1,
-              "type": "grid",
-              "cards": [
-                {
-                  "show_state": true,
-                  "show_name": true,
-                  "camera_view": "auto",
-                  "type": "picture-entity",
-                  "entity": "camera.wall_display_camera"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    "light.kitchen_counter_lights"
-                  ]
-                }
-              ]
             }
           ]
         }
