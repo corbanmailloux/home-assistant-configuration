@@ -470,10 +470,13 @@
                   "entity": "binary_sensor.kitchen_cabinet_motion_sensor_occupancy"
                 },
                 {
-                  "entity": "binary_sensor.office_motion_sensor_occupancy"
+                  "entity": "binary_sensor.kitchen_counter_motion_sensor_occupancy"
                 },
                 {
                   "entity": "binary_sensor.stairs_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.hlk_ld2410b_3d68_occupancy"
                 }
               ],
               "title": "Motion Sensors",
@@ -485,10 +488,6 @@
               "entities": [
                 {
                   "entity": "binary_sensor.front_door"
-                },
-                {
-                  "entity": "binary_sensor.office_door_sensor_contact",
-                  "name": "Office Door"
                 },
                 {
                   "entity": "binary_sensor.laundry_room_door_sensor_contact",
