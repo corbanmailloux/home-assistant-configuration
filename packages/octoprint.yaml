@@ -31,19 +31,6 @@ sensor:
         attribute_templates:
           start_time: "states('sensor.octoprint_estimated_finish_time')"
 
-      # Display state for the office_status_lcd (ESPHome)
-      # Rewrites long states to fit on the screen.
-      octoprint_status_display:
-        friendly_name: Octoprint Status Display
-        availability_template: >-
-          {{ not is_state('sensor.octoprint_current_state', 'unavailable') }}
-        value_template: >-
-          {%- if is_state('sensor.octoprint_current_state', 'Printing from SD') -%}
-            Printing (SD)
-          {%- else -%}
-            {{ states('sensor.octoprint_current_state') }}
-          {%- endif -%}
-
 binary_sensor:
   - platform: template
     sensors:
@@ -54,13 +41,13 @@ binary_sensor:
           {% set printing = is_state('binary_sensor.octoprint_printing', 'on') %}
 
           {# Explicit states, including idle (operational) #}
-          {% set in_good_state = 
+          {% set in_good_state =
             is_state('sensor.octoprint_current_state', 'Printing')
-            or 
+            or
             is_state('sensor.octoprint_current_state', 'Printing from SD')
             or
             is_state('sensor.octoprint_current_state', 'Operational') %}
-            
+
           {{ printing or in_good_state }}
 
 rest_command:

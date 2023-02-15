@@ -75,7 +75,7 @@ sensor:
     internal: true
     id: maggie_eta
     entity_id: sensor.maggie_time_to_home_for_display
-  
+
   - platform: homeassistant
     id: print_percentage
     entity_id: sensor.octoprint_job_percentage
@@ -141,8 +141,11 @@ text_sensor:
   - platform: homeassistant
     internal: true
     id: print_status
-    entity_id: sensor.octoprint_status_display
-    # TODO: Move this custom display logic out of HASS and use a map here: https://esphome.io/components/text_sensor/index.html#map
+    entity_id: sensor.octoprint_current_state
+    # Use a filter to reduce the length for display.
+    filters:
+      - map:
+        - Printing from SD -> Printing (SD)
 
 switch:
   - platform: gpio
@@ -186,7 +189,7 @@ font:
   - file: "resources/fonts/materialdesignicons-webfont.ttf"
     id: mdi_font
     size: 30
-    glyphs: 
+    glyphs:
       - "\U000F0567" # mdi-video
       - "\U000F0568" # mdi-video-off
       - "\U000F032A" # mdi-leaf
@@ -214,19 +217,19 @@ display:
 
           // Border
           // it.rectangle(0,  0, it.get_width(), it.get_height(), id(color_blue));
-          
+
           // Header Box
           // it.rectangle(0, 40, it.get_width(), it.get_height(), id(color_blue));
           // it.print(border_padding, border_padding, id(georgia_12), id(color_yellow), TextAlign::TOP_LEFT, "ESPHome");
-          
+
           // First Line Message
           if (id(meeting_active).has_state() && id(meeting_active).state) {
             if (id(meeting_camera_active).has_state() && id(meeting_camera_active).state) {
               // Camera on
-              it.printf(border_padding, border_padding, id(mdi_font), id(color_red), TextAlign::TOP_LEFT, "\U000F0567");  
+              it.printf(border_padding, border_padding, id(mdi_font), id(color_red), TextAlign::TOP_LEFT, "\U000F0567");
             } else {
               // Camera off
-              it.printf(border_padding, border_padding, id(mdi_font), id(color_yellow), TextAlign::TOP_LEFT, "\U000F0568");  
+              it.printf(border_padding, border_padding, id(mdi_font), id(color_yellow), TextAlign::TOP_LEFT, "\U000F0568");
             }
             it.printf(mdi_width_offset + border_padding, border_padding, id(georgia_24), id(color_orange), TextAlign::TOP_LEFT, "In a meeting");
           // Temporarily disabled for the move.
@@ -256,7 +259,7 @@ display:
 
           // Time, bottom-left
           it.strftime(border_padding, it.get_height() - border_padding, id(clock_font), id(color_gray), TextAlign::BASELINE_LEFT, "%I:%M", id(esptime).now());
-          
+
           // Temperatures, bottom-right
           if (id(inside_temperature).has_state()) {
             Color icon_color = id(color_white);
