@@ -729,6 +729,33 @@
             },
             {
               "card": {
+                "entity": "timer.dryer_running_countdown",
+                "layout": "icon_name_state2nd",
+                "name": "Dryer Running - Tap to cancel",
+                "icon": "mdi:timer-remove-outline",
+                "color": "yellow",
+                "show_icon": true,
+                "show_state": true,
+                "tap_action": {
+                  "action": "call-service",
+                  "service": "timer.cancel",
+                  "service_data": {
+                    "entity_id": "timer.dryer_running_countdown"
+                  }
+                },
+                "hold_action": "none",
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "entity": "timer.dryer_running_countdown",
+                  "state_not": "idle"
+                }
+              ],
+              "type": "conditional"
+            },
+            {
+              "card": {
                 "entity": "input_boolean.cat_claw_clip_needed",
                 "layout": "icon_name",
                 "color": "yellow",

@@ -10,7 +10,7 @@ timer:
   dryer_running_countdown:
     name: "Dryer Reminder - Countdown timer"
     restore: true
-    duration: "00:45:00"
+    duration: "00:55:00"
 
 input_boolean:
   dryer_reminder_notifying:
@@ -180,7 +180,7 @@ automation:
         target:
           entity_id: timer.dryer_running_countdown
 
-  - alias: Laundry Room Button - Hold - Toggle Light
+  - alias: Laundry Room Button - Hold - Stop Timer
     id: e4b0b2cd-237c-4584-bf69-3b135e59faff
     trigger:
       - platform: device
@@ -190,11 +190,11 @@ automation:
         subtype: hold
         discovery_id: 0x00158d00027bee0b action_hold
     action:
-      - service: light.toggle
+      - service: timer.cancel
         target:
-          entity_id: light.laundry_room_light
+          entity_id: timer.dryer_running_countdown
 
-  - alias: Laundry Room Button - Double Click - Stop Timer
+  - alias: Laundry Room Button - Double Click - Toggle Light
     id: 71b7cd78-cca2-4546-9214-556897241e9e
     trigger:
       - platform: device
@@ -204,9 +204,9 @@ automation:
         subtype: double
         discovery_id: 0x00158d00027bee0b action_double
     action:
-      - service: timer.cancel
+      - service: light.toggle
         target:
-          entity_id: timer.dryer_running_countdown
+          entity_id: light.laundry_room_light
 
 script:
   dryer_reminder_send_notification_to_variable:
