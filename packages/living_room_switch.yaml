@@ -11,43 +11,47 @@ automation:
         subtype: "on"
         discovery_id: 0x000d6ffffea6b202 action_on
     action:
-      - choose:
-          # Off: Turn on TV lamp full brightness
-          - conditions:
-              - condition: template
-                value_template: >-
-                  {{
-                    is_state("light.tv_lamp", "off")
-                  }}
-            sequence:
-              - service: light.turn_on
-                entity_id: light.tv_lamp
-                data:
-                  brightness: 255
-          # On but dim: Turn on to full brightness
-          - conditions:
-              - condition: template
-                value_template: >-
-                  {{
-                    is_state("light.tv_lamp", "on") and
-                    state_attr("light.tv_lamp", "brightness") <= 180
-                  }}
-            sequence:
-              - service: light.turn_on
-                entity_id: light.tv_lamp
-                data:
-                  brightness: 255
-          # Bright: Turn on the rest of the living room lights
-          - conditions:
-              - condition: template
-                value_template: >-
-                  {{
-                    is_state("light.tv_lamp", "on") and
-                    180 < state_attr("light.tv_lamp", "brightness")
-                  }}
-            sequence:
-              - service: scene.turn_on
-                entity_id: scene.living_room_bright
+      # Regardless of state, just set the living room lamp to full.
+      # This allows tapping once for full brightness and then tapping down to go to the right setting.
+      - service: light.turn_on
+        entity_id: light.tv_lamp
+        data:
+          brightness: 255
+      # - choose:
+      #     # Off: Turn on TV lamp full brightness
+      #     - conditions:
+      #         - condition: template
+      #           value_template: >-
+      #             {{
+      #               is_state("light.tv_lamp", "off")
+      #             }}
+      #       sequence:
+      #         - service: light.turn_on
+      #           entity_id: light.tv_lamp
+      #           data:
+      #             brightness: 255
+      #     # On but dim: Turn on to full brightness
+      #     - conditions:
+      #         - condition: template
+      #           value_template: >-
+      #             {{
+      #               is_state("light.tv_lamp", "on") and
+      #               state_attr("light.tv_lamp", "brightness") <= 180
+      #             }}
+      #       sequence:
+      #         - service: light.turn_on
+      #           entity_id: light.tv_lamp
+      #           data:
+      #             brightness: 255
+      #     # Bright: Do nothing
+      #     - conditions:
+      #         - condition: template
+      #           value_template: >-
+      #             {{
+      #               is_state("light.tv_lamp", "on") and
+      #               180 < state_attr("light.tv_lamp", "brightness")
+      #             }}
+      #       sequence:
 
   - id: f3012019-cddb-4c26-803a-96b5f355e25d
     alias: Living Room Switch - Off - Lights
@@ -60,32 +64,33 @@ automation:
         discovery_id: 0x000d6ffffea6b202 action_off
     action:
       - choose:
-          # Bright with other lights on: Turn off the other lights.
+          # Bright: Go to medium
           - conditions:
               - condition: template
                 value_template: >-
                   {{
                     is_state("light.tv_lamp", "on") and
-                    180 < state_attr("light.tv_lamp", "brightness") and
-                    is_state("light.couch_side_table_lamp", "on")
+                    170 < state_attr("light.tv_lamp", "brightness")
                   }}
             sequence:
-              - service: scene.turn_on
-                entity_id: scene.living_room_dim # TODO: This needs a medium scene again. Maybe this could just cycle between a couple scenes?
-          # Bright: Turn on medium
+              - service: light.turn_on
+                entity_id: light.tv_lamp
+                data:
+                  brightness: 170
+          # Medium: Go to dim
           - conditions:
               - condition: template
                 value_template: >-
                   {{
                     is_state("light.tv_lamp", "on") and
-                    100 < state_attr("light.tv_lamp", "brightness")
+                    100 < state_attr("light.tv_lamp", "brightness") <= 170
                   }}
             sequence:
               - service: light.turn_on
                 entity_id: light.tv_lamp
                 data:
                   brightness: 100
-          # Medium: Turn off
+          # Dim: Turn off
           - conditions:
               - condition: template
                 value_template: >-
@@ -94,21 +99,18 @@ automation:
                     0 < state_attr("light.tv_lamp", "brightness") <= 100
                   }}
             sequence:
-              # This should be a scene, but the scene seems to automatically add a transition. Skip it.
               - service: light.turn_off
                 entity_id: light.tv_lamp
                 data:
                   transition: 0
-          # Off: Turn off living room lights
-          - conditions:
-              - condition: template
-                value_template: >-
-                  {{
-                    is_state("light.tv_lamp", "off")
-                  }}
-            sequence:
-              - service: scene.turn_on
-                entity_id: scene.living_room_off
+          # Off: Do nothing.
+          # - conditions:
+          #     - condition: template
+          #       value_template: >-
+          #         {{
+          #           is_state("light.tv_lamp", "off")
+          #         }}
+          #   sequence:
 
   - id: e28f0500-362d-4222-90fe-a092b6d68a38
     alias: Living Room Switch - Hold On - Vacuum
