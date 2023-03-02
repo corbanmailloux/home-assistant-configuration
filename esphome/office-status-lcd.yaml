@@ -109,7 +109,7 @@ binary_sensor:
     internal: true
   - platform: homeassistant
     id: meeting_camera_active
-    entity_id: binary_sensor.corban_s_vmware_mbp_camera_in_use
+    entity_id: binary_sensor.cmaillouxtjq31_camera_in_use
     internal: true
 
   # When Maggie is on her way home, show her ETA.
@@ -270,9 +270,6 @@ display:
             it.printf(it.get_width() - border_padding - 60, it.get_height() - border_padding + 3, id(mdi_font), id(color_white), TextAlign::BASELINE_RIGHT , "\U000F0590");
             it.printf(it.get_width() - border_padding, it.get_height() - border_padding, id(roboto), id(color_white), TextAlign::BASELINE_RIGHT , "%.1f°", id(outside_temperature).state);
           }
-
-          // Comment out the above lines to see the image without text overlaid
-          // it.image(0, 0, id(my_image));
       - id: page_door
         lambda: |-
           id(door_animation).next_frame();
