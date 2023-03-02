@@ -1,0 +1,101 @@
+# OpenHASP
+
+openhasp:
+  office_plate:
+    objects:
+      # All Pages: Header
+      # Clock, also refresh button
+      - obj: "p0b1"
+        properties:
+          "text": '{{ as_timestamp(now())|timestamp_custom("%I:%M") }}'
+        event:
+          "down":
+            - service: script.reload_openhasp
+
+      # Status Message
+      - obj: "p0b2"
+        properties:
+          "text": >-
+            {% if is_state('input_boolean.wall_display_show_map', 'on') %}
+              {{ states('sensor.maggie_time_to_home_for_display') }} minutes away
+            {% elif is_state('binary_sensor.corban_on_a_call', 'on') %}
+              {% if is_state('binary_sensor.cmaillouxtjq31_camera_in_use', 'on') -%}
+                #FF0000 {{ "\uE7AE" | e }}#
+              {%- endif %} In a Meeting
+            {% else %}
+              #888888 Hello there!#
+            {% endif %}
+
+      # Page 1: Main Buttons
+      - obj: "p1b111" # LEDs
+        properties:
+          "val": '{{ 1 if is_state("light.office_leds", "on") else 0 }}'
+          # "text": '{{ "\uE6E8" if is_state("light.office_leds", "on") else "\uE335" | e }}'
+        event:
+          "down":
+            - service: homeassistant.toggle
+              entity_id: "light.office_leds"
+
+      - obj: "p1b112" # Main Light
+        properties:
+          "val": '{{ 1 if is_state("light.corban_s_office_ceiling_light", "on") else 0 }}'
+          "text": '{{ "\uE6E8" if is_state("light.corban_s_office_ceiling_light", "on") else "\uE335" | e }}'
+        event:
+          "down":
+            - service: homeassistant.toggle
+              entity_id: light.corban_s_office_ceiling_light
+
+      - obj: "p1b113" # Key Light
+        properties:
+          "val": '{{ 1 if is_state("light.key_light_air_1", "on") else 0 }}'
+        event:
+          "down":
+            - service: homeassistant.toggle
+              entity_id: light.key_light_air_1
+
+      - obj: "p1b114" # Camera
+        properties:
+          "val": '{{ 1 if is_state("switch.ptz_camera", "on") else 0 }}'
+        event:
+          "down":
+            - service: homeassistant.toggle
+              entity_id: switch.ptz_camera
+
+      - obj: "p1b115" # Camera Preset 1
+        event:
+          "down":
+            - service: button.press
+              entity_id: button.ptz_preset_1
+
+      - obj: "p1b116" # Camera Preset 2
+        event:
+          "down":
+            - service: button.press
+              entity_id: button.ptz_preset_2
+
+      - obj: "p1b118" # Fan, with temperature labels on it
+        properties:
+          "val": '{{ 1 if is_state("fan.office_fan", "on") else 0 }}'
+        event:
+          "down":
+            - service: homeassistant.toggle
+              entity_id: fan.office_fan
+      - obj: "p1b108"
+        properties:
+          "text": >-
+            {{ "\uE50F" | e }} {{ states("sensor.living_room_temperature") | round(1) }}°
+      - obj: "p1b198"
+        properties:
+          "text": >-
+            {{ "\uE590" | e }} {{ states("sensor.openweathermap_temperature") | round(1) }}°
+
+script:
+  reload_openhasp:
+    alias: "Reload openHASP"
+    sequence:
+      # - service: openhasp.clear_page
+      #   target:
+      #     entity_id: openhasp.office_plate
+      - service: homeassistant.reload_config_entry
+        data:
+          entry_id: 062b4ea304da0c553c602f0d6a8fe840

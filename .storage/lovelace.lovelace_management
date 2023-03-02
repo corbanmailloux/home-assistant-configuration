@@ -294,6 +294,26 @@
               "title": "Kitchen Display",
               "show_header_toggle": false,
               "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "script.reload_openhasp"
+                },
+                {
+                  "entity": "openhasp.office_plate"
+                },
+                {
+                  "entity": "number.office_plate_page_number"
+                },
+                {
+                  "entity": "light.office_plate_backlight"
+                }
+              ],
+              "title": "openHASP",
+              "show_header_toggle": false,
+              "state_color": false
             }
           ]
         },
