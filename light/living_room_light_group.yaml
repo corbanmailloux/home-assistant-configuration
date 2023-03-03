@@ -1,5 +1,5 @@
 - platform: group
-  name: TV Lamp
+  name: Corner Lamp
   entities:
     - light.tv_lamp_top
     - light.tv_lamp_middle

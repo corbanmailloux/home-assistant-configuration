@@ -14,7 +14,7 @@ automation:
       # Regardless of state, just set the living room lamp to full.
       # This allows tapping once for full brightness and then tapping down to go to the right setting.
       - service: light.turn_on
-        entity_id: light.tv_lamp
+        entity_id: light.corner_lamp
         data:
           brightness: 255
       # - choose:
@@ -69,12 +69,12 @@ automation:
               - condition: template
                 value_template: >-
                   {{
-                    is_state("light.tv_lamp", "on") and
-                    170 < state_attr("light.tv_lamp", "brightness")
+                    is_state("light.corner_lamp", "on") and
+                    170 < state_attr("light.corner_lamp", "brightness")
                   }}
             sequence:
               - service: light.turn_on
-                entity_id: light.tv_lamp
+                entity_id: light.corner_lamp
                 data:
                   brightness: 170
           # Medium: Go to dim
@@ -82,12 +82,12 @@ automation:
               - condition: template
                 value_template: >-
                   {{
-                    is_state("light.tv_lamp", "on") and
-                    100 < state_attr("light.tv_lamp", "brightness") <= 170
+                    is_state("light.corner_lamp", "on") and
+                    100 < state_attr("light.corner_lamp", "brightness") <= 170
                   }}
             sequence:
               - service: light.turn_on
-                entity_id: light.tv_lamp
+                entity_id: light.corner_lamp
                 data:
                   brightness: 100
           # Dim: Turn off
@@ -95,12 +95,12 @@ automation:
               - condition: template
                 value_template: >-
                   {{
-                    is_state("light.tv_lamp", "on") and
-                    0 < state_attr("light.tv_lamp", "brightness") <= 100
+                    is_state("light.corner_lamp", "on") and
+                    0 < state_attr("light.corner_lamp", "brightness") <= 100
                   }}
             sequence:
               - service: light.turn_off
-                entity_id: light.tv_lamp
+                entity_id: light.corner_lamp
                 data:
                   transition: 0
           # Off: Do nothing.
@@ -108,7 +108,7 @@ automation:
           #     - condition: template
           #       value_template: >-
           #         {{
-          #           is_state("light.tv_lamp", "off")
+          #           is_state("light.corner_lamp", "off")
           #         }}
           #   sequence:
 

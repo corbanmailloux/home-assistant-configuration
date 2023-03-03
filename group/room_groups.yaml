@@ -1,7 +1,7 @@
 living_room_lights:
   name: Living Room Lights
   entities:
-    - light.tv_lamp
+    - light.corner_lamp
     - light.christmas_tree_lights
 
 corbans_office_lights:

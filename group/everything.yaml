@@ -15,8 +15,7 @@ everything_custom:
     - light.key_light_air_1
     - light.office_leds
     ## Living Room
-    - light.tv_lamp
-    - light.living_room_wall_light_1
+    - light.corner_lamp
     # - light.christmas_tree_lights
     ## Kitchen
     - light.kitchen_counter_lights
@@ -39,8 +38,7 @@ everything_custom_for_guest_mode:
     - light.office_lamp
     - light.office_lamp_bottom
     ## Living Room
-    - light.tv_lamp
-    - light.living_room_wall_light_1
+    - light.corner_lamp
     # - light.christmas_tree_lights
     ## Kitchen
     - light.kitchen_counter_lights

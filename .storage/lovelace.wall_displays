@@ -256,7 +256,7 @@
               "cards": [
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.tv_lamp",
+                  "entity": "light.corner_lamp",
                   "fill_container": true,
                   "use_light_color": false,
                   "show_brightness_control": true,

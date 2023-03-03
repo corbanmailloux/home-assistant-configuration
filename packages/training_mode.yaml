@@ -2,7 +2,7 @@ scene:
   - id: "1636344043604"
     name: Training
     entities:
-      light.tv_lamp:
+      light.corner_lamp:
         brightness: 255
         state: "on"
       light.corban_s_office_ceiling_light:
@@ -20,7 +20,7 @@ scene:
   - id: "3b6fa32e-5670-4c39-a48f-b41b1ddcabd1"
     name: Training - No Guest Room
     entities:
-      light.tv_lamp:
+      light.corner_lamp:
         brightness: 255
         state: "on"
       # light.corban_s_office_ceiling_light:
@@ -60,7 +60,7 @@ automation:
             data:
               scene_id: state_before_training
               snapshot_entities:
-                - light.tv_lamp
+                - light.corner_lamp
                 # - light.corban_s_office_ceiling_light
                 - light.office_lamp
                 - light.office_lamp_bottom
@@ -74,7 +74,7 @@ automation:
             data:
               scene_id: state_before_training
               snapshot_entities:
-                - light.tv_lamp
+                - light.corner_lamp
                 - light.corban_s_office_ceiling_light
                 - light.office_lamp
                 - light.office_lamp_bottom

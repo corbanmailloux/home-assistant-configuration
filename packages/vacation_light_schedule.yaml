@@ -46,7 +46,7 @@ automation:
           entity_id: light.office_leds
       - service: light.turn_on
         data:
-          entity_id: light.tv_lamp
+          entity_id: light.corner_lamp
           brightness_pct: 80
   - alias: Schedule - 2 - Dim for movie
     id: 629411da-48de-4ffe-9e17-7d32370f2b8d
@@ -60,7 +60,7 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.tv_lamp
+          entity_id: light.corner_lamp
           brightness_pct: 40
   - alias: Schedule - 3 - Maggs to bed
     id: 7b57bfde-dbbc-43d4-86f5-6b15ec94d44e
@@ -104,7 +104,7 @@ automation:
     action:
       - service: light.turn_off
         data:
-          entity_id: light.tv_lamp
+          entity_id: light.corner_lamp
 
 group:
   vacation_schedule_automations:
