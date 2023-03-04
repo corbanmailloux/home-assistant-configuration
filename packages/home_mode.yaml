@@ -160,14 +160,15 @@ automation:
         entity_id: script.everything_off
       # Okay, so I should really rebuild this part, but...
       # If the cats are home, turn some lighting back on for them.
-      # - condition: state
-      #   entity_id: input_boolean.cats_are_home
-      #   state: "on"
-      # - delay:
-      #     seconds: 3
-      # - service: light.turn_on
-      #   data:
-      #     entity_id: light.christmas_tree_lights
+      - condition: state
+        entity_id: input_boolean.cats_are_home
+        state: "on"
+      - delay:
+          seconds: 3
+      - service: light.turn_on
+        data:
+          entity_id: light.corner_lamp
+          brightness: 60
 
 script:
   welcome_home_announcement:
