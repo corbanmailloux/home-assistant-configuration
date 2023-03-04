@@ -1,4 +1,5 @@
-# See also automations.yaml. The main automation is in there because it uses blueprints.
+# Complicated template sensor to determine if the office is occupied.
+# Should be updated to use the new mmWave sensor in there.
 
 binary_sensor:
   - platform: template
@@ -10,39 +11,71 @@ binary_sensor:
           {# One of my computers is actively using the desk camera. #}
           {# This is a good insurance that the lights won't turn off while I'm on a call. #}
           {% set office_camera_in_use =
-            "Unite" in states('sensor.corban_s_vmware_mbp_active_camera') or 
-            "Unite" in states('sensor.cmaillouxtjq31_active_camera') or 
+            "Unite" in states('sensor.corban_s_vmware_mbp_active_camera') or
+            "Unite" in states('sensor.cmaillouxtjq31_active_camera') or
             "Unite" in states('sensor.corban_s_personal_macbook_pro_active_camera') %}
 
           {# Standard PIR motion sensor. #}
-          {% set motion_detected = 
+          {% set motion_detected =
             is_state('binary_sensor.office_motion_sensor_occupancy', 'on') %}
 
           {# One of my computers is active and plugged into external monitors (docked on my desk) #}
           {% set macbook_docked_and_active =
-            ( is_state('binary_sensor.corban_s_vmware_mbp_active', 'on') and 
+            ( is_state('binary_sensor.corban_s_vmware_mbp_active', 'on') and
               is_state('sensor.corban_s_vmware_mbp_displays', '3') )
             or
-            ( is_state('binary_sensor.cmaillouxtjq31_active', 'on') and 
+            ( is_state('binary_sensor.cmaillouxtjq31_active', 'on') and
               is_state('sensor.cmaillouxtjq31_displays', '3') )
             or
-            ( is_state('binary_sensor.corban_s_personal_macbook_pro_active', 'on') and 
+            ( is_state('binary_sensor.corban_s_personal_macbook_pro_active', 'on') and
               is_state('sensor.corban_s_personal_macbook_pro_displays', '3') ) %}
 
           {# Gaming PC microphone active. This covers game night. #}
-          {% set pc_microphone_in_use = 
+          {% set pc_microphone_in_use =
             is_state('binary_sensor.biden_microphoneactive', 'on')
           %}
 
           {# Chair vibration sensor detects motion. This is a useful, quick way to trigger motion when needed. #}
-          {% set chair_vibration = 
+          {% set chair_vibration =
             is_state('binary_sensor.vibration_sensor_vibration', 'on')
           %}
 
-          {{ 
-            office_camera_in_use or 
-            motion_detected or 
+          {{
+            office_camera_in_use or
+            motion_detected or
             macbook_docked_and_active or
             pc_microphone_in_use or
             chair_vibration
           }}
+
+template:
+  - binary_sensor:
+      - name: "Office Occupied - mmWave Template"
+        unique_id: 4f02c8e3-7f6d-4b35-a93e-41ff92b8dd7b
+        device_class: occupancy
+        delay_off:
+          seconds: 5
+        state: >-
+          {{ is_state("binary_sensor.office_mmwave_occupancy_occupancy", "on") }}
+
+automation:
+  - alias: Office Motion Lights - Set LEDs based on occupancy
+    id: 3c42906d-db94-454e-8dc9-bc980e94223f
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_occupied_mmwave_template
+    condition:
+      - alias: "Home Mode"
+        condition: state
+        entity_id: input_select.home_mode
+        state: "Home"
+    action:
+      - choose:
+          - conditions: "{{ trigger.to_state.state == 'on' }}"
+            sequence:
+              - service: light.turn_on
+                entity_id: light.office_leds
+          - conditions: "{{ trigger.to_state.state == 'off' }}"
+            sequence:
+              - service: light.turn_off
+                entity_id: light.office_leds

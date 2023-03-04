@@ -183,7 +183,7 @@
                   "entity": "binary_sensor.stairs_motion_sensor_occupancy"
                 },
                 {
-                  "entity": "binary_sensor.hlk_ld2410b_3d68_occupancy"
+                  "entity": "binary_sensor.office_mmwave_occupancy_occupancy"
                 }
               ],
               "title": "Motion Sensors",
