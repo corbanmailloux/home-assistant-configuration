@@ -5,3 +5,5 @@ input_boolean:
   guest_mode:
     name: Guest Mode
     icon: mdi:bag-checked
+# TODO: When guest mode is on, notify Corban each time the door is opened with a "Mark Home" and "Mark Away button."
+# Ideally include a snapshot from the wall display camera in this notification.

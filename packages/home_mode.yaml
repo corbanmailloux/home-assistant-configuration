@@ -109,6 +109,10 @@ automation:
       - condition: state
         entity_id: input_select.home_mode
         state: "Home"
+      - alias: "Guest Mode Off"
+        condition: state
+        entity_id: input_boolean.guest_mode
+        state: "off"
     action:
       - service: input_boolean.turn_off
         data:
