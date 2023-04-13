@@ -48,22 +48,12 @@ binary_sensor:
             chair_vibration
           }}
 
-template:
-  - binary_sensor:
-      - name: "Office Occupied - mmWave Template"
-        unique_id: 4f02c8e3-7f6d-4b35-a93e-41ff92b8dd7b
-        device_class: occupancy
-        delay_off:
-          seconds: 5
-        state: >-
-          {{ is_state("binary_sensor.office_mmwave_occupancy_occupancy", "on") }}
-
 automation:
   - alias: Office Motion Lights - Set LEDs based on occupancy
     id: 3c42906d-db94-454e-8dc9-bc980e94223f
     trigger:
       - platform: state
-        entity_id: binary_sensor.office_occupied_mmwave_template
+        entity_id: binary_sensor.office_mini_motion_presence
     condition:
       - alias: "Home Mode"
         condition: state
@@ -79,3 +69,17 @@ automation:
             sequence:
               - service: light.turn_off
                 entity_id: light.office_leds
+
+  # There's something wrong with the way the Bluetooth proxies work with this sensor.
+  # For now, try just auto-restarting.
+  # See: https://github.com/home-assistant/core/issues/88120
+  # - alias: Reload mmWave Integration when Unavailable
+  #   id: c25a7ecb-7c47-4f74-861b-c6bfa220166d
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.office_mmwave_occupancy_occupancy
+  #       to: unavailable
+  #   action:
+  #     - service: homeassistant.reload_config_entry
+  #       target:
+  #         device_id: 4266a140b0fa379cb5e46db03af2e2f4

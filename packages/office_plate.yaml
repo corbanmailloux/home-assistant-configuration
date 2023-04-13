@@ -105,7 +105,7 @@ automation:
     id: ac6c94f9-d216-4e4f-adb0-95dbdc8e78d7
     trigger:
       - platform: state
-        entity_id: binary_sensor.office_occupied_mmwave_template
+        entity_id: binary_sensor.office_mini_motion_presence
     condition:
       - alias: "Home Mode"
         condition: state
