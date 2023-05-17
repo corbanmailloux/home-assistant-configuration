@@ -6,12 +6,10 @@ everything_custom:
     ## Bedroom
     - light.bedroom_lamp
     - light.fairy_lights
-    ## Maggie's Office / Craft Room
-    - light.office_lamp
-    - light.office_lamp_bottom
     ## Corban's Office
-    - light.corban_s_office_ceiling_lamp_1
-    - light.corban_s_office_ceiling_lamp_2
+    - light.corban_s_office_lamp_bottom
+    - light.corban_s_office_lamp_middle
+    - light.corban_s_office_lamp_top
     - light.key_light_air_1
     - light.office_leds
     ## Living Room
@@ -34,9 +32,6 @@ everything_custom_for_guest_mode:
     ## Bedroom
     - light.bedroom_lamp
     - light.fairy_lights
-    ## Maggie's Office / Craft Room
-    - light.office_lamp
-    - light.office_lamp_bottom
     ## Living Room
     - light.corner_lamp
     # - light.christmas_tree_lights

@@ -141,6 +141,6 @@ automation:
 # https://github.com/johnDorian/rockbin
 sensor:
   - platform: rest
-    resource: http://10.0.0.239:9999/status
+    resource: http://192.168.1.83:9999/status
     name: Rockbin Version
     value_template: "{{ value_json.version }}"

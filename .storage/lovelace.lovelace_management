@@ -338,7 +338,7 @@
                 {
                   "type": "weblink",
                   "name": "Valetudo Home",
-                  "url": "http://10.0.0.239/",
+                  "url": "http://valetudo-actualspanishsalmon.local/#/",
                   "icon": "mdi:lan-connect"
                 }
               ],

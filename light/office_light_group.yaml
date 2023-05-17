@@ -1,12 +1,6 @@
 - platform: group
-  name: Office Lamp # Maggie's Office
+  name: "Corban's Office Lamp"
   entities:
-    - light.office_lamp_top
-    - light.office_lamp_middle
-    # - light.office_lamp_bottom # Controlled separately.
-
-- platform: group
-  name: "Corban's Office Ceiling Light"
-  entities:
-    - light.corban_s_office_ceiling_lamp_1
-    - light.corban_s_office_ceiling_lamp_2
+    - light.corban_s_office_lamp_top
+    - light.corban_s_office_lamp_middle
+    # - light.corban_s_office_lamp_bottom # Controlled separately.

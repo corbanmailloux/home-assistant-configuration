@@ -606,39 +606,32 @@
               "cards": [
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.office_leds",
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "use_light_color": false,
-                  "show_brightness_control": true,
-                  "show_color_control": false,
-                  "collapsible_controls": true,
+                  "entity": "light.corban_s_office_lamp",
+                  "name": "Lamp",
                   "fill_container": false,
-                  "name": "WLED"
+                  "show_brightness_control": true,
+                  "collapsible_controls": true
                 },
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.key_light_air_1",
                   "name": "Key Light",
                   "icon": "mdi:light-flood-down",
-                  "fill_container": false,
+                  "fill_container": true,
                   "show_brightness_control": true,
                   "use_light_color": false,
                   "show_color_temp_control": true,
-                  "collapsible_controls": true,
+                  "collapsible_controls": false,
                   "show_color_control": false
                 },
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.corban_s_office_ceiling_light",
-                  "name": "Ceiling",
-                  "fill_container": false,
+                  "entity": "light.corban_s_office_lamp_bottom",
+                  "name": "Video",
+                  "icon": "mdi:desk-lamp",
                   "show_brightness_control": true,
-                  "collapsible_controls": true
+                  "fill_container": false,
+                  "show_color_temp_control": true
                 }
               ]
             },
@@ -1004,9 +997,9 @@
                   "rotate": 0,
                   "map_scale": 1.8,
                   "crop": {
-                    "top": 50,
+                    "top": 0,
                     "bottom": 0,
-                    "left": 100,
+                    "left": 0,
                     "right": 0
                   }
                 }
