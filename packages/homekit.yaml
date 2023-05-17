@@ -1,0 +1,6 @@
+homekit:
+  - filter:
+      include_entities:
+        - light.fairy_lights
+        - light.corner_lamp
+        - light.corban_s_office_lamp
