@@ -7,6 +7,9 @@ automation:
     trigger:
       - platform: webhook
         webhook_id: !secret pagerduty_webhook
+        allowed_methods:
+          - POST
+        local_only: false
     condition:
       - condition: template
         value_template: >

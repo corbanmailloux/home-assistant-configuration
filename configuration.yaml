@@ -86,7 +86,7 @@ tts:
 
 # automation: !include_dir_merge_list automation
 automation: !include automations.yaml # For the automation editor
-binary_sensor: !include_dir_merge_list binary_sensor
+# binary_sensor: !include_dir_merge_list binary_sensor
 group: !include_dir_merge_named group
 # input_boolean: !include_dir_merge_named input_boolean
 # input_select: !include_dir_merge_named input_select
