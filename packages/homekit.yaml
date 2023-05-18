@@ -4,3 +4,18 @@ homekit:
         - light.fairy_lights
         - light.corner_lamp
         - light.corban_s_office_lamp
+        - scene.movie_mode
+# Previous list
+# "light.bedroom_lamp",
+# "switch.living_room_tv_power",
+# "light.office_lamp_bottom",
+# "input_boolean.training_mode",
+# "light.kitchen_counter_lights",
+# "fan.office_fan",
+# "fan.bedroom_fan",
+# "sensor.bedroom_humidity",
+# "sensor.bedroom_temperature",
+# "sensor.living_room_humidity",
+# "sensor.living_room_temperature",
+# "light.key_light_air_1",
+# "light.office_leds",
