@@ -10,7 +10,9 @@ automation:
         subtype: toggle
     action:
       - service: light.toggle
-        entity_id: light.key_light_air_1
+        entity_id:
+          - light.key_light_air_1
+          - light.corban_s_office_lamp_bottom
 
   - alias: Office Remote - Brightness Up
     id: 917b79fd-9825-4100-bca6-d44847d8ef10
@@ -39,18 +41,18 @@ automation:
                     {%- else -%}
                       {{ target}}
                     {%- endif -%}
-          # If the key light is off, control the ceiling lights.
+          # If the key light is off, control the main lamp.
           - conditions:
               - condition: state
                 entity_id: light.key_light_air_1
                 state: "off"
             sequence:
               - service: light.turn_on
-                entity_id: light.corban_s_office_ceiling_light
+                entity_id: light.corban_s_office_lamp
                 data_template:
                   # Handles the light being off as well, treating it as 0 brightness.
                   brightness: >
-                    {%- set target = (is_state('light.corban_s_office_ceiling_light', "on") and state_attr('light.corban_s_office_ceiling_light', 'brightness')) | int + 51 -%}
+                    {%- set target = (is_state('light.corban_s_office_lamp', "on") and state_attr('light.corban_s_office_lamp', 'brightness')) | int + 51 -%}
                     {%- if target > 255 -%}
                       255
                     {%- else -%}
@@ -84,17 +86,17 @@ automation:
                     {%- else -%}
                       {{ target}}
                     {%- endif -%}
-          # If the key light is off, control the ceiling light.
+          # If the key light is off, control the main lamp.
           - conditions:
               - condition: state
                 entity_id: light.key_light_air_1
                 state: "off"
             sequence:
               - service: light.turn_on
-                entity_id: light.corban_s_office_ceiling_light
+                entity_id: light.corban_s_office_lamp
                 data_template:
                   brightness: >
-                    {%- set target = state_attr('light.corban_s_office_ceiling_light', 'brightness') | int - 51 -%}
+                    {%- set target = state_attr('light.corban_s_office_lamp', 'brightness') | int - 51 -%}
                     {%- if target < 10 -%}
                       10
                     {%- else -%}
@@ -111,9 +113,9 @@ automation:
         type: action
         subtype: brightness_up_hold
     action:
-      - alias: "Ceiling light full brighness"
+      - alias: "Lamp full brighness"
         service: light.turn_on
-        entity_id: light.corban_s_office_ceiling_light
+        entity_id: light.corban_s_office_lamp
         data:
           brightness: 255
 
@@ -127,10 +129,16 @@ automation:
         type: action
         subtype: brightness_down_hold
     action:
-      - alias: "Ceiling light off"
+      - alias: "Lamp off"
         service: light.turn_off
-        entity_id: light.corban_s_office_ceiling_light
+        entity_id: light.corban_s_office_lamp
 
+  # TODO: Updated plan
+  # left and right click: adjust lamp video light brightness
+  # left hold: activate/deactivate meeting scene
+  # right hold: (Unknown) Maybe still toggle fan?
+
+  # TODO: Make this a toggle, controlling both video lights and activating a predefined scene.
   - alias: Office Remote - Left Button Click - Meeting Scene
     id: 4f982672-4257-4cb7-a498-1df044a30150
     trigger:

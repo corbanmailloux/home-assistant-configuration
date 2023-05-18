@@ -14,8 +14,8 @@
 {"id":113,"obj":"btn","x":160,"y":30,"w":80,"h":80,"toggle":true,"text":"\uE95F","text_font":32,"align":"center","radius":0,"text_color":"#FFF","border_color":"#ed7e2f","bg_color1":"#2C3E50","text_color1":"#fffb00"}
 {"id":103,"obj":"label","parentid":113,"x":0,"y":55,"w":80,"h":20,"text":"Key Light","text_font":16,"align":"center","text_color":"#FFF"}
 
-{"id":114,"obj":"btn","x":240,"y":30,"w":80,"h":80,"toggle":true,"text":"\uE7AE","text_font":32,"align":"center","radius":0,"text_color":"#FFF","border_color":"#ed7e2f","bg_color1":"#2C3E50","text_color1":"#fffb00"}
-{"id":104,"obj":"label","parentid":114,"x":0,"y":55,"w":80,"h":20,"text":"Camera","text_font":16,"align":"center","text_color":"#FFF"}
+{"id":114,"obj":"btn","x":240,"y":30,"w":80,"h":80,"toggle":true,"text":"\uE95F","text_font":32,"align":"center","radius":0,"text_color":"#FFF","border_color":"#ed7e2f","bg_color1":"#2C3E50","text_color1":"#fffb00"}
+{"id":104,"obj":"label","parentid":114,"x":0,"y":55,"w":80,"h":20,"text":"Video","text_font":16,"align":"center","text_color":"#FFF"}
 
 {"id":115,"obj":"btn","x":0,"y":110,"w":80,"h":80,"toggle":false,"text":"\uE7AE","text_font":32,"align":"center","radius":0,"text_color":"#FFF","border_color":"#ed7e2f","bg_color1":"#2C3E50","text_color1":"#fffb00"}
 {"id":105,"obj":"label","parentid":115,"x":0,"y":55,"w":80,"h":20,"text":"Preset 1","text_font":16,"align":"center","text_color":"#FFF"}

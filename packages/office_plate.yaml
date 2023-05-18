@@ -38,14 +38,14 @@ openhasp:
 
       - obj: "p1b112" # Main Light
         properties:
-          "val": '{{ 1 if is_state("light.corban_s_office_ceiling_light", "on") else 0 }}'
-          "text": '{{ "\uE6E8" if is_state("light.corban_s_office_ceiling_light", "on") else "\uE335" | e }}'
+          "val": '{{ 1 if is_state("light.corban_s_office_lamp", "on") else 0 }}'
+          "text": '{{ "\uE6E8" if is_state("light.corban_s_office_lamp", "on") else "\uE335" | e }}'
         event:
           "down":
             - service: homeassistant.toggle
-              entity_id: light.corban_s_office_ceiling_light
+              entity_id: light.corban_s_office_lamp
 
-      - obj: "p1b113" # Key Light
+      - obj: "p1b113" # Key Light - Left
         properties:
           "val": '{{ 1 if is_state("light.key_light_air_1", "on") else 0 }}'
         event:
@@ -53,13 +53,13 @@ openhasp:
             - service: homeassistant.toggle
               entity_id: light.key_light_air_1
 
-      - obj: "p1b114" # Camera
+      - obj: "p1b114" # Video Light - Right
         properties:
-          "val": '{{ 1 if is_state("switch.ptz_camera", "on") else 0 }}'
+          "val": '{{ 1 if is_state("light.corban_s_office_lamp_bottom", "on") else 0 }}'
         event:
           "down":
             - service: homeassistant.toggle
-              entity_id: switch.ptz_camera
+              entity_id: light.corban_s_office_lamp_bottom
 
       - obj: "p1b115" # Camera Preset 1
         event:
@@ -83,7 +83,7 @@ openhasp:
       - obj: "p1b108"
         properties:
           "text": >-
-            {{ "\uE50F" | e }} {{ states("sensor.living_room_temperature") | round(1) }}°
+            {{ "\uE50F" | e }} {{ states("sensor.office_temperature") | round(1) }}°
       - obj: "p1b198"
         properties:
           "text": >-
