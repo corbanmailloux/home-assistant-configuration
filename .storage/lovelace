@@ -596,6 +596,9 @@
               ]
             },
             {
+              "type": "custom:layout-break"
+            },
+            {
               "type": "custom:button-card",
               "name": "Office",
               "entity": "sensor.office_temperature",
@@ -610,7 +613,8 @@
                   "name": "Lamp",
                   "fill_container": false,
                   "show_brightness_control": true,
-                  "collapsible_controls": true
+                  "collapsible_controls": true,
+                  "show_color_temp_control": true
                 },
                 {
                   "type": "custom:mushroom-light-card",
@@ -636,35 +640,6 @@
               ]
             },
             {
-              "type": "custom:layout-break"
-            },
-            {
-              "type": "custom:button-card",
-              "name": "Craft Room",
-              "entity": "sensor.craft_room_temperature_sensor_temperature",
-              "template": "header_temperature_clickable"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.office_lamp",
-                  "name": "Lamp",
-                  "fill_container": true,
-                  "show_brightness_control": true,
-                  "collapsible_controls": true
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.office_lamp_bottom",
-                  "name": "Bottom Light",
-                  "icon": "mdi:light-flood-down",
-                  "fill_container": true
-                }
-              ]
-            },
-            {
               "type": "custom:button-card",
               "name": "Kitchen",
               "template": "header"
@@ -673,21 +648,11 @@
               "type": "horizontal-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.kitchen_counter_lights",
+                  "type": "custom:mushroom-lock-card",
+                  "entity": "lock.side_door_lock",
                   "fill_container": true,
-                  "show_brightness_control": false,
-                  "collapsible_controls": true,
-                  "name": "Counter Lights",
-                  "layout": "vertical"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "input_boolean.kitchen_lights_lock_on",
-                  "name": "Motion Lock",
-                  "layout": "vertical",
-                  "tap_action": {
-                    "action": "toggle"
+                  "hold_action": {
+                    "action": "more-info"
                   }
                 },
                 {
@@ -995,7 +960,7 @@
                   "type": "custom:valetudo-map-card",
                   "vacuum": "valetudo_eve",
                   "rotate": 0,
-                  "map_scale": 1.8,
+                  "map_scale": 1,
                   "crop": {
                     "top": 0,
                     "bottom": 0,
@@ -1018,6 +983,71 @@
               "hold_action": {
                 "action": "more-info"
               }
+            }
+          ]
+        },
+        {
+          "title": "Archive",
+          "path": "archive",
+          "icon": "mdi:delete-circle-outline",
+          "badges": [],
+          "cards": [
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.kitchen_counter_lights",
+                  "fill_container": true,
+                  "show_brightness_control": false,
+                  "collapsible_controls": true,
+                  "name": "Counter Lights",
+                  "layout": "vertical"
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "input_boolean.kitchen_lights_lock_on",
+                  "name": "Motion Lock",
+                  "layout": "vertical",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-vacuum-card",
+                  "entity": "vacuum.valetudo_eve",
+                  "fill_container": true,
+                  "commands": [
+                    "start_pause"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "custom:button-card",
+              "name": "Craft Room",
+              "entity": "sensor.craft_room_temperature_sensor_temperature",
+              "template": "header_temperature_clickable"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office_lamp",
+                  "name": "Lamp",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "collapsible_controls": true
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office_lamp_bottom",
+                  "name": "Bottom Light",
+                  "icon": "mdi:light-flood-down",
+                  "fill_container": true
+                }
+              ]
             }
           ]
         }
