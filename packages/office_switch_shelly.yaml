@@ -1,0 +1,37 @@
+# See `esphome/office-switch-shelly.yaml`
+
+automation:
+  - alias: Office Light Switch - Toggle Office Light
+    id: 564f131b-bb04-4746-bd8f-4ada8e8babad
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_switch_sensor
+        from: "off"
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.office_switch_sensor
+        from: "on"
+        to: "off"
+    action:
+      - choose:
+          # Off, turn on full brightness.
+          - conditions:
+              - condition: state
+                entity_id: light.corban_s_office_lamp
+                state: "off"
+            sequence:
+              - service: light.turn_on
+                entity_id: light.corban_s_office_lamp
+                data:
+                  brightness: 255
+          # On, turn off.
+          - conditions:
+              - condition: state
+                entity_id: light.corban_s_office_lamp
+                state: "on"
+            sequence:
+              - service: homeassistant.turn_off
+                target:
+                  entity_id: light.corban_s_office_lamp
+      - delay:
+          milliseconds: 250

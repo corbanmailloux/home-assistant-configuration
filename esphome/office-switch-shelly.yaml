@@ -1,5 +1,5 @@
 esphome:
-  name: bedroom-outlet-sensor
+  name: "office-switch-shelly"
   platform: ESP8266
   board: esp01_1m
 
@@ -13,19 +13,14 @@ logger:
 api:
 ota:
 
-sensor:
-  - platform: wifi_signal
-    name: "Bedroom Outlet Sensor - WiFi Signal"
-    update_interval: 60s
-
 binary_sensor:
   - platform: gpio
     pin:
       number: GPIO5
-    name: "Bedroom Outlet Sensor"
+    name: "Office Switch Sensor"
     device_class: power
 
 switch:
   - platform: gpio
     pin: GPIO4
-    name: "Bedroom Outlet Output"
+    name: "Office Switch Output"
