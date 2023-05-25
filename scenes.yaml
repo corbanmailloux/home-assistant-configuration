@@ -35,63 +35,71 @@
       supported_features: 44
       state: 'on'
   icon: mdi:movie-open-play
-- id: '1666717493593'
+- id: '1684776530169'
   name: Office Meeting
   entities:
-    light.key_light_air_1:
-      min_mireds: 143
-      max_mireds: 344
-      supported_color_modes:
-      - color_temp
-      color_mode: color_temp
-      brightness: 15
-      color_temp: 216
-      hs_color:
-      - 26.758
-      - 24.53
-      rgb_color:
-      - 255
-      - 220
-      - 192
-      xy_color:
-      - 0.388
-      - 0.355
-      friendly_name: Key Light Air 1
-      supported_features: 0
-      state: 'on'
-    light.corban_s_office_ceiling_light:
+    light.corban_s_office_lamp_bottom:
+      min_color_temp_kelvin: 2702
+      max_color_temp_kelvin: 6535
       min_mireds: 153
       max_mireds: 370
       effect_list:
       - blink
       - breathe
+      - okay
       - channel_change
       - finish_effect
-      - okay
       - stop_effect
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 150
-      color_temp: 182
+      brightness: 129
+      color_temp_kelvin: 5000
+      color_temp: 200
       hs_color:
-      - 27.913
-      - 12.917
+      - 27.001
+      - 19.243
       rgb_color:
       - 255
-      - 237
-      - 222
+      - 228
+      - 205
       xy_color:
-      - 0.354
-      - 0.343
-      entity_id:
-      - light.corban_s_office_ceiling_lamp_1
-      - light.corban_s_office_ceiling_lamp_2
-      icon: mdi:lightbulb-group
-      friendly_name: Corban's Office Ceiling Light
+      - 0.372
+      - 0.35
+      level_config:
+        on_level: previous
+      linkquality: 54
+      power_on_behavior:
+      friendly_name: Corban's Office Lamp - Bottom
       supported_features: 44
+      state: 'on'
+    light.key_light_air_1:
+      min_color_temp_kelvin: 2906
+      max_color_temp_kelvin: 6993
+      min_mireds: 143
+      max_mireds: 344
+      supported_color_modes:
+      - color_temp
+      color_mode: color_temp
+      brightness: 71
+      color_temp_kelvin: 5025
+      color_temp: 199
+      hs_color:
+      - 27.028
+      - 18.905
+      rgb_color:
+      - 255
+      - 228
+      - 206
+      xy_color:
+      - 0.371
+      - 0.349
+      friendly_name: ''
+      supported_features: 0
       state: 'on'
   icon: mdi:video
   metadata:
-    light.corban_s_office_ceiling_light:
+    light.corban_s_office_lamp_bottom:
+      entity_only: true
+    light.key_light_air_1:
       entity_only: true
