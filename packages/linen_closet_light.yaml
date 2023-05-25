@@ -1,9 +1,11 @@
+# TODO: Turn this into a blueprint. I have multiple closets where I want this same set of automations.
+
 automation:
-  - id: c2218b90-acab-421c-aab2-b958efd3ba27
-    alias: Set Laundry Room Light Based on Door
+  - id: 2eec6c30-e10f-4c4d-816e-8008c1598b92
+    alias: Set Linen Closet Light Based on Door
     trigger:
       - platform: state
-        entity_id: binary_sensor.laundry_room_door_sensor_contact
+        entity_id: binary_sensor.linen_closet_door_sensor_contact
         not_from:
           - "unknown"
           - "unavailable"
@@ -15,13 +17,13 @@ automation:
             light.turn_off
           {% endif %}
         target:
-          entity_id: light.laundry_room_light
+          entity_id: light.linen_closet_light
 
-  - id: 2b741f6a-6112-4890-816a-1dd9ba52c310
-    alias: Turn off laundry room light after 30 minutes
+  - id: 59de41f9-636f-4803-aa3b-3d3d47c4947f
+    alias: Turn off linen closet light after 30 minutes
     trigger:
       - platform: state
-        entity_id: light.laundry_room_light
+        entity_id: light.linen_closet_light
         from: "off"
         to: "on"
         for:
@@ -30,9 +32,9 @@ automation:
       - alias: "Debug - Notify"
         service: notify.corban
         data:
-          title: "Laundry room light left on."
+          title: "Linen closet light left on."
           message: "Turning off after 30 minutes."
       - alias: "Turn off"
         service: light.turn_off
         target:
-          entity_id: light.laundry_room_light
+          entity_id: light.linen_closet_light
