@@ -1,15 +1,15 @@
-# See `esphome/office-switch-shelly.yaml`
+# See `esphome/living-room-switch-shelly.yaml`
 
 automation:
-  - alias: Office Light Switch - Toggle Office Light
-    id: 564f131b-bb04-4746-bd8f-4ada8e8babad
+  - alias: Living Room Switch - Toggle Lamp
+    id: 94d5ae95-169b-4a87-ab06-43585bd7462e
     trigger:
       - platform: state
-        entity_id: binary_sensor.office_switch_sensor
+        entity_id: binary_sensor.living_room_switch_sensor
         from: "off"
         to: "on"
       - platform: state
-        entity_id: binary_sensor.office_switch_sensor
+        entity_id: binary_sensor.living_room_switch_sensor
         from: "on"
         to: "off"
     action:
@@ -17,21 +17,21 @@ automation:
           # Off, turn on full brightness.
           - conditions:
               - condition: state
-                entity_id: light.corban_s_office_lamp
+                entity_id: light.corner_lamp
                 state: "off"
             sequence:
               - service: light.turn_on
-                entity_id: light.corban_s_office_lamp
+                entity_id: light.corner_lamp
                 data:
                   brightness: 255
           # On, turn off.
           - conditions:
               - condition: state
-                entity_id: light.corban_s_office_lamp
+                entity_id: light.corner_lamp
                 state: "on"
             sequence:
               - service: light.turn_off
                 target:
-                  entity_id: light.corban_s_office_lamp
+                  entity_id: light.corner_lamp
       - delay:
           milliseconds: 250
