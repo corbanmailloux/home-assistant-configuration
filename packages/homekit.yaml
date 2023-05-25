@@ -5,6 +5,7 @@ homekit:
         - light.corner_lamp
         - light.corban_s_office_lamp
         - scene.movie_mode
+        - light.office_leds
 # Previous list
 # "light.bedroom_lamp",
 # "switch.living_room_tv_power",
