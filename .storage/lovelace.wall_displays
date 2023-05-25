@@ -224,29 +224,6 @@
               "template": "header"
             },
             {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.kitchen_counter_lights",
-                  "fill_container": true,
-                  "show_brightness_control": false,
-                  "collapsible_controls": true,
-                  "name": "Counter Lights",
-                  "layout": "horizontal"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "input_boolean.kitchen_lights_lock_on",
-                  "name": "Motion Lock",
-                  "layout": "horizontal",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
-                }
-              ]
-            },
-            {
               "type": "custom:button-card",
               "entity": "group.living_room_lights",
               "name": "Living Room",
@@ -327,7 +304,7 @@
               "show_forecast": false,
               "type": "weather-forecast",
               "entity": "weather.openweathermap",
-              "name": "Northampton, MA",
+              "name": "Amherst, MA",
               "card_mod": {
                 "style": "ha-card .temp-attribute .temp {\n  font-size: 3rem;\n}\n"
               }
@@ -369,19 +346,6 @@
                   ],
                   "icon": "mdi:bed",
                   "name": "Bedroom",
-                  "show": {
-                    "graph": true,
-                    "points": false,
-                    "icon": false
-                  },
-                  "type": "custom:mini-graph-card"
-                },
-                {
-                  "decimals": 0,
-                  "entities": [
-                    "sensor.craft_room_temperature_sensor_temperature"
-                  ],
-                  "name": "Craft",
                   "show": {
                     "graph": true,
                     "points": false,

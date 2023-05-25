@@ -1048,6 +1048,29 @@
                   "fill_container": true
                 }
               ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.kitchen_counter_lights",
+                  "fill_container": true,
+                  "show_brightness_control": false,
+                  "collapsible_controls": true,
+                  "name": "Counter Lights",
+                  "layout": "horizontal"
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "input_boolean.kitchen_lights_lock_on",
+                  "name": "Motion Lock",
+                  "layout": "horizontal",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ]
             }
           ]
         }

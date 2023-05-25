@@ -216,11 +216,7 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "binary_sensor.front_door"
-                },
-                {
-                  "entity": "binary_sensor.laundry_room_door_sensor_contact",
-                  "name": "Laundry Room Door"
+                  "entity": "binary_sensor.linen_closet_door_sensor_contact"
                 }
               ],
               "title": "Doors and Windows"
