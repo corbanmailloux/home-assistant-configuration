@@ -9,18 +9,18 @@ input_boolean:
   # vacuum_master_bath:
   #   name: Master Bathroom
   #   icon: mdi:toilet
-  # vacuum_office:
-  #   name: Office
-  #   icon: mdi:monitor
+  vacuum_office:
+    name: Office
+    icon: mdi:monitor
   vacuum_livingroom:
     name: Living Room
     icon: mdi:sofa
   vacuum_kitchen:
     name: Kitchen
     icon: mdi:silverware-fork-knife
-  vacuum_1st_floor_bath:
-    name: 1st Floor Bathroom
-    icon: mdi:cat
+  vacuum_mud_room:
+    name: Mud Room
+    icon: mdi:door-open
 
 homeassistant:
   customize:
@@ -28,25 +28,25 @@ homeassistant:
     #   room_id: "21"
     # input_boolean.vacuum_master_bath:
     #   room_id: "20"
-    # input_boolean.vacuum_office:
-    #   room_id: "1"
+    input_boolean.vacuum_office:
+      room_id: "1"
     input_boolean.vacuum_livingroom:
-      room_id: "19"
+      room_id: "16"
     input_boolean.vacuum_kitchen:
-      room_id: "20"
-    input_boolean.vacuum_1st_floor_bath:
-      room_id: "18"
+      room_id: "22"
+    input_boolean.vacuum_mud_room:
+      room_id: "23"
 
 group:
   vacuum_rooms:
     name: Vacuum Rooms
     entities:
-      # - input_boolean.vacuum_office
+      - input_boolean.vacuum_office
       # - input_boolean.vacuum_bedroom
       # - input_boolean.vacuum_master_bath
       - input_boolean.vacuum_livingroom
       - input_boolean.vacuum_kitchen
-      - input_boolean.vacuum_1st_floor_bath
+      - input_boolean.vacuum_mud_room
 
 script:
   vacuum_clean_segments:

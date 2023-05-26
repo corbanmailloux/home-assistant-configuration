@@ -572,16 +572,6 @@
                   {
                     "cards": [
                       {
-                        "entity": "input_boolean.vacuum_livingroom",
-                        "name": "Living",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
                         "entity": "input_boolean.vacuum_kitchen",
                         "show_icon": true,
                         "show_name": true,
@@ -591,8 +581,8 @@
                         "type": "custom:button-card"
                       },
                       {
-                        "entity": "input_boolean.vacuum_1st_floor_bath",
-                        "name": "Bath",
+                        "entity": "input_boolean.vacuum_mud_room",
+                        "name": "Mud Room",
                         "show_icon": true,
                         "show_name": true,
                         "tap_action": {
@@ -601,9 +591,17 @@
                         "type": "custom:button-card"
                       },
                       {
-                        "entity": "script.toggle_all_room_selections",
-                        "name": "Toggle All",
-                        "icon": "mdi:toggle-switch-off-outline",
+                        "entity": "input_boolean.vacuum_livingroom",
+                        "show_icon": true,
+                        "show_name": true,
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "type": "custom:button-card"
+                      },
+                      {
+                        "entity": "input_boolean.vacuum_office",
+                        "name": "Office",
                         "show_icon": true,
                         "show_name": true,
                         "tap_action": {
@@ -628,14 +626,8 @@
                     "title": "",
                     "type": "custom:valetudo-map-card",
                     "vacuum": "valetudo_eve",
-                    "rotate": 0,
-                    "map_scale": 1.8,
-                    "crop": {
-                      "top": 50,
-                      "bottom": 0,
-                      "left": 100,
-                      "right": 0
-                    },
+                    "rotate": 180,
+                    "map_scale": 1.2,
                     "custom_buttons": [
                       {
                         "service": "script.vacuum_skip_today",
