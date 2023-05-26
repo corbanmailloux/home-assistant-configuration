@@ -45,15 +45,6 @@ automation:
         entity_id: binary_sensor.washing_machine_running
         from: "on"
         to: "off"
-    condition:
-      # Skip the notification if the laundry room door was opened in the last 5 minutes.
-      # This covers for the case where we catch the washer before the sensor triggers.
-      - alias: "Laundry door has been closed for at least 5 minutes."
-        condition: state
-        entity_id: binary_sensor.laundry_room_door_sensor_contact
-        state: "off" # Closed
-        for:
-          minutes: 5
     action:
       - alias: "Turn on notify switch"
         service: input_boolean.turn_on
@@ -105,25 +96,25 @@ automation:
           notify_device: adult_phones
           dismiss_notification: true
 
-  - id: d5b0370d-5043-4835-909f-88e4a1e24836
-    alias: Washer Reminder - Acknowledge alert when opening the laundry room door
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.laundry_room_door_sensor_contact
-        from: "off"
-        to: "on"
-        for:
-          seconds: 3
-    condition:
-      - alias: "Notification active"
-        condition: state
-        entity_id: input_boolean.washer_reminder_notifying
-        state: "on"
-    action:
-      - alias: "Turn off boolean"
-        service: input_boolean.turn_off
-        target:
-          entity_id: input_boolean.washer_reminder_notifying
+  # - id: d5b0370d-5043-4835-909f-88e4a1e24836
+  #   alias: Washer Reminder - Acknowledge alert when opening the laundry room door
+  #   trigger:
+  #     - platform: state
+  #       entity_id: binary_sensor.laundry_room_door_sensor_contact
+  #       from: "off"
+  #       to: "on"
+  #       for:
+  #         seconds: 3
+  #   condition:
+  #     - alias: "Notification active"
+  #       condition: state
+  #       entity_id: input_boolean.washer_reminder_notifying
+  #       state: "on"
+  #   action:
+  #     - alias: "Turn off boolean"
+  #       service: input_boolean.turn_off
+  #       target:
+  #         entity_id: input_boolean.washer_reminder_notifying
 
   - id: 19098e11-621e-4f4c-a0f4-aee3c5d8e8cf
     alias: Washer Reminder - Acknowledge alert from notification

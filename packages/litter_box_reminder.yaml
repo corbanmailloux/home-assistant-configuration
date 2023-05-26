@@ -151,51 +151,48 @@ automation:
           dismiss_notification: true
 
   #### Button Actions
-  ## The button has been retired for other purposes because the wall display
-  ## is mounted nearby. Keeping for the new house setup.
+  - alias: Litter Box Button - Click - Dismiss / Skip today
+    id: 6bca1452-eb94-4cfd-b396-82f8555d8f2b
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: bcf6893bbfd9aabd9be142a4af2db637
+        discovery_id: 0x00158d0006ba4618 action_single
+        type: action
+        subtype: single
+    action:
+      # If the reminder is already issued, just turn it off.
+      # If not, skip it for the day.
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: input_boolean.litter_box_clean_needed
+                state: "on"
+            sequence:
+              - service: input_boolean.turn_off
+                data:
+                  entity_id: input_boolean.litter_box_clean_needed
+        default:
+          - service: input_boolean.turn_on
+            data:
+              entity_id: input_boolean.litter_box_clean_skip
 
-  # - alias: Litter Box Button - Click - Dismiss / Skip today
-  #   id: 6bca1452-eb94-4cfd-b396-82f8555d8f2b
-  #   trigger:
-  #     - platform: device
-  #       domain: mqtt
-  #       device_id: 24d7573f0424b71156560a74fede5da7
-  #       discovery_id: 0x00158d00027bee0b action_single
-  #       type: action
-  #       subtype: single
-  #   action:
-  #     # If the reminder is already issued, just turn it off.
-  #     # If not, skip it for the day.
-  #     - choose:
-  #         - conditions:
-  #             - condition: state
-  #               entity_id: input_boolean.litter_box_clean_needed
-  #               state: "on"
-  #           sequence:
-  #             - service: input_boolean.turn_off
-  #               data:
-  #                 entity_id: input_boolean.litter_box_clean_needed
-  #       default:
-  #         - service: input_boolean.turn_on
-  #           data:
-  #             entity_id: input_boolean.litter_box_clean_skip
-
-  # - alias: Litter Box Button - Hold - Mark Litter Replaced
-  #   id: 96061bdd-3ec0-472d-9d20-b336ac8421ef
-  #   trigger:
-  #     - platform: device
-  #       domain: mqtt
-  #       device_id: 24d7573f0424b71156560a74fede5da7
-  #       type: action
-  #       subtype: hold
-  #       discovery_id: 0x00158d00027bee0b action_hold
-  #   action:
-  #     - service: input_datetime.set_datetime
-  #       alias: Store the last clean time
-  #       target:
-  #         entity_id: input_datetime.last_litter_box_replacement
-  #       data:
-  #         timestamp: "{{ now().timestamp() }}"
+  - alias: Litter Box Button - Hold - Mark Litter Replaced
+    id: 96061bdd-3ec0-472d-9d20-b336ac8421ef
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: bcf6893bbfd9aabd9be142a4af2db637
+        discovery_id: 0x00158d0006ba4618 action_hold
+        type: action
+        subtype: hold
+    action:
+      - service: input_datetime.set_datetime
+        alias: Store the last clean time
+        target:
+          entity_id: input_datetime.last_litter_box_replacement
+        data:
+          timestamp: "{{ now().timestamp() }}"
 
   # - alias: Litter Box Button - Double Click - Run Vacuum in Bathroom
   #   id: bcb873f5-a1c2-47e6-a3b9-5fb963e19fcb
