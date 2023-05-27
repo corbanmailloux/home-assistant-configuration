@@ -1,0 +1,40 @@
+# TODO: Turn this into a blueprint. I have multiple closets where I want this same set of automations.
+
+automation:
+  - id: 1cd84912-0c56-4cbf-96ed-5eadc789b8bf
+    alias: Set Coat Closet Light Based on Door
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.coat_closet_door_sensor_contact
+        not_from:
+          - "unknown"
+          - "unavailable"
+    action:
+      - service: >-
+          {% if trigger.to_state.state == "on" %}
+            light.turn_on
+          {% else %}
+            light.turn_off
+          {% endif %}
+        target:
+          entity_id: light.coat_closet_light
+
+  - id: f4d87c81-b0af-4a73-a7e7-0d26f6b6dfb1
+    alias: Turn off linen closet light after 30 minutes
+    trigger:
+      - platform: state
+        entity_id: light.coat_closet_light
+        from: "off"
+        to: "on"
+        for:
+          minutes: 30
+    action:
+      - alias: "Debug - Notify"
+        service: notify.corban
+        data:
+          title: "Coat closet light left on."
+          message: "Turning off after 30 minutes."
+      - alias: "Turn off"
+        service: light.turn_off
+        target:
+          entity_id: light.coat_closet_light
