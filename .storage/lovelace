@@ -916,77 +916,6 @@
               }
             },
             {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "cards": [
-                    {
-                      "entity": "input_boolean.vacuum_kitchen",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    },
-                    {
-                      "entity": "input_boolean.vacuum_mud_room",
-                      "name": "Mud Room",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    },
-                    {
-                      "entity": "input_boolean.vacuum_livingroom",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    },
-                    {
-                      "entity": "input_boolean.vacuum_office",
-                      "name": "Office",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    },
-                    {
-                      "entity": "script.vacuum_clean_segments",
-                      "name": "Start",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    }
-                  ],
-                  "type": "horizontal-stack"
-                },
-                {
-                  "title": "",
-                  "type": "custom:valetudo-map-card",
-                  "vacuum": "valetudo_eve",
-                  "rotate": 0,
-                  "map_scale": 1.2,
-                  "crop": {
-                    "top": 0,
-                    "bottom": 0,
-                    "left": 0,
-                    "right": 0
-                  }
-                }
-              ]
-            },
-            {
               "type": "custom:mushroom-entity-card",
               "entity": "script.vacuum_skip_today",
               "name": "Skip Vacuuming Today",
@@ -1009,7 +938,10 @@
               "map_source": {
                 "camera": "camera.dreamebot_l10s_ultra_map",
                 "crop": {
-                  "top": 70
+                  "top": 85,
+                  "bottom": 10,
+                  "left": 20,
+                  "right": 10
                 }
               },
               "calibration_source": {
@@ -1464,7 +1396,7 @@
                 },
                 {
                   "menu_id": "fan_speed",
-                  "icon": "mdi:fan-remove",
+                  "icon": "mdi:fan-off",
                   "label": "Silent",
                   "conditions": [
                     {
@@ -1639,14 +1571,364 @@
             {
               "type": "custom:xiaomi-vacuum-map-card",
               "map_source": {
-                "camera": "camera.valetudo_eve_map_data"
+                "camera": "camera.eve_rendered_map",
+                "crop": {
+                  "top": 70,
+                  "bottom": 40,
+                  "right": -20,
+                  "left": -20
+                }
               },
               "calibration_source": {
-                "camera": true
+                "identity": true
               },
               "entity": "vacuum.valetudo_eve",
               "vacuum_platform": "Hypfer/Valetudo",
-              "title": "Second Floor"
+              "title": "Second Floor",
+              "map_locked": true,
+              "internal_variables": {
+                "topic": "valetudo/eve"
+              },
+              "icons": [
+                {
+                  "icon": "mdi:play",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "cleaning"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "error"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "returning"
+                    }
+                  ],
+                  "tooltip": "Start",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.start",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:pause",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "docked"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "idle"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "error"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "paused"
+                    }
+                  ],
+                  "tooltip": "Pause",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.pause",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:stop",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "docked"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "idle"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "error"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "paused"
+                    }
+                  ],
+                  "tooltip": "Stop",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.stop",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:home-map-marker",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "docked"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "returning"
+                    }
+                  ],
+                  "tooltip": "Return to base",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.return_to_base",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:map-marker",
+                  "tooltip": "Locate",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.locate",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-speed-1",
+                  "label": "low",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value": "low"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve",
+                      "fan_speed": "low"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-speed-2",
+                  "label": "Medium",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value": "medium"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve",
+                      "fan_speed": "medium"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-speed-3",
+                  "label": "high",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value": "high"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve",
+                      "fan_speed": "high"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-alert",
+                  "label": "max",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value": "max"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve",
+                      "fan_speed": "max"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-off",
+                  "label": "off",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value": "off"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve",
+                      "fan_speed": "off"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:fan-alert",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value_not": "low"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value_not": "medium"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value_not": "high"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value_not": "max"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "attribute": "fan_speed",
+                      "value_not": "off"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.valetudo_eve",
+                      "fan_speed": "low"
+                    }
+                  }
+                }
+              ],
+              "tiles": [
+                {
+                  "tile_id": "status",
+                  "label": "Status",
+                  "entity": "vacuum.valetudo_eve",
+                  "translations": {}
+                },
+                {
+                  "tile_id": "battery_level",
+                  "entity": "vacuum.valetudo_eve",
+                  "label": "Battery",
+                  "attribute": "battery_level",
+                  "icon_source": "vacuum.valetudo_eve.attributes.battery_icon",
+                  "unit": "%"
+                },
+                {
+                  "tile_id": "filter_left",
+                  "label": "Filter left",
+                  "icon": "mdi:air-filter",
+                  "unit": "h",
+                  "multiplier": 0.016666666666666666,
+                  "entity": "sensor.valetudo_eve_main_filter",
+                  "precision": 0,
+                  "translations": {}
+                },
+                {
+                  "tile_id": "dust_bin_minutes",
+                  "label": "Dust Bin",
+                  "icon": "mdi:trash-can-outline",
+                  "unit": "min",
+                  "entity": "sensor.eve_bin",
+                  "precision": 0,
+                  "translations": {}
+                }
+              ],
+              "map_modes": [
+                {
+                  "name": "Zone cleanup",
+                  "icon": "mdi:select-drag",
+                  "run_immediately": false,
+                  "coordinates_rounding": true,
+                  "coordinates_to_meters_divider": 100,
+                  "selection_type": "MANUAL_RECTANGLE",
+                  "max_selections": 5,
+                  "repeats_type": "EXTERNAL",
+                  "max_repeats": 3,
+                  "service_call_schema": {
+                    "service": "mqtt.publish",
+                    "evaluate_data_as_template": true,
+                    "service_data": {
+                      "topic": "[[topic]]/ZoneCleaningCapability/start/set",
+                      "payload": "{\"zones\": [{%for s in ('[[selection]]')|from_json %}{ \"points\": {\"pA\": { \"x\": {{s[0]}}, \"y\": {{s[1]}} }, \"pB\": { \"x\": {{s[2]}}, \"y\": {{s[1]}} }, \"pC\": { \"x\": {{s[2]}}, \"y\": {{s[3]}} }, \"pD\": { \"x\": {{s[0]}}, \"y\": {{s[3]}} } }, \"iterations\": [[repeats]]}{%if not loop.last%},{%endif%}{%endfor%}]}"
+                    }
+                  },
+                  "predefined_selections": [],
+                  "variables": {}
+                },
+                {
+                  "name": "Pin & Go",
+                  "icon": "mdi:map-marker-plus",
+                  "run_immediately": false,
+                  "coordinates_rounding": true,
+                  "coordinates_to_meters_divider": 100,
+                  "selection_type": "MANUAL_POINT",
+                  "max_selections": 999,
+                  "repeats_type": "NONE",
+                  "max_repeats": 1,
+                  "service_call_schema": {
+                    "service": "mqtt.publish",
+                    "service_data": {
+                      "topic": "[[topic]]/GoToLocationCapability/go/set",
+                      "payload": "{ \"coordinates\": { \"x\": [[point_x]], \"y\": [[point_y]] } }"
+                    }
+                  },
+                  "predefined_selections": [],
+                  "variables": {}
+                }
+              ],
+              "additional_presets": []
             }
           ]
         },
@@ -1732,6 +2014,77 @@
                   "layout": "horizontal",
                   "tap_action": {
                     "action": "toggle"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "cards": [
+                    {
+                      "entity": "input_boolean.vacuum_kitchen",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "input_boolean.vacuum_mud_room",
+                      "name": "Mud Room",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "input_boolean.vacuum_livingroom",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "input_boolean.vacuum_office",
+                      "name": "Office",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    },
+                    {
+                      "entity": "script.vacuum_clean_segments",
+                      "name": "Start",
+                      "show_icon": true,
+                      "show_name": true,
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "type": "custom:button-card"
+                    }
+                  ],
+                  "type": "horizontal-stack"
+                },
+                {
+                  "title": "",
+                  "type": "custom:valetudo-map-card",
+                  "vacuum": "valetudo_eve",
+                  "rotate": 0,
+                  "map_scale": 1.2,
+                  "crop": {
+                    "top": 0,
+                    "bottom": 0,
+                    "left": 0,
+                    "right": 0
                   }
                 }
               ]
