@@ -367,54 +367,6 @@
               "entities": [
                 "input_datetime.last_litter_box_replacement"
               ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.office_occupied",
-                  "secondary_info": "last-changed",
-                  "name": "Output: Office Occupied"
-                },
-                {
-                  "entity": "binary_sensor.vibration_sensor_vibration",
-                  "name": "Chair Vibration",
-                  "secondary_info": "last-updated",
-                  "icon": ""
-                },
-                {
-                  "entity": "binary_sensor.cmailloux_a01_active",
-                  "name": "VMW Mac Active",
-                  "secondary_info": "last-updated"
-                },
-                {
-                  "entity": "sensor.cmailloux_a01_displays",
-                  "name": "VMW Mac Displays",
-                  "secondary_info": "last-updated"
-                },
-                {
-                  "entity": "binary_sensor.corban_s_personal_macbook_pro_active",
-                  "name": "Personal Mac Active",
-                  "secondary_info": "last-updated"
-                },
-                {
-                  "entity": "sensor.corban_s_personal_macbook_pro_displays",
-                  "name": "Personal Mac Displays",
-                  "secondary_info": "last-updated"
-                },
-                {
-                  "entity": "binary_sensor.cmaillouxtjq31_active"
-                },
-                {
-                  "entity": "sensor.cmaillouxtjq31_displays"
-                },
-                {
-                  "entity": "binary_sensor.biden_microphoneactive"
-                }
-              ],
-              "title": "Office Motion Lights Debugging",
-              "show_header_toggle": false,
-              "state_color": true
             }
           ],
           "icon": "mdi:flask",

@@ -618,6 +618,26 @@
                 },
                 {
                   "type": "custom:mushroom-light-card",
+                  "entity": "light.office_leds",
+                  "name": "Shelf LEDs",
+                  "icon": "",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "use_light_color": false,
+                  "show_color_temp_control": false,
+                  "collapsible_controls": true,
+                  "show_color_control": true,
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
                   "entity": "light.key_light_air_1",
                   "name": "Key Light",
                   "icon": "mdi:light-flood-down",
@@ -625,7 +645,7 @@
                   "show_brightness_control": true,
                   "use_light_color": false,
                   "show_color_temp_control": true,
-                  "collapsible_controls": false,
+                  "collapsible_controls": true,
                   "show_color_control": false
                 },
                 {
@@ -635,33 +655,30 @@
                   "icon": "mdi:desk-lamp",
                   "show_brightness_control": true,
                   "fill_container": false,
-                  "show_color_temp_control": true
+                  "show_color_temp_control": true,
+                  "collapsible_controls": true
                 }
               ]
-            },
-            {
-              "type": "custom:button-card",
-              "name": "Kitchen",
-              "template": "header"
             },
             {
               "type": "horizontal-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-lock-card",
-                  "entity": "lock.side_door_lock",
-                  "fill_container": true,
-                  "hold_action": {
-                    "action": "more-info"
-                  }
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.office_air_purifier",
+                  "name": "Air Purifier",
+                  "icon_animation": false,
+                  "fill_container": false,
+                  "show_percentage_control": true,
+                  "collapsible_controls": true
                 },
                 {
-                  "type": "custom:mushroom-vacuum-card",
-                  "entity": "vacuum.valetudo_eve",
-                  "fill_container": true,
-                  "commands": [
-                    "start_pause"
-                  ]
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "sensor.office_air_purifier_pm2_5",
+                  "name": "PM2.5",
+                  "primary_info": "name",
+                  "secondary_info": "state",
+                  "fill_container": true
                 }
               ]
             }
@@ -958,7 +975,7 @@
                   "title": "",
                   "type": "custom:valetudo-map-card",
                   "vacuum": "valetudo_eve",
-                  "rotate": 180,
+                  "rotate": 0,
                   "map_scale": 1.2,
                   "crop": {
                     "top": 0,
@@ -982,6 +999,654 @@
               "hold_action": {
                 "action": "more-info"
               }
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "type": "custom:xiaomi-vacuum-map-card",
+              "title": "First Floor",
+              "map_source": {
+                "camera": "camera.dreamebot_l10s_ultra_map",
+                "crop": {
+                  "top": 70
+                }
+              },
+              "calibration_source": {
+                "camera": true
+              },
+              "entity": "vacuum.dreamebot_l10s_ultra",
+              "vacuum_platform": "default",
+              "map_locked": true,
+              "map_modes": [
+                {
+                  "name": "Rooms",
+                  "icon": "mdi:floor-plan",
+                  "run_immediately": false,
+                  "coordinates_rounding": true,
+                  "coordinates_to_meters_divider": 1000,
+                  "selection_type": "ROOM",
+                  "id_type": "number",
+                  "max_selections": 999,
+                  "repeats_type": "EXTERNAL",
+                  "max_repeats": 3,
+                  "service_call_schema": {
+                    "service": "vacuum.send_command",
+                    "service_data": {
+                      "command": "app_segment_clean",
+                      "entity_id": "[[entity_id]]",
+                      "params": [
+                        {
+                          "segments": "[[selection]]",
+                          "repeat": "[[repeats]]"
+                        }
+                      ]
+                    }
+                  },
+                  "predefined_selections": [
+                    {
+                      "id": "1",
+                      "icon": {
+                        "name": "mdi:room-service-outline",
+                        "x": -2100,
+                        "y": -6450
+                      },
+                      "label": {
+                        "text": "Dining Hall",
+                        "x": -2100,
+                        "y": -6450,
+                        "offset_y": 35
+                      },
+                      "outline": [
+                        [
+                          -4950,
+                          -8050
+                        ],
+                        [
+                          450,
+                          -8050
+                        ],
+                        [
+                          450,
+                          -4550
+                        ],
+                        [
+                          -4950,
+                          -4550
+                        ]
+                      ]
+                    },
+                    {
+                      "id": "2",
+                      "icon": {
+                        "name": "mdi:toilet",
+                        "x": 2800,
+                        "y": -9350
+                      },
+                      "label": {
+                        "text": "Bathroom",
+                        "x": 2800,
+                        "y": -9350,
+                        "offset_y": 35
+                      },
+                      "outline": [
+                        [
+                          1600,
+                          -9850
+                        ],
+                        [
+                          4000,
+                          -9850
+                        ],
+                        [
+                          4000,
+                          -8400
+                        ],
+                        [
+                          1600,
+                          -8400
+                        ]
+                      ]
+                    },
+                    {
+                      "id": "3",
+                      "icon": {
+                        "name": "mdi:foot-print",
+                        "x": -3600,
+                        "y": -9250
+                      },
+                      "label": {
+                        "text": "Corridor 2",
+                        "x": -3600,
+                        "y": -9250,
+                        "offset_y": 35
+                      },
+                      "outline": [
+                        [
+                          -4950,
+                          -10350
+                        ],
+                        [
+                          400,
+                          -10350
+                        ],
+                        [
+                          400,
+                          -8000
+                        ],
+                        [
+                          -4950,
+                          -8000
+                        ]
+                      ]
+                    },
+                    {
+                      "id": "5",
+                      "icon": {
+                        "name": "mdi:monitor-shimmer",
+                        "x": 2250,
+                        "y": -13200
+                      },
+                      "label": {
+                        "text": "Office",
+                        "x": 2250,
+                        "y": -13200,
+                        "offset_y": 35
+                      },
+                      "outline": [
+                        [
+                          450,
+                          -15350
+                        ],
+                        [
+                          4000,
+                          -15350
+                        ],
+                        [
+                          4000,
+                          -11500
+                        ],
+                        [
+                          450,
+                          -11500
+                        ]
+                      ]
+                    },
+                    {
+                      "id": "6",
+                      "icon": {
+                        "name": "mdi:sofa-outline",
+                        "x": -3750,
+                        "y": -12650
+                      },
+                      "label": {
+                        "text": "Living Room",
+                        "x": -3750,
+                        "y": -12650,
+                        "offset_y": 35
+                      },
+                      "outline": [
+                        [
+                          -4900,
+                          -16600
+                        ],
+                        [
+                          400,
+                          -16600
+                        ],
+                        [
+                          400,
+                          -10350
+                        ],
+                        [
+                          -4900,
+                          -10350
+                        ]
+                      ]
+                    },
+                    {
+                      "id": "7",
+                      "icon": {
+                        "name": "mdi:home-outline",
+                        "x": 1300,
+                        "y": -1500
+                      },
+                      "label": {
+                        "text": "Mudroom",
+                        "x": 1300,
+                        "y": -1500,
+                        "offset_y": 35
+                      },
+                      "outline": [
+                        [
+                          -700,
+                          -3600
+                        ],
+                        [
+                          3400,
+                          -3600
+                        ],
+                        [
+                          3400,
+                          500
+                        ],
+                        [
+                          -700,
+                          500
+                        ]
+                      ]
+                    },
+                    {
+                      "id": "8",
+                      "icon": {
+                        "name": "mdi:foot-print",
+                        "x": 1000,
+                        "y": -9450
+                      },
+                      "label": {
+                        "text": "Corridor",
+                        "x": 1000,
+                        "y": -9450,
+                        "offset_y": 35
+                      },
+                      "outline": [
+                        [
+                          350,
+                          -11500
+                        ],
+                        [
+                          1600,
+                          -11500
+                        ],
+                        [
+                          1600,
+                          -7500
+                        ],
+                        [
+                          350,
+                          -7500
+                        ]
+                      ]
+                    },
+                    {
+                      "id": "9",
+                      "icon": {
+                        "name": "mdi:chef-hat",
+                        "x": 2050,
+                        "y": -5400
+                      },
+                      "label": {
+                        "text": "Kitchen",
+                        "x": 2050,
+                        "y": -5400,
+                        "offset_y": 35
+                      },
+                      "outline": [
+                        [
+                          450,
+                          -7500
+                        ],
+                        [
+                          3350,
+                          -7500
+                        ],
+                        [
+                          3350,
+                          -3600
+                        ],
+                        [
+                          450,
+                          -3600
+                        ]
+                      ]
+                    }
+                  ],
+                  "variables": {}
+                },
+                {
+                  "name": "Zone cleanup",
+                  "icon": "mdi:select-drag",
+                  "run_immediately": false,
+                  "coordinates_rounding": true,
+                  "coordinates_to_meters_divider": 1000,
+                  "selection_type": "MANUAL_RECTANGLE",
+                  "max_selections": 5,
+                  "repeats_type": "EXTERNAL",
+                  "max_repeats": 3,
+                  "service_call_schema": {
+                    "service": "xiaomi_miio.vacuum_clean_zone",
+                    "service_data": {
+                      "zone": "[[selection]]",
+                      "repeats": "[[repeats]]",
+                      "entity_id": "[[entity_id]]"
+                    }
+                  },
+                  "predefined_selections": [],
+                  "variables": {}
+                },
+                {
+                  "name": "Pin & Go",
+                  "icon": "mdi:map-marker-plus",
+                  "run_immediately": false,
+                  "coordinates_rounding": true,
+                  "coordinates_to_meters_divider": 1000,
+                  "selection_type": "MANUAL_POINT",
+                  "max_selections": 999,
+                  "repeats_type": "NONE",
+                  "max_repeats": 1,
+                  "service_call_schema": {
+                    "service": "xiaomi_miio.vacuum_goto",
+                    "service_data": {
+                      "x_coord": "[[point_x]]",
+                      "y_coord": "[[point_y]]",
+                      "entity_id": "[[entity_id]]"
+                    }
+                  },
+                  "predefined_selections": [],
+                  "variables": {}
+                }
+              ],
+              "icons": [
+                {
+                  "icon": "mdi:play",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "cleaning"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "error"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "returning"
+                    }
+                  ],
+                  "tooltip": "Start",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.start",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:pause",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "docked"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "idle"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "error"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "paused"
+                    }
+                  ],
+                  "tooltip": "Pause",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.pause",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:stop",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "docked"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "idle"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "error"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "paused"
+                    }
+                  ],
+                  "tooltip": "Stop",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.stop",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:home-map-marker",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "docked"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "value_not": "returning"
+                    }
+                  ],
+                  "tooltip": "Return to base",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.return_to_base",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:map-marker",
+                  "tooltip": "Locate",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.locate",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-remove",
+                  "label": "Silent",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "attribute": "fan_speed",
+                      "value": "Silent"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra",
+                      "fan_speed": "Silent"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-speed-1",
+                  "label": "Standard",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "attribute": "fan_speed",
+                      "value": "Standard"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra",
+                      "fan_speed": "Standard"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-speed-2",
+                  "label": "Strong",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "attribute": "fan_speed",
+                      "value": "Strong"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra",
+                      "fan_speed": "Strong"
+                    }
+                  }
+                },
+                {
+                  "menu_id": "fan_speed",
+                  "icon": "mdi:fan-speed-3",
+                  "label": "Turbo",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "attribute": "fan_speed",
+                      "value": "Turbo"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra",
+                      "fan_speed": "Turbo"
+                    }
+                  }
+                },
+                {
+                  "icon": "mdi:fan-alert",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "attribute": "fan_speed",
+                      "value_not": "Silent"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "attribute": "fan_speed",
+                      "value_not": "Standard"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "attribute": "fan_speed",
+                      "value_not": "Strong"
+                    },
+                    {
+                      "entity": "vacuum.dreamebot_l10s_ultra",
+                      "attribute": "fan_speed",
+                      "value_not": "Turbo"
+                    }
+                  ],
+                  "tooltip": "Change fan speed",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "vacuum.set_fan_speed",
+                    "service_data": {
+                      "entity_id": "vacuum.dreamebot_l10s_ultra",
+                      "fan_speed": "Silent"
+                    }
+                  }
+                }
+              ],
+              "tiles": [
+                {
+                  "tile_id": "status",
+                  "entity": "vacuum.dreamebot_l10s_ultra",
+                  "label": "Status",
+                  "attribute": "status",
+                  "icon": "mdi:robot-vacuum",
+                  "translations": {
+                    "starting": "Starting",
+                    "charger disconnected": "Charger disconnected",
+                    "idle": "Idle",
+                    "remote control active": "Remote control active",
+                    "cleaning": "Cleaning",
+                    "returning home": "Returning home",
+                    "manual mode": "Manual mode",
+                    "charging": "Charging",
+                    "charging problem": "Charging problem",
+                    "paused": "Paused",
+                    "spot cleaning": "Spot cleaning",
+                    "error": "Error",
+                    "shutting down": "Shutting down",
+                    "updating": "Updating",
+                    "docking": "Docking",
+                    "going to target": "Going to target",
+                    "zoned cleaning": "Zoned cleaning",
+                    "segment cleaning": "Segment cleaning",
+                    "emptying the bin": "Emptying the bin",
+                    "charging complete": "Charging complete",
+                    "device offline": "Device offline"
+                  }
+                },
+                {
+                  "tile_id": "battery_level",
+                  "entity": "vacuum.dreamebot_l10s_ultra",
+                  "label": "Battery",
+                  "attribute": "battery_level",
+                  "icon_source": "vacuum.dreamebot_l10s_ultra.attributes.battery_icon",
+                  "unit": "%"
+                },
+                {
+                  "tile_id": "cleaning_mode",
+                  "entity": "select.dreamebot_l10s_ultra_cleaning_mode",
+                  "label": "Cleaning Mode",
+                  "translations": {
+                    "sweeping": "Sweeping",
+                    "mopping": "Mopping",
+                    "sweeping_and_mopping": "Sweep and Mop"
+                  }
+                }
+              ],
+              "additional_presets": []
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "type": "custom:xiaomi-vacuum-map-card",
+              "map_source": {
+                "camera": "camera.valetudo_eve_map_data"
+              },
+              "calibration_source": {
+                "camera": true
+              },
+              "entity": "vacuum.valetudo_eve",
+              "vacuum_platform": "Hypfer/Valetudo",
+              "title": "Second Floor"
             }
           ]
         },
