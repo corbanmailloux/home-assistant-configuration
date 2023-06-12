@@ -9,7 +9,7 @@ output mqtt://${host}:${port},user=${username},pass=${password},retain=${retain}
 
 #### Frequency
 
-# 433 for the Acurite sensor and LaCrosse TX141-Bv3 nearby.
+# 433 for the Acurite sensor.
 frequency 433.92M
 
 # 915M appears to have our gas/electric meters. I'll validate.
