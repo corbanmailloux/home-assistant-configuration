@@ -18,9 +18,7 @@ automation:
                 entity_id: binary_sensor.maggie_person_home
                 state: "off"
             sequence:
-              - service: notify.maggie
-                data:
-                  message: "request_location_update"
+              - service: script.request_maggie_location_update
       - choose:
           - alias: "If Corban isn't home, trigger an update."
             conditions:
@@ -28,9 +26,7 @@ automation:
                 entity_id: binary_sensor.corban_person_home
                 state: "off"
             sequence:
-              - service: notify.corban
-                data:
-                  message: "request_location_update"
+              - service: script.request_corban_location_update
 
 script:
   request_maggie_location_update:
