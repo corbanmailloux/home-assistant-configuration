@@ -2,44 +2,62 @@
 everything_custom:
   name: Everything
   entities:
-    # Lights
     ## Bedroom
-    - light.bedroom_lamp
+    # - light.bedroom_lamp
     - light.fairy_lights
+
     ## Corban's Office
     - light.corban_s_office_lamp_bottom
     - light.corban_s_office_lamp_middle
     - light.corban_s_office_lamp_top
     - light.key_light_air_1
     - light.office_leds
+
     ## Living Room
     - light.corner_lamp
     # - light.christmas_tree_lights
-    ## Kitchen
-    - light.kitchen_counter_lights
 
-    # Wall Displays
+    ## Kitchen
+    # - light.kitchen_counter_lights
+
+    ## Sunporch
+    - light.sunporch_string_lights
+
+    ## Wall Displays
     - light.tablet_wall_display_screen
 
-    # Other devices
+    ## Other devices
     - switch.living_room_tv_power
+    - fan.office_air_purifier
 
 everything_custom_for_guest_mode:
   # TODO: This could probably be done with nested groups instead.
   name: Everything without Guest Room
   entities:
-    # Lights
     ## Bedroom
-    - light.bedroom_lamp
+    # - light.bedroom_lamp
     - light.fairy_lights
+
+    ## Corban's Office
+    - light.corban_s_office_lamp_bottom
+    - light.corban_s_office_lamp_middle
+    - light.corban_s_office_lamp_top
+    - light.key_light_air_1
+    - light.office_leds
+
     ## Living Room
     - light.corner_lamp
     # - light.christmas_tree_lights
-    ## Kitchen
-    - light.kitchen_counter_lights
 
-    # Wall Displays
+    ## Kitchen
+    # - light.kitchen_counter_lights
+
+    ## Sunporch
+    - light.sunporch_string_lights
+
+    ## Wall Displays
     - light.tablet_wall_display_screen
 
-    # Other devices
+    ## Other devices
     - switch.living_room_tv_power
+    - fan.office_air_purifier

@@ -1,38 +1,15 @@
 scene:
-  - id: "1636344043604"
+  - id: fe208743-4e9d-4a4c-8901-8cb4820a55ce
     name: Training
     entities:
       light.corner_lamp:
         brightness: 255
         state: "on"
-      light.corban_s_office_ceiling_light:
+      light.corban_s_office_lamp:
         brightness: 255
         state: "on"
-      light.office_lamp:
+      light.corban_s_office_lamp_bottom:
         brightness: 255
-        state: "on"
-      light.office_lamp_bottom:
-        brightness: 255
-        state: "on"
-      light.kitchen_counter_lights:
-        state: "on"
-    icon: mdi:trophy-outline
-  - id: "3b6fa32e-5670-4c39-a48f-b41b1ddcabd1"
-    name: Training - No Guest Room
-    entities:
-      light.corner_lamp:
-        brightness: 255
-        state: "on"
-      # light.corban_s_office_ceiling_light:
-      #   brightness: 255
-      #   state: "on"
-      light.office_lamp:
-        brightness: 255
-        state: "on"
-      light.office_lamp_bottom:
-        brightness: 255
-        state: "on"
-      light.kitchen_counter_lights:
         state: "on"
     icon: mdi:trophy-outline
 
@@ -49,39 +26,17 @@ automation:
         entity_id: input_boolean.training_mode
         to: "on"
     action:
-      - if:
-          - alias: "Guest Mode On"
-            condition: state
-            entity_id: input_boolean.guest_mode
-            state: "on"
-        then:
-          - alias: "Create scene with all impacted lights except guest room"
-            service: scene.create
-            data:
-              scene_id: state_before_training
-              snapshot_entities:
-                - light.corner_lamp
-                # - light.corban_s_office_ceiling_light
-                - light.office_lamp
-                - light.office_lamp_bottom
-                - light.kitchen_counter_lights
-          - service: scene.turn_on
-            target:
-              entity_id: scene.training_no_guest_room
-        else:
-          - alias: "Create scene with all impacted lights"
-            service: scene.create
-            data:
-              scene_id: state_before_training
-              snapshot_entities:
-                - light.corner_lamp
-                - light.corban_s_office_ceiling_light
-                - light.office_lamp
-                - light.office_lamp_bottom
-                - light.kitchen_counter_lights
-          - service: scene.turn_on
-            target:
-              entity_id: scene.training
+      - alias: "Create scene with all impacted lights"
+        service: scene.create
+        data:
+          scene_id: state_before_training
+          snapshot_entities:
+            - light.corner_lamp
+            - light.corban_s_office_lamp
+            - light.corban_s_office_lamp_bottom
+      - service: scene.turn_on
+        target:
+          entity_id: scene.training
 
   - alias: Training Mode Stop
     id: 6c0d187b-c08f-4e96-a602-1dd87e972df6

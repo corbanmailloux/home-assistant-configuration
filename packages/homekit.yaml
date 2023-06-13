@@ -4,10 +4,11 @@ homekit:
         - light.fairy_lights
         - light.corner_lamp
         - light.corban_s_office_lamp
-        - scene.movie_mode
+        # - scene.movie_mode
         - light.office_leds
         - fan.bedroom_fan
         - light.sunporch_string_lights
+        - fan.office_air_purifier
 # Previous list
 # "light.bedroom_lamp",
 # "switch.living_room_tv_power",
