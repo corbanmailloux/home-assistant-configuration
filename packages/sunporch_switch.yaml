@@ -1,0 +1,54 @@
+automation:
+  - id: 547a0b9b-1878-4e4a-b020-5d660a77d3f3
+    alias: Sunporch Switch - On - Lights
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        type: action
+        subtype: "on"
+        discovery_id: 0x000d6ffffea6b202 action_on
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: light.sunporch_string_lights
+
+  - id: e9209406-f904-49a7-a49a-4f14501bdf68
+    alias: Sunporch Switch - Off - Lights
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: c267d3d48bf04135851855dc4be36cbb
+        type: action
+        subtype: "off"
+        discovery_id: 0x000d6ffffea6b202 action_off
+    action:
+      - service: light.turn_off
+        target:
+          entity_id: light.sunporch_string_lights
+  # - id: e28f0500-362d-4222-90fe-a092b6d68a38
+  #   alias: Living Room Switch - Hold On - Vacuum
+  #   trigger:
+  #     - platform: device
+  #       domain: mqtt
+  #       device_id: c267d3d48bf04135851855dc4be36cbb
+  #       type: action
+  #       subtype: brightness_move_up
+  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
+  #   action:
+  #     - service: vacuum.start
+  #       target:
+  #         entity_id: vacuum.valetudo_eve
+  # - id: 7d3730d4-093c-4340-b10c-03e517fcd74d
+  #   alias: Living Room Switch - Hold Off - Pause TV
+  #   trigger:
+  #     - platform: device
+  #       domain: mqtt
+  #       device_id: c267d3d48bf04135851855dc4be36cbb
+  #       type: action
+  #       subtype: brightness_move_down
+  #       discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
+  #   action:
+  #     - service: media_player.media_play_pause
+  #       target:
+  #         entity_id: media_player.living_room_apple_tv
