@@ -12,7 +12,7 @@ output mqtt://${host}:${port},user=${username},pass=${password},retain=${retain}
 # 433 for the Acurite sensor.
 frequency 433.92M
 
-# 915M appears to have our gas/electric meters. I'll validate.
+# 915M should have our electric meter, but I'm not sure the protocol.
 # frequency 915M
 
 # Nothing on 315M initially except a TPMS sensor.
@@ -20,13 +20,9 @@ frequency 433.92M
 
 # Suggested from https://github.com/pbkhrv/rtl_433-hass-addons/tree/main/rtl_433#configuration
 convert     si
-report_meta newmodel
 report_meta time:iso:tz:local
 
 
 # Filter to just my sensor
 # See supported devices here: https://github.com/merbanan/rtl_433/blob/master/README.md
 # protocol    40
-
-# Include the other random sensor nearby
-# protocol 73  # LaCrosse TX141-Bv3

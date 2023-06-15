@@ -206,6 +206,12 @@
               "entities": [
                 {
                   "entity": "binary_sensor.linen_closet_door_sensor_contact"
+                },
+                {
+                  "entity": "binary_sensor.coat_closet_door_sensor_contact"
+                },
+                {
+                  "entity": "binary_sensor.front_door"
                 }
               ],
               "title": "Doors and Windows"
