@@ -1,0 +1,39 @@
+light:
+  - platform: group
+    name: Basement Lights
+    entities:
+      - light.basement_laundry_light
+      - light.basement_network_rack_light
+
+automation:
+  - id: f1227b65-0d99-4c35-9694-bc229a89f2b7
+    alias: Basement Motion Lights
+    # If motion is detected within the delay, we restart the script.
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.laundry_motion_sensor_occupancy
+        from: "off"
+        to: "on"
+    condition:
+      - condition: state
+        entity_id: input_select.home_mode
+        state: "Home"
+    action:
+      - alias: "Turn on basement lights"
+        service: light.turn_on
+        target:
+          entity_id: light.basement_lights
+      - wait_for_trigger:
+          platform: state
+          entity_id: binary_sensor.laundry_motion_sensor_occupancy
+          from: "on"
+          to: "off"
+      - delay:
+          minutes: 10
+      - alias: "Turn off basement lights"
+        service: light.turn_off
+        data:
+          transition: 20
+        target:
+          entity_id: light.basement_lights
