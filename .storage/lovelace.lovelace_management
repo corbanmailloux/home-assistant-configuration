@@ -59,17 +59,6 @@
               "type": "vertical-stack"
             },
             {
-              "type": "entities",
-              "entities": [
-                "switch.adguard_protection",
-                "sensor.adguard_dns_queries",
-                "sensor.adguard_dns_queries_blocked_ratio",
-                "sensor.adguard_average_processing_speed"
-              ],
-              "title": "AdGuard",
-              "show_header_toggle": false
-            },
-            {
               "type": "custom:layout-break"
             },
             {
