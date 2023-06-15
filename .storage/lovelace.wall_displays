@@ -626,7 +626,6 @@
                     "title": "",
                     "type": "custom:valetudo-map-card",
                     "vacuum": "valetudo_eve",
-                    "rotate": 180,
                     "map_scale": 1.2,
                     "custom_buttons": [
                       {

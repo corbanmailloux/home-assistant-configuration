@@ -1,11 +1,11 @@
 # Automatically trigger the vacuum when no one is home, at most once a day.
 
 # Note: This is also in `vacuum_reminder.yaml`, but currently disabled. If we re-enable that, merge.
-input_datetime:
-  last_vacuum_run:
-    name: Last Vacuum Run
-    has_date: true
-    has_time: false
+# input_datetime:
+#   last_vacuum_run:
+#     name: Last Vacuum Run
+#     has_date: true
+#     has_time: false
 
 automation:
   - alias: Trigger vacuum when no one is home for 5 minutes

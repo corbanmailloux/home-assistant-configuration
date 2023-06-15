@@ -361,7 +361,9 @@
                       "action": "more-info"
                     },
                     "hold_action": {
-                      "action": "more-info"
+                      "action": "call-service",
+                      "service": "script.vacuum_dump_process",
+                      "target": {}
                     }
                   }
                 }
@@ -886,61 +888,14 @@
           "badges": [],
           "cards": [
             {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "sensor.eve_bin",
-                  "state_not": "0"
-                },
-                {
-                  "entity": "sensor.eve_bin",
-                  "state_not": "unknown"
-                }
-              ],
-              "card": {
-                "type": "custom:mushroom-entity-card",
-                "entity": "sensor.eve_bin",
-                "icon_color": "red",
-                "primary_info": "name",
-                "secondary_info": "state",
-                "hold_action": {
-                  "action": "more-info"
-                },
-                "double_tap_action": {
-                  "action": "none"
-                },
-                "tap_action": {
-                  "action": "more-info"
-                },
-                "name": "Empty Eve's Bin"
-              }
-            },
-            {
-              "type": "custom:mushroom-entity-card",
-              "entity": "script.vacuum_skip_today",
-              "name": "Skip Vacuuming Today",
-              "icon": "mdi:debug-step-over",
-              "primary_info": "name",
-              "secondary_info": "last-changed",
-              "tap_action": {
-                "action": "toggle"
-              },
-              "hold_action": {
-                "action": "more-info"
-              }
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
               "type": "custom:xiaomi-vacuum-map-card",
               "title": "First Floor",
               "map_source": {
                 "camera": "camera.dreamebot_l10s_ultra_map",
                 "crop": {
-                  "top": 85,
+                  "top": 70,
                   "bottom": 10,
-                  "left": 20,
+                  "left": 25,
                   "right": 10
                 }
               },
@@ -1573,8 +1528,8 @@
               "map_source": {
                 "camera": "camera.eve_rendered_map",
                 "crop": {
-                  "top": 70,
-                  "bottom": 40,
+                  "top": 50,
+                  "bottom": 20,
                   "right": -20,
                   "left": -20
                 }
@@ -1848,6 +1803,28 @@
                       "fan_speed": "low"
                     }
                   }
+                },
+                {
+                  "icon": "mdi:trash-can-outline",
+                  "conditions": [
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "cleaning"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "error"
+                    },
+                    {
+                      "entity": "vacuum.valetudo_eve",
+                      "value_not": "returning"
+                    }
+                  ],
+                  "tooltip": "Go To Trash",
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "script.vacuum_dump_process"
+                  }
                 }
               ],
               "tiles": [
@@ -2088,6 +2065,50 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "sensor.eve_bin",
+                  "state_not": "0"
+                },
+                {
+                  "entity": "sensor.eve_bin",
+                  "state_not": "unknown"
+                }
+              ],
+              "card": {
+                "type": "custom:mushroom-entity-card",
+                "entity": "sensor.eve_bin",
+                "icon_color": "red",
+                "primary_info": "name",
+                "secondary_info": "state",
+                "hold_action": {
+                  "action": "more-info"
+                },
+                "double_tap_action": {
+                  "action": "none"
+                },
+                "tap_action": {
+                  "action": "more-info"
+                },
+                "name": "Empty Eve's Bin"
+              }
+            },
+            {
+              "type": "custom:mushroom-entity-card",
+              "entity": "script.vacuum_skip_today",
+              "name": "Skip Vacuuming Today",
+              "icon": "mdi:debug-step-over",
+              "primary_info": "name",
+              "secondary_info": "last-changed",
+              "tap_action": {
+                "action": "toggle"
+              },
+              "hold_action": {
+                "action": "more-info"
+              }
             }
           ]
         }
