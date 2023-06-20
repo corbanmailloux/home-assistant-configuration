@@ -61,17 +61,17 @@ openhasp:
             - service: homeassistant.toggle
               entity_id: light.corban_s_office_lamp_bottom
 
-      - obj: "p1b115" # Camera Preset 1
-        event:
-          "down":
-            - service: button.press
-              entity_id: button.ptz_preset_1
+      # - obj: "p1b115" # Camera Preset 1
+      #   event:
+      #     "down":
+      #       - service: button.press
+      #         entity_id: button.ptz_preset_1
 
-      - obj: "p1b116" # Camera Preset 2
-        event:
-          "down":
-            - service: button.press
-              entity_id: button.ptz_preset_2
+      # - obj: "p1b116" # Camera Preset 2
+      #   event:
+      #     "down":
+      #       - service: button.press
+      #         entity_id: button.ptz_preset_2
 
       - obj: "p1b118" # Fan, with temperature labels on it
         properties:

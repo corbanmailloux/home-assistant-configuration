@@ -152,20 +152,20 @@ automation:
       - service: scene.turn_on
         entity_id: scene.office_meeting
 
-  - alias: Office Remote - Left Button Hold - Toggle PTZ Camera
-    id: df89803c-e20a-4418-ae99-1371f154ecd4
-    trigger:
-      - platform: device
-        device_id: 66f76df28bdd462e84227f8f164ee7c3
-        discovery_id: 0x90fd9ffffe886c5f action_arrow_left_hold
-        domain: mqtt
-        type: action
-        subtype: arrow_left_hold
-    action:
-      - service: switch.toggle
-        entity_id: switch.ptz_camera # Template switch. See `office_ptz_camera` package.
+  # - alias: Office Remote - Left Button Hold - Toggle PTZ Camera
+  #   id: df89803c-e20a-4418-ae99-1371f154ecd4
+  #   trigger:
+  #     - platform: device
+  #       device_id: 66f76df28bdd462e84227f8f164ee7c3
+  #       discovery_id: 0x90fd9ffffe886c5f action_arrow_left_hold
+  #       domain: mqtt
+  #       type: action
+  #       subtype: arrow_left_hold
+  #   action:
+  #     - service: switch.toggle
+  #       entity_id: switch.ptz_camera # Template switch. See `office_ptz_camera` package.
 
-  - alias: Office Remote - Right Button Click - Toggle Ceiling Light
+  - alias: Office Remote - Right Button Click - Toggle Main Light
     id: 74eee1be-0bea-4009-9621-59e44cc2d8a4
     trigger:
       - platform: device
@@ -177,7 +177,7 @@ automation:
     action:
       - service: light.toggle
         data:
-          entity_id: light.corban_s_office_ceiling_light
+          entity_id: light.corban_s_office_lamp
           brightness: 255
 
   - alias: Office Remote - Right Button Hold - Toggle Fan
