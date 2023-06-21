@@ -469,6 +469,32 @@
             {
               "card": {
                 "color": "red",
+                "entity": "input_text.trash_reminder_message",
+                "layout": "icon_state",
+                "show_icon": true,
+                "show_state": true,
+                "show_name": false,
+                "icon": "mdi:trash-can-outline",
+                "type": "custom:button-card",
+                "tap_action": {
+                  "action": "call-service",
+                  "service": "input_boolean.turn_off",
+                  "service_data": {
+                    "entity_id": "input_boolean.trash_reminder_reminding"
+                  }
+                }
+              },
+              "conditions": [
+                {
+                  "entity": "input_boolean.trash_reminder_reminding",
+                  "state": "on"
+                }
+              ],
+              "type": "conditional"
+            },
+            {
+              "card": {
+                "color": "red",
                 "entity": "binary_sensor.corban_on_a_call",
                 "layout": "icon_name",
                 "show_icon": true,

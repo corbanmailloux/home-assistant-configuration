@@ -280,6 +280,30 @@
                     },
                     "double_tap_action": {
                       "action": "none"
+                    },
+                    "icon": "mdi:island"
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "input_boolean.trash_reminder_reminding",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_text.trash_reminder_message",
+                    "icon_color": "red",
+                    "icon": "mdi:trash-can",
+                    "tap_action": {
+                      "action": "call-service",
+                      "service": "input_boolean.turn_off",
+                      "target": {
+                        "entity_id": "input_boolean.trash_reminder_reminding"
+                      },
+                      "data": {}
                     }
                   }
                 },

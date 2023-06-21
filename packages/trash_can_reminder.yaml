@@ -1,0 +1,209 @@
+automation:
+  - alias: Trash Reminder - Trash - Calendar Trigger
+    id: 18940551-1ea2-4d4d-8730-5a4ad75fd196
+    mode: queued
+    trigger:
+      - platform: calendar
+        event: start
+        entity_id: calendar.chores
+    condition:
+      - condition: template
+        value_template: "{{ 'Trash to Curb' in trigger.calendar_event.summary }}"
+      - alias: "Bins are still at the house"
+        condition: state
+        entity_id: device_tracker.trash_can_tracker
+        state: "home" # TODO: This may need to use distance instead, if the range is far enough.
+    action:
+      - service: input_text.set_value
+        entity_id: input_text.trash_reminder_message
+        data:
+          value: Trash needs to go to the curb.
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.trash_reminder_reminding
+
+  - alias: Trash Reminder - Trash and Recycling - Calendar Trigger
+    id: dfd61176-c897-4564-a756-88fac31e61c6
+    mode: queued
+    trigger:
+      - platform: calendar
+        event: start
+        entity_id: calendar.chores
+    condition:
+      - condition: template
+        value_template: "{{ 'Trash and Recycling to Curb' in trigger.calendar_event.summary }}"
+      - alias: "Bins are still at the house"
+        condition: state
+        entity_id: device_tracker.trash_can_tracker
+        state: "home" # TODO: This may need to use distance instead, if the range is far enough.
+    action:
+      - service: input_text.set_value
+        entity_id: input_text.trash_reminder_message
+        data:
+          value: Trash and recycling need to go to the curb.
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.trash_reminder_reminding
+
+  - id: 0b2ef4c7-2ac7-478c-a6ea-211b6e840f7b
+    alias: Trash Reminder - Clear reminder when the bins are moved
+    trigger:
+      - platform: state
+        entity_id: device_tracker.trash_can_tracker
+        from: "home"
+        to: "not_home"
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.trash_reminder_reminding
+
+  # Notification management
+  - id: 1b3dc26d-04f1-41af-864c-d122460db85e
+    alias: Trash Reminder - Send notifications based on boolean
+    trigger:
+      - platform: state
+        entity_id: input_boolean.trash_reminder_reminding
+        from: "off"
+        to: "on"
+    action:
+      - if:
+          - alias: "Is Corban home?"
+            condition: state
+            entity_id: person.corban
+            state: "home"
+        then:
+          - alias: "Notify Corban"
+            service: script.trash_reminder_send_notification_to_variable
+            data:
+              notify_device: corban
+              dismiss_notification: false
+      - if:
+          - alias: "Is Maggie home?"
+            condition: state
+            entity_id: person.maggie
+            state: "home"
+        then:
+          - alias: "Notify Maggie"
+            service: script.trash_reminder_send_notification_to_variable
+            data:
+              notify_device: maggie
+              dismiss_notification: false
+
+  - id: d43927da-35b6-4a59-9f6f-357f43346eb8
+    alias: Trash Reminder - Dismiss notifications based on boolean
+    trigger:
+      - platform: state
+        entity_id: input_boolean.trash_reminder_reminding
+        from: "on"
+        to: "off"
+    action:
+      - alias: "Clear notifications"
+        service: script.trash_reminder_send_notification_to_variable
+        data:
+          notify_device: adult_phones
+          dismiss_notification: true
+
+  - id: 6d16fbf8-ccb9-4e80-ac9b-99065bd6766c
+    alias: Trash Reminder - Acknowledge alert from notification
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "TRASH_REMINDER_ACK"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.trash_reminder_reminding
+        state: "on"
+    action:
+      - alias: "Turn off boolean"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.trash_reminder_reminding
+
+  - id: 44585217-8bfd-4dda-94c3-72f187bd8ff1
+    alias: Trash Reminder - Send delayed notification if someone gets home
+    mode: parallel
+    trigger:
+      - platform: state
+        entity_id: person.corban
+        to: "home"
+        id: "corban"
+      - platform: state
+        entity_id: person.maggie
+        to: "home"
+        id: "maggie"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.trash_reminder_reminding
+        state: "on"
+    action:
+      - alias: "Notify the right person"
+        service: script.trash_reminder_send_notification_to_variable
+        data:
+          notify_device: >-
+            {{ trigger.id }}
+          dismiss_notification: false
+
+  - id: 951e9a90-2135-4c17-a791-0403a19dbcb8
+    alias: Trash Reminder - Dismiss notification if someone leaves home
+    mode: parallel
+    trigger:
+      - platform: state
+        entity_id: person.corban
+        from: "home"
+        id: "corban"
+      - platform: state
+        entity_id: person.maggie
+        from: "home"
+        id: "maggie"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.trash_reminder_reminding
+        state: "on"
+    action:
+      - alias: "Notify the right person"
+        service: script.trash_reminder_send_notification_to_variable
+        data:
+          notify_device: >-
+            {{ trigger.id }}
+          dismiss_notification: true
+
+script:
+  trash_reminder_send_notification_to_variable:
+    description: "Trash Reminder - Send notification to variable"
+    fields:
+      notify_device:
+        description: "The service call to use for notification: notify.X"
+        example: "corban"
+      dismiss_notification:
+        description: "true to dismiss the notification"
+        example: "true"
+    sequence:
+      - if:
+          - "{{ dismiss_notification == true }}"
+        then:
+          - service: notify.{{ notify_device }}
+            data:
+              message: clear_notification
+              data:
+                tag: "trash_reminder"
+        else:
+          - service: notify.{{ notify_device }}
+            data:
+              title: "Trash Can Reminder"
+              message: >-
+                {{ states("input_text.trash_reminder_message") }}
+              data:
+                tag: "trash_reminder"
+                actions:
+                  - action: "TRASH_REMINDER_ACK"
+                    title: "Mark complete."
+
+input_boolean:
+  trash_reminder_reminding:
+    name: Trash Reminder - Active
+    icon: mdi:trash-can
+
+input_text:
+  trash_reminder_message:
+    name: Trash Reminder Message
