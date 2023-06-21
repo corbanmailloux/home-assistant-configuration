@@ -452,11 +452,21 @@
             {
               "card": {
                 "color": "red",
-                "entity": "input_boolean.vacation_mode",
+                "entity": "input_select.home_mode",
                 "layout": "icon_name",
+                "name": "Vacation Mode Active",
+                "icon": "mdi:island",
                 "show_icon": true,
                 "show_state": false,
-                "type": "custom:button-card"
+                "type": "custom:button-card",
+                "tap_action": {
+                  "action": "call-service",
+                  "service": "input_select.select_option",
+                  "service_data": {
+                    "entity_id": "input_select.home_mode",
+                    "option": "Home"
+                  }
+                }
               },
               "conditions": [
                 {
@@ -580,91 +590,6 @@
               "type": "conditional"
             },
             {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "input_boolean.wall_display_show_vacuum",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "type": "vertical-stack",
-                "cards": [
-                  {
-                    "type": "custom:button-card",
-                    "name": "Vacuum",
-                    "template": "header"
-                  },
-                  {
-                    "cards": [
-                      {
-                        "entity": "input_boolean.vacuum_kitchen",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "input_boolean.vacuum_mud_room",
-                        "name": "Mud Room",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "input_boolean.vacuum_livingroom",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "input_boolean.vacuum_office",
-                        "name": "Office",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "script.vacuum_clean_segments",
-                        "name": "Start",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      }
-                    ],
-                    "type": "horizontal-stack"
-                  },
-                  {
-                    "title": "",
-                    "type": "custom:valetudo-map-card",
-                    "vacuum": "valetudo_eve",
-                    "map_scale": 1.2,
-                    "custom_buttons": [
-                      {
-                        "service": "script.vacuum_skip_today",
-                        "icon": "mdi:debug-step-over",
-                        "text": ". Skip Today"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
               "card": {
                 "entity": "input_boolean.washer_reminder_notifying",
                 "layout": "icon_name",
@@ -682,55 +607,6 @@
                 {
                   "entity": "input_boolean.washer_reminder_notifying",
                   "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "card": {
-                "entity": "input_boolean.dryer_reminder_notifying",
-                "layout": "icon_name",
-                "name": "Dryer done.",
-                "color": "red",
-                "show_icon": true,
-                "show_state": false,
-                "tap_action": {
-                  "action": "toggle"
-                },
-                "hold_action": "none",
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.dryer_reminder_notifying",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "card": {
-                "entity": "timer.dryer_running_countdown",
-                "layout": "icon_name_state2nd",
-                "name": "Dryer Running - Tap to cancel",
-                "icon": "mdi:timer-remove-outline",
-                "color": "yellow",
-                "show_icon": true,
-                "show_state": true,
-                "tap_action": {
-                  "action": "call-service",
-                  "service": "timer.cancel",
-                  "service_data": {
-                    "entity_id": "timer.dryer_running_countdown"
-                  }
-                },
-                "hold_action": "none",
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "timer.dryer_running_countdown",
-                  "state_not": "idle"
                 }
               ],
               "type": "conditional"
@@ -802,31 +678,6 @@
               "type": "conditional"
             },
             {
-              "card": {
-                "type": "custom:threedy-card",
-                "base_entity": "sensor.octoprint",
-                "printer_type": "Cantilever",
-                "name": "OctoPi",
-                "monitored": [
-                  "Status",
-                  "Hotend",
-                  "Elapsed",
-                  "Remaining"
-                ],
-                "temperature_unit": "C",
-                "round_temperature": true,
-                "round_time": true,
-                "power_entity": "switch.3d_printer_main_power"
-              },
-              "conditions": [
-                {
-                  "entity": "binary_sensor.display_printer_card",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
               "type": "conditional",
               "conditions": [
                 {
@@ -836,7 +687,7 @@
               ],
               "card": {
                 "type": "custom:mini-media-player",
-                "entity": "media_player.kitchen",
+                "entity": "media_player.kitchen_homepod",
                 "name": "Kitchen HomePod",
                 "artwork": "none",
                 "icon": "mdi:speaker",

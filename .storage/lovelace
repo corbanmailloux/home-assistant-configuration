@@ -262,9 +262,9 @@
                   ],
                   "chip": {
                     "type": "entity",
-                    "entity": "input_boolean.vacation_mode",
-                    "icon_color": "blue",
-                    "content_info": "name",
+                    "entity": "input_select.home_mode",
+                    "icon_color": "red",
+                    "content_info": "state",
                     "tap_action": {
                       "action": "call-service",
                       "service": "input_select.select_option",
@@ -330,7 +330,8 @@
                     },
                     "double_tap_action": {
                       "action": "none"
-                    }
+                    },
+                    "name": "Litter Box"
                   }
                 },
                 {
@@ -357,7 +358,8 @@
                     },
                     "double_tap_action": {
                       "action": "none"
-                    }
+                    },
+                    "name": "Claw Clipping"
                   }
                 },
                 {
@@ -389,6 +391,25 @@
                       "service": "script.vacuum_dump_process",
                       "target": {}
                     }
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "input_boolean.cat_fountain_clean_needed",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.cat_fountain_clean_needed",
+                    "content_info": "name",
+                    "icon_color": "blue",
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "name": "Fountain Cleaning"
                   }
                 }
               ],
@@ -2133,6 +2154,165 @@
               "hold_action": {
                 "action": "more-info"
               }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "input_boolean.wall_display_show_vacuum",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "type": "vertical-stack",
+                "cards": [
+                  {
+                    "type": "custom:button-card",
+                    "name": "Vacuum",
+                    "template": "header"
+                  },
+                  {
+                    "cards": [
+                      {
+                        "entity": "input_boolean.vacuum_kitchen",
+                        "show_icon": true,
+                        "show_name": true,
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "type": "custom:button-card"
+                      },
+                      {
+                        "entity": "input_boolean.vacuum_mud_room",
+                        "name": "Mud Room",
+                        "show_icon": true,
+                        "show_name": true,
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "type": "custom:button-card"
+                      },
+                      {
+                        "entity": "input_boolean.vacuum_livingroom",
+                        "show_icon": true,
+                        "show_name": true,
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "type": "custom:button-card"
+                      },
+                      {
+                        "entity": "input_boolean.vacuum_office",
+                        "name": "Office",
+                        "show_icon": true,
+                        "show_name": true,
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "type": "custom:button-card"
+                      },
+                      {
+                        "entity": "script.vacuum_clean_segments",
+                        "name": "Start",
+                        "show_icon": true,
+                        "show_name": true,
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "type": "custom:button-card"
+                      }
+                    ],
+                    "type": "horizontal-stack"
+                  },
+                  {
+                    "title": "",
+                    "type": "custom:valetudo-map-card",
+                    "vacuum": "valetudo_eve",
+                    "map_scale": 1.2,
+                    "custom_buttons": [
+                      {
+                        "service": "script.vacuum_skip_today",
+                        "icon": "mdi:debug-step-over",
+                        "text": ". Skip Today"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "card": {
+                "entity": "input_boolean.dryer_reminder_notifying",
+                "layout": "icon_name",
+                "name": "Dryer done.",
+                "color": "red",
+                "show_icon": true,
+                "show_state": false,
+                "tap_action": {
+                  "action": "toggle"
+                },
+                "hold_action": "none",
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "entity": "input_boolean.dryer_reminder_notifying",
+                  "state": "on"
+                }
+              ],
+              "type": "conditional"
+            },
+            {
+              "card": {
+                "entity": "timer.dryer_running_countdown",
+                "layout": "icon_name_state2nd",
+                "name": "Dryer Running - Tap to cancel",
+                "icon": "mdi:timer-remove-outline",
+                "color": "yellow",
+                "show_icon": true,
+                "show_state": true,
+                "tap_action": {
+                  "action": "call-service",
+                  "service": "timer.cancel",
+                  "service_data": {
+                    "entity_id": "timer.dryer_running_countdown"
+                  }
+                },
+                "hold_action": "none",
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "entity": "timer.dryer_running_countdown",
+                  "state_not": "idle"
+                }
+              ],
+              "type": "conditional"
+            },
+            {
+              "card": {
+                "type": "custom:threedy-card",
+                "base_entity": "sensor.octoprint",
+                "printer_type": "Cantilever",
+                "name": "OctoPi",
+                "monitored": [
+                  "Status",
+                  "Hotend",
+                  "Elapsed",
+                  "Remaining"
+                ],
+                "temperature_unit": "C",
+                "round_temperature": true,
+                "round_time": true,
+                "power_entity": "switch.3d_printer_main_power"
+              },
+              "conditions": [
+                {
+                  "entity": "binary_sensor.display_printer_card",
+                  "state": "on"
+                }
+              ],
+              "type": "conditional"
             }
           ]
         }
