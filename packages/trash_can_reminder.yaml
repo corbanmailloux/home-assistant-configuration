@@ -1,3 +1,11 @@
+# Example configuration.yaml entry
+binary_sensor:
+  - platform: threshold
+    name: Trash Can at Home
+    device_class: presence
+    entity_id: sensor.trash_can_tracker_estimated_distance
+    lower: 60
+
 automation:
   - alias: Trash Reminder - Trash - Calendar Trigger
     id: 18940551-1ea2-4d4d-8730-5a4ad75fd196
@@ -7,12 +15,16 @@ automation:
         event: start
         entity_id: calendar.chores
     condition:
+      - not:
+          - condition: state
+            entity_id: input_select.home_mode
+            state: "Vacation"
       - condition: template
         value_template: "{{ 'Trash to Curb' in trigger.calendar_event.summary }}"
       - alias: "Bins are still at the house"
         condition: state
-        entity_id: device_tracker.trash_can_tracker
-        state: "home" # TODO: This may need to use distance instead, if the range is far enough.
+        entity_id: binary_sensor.trash_can_at_home
+        state: "on"
     action:
       - service: input_text.set_value
         entity_id: input_text.trash_reminder_message
@@ -29,12 +41,16 @@ automation:
         event: start
         entity_id: calendar.chores
     condition:
+      - not:
+          - condition: state
+            entity_id: input_select.home_mode
+            state: "Vacation"
       - condition: template
         value_template: "{{ 'Trash and Recycling to Curb' in trigger.calendar_event.summary }}"
       - alias: "Bins are still at the house"
         condition: state
-        entity_id: device_tracker.trash_can_tracker
-        state: "home" # TODO: This may need to use distance instead, if the range is far enough.
+        entity_id: binary_sensor.trash_can_at_home
+        state: "on"
     action:
       - service: input_text.set_value
         entity_id: input_text.trash_reminder_message
@@ -47,9 +63,9 @@ automation:
     alias: Trash Reminder - Clear reminder when the bins are moved
     trigger:
       - platform: state
-        entity_id: device_tracker.trash_can_tracker
-        from: "home"
-        to: "not_home"
+        entity_id: binary_sensor.trash_can_at_home
+        from: "on"
+        to: "off"
     action:
       - service: input_boolean.turn_off
         entity_id: input_boolean.trash_reminder_reminding
