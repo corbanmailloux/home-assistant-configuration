@@ -4,6 +4,7 @@ light:
     entities:
       - light.basement_laundry_light
       - light.basement_network_rack_light
+      - light.basement_oil_tank_light
 
 automation:
   - id: f1227b65-0d99-4c35-9694-bc229a89f2b7
@@ -22,6 +23,9 @@ automation:
     action:
       - alias: "Turn on basement lights"
         service: light.turn_on
+        data:
+          kelvin: 4000
+          brightness: 255
         target:
           entity_id: light.basement_lights
       - wait_for_trigger:
