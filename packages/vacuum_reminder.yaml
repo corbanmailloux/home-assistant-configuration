@@ -17,22 +17,22 @@ automation:
         condition: time
         weekday:
           - mon
-          - tue
+          # - tue
           - wed
-          - thu
+          # - thu
           - fri
-      - alias: "Maggie's not home"
-        condition: state
-        entity_id: binary_sensor.maggie_person_home
-        state: "off"
+      # - alias: "Maggie's not home"
+      #   condition: state
+      #   entity_id: binary_sensor.maggie_person_home
+      #   state: "off"
       - alias: "Home Occupied"
         condition: state
         entity_id: input_select.home_mode
         state: "Home"
-      - alias: "Vacuum didn't run yesterday"
-        condition: template
-        value_template: >
-          {{ states('input_datetime.last_vacuum_run') < (now().timestamp() - 30*60*60) | timestamp_custom('%Y-%m-%d') }}
+      # - alias: "Vacuum didn't run yesterday"
+      #   condition: template
+      #   value_template: >
+      #     {{ states('input_datetime.last_vacuum_run') < (now().timestamp() - 30*60*60) | timestamp_custom('%Y-%m-%d') }}
     action:
       - service: notify.corban
         data:
