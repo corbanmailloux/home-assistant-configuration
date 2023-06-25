@@ -62,31 +62,6 @@
               "type": "custom:layout-break"
             },
             {
-              "entities": [
-                "sensor.speedtest_download",
-                "sensor.speedtest_upload"
-              ],
-              "hours_to_show": 168,
-              "type": "history-graph",
-              "refresh_interval": 0,
-              "title": "Internet"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.cert_expiry_timestamp_home_corb_co",
-                  "name": "home.corb.co"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "TLS Certificates",
-              "state_color": false
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
               "type": "entities",
               "entities": [
                 {
@@ -160,26 +135,6 @@
           "badges": [],
           "cards": [
             {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.kitchen_cabinet_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.kitchen_counter_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.stairs_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.office_mini_motion_presence"
-                }
-              ],
-              "title": "Motion Sensors",
-              "show_header_toggle": false,
-              "state_color": true
-            },
-            {
               "entities": [
                 {
                   "entity": "input_select.home_mode"
@@ -205,6 +160,20 @@
               "type": "entities",
               "entities": [
                 {
+                  "entity": "binary_sensor.office_mini_motion_presence"
+                },
+                {
+                  "entity": "binary_sensor.laundry_motion_sensor_occupancy"
+                }
+              ],
+              "title": "Motion Sensors",
+              "show_header_toggle": false,
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
                   "entity": "binary_sensor.linen_closet_door_sensor_contact"
                 },
                 {
@@ -215,26 +184,6 @@
                 }
               ],
               "title": "Doors and Windows"
-            },
-            {
-              "square": false,
-              "columns": 1,
-              "type": "grid",
-              "cards": [
-                {
-                  "show_state": true,
-                  "show_name": true,
-                  "camera_view": "auto",
-                  "type": "picture-entity",
-                  "entity": "camera.wall_display_camera"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    "light.kitchen_counter_lights"
-                  ]
-                }
-              ]
             }
           ]
         },

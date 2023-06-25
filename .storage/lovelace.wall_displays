@@ -654,7 +654,11 @@
                 "name": "Empty Eve's Bin",
                 "show_icon": true,
                 "show_state": true,
-                "type": "custom:button-card"
+                "type": "custom:button-card",
+                "tap_action": {
+                  "action": "call-service",
+                  "service": "script.vacuum_dump_process"
+                }
               }
             },
             {
@@ -697,29 +701,6 @@
                   "source": true
                 }
               }
-            }
-          ]
-        },
-        {
-          "title": "Wall Display - More",
-          "path": "wall-display-more",
-          "icon": "mdi:page-next-outline",
-          "theme": "noctis_custom",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "type": "picture-entity",
-              "entity": "camera.join_our_wifi",
-              "show_name": false,
-              "show_state": false,
-              "tap_action": {
-                "action": "more-info"
-              },
-              "hold_action": {
-                "action": "none"
-              },
-              "name": "Join the WiFi"
             }
           ]
         }

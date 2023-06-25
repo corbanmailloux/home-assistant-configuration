@@ -82,3 +82,6 @@ themes/noctis/
 themes/ios-themes/
 
 .shopping_list.json
+
+# Keys, such as for the Lutron Caseta integration.
+*.pem
