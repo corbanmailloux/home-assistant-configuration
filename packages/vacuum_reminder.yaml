@@ -1,4 +1,4 @@
-# Reminder to run the vacuum upstairs a couple times a week.
+# Reminder to run the vacuum upstairs.
 
 input_datetime:
   last_vacuum_run:
@@ -13,36 +13,25 @@ automation:
       - platform: time
         at: "10:00:00"
     condition:
-      - alias: "Weekdays"
-        condition: time
+      - condition: time
         weekday:
           - mon
-          # - tue
           - wed
-          # - thu
           - fri
-      # - alias: "Maggie's not home"
-      #   condition: state
-      #   entity_id: binary_sensor.maggie_person_home
-      #   state: "off"
       - alias: "Home Occupied"
         condition: state
         entity_id: input_select.home_mode
         state: "Home"
-      # - alias: "Vacuum didn't run yesterday"
-      #   condition: template
-      #   value_template: >
-      #     {{ states('input_datetime.last_vacuum_run') < (now().timestamp() - 30*60*60) | timestamp_custom('%Y-%m-%d') }}
     action:
       - service: notify.corban
         data:
           title: "Vacuum Upstairs"
-          message: "Choose cleaning mode:"
+          message: "Hold for options."
           data:
             group: "run_vacuum"
             actions:
               - action: "VACUUM_FULL_CLEAN"
-                title: "Clean - Full"
+                title: "Clean Upstairs"
                 activationMode: "background"
                 authenticationRequired: false # Don't require unlocking the device
                 destructive: false
@@ -62,13 +51,12 @@ automation:
         event_data:
           action: "VACUUM_FULL_CLEAN"
     action:
-      # - alias: Show the vacuum card
-      #   service: input_boolean.turn_on
-      #   target:
-      #     entity_id: input_boolean.wall_display_show_vacuum
       - service: vacuum.start
         target:
           entity_id: vacuum.valetudo_eve
+      - alias: "Wait for the vacuum to get off the dock"
+        delay:
+          minutes: 1
       - alias: Wait for clean to complete
         wait_template: "{{ is_state('vacuum.valetudo_eve', 'docked') }}"
         timeout:
@@ -78,16 +66,6 @@ automation:
             sequence:
               - service: script.vacuum_alert_timeout
         default:
-          - service: input_datetime.set_datetime
-            alias: Store the last run time
-            target:
-              entity_id: input_datetime.last_vacuum_run
-            data:
-              timestamp: "{{ now().timestamp() }}"
-          # - alias: Hide the vacuum card
-          #   service: input_boolean.turn_off
-          #   target:
-          #     entity_id: input_boolean.wall_display_show_vacuum
           - service: notify.corban
             data:
               title: "Empty Eve's Bin"
@@ -102,20 +80,20 @@ automation:
                     destructive: false
                     behavior: "default"
 
-  - alias: Vacuum Reminder - Skip vacuum cycle from notification
-    id: c3c4dc5d-306f-40db-859c-69cd173f53ef
-    trigger:
-      - platform: event
-        event_type: mobile_app_notification_action
-        event_data:
-          action: "VACUUM_SKIP"
-    action:
-      - alias: Store the last run time
-        service: input_datetime.set_datetime
-        target:
-          entity_id: input_datetime.last_vacuum_run
-        data:
-          timestamp: "{{ now().timestamp() }}"
+  # - alias: Vacuum Reminder - Skip vacuum cycle from notification
+  #   id: c3c4dc5d-306f-40db-859c-69cd173f53ef
+  #   trigger:
+  #     - platform: event
+  #       event_type: mobile_app_notification_action
+  #       event_data:
+  #         action: "VACUUM_SKIP"
+  #   action:
+  #     - alias: Store the last run time
+  #       service: input_datetime.set_datetime
+  #       target:
+  #         entity_id: input_datetime.last_vacuum_run
+  #       data:
+  #         timestamp: "{{ now().timestamp() }}"
 
   - alias: Vacuum Reminder - Go To Dump Spot from Notification
     id: f2fb73d1-444a-440d-b1f4-4b226657c94f
