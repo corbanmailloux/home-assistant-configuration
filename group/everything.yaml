@@ -22,6 +22,13 @@ everything_custom:
 
     ## Sunporch
     - light.sunporch_string_lights
+    - light.sunporch_sconces
+
+    ## Hallways
+    - light.stairs_bottom_of_stairs
+
+    ## Exterior?
+    # TODO: Exterior lighting should be automated separately, so not included here.
 
     ## Wall Displays
     - light.tablet_wall_display_screen
@@ -54,6 +61,10 @@ everything_custom_for_guest_mode:
 
     ## Sunporch
     - light.sunporch_string_lights
+    - light.sunporch_sconces
+
+    ## Hallways
+    - light.stairs_bottom_of_stairs
 
     ## Wall Displays
     - light.tablet_wall_display_screen

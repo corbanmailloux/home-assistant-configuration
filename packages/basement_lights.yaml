@@ -1,6 +1,7 @@
 light:
   - platform: group
     name: Basement Lights
+    unique_id: 838fff02-b354-4132-af97-db73d769affa
     entities:
       - light.basement_laundry_light
       - light.basement_network_rack_light
