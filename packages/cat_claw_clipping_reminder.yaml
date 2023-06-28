@@ -1,20 +1,4 @@
 automation:
-  # - alias: Show Cat Clipper Reminder
-  #   id: 9c2a9c9e-d13c-4635-9a56-ce76eafaca0c
-  #   trigger:
-  #     - platform: time
-  #       at: "20:00:00" # 8:00PM
-  #   condition:
-  #     - condition: time
-  #       weekday:
-  #         - sat
-  #     # - condition: template
-  #     #   # Every other week
-  #     #   value_template: "{{(as_timestamp(now())|timestamp_custom ('%U') | int % 2) == 0 }}"
-  #   action:
-  #     - service: input_boolean.turn_on
-  #       entity_id: input_boolean.cat_claw_clip_needed
-
   - alias: Show Cat Claw Clipping Card - Calendar Automation
     id: 07d5496d-3810-43a3-b371-59d65c7bc10f
     mode: queued
@@ -35,18 +19,14 @@ input_boolean:
     icon: mdi:paw
 
 script:
-  cat_claw_clipped_run_eve:
-    alias: Run Eve in Kitchen
+  cat_claw_clipped_run_vacuum:
+    alias: Clear Clipping Card and Vacuum Kitchen
     sequence:
       - alias: Hide the card on the wall display
         service: input_boolean.turn_off
         entity_id: input_boolean.cat_claw_clip_needed
-      - alias: Make sure no rooms are selected
-        service: homeassistant.turn_off
-        target:
-          entity_id: group.vacuum_rooms
-      - alias: Turn on the kitchen
-        service: input_boolean.turn_on
-        entity_id: input_boolean.vacuum_kitchen
-      - alias: Start cleaning
-        service: script.vacuum_clean_segments
+      - alias: Vacuum kitchen
+        service: dreame_vacuum.vacuum_clean_segment
+        data:
+          entity_id: vacuum.dreamebot_l10s_ultra
+          segments: 9 # Kitchen

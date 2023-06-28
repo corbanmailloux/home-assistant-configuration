@@ -1,3 +1,5 @@
+# While this isn't in use right now, I liked the cycling fade system here and I may use it again.
+
 # automation:
 #   - alias: Office Single Button - Click - Toggle Main Light
 #     id: 99ea49dd-33a7-46e0-8e81-34fe2f5320f7

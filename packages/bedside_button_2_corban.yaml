@@ -57,7 +57,7 @@ automation:
         choose:
           - conditions:
               - condition: state
-                entity_id: input_select.sleep_mode
+                entity_id: input_select.home_mode
                 state: "Sleep"
             sequence:
               - service: script.turn_on

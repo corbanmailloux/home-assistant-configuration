@@ -1,13 +1,6 @@
 # For the central living room wall-mounted tablet.
 # These are helpers used to populate the main dashboard and control some dynamic cards.
 
-# Moved to a UI integration.
-# camera:
-#   - platform: generic
-#     name: Join Our WiFi
-#     still_image_url: !secret wifi_qr_code_url
-#     limit_refetch_to_url_change: true
-
 template:
   - binary_sensor:
       - name: "Wall Display: Show Kitchen Media Card"
@@ -37,10 +30,6 @@ input_boolean:
     name: Show Map on Wall Display
     icon: mdi:map-clock
 
-  wall_display_show_vacuum:
-    name: Show Vacuum Cards on Wall Display
-    icon: mdi:robot-vacuum
-
 automation:
   - alias: Show map when Maggie's away from home
     id: 229ee037-4e8d-43bc-a5ab-acd4f19bb2a0
@@ -59,11 +48,10 @@ automation:
     trigger:
       - platform: state
         entity_id: person.maggie
-        to: "home"
-        for: "00:01:00"
-      - platform: state
-        entity_id: person.maggie
-        to: "L3Harris"
+        to:
+          - "home"
+          - "L3Harris"
+          - "Clay Studio"
         for: "00:01:00"
     action:
       - service: input_boolean.turn_off

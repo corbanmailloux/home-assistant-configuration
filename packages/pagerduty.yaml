@@ -1,5 +1,6 @@
 # Using a PagerDuty webhook (https://v2.developer.pagerduty.com/v2/docs/webhooks-overview), catch
-# every time I get paged.
+# every time I get paged. If it's overnight, slightly turn on some bedroom lights to help find my
+# laptop to respond.
 
 automation:
   - alias: "PagerDuty Webhook - Triggered Event"

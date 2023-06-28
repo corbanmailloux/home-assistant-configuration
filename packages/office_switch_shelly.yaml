@@ -1,4 +1,5 @@
 # See `esphome/office-switch-shelly.yaml`
+# TODO: Blueprint.
 
 automation:
   - alias: Office Light Switch - Toggle Office Light

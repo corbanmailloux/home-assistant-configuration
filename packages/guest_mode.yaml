@@ -1,9 +1,8 @@
 # Guest mode is an override layer that modifies some automations. This is used when
-# there is someone staying in our guest room/office. Search `guest_mode` in other automations for specifics.
+# there is someone staying in our guest room. Search `guest_mode` in other automations for specifics.
 
 input_boolean:
   guest_mode:
     name: Guest Mode
     icon: mdi:bag-checked
 # TODO: When guest mode is on, notify Corban each time the door is opened with a "Mark Home" and "Mark Away button."
-# Ideally include a snapshot from the wall display camera in this notification.

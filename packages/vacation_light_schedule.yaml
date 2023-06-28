@@ -43,9 +43,6 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.office_leds
-      - service: light.turn_on
-        data:
           entity_id: light.corner_lamp
           brightness_pct: 80
   - alias: Schedule - 2 - Dim for movie
@@ -74,8 +71,8 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.bedroom_lamp
-          brightness_pct: 40
+          entity_id: light.stairs_bottom_of_stairs
+      # TODO: Update when there's bedroom lights under control.
   - alias: Schedule - 4 - Maggs sleep
     id: a5428791-727a-4e3d-a137-5eae0db3a9f8
     trigger:
@@ -88,10 +85,7 @@ automation:
     action:
       - service: light.turn_off
         data:
-          entity_id: light.bedroom_lamp
-      - service: light.turn_off
-        data:
-          entity_id: light.office_leds
+          entity_id: light.stairs_bottom_of_stairs
   - alias: Schedule - 5 - Everything off
     id: 29494677-5ec8-407d-a5a9-adda62a9eb39
     trigger:

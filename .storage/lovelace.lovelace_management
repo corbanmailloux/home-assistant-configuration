@@ -283,7 +283,7 @@
                 }
               ],
               "show_header_toggle": true,
-              "title": "Vacuum Status",
+              "title": "Upstairs Vacuum Status",
               "state_color": true
             },
             {

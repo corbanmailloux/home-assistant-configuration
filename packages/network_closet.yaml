@@ -1,21 +1,4 @@
 automation:
-  # - alias: Notify Corban if the network closet gets too hot
-  #   id: d26651d1-1891-40c8-aebb-305f66c2e49d
-  #   trigger:
-  #     - platform: numeric_state
-  #       entity_id: sensor.network_closet_temperature
-  #       above: 90 # °F
-  #       for:
-  #         minutes: 5
-  #   action:
-  #     - service: notify.corban
-  #       data:
-  #         title: "Network Closet Too Hot"
-  #       data_template:
-  #         message: >
-  #           The network closet is {{ states('sensor.network_closet_temperature') | round(1) }}°F.
-  #           This exceeds the threshold of 90°F.
-
   - alias: UPS Power Outage Notification
     id: 249c1373-c037-4b3c-80b8-8460daa3c79f
     mode: single

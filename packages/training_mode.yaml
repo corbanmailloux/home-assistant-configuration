@@ -11,6 +11,10 @@ scene:
       light.corban_s_office_lamp_bottom:
         brightness: 255
         state: "on"
+      light.stairs_bottom_of_stairs:
+        state: "on"
+      light.sunporch_string_lights:
+        state: "on"
     icon: mdi:trophy-outline
 
 input_boolean:
@@ -34,6 +38,8 @@ automation:
             - light.corner_lamp
             - light.corban_s_office_lamp
             - light.corban_s_office_lamp_bottom
+            - light.stairs_bottom_of_stairs
+            - light.sunporch_string_lights
       - service: scene.turn_on
         target:
           entity_id: scene.training

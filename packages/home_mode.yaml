@@ -86,7 +86,7 @@ automation:
         entity_id: group.adults
         to: "home"
         for:
-          minutes: 1 # Setting this to a small delay until I install the door sensor(s) again. Previously set to 10 minutes.
+          minutes: 1
     condition:
       - condition: state
         entity_id: input_select.home_mode
@@ -145,14 +145,3 @@ automation:
     action:
       - service: script.turn_on
         entity_id: script.everything_off
-      # Okay, so I should really rebuild this part, but...
-      # If the cats are home, turn some lighting back on for them.
-      # - condition: state
-      #   entity_id: input_boolean.cats_are_home
-      #   state: "on"
-      # - delay:
-      #     seconds: 3
-      # - service: light.turn_on
-      #   data:
-      #     entity_id: light.corner_lamp
-      #     brightness: 60

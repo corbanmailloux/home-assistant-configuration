@@ -12,30 +12,3 @@ media_player:
     attributes:
       source: media_player.bedroom_roku|source
       source_list: media_player.bedroom_roku|source_list
-
-script:
-  # Script wrappers for the Roku controls.
-  bedroom_roku_play_pause:
-    alias: "Play/Pause"
-    icon: mdi:play-pause
-    sequence:
-      - service: remote.send_command
-        data:
-          entity_id: remote.bedroom_tv
-          command: "play"
-  bedroom_roku_back:
-    alias: "Back"
-    icon: mdi:keyboard-backspace
-    sequence:
-      - service: remote.send_command
-        data:
-          entity_id: remote.bedroom_tv
-          command: "back"
-  bedroom_roku_replay:
-    alias: "Replay"
-    icon: mdi:replay
-    sequence:
-      - service: remote.send_command
-        data:
-          entity_id: remote.bedroom_tv
-          command: "replay"

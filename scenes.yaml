@@ -2,6 +2,8 @@
   name: Movie Mode
   entities:
     light.corner_lamp:
+      min_color_temp_kelvin: 2702
+      max_color_temp_kelvin: 6535
       min_mireds: 153
       max_mireds: 370
       effect_list:
@@ -14,7 +16,8 @@
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 97
+      brightness: 99
+      color_temp_kelvin: 2702
       color_temp: 370
       hs_color:
       - 28.391
@@ -31,10 +34,65 @@
       - light.tv_lamp_middle
       - light.tv_lamp_bottom
       icon: mdi:lightbulb-group
-      friendly_name: TV Lamp
+      friendly_name: Corner Lamp
       supported_features: 44
       state: 'on'
+    light.corban_s_office_lamp:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - channel_change
+      - finish_effect
+      - okay
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      entity_id:
+      - light.corban_s_office_lamp_top
+      - light.corban_s_office_lamp_middle
+      icon: mdi:lightbulb-group
+      friendly_name: Corban's Office Lamp
+      supported_features: 44
+      state: 'off'
+    light.stairs_bottom_of_stairs:
+      supported_color_modes:
+      - onoff
+      friendly_name: Stairs Bottom of Stairs
+      supported_features: 0
+      state: 'off'
+    light.corban_s_office_lamp_bottom:
+      min_color_temp_kelvin: 2702
+      max_color_temp_kelvin: 6535
+      min_mireds: 153
+      max_mireds: 370
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      level_config:
+        on_level: previous
+      linkquality: 40
+      power_on_behavior:
+      friendly_name: Corban's Office Lamp - Bottom
+      supported_features: 44
+      state: 'off'
   icon: mdi:movie-open-play
+  metadata:
+    light.corban_s_office_lamp:
+      entity_only: true
+    light.stairs_bottom_of_stairs:
+      entity_only: true
+    light.corban_s_office_lamp_bottom:
+      entity_only: true
 - id: '1684776530169'
   name: Office Meeting
   entities:

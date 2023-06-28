@@ -1,4 +1,7 @@
-# Example configuration.yaml entry
+# Reminder system for the trash and recycling.
+# There is an iBeacon on the trach can and a Bluetooth Proxy (ESPHome) in the garage. This allows HASS to know if the trash has been brought to the curb.
+# Combine this with a calendar-based reminder that automatically clears when the trash is brought down.
+
 binary_sensor:
   - platform: threshold
     name: Trash Can at Home
