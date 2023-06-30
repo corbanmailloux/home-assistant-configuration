@@ -25,8 +25,15 @@ script:
       - alias: Hide the card on the wall display
         service: input_boolean.turn_off
         entity_id: input_boolean.cat_claw_clip_needed
+      - alias: "Set vacuum mode"
+        service: select.select_option
+        target:
+          entity_id: select.dreamebot_l10s_ultra_cleaning_mode
+        data:
+          option: "sweeping"
       - alias: Vacuum kitchen
         service: dreame_vacuum.vacuum_clean_segment
-        data:
+        target:
           entity_id: vacuum.dreamebot_l10s_ultra
+        data:
           segments: 9 # Kitchen
