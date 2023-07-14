@@ -16,6 +16,7 @@ everything_custom:
     ## Living Room
     - light.corner_lamp
     # - light.christmas_tree_lights
+    - fan.living_room_fan
 
     ## Kitchen
     # - light.kitchen_counter_lights
@@ -55,6 +56,7 @@ everything_custom_for_guest_mode:
     ## Living Room
     - light.corner_lamp
     # - light.christmas_tree_lights
+    - fan.living_room_fan
 
     ## Kitchen
     # - light.kitchen_counter_lights

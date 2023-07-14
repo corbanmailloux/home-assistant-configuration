@@ -541,6 +541,12 @@
                   "primary_info": "name",
                   "secondary_info": "state",
                   "layout": "horizontal"
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.living_room_fan",
+                  "icon_animation": true,
+                  "name": "Fan"
                 }
               ]
             },
