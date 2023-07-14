@@ -116,6 +116,24 @@ automation:
   #       target:
   #         entity_id: input_boolean.washer_reminder_notifying
 
+  - id: beba8d5b-7898-4d1e-b796-e63b19c2bdba
+    alias: Washer Reminder - Acknowledge alert when motion is detected in the basement
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.laundry_motion_sensor_occupancy
+        from: "off"
+        to: "on"
+    condition:
+      - alias: "Notification active"
+        condition: state
+        entity_id: input_boolean.washer_reminder_notifying
+        state: "on"
+    action:
+      - alias: "Turn off boolean"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.washer_reminder_notifying
+
   - id: 19098e11-621e-4f4c-a0f4-aee3c5d8e8cf
     alias: Washer Reminder - Acknowledge alert from notification
     trigger:
