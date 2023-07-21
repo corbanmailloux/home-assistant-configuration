@@ -28,8 +28,9 @@ everything_custom:
     ## Hallways
     - light.stairs_bottom_of_stairs
 
-    ## Exterior?
-    # TODO: Exterior lighting should be automated separately, so not included here.
+    ## Basement
+    - light.basement_lights
+    - light.basement_stairs_main_lights
 
     ## Wall Displays
     - light.tablet_wall_display_screen
@@ -38,39 +39,5 @@ everything_custom:
     - switch.living_room_tv_power
     - fan.office_air_purifier
 
-everything_custom_for_guest_mode:
-  # TODO: This could probably be done with nested groups instead.
-  name: Everything without Guest Room
-  entities:
-    ## Bedroom
-    # - light.bedroom_lamp
-    - light.fairy_lights
-
-    ## Corban's Office
-    - light.corban_s_office_lamp_bottom
-    - light.corban_s_office_lamp_middle
-    - light.corban_s_office_lamp_top
-    - light.key_light_air_1
-    - light.office_leds
-
-    ## Living Room
-    - light.corner_lamp
-    # - light.christmas_tree_lights
-    - fan.living_room_fan
-
-    ## Kitchen
-    # - light.kitchen_counter_lights
-
-    ## Sunporch
-    - light.sunporch_string_lights
-    - light.sunporch_sconces
-
-    ## Hallways
-    - light.stairs_bottom_of_stairs
-
-    ## Wall Displays
-    - light.tablet_wall_display_screen
-
-    ## Other devices
-    - switch.living_room_tv_power
-    - fan.office_air_purifier
+    ## Exterior
+    # Note: Exterior lighting is automated separately, so not included here.
