@@ -164,6 +164,9 @@
                 },
                 {
                   "entity": "binary_sensor.laundry_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy"
                 }
               ],
               "title": "Motion Sensors",
@@ -181,6 +184,9 @@
                 },
                 {
                   "entity": "binary_sensor.front_door"
+                },
+                {
+                  "entity": "binary_sensor.basement_door_sensor_contact"
                 }
               ],
               "title": "Doors and Windows"
@@ -311,6 +317,32 @@
               "entities": [
                 "input_datetime.last_litter_box_replacement"
               ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.basement_lights"
+                },
+                {
+                  "entity": "automation.basement_motion_lights"
+                },
+                {
+                  "entity": "binary_sensor.basement_assumed_motion"
+                },
+                {
+                  "entity": "binary_sensor.basement_door_sensor_contact"
+                },
+                {
+                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.laundry_motion_sensor_occupancy"
+                }
+              ],
+              "title": "Basement Lights",
+              "show_header_toggle": false,
+              "state_color": false
             }
           ],
           "icon": "mdi:flask",

@@ -724,8 +724,7 @@
                   "fill_container": true,
                   "show_percentage_control": true,
                   "collapsible_controls": true,
-                  "layout": "vertical",
-                  "icon_type": "none"
+                  "layout": "vertical"
                 },
                 {
                   "type": "custom:mushroom-entity-card",
@@ -734,19 +733,18 @@
                   "primary_info": "name",
                   "secondary_info": "state",
                   "fill_container": true,
-                  "icon_type": "none",
                   "layout": "vertical"
                 },
                 {
                   "type": "custom:mushroom-climate-card",
                   "entity": "climate.corbans_office_ac",
                   "name": "AC",
-                  "fill_container": false,
+                  "fill_container": true,
                   "show_temperature_control": true,
                   "hvac_modes": [],
                   "collapsible_controls": true,
-                  "icon_type": "none",
-                  "layout": "vertical"
+                  "layout": "vertical",
+                  "icon_type": "none"
                 }
               ]
             }

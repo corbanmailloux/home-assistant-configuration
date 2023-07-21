@@ -6,39 +6,78 @@ light:
       - light.basement_laundry_light
       - light.basement_network_rack_light
       - light.basement_oil_tank_light
+      - light.basement_stairs_main_lights
+
+template:
+  - binary_sensor:
+      - name: "Basement Assumed Motion"
+        unique_id: 32c8a84a-35db-45b9-a8ce-f628619eec49
+        device_class: occupancy
+        # Only count the door sensor as motion if the lights are off. This avoids retriggering when leaving the basement.
+        state: >-
+          {{
+            ( is_state('binary_sensor.basement_door_sensor_contact', 'on') and is_state('light.basement_lights', 'off')) or
+            is_state('binary_sensor.laundry_motion_sensor_occupancy', 'on') or
+            is_state('binary_sensor.basement_stairs_motion_sensor_occupancy', 'on')
+          }}
 
 automation:
+  - id: a057b5d7-4be2-4815-ae9a-616bc0af99c0
+    alias: Basement - All Lights Follow Switched Lights
+    trigger:
+      - platform: state
+        entity_id: light.basement_stairs_main_lights
+        not_from:
+          - "unknown"
+          - "unavailable"
+    action:
+      - service: >-
+          {% if trigger.to_state.state == "on" %}
+            light.turn_on
+          {% else %}
+            light.turn_off
+          {% endif %}
+        target:
+          entity_id: light.basement_lights # Group
+
   - id: f1227b65-0d99-4c35-9694-bc229a89f2b7
-    alias: Basement Motion Lights
+    alias: Basement - Motion Lights
     # If motion is detected within the delay, we restart the script.
     mode: restart
     trigger:
       - platform: state
-        entity_id: binary_sensor.laundry_motion_sensor_occupancy
+        entity_id: binary_sensor.basement_assumed_motion
         from: "off"
         to: "on"
-    condition:
-      - condition: state
-        entity_id: input_select.home_mode
-        state: "Home"
+        id: "on"
+      - platform: state
+        entity_id: binary_sensor.basement_assumed_motion
+        to: "off"
+        for:
+          minutes: 5
+        id: "off"
     action:
-      - alias: "Turn on basement lights"
-        service: light.turn_on
-        data:
-          kelvin: 4000
-          brightness: 255
-        target:
-          entity_id: light.basement_lights
-      - wait_for_trigger:
-          platform: state
-          entity_id: binary_sensor.laundry_motion_sensor_occupancy
-          from: "on"
-          to: "off"
-      - delay:
-          minutes: 10
-      - alias: "Turn off basement lights"
-        service: light.turn_off
-        data:
-          transition: 20
-        target:
-          entity_id: light.basement_lights
+      - alias: "On or Off?"
+        choose:
+          - conditions: >-
+              {{ trigger.id == "on" }}
+            sequence:
+              - condition: state
+                entity_id: input_select.home_mode
+                state: "Home"
+              - alias: "Turn on basement lights"
+                service: light.turn_on
+                data:
+                  kelvin: 4000
+                  brightness: 255
+                target:
+                  entity_id: light.basement_lights
+          - conditions: >-
+              {{ trigger.id == "off" }}
+            sequence:
+              - alias: "Turn off basement lights"
+                service: light.turn_off
+                data:
+                  transition: 20
+                target:
+                  entity_id: light.basement_lights
