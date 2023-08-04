@@ -538,8 +538,8 @@
                     "action": "more-info"
                   },
                   "name": "Lamp",
-                  "primary_info": "name",
-                  "secondary_info": "state",
+                  "primary_info": "none",
+                  "secondary_info": "none",
                   "layout": "horizontal"
                 },
                 {
@@ -587,20 +587,6 @@
               "cards": [
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.bedroom_lamp",
-                  "fill_container": true,
-                  "use_light_color": false,
-                  "show_brightness_control": true,
-                  "show_color_temp_control": false,
-                  "show_color_control": false,
-                  "collapsible_controls": false,
-                  "name": "Lamp",
-                  "primary_info": "none",
-                  "secondary_info": "none",
-                  "layout": "horizontal"
-                },
-                {
-                  "type": "custom:mushroom-light-card",
                   "entity": "light.fairy_lights",
                   "fill_container": true,
                   "show_brightness_control": true,
@@ -609,12 +595,7 @@
                   "primary_info": "none",
                   "secondary_info": "none",
                   "layout": "horizontal"
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
+                },
                 {
                   "type": "custom:mushroom-fan-card",
                   "entity": "fan.bedroom_fan",
@@ -623,12 +604,17 @@
                   "collapsible_controls": false,
                   "icon_animation": true,
                   "name": "Fan"
-                },
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
                 {
                   "type": "custom:mushroom-media-player-card",
                   "entity": "media_player.bedroom_tv",
                   "name": "TV",
-                  "fill_container": true,
+                  "fill_container": false,
                   "primary_info": "name",
                   "show_volume_level": false,
                   "use_media_info": true,
@@ -644,7 +630,8 @@
                   },
                   "double_tap_action": {
                     "action": "none"
-                  }
+                  },
+                  "layout": "horizontal"
                 }
               ]
             },
