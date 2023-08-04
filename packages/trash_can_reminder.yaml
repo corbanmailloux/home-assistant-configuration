@@ -2,12 +2,15 @@
 # There is an iBeacon on the trach can and a Bluetooth Proxy (ESPHome) in the garage. This allows HASS to know if the trash has been brought to the curb.
 # Combine this with a calendar-based reminder that automatically clears when the trash is brought down.
 
-binary_sensor:
-  - platform: threshold
-    name: Trash Can at Home
-    device_class: presence
-    entity_id: sensor.trash_can_tracker_estimated_distance
-    lower: 60
+template:
+  - binary_sensor:
+      - name: Trash Can at Home
+        unique_id: 55af1538-229e-4c9e-acee-72d26f6cf97c
+        device_class: presence
+        state: >-
+          {{
+            is_state('device_tracker.trash_can_tracker', 'home') and states("sensor.trash_can_tracker_estimated_distance") | int(999) < 60
+          }}
 
 automation:
   - alias: Trash Reminder - Trash - Calendar Trigger
