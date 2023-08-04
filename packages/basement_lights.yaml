@@ -7,6 +7,8 @@ light:
       - light.basement_network_rack_light
       - light.basement_oil_tank_light
       - light.basement_stairs_main_lights
+      - light.basement_craft_table_light
+      - light.basement_storage_shelf_light
 
 template:
   - binary_sensor:
