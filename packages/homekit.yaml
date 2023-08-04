@@ -26,5 +26,9 @@ homekit:
         # Basement
         - light.basement_lights
 
+        # Garage
+        - cover.left_garage_door
+        - cover.right_garage_door
+
         # Misc
         - input_boolean.training_mode

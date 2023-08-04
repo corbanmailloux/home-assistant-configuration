@@ -10,6 +10,11 @@ automation:
       - platform: state
         entity_id: binary_sensor.front_door
         to: "on"
+      - platform: state
+        entity_id:
+          - cover.left_garage_door
+          - cover.right_garage_door
+        to: "opening"
     action:
       - choose:
           - alias: "If Maggie isn't home, trigger an update."
