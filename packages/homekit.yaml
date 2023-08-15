@@ -30,5 +30,20 @@ homekit:
         - cover.left_garage_door
         - cover.right_garage_door
 
+        # Outside
+        - light.exterior_front_porch
+
         # Misc
         - input_boolean.training_mode
+
+  - name: HASS Doorbell Camera
+    port: 21065
+    mode: accessory
+    filter:
+      include_entities:
+        - camera.main_doorbell_sub
+    entity_config:
+      camera.main_doorbell_sub:
+        support_audio: True
+        linked_doorbell_sensor: binary_sensor.main_doorbell_visitor
+        linked_motion_sensor: binary_sensor.main_doorbell_person
