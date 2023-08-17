@@ -809,8 +809,8 @@
                   "type": "custom:button-card"
                 },
                 {
-                  "entity": "sensor.craft_room_temperature_sensor_temperature",
-                  "name": "Craft",
+                  "entity": "sensor.sunporch_temperature_sensor_temperature",
+                  "name": "Sunporch",
                   "layout": "vertical",
                   "show_icon": false,
                   "show_state": true,
@@ -824,22 +824,28 @@
                 {
                   "entities": [
                     {
-                      "entity": "sensor.living_room_temperature"
+                      "entity": "sensor.living_room_temperature",
+                      "name": "Living Room"
                     },
                     {
-                      "entity": "sensor.office_temperature"
+                      "entity": "sensor.office_temperature",
+                      "name": "Office"
                     },
                     {
-                      "entity": "sensor.bedroom_temperature"
+                      "entity": "sensor.bedroom_temperature",
+                      "name": "Bedroom"
                     },
                     {
-                      "entity": "sensor.craft_room_temperature_sensor_temperature"
+                      "entity": "sensor.sunporch_temperature_sensor_temperature",
+                      "name": "Sunporch"
                     },
                     {
-                      "entity": "sensor.openweathermap_temperature"
+                      "entity": "sensor.openweathermap_temperature",
+                      "name": "Outside - OpenWeatherMap"
                     },
                     {
-                      "entity": "sensor.outdoor_porch_temperature"
+                      "entity": "sensor.outdoor_porch_temperature",
+                      "name": "Outside - Deck"
                     }
                   ],
                   "refresh_interval": 0,
