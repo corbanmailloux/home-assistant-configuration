@@ -219,12 +219,6 @@
             },
             {
               "type": "custom:button-card",
-              "entity": "group.kitchen_lights",
-              "name": "Kitchen",
-              "template": "header"
-            },
-            {
-              "type": "custom:button-card",
               "entity": "group.living_room_lights",
               "name": "Living Room",
               "template": "header_clickable"
@@ -271,6 +265,33 @@
                 }
               ],
               "type": "vertical-stack"
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "input_boolean.guest_mode",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "type": "horizontal-stack",
+                "cards": [
+                  {
+                    "type": "custom:button-card",
+                    "entity": "input_boolean.guest_mode",
+                    "aspect_ratio": "1/1",
+                    "name": "SSID: \"WhatFi-Guest\"",
+                    "icon": "mdi:wifi-check",
+                    "show_label": true,
+                    "label": "[[[ return \"PWD: \\\"\" + states['input_text.guest_wifi_password'].state + \"\\\"\" ]]]\n"
+                  },
+                  {
+                    "type": "picture",
+                    "image_entity": "image.whatfi_guest_qr_code"
+                  }
+                ]
+              }
             },
             {
               "type": "custom:layout-break"

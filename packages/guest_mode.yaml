@@ -5,4 +5,27 @@ input_boolean:
   guest_mode:
     name: Guest Mode
     icon: mdi:bag-checked
-# TODO: When guest mode is on, notify Corban each time the door is opened with a "Mark Home" and "Mark Away button."
+
+# Adding an input_text to allow loading the password from secrets into the frontend.
+input_text:
+  guest_wifi_password:
+    initial: !secret guest_wifi_password
+
+automation:
+  - alias: Guest Mode - Enable and Disable Guest WiFi
+    id: f8188dc5-e5f0-4821-ae9b-88bf14229932
+    trigger:
+      - platform: state
+        entity_id: input_boolean.guest_mode
+    action:
+      - choose:
+          - conditions: "{{ trigger.to_state.state == 'on' }}"
+            sequence:
+              - service: switch.turn_on
+                target:
+                  entity_id: switch.whatfi_guest
+          - conditions: "{{ trigger.to_state.state == 'off' }}"
+            sequence:
+              - service: switch.turn_off
+                target:
+                  entity_id: switch.whatfi_guest

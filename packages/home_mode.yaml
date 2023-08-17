@@ -99,15 +99,63 @@ automation:
       - condition: state
         entity_id: input_select.home_mode
         state: "Home"
-      - alias: "Guest Mode Off"
-        condition: state
-        entity_id: input_boolean.guest_mode
-        state: "off"
     action:
-      - service: input_boolean.turn_off
-        data:
-          entity_id: input_boolean.home_occupied
-      - service: input_select.select_option
+      - if:
+          - alias: "If guest mode is active"
+            condition: state
+            entity_id: input_boolean.guest_mode
+            state: "on"
+        then:
+          - alias: "Notify Corban to manually set away mode"
+            service: notify.corban
+            data:
+              title: "Did everyone leave?"
+              message: "Tracked people left, but guest mode is on."
+              data:
+                tag: "guest_mode_away_reminder"
+                actions:
+                  - action: "MARK_HOME_AWAY"
+                    title: "Set Away Mode"
+                    activationMode: "background"
+                    authenticationRequired: false # Don't require unlocking the device
+                    destructive: false
+                    behavior: "default"
+                  - action: "DISABLE_GUEST_AND_MARK_HOME_AWAY"
+                    title: "Disable Guest Mode (and set away)"
+                    activationMode: "background"
+                    authenticationRequired: false # Don't require unlocking the device
+                    destructive: false
+                    behavior: "default"
+        else:
+          - alias: "Mark home as away"
+            service: input_select.select_option
+            data:
+              entity_id: input_select.home_mode
+              option: "Away"
+
+  - alias: Guest Mode Away Reminder - Notification Action
+    id: f8d01735-cf06-4e03-b5cd-0cf6a00cd121
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "MARK_HOME_AWAY"
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "DISABLE_GUEST_AND_MARK_HOME_AWAY"
+        id: disable_guest
+    action:
+      - if:
+          - condition: trigger
+            id: "disable_guest"
+        then:
+          - alias: "Disable guest mode"
+            service: input_boolean.turn_off
+            target:
+              entity_id: input_boolean.guest_mode
+      - alias: "Mark home as away"
+        service: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Away"
