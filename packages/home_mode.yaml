@@ -110,7 +110,8 @@ automation:
             service: notify.corban
             data:
               title: "Did everyone leave?"
-              message: "Tracked people left, but guest mode is on."
+              message: >-
+                Tracked people left, but guest mode is on. There are {{ states("sensor.whatfi_guest") }} guest device(s) connected.
               data:
                 tag: "guest_mode_away_reminder"
                 actions:

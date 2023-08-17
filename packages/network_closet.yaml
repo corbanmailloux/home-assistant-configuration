@@ -30,6 +30,7 @@ automation:
                 authenticationRequired: true
                 destructive: true
                 behavior: "default"
+
   - alias: UPS Power Outage Notification Action - Shutdown NAS
     id: 4f983a53-9c85-4f66-8a7a-9239c00d37c4
     trigger:
