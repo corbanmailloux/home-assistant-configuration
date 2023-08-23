@@ -856,16 +856,10 @@
                 {
                   "entities": [
                     {
-                      "entity": "sensor.living_room_humidity"
-                    },
-                    {
-                      "entity": "sensor.office_humidity"
-                    },
-                    {
                       "entity": "sensor.bedroom_humidity"
                     },
                     {
-                      "entity": "sensor.craft_room_temperature_sensor_humidity"
+                      "entity": "sensor.office_temperature_sensor_humidity"
                     },
                     {
                       "entity": "sensor.openweathermap_humidity"
