@@ -11,6 +11,20 @@ light:
       - light.basement_storage_shelf_light
 
 template:
+  - trigger:
+      - platform: state
+        entity_id: binary_sensor.basement_door_sensor_contact
+        from: "off"
+        to: "on"
+    binary_sensor:
+      - name: "basement_door_just_opened"
+        unique_id: 6c54c752-29c1-44e8-b9db-a07974cf70b6
+        device_class: door
+        auto_off:
+          minutes: 1
+        state: >-
+          {{ is_state('binary_sensor.basement_door_sensor_contact', 'on') }}
+
   - binary_sensor:
       - name: "Basement Assumed Motion"
         unique_id: 32c8a84a-35db-45b9-a8ce-f628619eec49
@@ -18,7 +32,7 @@ template:
         # Only count the door sensor as motion if the lights are off. This avoids retriggering when leaving the basement.
         state: >-
           {{
-            ( is_state('binary_sensor.basement_door_sensor_contact', 'on') and is_state('light.basement_lights', 'off')) or
+            ( is_state('binary_sensor.basement_door_just_opened', 'on') and is_state('light.basement_lights', 'off')) or
             is_state('binary_sensor.laundry_motion_sensor_occupancy', 'on') or
             is_state('binary_sensor.basement_stairs_motion_sensor_occupancy', 'on')
           }}
