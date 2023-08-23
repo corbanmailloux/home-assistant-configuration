@@ -29,8 +29,22 @@ uart:
   stop_bits: 1
 
 ld2410:
-  max_move_distance: 3.75m
-  max_still_distance: 3.75m
+
+number:
+  - platform: ld2410
+    timeout:
+      name: Timeout
+    max_move_distance_gate:
+      name: Max Move Distance Gate
+    max_still_distance_gate:
+      name: Max Still Distance Gate
+
+switch:
+  - platform: ld2410
+    engineering_mode:
+      name: "LD2410 Engineering Mode"
+    bluetooth:
+      name: "LD2410 Bluetooth"
 
 binary_sensor:
   - platform: gpio
