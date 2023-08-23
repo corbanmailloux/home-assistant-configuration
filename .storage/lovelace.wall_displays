@@ -275,20 +275,30 @@
                 }
               ],
               "card": {
-                "type": "horizontal-stack",
+                "type": "vertical-stack",
                 "cards": [
                   {
                     "type": "custom:button-card",
-                    "entity": "input_boolean.guest_mode",
-                    "aspect_ratio": "1/1",
-                    "name": "SSID: \"WhatFi-Guest\"",
-                    "icon": "mdi:wifi-check",
-                    "show_label": true,
-                    "label": "[[[ return \"PWD: \\\"\" + states['input_text.guest_wifi_password'].state + \"\\\"\" ]]]\n"
+                    "name": "Guest WiFi",
+                    "template": "header"
                   },
                   {
-                    "type": "picture",
-                    "image_entity": "image.whatfi_guest_qr_code"
+                    "type": "horizontal-stack",
+                    "cards": [
+                      {
+                        "type": "custom:button-card",
+                        "entity": "input_boolean.guest_mode",
+                        "aspect_ratio": "1/1",
+                        "name": "SSID: \"WhatFi-Guest\"",
+                        "icon": "mdi:wifi-check",
+                        "show_label": true,
+                        "label": "[[[ return \"PWD: \\\"\" + states['input_text.guest_wifi_password'].state + \"\\\"\" ]]]\n"
+                      },
+                      {
+                        "type": "picture",
+                        "image_entity": "image.whatfi_guest_qr_code"
+                      }
+                    ]
                   }
                 ]
               }
