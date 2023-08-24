@@ -4,6 +4,107 @@
   "key": "lovelace.lovelace_management",
   "data": {
     "config": {
+      "button_card_templates": {
+        "header": {
+          "show_icon": false,
+          "show_name": true,
+          "show_state": false,
+          "show_label": false,
+          "styles": {
+            "card": [
+              {
+                "padding": "1rem"
+              },
+              {
+                "--ha-card-background": "none"
+              },
+              {
+                "box-shadow": "none"
+              }
+            ],
+            "grid": [
+              {
+                "grid-template-areas": "\"spacer1 . n . spacer2\""
+              },
+              {
+                "grid-template-columns": "1fr 1rem min-content 1rem 1fr"
+              },
+              {
+                "grid-template-rows": "min-content"
+              }
+            ],
+            "name": [
+              {
+                "justify-self": "center"
+              },
+              {
+                "font-weight": "bold"
+              },
+              {
+                "text-align": "center"
+              },
+              {
+                "align-items": "center"
+              },
+              {
+                "font-size": "1.5rem"
+              },
+              {
+                "font-weight": "bold"
+              }
+            ],
+            "custom_fields": {
+              "spacer1": [
+                {
+                  "background": "rgb(255, 255, 255)"
+                },
+                {
+                  "height": "1px"
+                },
+                {
+                  "width": "100%"
+                },
+                {
+                  "align-self": "center"
+                },
+                {
+                  "justify-self": "start"
+                }
+              ],
+              "spacer2": [
+                {
+                  "background": "rgb(255, 255, 255)"
+                },
+                {
+                  "height": "1px"
+                },
+                {
+                  "width": "100%"
+                },
+                {
+                  "align-self": "center"
+                },
+                {
+                  "justify-self": "end"
+                }
+              ]
+            }
+          },
+          "custom_fields": {
+            "spacer1": "",
+            "spacer2": ""
+          },
+          "tap_action": {
+            "action": "none"
+          }
+        },
+        "header_clickable": {
+          "template": "header",
+          "tap_action": {
+            "action": "toggle"
+          }
+        }
+      },
       "views": [
         {
           "theme": "Backend-selected",
@@ -187,6 +288,12 @@
                 },
                 {
                   "entity": "binary_sensor.basement_door_sensor_contact"
+                },
+                {
+                  "entity": "cover.left_garage_door"
+                },
+                {
+                  "entity": "cover.right_garage_door"
                 }
               ],
               "title": "Doors and Windows"
@@ -267,6 +374,195 @@
           "badges": [],
           "cards": [
             {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "custom:button-card",
+                  "name": "Room Exclusions",
+                  "template": "header"
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_guest_bedroom",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Guest",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_office",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Office",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_livingroom",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Living",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_craft_room",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Craft",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_basement",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Basement",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_sunporch",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Sunporch",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_master_bedroom",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Master",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_kitchen",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Kitchen",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_hallways",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Hallways",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_bathrooms",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Bathrooms",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_mud_room",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Mudroom",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "script.reset_room_exclusions",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Unset All",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "secondary_info": "none",
+                      "icon": "mdi:refresh"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "entities": [
+                "automation.sunrise_alarm",
+                {
+                  "type": "custom:fold-entity-row",
+                  "head": {
+                    "type": "section",
+                    "label": "Configuration"
+                  },
+                  "entities": [
+                    "input_number.alarm_max_brightness",
+                    "input_datetime.alarm_start_time",
+                    "input_datetime.alarm_target_time"
+                  ]
+                }
+              ],
+              "show_header_toggle": false,
+              "title": "Sunrise Alarm",
+              "type": "entities"
+            },
+            {
               "type": "entities",
               "entities": [
                 {
@@ -291,26 +587,6 @@
               "show_header_toggle": true,
               "title": "Upstairs Vacuum Status",
               "state_color": true
-            },
-            {
-              "entities": [
-                "automation.sunrise_alarm",
-                {
-                  "type": "custom:fold-entity-row",
-                  "head": {
-                    "type": "section",
-                    "label": "Configuration"
-                  },
-                  "entities": [
-                    "input_number.alarm_max_brightness",
-                    "input_datetime.alarm_start_time",
-                    "input_datetime.alarm_target_time"
-                  ]
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Sunrise Alarm",
-              "type": "entities"
             },
             {
               "type": "entities",

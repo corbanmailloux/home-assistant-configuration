@@ -25,7 +25,7 @@ input_boolean:
     icon: mdi:door-open
   room_exclude_sunporch:
     name: Exclude - Sunporch
-    icon: mdi:weather-sunny-alert
+    icon: mdi:weather-sunny
   room_exclude_bathrooms:
     name: Exclude - Bathrooms
     icon: mdi:toilet
@@ -33,7 +33,30 @@ input_boolean:
     name: Exclude - Hallways
     icon: mdi:walk
 
+group:
+  room_exclusions:
+    name: Room Exclusion Configurations
+    entities:
+      - input_boolean.room_exclude_master_bedroom
+      - input_boolean.room_exclude_guest_bedroom
+      - input_boolean.room_exclude_craft_room
+      - input_boolean.room_exclude_basement
+      - input_boolean.room_exclude_office
+      - input_boolean.room_exclude_livingroom
+      - input_boolean.room_exclude_kitchen
+      - input_boolean.room_exclude_mud_room
+      - input_boolean.room_exclude_sunporch
+      - input_boolean.room_exclude_bathrooms
+      - input_boolean.room_exclude_hallways
+
 script:
+  reset_room_exclusions:
+    alias: Reset Room Exclusions
+    sequence:
+      - service: homeassistant.turn_off
+        target:
+          entity_id: group.room_exclusions
+
   everything_off:
     alias: Everything Off
     description: Turn off everything normal for sleep and away modes.
