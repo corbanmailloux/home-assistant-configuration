@@ -8,9 +8,6 @@ automation:
         discovery_id: 0x00158d0001e8842e action_single
         type: action
         subtype: single
-      # - platform: state
-      #   entity_id: sensor.corban_bedside_button_click
-      #   to: "single"
     action:
       # Explanation of the tri-state logic:
       # If the light is off, turn it on to 100%.
@@ -53,15 +50,18 @@ automation:
         type: action
         subtype: hold
     action:
-      - alias: "If in sleep mode is on, force everything off."
+      - alias: "If sleep mode is on, force everything off."
         choose:
           - conditions:
               - condition: state
                 entity_id: input_select.home_mode
                 state: "Sleep"
             sequence:
-              - service: script.turn_on
-                entity_id: script.everything_off
+              - alias: "Turn truly everything off"
+                service: script.everything_off
+                data:
+                  ignore_room_exclusions: true
+                  include_fans: true
         default:
           - service: input_select.select_option
             data:

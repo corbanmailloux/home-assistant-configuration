@@ -1,6 +1,233 @@
+input_boolean:
+  room_exclude_master_bedroom:
+    name: Exclude - Master Bedroom
+    icon: mdi:bed-empty
+  room_exclude_guest_bedroom:
+    name: Exclude - Guest Bedroom
+    icon: mdi:bag-checked
+  room_exclude_craft_room:
+    name: Exclude - Craft Room
+    icon: mdi:brush
+  room_exclude_basement:
+    name: Exclude - Basement
+    icon: mdi:stairs-down
+  room_exclude_office:
+    name: Exclude - Office
+    icon: mdi:monitor
+  room_exclude_livingroom:
+    name: Exclude - Living Room
+    icon: mdi:sofa
+  room_exclude_kitchen:
+    name: Exclude - Kitchen
+    icon: mdi:silverware-fork-knife
+  room_exclude_mud_room:
+    name: Exclude - Mud Room
+    icon: mdi:door-open
+  room_exclude_sunporch:
+    name: Exclude - Sunporch
+    icon: mdi:weather-sunny-alert
+  room_exclude_bathrooms:
+    name: Exclude - Bathrooms
+    icon: mdi:toilet
+  room_exclude_hallways:
+    name: Exclude - Hallways
+    icon: mdi:walk
+
 script:
   everything_off:
-    alias: Everything
+    alias: Everything Off
+    description: Turn off everything normal for sleep and away modes.
+    fields:
+      ignore_room_exclusions:
+        description: >-
+          If set, turn off all devices.
+          If unset, check if each room's exclusion flag is set and respect it.
+        example: "false"
+        default: false
+        selector:
+          boolean:
+      include_fans:
+        description: >-
+          Include turning off fans, which are normally left alone for sleep mode.
+        example: "false"
+        default: false
+        selector:
+          boolean:
     sequence:
-      - service: homeassistant.turn_off
-        entity_id: group.everything_custom
+      - alias: "Master Bedroom"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_master_bedroom
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.fairy_lights
+                - light.master_bedroom_ceiling_fan_light
+          - if:
+              - "{{ include_fans == true }}"
+            then:
+              - service: homeassistant.turn_off
+                target:
+                  entity_id:
+                    - fan.master_bedroom_ceiling_fan
+                    - fan.bedroom_fan
+
+      # - alias: "Guest Bedroom"
+      #   if:
+      #     - or:
+      #         - "{{ ignore_room_exclusions == true }}"
+      #         - condition: state
+      #           entity_id: input_boolean.room_exclude_guest_bedroom
+      #           state: "off"
+      #   then:
+      #     - service: homeassistant.turn_off
+      #       target:
+      #         entity_id:
+      #           - light.guest_bedroom_ceiling_fan_light
+      #     - if:
+      #         - "{{ include_fans == true }}"
+      #       then:
+      #         - service: homeassistant.turn_off
+      #           target:
+      #             entity_id:
+      #               - fan.guest_bedroom_ceiling_fan
+
+      # - alias: "Craft Room"
+      #   if:
+      #     - or:
+      #       - "{{ ignore_room_exclusions == true }}"
+      #       - condition: state
+      #         entity_id: input_boolean.room_exclude_craft_room
+      #         state: "off"
+      #   then:
+      #     - service: homeassistant.turn_off
+      #       target:
+      #         entity_id:
+      #           - light.fairy_lights
+
+      - alias: "Basement"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_basement
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.basement_lights
+
+      - alias: "Office"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_office
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.corban_s_office_lamp_bottom
+                - light.corban_s_office_lamp_middle
+                - light.corban_s_office_lamp_top
+                - light.key_light_air_1
+                - light.office_leds
+          - if:
+              - "{{ include_fans == true }}"
+            then:
+              - service: homeassistant.turn_off
+                target:
+                  entity_id:
+                    - fan.office_air_purifier
+                    # - fan.office_fan
+
+      - alias: "Living Room"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_livingroom
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.corner_lamp
+                - media_player.living_room_tv
+          - if:
+              - "{{ include_fans == true }}"
+            then:
+              - service: homeassistant.turn_off
+                target:
+                  entity_id:
+                    - fan.living_room_fan
+
+      - alias: "Kitchen"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_kitchen
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.tablet_wall_display_screen
+
+      # - alias: "Mudroom"
+      #   if:
+      #     - or:
+      #         - "{{ ignore_room_exclusions == true }}"
+      #         - condition: state
+      #           entity_id: input_boolean.room_exclude_mud_room
+      #           state: "off"
+      #   then:
+      #     - service: homeassistant.turn_off
+      #       target:
+      #         entity_id:
+
+      - alias: "Sunporch"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_sunporch
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.sunporch_sconces
+                - light.sunporch_string_lights
+
+      # - alias: "Bathrooms"
+      #   if:
+      #     - or:
+      #         - "{{ ignore_room_exclusions == true }}"
+      #         - condition: state
+      #           entity_id: input_boolean.room_exclude_bathrooms
+      #           state: "off"
+      #   then:
+      #     - service: homeassistant.turn_off
+      #       target:
+      #         entity_id:
+
+      - alias: "Hallways"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_hallways
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.stairs_bottom_of_stairs

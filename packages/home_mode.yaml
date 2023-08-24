@@ -29,8 +29,10 @@ automation:
         to: "Sleep"
     action:
       - alias: "Turn everything off"
-        service: script.turn_on
-        entity_id: script.everything_off
+        service: script.everything_off
+        data:
+          ignore_room_exclusions: false
+          include_fans: false
 
   - alias: Sleep Mode - Disable in Morning
     id: 60dc7343-2499-4137-bfc9-7fa7bbc50540
@@ -182,5 +184,8 @@ automation:
           - "Away"
           - "Vacation"
     action:
-      - service: script.turn_on
-        entity_id: script.everything_off
+      - alias: "Turn truly everything off"
+        service: script.everything_off
+        data:
+          ignore_room_exclusions: true
+          include_fans: true
