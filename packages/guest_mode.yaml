@@ -29,3 +29,14 @@ automation:
               - service: switch.turn_off
                 target:
                   entity_id: switch.whatfi_guest
+
+  - alias: Guest Mode - Disable Room Exclusions when Unset
+    id: 1567def0-c8f1-4297-a2bd-628fb03db93e
+    trigger:
+      - platform: state
+        entity_id: input_boolean.guest_mode
+        from: "on"
+        to: "off"
+    action:
+      - alias: "Reset room exclusions"
+        service: script.reset_room_exclusions
