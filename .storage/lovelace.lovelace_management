@@ -261,13 +261,29 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "binary_sensor.office_mini_motion_presence"
+                  "entity": "binary_sensor.office_mini_motion_presence",
+                  "name": "Office mmWave Presence",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.laundry_motion_sensor_occupancy"
+                  "entity": "binary_sensor.laundry_motion_sensor_occupancy",
+                  "name": "Basement Laundry Motion",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy"
+                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy",
+                  "name": "Basement Stairs Motion",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.main_doorbell_person",
+                  "name": "Doorbell - Person",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.main_doorbell_motion",
+                  "name": "Doorbell - Motion",
+                  "secondary_info": "last-changed"
                 }
               ],
               "title": "Motion Sensors",
@@ -297,6 +313,14 @@
                 }
               ],
               "title": "Doors and Windows"
+            },
+            {
+              "show_state": false,
+              "show_name": false,
+              "camera_view": "live",
+              "type": "picture-entity",
+              "entity": "camera.main_doorbell_main",
+              "name": "Doorbell Camera"
             }
           ]
         },
