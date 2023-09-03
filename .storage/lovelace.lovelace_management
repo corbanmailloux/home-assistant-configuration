@@ -634,6 +634,47 @@
           ]
         },
         {
+          "title": "Garage Playground",
+          "path": "garage-playground",
+          "icon": "mdi:walk",
+          "badges": [],
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.garage_parking_sensor_left_poll_range_sensor",
+                  "name": "Left Sensor - Poll"
+                },
+                {
+                  "entity": "sensor.garage_parking_sensor_left_distance",
+                  "name": "Left Sensor - Distance"
+                },
+                {
+                  "entity": "number.garage_parking_sign_display_number",
+                  "name": "Sign - Display Number"
+                },
+                {
+                  "entity": "light.garage_parking_sign_hand",
+                  "name": "Sign - Hand"
+                },
+                {
+                  "entity": "light.garage_parking_sign_walk",
+                  "name": "Sign - Walk",
+                  "secondary_info": "none"
+                },
+                {
+                  "entity": "number.garage_parking_sign_target_distance_left",
+                  "name": "Target - Left",
+                  "secondary_info": "none"
+                }
+              ],
+              "title": "Garage Parking Sign",
+              "show_header_toggle": false
+            }
+          ]
+        },
+        {
           "title": "3D Printing",
           "path": "3d-printing",
           "icon": "mdi:printer-3d",

@@ -5,7 +5,7 @@ substitutions:
 esphome:
   name: "${device_name}"
   friendly_name: "${friendly_name}"
-  compile_process_limit: 2 # This is a big config. Reduce the threading to help with performance.
+  # compile_process_limit: 2 # This is a big config. Reduce the threading to help with performance.
 
 esp32:
   board: esp32doit-devkit-v1
@@ -24,50 +24,14 @@ logger:
 ota:
 api:
 
-switch:
-  - platform: template
-    name: "Poll Left Range Sensor"
-    optimistic: true
-    id: poll_left_range_sensor
-  - platform: template
-    name: "Poll Right Range Sensor"
-    optimistic: true
-    id: poll_right_range_sensor
-
-interval:
-  - interval: 200ms
-    then:
-      - if:
-          condition:
-            switch.is_on: poll_left_range_sensor
-          then:
-            - component.update: range_sensor_left
-      - if:
-          condition:
-            switch.is_on: poll_right_range_sensor
-          then:
-            - component.update: range_sensor_right
-
 sensor:
   - platform: wifi_signal
     name: "${friendly_name} - WiFi Signal"
     update_interval: 60s
 
-  - platform: ultrasonic
-    trigger_pin: 32 # TODO: Set pins
-    echo_pin: 35
-    name: "Distance - Left"
-    id: range_sensor_left
-    update_interval: never
-    pulse_time: 20us
-    filters:
-      - lambda: return round(x * 39.3701);
-      - timeout: 1000ms
-      # - sliding_window_moving_average:
-      #     window_size: 3
-      #     send_every: 3
-    unit_of_measurement: "inches"
-    accuracy_decimals: 0
+  - platform: homeassistant
+    name: "Remote Range Sensor - Left"
+    entity_id: sensor.garage_parking_sensor_left_distance
     on_value:
       then:
         - number.set:
@@ -76,40 +40,7 @@ sensor:
               if (isnan(x)) {
                 return -10;
               }
-              return x - id(target_distance_left).state;
-        - light.control:
-            id: light_hand
-            state: !lambda >-
-              if (isnan(x)) {
-                return false;
-              }
-
-              return (abs(x - id(target_distance_left).state) < 3);
-
-
-  - platform: ultrasonic
-    trigger_pin: 26 # TODO: Set pins
-    echo_pin: 25
-    name: "Distance - Right"
-    id: range_sensor_right
-    update_interval: never
-    filters:
-      - lambda: return round(x * 39.3701);
-      - timeout: 1000ms
-      # - sliding_window_moving_average:
-      #     window_size: 3
-      #     send_every: 3
-    unit_of_measurement: "inches"
-    accuracy_decimals: 0
-    on_value:
-      then:
-        - number.set:
-            id: display_number
-            value: !lambda >-
-              if (isnan(x)) {
-                return -10;
-              }
-              return x - id(target_distance_right).state;
+              return max( -9, min( (int)(round(x) - id(target_distance_right).state), 99 ));
         - lambda: |-
             if (isnan(x)) {
               id(light_hand).turn_off().perform();
@@ -134,11 +65,13 @@ light:
   - platform: monochromatic
     output: gpio_hand
     default_transition_length: 0s
+    icon: mdi:hand-back-left
     id: light_hand
     name: "Hand"
   - platform: monochromatic
     output: gpio_walk
     default_transition_length: 0s
+    icon: mdi:walk
     id: light_walk
     name: "Walk"
 
