@@ -15,9 +15,9 @@ scene:
       light.sunporch_sconces:
         brightness_pct: 100
         state: "on"
-      light.fairy_lights:
-        brightness_pct: 20
-        state: "on"
+      # light.fairy_lights:
+      #   brightness_pct: 20
+      #   state: "on"
       light.master_bedroom_ceiling_fan_light:
         brightness_pct: 20
         state: "on"
@@ -40,8 +40,8 @@ automation:
         service: switch.turn_off
         target:
           entity_id:
-            - switch.adaptive_lighting_main_adaptive_lighting
-            - switch.adaptive_lighting_office
+            - switch.adaptive_lighting_adapt_brightness_main_adaptive_lighting
+            - switch.adaptive_lighting_adapt_brightness_office
       - alias: "Create scene with all impacted lights"
         service: scene.create
         data:
@@ -52,7 +52,7 @@ automation:
             - light.stairs_bottom_of_stairs
             - light.sunporch_string_lights
             - light.sunporch_sconces
-            - light.fairy_lights
+            # - light.fairy_lights
             - light.master_bedroom_ceiling_fan_light
       - service: scene.turn_on
         target:
@@ -69,8 +69,8 @@ automation:
         service: switch.turn_on
         target:
           entity_id:
-            - switch.adaptive_lighting_main_adaptive_lighting
-            - switch.adaptive_lighting_office
+            - switch.adaptive_lighting_adapt_brightness_main_adaptive_lighting
+            - switch.adaptive_lighting_adapt_brightness_office
       - delay:
           milliseconds: 250
       - service: scene.turn_on
