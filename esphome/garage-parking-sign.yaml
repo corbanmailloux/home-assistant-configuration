@@ -40,12 +40,12 @@ sensor:
               if (isnan(x)) {
                 return -10;
               }
-              return max( -9, min( (int)(round(x) - id(target_distance_right).state), 99 ));
+              return max( -9, min( (int)(round(x) - id(target_distance_left).state), 99 ));
         - lambda: |-
             if (isnan(x)) {
               id(light_hand).turn_off().perform();
               id(light_walk).turn_off().perform();
-            } else if ((x - id(target_distance_right).state) < 3) {
+            } else if ((x - id(target_distance_left).state) < 3) {
               id(light_hand).turn_on().perform();
               id(light_walk).turn_off().perform();
             } else {

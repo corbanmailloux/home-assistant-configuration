@@ -667,14 +667,6 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "switch.garage_parking_sensor_left_poll_range_sensor",
-                  "name": "Left Sensor - Poll"
-                },
-                {
-                  "entity": "sensor.garage_parking_sensor_left_distance",
-                  "name": "Left Sensor - Distance"
-                },
-                {
                   "entity": "number.garage_parking_sign_display_number",
                   "name": "Sign - Display Number"
                 },
@@ -686,14 +678,48 @@
                   "entity": "light.garage_parking_sign_walk",
                   "name": "Sign - Walk",
                   "secondary_info": "none"
+                }
+              ],
+              "title": "Parking Sign - Output",
+              "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.garage_parking_sensor_left_poll_range_sensor",
+                  "name": "Left Sensor - Poll"
                 },
                 {
                   "entity": "number.garage_parking_sign_target_distance_left",
                   "name": "Target - Left",
                   "secondary_info": "none"
+                },
+                {
+                  "entity": "number.garage_parking_sign_target_distance_right",
+                  "name": "Target - Right"
+                },
+                {
+                  "entity": "number.garage_parking_sign_digit_brightness",
+                  "name": "Digit Brightness"
                 }
               ],
-              "title": "Garage Parking Sign",
+              "title": "Parking Sign - Configuration",
+              "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "switch.garage_parking_sensor_left_poll_range_sensor",
+                  "name": "Left Sensor - Poll"
+                },
+                {
+                  "entity": "sensor.garage_parking_sensor_left_distance",
+                  "name": "Left Sensor - Distance"
+                }
+              ],
+              "title": "Sensor Data",
               "show_header_toggle": false
             }
           ]
