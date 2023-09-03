@@ -16,7 +16,7 @@ automation:
         to: "off"
     action:
       - choose:
-          # Off, turn on full brightness.
+          # If off, turn on.
           - conditions:
               - condition: state
                 entity_id: light.corner_lamp
@@ -24,9 +24,10 @@ automation:
             sequence:
               - service: light.turn_on
                 entity_id: light.corner_lamp
-                data:
-                  brightness: 255
-          # On, turn off.
+                #  Brightness is currently controlled by Adaptive Lighting.
+                # data:
+                #   brightness: 255
+          # If on, turn off.
           - conditions:
               - condition: state
                 entity_id: light.corner_lamp
