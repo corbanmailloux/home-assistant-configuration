@@ -258,6 +258,14 @@
               "type": "entities"
             },
             {
+              "show_state": false,
+              "show_name": false,
+              "camera_view": "auto",
+              "type": "picture-entity",
+              "name": "Doorbell Camera",
+              "entity": "camera.main_doorbell_sub"
+            },
+            {
               "type": "entities",
               "entities": [
                 {
@@ -313,14 +321,6 @@
                 }
               ],
               "title": "Doors and Windows"
-            },
-            {
-              "show_state": false,
-              "show_name": false,
-              "camera_view": "live",
-              "type": "picture-entity",
-              "entity": "camera.main_doorbell_main",
-              "name": "Doorbell Camera"
             }
           ]
         },
