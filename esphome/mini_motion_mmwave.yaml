@@ -10,6 +10,7 @@ esp32:
 logger:
   level: INFO
 
+# TODO: Migrate to `device_base.yaml`, removing the API and OTA passwords.
 api:
   encryption:
     key: !secret api_encryption_key

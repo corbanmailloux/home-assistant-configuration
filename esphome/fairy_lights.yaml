@@ -1,22 +1,18 @@
 esphome:
   name: fairy-lights
+  friendly_name: "Fairy Lights"
 
 esp32:
   board: esp32doit-devkit-v1
   framework:
     type: esp-idf
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  fast_connect: true
+packages:
+  device_base: !include common/device_base.yaml
 
 # Enable logging
 logger:
   level: INFO
-
-ota:
-api:
 
 # BLE Hub
 esp32_ble_tracker:
@@ -30,7 +26,7 @@ bluetooth_proxy:
 
 sensor:
   - platform: wifi_signal
-    name: "Fairy Lights - WiFi Signal"
+    name: "WiFi Signal"
     update_interval: 60s
 
 output:

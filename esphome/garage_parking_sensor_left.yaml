@@ -3,4 +3,4 @@ substitutions:
   friendly_name: Garage Parking Sensor - Left
 
 packages:
-  device_base: !include common/garage-parking-sensor-base.yaml
+  garage_parking_sensor_base: !include common/garage_parking_sensor_base.yaml

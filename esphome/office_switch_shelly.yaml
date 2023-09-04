@@ -1,17 +1,14 @@
 esphome:
   name: "office-switch-shelly"
+  friendly_name: Office Switch Shelly
   platform: ESP8266
   board: esp01_1m
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  fast_connect: true
+packages:
+  device_base: !include common/device_base.yaml
 
 logger:
   level: INFO
-api:
-ota:
 
 binary_sensor:
   - platform: gpio

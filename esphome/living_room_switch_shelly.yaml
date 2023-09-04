@@ -1,16 +1,14 @@
 esphome:
   name: "living-room-switch-shelly"
+  friendly_name: Living Room Switch Shelly
   platform: ESP8266
   board: esp01_1m
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
+packages:
+  device_base: !include common/device_base.yaml
 
 logger:
   level: INFO
-api:
-ota:
 
 sensor:
   - platform: wifi_signal
