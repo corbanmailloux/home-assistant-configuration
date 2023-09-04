@@ -1,0 +1,6 @@
+substitutions:
+  device_name: "garage-parking-sensor-right"
+  friendly_name: Garage Parking Sensor - Right
+
+packages:
+  garage_parking_sensor_base: !include common/garage_parking_sensor_base.yaml

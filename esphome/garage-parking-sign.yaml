@@ -12,17 +12,12 @@ esp32:
   framework:
     type: esp-idf
 
-wifi:
-  ssid: !secret wifi_ssid
-  password: !secret wifi_password
-  fast_connect: true
+packages:
+  device_base: !include common/device_base.yaml
 
 # Enable logging
 logger:
   level: INFO
-
-ota:
-api:
 
 sensor:
   - platform: wifi_signal
