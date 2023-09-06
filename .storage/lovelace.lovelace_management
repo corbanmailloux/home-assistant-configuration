@@ -403,7 +403,8 @@
                 {
                   "type": "custom:button-card",
                   "name": "Room Exclusions",
-                  "template": "header"
+                  "template": "header_clickable",
+                  "entity": "script.reset_room_exclusions"
                 },
                 {
                   "type": "horizontal-stack",
@@ -552,15 +553,15 @@
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "script.reset_room_exclusions",
                       "fill_container": true,
                       "layout": "vertical",
-                      "name": "Unset All",
+                      "name": "Garage",
                       "tap_action": {
                         "action": "toggle"
                       },
+                      "icon_color": "deep-orange",
                       "secondary_info": "none",
-                      "icon": "mdi:refresh"
+                      "entity": "input_boolean.room_exclude_garage"
                     }
                   ]
                 }

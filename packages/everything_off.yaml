@@ -32,6 +32,9 @@ input_boolean:
   room_exclude_hallways:
     name: Exclude - Hallways
     icon: mdi:walk
+  room_exclude_garage:
+    name: Exclude - Garage
+    icon: mdi:garage
 
 group:
   room_exclusions:
@@ -48,6 +51,7 @@ group:
       - input_boolean.room_exclude_sunporch
       - input_boolean.room_exclude_bathrooms
       - input_boolean.room_exclude_hallways
+      - input_boolean.room_exclude_garage
 
 script:
   reset_room_exclusions:
@@ -254,3 +258,16 @@ script:
             target:
               entity_id:
                 - light.stairs_bottom_of_stairs
+
+      - alias: "Garage"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_garage
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.right_garage_door_local_light
