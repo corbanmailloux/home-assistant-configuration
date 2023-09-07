@@ -718,6 +718,16 @@
                 {
                   "entity": "sensor.garage_parking_sensor_left_distance",
                   "name": "Left Sensor - Distance"
+                },
+                {
+                  "entity": "switch.garage_parking_sensor_right_poll_range_sensor",
+                  "name": "Right Sensor - Poll",
+                  "secondary_info": "none"
+                },
+                {
+                  "entity": "sensor.garage_parking_sensor_right_distance",
+                  "name": "Right Sensor - Distance",
+                  "secondary_info": "none"
                 }
               ],
               "title": "Sensor Data",

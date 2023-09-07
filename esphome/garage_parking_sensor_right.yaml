@@ -4,3 +4,10 @@ substitutions:
 
 packages:
   garage_parking_sensor_base: !include common/garage_parking_sensor_base.yaml
+
+# Add a motion sensor
+binary_sensor:
+  - platform: gpio
+    pin: D8 # TODO: Pins
+    name: "Garage Right Motion"
+    device_class: motion

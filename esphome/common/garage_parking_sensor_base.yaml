@@ -6,10 +6,15 @@ esphome:
   name: "${device_name}"
   friendly_name: "${friendly_name}"
 
-esp32:
-  board: esp32doit-devkit-v1
+esp8266:
+  board: d1_mini
   framework:
-    type: esp-idf
+    version: recommended
+
+# esp32:
+#   board: esp32doit-devkit-v1
+#   framework:
+#     type: esp-idf
 
 packages:
   device_base: !include device_base.yaml
@@ -39,8 +44,8 @@ interval:
             - component.update: range_sensor
 
 i2c:
-  - sda: 16
-    scl: 17
+  - sda: D2
+    scl: D1
     scan: true
     id: bus_a
 
