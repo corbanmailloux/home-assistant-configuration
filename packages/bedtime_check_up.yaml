@@ -1,0 +1,62 @@
+script:
+  bedtime_checkup:
+    alias: Bedtime Checkup
+    sequence:
+      - alias: "Turn everything off"
+        service: script.everything_off
+        data:
+          ignore_room_exclusions: false
+          include_fans: false
+      - alias: "Close garage doors"
+        service: cover.close_cover
+        target:
+          entity_id:
+            - cover.left_garage_door
+            - cover.ratgdo_right_garage_door_door
+      - alias: "If any exterior door is open, notify"
+        if:
+          - alias: "Exterior door open"
+            condition: state
+            entity_id:
+              - binary_sensor.front_door
+              # TODO: Add slider
+              # TODO: Add basement exterior door
+              # TODO: Add garage human door
+            state: "on"
+        then:
+          - service: script.bedtime_checkup_notify
+            data:
+              message: An exterior door is open.
+              # TODO: Include which door, with a template?
+
+      # TODO: Lock the side and garage doors, once they are integrated.
+
+  bedtime_checkup_notify:
+    description: "Bedtime Checkup - Notify and Flash Fairy Lights"
+    fields:
+      message:
+        description: "Message for the notification"
+        example: "Door open"
+    sequence:
+      - service: notify.corban
+        data:
+          message: "{{ message }}"
+          data:
+            tag: "bedtime_checkup"
+      - delay:
+          seconds: 1
+      - alias: "Flash fairy lights"
+        service: light.turn_on
+        target:
+          entity_id: light.fairy_lights
+        data:
+          brightness_pct: 60
+          # effect: blink
+      - delay:
+          seconds: 1
+      - alias: "Turn on the fairy lights (to help remediate the problem)"
+        service: light.turn_on
+        target:
+          entity_id: light.fairy_lights
+        data:
+          brightness_pct: 25

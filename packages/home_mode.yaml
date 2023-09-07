@@ -28,11 +28,8 @@ automation:
         entity_id: input_select.home_mode
         to: "Sleep"
     action:
-      - alias: "Turn everything off"
-        service: script.everything_off
-        data:
-          ignore_room_exclusions: false
-          include_fans: false
+      - alias: "Run bedtime check up"
+        service: script.bedtime_checkup
 
   - alias: Sleep Mode - Disable in Morning
     id: 60dc7343-2499-4137-bfc9-7fa7bbc50540
