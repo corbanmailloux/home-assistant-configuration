@@ -16,6 +16,9 @@ homekit:
         - light.sunporch_string_lights
         - light.sunporch_sconces
 
+        # Kitchen
+        - light.kitchen_main_lights
+
         # Hallways
         - light.stairs_bottom_of_stairs
 
@@ -30,10 +33,11 @@ homekit:
         - cover.left_garage_door
         # - cover.right_garage_door # MyQ
         - cover.ratgdo_right_garage_door_door # ESPHome
-        - light.ratgdo_right_garage_door_light
+        # - light.ratgdo_right_garage_door_light
+        - light.garage_lights # Group
 
         # Outside
-        - light.exterior_front_porch
+        - light.exterior_lights # Group
 
         # Misc
         - input_boolean.training_mode

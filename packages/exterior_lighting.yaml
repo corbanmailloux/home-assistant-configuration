@@ -1,9 +1,8 @@
 # For all of the exterior/landscape lighting, turn on before sunset and off in the night.
 
-# TODO Other things to consider:
-# Do we want all of the exterior lighting on for the whole time, or just some?
-# Motion already covers the bright driveway light, but we could also have the rest of the exterior lighting come on/brighten as we're approaching home.
-# If we're hosting a party, we may want the lighting on later than 11pm. Could/should I tie the exterior lighting together to function on one switch instead of 3+?
+# TODO: Other things to consider:
+# If we're hosting a party, we may want the lighting on later than 11pm.
+# Could/should I tie the exterior lighting together to function on one switch instead of 3+?
 
 light:
   - platform: group
@@ -11,7 +10,8 @@ light:
     unique_id: be301746-714b-4b73-9d49-e4d83e654bd8
     entities:
       - light.exterior_front_porch
-      # TODO: Add the rest once the switches are installed.
+      - light.exterior_garage
+      - light.exterior_side_door
 
 automation:
   - id: 7bb9e3c3-514c-4a64-9556-40dde9551500

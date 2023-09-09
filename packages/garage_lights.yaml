@@ -1,0 +1,8 @@
+light:
+  - platform: group
+    name: Garage Lights
+    unique_id: bbfd0ea2-b809-4e30-9bb5-20aa843cc741
+    entities:
+      - light.ratgdo_right_garage_door_light
+      - light.garage_main_lights
+      # TODO: Add other garage door light once added to HASS.
