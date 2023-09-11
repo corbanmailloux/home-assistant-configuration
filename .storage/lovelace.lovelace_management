@@ -258,12 +258,18 @@
               "type": "entities"
             },
             {
-              "show_state": false,
-              "show_name": false,
               "camera_view": "auto",
-              "type": "picture-entity",
-              "name": "Doorbell Camera",
-              "entity": "camera.main_doorbell_sub"
+              "type": "picture-glance",
+              "entities": [
+                {
+                  "entity": "light.exterior_lights"
+                },
+                {
+                  "entity": "siren.main_doorbell_siren"
+                }
+              ],
+              "camera_image": "camera.main_doorbell_sub",
+              "title": "Doorbell"
             },
             {
               "type": "entities",
@@ -742,43 +748,67 @@
           "badges": [],
           "cards": [
             {
-              "type": "custom:threedy-card",
-              "base_entity": "sensor.octoprint",
-              "printer_type": "Cantilever",
-              "name": "OctoPi",
-              "monitored": [
-                "Status",
-                "Hotend",
-                "Elapsed",
-                "Remaining"
-              ],
-              "temperature_unit": "C",
-              "round_temperature": true,
-              "round_time": true,
-              "scale": 1,
-              "power_entity": "switch.3d_printer_main_power"
-            },
-            {
               "type": "entities",
               "entities": [
                 {
-                  "entity": "sensor.octoprint_current_state"
+                  "entity": "switch.3d_printer_power"
                 },
                 {
-                  "entity": "sensor.octoprint_job_percentage"
+                  "entity": "button.elegoo_neptune_4_pro_emergency_stop"
                 },
                 {
-                  "entity": "script.shutdown_octopi"
+                  "entity": "button.elegoo_neptune_4_pro_cancel_print"
                 },
                 {
                   "type": "weblink",
-                  "name": "OctoPi",
-                  "url": "http://octopi.local",
+                  "name": "Printer UI",
+                  "url": "http://192.168.1.53/#/",
                   "icon": "mdi:cloud-print-outline"
+                },
+                {
+                  "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight"
+                },
+                {
+                  "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight1",
+                  "name": "Observation Light"
                 }
               ],
               "show_header_toggle": false,
               "state_color": true
+            },
+            {
+              "show_name": true,
+              "show_icon": true,
+              "show_state": true,
+              "type": "glance",
+              "entities": [
+                {
+                  "entity": "sensor.elegoo_neptune_4_pro_current_print_state",
+                  "name": "Print State"
+                },
+                {
+                  "entity": "sensor.elegoo_neptune_4_pro_print_duration",
+                  "name": "Duration"
+                },
+                {
+                  "entity": "sensor.elegoo_neptune_4_pro_print_eta",
+                  "name": "ETA"
+                },
+                {
+                  "entity": "sensor.elegoo_neptune_4_pro_slicer_print_time_left_estimate",
+                  "name": "Slicer ETA"
+                }
+              ],
+              "title": "Printer Overview"
+            },
+            {
+              "type": "gauge",
+              "entity": "sensor.elegoo_neptune_4_pro_progress",
+              "needle": true,
+              "name": "Print Progress",
+              "unit": "%",
+              "max": 100,
+              "min": 0
             }
           ]
         }
