@@ -30,10 +30,10 @@ homekit:
         - light.basement_lights
 
         # Garage
-        - cover.left_garage_door
+        # - cover.left_garage_door # MyQ
         # - cover.right_garage_door # MyQ
+        - cover.ratgdo_left_garage_door_door # ESPHome
         - cover.ratgdo_right_garage_door_door # ESPHome
-        # - light.ratgdo_right_garage_door_light
         - light.garage_lights # Group
 
         # Outside
