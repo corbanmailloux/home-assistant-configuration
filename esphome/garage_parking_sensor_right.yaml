@@ -8,6 +8,6 @@ packages:
 # Add a motion sensor
 binary_sensor:
   - platform: gpio
-    pin: D8 # TODO: Pins
+    pin: D7
     name: "Garage Right Motion"
     device_class: motion
