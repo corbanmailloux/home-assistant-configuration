@@ -48,12 +48,36 @@ sensor:
               id(light_walk).turn_on().perform();
             }
 
+  - platform: homeassistant
+    name: "Remote Range Sensor - Right"
+    entity_id: sensor.garage_parking_sensor_right_distance
+    on_value:
+      then:
+        - number.set:
+            id: display_number
+            value: !lambda >-
+              if (isnan(x)) {
+                return -10;
+              }
+              return max( -9, min( (int)(round(x) - id(target_distance_right).state), 99 ));
+        - lambda: |-
+            if (isnan(x)) {
+              id(light_hand).turn_off().perform();
+              id(light_walk).turn_off().perform();
+            } else if ((x - id(target_distance_right).state) < 3) {
+              id(light_hand).turn_on().perform();
+              id(light_walk).turn_off().perform();
+            } else {
+              id(light_hand).turn_off().perform();
+              id(light_walk).turn_on().perform();
+            }
+
 output:
   - platform: ledc
-    pin: 27
+    pin: 18
     id: gpio_hand
   - platform: ledc
-    pin: 13
+    pin: 19
     id: gpio_walk
 
 light:
@@ -74,7 +98,7 @@ light:
   # See the `partition` entries below for breaking up the strip into segments.
   - platform: esp32_rmt_led_strip
     rgb_order: GRB
-    pin: 14 # TODO: Set pins
+    pin: 22
     num_leds: 87
     rmt_channel: 0
     chipset: WS2812

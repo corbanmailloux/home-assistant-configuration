@@ -208,8 +208,8 @@ static const uint8_t VL51L1X_DEFAULT_CONFIGURATION[] = {
 
 static const uint16_t INIT_TIMEOUT  = 250;  // default timing budget = 100ms, so 250ms should be more than enough time
 static const uint16_t TIMING_BUDGET = 100;  // new timing budget is maximum allowable = 500 ms // CORBAN: 500 -> 100
-static const uint16_t INTERMEASUREMENT_PERIOD = 50; // CORBAN
-static const uint16_t LOOP_TIME =  100;  // loop executes every 50ms // CORBAN: was 1000? Why?
+static const uint16_t INTERMEASUREMENT_PERIOD = 120; // CORBAN
+static const uint16_t LOOP_TIME =  200;  // loop executes every 50ms // CORBAN: was 1000? Why?
 
 // Sensor Initialisation
 void VL53L1XComponent::setup() {
@@ -305,17 +305,17 @@ void VL53L1XComponent::setup() {
   }
 
 // CORBAN: Commented
-// 	if (!this->set_timing_budget(TIMING_BUDGET)) {
-// 		this->error_code_ = COMMUNICATION_FAILED;
-// 		this->mark_failed();
-// 		return;
-// 	}
+	if (!this->set_timing_budget(TIMING_BUDGET)) {
+		this->error_code_ = COMMUNICATION_FAILED;
+		this->mark_failed();
+		return;
+	}
 
-//   if (!this->set_intermeasurement_period(INTERMEASUREMENT_PERIOD)) { // CORBAN: Changed from timing budget
-// 		this->error_code_ = COMMUNICATION_FAILED;
-// 		this->mark_failed();
-// 		return;
-// 	}
+  if (!this->set_intermeasurement_period(INTERMEASUREMENT_PERIOD)) { // CORBAN: Changed from timing budget
+		this->error_code_ = COMMUNICATION_FAILED;
+		this->mark_failed();
+		return;
+	}
 
 	if (!this->set_distance_mode(distance_mode_)) {
 		this->error_code_ = COMMUNICATION_FAILED;
