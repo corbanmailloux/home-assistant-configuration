@@ -22,8 +22,7 @@ template:
         device_class: door
         auto_off:
           minutes: 1
-        state: >-
-          {{ is_state('binary_sensor.basement_door_sensor_contact', 'on') }}
+        state: "on" # Covered by auto_off.
 
   - binary_sensor:
       - name: "Basement Assumed Motion"
