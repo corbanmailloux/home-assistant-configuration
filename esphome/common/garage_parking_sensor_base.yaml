@@ -66,4 +66,6 @@ sensor:
         - timeout: 1000ms
     range_status:
       name: "Range Status"
-      internal: true
+      filters:
+        - timeout: 1000ms
+      # 0 means that it's a good reading.

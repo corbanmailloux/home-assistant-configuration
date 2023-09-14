@@ -59,11 +59,18 @@ sensor:
               if (isnan(x)) {
                 return -10;
               }
+              if (id(range_status_right).state != 0) {
+                return -11;
+              }
+
               return max( -9, min( (int)(round(x) - id(target_distance_right).state), 99 ));
         - lambda: |-
             if (isnan(x)) {
               id(light_hand).turn_off().perform();
               id(light_walk).turn_off().perform();
+            } else if (id(range_status_right).state != 0) {
+              id(light_hand).turn_off().perform();
+              id(light_walk).turn_on().perform();
             } else if ((x - id(target_distance_right).state) < 3) {
               id(light_hand).turn_on().perform();
               id(light_walk).turn_off().perform();
@@ -71,6 +78,11 @@ sensor:
               id(light_hand).turn_off().perform();
               id(light_walk).turn_on().perform();
             }
+
+  - platform: homeassistant
+    name: "Remote Range Sensor Status - Right"
+    entity_id: sensor.garage_parking_sensor_right_range_status
+    id: range_status_right
 
 output:
   - platform: ledc
@@ -330,7 +342,10 @@ number:
     id: display_number
     optimistic: true
     mode: box
-    min_value: -10 # -10 represents a clear display. All other numbers are displayable.
+    # -10 represents a clear display.
+    # -11 represents two dashes.
+    # All other numbers are displayable.
+    min_value: -11
     max_value: 99
     initial_value: -10 # Start blank.
     step: 1
@@ -346,8 +361,13 @@ number:
               call_digit_1.perform();
               call_digit_2.perform();
               return; // Clear and return.
-            }
-            else if (x < 0) {
+            } else if (x == -11) {
+              call_digit_1.set_value(-1);
+              call_digit_2.set_value(-1);
+              call_digit_1.perform();
+              call_digit_2.perform();
+              return;
+            } else if (x < 0) {
               // -1 represents a negative sign
               call_digit_1.set_value(-1);
             } else if (x < 10) {
