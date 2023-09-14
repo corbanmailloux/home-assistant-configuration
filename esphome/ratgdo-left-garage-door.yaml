@@ -1,5 +1,5 @@
 substitutions:
-  name: "ratgdo-left-garage-door"
+  name: ratgdo-left-garage-door
   friendly_name: RATGDO - Left Garage Door
 packages:
   ratgdo.esphome: github://esphome-ratgdo/esphome-ratgdo/v2board_esp8266_d1_mini_lite.yaml@main
