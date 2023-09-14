@@ -308,25 +308,36 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "binary_sensor.linen_closet_door_sensor_contact"
+                  "entity": "binary_sensor.linen_closet_door_sensor_contact",
+                  "name": "Linen Closet Door"
                 },
                 {
-                  "entity": "binary_sensor.coat_closet_door_sensor_contact"
+                  "entity": "binary_sensor.coat_closet_door_sensor_contact",
+                  "name": "Coat Closet Door",
+                  "secondary_info": "none"
                 },
                 {
-                  "entity": "binary_sensor.front_door"
+                  "entity": "binary_sensor.front_door",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.basement_door_sensor_contact"
+                  "entity": "binary_sensor.basement_door_sensor_contact",
+                  "name": "Basement Stairs Door",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "cover.left_garage_door"
+                  "entity": "cover.ratgdo_left_garage_door_door",
+                  "name": "Left Garage Door",
+                  "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "cover.right_garage_door"
+                  "entity": "cover.ratgdo_right_garage_door_door",
+                  "secondary_info": "last-changed",
+                  "name": "Right Garage Door"
                 }
               ],
-              "title": "Doors and Windows"
+              "title": "Doors and Windows",
+              "show_header_toggle": false
             }
           ]
         },
@@ -698,6 +709,10 @@
                   "name": "Left Sensor - Poll"
                 },
                 {
+                  "entity": "switch.garage_parking_sensor_right_poll_range_sensor",
+                  "name": "Right Sensor - Poll"
+                },
+                {
                   "entity": "number.garage_parking_sign_target_distance_left",
                   "name": "Target - Left",
                   "secondary_info": "none"
@@ -734,6 +749,10 @@
                   "entity": "sensor.garage_parking_sensor_right_distance",
                   "name": "Right Sensor - Distance",
                   "secondary_info": "none"
+                },
+                {
+                  "entity": "sensor.garage_parking_sensor_right_range_status",
+                  "name": "Right Sensor - Range Status (0 is good)"
                 }
               ],
               "title": "Sensor Data",
