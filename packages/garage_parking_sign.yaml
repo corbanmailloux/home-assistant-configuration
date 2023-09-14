@@ -1,0 +1,35 @@
+automation:
+  - id: e5c316e1-78f0-4f4b-8dac-a0140926aaf1
+    alias: Garage Parking Sign - Door Triggers
+    mode: restart # Possible for both doors to be triggered. If so, use the later door.
+    trigger:
+      - platform: state
+        entity_id: cover.ratgdo_left_garage_door_door
+        to: opening
+        id: "switch.garage_parking_sensor_left_poll_range_sensor"
+      - platform: state
+        entity_id: cover.ratgdo_right_garage_door_door
+        to: opening
+        id: "switch.garage_parking_sensor_right_poll_range_sensor"
+    action:
+      - alias: Start polling the sensor
+        service: switch.turn_on
+        target:
+          entity_id: >-
+            {{ trigger.id }}
+      - alias: "Wait for the door to be closing OR 2 minutes."
+        wait_for_trigger:
+          - platform: state
+            entity_id:
+              - cover.ratgdo_left_garage_door_door
+              - cover.ratgdo_right_garage_door_door
+            to:
+              - closing
+              - closed
+        timeout:
+          minutes: 2
+      - alias: Stop polling
+        service: switch.turn_off
+        target:
+          entity_id: >-
+            {{ trigger.id }}
