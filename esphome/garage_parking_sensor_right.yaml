@@ -11,3 +11,6 @@ binary_sensor:
     pin: D7
     name: "Garage Right Motion"
     device_class: motion
+    filters:
+      # This sensor reports no motion within just a few seconds. Debounce it a bit.
+      - delayed_off: 60s

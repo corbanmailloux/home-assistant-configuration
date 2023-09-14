@@ -298,6 +298,11 @@
                   "entity": "binary_sensor.main_doorbell_motion",
                   "name": "Doorbell - Motion",
                   "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.garage_right_motion",
+                  "name": "Garage Parking Sensor Motion",
+                  "secondary_info": "last-changed"
                 }
               ],
               "title": "Motion Sensors",

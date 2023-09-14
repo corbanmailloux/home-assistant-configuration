@@ -1,8 +1,128 @@
 light:
   - platform: group
-    name: Garage Lights
+    name: Garage Non-Switched Lights
     unique_id: bbfd0ea2-b809-4e30-9bb5-20aa843cc741
     entities:
-      - light.garage_main_lights
+      # - light.garage_main_lights
       - light.ratgdo_left_garage_door_light
       - light.ratgdo_right_garage_door_light
+
+template:
+  - trigger:
+      - platform: state
+        entity_id:
+          - cover.ratgdo_left_garage_door_door
+          - cover.ratgdo_right_garage_door_door
+        from: "closed"
+        to:
+          - "opening"
+          - "open"
+    binary_sensor:
+      - name: "garage_door_just_opened"
+        unique_id: 05c6b204-85da-4fd4-9175-e6862fea8002
+        device_class: door
+        auto_off:
+          minutes: 1
+        state: "on" # Covered by auto_off.
+
+  # - trigger:
+  #     - platform: state
+  #       entity_id:
+  #         - binary_sensor.garage_person_door_contact # TODO: Update
+  #         - binary_sensor.garage_back_door_contact # TODO: Update
+  #       from: "off"
+  #       to: "on"
+  #   binary_sensor:
+  #     - name: "garage_person_door_just_opened"
+  #       unique_id: 895f4459-37b6-4db4-beb7-f84e875fd907
+  #       device_class: door
+  #       auto_off:
+  #         minutes: 1
+  #       state: >-
+  #         {{
+  #           is_state('binary_sensor.garage_person_door_contact', 'on') or
+  #           is_state('binary_sensor.garage_back_door_contact', 'on')
+  #         }}
+
+  - binary_sensor:
+      - name: "Garage Assumed Motion"
+        unique_id: 75e72911-0217-4df9-a900-f7808bb0081e
+        device_class: occupancy
+        # Only count the door sensors as motion if the lights are off. This avoids retriggering when leaving the garage.
+        state: >-
+          {{
+            ( is_state('binary_sensor.garage_door_just_opened', 'on') and is_state('light.garage_main_lights', 'off')) or
+            is_state('binary_sensor.garage_right_motion', 'on')
+          }}
+
+automation:
+  - id: 01c0a256-d577-4934-b97f-208357c58cb8
+    alias: Garage - All Lights Follow Switched Lights
+    trigger:
+      - platform: state
+        entity_id: light.garage_main_lights
+        not_from:
+          - "unknown"
+          - "unavailable"
+    action:
+      - service: >-
+          {% if trigger.to_state.state == "on" %}
+            light.turn_on
+          {% else %}
+            light.turn_off
+          {% endif %}
+        target:
+          entity_id: light.garage_lights # Group
+
+  - id: 6f80226a-15d7-4285-83c5-e643c16f1b7f
+    alias: Garage - Motion Lights
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_assumed_motion
+        from: "off"
+        to: "on"
+        id: "on"
+      - platform: state
+        entity_id: binary_sensor.garage_assumed_motion
+        to: "off"
+        for:
+          minutes: 5
+        id: "off"
+    action:
+      - alias: "On or Off?"
+        choose:
+          - conditions: >-
+              {{ trigger.id == "on" }}
+            sequence:
+              - alias: "Turn on lights"
+                service: light.turn_on
+                target:
+                  entity_id: light.garage_main_lights
+          - conditions: >-
+              {{ trigger.id == "off" }}
+            sequence:
+              - alias: "Turn off lights"
+                service: light.turn_off
+                target:
+                  entity_id: light.garage_main_lights
+
+  - id: 170ab84a-5bab-4192-ba0e-21e72c395bb4
+    alias: Garage - Keep the garage door opener lights on when the main lights are on
+    trigger:
+      - platform: state
+        entity_id:
+          - light.ratgdo_left_garage_door_light
+          - light.ratgdo_right_garage_door_light
+        from: "on"
+        to: "off"
+    condition:
+      - alias: "Main lights on"
+        condition: state
+        entity_id: light.garage_main_lights
+        state: "on"
+    action:
+      - alias: "Turn the lights back on"
+        service: light.turn_on
+        target:
+          entity_id: light.garage_lights

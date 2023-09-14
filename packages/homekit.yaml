@@ -34,7 +34,7 @@ homekit:
         # - cover.right_garage_door # MyQ
         - cover.ratgdo_left_garage_door_door # ESPHome
         - cover.ratgdo_right_garage_door_door # ESPHome
-        - light.garage_lights # Group
+        - light.garage_main_lights
 
         # Outside
         - light.exterior_lights # Group
