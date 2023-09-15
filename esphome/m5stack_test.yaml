@@ -1,0 +1,41 @@
+substitutions:
+  device_name: "m5stack-test"
+  friendly_name: M5Stack Test
+
+esphome:
+  name: "${device_name}"
+  friendly_name: "${friendly_name}"
+
+esp32:
+  board: m5stack-atom
+  framework:
+    type: esp-idf
+
+packages:
+  device_base: !include common/device_base.yaml
+
+# Enable logging
+logger:
+  level: INFO
+
+light:
+  # This is the status LED on the M5Stack.
+  - platform: esp32_rmt_led_strip
+    rgb_order: GRB
+    pin: 27
+    num_leds: 1
+    rmt_channel: 0
+    chipset: WS2812
+    name: "Status LED"
+    id: status_led
+
+binary_sensor:
+  # Built-in button on the M5Stack.
+  - platform: gpio
+    pin:
+      number: 39
+      inverted: true
+    name: "Button"
+    on_press:
+      then:
+        - light.toggle: status_led
