@@ -1,0 +1,37 @@
+automation:
+  - id: c32cceb8-eeea-4000-ac80-040bc0b15ae2
+    alias: 3D Printer - Notify Corban when print stops
+    trigger:
+      - platform: state
+        entity_id: sensor.elegoo_neptune_4_pro_current_print_state
+        from: "printing"
+        # to: any other state
+    action:
+      - alias: "Notify Corban"
+        service: notify.corban
+        data:
+          title: "3D Print Stopped"
+          message: >-
+            Current printer state: '{{ states("sensor.elegoo_neptune_4_pro_current_print_state") }}'.
+          data:
+            tag: "3d_print_status"
+            actions:
+              - action: "3D_PRINTER_OFF"
+                title: "Turn Off Printer"
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+                destructive: true
+                behavior: "default"
+
+  - alias: 3D Printer - Notification Off Action
+    id: 88399f03-68e7-42ba-b95a-cce66a800776
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "3D_PRINTER_OFF"
+    action:
+      - alias: "Turn off the main 3D printer power switch"
+        service: switch.turn_off
+        target:
+          entity_id: switch.3d_printer_power

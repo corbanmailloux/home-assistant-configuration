@@ -108,128 +108,6 @@
       "views": [
         {
           "theme": "Backend-selected",
-          "icon": "mdi:server-network",
-          "path": "network",
-          "title": "Network",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "cards": [
-                {
-                  "entities": [
-                    {
-                      "entity": "input_select.download_speed"
-                    },
-                    {
-                      "entity": "input_boolean.download_mode_change_lock"
-                    },
-                    {
-                      "entity": "sensor.nzbget_speed",
-                      "icon": "mdi:progress-download",
-                      "name": "Current Download Speed",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.nzbget_queue_size",
-                      "name": "Remaining Download Queue Size",
-                      "icon": "mdi:trending-down",
-                      "secondary_info": "last-updated"
-                    }
-                  ],
-                  "show_header_toggle": false,
-                  "title": "Automatic Downloads",
-                  "type": "entities"
-                },
-                {
-                  "entities": [
-                    {
-                      "entity": "sensor.download_speed_limit",
-                      "name": "Limit"
-                    },
-                    {
-                      "entity": "sensor.nzbget_speed",
-                      "name": "Download Speed"
-                    }
-                  ],
-                  "hours_to_show": 2,
-                  "refresh_interval": 20,
-                  "type": "history-graph"
-                }
-              ],
-              "type": "vertical-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.ups_status",
-                  "name": "Status"
-                },
-                {
-                  "entity": "sensor.ups_input_voltage",
-                  "name": "Input Voltage"
-                },
-                {
-                  "entity": "sensor.ups_load_w",
-                  "name": "Load",
-                  "icon": "mdi:gauge-low"
-                }
-              ],
-              "title": "UPS"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "gauge",
-                  "entity": "sensor.ups_battery_charge",
-                  "needle": true,
-                  "severity": {
-                    "green": 80,
-                    "yellow": 20,
-                    "red": 0
-                  },
-                  "min": 0,
-                  "max": 100,
-                  "name": "UPS Battery"
-                },
-                {
-                  "type": "gauge",
-                  "entity": "sensor.ups_load",
-                  "severity": {
-                    "green": 0,
-                    "yellow": 80,
-                    "red": 90
-                  },
-                  "needle": true,
-                  "max": 100,
-                  "min": 0
-                }
-              ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.biden_lastactive"
-                },
-                {
-                  "entity": "binary_sensor.biden_microphoneactive"
-                },
-                {
-                  "entity": "button.biden_shutdown"
-                }
-              ],
-              "title": "Gaming PC"
-            }
-          ]
-        },
-        {
-          "theme": "Backend-selected",
           "title": "Security",
           "path": "security",
           "icon": "mdi:shield-lock",
@@ -347,72 +225,310 @@
           ]
         },
         {
-          "icon": "mdi:tablet-dashboard",
-          "title": "Wall Displays",
-          "path": "wall-displays",
+          "title": "3D Printing",
+          "path": "3d-printing",
+          "icon": "mdi:printer-3d",
+          "type": "custom:vertical-layout",
           "badges": [],
           "cards": [
             {
-              "entities": [
+              "type": "horizontal-stack",
+              "cards": [
                 {
-                  "entity": "light.tablet_wall_display_screen"
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "switch.3d_printer_power",
+                  "name": "3D Printer Power",
+                  "fill_container": true,
+                  "layout": "vertical",
+                  "secondary_info": "state",
+                  "icon": "mdi:power",
+                  "icon_color": "primary",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
                 },
                 {
-                  "entity": "script.tablet_wall_display_reload"
-                },
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "button.elegoo_neptune_4_pro_emergency_stop",
+                  "name": "Emergency Stop",
+                  "fill_container": true,
+                  "layout": "vertical",
+                  "secondary_info": "none",
+                  "icon": "",
+                  "icon_color": "red",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "conditional",
+              "conditions": [
                 {
-                  "entity": "script.tablet_wall_display_restart"
-                },
-                {
-                  "entity": "input_boolean.wall_display_show_map"
-                },
-                {
-                  "entity": "input_boolean.litter_box_clean_needed"
-                },
-                {
-                  "entity": "input_boolean.litter_box_clean_skip"
-                },
-                {
-                  "entity": "input_boolean.cat_claw_clip_needed"
+                  "entity": "switch.3d_printer_power",
+                  "state": "on"
                 }
               ],
-              "show_header_toggle": false,
-              "title": "Wall Display",
-              "type": "entities"
+              "card": {
+                "type": "vertical-stack",
+                "cards": [
+                  {
+                    "type": "horizontal-stack",
+                    "cards": [
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight",
+                        "name": "Light",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "name",
+                        "icon": "mdi:led-strip-variant",
+                        "primary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        }
+                      },
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight1",
+                        "name": "Headlight",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "name",
+                        "primary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        }
+                      },
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "button.elegoo_neptune_4_pro_pause_print",
+                        "name": "Pause",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "icon_color": "amber"
+                      },
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "button.elegoo_neptune_4_pro_resume_print",
+                        "name": "Resume",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "icon_color": "green"
+                      },
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "button.elegoo_neptune_4_pro_cancel_print",
+                        "name": "Cancel",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "icon_color": "red"
+                      }
+                    ]
+                  }
+                ]
+              }
             },
             {
               "type": "entities",
               "entities": [
                 {
-                  "entity": "light.kitchen_display_screen"
-                },
+                  "type": "weblink",
+                  "name": "Printer UI",
+                  "url": "http://192.168.1.53/#/",
+                  "icon": "mdi:cloud-print-outline"
+                }
+              ]
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "type": "conditional",
+              "conditions": [
                 {
-                  "entity": "script.kitchen_display_reload"
+                  "entity": "switch.3d_printer_power",
+                  "state": "on"
                 }
               ],
-              "title": "Kitchen Display",
-              "show_header_toggle": false,
-              "state_color": true
+              "card": {
+                "show_name": true,
+                "show_icon": true,
+                "show_state": true,
+                "type": "glance",
+                "entities": [
+                  {
+                    "entity": "sensor.elegoo_neptune_4_pro_current_print_state",
+                    "name": "Print State"
+                  },
+                  {
+                    "entity": "sensor.elegoo_neptune_4_pro_print_duration",
+                    "name": "Duration"
+                  },
+                  {
+                    "entity": "sensor.elegoo_neptune_4_pro_print_eta",
+                    "name": "ETA"
+                  },
+                  {
+                    "entity": "sensor.elegoo_neptune_4_pro_slicer_print_time_left_estimate",
+                    "name": "Slicer ETA"
+                  }
+                ],
+                "state_color": true
+              }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "switch.3d_printer_power",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "graph": "line",
+                "type": "sensor",
+                "entity": "sensor.elegoo_neptune_4_pro_progress",
+                "detail": 2,
+                "unit": "%",
+                "hours_to_show": 3,
+                "name": "Print Progress"
+              }
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "icon": "mdi:server-network",
+          "path": "network",
+          "title": "Network",
+          "type": "custom:vertical-layout",
+          "badges": [],
+          "cards": [
+            {
+              "cards": [
+                {
+                  "entities": [
+                    {
+                      "entity": "input_select.download_speed"
+                    },
+                    {
+                      "entity": "input_boolean.download_mode_change_lock"
+                    },
+                    {
+                      "entity": "sensor.nzbget_speed",
+                      "icon": "mdi:progress-download",
+                      "name": "Current Download Speed",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.nzbget_queue_size",
+                      "name": "Remaining Download Queue Size",
+                      "icon": "mdi:trending-down",
+                      "secondary_info": "last-updated"
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "title": "Automatic Downloads",
+                  "type": "entities"
+                },
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.download_speed_limit",
+                      "name": "Limit"
+                    },
+                    {
+                      "entity": "sensor.nzbget_speed",
+                      "name": "Download Speed"
+                    }
+                  ],
+                  "hours_to_show": 2,
+                  "refresh_interval": 20,
+                  "type": "history-graph"
+                }
+              ],
+              "type": "vertical-stack"
+            },
+            {
+              "type": "custom:layout-break"
             },
             {
               "type": "entities",
               "entities": [
                 {
-                  "entity": "script.reload_openhasp"
+                  "entity": "sensor.ups_status",
+                  "name": "Status"
                 },
                 {
-                  "entity": "openhasp.office_plate"
+                  "entity": "sensor.ups_input_voltage",
+                  "name": "Input Voltage"
                 },
                 {
-                  "entity": "number.office_plate_page_number"
-                },
-                {
-                  "entity": "light.office_plate_backlight"
+                  "entity": "sensor.ups_load_w",
+                  "name": "Load",
+                  "icon": "mdi:gauge-low"
                 }
               ],
-              "title": "openHASP",
-              "show_header_toggle": false,
-              "state_color": false
+              "title": "UPS"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "gauge",
+                  "entity": "sensor.ups_battery_charge",
+                  "needle": true,
+                  "severity": {
+                    "green": 80,
+                    "yellow": 20,
+                    "red": 0
+                  },
+                  "min": 0,
+                  "max": 100,
+                  "name": "UPS Battery"
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.ups_load",
+                  "severity": {
+                    "green": 0,
+                    "yellow": 80,
+                    "red": 90
+                  },
+                  "needle": true,
+                  "max": 100,
+                  "min": 0
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.biden_lastactive"
+                },
+                {
+                  "entity": "binary_sensor.biden_microphoneactive"
+                },
+                {
+                  "entity": "button.biden_shutdown"
+                }
+              ],
+              "title": "Gaming PC"
             }
           ]
         },
@@ -666,6 +782,25 @@
               "title": "Basement Lights",
               "show_header_toggle": false,
               "state_color": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.garage_main_lights"
+                },
+                {
+                  "entity": "light.garage_lights"
+                },
+                {
+                  "entity": "light.ratgdo_left_garage_door_light"
+                },
+                {
+                  "entity": "light.ratgdo_right_garage_door_light"
+                }
+              ],
+              "title": "Garage Lights",
+              "show_header_toggle": false
             }
           ],
           "icon": "mdi:flask",
@@ -766,73 +901,72 @@
           ]
         },
         {
-          "title": "3D Printing",
-          "path": "3d-printing",
-          "icon": "mdi:printer-3d",
+          "icon": "mdi:tablet-dashboard",
+          "title": "Wall Displays",
+          "path": "wall-displays",
           "badges": [],
           "cards": [
+            {
+              "entities": [
+                {
+                  "entity": "light.tablet_wall_display_screen"
+                },
+                {
+                  "entity": "script.tablet_wall_display_reload"
+                },
+                {
+                  "entity": "script.tablet_wall_display_restart"
+                },
+                {
+                  "entity": "input_boolean.wall_display_show_map"
+                },
+                {
+                  "entity": "input_boolean.litter_box_clean_needed"
+                },
+                {
+                  "entity": "input_boolean.litter_box_clean_skip"
+                },
+                {
+                  "entity": "input_boolean.cat_claw_clip_needed"
+                }
+              ],
+              "show_header_toggle": false,
+              "title": "Wall Display",
+              "type": "entities"
+            },
             {
               "type": "entities",
               "entities": [
                 {
-                  "entity": "switch.3d_printer_power"
+                  "entity": "light.kitchen_display_screen"
                 },
                 {
-                  "entity": "button.elegoo_neptune_4_pro_emergency_stop"
-                },
-                {
-                  "entity": "button.elegoo_neptune_4_pro_cancel_print"
-                },
-                {
-                  "type": "weblink",
-                  "name": "Printer UI",
-                  "url": "http://192.168.1.53/#/",
-                  "icon": "mdi:cloud-print-outline"
-                },
-                {
-                  "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight"
-                },
-                {
-                  "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight1",
-                  "name": "Observation Light"
+                  "entity": "script.kitchen_display_reload"
                 }
               ],
+              "title": "Kitchen Display",
               "show_header_toggle": false,
               "state_color": true
             },
             {
-              "show_name": true,
-              "show_icon": true,
-              "show_state": true,
-              "type": "glance",
+              "type": "entities",
               "entities": [
                 {
-                  "entity": "sensor.elegoo_neptune_4_pro_current_print_state",
-                  "name": "Print State"
+                  "entity": "script.reload_openhasp"
                 },
                 {
-                  "entity": "sensor.elegoo_neptune_4_pro_print_duration",
-                  "name": "Duration"
+                  "entity": "openhasp.office_plate"
                 },
                 {
-                  "entity": "sensor.elegoo_neptune_4_pro_print_eta",
-                  "name": "ETA"
+                  "entity": "number.office_plate_page_number"
                 },
                 {
-                  "entity": "sensor.elegoo_neptune_4_pro_slicer_print_time_left_estimate",
-                  "name": "Slicer ETA"
+                  "entity": "light.office_plate_backlight"
                 }
               ],
-              "title": "Printer Overview"
-            },
-            {
-              "type": "gauge",
-              "entity": "sensor.elegoo_neptune_4_pro_progress",
-              "needle": true,
-              "name": "Print Progress",
-              "unit": "%",
-              "max": 100,
-              "min": 0
+              "title": "openHASP",
+              "show_header_toggle": false,
+              "state_color": false
             }
           ]
         }
