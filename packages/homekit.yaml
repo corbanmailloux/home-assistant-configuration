@@ -22,9 +22,17 @@ homekit:
         # Hallways
         - light.stairs_bottom_of_stairs
 
-        # Bedroom
+        # Bedroom (Craft Room)
         - light.fairy_lights
         - fan.bedroom_fan
+
+        # Master Bedroom
+        - light.master_bedroom_ceiling_fan_light
+        - fan.master_bedroom_ceiling_fan
+
+        # Guest Bedroom
+        - light.guest_bedroom_ceiling_fan_light
+        - fan.guest_bedroom_ceiling_fan
 
         # Basement
         - light.basement_lights
