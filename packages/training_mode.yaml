@@ -21,6 +21,9 @@ scene:
       light.master_bedroom_ceiling_fan_light:
         brightness_pct: 20
         state: "on"
+      light.guest_bedroom_ceiling_fan_light:
+        brightness_pct: 20
+        state: "on"
     icon: mdi:trophy-outline
 
 input_boolean:
@@ -54,6 +57,7 @@ automation:
             - light.sunporch_sconces
             # - light.fairy_lights
             - light.master_bedroom_ceiling_fan_light
+            - light.guest_bedroom_ceiling_fan_light
       - service: scene.turn_on
         target:
           entity_id: scene.training
