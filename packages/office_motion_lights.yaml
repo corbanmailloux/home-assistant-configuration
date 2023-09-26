@@ -1,23 +1,39 @@
 # Using a mmWave sensor with ESPHome to determine the office occupancy and control lighting.
 
 automation:
-  - alias: Office Motion Lights - Set LEDs based on occupancy
+  - alias: Office Motion Lights
     id: 3c42906d-db94-454e-8dc9-bc980e94223f
     trigger:
       - platform: state
         entity_id: binary_sensor.office_mini_motion_presence
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.office_mini_motion_presence
+        to: "off"
+        for:
+          minutes: 3
     condition:
       - alias: "Home Mode"
         condition: state
         entity_id: input_select.home_mode
         state: "Home"
+      - alias: "Office is not marked as excluded"
+        condition: state
+        entity_id: input_boolean.room_exclude_office
+        state: "off"
     action:
       - choose:
           - conditions: "{{ trigger.to_state.state == 'on' }}"
             sequence:
               - service: light.turn_on
-                entity_id: light.office_leds
+                target:
+                  entity_id:
+                    - light.office_leds # TODO: Set to a specific preset?
+                    - light.corban_s_office_lamp
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
               - service: light.turn_off
-                entity_id: light.office_leds
+                target:
+                  entity_id:
+                    - light.office_leds
+                    - light.corban_s_office_lamp
