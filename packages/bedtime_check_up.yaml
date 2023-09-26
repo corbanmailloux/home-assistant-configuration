@@ -1,3 +1,13 @@
+group:
+  exterior_doors:
+    name: Exterior Doors
+    entities:
+      - binary_sensor.front_door
+      - binary_sensor.garage_side_person_door_contact
+      # TODO: Add slider
+      # TODO: Add basement exterior door
+      # TODO: Add garage rear person door
+
 script:
   bedtime_checkup:
     alias: Bedtime Checkup
@@ -11,23 +21,19 @@ script:
         service: cover.close_cover
         target:
           entity_id:
-            - cover.left_garage_door
+            - cover.ratgdo_left_garage_door_door
             - cover.ratgdo_right_garage_door_door
       - alias: "If any exterior door is open, notify"
         if:
           - alias: "Exterior door open"
             condition: state
-            entity_id:
-              - binary_sensor.front_door
-              # TODO: Add slider
-              # TODO: Add basement exterior door
-              # TODO: Add garage human door
+            entity_id: group.exterior_doors
             state: "on"
         then:
           - service: script.bedtime_checkup_notify
             data:
-              message: An exterior door is open.
-              # TODO: Include which door, with a template?
+              message: >-
+                Exterior door(s) open: {{ expand("group.exterior_doors") | selectattr('state','eq','on') | map(attribute='name') | list | join(", ") }}
 
       # TODO: Lock the side and garage doors, once they are integrated.
 
@@ -40,9 +46,17 @@ script:
     sequence:
       - service: notify.corban
         data:
+          title: "Bedtime Checkup Failed"
           message: "{{ message }}"
           data:
             tag: "bedtime_checkup"
+            actions:
+              - action: "BEDTIME_CHECKUP_TRIGGER"
+                title: "Rerun Checks"
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+                destructive: false
+                behavior: "default"
       - delay:
           seconds: 1
       - alias: "Flash fairy lights"
@@ -60,3 +74,15 @@ script:
           entity_id: light.fairy_lights
         data:
           brightness_pct: 25
+
+automation:
+  - alias: Bedtime Checkup - Notification Action
+    id: 3335ad34-ca40-424a-ae4e-b7d4f73ed851
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "BEDTIME_CHECKUP_TRIGGER"
+    action:
+      - alias: "Run bedtime check up"
+        service: script.bedtime_checkup

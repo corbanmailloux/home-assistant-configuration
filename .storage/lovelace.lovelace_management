@@ -209,6 +209,11 @@
                   "secondary_info": "last-changed"
                 },
                 {
+                  "entity": "binary_sensor.garage_side_person_door_contact",
+                  "name": "Garage Side Person Door",
+                  "secondary_info": "last-changed"
+                },
+                {
                   "entity": "cover.ratgdo_left_garage_door_door",
                   "name": "Left Garage Door",
                   "secondary_info": "last-changed"
