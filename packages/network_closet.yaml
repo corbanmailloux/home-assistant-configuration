@@ -61,7 +61,8 @@ automation:
         data:
           title: "Power Outage at Home - Recovered"
           message: >-
-            The power went out at {{ outage_start_time | float | timestamp_custom("%-I:%M %p") }} and returned at {{ outage_stop_time | float | timestamp_custom("%-I:%M %p") }} ({{ ((outage_stop_time | float) - (outage_start_time | float)) | int / 60 }} minutes).
+            The power went out at {{ outage_start_time | float | timestamp_custom("%-I:%M %p") }} and returned at {{ outage_stop_time | float | timestamp_custom("%-I:%M %p") }}.
+            (Outage time: {{ timedelta(seconds=((outage_stop_time | int) - (outage_start_time | int))) }})
           data:
             tag: "power_outage"
             # Note that this replaces the previous notification. If power were to flicker repeatedly, there would only be one final notification.
