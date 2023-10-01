@@ -12,13 +12,13 @@ automation:
       - if:
           - alias: "Light On"
             condition: state
-            entity_id: light.bedroom_lamp
+            entity_id: light.guest_bedroom_ceiling_fan_light # TODO: Update to master
             state: "on"
         then:
           - alias: "Turn off"
             service: light.turn_off
             target:
-              entity_id: light.bedroom_lamp
+              entity_id: light.guest_bedroom_ceiling_fan_light
         else:
           - if:
               - alias: "Nighttime"
@@ -29,14 +29,14 @@ automation:
               - alias: "Turn on at 50%"
                 service: light.turn_on
                 target:
-                  entity_id: light.bedroom_lamp
+                  entity_id: light.guest_bedroom_ceiling_fan_light
                 data_template:
                   brightness: 127 # 50%
             else:
               - alias: "Turn on at 100%"
                 service: light.turn_on
                 target:
-                  entity_id: light.bedroom_lamp
+                  entity_id: light.guest_bedroom_ceiling_fan_light
                 data_template:
                   brightness: 255
 
@@ -51,11 +51,11 @@ automation:
         subtype: brightness_up_click
     action:
       - service: light.turn_on
-        entity_id: light.bedroom_lamp
+        entity_id: light.guest_bedroom_ceiling_fan_light
         data_template:
           # Handles the light being off as well, treating it as 0 brightness.
           brightness: >
-            {%- set target = (is_state('light.bedroom_lamp', "on") and state_attr('light.bedroom_lamp', 'brightness')) | int + 40 -%}
+            {%- set target = (is_state('light.guest_bedroom_ceiling_fan_light', "on") and state_attr('light.guest_bedroom_ceiling_fan_light', 'brightness')) | int + 40 -%}
             {%- if target > 255 -%}
               255
             {%- else -%}
@@ -73,14 +73,14 @@ automation:
         subtype: brightness_down_click
     condition:
       - condition: state
-        entity_id: light.bedroom_lamp
+        entity_id: light.guest_bedroom_ceiling_fan_light
         state: "on"
     action:
       - service: light.turn_on
-        entity_id: light.bedroom_lamp
+        entity_id: light.guest_bedroom_ceiling_fan_light
         data_template:
           brightness: >
-            {%- set target = state_attr('light.bedroom_lamp', 'brightness') | int - 40 -%}
+            {%- set target = state_attr('light.guest_bedroom_ceiling_fan_light', 'brightness') | int - 40 -%}
             {%- if target < 10 -%}
               10
             {%- else -%}
@@ -98,7 +98,7 @@ automation:
         subtype: brightness_up_hold
     action:
       - service: light.turn_on
-        entity_id: light.bedroom_lamp
+        entity_id: light.guest_bedroom_ceiling_fan_light
         data:
           brightness: 255
 
@@ -113,7 +113,7 @@ automation:
         subtype: brightness_down_hold
     action:
       - service: light.turn_on
-        entity_id: light.bedroom_lamp
+        entity_id: light.guest_bedroom_ceiling_fan_light
         data:
           brightness: 10
 
@@ -128,7 +128,7 @@ automation:
         subtype: arrow_left_click
     action:
       - service: homeassistant.toggle
-        entity_id: fan.bedroom_fan
+        entity_id: fan.guest_bedroom_ceiling_fan
 
   - alias: Bedside Button 1 - Right Button Click - Fairy Toggle
     id: 1d146753-e4ca-4514-883d-7bb0efd99554

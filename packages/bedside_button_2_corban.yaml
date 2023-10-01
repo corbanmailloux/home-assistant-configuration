@@ -38,7 +38,7 @@ automation:
         subtype: double
     action:
       - service: homeassistant.toggle
-        entity_id: fan.bedroom_fan
+        entity_id: fan.guest_bedroom_ceiling_fan
 
   - alias: Bedside Button 2 - Hold - Sleep Mode and Everything Off
     id: 10bcb4b9-5b6f-4063-8c0c-10938cc9bcd3
