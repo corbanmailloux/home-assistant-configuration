@@ -34,8 +34,12 @@ script:
             data:
               message: >-
                 Exterior door(s) open: {{ expand("group.exterior_doors") | selectattr('state','eq','on') | map(attribute='name') | list | join(", ") }}
+      - alias: "Lock side door"
+        service: button.press
+        target:
+          entity_id: button.lock_side_door
 
-      # TODO: Lock the side and garage doors, once they are integrated.
+      # TODO: Extend to the garage person door
 
   bedtime_checkup_notify:
     description: "Bedtime Checkup - Notify and Flash Fairy Lights"

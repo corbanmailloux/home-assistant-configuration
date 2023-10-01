@@ -51,6 +51,10 @@ homekit:
         # Misc
         - input_boolean.training_mode
 
+        # Locks
+        - input_boolean.fake_side_door_lock_status
+        - sensor.fake_side_door_lock_input_temperature
+
   - name: HASS Doorbell Camera
     port: 21065
     mode: accessory

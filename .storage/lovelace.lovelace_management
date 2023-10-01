@@ -226,6 +226,28 @@
               ],
               "title": "Doors and Windows",
               "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.side_door_lock_status"
+                },
+                {
+                  "entity": "button.lock_side_door"
+                },
+                {
+                  "entity": "button.unlock_side_door"
+                },
+                {
+                  "entity": "input_boolean.fake_side_door_lock_status"
+                },
+                {
+                  "entity": "sensor.fake_side_door_lock_input_temperature"
+                }
+              ],
+              "title": "Side Door Lock Testing",
+              "show_header_toggle": false
             }
           ]
         },
