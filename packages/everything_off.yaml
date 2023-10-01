@@ -164,7 +164,7 @@ script:
                 - light.corban_s_office_lamp_middle
                 - light.corban_s_office_lamp_top
                 - light.key_light_air_1
-                - light.office_leds
+                - light.wled_master # Includes all segments
           - if:
               - "{{ include_fans == true }}"
             then:
