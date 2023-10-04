@@ -11,7 +11,7 @@ automation:
     id: e3cb3255-914c-458c-83e6-d400d5ec50b8
     trigger:
       - platform: time
-        at: "10:00:00"
+        at: "12:00:00"
     condition:
       - condition: time
         weekday:
@@ -116,8 +116,8 @@ script:
           payload_template: >-
             {
               "coordinates": {
-                "x": 2604,
-                "y": 2333
+                "x": 2558,
+                "y": 2469
               }
             }
       - delay:
