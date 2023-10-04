@@ -517,6 +517,18 @@
               "type": "horizontal-stack"
             },
             {
+              "type": "custom:mushroom-climate-card",
+              "entity": "climate.t9_thermostat",
+              "name": "Thermostat",
+              "hvac_modes": [],
+              "show_temperature_control": false,
+              "collapsible_controls": false,
+              "tap_action": {
+                "action": "more-info"
+              },
+              "secondary_info": "state"
+            },
+            {
               "type": "custom:button-card",
               "name": "Living Room",
               "entity": "sensor.living_room_temperature",
@@ -540,13 +552,19 @@
                   "name": "Lamp",
                   "primary_info": "none",
                   "secondary_info": "none",
-                  "layout": "horizontal"
+                  "layout": "horizontal",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  }
                 },
                 {
                   "type": "custom:mushroom-fan-card",
                   "entity": "fan.living_room_fan",
                   "icon_animation": true,
-                  "name": "Fan"
+                  "name": "Fan",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  }
                 }
               ]
             },
@@ -594,16 +612,31 @@
                   "collapsible_controls": false,
                   "primary_info": "none",
                   "secondary_info": "none",
-                  "layout": "horizontal"
+                  "layout": "horizontal",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  }
                 },
                 {
-                  "type": "custom:mushroom-fan-card",
-                  "entity": "fan.bedroom_fan",
+                  "type": "custom:mushroom-light-card",
                   "fill_container": true,
-                  "show_percentage_control": false,
+                  "show_brightness_control": true,
                   "collapsible_controls": false,
-                  "icon_animation": true,
-                  "name": "Fan"
+                  "primary_info": "none",
+                  "secondary_info": "none",
+                  "layout": "horizontal",
+                  "entity": "light.guest_bedroom_ceiling_fan_light",
+                  "name": "Overhead",
+                  "icon": "mdi:ceiling-fan-light",
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  }
                 }
               ]
             },
@@ -611,27 +644,40 @@
               "type": "horizontal-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-media-player-card",
-                  "entity": "media_player.bedroom_tv",
-                  "name": "TV",
-                  "fill_container": false,
-                  "primary_info": "name",
-                  "show_volume_level": false,
-                  "use_media_info": true,
-                  "media_controls": [
-                    "play_pause_stop"
-                  ],
+                  "type": "custom:mushroom-fan-card",
+                  "fill_container": true,
+                  "show_percentage_control": true,
+                  "collapsible_controls": true,
+                  "icon_animation": true,
+                  "name": "Fan",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "entity": "fan.guest_bedroom_ceiling_fan",
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-fan-card",
+                  "entity": "fan.office_air_purifier",
+                  "name": "Air Purifier",
+                  "icon_animation": false,
+                  "fill_container": true,
+                  "show_percentage_control": true,
                   "collapsible_controls": true,
                   "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
                     "action": "more-info"
                   },
                   "hold_action": {
                     "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "none"
-                  },
-                  "layout": "horizontal"
+                  }
                 }
               ]
             },
@@ -654,20 +700,8 @@
                   "fill_container": true,
                   "show_brightness_control": true,
                   "collapsible_controls": true,
-                  "show_color_temp_control": true
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.office_leds",
-                  "name": "Shelf LEDs",
-                  "icon": "",
-                  "fill_container": true,
-                  "show_brightness_control": true,
-                  "use_light_color": false,
-                  "show_color_temp_control": false,
-                  "collapsible_controls": true,
-                  "show_color_control": true,
-                  "hold_action": {
+                  "show_color_temp_control": true,
+                  "double_tap_action": {
                     "action": "more-info"
                   }
                 },
@@ -682,6 +716,10 @@
                   "collapsible_controls": true,
                   "show_color_control": true,
                   "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "LEDs",
+                  "double_tap_action": {
                     "action": "more-info"
                   }
                 }
@@ -700,7 +738,10 @@
                   "use_light_color": false,
                   "show_color_temp_control": true,
                   "collapsible_controls": true,
-                  "show_color_control": false
+                  "show_color_control": false,
+                  "double_tap_action": {
+                    "action": "more-info"
+                  }
                 },
                 {
                   "type": "custom:mushroom-light-card",
@@ -710,42 +751,10 @@
                   "show_brightness_control": true,
                   "fill_container": false,
                   "show_color_temp_control": true,
-                  "collapsible_controls": true
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-fan-card",
-                  "entity": "fan.office_air_purifier",
-                  "name": "Air Purifier",
-                  "icon_animation": false,
-                  "fill_container": true,
-                  "show_percentage_control": true,
                   "collapsible_controls": true,
-                  "layout": "vertical"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "sensor.office_air_purifier_pm2_5",
-                  "name": "PM2.5",
-                  "primary_info": "name",
-                  "secondary_info": "state",
-                  "fill_container": true,
-                  "layout": "vertical"
-                },
-                {
-                  "type": "custom:mushroom-climate-card",
-                  "entity": "climate.corbans_office_ac",
-                  "name": "AC",
-                  "fill_container": true,
-                  "show_temperature_control": true,
-                  "hvac_modes": [],
-                  "collapsible_controls": true,
-                  "layout": "vertical",
-                  "icon_type": "none"
+                  "double_tap_action": {
+                    "action": "more-info"
+                  }
                 }
               ]
             }
@@ -1593,10 +1602,10 @@
               "map_source": {
                 "camera": "camera.eve_rendered_map",
                 "crop": {
-                  "top": 50,
-                  "bottom": 20,
-                  "right": -20,
-                  "left": -20
+                  "top": -10,
+                  "bottom": -10,
+                  "right": 0,
+                  "left": 0
                 }
               },
               "calibration_source": {
@@ -2333,6 +2342,34 @@
                 }
               ],
               "type": "conditional"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-media-player-card",
+                  "entity": "media_player.bedroom_tv",
+                  "name": "TV",
+                  "fill_container": false,
+                  "primary_info": "name",
+                  "show_volume_level": false,
+                  "use_media_info": true,
+                  "media_controls": [
+                    "play_pause_stop"
+                  ],
+                  "collapsible_controls": true,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "none"
+                  },
+                  "layout": "horizontal"
+                }
+              ]
             }
           ]
         }
