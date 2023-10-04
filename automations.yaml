@@ -1,5 +1,5 @@
 - id: '1689084919801'
-  alias: Office Lutron Pico Remote - Actions
+  alias: Guest Room Lutron Pico Remote - Actions
   description: ''
   use_blueprint:
     path: gregtakacs/lutron_pico_5_button_actions.yaml
@@ -7,10 +7,11 @@
       pico_id: f55558e66b8f403aed6dc6acc7450363
       short_click_action_on:
       - service: light.turn_on
-        data: {}
+        data:
+          brightness_pct: 100
         target:
-          entity_id: light.corban_s_office_lamp
-      delay_click: 175
+          entity_id: light.guest_bedroom_ceiling_fan_light
+      delay_click: 100
       long_click_action_stop:
       - choose:
         - conditions:
@@ -69,4 +70,28 @@
           target:
             entity_id: climate.corbans_office_ac
           alias: Set fan to low
+        enabled: false
       long_click_action_up: []
+      short_click_action_up:
+      - service: fan.increase_speed
+        data:
+          percentage_step: 25
+        target:
+          entity_id: fan.guest_bedroom_ceiling_fan
+      short_click_action_down:
+      - service: fan.decrease_speed
+        data:
+          percentage_step: 25
+        target:
+          entity_id: fan.guest_bedroom_ceiling_fan
+      short_click_action_off:
+      - service: light.turn_off
+        data:
+          transition: 1
+        target:
+          entity_id: light.guest_bedroom_ceiling_fan_light
+      short_click_action_stop:
+      - service: fan.toggle
+        data: {}
+        target:
+          entity_id: fan.guest_bedroom_ceiling_fan
