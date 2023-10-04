@@ -191,27 +191,14 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "binary_sensor.linen_closet_door_sensor_contact",
-                  "name": "Linen Closet Door"
-                },
-                {
-                  "entity": "binary_sensor.coat_closet_door_sensor_contact",
-                  "name": "Coat Closet Door",
-                  "secondary_info": "none"
+                  "entity": "lock.side_door",
+                  "secondary_info": "last-changed",
+                  "name": "Main Door Lock"
                 },
                 {
                   "entity": "binary_sensor.front_door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.basement_door_sensor_contact",
-                  "name": "Basement Stairs Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.garage_side_person_door_contact",
-                  "name": "Garage Side Person Door",
-                  "secondary_info": "last-changed"
+                  "secondary_info": "last-changed",
+                  "name": "Main Door"
                 },
                 {
                   "entity": "cover.ratgdo_left_garage_door_door",
@@ -222,28 +209,28 @@
                   "entity": "cover.ratgdo_right_garage_door_door",
                   "secondary_info": "last-changed",
                   "name": "Right Garage Door"
+                },
+                {
+                  "entity": "binary_sensor.garage_side_person_door_contact",
+                  "name": "Garage Side Person Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.basement_door_sensor_contact",
+                  "name": "Basement Stairs Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.linen_closet_door_sensor_contact",
+                  "name": "Linen Closet Door"
+                },
+                {
+                  "entity": "binary_sensor.coat_closet_door_sensor_contact",
+                  "name": "Coat Closet Door",
+                  "secondary_info": "none"
                 }
               ],
               "title": "Doors and Windows",
-              "show_header_toggle": false
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.side_door_lock_status"
-                },
-                {
-                  "entity": "button.lock_side_door"
-                },
-                {
-                  "entity": "button.unlock_side_door"
-                },
-                {
-                  "entity": "lock.side_door"
-                }
-              ],
-              "title": "Side Door Lock Testing",
               "show_header_toggle": false
             }
           ]
