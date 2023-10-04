@@ -186,3 +186,7 @@ automation:
         data:
           ignore_room_exclusions: true
           include_fans: true
+      - alias: "Lock side door"
+        service: lock.lock
+        target:
+          entity_id: lock.side_door
