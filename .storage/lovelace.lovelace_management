@@ -240,10 +240,7 @@
                   "entity": "button.unlock_side_door"
                 },
                 {
-                  "entity": "input_boolean.fake_side_door_lock_status"
-                },
-                {
-                  "entity": "sensor.fake_side_door_lock_input_temperature"
+                  "entity": "lock.side_door"
                 }
               ],
               "title": "Side Door Lock Testing",

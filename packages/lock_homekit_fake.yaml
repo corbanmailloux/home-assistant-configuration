@@ -1,7 +1,7 @@
 # So this one's a bit crazy...
 # My lock is currently connected directly into HomeKit through an Apple HomePod.
 # I could use a Bluetooth Proxy and connect directly, but that was unreliable and required extracting keys.
-# Instead, this system presents two fake entities to HomeKit: A switch for status, and a temperature sensor for input.
+# Instead, this system presents two fake entities to HomeKit: A switch for status, and a temperature sensor for control.
 #
 # In HomeKit, there are a few automations:
 # 1. When the door is locked, turn off the fake switch.
@@ -10,9 +10,7 @@
 # 4. When the "temperature" of the fake sensor goes below -5, unlock the door.
 #
 # This gives a bidirectional method of setting and checking the status of the lock, allowing easier automations.
-# For other scripts, there are a few wrapper entities to hide this logic:
-# - Controls: `button.lock_side_door` and `button.unlock_side_door`
-# - Status: `binary_sensor.side_door_lock_status`
+# These are then wrapped in a template lock, allowing standard UI and controls.
 
 input_boolean:
   fake_side_door_lock_status:
@@ -26,46 +24,43 @@ input_number:
     step: 1
     initial: 0
 
-template:
-  - button:
-      - name: "Lock Side Door"
-        press:
-          - service: input_number.set_value
-            data:
-              value: 10
-            target:
-              entity_id: input_number.fake_side_door_lock_input
-          - delay:
-              seconds: 10
-          - service: input_number.set_value
-            data:
-              value: 0
-            target:
-              entity_id: input_number.fake_side_door_lock_input
+lock:
+  - platform: template
+    name: Side Door
+    unique_id: 931b3f7c-3fae-4bf2-aebd-1aed2fb57da6
+    value_template: >
+      {{ is_state('input_boolean.fake_side_door_lock_status', 'off') }}
+    lock:
+      - service: input_number.set_value
+        data:
+          value: 10
+        target:
+          entity_id: input_number.fake_side_door_lock_input
+      - delay:
+          seconds: 10
+      - service: input_number.set_value
+        data:
+          value: 0
+        target:
+          entity_id: input_number.fake_side_door_lock_input
+    unlock:
+      - service: input_number.set_value
+        data:
+          value: -10
+        target:
+          entity_id: input_number.fake_side_door_lock_input
+      - delay:
+          seconds: 10
+      - service: input_number.set_value
+        data:
+          value: 0
+        target:
+          entity_id: input_number.fake_side_door_lock_input
 
-      - name: "Unlock Side Door"
-        press:
-          - service: input_number.set_value
-            data:
-              value: -10
-            target:
-              entity_id: input_number.fake_side_door_lock_input
-          - delay:
-              seconds: 10
-          - service: input_number.set_value
-            data:
-              value: 0
-            target:
-              entity_id: input_number.fake_side_door_lock_input
+template:
   - sensor:
       - name: "FAKE - Side Door Lock Input Temperature"
         unit_of_measurement: "°F"
         device_class: temperature
         state: >-
           {{ states("input_number.fake_side_door_lock_input") }}
-
-  - binary_sensor:
-      - name: Side Door Lock - Status
-        device_class: lock
-        state: >-
-          {{ states("input_boolean.fake_side_door_lock_status") }}

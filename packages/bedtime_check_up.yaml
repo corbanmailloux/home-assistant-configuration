@@ -35,9 +35,9 @@ script:
               message: >-
                 Exterior door(s) open: {{ expand("group.exterior_doors") | selectattr('state','eq','on') | map(attribute='name') | list | join(", ") }}
       - alias: "Lock side door"
-        service: button.press
+        service: lock.lock
         target:
-          entity_id: button.lock_side_door
+          entity_id: lock.side_door
 
       # TODO: Extend to the garage person door
 
