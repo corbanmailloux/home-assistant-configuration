@@ -432,7 +432,10 @@
               "showHiddenText": false,
               "showWeekNumber": false,
               "showDatePerEvent": false,
-              "dimFinishedEvents": true
+              "dimFinishedEvents": true,
+              "showRelativeTime": true,
+              "hideDuplicates": false,
+              "hideFinishedEvents": true
             },
             {
               "type": "custom:layout-break"

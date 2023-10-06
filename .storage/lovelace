@@ -630,7 +630,7 @@
                   "layout": "horizontal",
                   "entity": "light.guest_bedroom_ceiling_fan_light",
                   "name": "Overhead",
-                  "icon": "mdi:ceiling-fan-light",
+                  "icon": "mdi:globe-light",
                   "hold_action": {
                     "action": "more-info"
                   },
@@ -648,7 +648,7 @@
                   "fill_container": true,
                   "show_percentage_control": true,
                   "collapsible_controls": true,
-                  "icon_animation": true,
+                  "icon_animation": false,
                   "name": "Fan",
                   "double_tap_action": {
                     "action": "more-info"
@@ -659,7 +659,8 @@
                   "entity": "fan.guest_bedroom_ceiling_fan",
                   "hold_action": {
                     "action": "more-info"
-                  }
+                  },
+                  "icon": "mdi:ceiling-fan"
                 },
                 {
                   "type": "custom:mushroom-fan-card",
@@ -676,6 +677,27 @@
                     "action": "more-info"
                   },
                   "hold_action": {
+                    "action": "more-info"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-cover-card",
+                  "entity": "cover.master_bedroom_curtains",
+                  "name": "Curtains",
+                  "fill_container": true,
+                  "show_position_control": true,
+                  "show_buttons_control": true,
+                  "layout": "horizontal",
+                  "show_tilt_position_control": false,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
                     "action": "more-info"
                   }
                 }
