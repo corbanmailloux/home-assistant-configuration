@@ -18,6 +18,21 @@ packages:
 logger:
   level: INFO
 
+# BLE Hub
+esp32_ble_tracker:
+  scan_parameters:
+    # interval: 1100ms
+    # window: 1100ms
+    active: true
+
+bluetooth_proxy:
+  active: true
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+
 light:
   # This is the status LED on the M5Stack.
   - platform: esp32_rmt_led_strip
