@@ -1,30 +1,115 @@
-scene:
-  - id: fe208743-4e9d-4a4c-8901-8cb4820a55ce
-    name: Training
-    entities:
-      light.corner_lamp:
-        brightness_pct: 100
-        state: "on"
-      light.corban_s_office_lamp:
-        brightness_pct: 100
-        state: "on"
-      light.stairs_bottom_of_stairs:
-        state: "on"
-      light.sunporch_string_lights:
-        state: "on"
-      light.sunporch_sconces:
-        brightness_pct: 100
-        state: "on"
-      # light.fairy_lights:
-      #   brightness_pct: 20
-      #   state: "on"
-      light.master_bedroom_ceiling_fan_light:
-        brightness_pct: 20
-        state: "on"
-      # light.guest_bedroom_ceiling_fan_light:
-      #   brightness_pct: 20
-      #   state: "on"
+script:
+  training_mode_start:
+    alias: "Training Mode - Start"
     icon: mdi:trophy-outline
+    sequence:
+      - alias: "Disable adaptive lighting temporarily"
+        service: switch.turn_off
+        target:
+          entity_id:
+            - switch.adaptive_lighting_adapt_brightness_main_adaptive_lighting
+            - switch.adaptive_lighting_adapt_brightness_office
+      - alias: "Set initial value"
+        variables:
+          training_entity_ids: >
+            {{ [] }}
+
+      # For each room, check if that room is marked as excluded and update the entity ID list.
+
+      # - alias: "Master Bedroom"
+      #   variables:
+      #     training_entity_ids: >
+      #       {% if is_state("input_boolean.room_exclude_master_bedroom", "off") -%}
+      #       {{ training_entity_ids + ["light.master_bedroom_ceiling_fan_light"] }}
+      #       {%- else -%}
+      #       {{ training_entity_ids }}
+      #       {% endif %}
+
+      - alias: "Guest Bedroom"
+        variables:
+          training_entity_ids: >
+            {% if is_state("input_boolean.room_exclude_guest_bedroom", "off") -%}
+            {{ training_entity_ids + ["light.guest_bedroom_ceiling_fan_light"] }}
+            {%- else -%}
+            {{ training_entity_ids }}
+            {% endif %}
+
+      # - alias: "Craft Room"
+      #   variables:
+      #     training_entity_ids: >
+      #       {% if is_state("input_boolean.room_exclude_craft_room", "off") -%}
+      #       {{ training_entity_ids + ["light.WHATEVER"] }}
+      #       {%- else -%}
+      #       {{ training_entity_ids }}
+      #       {% endif %}
+
+      - alias: "Office"
+        variables:
+          training_entity_ids: >
+            {% if is_state("input_boolean.room_exclude_office", "off") -%}
+            {{ training_entity_ids + ["light.corban_s_office_lamp"] }}
+            {%- else -%}
+            {{ training_entity_ids }}
+            {% endif %}
+
+      - alias: "Living Room"
+        variables:
+          training_entity_ids: >
+            {% if is_state("input_boolean.room_exclude_livingroom", "off") -%}
+            {{ training_entity_ids + ["light.corner_lamp"] }}
+            {%- else -%}
+            {{ training_entity_ids }}
+            {% endif %}
+
+      - alias: "Kitchen"
+        variables:
+          training_entity_ids: >
+            {% if is_state("input_boolean.room_exclude_kitchen", "off") -%}
+            {{ training_entity_ids + ["light.kitchen_main_lights"] }}
+            {%- else -%}
+            {{ training_entity_ids }}
+            {% endif %}
+
+      - alias: "Sunporch"
+        variables:
+          training_entity_ids: >
+            {% if is_state("input_boolean.room_exclude_sunporch", "off") -%}
+            {{ training_entity_ids + ["light.sunporch_sconces", "light.sunporch_string_lights"] }}
+            {%- else -%}
+            {{ training_entity_ids }}
+            {% endif %}
+
+      - alias: "Hallways"
+        variables:
+          training_entity_ids: >
+            {% if is_state("input_boolean.room_exclude_hallways", "off") -%}
+            {{ training_entity_ids + ["light.stairs_bottom_of_stairs"] }}
+            {%- else -%}
+            {{ training_entity_ids }}
+            {% endif %}
+
+      # Now that we have all of the impacted lights in a variable, make a scene.
+      - alias: "Create scene with all impacted lights"
+        service: scene.create
+        data:
+          scene_id: state_before_training
+          snapshot_entities: >
+            {{ training_entity_ids }}
+
+      - alias: "Turn on the lights"
+        service: light.turn_on
+        data:
+          brightness_pct: 100
+        target:
+          entity_id: >
+            {{ training_entity_ids }}
+
+      # To have some lights not default to 100%, use a filter like this:
+      # {{
+      #   training_entity_ids
+      #   | reject('equalto', "light.guest_bedroom_ceiling_fan_light")
+      #   | list
+      # }}
 
 input_boolean:
   training_mode:
@@ -39,28 +124,7 @@ automation:
         entity_id: input_boolean.training_mode
         to: "on"
     action:
-      - alias: "Disable adaptive lighting temporarily"
-        service: switch.turn_off
-        target:
-          entity_id:
-            - switch.adaptive_lighting_adapt_brightness_main_adaptive_lighting
-            - switch.adaptive_lighting_adapt_brightness_office
-      - alias: "Create scene with all impacted lights"
-        service: scene.create
-        data:
-          scene_id: state_before_training
-          snapshot_entities:
-            - light.corner_lamp
-            - light.corban_s_office_lamp
-            - light.stairs_bottom_of_stairs
-            - light.sunporch_string_lights
-            - light.sunporch_sconces
-            # - light.fairy_lights
-            - light.master_bedroom_ceiling_fan_light
-            # - light.guest_bedroom_ceiling_fan_light
-      - service: scene.turn_on
-        target:
-          entity_id: scene.training
+      - service: script.training_mode_start
 
   - alias: Training Mode Stop
     id: 6c0d187b-c08f-4e96-a602-1dd87e972df6
