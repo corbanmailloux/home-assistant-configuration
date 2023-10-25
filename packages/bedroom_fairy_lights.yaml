@@ -24,6 +24,10 @@ automation:
       - platform: time
         at: "22:45"
     condition:
+      - alias: "Room not excluded"
+        condition: state
+        entity_id: input_boolean.room_exclude_guest_bedroom
+        state: "off"
       - condition: state
         entity_id: light.fairy_lights
         state: "off"

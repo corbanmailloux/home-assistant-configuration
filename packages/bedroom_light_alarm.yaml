@@ -25,6 +25,10 @@ automation:
       - platform: time
         at: input_datetime.alarm_start_time
     condition:
+      - alias: "Room not excluded"
+        condition: state
+        entity_id: input_boolean.room_exclude_guest_bedroom
+        state: "off"
       - condition: state
         entity_id: input_select.home_mode
         state: "Home"

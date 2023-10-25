@@ -25,14 +25,15 @@ script:
       #       {{ training_entity_ids }}
       #       {% endif %}
 
-      - alias: "Guest Bedroom"
-        variables:
-          training_entity_ids: >
-            {% if is_state("input_boolean.room_exclude_guest_bedroom", "off") -%}
-            {{ training_entity_ids + ["light.guest_bedroom_ceiling_fan_light"] }}
-            {%- else -%}
-            {{ training_entity_ids }}
-            {% endif %}
+      # Exclude temporarily until we're sleeping in the master.
+      # - alias: "Guest Bedroom"
+      #   variables:
+      #     training_entity_ids: >
+      #       {% if is_state("input_boolean.room_exclude_guest_bedroom", "off") -%}
+      #       {{ training_entity_ids + ["light.guest_bedroom_ceiling_fan_light"] }}
+      #       {%- else -%}
+      #       {{ training_entity_ids }}
+      #       {% endif %}
 
       # - alias: "Craft Room"
       #   variables:
