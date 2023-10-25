@@ -70,7 +70,7 @@ automation:
     trigger:
       - platform: sun
         event: sunset
-        offset: "00:30:00"
+        # offset: "00:30:00"
     condition:
       - alias: "Master Bedroom automations are not disabled"
         condition: state
