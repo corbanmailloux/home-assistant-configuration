@@ -48,3 +48,42 @@ automation:
         service: homeassistant.turn_off
         target:
           entity_id: light.exterior_lights
+
+  - id: ed3ca607-bc60-4952-ba47-395cd6d1b8f1
+    alias: Exterior Lighting - Lights On in the Morning
+    trigger:
+      - platform: time
+        at: "06:00:00"
+    condition:
+      - alias: "Sunrise hasn't happened yet"
+        condition: state
+        entity_id: sun.sun
+        state: "below_horizon"
+      # - alias: "Not in Vacation Mode"
+      #   not:
+      #     - condition: state
+      #       entity_id: input_select.home_mode
+      #       state: "Vacation"
+    action:
+      - alias: "Lights On"
+        service: homeassistant.turn_on
+        target:
+          entity_id: light.exterior_lights
+
+  - id: 0222a662-5ec3-4d21-92b4-d208c1d4fee9
+    alias: Exterior Lighting - Lights Off After Sunrise
+    trigger:
+      - platform: sun
+        event: sunrise
+        offset: "00:00:00"
+    # condition:
+    #   - alias: "Not in Vacation Mode"
+    #     not:
+    #       - condition: state
+    #         entity_id: input_select.home_mode
+    #         state: "Vacation"
+    action:
+      - alias: "Lights On"
+        service: homeassistant.turn_off
+        target:
+          entity_id: light.exterior_lights
