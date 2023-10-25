@@ -628,7 +628,6 @@
                   "primary_info": "none",
                   "secondary_info": "none",
                   "layout": "horizontal",
-                  "entity": "light.guest_bedroom_ceiling_fan_light",
                   "name": "Overhead",
                   "icon": "mdi:globe-light",
                   "hold_action": {
@@ -636,7 +635,8 @@
                   },
                   "double_tap_action": {
                     "action": "more-info"
-                  }
+                  },
+                  "entity": "light.master_bedroom_ceiling_fan_light"
                 }
               ]
             },
@@ -656,11 +656,11 @@
                   "tap_action": {
                     "action": "toggle"
                   },
-                  "entity": "fan.guest_bedroom_ceiling_fan",
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "icon": "mdi:ceiling-fan"
+                  "icon": "mdi:ceiling-fan",
+                  "entity": "fan.master_bedroom_ceiling_fan"
                 },
                 {
                   "type": "custom:mushroom-fan-card",
