@@ -1,4 +1,4 @@
-# Fairy lights mounted on the headboard in the main bedroom.
+# Fairy lights mounted on the headboard in the guest bedroom.
 # See also: packages/bedroom_light_alarm.yaml
 
 automation:
@@ -22,7 +22,7 @@ automation:
     id: c901fb8b-1858-4533-8dae-96c5f01d15c3
     trigger:
       - platform: time
-        at: "22:30"
+        at: "22:45"
     condition:
       - condition: state
         entity_id: light.fairy_lights
