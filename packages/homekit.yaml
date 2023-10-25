@@ -5,8 +5,7 @@ homekit:
         - light.wled_master
         # - light.office_leds
         - light.corban_s_office_lamp
-        - fan.office_air_purifier
-        - climate.corbans_office_ac
+        # - climate.corbans_office_ac
 
         # Living Room
         - light.corner_lamp
@@ -22,27 +21,28 @@ homekit:
 
         # Hallways
         - light.stairs_bottom_of_stairs
+        - climate.t9_thermostat
 
-        # Bedroom (Craft Room)
-        - light.fairy_lights
-        - fan.bedroom_fan
+        # Craft Room
+        # - fan.bedroom_fan
 
         # Master Bedroom
         - light.master_bedroom_ceiling_fan_light
         - fan.master_bedroom_ceiling_fan
+        - cover.master_bedroom_curtains
 
         # Guest Bedroom
+        - light.fairy_lights
         - light.guest_bedroom_ceiling_fan_light
         - fan.guest_bedroom_ceiling_fan
+        - fan.office_air_purifier
 
         # Basement
         - light.basement_lights
 
         # Garage
-        # - cover.left_garage_door # MyQ
-        # - cover.right_garage_door # MyQ
-        - cover.ratgdo_left_garage_door_door # ESPHome
-        - cover.ratgdo_right_garage_door_door # ESPHome
+        - cover.ratgdo_left_garage_door_door
+        - cover.ratgdo_right_garage_door_door
         - light.garage_main_lights
 
         # Outside
