@@ -84,3 +84,14 @@ automation:
       - service: cover.close_cover
         target:
           entity_id: cover.master_bedroom_curtains
+
+template:
+  - binary_sensor:
+      - name: "Bedroom Curtains - Low Battery"
+        unique_id: 31ba5362-fa29-4a9f-8eff-f7c2a166f8f2
+        device_class: battery
+        state: >-
+          {{
+            states("sensor.curtain_3_b14b_battery") | int(100) < 15 or
+            states("sensor.curtain_3_41ca_battery") | int(100) < 15
+          }}

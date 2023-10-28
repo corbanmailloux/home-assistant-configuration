@@ -733,6 +733,24 @@
                   "source": true
                 }
               }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "binary_sensor.bedroom_curtains_low_battery",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "color": "yellow",
+                "entity": "binary_sensor.bedroom_curtains_low_battery",
+                "layout": "icon_name_state2nd",
+                "name": "Bedroom Curtain Batteries",
+                "show_icon": true,
+                "show_state": true,
+                "type": "custom:button-card"
+              }
             }
           ]
         }
