@@ -5,7 +5,7 @@ substitutions:
 esphome:
   name: "${device_name}"
   friendly_name: "${friendly_name}"
-  compile_process_limit: 2 # This is a big config. Reduce the threading to help with performance.
+  compile_process_limit: 3 # This is a big config. Reduce the threading to help with performance.
 
 esp32:
   board: esp32doit-devkit-v1
@@ -14,6 +14,9 @@ esp32:
 
 packages:
   device_base: !include common/device_base.yaml
+
+wifi:
+  use_address: 192.168.1.73
 
 # Enable logging
 logger:
