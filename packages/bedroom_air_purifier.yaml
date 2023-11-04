@@ -1,0 +1,51 @@
+automation:
+  - alias: Turn on air purifier with Sleep Mode on vacuum nights
+    id: 22d5a3bd-46c6-4a50-909d-5331e875c243
+    trigger:
+      - platform: state
+        entity_id: input_select.home_mode
+        to: "Sleep"
+    condition:
+      - alias: "Nights where the vacuum is scheduled to run"
+        condition: time
+        weekday:
+          - "sun"
+          - "tue"
+          - "thu"
+      - alias: "Master Bedroom automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_master_bedroom
+        state: "off"
+    action:
+      - delay:
+          seconds: 5
+      - alias: "Turn on the air purifier"
+        service: fan.turn_on
+        data:
+          percentage: 50
+        target:
+          entity_id: fan.office_air_purifier
+
+  - id: 2445cd27-5210-4e61-ad7a-c8323263e9a5
+    alias: "Turn off air purifier in the morning"
+    trigger:
+      - platform: time
+        at: "08:15:00"
+    condition:
+      - alias: "Home mode set"
+        condition: state
+        entity_id: input_select.home_mode
+        state: "Home"
+      - alias: "Air purifier is on"
+        condition: state
+        entity_id: fan.office_air_purifier
+        state: "on"
+      - alias: "Master Bedroom automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_master_bedroom
+        state: "off"
+    action:
+      - alias: "Turn off the air purifier"
+        service: fan.turn_off
+        target:
+          entity_id: fan.office_air_purifier
