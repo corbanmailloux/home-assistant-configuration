@@ -2,8 +2,8 @@ homekit:
   - filter:
       include_entities:
         # Office
-        - light.wled_master
-        # - light.office_leds
+        # - light.wled_master
+        - light.office_leds
         - light.corban_s_office_lamp
         # - climate.corbans_office_ac
 

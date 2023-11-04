@@ -729,7 +729,7 @@
                 },
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.wled_master",
+                  "entity": "light.office_leds",
                   "icon": "",
                   "fill_container": true,
                   "show_brightness_control": true,

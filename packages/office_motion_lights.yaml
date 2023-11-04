@@ -1,4 +1,12 @@
 # Using a mmWave sensor with ESPHome to determine the office occupancy and control lighting.
+light:
+  - platform: group
+    name: Main Office Lights
+    unique_id: 164722fa-2fce-4e46-9054-af4f2a08b0dd
+    entities:
+      - light.office_leds
+      - light.wled_master # Used when there are multiple segments
+      - light.corban_s_office_lamp
 
 automation:
   - alias: Office Motion Lights
@@ -28,10 +36,7 @@ automation:
             sequence:
               - service: light.turn_on
                 target:
-                  entity_id:
-                    - light.wled_master # Includes the ghosts.
-                    # - light.office_leds
-                    - light.corban_s_office_lamp
+                  entity_id: light.main_office_lights
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
               - if:
@@ -47,7 +52,4 @@ automation:
                         to: "off"
               - service: light.turn_off
                 target:
-                  entity_id:
-                    - light.wled_master
-                    # - light.office_leds
-                    - light.corban_s_office_lamp
+                  entity_id: light.main_office_lights
