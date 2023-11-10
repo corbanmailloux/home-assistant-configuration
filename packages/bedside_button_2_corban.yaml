@@ -9,23 +9,55 @@ automation:
         type: action
         subtype: single
     action:
+      - if:
+          - alias: "Light On"
+            condition: state
+            entity_id: light.master_bedroom_ceiling_fan_light
+            state: "on"
+        then:
+          - alias: "Turn off"
+            service: light.turn_off
+            target:
+              entity_id: light.master_bedroom_ceiling_fan_light
+        else:
+          - if:
+              - alias: "Nighttime"
+                condition: time
+                after: "21:00:00" # 9 PM
+                before: "06:00:00"
+            then:
+              - alias: "Turn on at 20%"
+                service: light.turn_on
+                target:
+                  entity_id: light.master_bedroom_ceiling_fan_light
+                data:
+                  brightness_pct: 20
+            else:
+              - alias: "Turn on at 100%"
+                service: light.turn_on
+                target:
+                  entity_id: light.master_bedroom_ceiling_fan_light
+                data:
+                  brightness_pct: 20
+
+      ## Old logic
       # Explanation of the tri-state logic:
       # If the light is off, turn it on to 100%.
       # If it's on at 100%, set it to 25%.
       # If it's on but not at 100%, turn it off.
-      - service: light.turn_on
-        entity_id: light.fairy_lights
-        data_template:
-          brightness: >
-            {%- set percent = 100 -%}
-            {%- if states("light.fairy_lights") == "off" -%}
-              {%- set percent = 100 -%}
-            {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
-              {%- set percent = 25 -%}
-            {%- else -%}
-              {%- set percent = 0 -%}
-            {%- endif -%}
-            {{ (percent / 100 * 255) | int}}
+      # - service: light.turn_on
+      #   entity_id: light.fairy_lights
+      #   data_template:
+      #     brightness: >
+      #       {%- set percent = 100 -%}
+      #       {%- if states("light.fairy_lights") == "off" -%}
+      #         {%- set percent = 100 -%}
+      #       {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
+      #         {%- set percent = 25 -%}
+      #       {%- else -%}
+      #         {%- set percent = 0 -%}
+      #       {%- endif -%}
+      #       {{ (percent / 100 * 255) | int}}
 
   - alias: Bedside Button 2 - Double Click - Fan
     id: 4d6d4222-b744-4ca3-ad30-4aba59d88353
@@ -38,7 +70,7 @@ automation:
         subtype: double
     action:
       - service: homeassistant.toggle
-        entity_id: fan.guest_bedroom_ceiling_fan
+        entity_id: fan.master_bedroom_ceiling_fan
 
   - alias: Bedside Button 2 - Hold - Sleep Mode and Everything Off
     id: 10bcb4b9-5b6f-4063-8c0c-10938cc9bcd3
