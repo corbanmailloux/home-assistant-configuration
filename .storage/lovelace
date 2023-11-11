@@ -384,12 +384,12 @@
                       "action": "none"
                     },
                     "tap_action": {
-                      "action": "more-info"
-                    },
-                    "hold_action": {
                       "action": "call-service",
                       "service": "script.vacuum_dump_process",
                       "target": {}
+                    },
+                    "hold_action": {
+                      "action": "more-info"
                     }
                   }
                 },
@@ -2002,396 +2002,140 @@
                 }
               ],
               "additional_presets": []
+            },
+            {
+              "type": "entities",
+              "entities": [
+                "input_datetime.last_litter_box_replacement"
+              ]
             }
           ]
         },
         {
-          "title": "Archive",
-          "path": "archive",
-          "icon": "mdi:delete-circle-outline",
+          "title": "Security",
+          "path": "garage",
+          "icon": "mdi:shield-lock",
           "badges": [],
           "cards": [
             {
-              "type": "horizontal-stack",
-              "cards": [
+              "camera_view": "auto",
+              "type": "picture-glance",
+              "entities": [
                 {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.kitchen_counter_lights",
-                  "fill_container": true,
-                  "show_brightness_control": false,
-                  "collapsible_controls": true,
-                  "name": "Counter Lights",
-                  "layout": "vertical"
+                  "entity": "light.exterior_lights"
                 },
                 {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "input_boolean.kitchen_lights_lock_on",
-                  "name": "Motion Lock",
-                  "layout": "vertical",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
-                },
-                {
-                  "type": "custom:mushroom-vacuum-card",
-                  "entity": "vacuum.valetudo_eve",
-                  "fill_container": true,
-                  "commands": [
-                    "start_pause"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "custom:button-card",
-              "name": "Craft Room",
-              "entity": "sensor.craft_room_temperature_sensor_temperature",
-              "template": "header_temperature_clickable"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.office_lamp",
-                  "name": "Lamp",
-                  "fill_container": true,
-                  "show_brightness_control": true,
-                  "collapsible_controls": true
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.office_lamp_bottom",
-                  "name": "Bottom Light",
-                  "icon": "mdi:light-flood-down",
-                  "fill_container": true
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.kitchen_counter_lights",
-                  "fill_container": true,
-                  "show_brightness_control": false,
-                  "collapsible_controls": true,
-                  "name": "Counter Lights",
-                  "layout": "horizontal"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "input_boolean.kitchen_lights_lock_on",
-                  "name": "Motion Lock",
-                  "layout": "horizontal",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "cards": [
-                    {
-                      "entity": "input_boolean.vacuum_kitchen",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    },
-                    {
-                      "entity": "input_boolean.vacuum_mud_room",
-                      "name": "Mud Room",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    },
-                    {
-                      "entity": "input_boolean.vacuum_livingroom",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    },
-                    {
-                      "entity": "input_boolean.vacuum_office",
-                      "name": "Office",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    },
-                    {
-                      "entity": "script.vacuum_clean_segments",
-                      "name": "Start",
-                      "show_icon": true,
-                      "show_name": true,
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "type": "custom:button-card"
-                    }
-                  ],
-                  "type": "horizontal-stack"
-                },
-                {
-                  "title": "",
-                  "type": "custom:valetudo-map-card",
-                  "vacuum": "valetudo_eve",
-                  "rotate": 0,
-                  "map_scale": 1.2,
-                  "crop": {
-                    "top": 0,
-                    "bottom": 0,
-                    "left": 0,
-                    "right": 0
-                  }
-                }
-              ]
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "sensor.eve_bin",
-                  "state_not": "0"
-                },
-                {
-                  "entity": "sensor.eve_bin",
-                  "state_not": "unknown"
+                  "entity": "siren.main_doorbell_siren"
                 }
               ],
-              "card": {
-                "type": "custom:mushroom-entity-card",
-                "entity": "sensor.eve_bin",
-                "icon_color": "red",
-                "primary_info": "name",
-                "secondary_info": "state",
-                "hold_action": {
-                  "action": "more-info"
-                },
-                "double_tap_action": {
-                  "action": "none"
-                },
-                "tap_action": {
-                  "action": "more-info"
-                },
-                "name": "Empty Eve's Bin"
-              }
+              "camera_image": "camera.main_doorbell_sub",
+              "title": "Doorbell"
             },
             {
-              "type": "custom:mushroom-entity-card",
-              "entity": "script.vacuum_skip_today",
-              "name": "Skip Vacuuming Today",
-              "icon": "mdi:debug-step-over",
-              "primary_info": "name",
-              "secondary_info": "last-changed",
-              "tap_action": {
-                "action": "toggle"
-              },
-              "hold_action": {
-                "action": "more-info"
-              }
-            },
-            {
-              "type": "conditional",
-              "conditions": [
+              "entities": [
                 {
-                  "entity": "input_boolean.wall_display_show_vacuum",
-                  "state": "on"
+                  "entity": "input_select.home_mode"
+                },
+                {
+                  "entity": "input_boolean.vacation_mode_light_schedule"
+                },
+                {
+                  "entity": "input_boolean.cat_sitter_mode"
+                },
+                {
+                  "entity": "input_boolean.guest_mode"
+                },
+                {
+                  "entity": "input_boolean.cats_are_home"
                 }
               ],
-              "card": {
-                "type": "vertical-stack",
-                "cards": [
-                  {
-                    "type": "custom:button-card",
-                    "name": "Vacuum",
-                    "template": "header"
-                  },
-                  {
-                    "cards": [
-                      {
-                        "entity": "input_boolean.vacuum_kitchen",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "input_boolean.vacuum_mud_room",
-                        "name": "Mud Room",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "input_boolean.vacuum_livingroom",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "input_boolean.vacuum_office",
-                        "name": "Office",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      },
-                      {
-                        "entity": "script.vacuum_clean_segments",
-                        "name": "Start",
-                        "show_icon": true,
-                        "show_name": true,
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "type": "custom:button-card"
-                      }
-                    ],
-                    "type": "horizontal-stack"
-                  },
-                  {
-                    "title": "",
-                    "type": "custom:valetudo-map-card",
-                    "vacuum": "valetudo_eve",
-                    "map_scale": 1.2,
-                    "custom_buttons": [
-                      {
-                        "service": "script.vacuum_skip_today",
-                        "icon": "mdi:debug-step-over",
-                        "text": ". Skip Today"
-                      }
-                    ]
-                  }
-                ]
-              }
+              "show_header_toggle": false,
+              "title": "Home Modes",
+              "type": "entities"
             },
             {
-              "card": {
-                "entity": "input_boolean.dryer_reminder_notifying",
-                "layout": "icon_name",
-                "name": "Dryer done.",
-                "color": "red",
-                "show_icon": true,
-                "show_state": false,
-                "tap_action": {
-                  "action": "toggle"
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "lock.side_door",
+                  "secondary_info": "last-changed",
+                  "name": "Main Door Lock"
                 },
-                "hold_action": "none",
-                "type": "custom:button-card"
-              },
-              "conditions": [
                 {
-                  "entity": "input_boolean.dryer_reminder_notifying",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "card": {
-                "entity": "timer.dryer_running_countdown",
-                "layout": "icon_name_state2nd",
-                "name": "Dryer Running - Tap to cancel",
-                "icon": "mdi:timer-remove-outline",
-                "color": "yellow",
-                "show_icon": true,
-                "show_state": true,
-                "tap_action": {
-                  "action": "call-service",
-                  "service": "timer.cancel",
-                  "service_data": {
-                    "entity_id": "timer.dryer_running_countdown"
-                  }
+                  "entity": "binary_sensor.front_door",
+                  "secondary_info": "last-changed",
+                  "name": "Main Door"
                 },
-                "hold_action": "none",
-                "type": "custom:button-card"
-              },
-              "conditions": [
                 {
-                  "entity": "timer.dryer_running_countdown",
-                  "state_not": "idle"
+                  "entity": "cover.ratgdo_left_garage_door_door",
+                  "name": "Left Garage Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "cover.ratgdo_right_garage_door_door",
+                  "secondary_info": "last-changed",
+                  "name": "Right Garage Door"
+                },
+                {
+                  "entity": "binary_sensor.garage_side_person_door_contact",
+                  "name": "Garage Side Person Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.basement_door_sensor_contact",
+                  "name": "Basement Stairs Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.linen_closet_door_sensor_contact",
+                  "name": "Linen Closet Door"
+                },
+                {
+                  "entity": "binary_sensor.coat_closet_door_sensor_contact",
+                  "name": "Coat Closet Door",
+                  "secondary_info": "none"
                 }
               ],
-              "type": "conditional"
+              "title": "Doors and Windows",
+              "show_header_toggle": false
             },
             {
-              "card": {
-                "type": "custom:threedy-card",
-                "base_entity": "sensor.octoprint",
-                "printer_type": "Cantilever",
-                "name": "OctoPi",
-                "monitored": [
-                  "Status",
-                  "Hotend",
-                  "Elapsed",
-                  "Remaining"
-                ],
-                "temperature_unit": "C",
-                "round_temperature": true,
-                "round_time": true,
-                "power_entity": "switch.3d_printer_main_power"
-              },
-              "conditions": [
+              "type": "entities",
+              "entities": [
                 {
-                  "entity": "binary_sensor.display_printer_card",
-                  "state": "on"
+                  "entity": "binary_sensor.office_mini_motion_presence",
+                  "name": "Office mmWave Presence",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.laundry_motion_sensor_occupancy",
+                  "name": "Basement Laundry Motion",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy",
+                  "name": "Basement Stairs Motion",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.main_doorbell_person",
+                  "name": "Doorbell - Person",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.main_doorbell_motion",
+                  "name": "Doorbell - Motion",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.garage_right_motion",
+                  "name": "Garage Parking Sensor Motion",
+                  "secondary_info": "last-changed"
                 }
               ],
-              "type": "conditional"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-media-player-card",
-                  "entity": "media_player.bedroom_tv",
-                  "name": "TV",
-                  "fill_container": false,
-                  "primary_info": "name",
-                  "show_volume_level": false,
-                  "use_media_info": true,
-                  "media_controls": [
-                    "play_pause_stop"
-                  ],
-                  "collapsible_controls": true,
-                  "tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "none"
-                  },
-                  "layout": "horizontal"
-                }
-              ]
+              "title": "Motion Sensors",
+              "show_header_toggle": false,
+              "state_color": true
             }
           ]
         }

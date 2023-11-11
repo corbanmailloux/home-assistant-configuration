@@ -107,443 +107,6 @@
       },
       "views": [
         {
-          "theme": "Backend-selected",
-          "title": "Security",
-          "path": "security",
-          "icon": "mdi:shield-lock",
-          "badges": [],
-          "cards": [
-            {
-              "entities": [
-                {
-                  "entity": "input_select.home_mode"
-                },
-                {
-                  "entity": "input_boolean.vacation_mode_light_schedule"
-                },
-                {
-                  "entity": "input_boolean.cat_sitter_mode"
-                },
-                {
-                  "entity": "input_boolean.guest_mode"
-                },
-                {
-                  "entity": "input_boolean.cats_are_home"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Home Modes",
-              "type": "entities"
-            },
-            {
-              "camera_view": "auto",
-              "type": "picture-glance",
-              "entities": [
-                {
-                  "entity": "light.exterior_lights"
-                },
-                {
-                  "entity": "siren.main_doorbell_siren"
-                }
-              ],
-              "camera_image": "camera.main_doorbell_sub",
-              "title": "Doorbell"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.office_mini_motion_presence",
-                  "name": "Office mmWave Presence",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.laundry_motion_sensor_occupancy",
-                  "name": "Basement Laundry Motion",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy",
-                  "name": "Basement Stairs Motion",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.main_doorbell_person",
-                  "name": "Doorbell - Person",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.main_doorbell_motion",
-                  "name": "Doorbell - Motion",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.garage_right_motion",
-                  "name": "Garage Parking Sensor Motion",
-                  "secondary_info": "last-changed"
-                }
-              ],
-              "title": "Motion Sensors",
-              "show_header_toggle": false,
-              "state_color": true
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "lock.side_door",
-                  "secondary_info": "last-changed",
-                  "name": "Main Door Lock"
-                },
-                {
-                  "entity": "binary_sensor.front_door",
-                  "secondary_info": "last-changed",
-                  "name": "Main Door"
-                },
-                {
-                  "entity": "cover.ratgdo_left_garage_door_door",
-                  "name": "Left Garage Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "cover.ratgdo_right_garage_door_door",
-                  "secondary_info": "last-changed",
-                  "name": "Right Garage Door"
-                },
-                {
-                  "entity": "binary_sensor.garage_side_person_door_contact",
-                  "name": "Garage Side Person Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.basement_door_sensor_contact",
-                  "name": "Basement Stairs Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.linen_closet_door_sensor_contact",
-                  "name": "Linen Closet Door"
-                },
-                {
-                  "entity": "binary_sensor.coat_closet_door_sensor_contact",
-                  "name": "Coat Closet Door",
-                  "secondary_info": "none"
-                }
-              ],
-              "title": "Doors and Windows",
-              "show_header_toggle": false
-            }
-          ]
-        },
-        {
-          "title": "3D Printing",
-          "path": "3d-printing",
-          "icon": "mdi:printer-3d",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "switch.3d_printer_power",
-                  "name": "3D Printer Power",
-                  "fill_container": true,
-                  "layout": "vertical",
-                  "secondary_info": "state",
-                  "icon": "mdi:power",
-                  "icon_color": "primary",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "button.elegoo_neptune_4_pro_emergency_stop",
-                  "name": "Emergency Stop",
-                  "fill_container": true,
-                  "layout": "vertical",
-                  "secondary_info": "none",
-                  "icon": "",
-                  "icon_color": "red",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
-                }
-              ]
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "switch.3d_printer_power",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "type": "vertical-stack",
-                "cards": [
-                  {
-                    "type": "horizontal-stack",
-                    "cards": [
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight",
-                        "name": "Light",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "name",
-                        "icon": "mdi:led-strip-variant",
-                        "primary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        }
-                      },
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight1",
-                        "name": "Headlight",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "name",
-                        "primary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        }
-                      },
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "button.elegoo_neptune_4_pro_pause_print",
-                        "name": "Pause",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "icon_color": "amber"
-                      },
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "button.elegoo_neptune_4_pro_resume_print",
-                        "name": "Resume",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "icon_color": "green"
-                      },
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "button.elegoo_neptune_4_pro_cancel_print",
-                        "name": "Cancel",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "icon_color": "red"
-                      }
-                    ]
-                  }
-                ]
-              }
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "type": "weblink",
-                  "name": "Printer UI",
-                  "url": "http://192.168.1.53/#/",
-                  "icon": "mdi:cloud-print-outline"
-                }
-              ]
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "switch.3d_printer_power",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "show_name": true,
-                "show_icon": true,
-                "show_state": true,
-                "type": "glance",
-                "entities": [
-                  {
-                    "entity": "sensor.elegoo_neptune_4_pro_current_print_state",
-                    "name": "Print State"
-                  },
-                  {
-                    "entity": "sensor.elegoo_neptune_4_pro_print_duration",
-                    "name": "Duration"
-                  },
-                  {
-                    "entity": "sensor.elegoo_neptune_4_pro_print_eta",
-                    "name": "ETA"
-                  },
-                  {
-                    "entity": "sensor.elegoo_neptune_4_pro_slicer_print_time_left_estimate",
-                    "name": "Slicer ETA"
-                  }
-                ],
-                "state_color": true
-              }
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "switch.3d_printer_power",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "graph": "line",
-                "type": "sensor",
-                "entity": "sensor.elegoo_neptune_4_pro_progress",
-                "detail": 2,
-                "unit": "%",
-                "hours_to_show": 3,
-                "name": "Print Progress"
-              }
-            }
-          ]
-        },
-        {
-          "theme": "Backend-selected",
-          "icon": "mdi:server-network",
-          "path": "network",
-          "title": "Network",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "cards": [
-                {
-                  "entities": [
-                    {
-                      "entity": "input_select.download_speed"
-                    },
-                    {
-                      "entity": "input_boolean.download_mode_change_lock"
-                    },
-                    {
-                      "entity": "sensor.nzbget_speed",
-                      "icon": "mdi:progress-download",
-                      "name": "Current Download Speed",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.nzbget_queue_size",
-                      "name": "Remaining Download Queue Size",
-                      "icon": "mdi:trending-down",
-                      "secondary_info": "last-updated"
-                    }
-                  ],
-                  "show_header_toggle": false,
-                  "title": "Automatic Downloads",
-                  "type": "entities"
-                },
-                {
-                  "entities": [
-                    {
-                      "entity": "sensor.download_speed_limit",
-                      "name": "Limit"
-                    },
-                    {
-                      "entity": "sensor.nzbget_speed",
-                      "name": "Download Speed"
-                    }
-                  ],
-                  "hours_to_show": 2,
-                  "refresh_interval": 20,
-                  "type": "history-graph"
-                }
-              ],
-              "type": "vertical-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.ups_status",
-                  "name": "Status"
-                },
-                {
-                  "entity": "sensor.ups_input_voltage",
-                  "name": "Input Voltage"
-                },
-                {
-                  "entity": "sensor.ups_load_w",
-                  "name": "Load",
-                  "icon": "mdi:gauge-low"
-                }
-              ],
-              "title": "UPS"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "gauge",
-                  "entity": "sensor.ups_battery_charge",
-                  "needle": true,
-                  "severity": {
-                    "green": 80,
-                    "yellow": 20,
-                    "red": 0
-                  },
-                  "min": 0,
-                  "max": 100,
-                  "name": "UPS Battery"
-                },
-                {
-                  "type": "gauge",
-                  "entity": "sensor.ups_load",
-                  "severity": {
-                    "green": 0,
-                    "yellow": 80,
-                    "red": 90
-                  },
-                  "needle": true,
-                  "max": 100,
-                  "min": 0
-                }
-              ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.biden_lastactive"
-                },
-                {
-                  "entity": "binary_sensor.biden_microphoneactive"
-                },
-                {
-                  "entity": "button.biden_shutdown"
-                }
-              ],
-              "title": "Gaming PC"
-            }
-          ]
-        },
-        {
           "badges": [],
           "cards": [
             {
@@ -735,83 +298,6 @@
               "show_header_toggle": false,
               "title": "Sunrise Alarm",
               "type": "entities"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "vacuum.valetudo_eve"
-                },
-                {
-                  "entity": "sensor.eve_bin"
-                },
-                {
-                  "entity": "sensor.rockbin_version"
-                },
-                {
-                  "entity": "input_datetime.last_vacuum_run"
-                },
-                {
-                  "type": "weblink",
-                  "name": "Valetudo Home",
-                  "url": "http://valetudo-actualspanishsalmon.local/#/",
-                  "icon": "mdi:lan-connect"
-                }
-              ],
-              "show_header_toggle": true,
-              "title": "Upstairs Vacuum Status",
-              "state_color": true
-            },
-            {
-              "type": "entities",
-              "entities": [
-                "input_datetime.last_litter_box_replacement"
-              ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "light.basement_lights"
-                },
-                {
-                  "entity": "automation.basement_motion_lights"
-                },
-                {
-                  "entity": "binary_sensor.basement_assumed_motion"
-                },
-                {
-                  "entity": "binary_sensor.basement_door_sensor_contact"
-                },
-                {
-                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.laundry_motion_sensor_occupancy"
-                }
-              ],
-              "title": "Basement Lights",
-              "show_header_toggle": false,
-              "state_color": false
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "light.garage_main_lights"
-                },
-                {
-                  "entity": "light.garage_lights"
-                },
-                {
-                  "entity": "light.ratgdo_left_garage_door_light"
-                },
-                {
-                  "entity": "light.ratgdo_right_garage_door_light"
-                }
-              ],
-              "title": "Garage Lights",
-              "show_header_toggle": false
             }
           ],
           "icon": "mdi:flask",
@@ -827,6 +313,362 @@
           ]
         },
         {
+          "theme": "Backend-selected",
+          "icon": "mdi:server-network",
+          "path": "network",
+          "title": "Network",
+          "type": "custom:vertical-layout",
+          "badges": [],
+          "cards": [
+            {
+              "cards": [
+                {
+                  "entities": [
+                    {
+                      "entity": "input_select.download_speed"
+                    },
+                    {
+                      "entity": "input_boolean.download_mode_change_lock"
+                    },
+                    {
+                      "entity": "sensor.nzbget_speed",
+                      "icon": "mdi:progress-download",
+                      "name": "Current Download Speed",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.nzbget_queue_size",
+                      "name": "Remaining Download Queue Size",
+                      "icon": "mdi:trending-down",
+                      "secondary_info": "last-updated"
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "title": "Automatic Downloads",
+                  "type": "entities"
+                },
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.download_speed_limit",
+                      "name": "Limit"
+                    },
+                    {
+                      "entity": "sensor.nzbget_speed",
+                      "name": "Download Speed"
+                    }
+                  ],
+                  "hours_to_show": 2,
+                  "refresh_interval": 20,
+                  "type": "history-graph"
+                }
+              ],
+              "type": "vertical-stack"
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.ups_status",
+                  "name": "Status"
+                },
+                {
+                  "entity": "sensor.ups_input_voltage",
+                  "name": "Input Voltage"
+                },
+                {
+                  "entity": "sensor.ups_load_w",
+                  "name": "Load",
+                  "icon": "mdi:gauge-low"
+                }
+              ],
+              "title": "UPS"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "gauge",
+                  "entity": "sensor.ups_battery_charge",
+                  "needle": true,
+                  "severity": {
+                    "green": 80,
+                    "yellow": 20,
+                    "red": 0
+                  },
+                  "min": 0,
+                  "max": 100,
+                  "name": "UPS Battery"
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.ups_load",
+                  "severity": {
+                    "green": 0,
+                    "yellow": 80,
+                    "red": 90
+                  },
+                  "needle": true,
+                  "max": 100,
+                  "min": 0
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.tablet_wall_display_screen"
+                },
+                {
+                  "entity": "script.tablet_wall_display_reload"
+                },
+                {
+                  "entity": "script.tablet_wall_display_restart"
+                },
+                {
+                  "entity": "button.biden_shutdown",
+                  "name": "Shutdown Gaming PC"
+                }
+              ],
+              "title": "Device Controls"
+            }
+          ]
+        },
+        {
+          "title": "3D Printing",
+          "path": "3d-printing",
+          "icon": "mdi:printer-3d",
+          "type": "custom:vertical-layout",
+          "badges": [],
+          "cards": [
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "switch.3d_printer_power",
+                  "name": "3D Printer Power",
+                  "fill_container": true,
+                  "layout": "vertical",
+                  "secondary_info": "state",
+                  "icon": "mdi:power",
+                  "icon_color": "primary",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "button.elegoo_neptune_4_pro_emergency_stop",
+                  "name": "Emergency Stop",
+                  "fill_container": true,
+                  "layout": "vertical",
+                  "secondary_info": "none",
+                  "icon": "",
+                  "icon_color": "red",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ]
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "switch.3d_printer_power",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "type": "vertical-stack",
+                "cards": [
+                  {
+                    "type": "horizontal-stack",
+                    "cards": [
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight",
+                        "name": "Light",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "name",
+                        "icon": "mdi:led-strip-variant",
+                        "primary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        }
+                      },
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight1",
+                        "name": "Headlight",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "name",
+                        "primary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        }
+                      },
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "button.elegoo_neptune_4_pro_pause_print",
+                        "name": "Pause",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "icon_color": "amber"
+                      },
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "button.elegoo_neptune_4_pro_resume_print",
+                        "name": "Resume",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "icon_color": "green"
+                      },
+                      {
+                        "type": "custom:mushroom-entity-card",
+                        "entity": "button.elegoo_neptune_4_pro_cancel_print",
+                        "name": "Cancel",
+                        "fill_container": true,
+                        "layout": "vertical",
+                        "secondary_info": "none",
+                        "tap_action": {
+                          "action": "toggle"
+                        },
+                        "icon_color": "red"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "type": "weblink",
+                  "name": "Printer UI",
+                  "url": "http://192.168.1.53/#/",
+                  "icon": "mdi:cloud-print-outline"
+                }
+              ]
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "switch.3d_printer_power",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "show_name": true,
+                "show_icon": true,
+                "show_state": true,
+                "type": "glance",
+                "entities": [
+                  {
+                    "entity": "sensor.elegoo_neptune_4_pro_current_print_state",
+                    "name": "Print State"
+                  },
+                  {
+                    "entity": "sensor.elegoo_neptune_4_pro_print_duration",
+                    "name": "Duration"
+                  },
+                  {
+                    "entity": "sensor.elegoo_neptune_4_pro_print_eta",
+                    "name": "ETA"
+                  },
+                  {
+                    "entity": "sensor.elegoo_neptune_4_pro_slicer_print_time_left_estimate",
+                    "name": "Slicer ETA"
+                  }
+                ],
+                "state_color": true
+              }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "switch.3d_printer_power",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "graph": "line",
+                "type": "sensor",
+                "entity": "sensor.elegoo_neptune_4_pro_progress",
+                "detail": 2,
+                "unit": "%",
+                "hours_to_show": 3,
+                "name": "Print Progress"
+              }
+            }
+          ]
+        },
+        {
+          "icon": "mdi:tablet-dashboard",
+          "title": "Wall Displays",
+          "path": "wall-displays",
+          "badges": [],
+          "cards": [
+            {
+              "entities": [
+                {
+                  "entity": "light.tablet_wall_display_screen"
+                },
+                {
+                  "entity": "script.tablet_wall_display_reload"
+                },
+                {
+                  "entity": "script.tablet_wall_display_restart"
+                }
+              ],
+              "show_header_toggle": false,
+              "title": "Wall Display",
+              "type": "entities"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "script.reload_openhasp"
+                },
+                {
+                  "entity": "openhasp.office_plate"
+                },
+                {
+                  "entity": "number.office_plate_page_number"
+                },
+                {
+                  "entity": "light.office_plate_backlight"
+                }
+              ],
+              "title": "openHASP",
+              "show_header_toggle": false,
+              "state_color": false
+            }
+          ]
+        },
+        {
           "title": "Garage Playground",
           "path": "garage-playground",
           "icon": "mdi:walk",
@@ -837,47 +679,52 @@
               "entities": [
                 {
                   "entity": "number.garage_parking_sign_display_number",
-                  "name": "Sign - Display Number"
+                  "name": "Display Number"
                 },
                 {
                   "entity": "light.garage_parking_sign_hand",
-                  "name": "Sign - Hand"
+                  "name": "Hand"
                 },
                 {
                   "entity": "light.garage_parking_sign_walk",
-                  "name": "Sign - Walk",
-                  "secondary_info": "none"
-                }
-              ],
-              "title": "Parking Sign - Output",
-              "show_header_toggle": false
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "switch.garage_parking_sensor_left_poll_range_sensor",
-                  "name": "Left Sensor - Poll"
-                },
-                {
-                  "entity": "switch.garage_parking_sensor_right_poll_range_sensor",
-                  "name": "Right Sensor - Poll"
-                },
-                {
-                  "entity": "number.garage_parking_sign_target_distance_left",
-                  "name": "Target - Left",
+                  "name": "Walk",
                   "secondary_info": "none"
                 },
                 {
-                  "entity": "number.garage_parking_sign_target_distance_right",
-                  "name": "Target - Right"
+                  "entity": "script.parking_sign_clear_display"
                 },
                 {
-                  "entity": "number.garage_parking_sign_digit_brightness",
-                  "name": "Digit Brightness"
+                  "type": "custom:fold-entity-row",
+                  "head": {
+                    "type": "section",
+                    "label": "Configuration"
+                  },
+                  "entities": [
+                    {
+                      "entity": "switch.garage_parking_sensor_left_poll_range_sensor",
+                      "name": "Left Sensor - Poll"
+                    },
+                    {
+                      "entity": "switch.garage_parking_sensor_right_poll_range_sensor",
+                      "name": "Right Sensor - Poll"
+                    },
+                    {
+                      "entity": "number.garage_parking_sign_target_distance_left",
+                      "name": "Target - Left",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "entity": "number.garage_parking_sign_target_distance_right",
+                      "name": "Target - Right"
+                    },
+                    {
+                      "entity": "number.garage_parking_sign_digit_brightness",
+                      "name": "Digit Brightness"
+                    }
+                  ]
                 }
               ],
-              "title": "Parking Sign - Configuration",
+              "title": "Parking Sign",
               "show_header_toggle": false
             },
             {
@@ -912,72 +759,124 @@
           ]
         },
         {
-          "icon": "mdi:tablet-dashboard",
-          "title": "Wall Displays",
-          "path": "wall-displays",
+          "title": "Debug",
+          "path": "debug",
+          "icon": "mdi:bug",
           "badges": [],
           "cards": [
             {
-              "entities": [
-                {
-                  "entity": "light.tablet_wall_display_screen"
-                },
-                {
-                  "entity": "script.tablet_wall_display_reload"
-                },
-                {
-                  "entity": "script.tablet_wall_display_restart"
-                },
-                {
-                  "entity": "input_boolean.wall_display_show_map"
-                },
-                {
-                  "entity": "input_boolean.litter_box_clean_needed"
-                },
-                {
-                  "entity": "input_boolean.litter_box_clean_skip"
-                },
-                {
-                  "entity": "input_boolean.cat_claw_clip_needed"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Wall Display",
-              "type": "entities"
-            },
-            {
               "type": "entities",
               "entities": [
                 {
-                  "entity": "light.kitchen_display_screen"
+                  "entity": "light.basement_lights"
                 },
                 {
-                  "entity": "script.kitchen_display_reload"
+                  "entity": "automation.basement_motion_lights"
+                },
+                {
+                  "entity": "binary_sensor.basement_assumed_motion"
+                },
+                {
+                  "entity": "binary_sensor.basement_door_sensor_contact"
+                },
+                {
+                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy"
+                },
+                {
+                  "entity": "binary_sensor.laundry_motion_sensor_occupancy"
                 }
               ],
-              "title": "Kitchen Display",
-              "show_header_toggle": false,
-              "state_color": true
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "script.reload_openhasp"
-                },
-                {
-                  "entity": "openhasp.office_plate"
-                },
-                {
-                  "entity": "number.office_plate_page_number"
-                },
-                {
-                  "entity": "light.office_plate_backlight"
-                }
-              ],
-              "title": "openHASP",
+              "title": "Basement Lights",
               "show_header_toggle": false,
               "state_color": false
+            }
+          ]
+        },
+        {
+          "path": "archive",
+          "icon": "mdi:delete-circle-outline",
+          "visible": [
+            {
+              "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
+            },
+            {
+              "user": "19d0bbdb89e548578b5819c8733133d2"
+            }
+          ],
+          "title": "Archive",
+          "badges": [],
+          "cards": [
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.kitchen_counter_lights",
+                  "fill_container": true,
+                  "show_brightness_control": false,
+                  "collapsible_controls": true,
+                  "name": "Counter Lights",
+                  "layout": "horizontal"
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "input_boolean.kitchen_lights_lock_on",
+                  "name": "Motion Lock",
+                  "layout": "horizontal",
+                  "tap_action": {
+                    "action": "toggle"
+                  }
+                }
+              ]
+            },
+            {
+              "card": {
+                "entity": "input_boolean.dryer_reminder_notifying",
+                "layout": "icon_name",
+                "name": "Dryer done.",
+                "color": "red",
+                "show_icon": true,
+                "show_state": false,
+                "tap_action": {
+                  "action": "toggle"
+                },
+                "hold_action": "none",
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "entity": "input_boolean.dryer_reminder_notifying",
+                  "state": "on"
+                }
+              ],
+              "type": "conditional"
+            },
+            {
+              "card": {
+                "entity": "timer.dryer_running_countdown",
+                "layout": "icon_name_state2nd",
+                "name": "Dryer Running - Tap to cancel",
+                "icon": "mdi:timer-remove-outline",
+                "color": "yellow",
+                "show_icon": true,
+                "show_state": true,
+                "tap_action": {
+                  "action": "call-service",
+                  "service": "timer.cancel",
+                  "service_data": {
+                    "entity_id": "timer.dryer_running_countdown"
+                  }
+                },
+                "hold_action": "none",
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "entity": "timer.dryer_running_countdown",
+                  "state_not": "idle"
+                }
+              ],
+              "type": "conditional"
             }
           ]
         }
