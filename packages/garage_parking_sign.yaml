@@ -11,6 +11,11 @@ automation:
         entity_id: cover.ratgdo_right_garage_door_door
         to: opening
         id: "switch.garage_parking_sensor_right_poll_range_sensor"
+    condition:
+      - alias: "Garage automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_garage
+        state: "off"
     action:
       - alias: Start with both sensors off
         service: switch.turn_off
@@ -39,3 +44,21 @@ automation:
         target:
           entity_id: >-
             {{ trigger.id }}
+
+script:
+  parking_sign_clear_display:
+    alias: "Clear Parking Sign Display"
+    icon: mdi:monitor-off
+    sequence:
+      - alias: "Turn off walk and hand sign"
+        service: light.turn_off
+        target:
+          entity_id:
+            - light.garage_parking_sign_hand
+            - light.garage_parking_sign_walk
+      - alias: "Turn off numbers"
+        service: number.set_value
+        target:
+          entity_id: number.garage_parking_sign_display_number
+        data:
+          value: -10
