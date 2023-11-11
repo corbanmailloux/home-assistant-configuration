@@ -71,6 +71,11 @@ automation:
         for:
           minutes: 5
         id: "off"
+    condition:
+      - alias: "Basement automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_basement
+        state: "off"
     action:
       - alias: "On or Off?"
         choose:
