@@ -30,6 +30,7 @@ homekit:
         - light.master_bedroom_ceiling_fan_light
         - fan.master_bedroom_ceiling_fan
         - cover.master_bedroom_curtains
+        - light.bed_lighting_rgb_light
 
         # Guest Bedroom
         - light.fairy_lights

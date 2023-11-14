@@ -92,8 +92,8 @@ script:
           - service: homeassistant.turn_off
             target:
               entity_id:
-                - light.fairy_lights
                 - light.master_bedroom_ceiling_fan_light
+                - light.bed_lighting_rgb_light
           - if:
               - "{{ include_fans == true }}"
             then:
@@ -115,6 +115,7 @@ script:
             target:
               entity_id:
                 - light.guest_bedroom_ceiling_fan_light
+                - light.fairy_lights
           - if:
               - "{{ include_fans == true }}"
             then:

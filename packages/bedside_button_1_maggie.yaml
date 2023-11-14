@@ -130,7 +130,7 @@ automation:
       - service: homeassistant.toggle
         entity_id: fan.master_bedroom_ceiling_fan
 
-  - alias: Bedside Button 1 - Right Button Click - Fairy Toggle
+  - alias: Bedside Button 1 - Right Button Click - Bed Lighting Toggle
     id: 1d146753-e4ca-4514-883d-7bb0efd99554
     trigger:
       - platform: device
@@ -142,17 +142,17 @@ automation:
     action:
       # Explanation of the tri-state logic:
       # If the light is off, turn it on to 100%.
-      # If it's on at 100%, set it to 25%.
+      # If it's on at 100%, set it to 50%.
       # If it's on but not at 100%, turn it off.
       - service: light.turn_on
-        entity_id: light.fairy_lights
+        entity_id: light.bed_lighting_rgb_light
         data_template:
           brightness: >
             {%- set percent = 100 -%}
-            {%- if states("light.fairy_lights") == "off" -%}
+            {%- if states("light.bed_lighting_rgb_light") == "off" -%}
               {%- set percent = 100 -%}
-            {%- elif state_attr("light.fairy_lights", "brightness") == 255 -%}
-              {%- set percent = 25 -%}
+            {%- elif state_attr("light.bed_lighting_rgb_light", "brightness") == 255 -%}
+              {%- set percent = 50 -%}
             {%- else -%}
               {%- set percent = 0 -%}
             {%- endif -%}

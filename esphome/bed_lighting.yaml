@@ -1,0 +1,33 @@
+# Under-bed light strip. Currently non-addressable, re-using the board from:
+# https://github.com/corbanmailloux/esp-mqtt-rgb-led
+
+esphome:
+  name: bed-lighting
+  friendly_name: Bed Lighting
+
+esp8266:
+  board: esp01_1m
+
+packages:
+  device_base: !include common/device_base.yaml
+
+logger:
+  level: INFO
+
+output:
+  - platform: esp8266_pwm
+    id: red_pin
+    pin: GPIO0
+  - platform: esp8266_pwm
+    id: green_pin
+    pin: GPIO3
+  - platform: esp8266_pwm
+    id: blue_pin
+    pin: GPIO2
+
+light:
+  - platform: rgb
+    name: "RGB Light"
+    red: red_pin
+    green: green_pin
+    blue: blue_pin
