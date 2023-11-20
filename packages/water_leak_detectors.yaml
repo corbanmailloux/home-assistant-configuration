@@ -1,0 +1,26 @@
+automation:
+  - id: 9605bd48-55b1-4d21-a54d-25847b6d453d
+    alias: Water Leak Detected - Send Critical Notifications
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.kitchen_sink_water_leak_sensor_water_sensor
+        to: "on"
+        id: "under kitchen sink"
+      - platform: state
+        entity_id: binary_sensor.water_heater_water_leak_sensor_water_sensor
+        to: "on"
+        id: "near the water heater"
+    action:
+      - alias: "Notify Everyone with a Critical Notification"
+        service: notify.adult_ios_phones
+        data:
+          title: "Water Leak Detected at Home"
+          message: >-
+            Water detected {{ trigger.id }}.
+          data:
+            tag: "water_leak_alert"
+            push:
+              sound:
+                # name: "default"
+                critical: 1
+                # volume: 1.0
