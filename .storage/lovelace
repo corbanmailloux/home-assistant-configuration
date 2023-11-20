@@ -558,10 +558,15 @@
                   }
                 },
                 {
-                  "type": "custom:mushroom-fan-card",
-                  "entity": "fan.living_room_fan",
-                  "icon_animation": true,
-                  "name": "Fan",
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "switch.christmas_tree",
+                  "icon_color": "green",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
                   "double_tap_action": {
                     "action": "more-info"
                   }

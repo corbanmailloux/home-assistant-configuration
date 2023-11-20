@@ -6,22 +6,8 @@ light:
     entity_id: switch.christmas_tree
 
 automation:
-  - alias: Turn on the Christmas tree in the morning while home
-    id: c1f6cd1f-7038-4da5-bba9-66bfc06212fc
-    trigger:
-      - platform: time
-        at: "06:00:00"
-    condition:
-      - condition: state
-        entity_id: input_select.home_mode
-        state: "Home"
-    action:
-      - service: light.turn_on
-        data:
-          entity_id: light.christmas_tree_lights
-
   # See also `package/home_away_mode.yaml`.
-  - alias: Christmas lights on when getting home
+  - alias: Christmas lights on when getting home or waking up
     id: 515b458d-c596-434e-a356-c824bf229171
     trigger:
       - platform: state

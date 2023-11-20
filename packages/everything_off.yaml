@@ -102,6 +102,7 @@ script:
                   entity_id:
                     - fan.master_bedroom_ceiling_fan
                     - fan.bedroom_fan
+                    - fan.office_air_purifier # Moved to bedroom
 
       - alias: "Guest Bedroom"
         if:
@@ -166,14 +167,13 @@ script:
                 - light.corban_s_office_lamp_top
                 - light.key_light_air_1
                 - light.wled_master # Includes all segments
-          - if:
-              - "{{ include_fans == true }}"
-            then:
-              - service: homeassistant.turn_off
-                target:
-                  entity_id:
-                    - fan.office_air_purifier
-                    # - fan.office_fan
+          # - if:
+          #     - "{{ include_fans == true }}"
+          #   then:
+          #     - service: homeassistant.turn_off
+          #       target:
+          #         entity_id:
+          #           # - fan.office_fan
 
       - alias: "Living Room"
         if:
@@ -188,13 +188,14 @@ script:
               entity_id:
                 - light.corner_lamp
                 - media_player.living_room_tv
-          - if:
-              - "{{ include_fans == true }}"
-            then:
-              - service: homeassistant.turn_off
-                target:
-                  entity_id:
-                    - fan.living_room_fan
+                - light.christmas_tree_lights # Seasonal
+          # - if:
+          #     - "{{ include_fans == true }}"
+          #   then:
+          #     - service: homeassistant.turn_off
+          #       target:
+          #         entity_id:
+          #           - fan.living_room_fan
 
       - alias: "Kitchen"
         if:

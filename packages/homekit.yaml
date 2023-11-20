@@ -10,7 +10,8 @@ homekit:
         # Living Room
         - light.corner_lamp
         - scene.movie_mode
-        - fan.living_room_fan
+        # - fan.living_room_fan # Seasonal
+        - light.christmas_tree_lights # Seasonal
 
         # Sunporch
         - light.sunporch_string_lights
