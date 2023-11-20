@@ -5,6 +5,7 @@ homekit:
         # - light.wled_master
         - light.office_leds
         - light.corban_s_office_lamp
+        - light.office_corner_lamp
         # - climate.corbans_office_ac
 
         # Living Room

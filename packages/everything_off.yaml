@@ -165,6 +165,7 @@ script:
                 - light.corban_s_office_lamp_bottom
                 - light.corban_s_office_lamp_middle
                 - light.corban_s_office_lamp_top
+                - light.office_corner_lamp
                 - light.key_light_air_1
                 - light.wled_master # Includes all segments
           # - if:
