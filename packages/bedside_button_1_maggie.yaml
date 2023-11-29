@@ -117,21 +117,8 @@ automation:
         data:
           brightness: 10
 
-  - alias: Bedside Button 1 - Left Button Click - Fan
+  - alias: Bedside Button 1 - Right Button Click - Fan
     id: 486310de-869d-4c86-88c5-d06a28f7fd2b
-    trigger:
-      - platform: device
-        device_id: 902fe0fc069711eb8fc8e19795714a1d
-        discovery_id: 0x680ae2fffebeb7ca action_arrow_left_click
-        domain: mqtt
-        type: action
-        subtype: arrow_left_click
-    action:
-      - service: homeassistant.toggle
-        entity_id: fan.master_bedroom_ceiling_fan
-
-  - alias: Bedside Button 1 - Right Button Click - Bed Lighting Toggle
-    id: 1d146753-e4ca-4514-883d-7bb0efd99554
     trigger:
       - platform: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
@@ -139,6 +126,19 @@ automation:
         domain: mqtt
         type: action
         subtype: arrow_right_click
+    action:
+      - service: homeassistant.toggle
+        entity_id: fan.master_bedroom_ceiling_fan
+
+  - alias: Bedside Button 1 - Left Button Click - Bed Lighting Toggle
+    id: 1d146753-e4ca-4514-883d-7bb0efd99554
+    trigger:
+      - platform: device
+        device_id: 902fe0fc069711eb8fc8e19795714a1d
+        discovery_id: 0x680ae2fffebeb7ca action_arrow_left_click
+        domain: mqtt
+        type: action
+        subtype: arrow_left_click
     action:
       # Explanation of the tri-state logic:
       # If the light is off, turn it on to 100%.
