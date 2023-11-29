@@ -61,7 +61,7 @@ automation:
       - not:
           - alias: "Maggie is not home, such as every other Friday"
             condition: state
-            entity_id: person.corban
+            entity_id: person.maggie
             state: "home"
       - alias: "Master Bedroom automations are not disabled"
         condition: state
