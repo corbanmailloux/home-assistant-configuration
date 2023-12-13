@@ -1,0 +1,49 @@
+# There are two Switchbot Curtain 3 motors installed in the Living Room.
+
+automation:
+  - alias: "Open living room curtains in the morning"
+    id: ca39ee01-15c7-48b0-a34c-2500d2f91a64
+    trigger:
+      - platform: state
+        entity_id: input_select.home_mode
+        from: "Sleep"
+        to: "Home"
+    condition:
+      - alias: "Living room automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_livingroom
+        state: "off"
+    action:
+      - service: cover.open_cover
+        target:
+          entity_id: cover.living_room_curtain_right
+
+  - alias: "Close living room curtains around sunset"
+    id: 7b1fcd09-ff2a-4257-a733-06e7840ee49c
+    trigger:
+      - platform: sun
+        event: sunset
+    condition:
+      - alias: "Living room automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_livingroom
+        state: "off"
+      - not:
+          - condition: state
+            entity_id: input_select.home_mode
+            state: "Vacation"
+    action:
+      - service: cover.close_cover
+        target:
+          entity_id: cover.living_room_curtain_right
+
+template:
+  - binary_sensor:
+      - name: "Living Room Curtains - Low Battery"
+        unique_id: 46eab49d-8bd9-4cc0-872a-1fb64269231e
+        device_class: battery
+        state: >-
+          {{
+            states("sensor.curtain_3_87ef_battery") | int(100) < 15 or
+            states("sensor.living_room_curtain_right_battery") | int(100) < 15
+          }}

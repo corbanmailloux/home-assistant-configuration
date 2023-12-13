@@ -751,6 +751,25 @@
                 "show_state": true,
                 "type": "custom:button-card"
               }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "binary_sensor.living_room_curtains_low_battery",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "color": "yellow",
+                "entity": "binary_sensor.living_room_curtains_low_battery",
+                "layout": "icon_name_state2nd",
+                "name": "Living Room Curtain Batteries",
+                "show_icon": true,
+                "show_state": true,
+                "type": "custom:button-card"
+              }
             }
           ]
         }
