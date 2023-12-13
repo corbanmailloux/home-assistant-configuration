@@ -30,7 +30,6 @@ http:
 
 recorder:
   db_url: !secret mariadb_url
-  purge_keep_days: 60
   exclude:
     domains:
       - updater
@@ -41,14 +40,6 @@ recorder:
       - sensor.time
 
 history:
-  exclude:
-    domains:
-      - updater
-      - camera
-      - script
-    entities:
-      - sun.sun
-      - sensor.time
 
 frontend:
   themes: !include_dir_merge_named themes
@@ -67,7 +58,6 @@ logger:
     homeassistant.components.octoprint: critical
     # The TV is often sleeping when HASS restarts. I should force it to wake up on reboots or use standby mode, but it works for now.
     homeassistant.components.media_player.roku: critical
-    custom_components.package_concierge.sensor: info # A little extra logging for custom components.
 
 ifttt:
   key: !secret ifttt_key
@@ -84,7 +74,6 @@ tts:
     key_file: google_cloud_credentials.json
     voice: en-US-Standard-C
 
-# automation: !include_dir_merge_list automation
 automation: !include automations.yaml # For the automation editor
 # binary_sensor: !include_dir_merge_list binary_sensor
 group: !include_dir_merge_named group
