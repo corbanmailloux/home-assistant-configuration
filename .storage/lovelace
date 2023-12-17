@@ -559,7 +559,7 @@
                 },
                 {
                   "type": "custom:mushroom-entity-card",
-                  "entity": "switch.christmas_tree",
+                  "entity": "light.christmas_tree_lights",
                   "icon_color": "green",
                   "tap_action": {
                     "action": "toggle"
@@ -569,7 +569,8 @@
                   },
                   "double_tap_action": {
                     "action": "more-info"
-                  }
+                  },
+                  "name": "Christmas Tree"
                 }
               ]
             },
