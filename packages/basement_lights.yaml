@@ -9,6 +9,9 @@ light:
       - light.basement_stairs_main_lights
       - light.basement_craft_table_light
       - light.basement_storage_shelf_light
+      - light.basement_furnace_light
+      - light.basement_near_storage_doors_light
+      - light.basement_water_softener_light
 
 template:
   - trigger:
@@ -82,9 +85,6 @@ automation:
           - conditions: >-
               {{ trigger.id == "on" }}
             sequence:
-              - condition: state
-                entity_id: input_select.home_mode
-                state: "Home"
               - alias: "Turn on basement lights"
                 service: light.turn_on
                 data:
