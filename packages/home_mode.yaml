@@ -161,7 +161,7 @@ automation:
           option: "Away"
 
   ## Outputs/actions from Home/Away Changes ##
-  - alias: Home Occupied - Lights, Wall Display on
+  - alias: Home Occupied - Wall Display on
     id: e2855b3b-04a7-4e28-b4d9-97091b1975fd
     trigger:
       - platform: state
@@ -171,6 +171,29 @@ automation:
       - service: light.turn_on
         data:
           entity_id: light.tablet_wall_display_screen
+
+  - alias: Home Occupied from Away - Kitchen Light On
+    id: f88f1445-2171-493a-be4c-d0b32e855871
+    trigger:
+      - platform: state
+        entity_id: input_select.home_mode
+        to: "Home"
+        from:
+          - "Away"
+          - "Vacation"
+    condition:
+      - alias: "Kitchen automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_kitchen
+        state: "off"
+      - alias: "Sun below horizon"
+        condition: state
+        entity_id: sun.sun
+        state: "below_horizon"
+    action:
+      - service: light.turn_on
+        data:
+          entity_id: light.kitchen_main_lights
 
   - alias: Home Unoccupied - Turn everything off
     id: 230957ce-f646-4c5d-8819-9b6b069d3628
@@ -190,3 +213,37 @@ automation:
         service: lock.lock
         target:
           entity_id: lock.side_door
+
+  - alias: Turn and keep a light on for the cats when leaving after sunset
+    id: 2d03492c-8f7c-40da-8b54-0d6fa94d3093
+    trigger:
+      - platform: state
+        entity_id: input_select.home_mode
+        to: "Away"
+      - platform: sun
+        event: sunset
+    condition:
+      - alias: "Living room automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_livingroom
+        state: "off"
+      - alias: "Away mode"
+        condition: state
+        entity_id: input_select.home_mode
+        state: "Away"
+      - alias: "Sun below horizon"
+        condition: state
+        entity_id: sun.sun
+        state: "below_horizon"
+      - alias: "Cats are home"
+        condition: state
+        entity_id: input_boolean.cats_are_home
+        state: "on"
+    action:
+      - alias: "Delay to allow leaving automation to run"
+        delay:
+          seconds: 15
+      - alias: "Turn on a light"
+        service: light.turn_on
+        target:
+          entity_id: light.christmas_tree_lights
