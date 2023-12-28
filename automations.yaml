@@ -95,3 +95,13 @@
         data: {}
         target:
           entity_id: fan.guest_bedroom_ceiling_fan
+- id: '1703638107345'
+  alias: Office Closet Light from Door Sensor
+  description: ''
+  use_blueprint:
+    path: mkosmo/closet-light-from-door-sensor.yaml
+    input:
+      door_sensor: binary_sensor.office_closet_door_sensor_contact
+      light_switch:
+        entity_id: light.office_closet_light
+      light_timeout: 1800

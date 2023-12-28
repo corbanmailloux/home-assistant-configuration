@@ -1,0 +1,67 @@
+blueprint:
+  name: Closet Light from Door Sensor
+  description: 'Automatically actitvate a light with a door sensor attached to the
+    door, activating a smart switch or light.  The light will turn off at the end
+    of a timer, or when you close the door.  Logic is also implemented to turn off
+    the light in the event it''s manually turned on while the door is open or after
+    the automation has already run.
+
+    '
+  domain: automation
+  input:
+    door_sensor:
+      name: Door Sensor
+      selector:
+        entity:
+          domain:
+          - binary_sensor
+          multiple: false
+    light_switch:
+      name: Light
+      selector:
+        target:
+          entity:
+          - domain:
+            - light
+            - switch
+    light_timeout:
+      name: Light Timeout
+      description: How long to let the light run with the door open.
+      default: 300
+      selector:
+        number:
+          min: 0.0
+          max: 86400.0
+          unit_of_measurement: seconds
+          mode: slider
+          step: 60.0
+  source_url: https://gist.github.com/mkosmo/90b2f06d726c72664230a60048cdf0a4
+mode: single
+max_exceeded: silent
+trigger:
+- platform: state
+  entity_id: !input door_sensor
+  from: 'off'
+  to: 'on'
+  id: door-open
+- platform: state
+  entity_id: !input door_sensor
+  from: 'on'
+  to: 'off'
+  id: door-closed
+action:
+- if:
+  - condition: trigger
+    id: door-open
+  then:
+  - service: homeassistant.turn_on
+    data: {}
+    target: !input light_switch
+  - wait_for_trigger:
+    - platform: state
+      entity_id: !input door_sensor
+      from: 'on'
+      to: 'off'
+    timeout: !input light_timeout
+- service: homeassistant.turn_off
+  target: !input light_switch
