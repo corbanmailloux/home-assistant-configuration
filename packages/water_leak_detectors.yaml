@@ -5,11 +5,31 @@ automation:
       - platform: state
         entity_id: binary_sensor.kitchen_sink_water_leak_sensor_water_sensor
         to: "on"
-        id: "under kitchen sink"
+        id: "under the kitchen sink"
       - platform: state
         entity_id: binary_sensor.water_heater_water_leak_sensor_water_sensor
         to: "on"
         id: "near the water heater"
+      - platform: state
+        entity_id: binary_sensor.water_softener_water_leak_sensor_water_sensor
+        to: "on"
+        id: "near the water softener"
+      - platform: state
+        entity_id: binary_sensor.washing_machine_water_leak_sensor_water_sensor
+        to: "on"
+        id: "near the washing machine"
+      - platform: state
+        entity_id: binary_sensor.master_bathroom_sink_water_leak_sensor_water_sensor
+        to: "on"
+        id: "under the master bathroom sink"
+      - platform: state
+        entity_id: binary_sensor.guest_bathroom_sink_water_leak_sensor_water_sensor
+        to: "on"
+        id: "under the guest bathroom sink"
+      - platform: state
+        entity_id: binary_sensor.first_floor_vacuum_water_leak_sensor_water_sensor
+        to: "on"
+        id: "near Derek's base station (mudroom corner)"
     action:
       - alias: "Notify Everyone with a Critical Notification"
         service: notify.adult_ios_phones
@@ -18,9 +38,9 @@ automation:
           message: >-
             Water detected {{ trigger.id }}.
           data:
-            tag: "water_leak_alert"
+            # tag: "water_leak_alert" # Don't tag so they don't get grouped.
             push:
               sound:
                 # name: "default"
-                critical: 1
+                critical: 1 # Push through mute and Focus
                 # volume: 1.0
