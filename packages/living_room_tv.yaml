@@ -1,52 +1,43 @@
-media_player:
-  - platform: universal
-    name: Living Room TV
-    unique_id: aea9df25-cb3a-4d61-88b8-4412ecc69d92
-    device_class: tv
-    children:
-      # - media_player.plex_living_room_roku_tv
-      # - media_player.plex_plex_for_apple_tv_apple_tv
-      - media_player.living_room_apple_tv
-      # - media_player.living_room_chromecast
-      # - media_player.65_tcl_roku_tv
-    commands:
-      turn_on:
-        service: switch.turn_on
-        data:
-          entity_id: switch.living_room_tv_power
-      turn_off:
-        service: switch.turn_off
-        data:
-          entity_id: switch.living_room_tv_power
-      volume_up:
-        service: media_player.volume_up
-        target:
-          entity_id: media_player.living_room_apple_tv
-      volume_down:
-        service: media_player.volume_down
-        target:
-          entity_id: media_player.living_room_apple_tv
-      # select_source:
-      #   service: media_player.select_source
-      #   data_template:
-      #     entity_id: media_player.65_tcl_roku_tv
-      #     source: "{{ source }}"
-    attributes:
-      state: switch.living_room_tv_power
-      # source: media_player.65_tcl_roku_tv|source
-      # source_list: media_player.65_tcl_roku_tv|source_list
+script:
+  game_mode_start:
+    alias: "Game Mode"
+    sequence:
+      # TODO: Check if the PC is on. If not, send a WOL packet. (Check if that works for this motherboard)
+      - if:
+          - alias: "LG TV is off"
+            condition: state
+            entity_id: media_player.living_room_lg_tv
+            state: "off"
+        then:
+          # Turn on the Apple TV, because it also turns on the actual TV over CEC.
+          # If I can configure the LG WebOS TV to turn on directly, I should use that.
+          # - service: media_player.turn_on
+          #   target:
+          #     entity_id: media_player.living_room_apple_tv
 
-switch:
-  - platform: template
-    switches:
-      living_room_tv_power:
-        friendly_name: Living Room TV
-        icon_template: mdi:television
-        value_template: "{{ is_state('remote.living_room_roku_tv', 'on') }}"
-        turn_on:
           - service: media_player.turn_on
-            data:
-              entity_id: media_player.65_tcl_roku_tv
-        turn_off:
-          - service: media_player.turn_off
-            entity_id: media_player.65_tcl_roku_tv
+            target:
+              entity_id: media_player.living_room_lg_tv
+          - alias: Wait for the LG TV to be on
+            wait_template: "{{ is_state('media_player.living_room_lg_tv', 'on') }}"
+            timeout:
+              seconds: 30
+          - alias: "Wait a couple more seconds to get the source to settle."
+            delay:
+              seconds: 5
+      - alias: "Switch TV input to the PC"
+        service: media_player.select_source
+        data:
+          source: PC
+        target:
+          entity_id: media_player.living_room_lg_tv
+
+automation:
+  - alias: "Turn On Living Room LG TV with WakeOnLan"
+    trigger:
+      - platform: webostv.turn_on
+        entity_id: media_player.living_room_lg_tv
+    action:
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: 64:e4:a5:7b:7c:b6
