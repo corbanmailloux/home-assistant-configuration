@@ -432,6 +432,9 @@
                 {
                   "entity": "button.biden_shutdown",
                   "name": "Shutdown Gaming PC"
+                },
+                {
+                  "entity": "script.game_mode_start"
                 }
               ],
               "title": "Device Controls"

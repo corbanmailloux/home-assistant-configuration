@@ -806,6 +806,39 @@
                   }
                 }
               ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "icon": "mdi:lightbulb",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "use_light_color": false,
+                  "show_color_temp_control": true,
+                  "collapsible_controls": true,
+                  "show_color_control": false,
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "entity": "light.office_corner_light",
+                  "name": "Corner"
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "icon": "",
+                  "show_brightness_control": true,
+                  "fill_container": false,
+                  "show_color_temp_control": true,
+                  "collapsible_controls": true,
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "entity": "light.office_closet_light",
+                  "name": "Closet - Temp"
+                }
+              ]
             }
           ]
         },

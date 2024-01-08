@@ -5,7 +5,7 @@ homekit:
         # - light.wled_master
         - light.office_leds
         - light.corban_s_office_lamp
-        - light.office_corner_lamp
+        - light.office_corner_light
         # - climate.corbans_office_ac
 
         # Living Room
@@ -14,6 +14,7 @@ homekit:
         - cover.living_room_curtain_right
         # - fan.living_room_fan # Seasonal
         - light.christmas_tree_lights # Seasonal
+        - script.game_mode_start
 
         # Sunporch
         - light.sunporch_string_lights
@@ -34,12 +35,12 @@ homekit:
         - fan.master_bedroom_ceiling_fan
         - cover.master_bedroom_curtains
         - light.bed_lighting_rgb_light
+        - fan.office_air_purifier
 
         # Guest Bedroom
         - light.fairy_lights
         - light.guest_bedroom_ceiling_fan_light
         - fan.guest_bedroom_ceiling_fan
-        - fan.office_air_purifier
 
         # Basement
         - light.basement_lights
