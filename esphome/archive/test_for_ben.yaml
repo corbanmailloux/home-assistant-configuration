@@ -1,0 +1,35 @@
+substitutions:
+  device_name: "test-for-ben"
+  friendly_name: Test for Ben
+
+esphome:
+  name: "${device_name}"
+  friendly_name: "${friendly_name}"
+
+esp32:
+  board: esp32doit-devkit-v1
+  framework:
+    type: esp-idf
+
+packages:
+  device_base: !include common/device_base.yaml
+
+# Enable logging
+logger:
+  level: INFO
+
+light:
+
+  # One light strip snakes around the unit, covering both number displays.
+  # See the `partition` entries below for breaking up the strip into segments.
+  - platform: esp32_rmt_led_strip
+    rgb_order: GRB
+    pin: 16
+    num_leds: 45
+    rmt_channel: 0
+    chipset: WS2812
+    id: digit_display_light
+    name: "Light"
+    internal: false
+    default_transition_length: 0s
+    # color_correct: [25%, 25%, 25%] # Dim down all?
