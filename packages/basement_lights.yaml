@@ -24,7 +24,7 @@ template:
         unique_id: 6c54c752-29c1-44e8-b9db-a07974cf70b6
         device_class: door
         auto_off:
-          minutes: 1
+          seconds: 1
         state: "on" # Covered by auto_off.
 
   - binary_sensor:
@@ -49,14 +49,27 @@ automation:
           - "unknown"
           - "unavailable"
     action:
-      - service: >-
-          {% if trigger.to_state.state == "on" %}
-            light.turn_on
-          {% else %}
-            light.turn_off
-          {% endif %}
-        target:
-          entity_id: light.basement_lights # Group
+      - alias: "On or Off?"
+        choose:
+          - conditions: >-
+              {{ trigger.to_state.state == "on" }}
+            sequence:
+              - alias: "Turn on basement lights"
+                service: light.turn_on
+                data:
+                  kelvin: 4000
+                  brightness: 255
+                target:
+                  entity_id: light.basement_lights
+          - conditions: >-
+              {{ trigger.to_state.state == "off" }}
+            sequence:
+              - alias: "Turn off basement lights"
+                service: light.turn_off
+                data:
+                  transition: 0
+                target:
+                  entity_id: light.basement_lights
 
   - id: f1227b65-0d99-4c35-9694-bc229a89f2b7
     alias: Basement - Motion Lights
