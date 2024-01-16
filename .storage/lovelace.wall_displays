@@ -243,7 +243,7 @@
                   "layout": "horizontal"
                 },
                 {
-                  "entity": "media_player.living_room_tv",
+                  "entity": "media_player.living_room_apple_tv",
                   "hide": {
                     "power": false,
                     "power_state": false,
@@ -256,12 +256,14 @@
                   "icon": "mdi:television-box",
                   "type": "custom:mini-media-player",
                   "volume_stateless": true,
-                  "toggle_power": true,
-                  "source": "full",
+                  "toggle_power": false,
+                  "source": "icon",
                   "info": "short",
-                  "artwork": "cover",
+                  "artwork": "none",
                   "replace_mute": "play_pause",
-                  "name": "TV"
+                  "name": "TV",
+                  "sound_mode": "icon",
+                  "group": false
                 }
               ],
               "type": "vertical-stack"
