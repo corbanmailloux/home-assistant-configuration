@@ -38,6 +38,12 @@ automation:
       - platform: webostv.turn_on
         entity_id: media_player.living_room_lg_tv
     action:
-      - service: wake_on_lan.send_magic_packet
-        data:
-          mac: 64:e4:a5:7b:7c:b6
+      # - service: wake_on_lan.send_magic_packet
+      #   data:
+      #     mac: 64:e4:a5:7b:7c:b6
+
+      # Turn on the Apple TV, because it also turns on the actual TV over CEC.
+      # If I can configure the LG WebOS TV to turn on directly, I should use that.
+      - service: media_player.turn_on
+        target:
+          entity_id: media_player.living_room_apple_tv
