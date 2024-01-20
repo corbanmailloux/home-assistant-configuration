@@ -57,6 +57,8 @@ google_calendars.yaml
 tts/
 www/lovelace/
 www/community/
+# Temp images for notifications
+www/tmp/
 ip_bans.yaml
 .spotify-token-cache
 nest.conf
@@ -85,3 +87,6 @@ themes/ios-themes/
 
 # Keys, such as for the Lutron Caseta integration.
 *.pem
+
+# GoRTC downloads this binary
+go2rtc-*

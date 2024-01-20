@@ -103,6 +103,11 @@
         "id": "52bdcfd4312d426dbc45d05ad4fa2818",
         "url": "/hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js?hacstag=193372044222",
         "type": "module"
+      },
+      {
+        "id": "e7f7cc87b0284064b0e54f02d3e72354",
+        "url": "/webrtc/webrtc-camera.js?v=v3.5.1",
+        "type": "module"
       }
     ]
   }

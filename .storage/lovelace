@@ -924,6 +924,14 @@
                   "type": "custom:button-card"
                 },
                 {
+                  "entity": "sensor.kitchen_temperature_sensor_temperature",
+                  "name": "Kitchen",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
                   "entity": "sensor.office_temperature",
                   "name": "Office",
                   "layout": "vertical",
@@ -934,6 +942,19 @@
                 {
                   "entity": "sensor.bedroom_temperature",
                   "name": "Bedroom",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
+              "cards": [
+                {
+                  "entity": "sensor.basement_temperature_sensor_temperature",
+                  "name": "Basement",
                   "layout": "vertical",
                   "show_icon": false,
                   "show_state": true,
@@ -2099,23 +2120,45 @@
         },
         {
           "title": "Security",
-          "path": "garage",
+          "path": "security",
           "icon": "mdi:shield-lock",
           "badges": [],
           "cards": [
             {
-              "camera_view": "auto",
-              "type": "picture-glance",
-              "entities": [
+              "type": "custom:webrtc-camera",
+              "ui": true,
+              "muted": true,
+              "style": ".screenshot {display: none}",
+              "streams": [
                 {
-                  "entity": "light.exterior_lights"
+                  "entity": "camera.main_doorbell_main",
+                  "mode": "webrtc",
+                  "name": "HD"
                 },
                 {
-                  "entity": "siren.main_doorbell_siren"
+                  "entity": "camera.main_doorbell_sub",
+                  "mode": "webrtc",
+                  "name": "Low"
                 }
               ],
-              "camera_image": "camera.main_doorbell_sub",
-              "title": "Doorbell"
+              "shortcuts": [
+                {
+                  "name": "Exterior Lights",
+                  "icon": "mdi:lightbulb-group",
+                  "service": "light.toggle",
+                  "service_data": {
+                    "entity_id": "light.exterior_lights"
+                  }
+                },
+                {
+                  "name": "Siren",
+                  "icon": "mdi:alarm-light-outline",
+                  "service": "siren.toggle",
+                  "service_data": {
+                    "entity_id": "siren.main_doorbell_siren"
+                  }
+                }
+              ]
             },
             {
               "entities": [

@@ -880,6 +880,20 @@
                 }
               ],
               "type": "conditional"
+            },
+            {
+              "camera_view": "auto",
+              "type": "picture-glance",
+              "entities": [
+                {
+                  "entity": "light.exterior_lights"
+                },
+                {
+                  "entity": "siren.main_doorbell_siren"
+                }
+              ],
+              "camera_image": "camera.main_doorbell_sub",
+              "title": "Doorbell"
             }
           ]
         }
