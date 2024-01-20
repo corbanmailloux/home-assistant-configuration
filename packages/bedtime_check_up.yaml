@@ -63,21 +63,21 @@ script:
                 behavior: "default"
       - delay:
           seconds: 1
-      - alias: "Flash fairy lights"
+      - alias: "Flash bed lights"
         service: light.turn_on
         target:
-          entity_id: light.fairy_lights
+          entity_id: light.bed_lighting_rgb_light
         data:
-          brightness_pct: 60
+          brightness_pct: 100
           # effect: blink
-      - delay:
-          seconds: 1
-      - alias: "Turn on the fairy lights (to help remediate the problem)"
-        service: light.turn_on
-        target:
-          entity_id: light.fairy_lights
-        data:
-          brightness_pct: 25
+      # - delay:
+      #     seconds: 1
+      # - alias: "Turn on the bed lights (to help remediate the problem)"
+      #   service: light.turn_on
+      #   target:
+      #     entity_id: light.bed_lighting_rgb_light
+      #   data:
+      #     brightness_pct: 100
 
 automation:
   - alias: Bedtime Checkup - Notification Action
