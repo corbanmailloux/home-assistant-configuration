@@ -1,39 +1,39 @@
-# See `esphome/office-switch-shelly.yaml`
-# TODO: Blueprint.
+# # See `esphome/office-switch-shelly.yaml`
+# # TODO: Blueprint.
 
-automation:
-  - alias: Office Light Switch - Toggle Office Light
-    id: 564f131b-bb04-4746-bd8f-4ada8e8babad
-    trigger:
-      - platform: state
-        entity_id: binary_sensor.office_switch_sensor
-        from: "off"
-        to: "on"
-      - platform: state
-        entity_id: binary_sensor.office_switch_sensor
-        from: "on"
-        to: "off"
-    action:
-      - choose:
-          # If off, turn on.
-          - conditions:
-              - condition: state
-                entity_id: light.corban_s_office_lamp
-                state: "off"
-            sequence:
-              - service: light.turn_on
-                entity_id: light.corban_s_office_lamp
-                # Brightness is currently controlled by Adaptive Lighting.
-                # data:
-                #   brightness: 255
-          # If on, turn off.
-          - conditions:
-              - condition: state
-                entity_id: light.corban_s_office_lamp
-                state: "on"
-            sequence:
-              - service: light.turn_off
-                target:
-                  entity_id: light.corban_s_office_lamp
-      - delay:
-          milliseconds: 250
+# automation:
+#   - alias: Office Light Switch - Toggle Office Light
+#     id: 564f131b-bb04-4746-bd8f-4ada8e8babad
+#     trigger:
+#       - platform: state
+#         entity_id: binary_sensor.office_switch_sensor
+#         from: "off"
+#         to: "on"
+#       - platform: state
+#         entity_id: binary_sensor.office_switch_sensor
+#         from: "on"
+#         to: "off"
+#     action:
+#       - choose:
+#           # If off, turn on.
+#           - conditions:
+#               - condition: state
+#                 entity_id: light.corban_s_office_lamp
+#                 state: "off"
+#             sequence:
+#               - service: light.turn_on
+#                 entity_id: light.corban_s_office_lamp
+#                 # Brightness is currently controlled by Adaptive Lighting.
+#                 # data:
+#                 #   brightness: 255
+#           # If on, turn off.
+#           - conditions:
+#               - condition: state
+#                 entity_id: light.corban_s_office_lamp
+#                 state: "on"
+#             sequence:
+#               - service: light.turn_off
+#                 target:
+#                   entity_id: light.corban_s_office_lamp
+#       - delay:
+#           milliseconds: 250
