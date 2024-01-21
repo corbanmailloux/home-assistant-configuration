@@ -16,7 +16,7 @@
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 99
+      brightness: 97
       color_temp_kelvin: 2702
       color_temp: 370
       hs_color:
@@ -29,6 +29,7 @@
       xy_color:
       - 0.526
       - 0.387
+      effect:
       entity_id:
       - light.tv_lamp_top
       - light.tv_lamp_middle
@@ -51,6 +52,14 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
       entity_id:
       - light.corban_s_office_lamp_top
       - light.corban_s_office_lamp_middle
@@ -58,10 +67,11 @@
       friendly_name: Corban's Office Lamp
       supported_features: 44
       state: 'off'
-    light.stairs_bottom_of_stairs:
+    light.front_entry_lights:
       supported_color_modes:
       - onoff
-      friendly_name: Stairs Bottom of Stairs
+      color_mode:
+      friendly_name: Front Entry Lights
       supported_features: 0
       state: 'off'
     light.corban_s_office_lamp_bottom:
@@ -78,9 +88,17 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      effect:
       level_config:
         on_level: previous
-      linkquality: 40
+      linkquality: 87
       power_on_behavior:
       friendly_name: Corban's Office Lamp - Bottom
       supported_features: 44
@@ -89,7 +107,7 @@
   metadata:
     light.corban_s_office_lamp:
       entity_only: true
-    light.stairs_bottom_of_stairs:
+    light.front_entry_lights:
       entity_only: true
     light.corban_s_office_lamp_bottom:
       entity_only: true
