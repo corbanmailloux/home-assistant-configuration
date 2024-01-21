@@ -71,7 +71,7 @@ automation:
     action:
       - service: light.turn_on
         data:
-          entity_id: light.stairs_bottom_of_stairs
+          entity_id: light.front_entry_lights
       # TODO: Update when there's bedroom lights under control.
   - alias: Schedule - 4 - Maggs sleep
     id: a5428791-727a-4e3d-a137-5eae0db3a9f8
@@ -85,7 +85,7 @@ automation:
     action:
       - service: light.turn_off
         data:
-          entity_id: light.stairs_bottom_of_stairs
+          entity_id: light.front_entry_lights
   - alias: Schedule - 5 - Everything off
     id: 29494677-5ec8-407d-a5a9-adda62a9eb39
     trigger:

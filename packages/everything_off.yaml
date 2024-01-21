@@ -261,7 +261,9 @@ script:
           - service: homeassistant.turn_off
             target:
               entity_id:
-                - light.stairs_bottom_of_stairs
+                - light.front_entry_lights
+                - light.first_floor_hall_light
+                - light.upstairs_hall_light
 
       - alias: "Garage"
         if:

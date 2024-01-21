@@ -13,7 +13,7 @@ homekit:
         - scene.movie_mode
         - cover.living_room_curtain_right
         # - fan.living_room_fan # Seasonal
-        - light.christmas_tree_lights # Seasonal
+        # - light.christmas_tree_lights # Seasonal
         - script.game_mode_start
 
         # Sunporch
@@ -24,7 +24,9 @@ homekit:
         - light.kitchen_main_lights
 
         # Hallways
-        - light.stairs_bottom_of_stairs
+        - light.front_entry_lights
+        - light.upstairs_hall_light
+        - light.first_floor_hall_light
         - climate.t9_thermostat
 
         # Craft Room

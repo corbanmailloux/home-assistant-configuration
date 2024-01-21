@@ -6,7 +6,7 @@ light:
       - light.basement_laundry_light
       - light.basement_network_rack_light
       - light.basement_oil_tank_light
-      - light.basement_stairs_main_lights
+      - light.basement_main_lights
       - light.basement_craft_table_light
       - light.basement_storage_shelf_light
       - light.basement_furnace_light
@@ -44,7 +44,7 @@ automation:
     alias: Basement - All Lights Follow Switched Lights
     trigger:
       - platform: state
-        entity_id: light.basement_stairs_main_lights
+        entity_id: light.basement_main_lights
         not_from:
           - "unknown"
           - "unavailable"
