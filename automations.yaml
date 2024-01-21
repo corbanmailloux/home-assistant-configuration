@@ -105,3 +105,21 @@
       light_switch:
         entity_id: light.office_closet_light
       light_timeout: 1800
+- id: '1705870296732'
+  alias: Hall Aux Switch - Pause Living Room TV
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: f6a3f0606ae31f561f4c700f5917deed
+    type: action
+    subtype: aux_config_single
+    discovery_id: 0xb43a31fffe34e475 action_aux_config_single
+  condition: []
+  action:
+  - service: media_player.media_play_pause
+    metadata: {}
+    data: {}
+    target:
+      device_id: 0e47eccd7765e50037be8ffc24099a13
+  mode: single
