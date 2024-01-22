@@ -1,5 +1,5 @@
 substitutions:
-  name: "ratgdo-right-garage-door"
+  name: ratgdo-right-garage-door
   friendly_name: RATGDO - Right Garage Door
 packages:
   ratgdo.esphome: github://esphome-ratgdo/esphome-ratgdo/v2board_esp8266_d1_mini_lite.yaml@main
@@ -11,6 +11,7 @@ api:
   encryption:
     key: !secret api_encryption_key
 
+web_server: !remove
 
 wifi:
   ssid: !secret wifi_ssid
