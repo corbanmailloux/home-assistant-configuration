@@ -25,7 +25,7 @@ script:
       #       {{ training_entity_ids }}
       #       {% endif %}
 
-      # Exclude temporarily until we're sleeping in the master.
+      # Exclude for now to avoid extra light upstairs.
       # - alias: "Guest Bedroom"
       #   variables:
       #     training_entity_ids: >
@@ -186,4 +186,18 @@ automation:
     action:
       - service: input_boolean.turn_off
         data:
+          entity_id: input_boolean.training_mode
+
+  - alias: "Hall Light Config - 2x - Training Mode Toggle"
+    id: 1586cf0a-cf0f-4b81-bc77-05090c64f186
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: f6a3f0606ae31f561f4c700f5917deed
+        type: action
+        subtype: config_double
+        discovery_id: 0xb43a31fffe34e475 action_config_double
+    action:
+      - service: input_boolean.toggle
+        target:
           entity_id: input_boolean.training_mode
