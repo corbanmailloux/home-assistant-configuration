@@ -583,40 +583,27 @@
                   }
                 },
                 {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "light.christmas_tree_lights",
-                  "icon_color": "green",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "name": "Christmas Tree"
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-cover-card",
-                  "entity": "cover.living_room_curtain_right",
-                  "name": "Curtains",
-                  "fill_container": true,
-                  "show_position_control": true,
-                  "show_buttons_control": true,
-                  "layout": "horizontal",
-                  "show_tilt_position_control": false,
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  }
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-cover-card",
+                      "entity": "cover.living_room_curtain_right",
+                      "fill_container": true,
+                      "show_position_control": false,
+                      "show_buttons_control": true,
+                      "show_tilt_position_control": false,
+                      "hold_action": {
+                        "action": "more-info"
+                      },
+                      "double_tap_action": {
+                        "action": "more-info"
+                      },
+                      "secondary_info": "none",
+                      "layout": "horizontal",
+                      "name": "Curtains",
+                      "primary_info": "none"
+                    }
+                  ]
                 }
               ]
             },
@@ -977,27 +964,23 @@
                   "entities": [
                     {
                       "entity": "sensor.living_room_temperature",
-                      "name": "Living Room"
+                      "name": "FL1 - Living Room"
                     },
                     {
                       "entity": "sensor.office_temperature",
-                      "name": "Office"
+                      "name": "FL1 - Office"
+                    },
+                    {
+                      "entity": "sensor.t9_thermostat_current_temperature",
+                      "name": "FL1 - Thermostat"
                     },
                     {
                       "entity": "sensor.bedroom_temperature",
-                      "name": "Bedroom"
+                      "name": "FL2 - Bedroom"
                     },
                     {
-                      "entity": "sensor.sunporch_temperature_sensor_temperature",
-                      "name": "Sunporch"
-                    },
-                    {
-                      "entity": "sensor.openweathermap_temperature",
-                      "name": "Outside - OpenWeatherMap"
-                    },
-                    {
-                      "entity": "sensor.outdoor_porch_temperature",
-                      "name": "Outside - Deck"
+                      "entity": "sensor.basement_temperature_sensor_temperature",
+                      "name": "Basement"
                     }
                   ],
                   "refresh_interval": 0,
@@ -1008,16 +991,20 @@
                 {
                   "entities": [
                     {
-                      "entity": "sensor.bedroom_humidity"
+                      "entity": "sensor.bedroom_humidity",
+                      "name": "FL2 - Bedroom"
                     },
                     {
-                      "entity": "sensor.office_temperature_sensor_humidity"
+                      "entity": "sensor.office_temperature_sensor_humidity",
+                      "name": "FL1 - Office"
                     },
                     {
-                      "entity": "sensor.openweathermap_humidity"
+                      "entity": "sensor.openweathermap_humidity",
+                      "name": "Outside - OpenWeatherMap"
                     },
                     {
-                      "entity": "sensor.outdoor_porch_humidity"
+                      "entity": "sensor.outdoor_porch_humidity",
+                      "name": "Outside - Deck"
                     }
                   ],
                   "title": "Humidities",
@@ -1031,54 +1018,40 @@
               "type": "custom:layout-break"
             },
             {
-              "cards": [
+              "entities": [
                 {
-                  "entities": [
-                    {
-                      "entity": "sensor.living_room_temperature"
-                    },
-                    {
-                      "entity": "sensor.office_temperature"
-                    },
-                    {
-                      "entity": "sensor.bedroom_temperature"
-                    },
-                    {
-                      "entity": "sensor.openweathermap_temperature"
-                    },
-                    {
-                      "entity": "sensor.outdoor_porch_temperature"
-                    }
-                  ],
-                  "hours_to_show": 48,
-                  "refresh_interval": 0,
-                  "title": "Temperatures (2 day)",
-                  "type": "history-graph"
+                  "entity": "sensor.living_room_temperature",
+                  "name": "FL1 - Living Room"
                 },
                 {
-                  "entities": [
-                    {
-                      "entity": "sensor.living_room_humidity"
-                    },
-                    {
-                      "entity": "sensor.office_humidity"
-                    },
-                    {
-                      "entity": "sensor.bedroom_humidity"
-                    },
-                    {
-                      "entity": "sensor.openweathermap_humidity"
-                    },
-                    {
-                      "entity": "sensor.outdoor_porch_humidity"
-                    }
-                  ],
-                  "hours_to_show": 48,
-                  "title": "Humidities (2 day)",
-                  "type": "history-graph"
+                  "entity": "sensor.office_temperature",
+                  "name": "FL1 - Office"
+                },
+                {
+                  "entity": "sensor.bedroom_temperature",
+                  "name": "FL2 - Bedroom"
+                },
+                {
+                  "entity": "sensor.sunporch_temperature_sensor_temperature",
+                  "name": "Sunporch"
+                },
+                {
+                  "entity": "sensor.basement_temperature_sensor_temperature",
+                  "name": "Basement"
+                },
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "Outside - OpenWeatherMap"
+                },
+                {
+                  "entity": "sensor.outdoor_porch_temperature",
+                  "name": "Outside - Deck"
                 }
               ],
-              "type": "vertical-stack"
+              "refresh_interval": 0,
+              "title": "Temperature Overview",
+              "type": "history-graph",
+              "hours_to_show": 24
             }
           ]
         },
