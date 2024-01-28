@@ -1,5 +1,5 @@
 automation:
-  - alias: Office Remote - Toggle - Toggle Key Light
+  - alias: Office Remote - Toggle - Toggle Video Call Scene
     id: e8cfeb3b-e051-4b20-9d80-fd19a96a16dd
     trigger:
       - platform: device
@@ -9,10 +9,20 @@ automation:
         type: action
         subtype: toggle
     action:
-      - service: light.toggle
-        entity_id:
-          - light.key_light_air_1
-          - light.corban_s_office_lamp_bottom
+      - if:
+          # If the key light is on, turn off both video lights.
+          - condition: state
+            entity_id: light.key_light_air_1
+            state: "on"
+        then:
+          - service: light.turn_off
+            entity_id:
+              - light.key_light_air_1
+              - light.corban_s_office_lamp_bottom
+          # If the key light is off, turn on the video scene.
+        else:
+          - service: scene.turn_on
+            entity_id: scene.office_meeting
 
   - alias: Office Remote - Brightness Up
     id: 917b79fd-9825-4100-bca6-d44847d8ef10
@@ -113,9 +123,11 @@ automation:
         type: action
         subtype: brightness_up_hold
     action:
-      - alias: "Lamp full brighness"
+      - alias: "Lamps full brighness"
         service: light.turn_on
-        entity_id: light.corban_s_office_lamp
+        entity_id:
+          - light.corban_s_office_lamp
+          - light.office_corner_light
         data:
           brightness: 255
 
@@ -129,17 +141,18 @@ automation:
         type: action
         subtype: brightness_down_hold
     action:
-      - alias: "Lamp off"
+      - alias: "Lamps off"
         service: light.turn_off
-        entity_id: light.corban_s_office_lamp
+        entity_id:
+          - light.corban_s_office_lamp
+          - light.office_corner_light
 
   # TODO: Updated plan
   # left and right click: adjust lamp video light brightness
   # left hold: activate/deactivate meeting scene
   # right hold: (Unknown) Maybe still toggle fan?
 
-  # TODO: Make this a toggle, controlling both video lights and activating a predefined scene.
-  - alias: Office Remote - Left Button Click - Meeting Scene
+  - alias: Office Remote - Left Button Click - Toggle Corner Lamp
     id: 4f982672-4257-4cb7-a498-1df044a30150
     trigger:
       - platform: device
@@ -149,21 +162,21 @@ automation:
         type: action
         subtype: arrow_left_click
     action:
-      - service: scene.turn_on
-        entity_id: scene.office_meeting
+      - service: light.toggle
+        entity_id: light.office_corner_light
 
-  # - alias: Office Remote - Left Button Hold - Toggle PTZ Camera
-  #   id: df89803c-e20a-4418-ae99-1371f154ecd4
-  #   trigger:
-  #     - platform: device
-  #       device_id: 66f76df28bdd462e84227f8f164ee7c3
-  #       discovery_id: 0x90fd9ffffe886c5f action_arrow_left_hold
-  #       domain: mqtt
-  #       type: action
-  #       subtype: arrow_left_hold
-  #   action:
-  #     - service: switch.toggle
-  #       entity_id: switch.ptz_camera # Template switch. See `office_ptz_camera` package.
+  - alias: Office Remote - Left Button Hold - Toggle Shelf LEDs
+    id: df89803c-e20a-4418-ae99-1371f154ecd4
+    trigger:
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_arrow_left_hold
+        domain: mqtt
+        type: action
+        subtype: arrow_left_hold
+    action:
+      - service: light.toggle
+        entity_id: light.office_leds
 
   - alias: Office Remote - Right Button Click - Toggle Main Light
     id: 74eee1be-0bea-4009-9621-59e44cc2d8a4
@@ -178,7 +191,7 @@ automation:
       - service: light.toggle
         data:
           entity_id: light.corban_s_office_lamp
-          brightness: 255
+          # brightness: 255
 
   - alias: Office Remote - Right Button Hold - Toggle Fan
     id: e4f83809-9377-42ee-9a19-8cfe4966e944
