@@ -1,0 +1,20 @@
+# Create sensors to get the average temperature on each floor
+sensor:
+  - platform: min_max
+    name: FL1 - Average Temperature
+    unique_id: e1226acb-5b49-4703-875c-1fecc6aa671b
+    round_digits: 1
+    type: mean
+    entity_ids:
+      - sensor.living_room_temperature
+      - sensor.kitchen_temperature_sensor_temperature
+      - sensor.office_temperature
+      - sensor.t9_thermostat_current_temperature
+
+  - platform: min_max
+    name: FL2 - Average Temperature
+    unique_id: 243aa9f2-2aef-4c83-9d0b-dc5a49bcf9d9
+    round_digits: 1
+    type: mean
+    entity_ids:
+      - sensor.bedroom_temperature
