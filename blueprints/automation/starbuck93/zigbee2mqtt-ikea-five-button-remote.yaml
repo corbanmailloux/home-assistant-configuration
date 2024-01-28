@@ -1,0 +1,174 @@
+blueprint:
+  name: Z2M - IKEA five button remote for lights and actions
+  description: 'Control lights with an IKEA five button remote (the round ones).
+
+
+    The middle "on" button, toggle the lights on/off to the last set brightness
+
+    (unless the force brightness is toggled on in the blueprint).
+
+
+    Dim up/down buttons will change the brightness smoothly and can be pressed
+
+    and hold until the brightness is satisfactory.
+
+
+    The "left" and "right" buttons can be assigned to a short and long button
+
+    press action. This allows you to assign, e.g., a scene or anything else.
+
+
+    This is a fork of @Frenck''s blueprint for ZHA found here https://community.home-assistant.io/t/zha-ikea-five-button-remote-for-lights/253804
+
+    '
+  domain: automation
+  input:
+    remote:
+      name: Remote
+      description: IKEA remote to use. For example, "sensor.IKEA_REMOTE_action"
+      selector:
+        entity:
+          domain:
+          - sensor
+          multiple: false
+    light:
+      name: Light(s)
+      description: The light(s) to control
+      selector:
+        target:
+          entity:
+          - domain:
+            - light
+    force_brightness:
+      name: Force turn on brightness
+      description: 'Force the brightness to the set level below, when the "on" button
+        on the remote is pushed and lights turn on.
+
+        '
+      default: false
+      selector:
+        boolean: {}
+    brightness:
+      name: Brightness
+      description: Brightness of the light(s) when turning on
+      default: 50
+      selector:
+        number:
+          min: 0.0
+          max: 100.0
+          mode: slider
+          step: 1.0
+          unit_of_measurement: '%'
+    button_left_short:
+      name: Left button - short press
+      description: Action to run on short left button press
+      default: []
+      selector:
+        action: {}
+    button_left_long:
+      name: Left button - long press
+      description: Action to run on long left button press
+      default: []
+      selector:
+        action: {}
+    button_right_short:
+      name: Right button - short press
+      description: Action to run on short right button press
+      default: []
+      selector:
+        action: {}
+    button_right_long:
+      name: Right button - long press
+      description: Action to run on long right button press
+      default: []
+      selector:
+        action: {}
+  source_url: https://community.home-assistant.io/t/zigbee2mqtt-ikea-five-button-remote/255308
+mode: restart
+max_exceeded: silent
+variables:
+  force_brightness: !input force_brightness
+trigger:
+- platform: state
+  entity_id: !input remote
+  attribute: action
+action:
+- variables:
+    command: '{{ trigger.to_state.state }}'
+- choose:
+  - conditions:
+    - '{{ command == ''toggle'' }}'
+    sequence:
+    - choose:
+      - conditions: '{{ force_brightness }}'
+        sequence:
+        - service: light.toggle
+          target: !input light
+          data:
+            transition: 1
+            brightness_pct: !input brightness
+      default:
+      - service: light.toggle
+        target: !input light
+        data:
+          transition: 1
+  - conditions:
+    - '{{ command == ''brightness_up_click'' }}'
+    sequence:
+    - service: light.turn_on
+      target: !input light
+      data:
+        brightness_step_pct: 10
+        transition: 1
+  - conditions:
+    - '{{ command == ''brightness_up_hold'' }}'
+    sequence:
+    - repeat:
+        until:
+        - condition: state
+          entity_id: !input remote
+          state: brightness_up_release
+          attribute: action
+        sequence:
+        - service: light.turn_on
+          data:
+            brightness_step_pct: 10
+            transition: 1
+          target: !input light
+        - delay: '1'
+  - conditions:
+    - '{{ command == ''brightness_down_click'' }}'
+    sequence:
+    - service: light.turn_on
+      target: !input light
+      data:
+        brightness_step_pct: -10
+        transition: 1
+  - conditions:
+    - '{{ command == ''brightness_down_hold'' }}'
+    sequence:
+    - repeat:
+        until:
+        - condition: state
+          entity_id: !input remote
+          state: brightness_down_release
+          attribute: action
+        sequence:
+        - service: light.turn_on
+          data:
+            brightness_step_pct: -10
+            transition: 1
+          target: !input light
+        - delay: '1'
+  - conditions:
+    - '{{ command == ''arrow_left_click'' }}'
+    sequence: !input button_left_short
+  - conditions:
+    - '{{ command == ''arrow_left_hold'' }}'
+    sequence: !input button_left_long
+  - conditions:
+    - '{{ command == ''arrow_right_click'' }}'
+    sequence: !input button_right_short
+  - conditions:
+    - '{{ command == ''arrow_right_hold'' }}'
+    sequence: !input button_right_long
