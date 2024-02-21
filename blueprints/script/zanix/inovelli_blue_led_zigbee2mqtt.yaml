@@ -1,0 +1,424 @@
+blueprint:
+  name: Inovelli Blue LED (Zigbee2MQTT)
+  description: "Set LED effects for Inovelli Blue Series Switches using Zigbee2MQTT.\n\nFeatures:\n\n-
+    Select one or multiple devices, entities, or areas with Inovelli switches\n- Selectors
+    for LED Number, Color, Brightness Level, Effect, and Duration\n- LED Number, Color,
+    Effect, and Duration can accept direct values or the “friendly name” listed in
+    the dropdown\n- Debug info to diagnose issues\n  - Warning: Debug mode will create
+    a persistent message for every entity called in the script plus 1\n\nSupported
+    Models:\n\n- Inovelli 2-in-1 switch + dimmer (VZM31-SN)\n- Inovelli Fan Controller
+    (VZM35-SN)\n\nForum: https://community.home-assistant.io/t/z2m-inovelli-blue-series-switch-led-notification-script-vzm31-sn-vzm35-sn/489620\n\nGitHub:
+    https://github.com/zanix/home-assistant-blueprints\n\nℹ️ Version: 2023.10.3\n"
+  domain: script
+  source_url: https://github.com/zanix/home-assistant-blueprints/blob/main/script/inovelli_blue_led_zigbee2mqtt.yaml
+  input: {}
+fields:
+  target:
+    name: Target
+    description: Inovelli devices, entities, and/or areas with Inovelli devices to
+      set effects.
+    selector:
+      target:
+        device:
+          integration: mqtt
+          manufacturer: Inovelli
+        entity:
+          integration: mqtt
+          domain:
+          - light
+          - fan
+  led:
+    name: LED
+    description: Choose which LED to control. Default is All. (Led 1 is at the bottom)
+    default: All
+    selector:
+      select:
+        custom_value: true
+        options:
+        - All
+        - Led 1
+        - Led 2
+        - Led 3
+        - Led 4
+        - Led 5
+        - Led 6
+        - Led 7
+  color:
+    name: LED Color
+    default: Red
+    selector:
+      select:
+        custom_value: true
+        options:
+        - Red
+        - Orange
+        - Yellow
+        - Green
+        - Cyan
+        - Teal
+        - Blue
+        - Purple
+        - Light Pink
+        - Pink
+        - White
+  level:
+    name: Brightness level
+    description: Value from 0 (off) to 100 (100% brightness).
+    default: 100
+    example: '40'
+    selector:
+      number:
+        min: 0
+        max: 100
+  effect:
+    name: Effect
+    description: Choose LED effect to apply.
+    default: Clear
+    selector:
+      select:
+        custom_value: true
+        options:
+        - 'Off'
+        - Clear
+        - Solid
+        - Aurora
+        - Slow Chase
+        - Chase
+        - Fast Chase
+        - Slow Blink
+        - Medium Blink
+        - Fast Blink
+        - Slow Falling
+        - Medium Falling
+        - Fast Falling
+        - Open/Close
+        - Pulse
+        - Slow Rising
+        - Medium Rising
+        - Fast Rising
+        - Slow Siren
+        - Fast Siren
+        - Small to Big
+  duration:
+    name: Duration
+    description: How long should the effect run?
+    default: Indefinitely
+    selector:
+      select:
+        custom_value: true
+        options:
+        - 1 Second
+        - 2 Seconds
+        - 3 Seconds
+        - 4 Seconds
+        - 5 Seconds
+        - 6 Seconds
+        - 7 Seconds
+        - 8 Seconds
+        - 9 Seconds
+        - 10 Seconds
+        - 15 Seconds
+        - 20 Seconds
+        - 25 Seconds
+        - 30 Seconds
+        - 35 Seconds
+        - 40 Seconds
+        - 45 Seconds
+        - 50 Seconds
+        - 55 Seconds
+        - 1 Minute
+        - 2 Minutes
+        - 3 Minutes
+        - 4 Minutes
+        - 5 Minutes
+        - 6 Minutes
+        - 7 Minutes
+        - 8 Minutes
+        - 9 Minutes
+        - 10 Minutes
+        - 15 Minutes
+        - 20 Minutes
+        - 25 Minutes
+        - 30 Minutes
+        - 35 Minutes
+        - 40 Minutes
+        - 45 Minutes
+        - 50 Minutes
+        - 55 Minutes
+        - 1 Hour
+        - 2 Hours
+        - 3 Hours
+        - 4 Hours
+        - 5 Hours
+        - 6 Hours
+        - 7 Hours
+        - 8 Hours
+        - 9 Hours
+        - 10 Hours
+        - 15 Hours
+        - 20 Hours
+        - 1 Day
+        - 2 Days
+        - 3 Days
+        - 4 Days
+        - 5 Days
+        - Indefinitely
+        - Forever
+  enable_debug:
+    name: Enable debug output?
+    selector:
+      constant:
+        value: true
+        label: Enabled
+  command_path_map:
+    name: Command Path Map
+    description: 'Map of Entity IDs with a MQTT command path map when HA and Z2M do
+      not match up.
+
+      Enter a new row for each mapping: light.entity_name: "zigbee2mqtt/path/to/device/set"''.
+
+      You can also use a template but you need to use YAML mode to do so.
+
+      '
+    selector:
+      object:
+variables:
+  debug: '{{ iif(enable_debug is defined, enable_debug, false) }}'
+  domains:
+  - light
+  - fan
+  models:
+  - VZM31-SN
+  - VZM35-SN
+  target: '{{ target|default([])|map(lower) }}'
+  area: '{{ target.area_id|default([])|lower }}'
+  device: '{{ target.device_id|default([])|lower }}'
+  entity: '{{ target.entity_id|default([])|lower }}'
+  command_path_map: '{{ command_path_map|default([]) }}'
+  entity_list: "{% set switch = namespace(entities=[]) %}\n{# Areas #} {% set areas
+    = namespace(areas=[]) %} {% if area %}\n  {# Convert to a list #}\n  {% if ','
+    in area %}\n    {% set areanum = area.split(',') | count %}\n    {% for i in range(0,
+    areanum) %}\n      {% set areas.areas = areas.areas + [area.split(',')[i]|string|trim
+    ] %}\n    {% endfor %}\n  {% elif area[0]|count == 1 %}\n    {# if the first item
+    in the list has only a single character, it can't be a valid entity #}\n    {%
+    set areas.areas = areas.areas + [area|string|trim] %}\n  {% else %}\n    {% set
+    areas.areas = area %}\n  {% endif %}\n  {# Detect switches #}\n  {% for area in
+    areas.areas %}\n    {% for ent in area_entities(area) %}\n      {% for model in
+    models %}\n        {% if model in device_attr(ent, 'model') | default('', true)
+    and ent.split('.')[0] in domains %}\n          {% set switch.entities = switch.entities
+    + [ent|string|trim] %}\n        {% endif %}\n      {% endfor %}\n    {% endfor
+    %}\n  {% endfor %}\n{% endif %}\n{# Devices #} {% set devices = namespace(devices=[])
+    %} {% if device %}\n  {# Convert to a list #}\n  {% if ',' in device %}\n    {%
+    set devicenum = device.split(',') | count %}\n    {% for i in range(0, devicenum)
+    %}\n      {% set devices.devices = devices.devices + [device.split(',')[i]|string|trim
+    ] %}\n    {% endfor %}\n  {% elif device[0]|count == 1 %} {# if the first item
+    in the list has only a single character, it can't be a valid entity #}\n    {%
+    set devices.devices = devices.devices + [device|string|trim] %}\n  {% else %}\n
+    \   {% set devices.devices = device %}\n  {% endif %}\n  {# Detect switches #}\n
+    \ {% for device in devices.devices %}\n    {% for ent in device_entities(device)
+    %}\n      {% for model in models %}\n        {% if model in device_attr(ent, 'model')
+    | default('', true) and ent.split('.')[0] in domains %}\n          {% set switch.entities
+    = switch.entities + [ent|string|trim] %}\n        {% endif %}\n      {% endfor
+    %}\n    {% endfor %}\n  {% endfor %}\n{% endif %}\n{# Entities #} {% set entities
+    = namespace(entities=[]) %} {% if entity %}\n  {# Convert to a list #}\n  {% if
+    ',' in entity %}\n    {% set entitynum = entity.split(',') | count %}\n    {%
+    for i in range(0, entitynum) %}\n      {% set entities.entities = entities.entities
+    + [entity.split(',')[i]|string|trim ] %}\n    {% endfor %}\n  {% elif entity[0]|count
+    == 1 %} {# if the first item in the list has only a single character, it can't
+    be a valid entity #}\n    {% set entities.entities = entities.entities + [entity|string|trim]
+    %}\n  {% else %}\n    {% set entities.entities = entity %}\n  {% endif %}\n  {#
+    Detect switches #}\n  {% for ent in entities.entities %}\n      {% for model in
+    models %}\n        {% if model in device_attr(ent, 'model') | default('', true)
+    and ent.split('.')[0] in domains %}\n          {% set switch.entities = switch.entities
+    + [ent|string|trim] %}\n        {% endif %}\n      {% endfor %}\n  {% endfor %}\n{%
+    endif %}\n{# Output #} {{ switch.entities|unique|list|lower }}\n"
+  leds:
+    all: -1
+    led 1: 0
+    led 2: 1
+    led 3: 2
+    led 4: 3
+    led 5: 4
+    led 6: 5
+    led 7: 6
+  led: '{{ led|default("all") }}'
+  led_value: "{% if led|int(default=-2) == -2 %}\n  {{ leds[led|lower]|int(default=-1)
+    }}\n{% else %}\n  {{ led|int(default=-1) }}\n{% endif %}"
+  level: '{{ level|default(100) }}'
+  colors:
+    'off': 0
+    red: 1
+    orange: 21
+    yellow: 42
+    green: 85
+    cyan: 127
+    teal: 145
+    blue: 170
+    purple: 195
+    light pink: 220
+    lightpink: 220
+    pink: 234
+    white: 255
+  color: '{{ color|default("red") }}'
+  color_value: "{% if color|int(default=-1) == -1 %}\n  {{ colors[color|lower]|int(default=0)
+    }}\n{% else %}\n  {{ color|int(default=0) }}\n{% endif %}"
+  effects:
+    'off': 'off'
+    clear: clear_effect
+    solid: solid
+    aurora: aurora
+    chase: chase
+    fast blink: fast_blink
+    fast chase: fast_chase
+    fast falling: fast_falling
+    fast rising: fast_rising
+    fast siren: fast_siren
+    medium blink: medium_blink
+    medium falling: medium_falling
+    medium rising: medium_rising
+    open/close: open_close
+    open close: open_close
+    pulse: pulse
+    slow blink: slow_blink
+    slow chase: slow_chase
+    slow falling: slow_falling
+    slow rising: slow_rising
+    slow siren: slow_siren
+    small to big: small_to_big
+  effect: '{{ effect|default("clear") }}'
+  effect_value: "{% if effect|lower in effects %}\n  {{ effects[effect|lower] }}\n{%
+    else %}\n  {{ effect|lower }}\n{% endif %}"
+  durations:
+    'off': 0
+    1 second: 1
+    2 seconds: 2
+    3 seconds: 3
+    4 seconds: 4
+    5 seconds: 5
+    6 seconds: 6
+    7 seconds: 7
+    8 seconds: 8
+    9 seconds: 9
+    10 seconds: 10
+    15 seconds: 15
+    20 seconds: 20
+    25 seconds: 25
+    30 seconds: 30
+    35 seconds: 35
+    40 seconds: 40
+    45 seconds: 45
+    50 seconds: 50
+    55 seconds: 55
+    1 minute: 60
+    2 minutes: 62
+    3 minutes: 63
+    4 minutes: 64
+    5 minutes: 65
+    6 minutes: 66
+    7 minutes: 67
+    8 minutes: 68
+    9 minutes: 69
+    10 minutes: 70
+    15 minutes: 75
+    20 minutes: 80
+    25 minutes: 85
+    30 minutes: 90
+    35 minutes: 95
+    40 minutes: 100
+    45 minutes: 105
+    50 minutes: 110
+    55 minutes: 115
+    1 hour: 120
+    2 hours: 122
+    3 hours: 123
+    4 hours: 124
+    5 hours: 125
+    6 hours: 126
+    7 hours: 127
+    8 hours: 128
+    9 hours: 129
+    10 hours: 130
+    15 hours: 135
+    20 hours: 140
+    1 day: 144
+    2 days: 168
+    3 days: 192
+    4 days: 216
+    5 days: 240
+    indefinitely: 255
+    forever: 255
+  duration: '{{ duration|default("indefinitely") }}'
+  duration_value: "{% if duration|int(default=-1) == -1 %}\n  {{ durations[duration|lower]|int(default=255)
+    }}\n{% else %}\n  {{ duration|int(default=255) }}\n{% endif %}"
+sequence:
+- alias: 'Debug: Send notification'
+  if:
+  - condition: template
+    value_template: '{{ debug == true }}'
+  then:
+  - service: persistent_notification.create
+    data:
+      notification_id: inovelli_blue_led
+      title: 'DEBUG: script.inovelli_blue_led'
+      message: 'target list: {{ target }}
+
+        entity list: {{ entity_list }}
+
+        entity count: {{ entity_list|count }}
+
+        led: {{ led }} ({{ led_value }})
+
+        color: {{ color }} ({{ color_value }})
+
+        level: {{ level }}
+
+        effect: {{ effect }} ({{ effect_value }})
+
+        duration: {{ duration }} ({{ duration_value }})
+
+        command_path_map: {{ command_path_map }}'
+- alias: Check for an empty entity list
+  condition: template
+  value_template: '{{ entity_list|count > 0 }}
+
+    '
+- variables:
+    payload: "{% if led_value == -1 %}\n  {% set payload_data = {\n      \"led_effect\":
+      {\n        \"effect\": effect_value,\n        \"color\": color_value,\n        \"level\":
+      level,\n        \"duration\": duration_value,\n      }\n    } %}\n{% else %}\n
+      \ {% set payload_data = {\n      \"individual_led_effect\": {\n        \"led\":
+      led_value,\n        \"effect\": effect_value,\n        \"color\": color_value,\n
+      \       \"level\": level,\n        \"duration\": duration_value,\n      }\n
+      \   } %}\n{% endif %}\n{{ payload_data | tojson }}"
+- repeat:
+    for_each: '{{ entity_list }}'
+    sequence:
+    - variables:
+        command_path: "{% if repeat.item in command_path_map %}\n  {{ command_path_map[repeat.item]
+          }}\n{% else %}\n  zigbee2mqtt/{{ device_attr(repeat.item, \"name\") }}/set\n{%
+          endif %}"
+    - alias: 'Debug: Send notification'
+      if:
+      - condition: template
+        value_template: '{{ debug == true }}'
+      then:
+      - service: persistent_notification.create
+        data:
+          notification_id: inovelli_blue_led::{{ repeat.item }}
+          title: 'DEBUG: script.inovelli_blue_led::{{ repeat.item }}'
+          message: 'entity: {{ repeat.item }}
+
+            device name: {{ device_attr(repeat.item, "name") }}
+
+            topic: {{ command_path }}
+
+            payload: {{ payload }}'
+    - alias: Send payload to the switch
+      service: mqtt.publish
+      data:
+        topic: '{{ command_path }}'
+        payload_template: '{{ payload }}'
+icon: mdi:led-on
+mode: parallel
+max_exceeded: silent
+max: 100

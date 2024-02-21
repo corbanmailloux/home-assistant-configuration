@@ -1,0 +1,5 @@
+inovelli_led_control:
+  alias: Inovelli Blue LED (Zigbee2MQTT)
+  use_blueprint:
+    path: zanix/inovelli_blue_led_zigbee2mqtt.yaml
+  icon: mdi:led-strip
