@@ -39,5 +39,5 @@ automation:
         entity_id: light.bed_lighting_rgb_light
         data:
           transition: 5
-          brightness: 153
+          brightness_pct: 75
           rgb_color: [255, 78, 30]
