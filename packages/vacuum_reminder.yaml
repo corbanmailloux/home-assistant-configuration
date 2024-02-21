@@ -116,8 +116,8 @@ script:
           payload_template: >-
             {
               "coordinates": {
-                "x": 2948,
-                "y": 2527
+                "x": 2609,
+                "y": 2483
               }
             }
       - delay:
