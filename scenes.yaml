@@ -129,7 +129,7 @@
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 129
+      brightness: 138
       color_temp_kelvin: 5000
       color_temp: 200
       hs_color:
@@ -142,9 +142,10 @@
       xy_color:
       - 0.372
       - 0.35
+      effect:
       level_config:
         on_level: previous
-      linkquality: 54
+      linkquality: 47
       power_on_behavior:
       friendly_name: Corban's Office Lamp - Bottom
       supported_features: 44
@@ -157,7 +158,7 @@
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 71
+      brightness: 48
       color_temp_kelvin: 5025
       color_temp: 199
       hs_color:
@@ -170,7 +171,7 @@
       xy_color:
       - 0.371
       - 0.349
-      friendly_name: ''
+      friendly_name: Key Light 1
       supported_features: 0
       state: 'on'
   icon: mdi:video
