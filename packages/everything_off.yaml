@@ -20,6 +20,9 @@ input_boolean:
   room_exclude_kitchen:
     name: Exclude - Kitchen
     icon: mdi:silverware-fork-knife
+  room_exclude_dining_room:
+    name: Exclude - Dining Room
+    icon: mdi:table-chair
   room_exclude_mud_room:
     name: Exclude - Mud Room
     icon: mdi:door-open
@@ -47,6 +50,7 @@ group:
       - input_boolean.room_exclude_office
       - input_boolean.room_exclude_livingroom
       - input_boolean.room_exclude_kitchen
+      - input_boolean.room_exclude_dining_room
       - input_boolean.room_exclude_mud_room
       - input_boolean.room_exclude_sunporch
       - input_boolean.room_exclude_bathrooms
@@ -211,6 +215,19 @@ script:
               entity_id:
                 - light.tablet_wall_display_screen
                 - light.kitchen_main_lights
+
+      - alias: "Dining Room"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_dining_room
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.dining_room_light
 
       # - alias: "Mudroom"
       #   if:

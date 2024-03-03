@@ -23,6 +23,9 @@ homekit:
         # Kitchen
         - light.kitchen_main_lights
 
+        # Dining Room
+        - light.dining_room_light
+
         # Hallways
         - light.front_entry_lights
         - light.upstairs_hall_light

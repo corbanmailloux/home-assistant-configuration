@@ -70,6 +70,15 @@ script:
             {{ training_entity_ids }}
             {% endif %}
 
+      - alias: "Dining Room"
+        variables:
+          training_entity_ids: >
+            {% if is_state("input_boolean.room_exclude_dining_room", "off") -%}
+            {{ training_entity_ids + ["light.dining_room_light"] }}
+            {%- else -%}
+            {{ training_entity_ids }}
+            {% endif %}
+
       - alias: "Sunporch"
         variables:
           training_entity_ids: >

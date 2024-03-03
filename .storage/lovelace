@@ -928,6 +928,22 @@
                 },
                 {
                   "type": "custom:mushroom-light-card",
+                  "entity": "light.dining_room_light",
+                  "name": "Dining",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": "mdi:chandelier"
+                },
+                {
+                  "type": "custom:mushroom-light-card",
                   "entity": "light.basement_lights",
                   "name": "Basement",
                   "tap_action": {
@@ -941,22 +957,6 @@
                   },
                   "secondary_info": "none",
                   "icon": "mdi:stairs-down"
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.exterior_lights",
-                  "name": "Exterior",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "secondary_info": "none",
-                  "icon": "mdi:coach-lamp-variant"
                 }
               ]
             },
@@ -997,8 +997,8 @@
                 },
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.office_closet_light",
-                  "name": "Office Closet",
+                  "entity": "light.exterior_lights",
+                  "name": "Exterior",
                   "tap_action": {
                     "action": "toggle"
                   },
@@ -1008,7 +1008,8 @@
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "secondary_info": "none"
+                  "secondary_info": "none",
+                  "icon": "mdi:coach-lamp-variant"
                 }
               ]
             }

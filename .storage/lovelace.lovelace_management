@@ -276,6 +276,35 @@
                       "entity": "input_boolean.room_exclude_garage"
                     }
                   ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_dining_room",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "name": "Dining",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "type": "custom:button-card",
+                      "color_type": "blank-card"
+                    },
+                    {
+                      "type": "custom:button-card",
+                      "color_type": "blank-card"
+                    },
+                    {
+                      "type": "custom:button-card",
+                      "color_type": "blank-card"
+                    }
+                  ]
                 }
               ]
             },
