@@ -22,6 +22,7 @@ homekit:
 
         # Kitchen
         - light.kitchen_main_lights
+        - light.kitchen_bar_light
 
         # Dining Room
         - light.dining_room_light
