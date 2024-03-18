@@ -38,6 +38,9 @@ input_boolean:
   room_exclude_garage:
     name: Exclude - Garage
     icon: mdi:garage
+  room_exclude_closets:
+    name: Exclude - Closets
+    icon: mdi:hanger
 
 group:
   room_exclusions:
@@ -56,6 +59,7 @@ group:
       - input_boolean.room_exclude_bathrooms
       - input_boolean.room_exclude_hallways
       - input_boolean.room_exclude_garage
+      - input_boolean.room_exclude_closets
 
 script:
   reset_room_exclusions:
@@ -296,3 +300,19 @@ script:
               entity_id:
                 - light.right_garage_door_local_light
                 - light.garage_main_lights
+
+      - alias: "Closets"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_closets
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.pantry_lights
+                - light.coat_closet_light
+                - light.office_closet_light
+                - light.utility_closet_switch

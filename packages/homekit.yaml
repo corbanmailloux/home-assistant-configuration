@@ -53,6 +53,9 @@ homekit:
 
         # Closets
         - light.pantry_lights
+        - light.coat_closet_light
+        - light.office_closet_light
+        - light.utility_closet_switch
 
         # Garage
         - cover.ratgdo_left_garage_door_door

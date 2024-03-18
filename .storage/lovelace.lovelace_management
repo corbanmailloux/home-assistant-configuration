@@ -293,8 +293,16 @@
                       "secondary_info": "none"
                     },
                     {
-                      "type": "custom:button-card",
-                      "color_type": "blank-card"
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "input_boolean.room_exclude_closets",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "icon_color": "deep-orange",
+                      "secondary_info": "none",
+                      "name": "Closets"
                     },
                     {
                       "type": "custom:button-card",
@@ -724,6 +732,9 @@
                 },
                 {
                   "entity": "script.parking_sign_clear_display"
+                },
+                {
+                  "entity": "automation.show_hand_on_sign_during_meetings"
                 },
                 {
                   "type": "custom:fold-entity-row",
