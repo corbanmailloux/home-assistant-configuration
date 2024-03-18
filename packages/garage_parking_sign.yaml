@@ -45,6 +45,33 @@ automation:
           entity_id: >-
             {{ trigger.id }}
 
+  - id: 2e88e5a9-888e-417d-9070-f4ddc96df4cf
+    alias: Show Hand on Sign During Meetings
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.corban_on_a_call
+    condition:
+      - alias: "Home Mode"
+        condition: state
+        entity_id: input_select.home_mode
+        state: "Home"
+      - alias: "Corban home"
+        condition: state
+        entity_id: person.corban
+        state: "home"
+    action:
+      - choose:
+          - conditions: "{{ trigger.to_state.state == 'on' }}"
+            sequence:
+              - service: light.turn_on
+                target:
+                  entity_id: light.garage_parking_sign_hand
+          - conditions: "{{ trigger.to_state.state == 'off' }}"
+            sequence:
+              - service: light.turn_off
+                target:
+                  entity_id: light.garage_parking_sign_hand
+
 script:
   parking_sign_clear_display:
     alias: "Clear Parking Sign Display"
