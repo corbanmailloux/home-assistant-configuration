@@ -49,17 +49,17 @@ automation:
         entity_id: sensor.litter_robot_4_waste_drawer
     action:
       - choose:
-          - conditions:
-              - alias: "Litter Box Cycling"
-                condition: state
-                entity_id: vacuum.litter_robot_4_litter_box
-                state: "cleaning"
-            sequence:
-              - service: input_select.select_option
-                target:
-                  entity_id: input_select.upstairs_hall_light_switch_led_mode
-                data:
-                  option: "Litter Box Cycling"
+          # - conditions:
+          #     - alias: "Litter Box Cycling"
+          #       condition: state
+          #       entity_id: vacuum.litter_robot_4_litter_box
+          #       state: "cleaning"
+          #   sequence:
+          #     - service: input_select.select_option
+          #       target:
+          #         entity_id: input_select.upstairs_hall_light_switch_led_mode
+          #       data:
+          #         option: "Litter Box Cycling"
           - conditions:
               - alias: "Litter Drawer Full"
                 condition: numeric_state
