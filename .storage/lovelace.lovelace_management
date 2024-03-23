@@ -832,6 +832,48 @@
               "title": "Basement Lights",
               "show_header_toggle": false,
               "state_color": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "automation.water_leak_detected_send_critical_notifications",
+                  "name": "Notify on Leak",
+                  "icon": "mdi:alarm-light-outline",
+                  "secondary_info": "last-triggered"
+                },
+                {
+                  "entity": "binary_sensor.master_bathroom_sink_water_leak_sensor_water_sensor",
+                  "name": "Master Bathroom Sink Leak Sensor"
+                },
+                {
+                  "entity": "binary_sensor.guest_bathroom_sink_water_leak_sensor_water_sensor",
+                  "name": "Guest Bathroom Sink Leak Sensor",
+                  "secondary_info": "none"
+                },
+                {
+                  "entity": "binary_sensor.kitchen_sink_water_leak_sensor_water_sensor",
+                  "name": "Kitchen Sink Leak Sensor"
+                },
+                {
+                  "entity": "binary_sensor.first_floor_vacuum_water_leak_sensor_water_sensor",
+                  "name": "First Floor Vacuum Leak Sensor"
+                },
+                {
+                  "entity": "binary_sensor.washing_machine_water_leak_sensor_water_sensor",
+                  "name": "Washing Machine Leak Sensor"
+                },
+                {
+                  "entity": "binary_sensor.water_softener_water_leak_sensor_water_sensor",
+                  "name": "Water Softener Leak Sensor"
+                },
+                {
+                  "entity": "binary_sensor.water_heater_water_leak_sensor_water_sensor",
+                  "name": "Water Heater Leak Sensor"
+                }
+              ],
+              "title": "Water Leak Sensors",
+              "show_header_toggle": false
             }
           ]
         },
