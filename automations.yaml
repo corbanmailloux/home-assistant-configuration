@@ -242,3 +242,13 @@
         effect: Clear
       alias: Clear LED Strip
   mode: single
+- id: '1711145973507'
+  alias: Pantry Door Light
+  description: ''
+  use_blueprint:
+    path: mkosmo/closet-light-from-door-sensor.yaml
+    input:
+      door_sensor: binary_sensor.pantry_door_sensor_contact
+      light_switch:
+        entity_id: light.pantry_lights
+      light_timeout: 1200
