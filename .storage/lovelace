@@ -839,17 +839,8 @@
                   }
                 },
                 {
-                  "type": "custom:mushroom-light-card",
-                  "icon": "",
-                  "show_brightness_control": true,
-                  "fill_container": false,
-                  "show_color_temp_control": true,
-                  "collapsible_controls": true,
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "entity": "light.office_closet_light",
-                  "name": "Closet - Temp"
+                  "type": "custom:button-card",
+                  "color_type": "blank-card"
                 }
               ]
             },
