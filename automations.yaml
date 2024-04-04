@@ -252,3 +252,51 @@
       light_switch:
         entity_id: light.pantry_lights
       light_timeout: 1200
+- id: '1711159946532'
+  alias: Hall Light Aux Switch - Hold to Control Multiple Lights
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: f6a3f0606ae31f561f4c700f5917deed
+    type: action
+    subtype: aux_up_held
+    id: 'on'
+  - platform: device
+    domain: mqtt
+    device_id: f6a3f0606ae31f561f4c700f5917deed
+    type: action
+    subtype: aux_down_held
+    id: 'off'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - service: light.turn_on
+        metadata: {}
+        data:
+          transition: 0
+        target:
+          entity_id:
+          - light.first_floor_hall_light
+          - light.kitchen_main_lights
+          - light.kitchen_bar_light
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - service: light.turn_off
+        metadata: {}
+        data:
+          transition: 0
+        target:
+          entity_id:
+          - light.first_floor_hall_light
+          - light.kitchen_main_lights
+          - light.kitchen_bar_light
+  mode: single
