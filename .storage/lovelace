@@ -865,8 +865,45 @@
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "secondary_info": "none"
+                  "secondary_info": "none",
+                  "icon": "mdi:chef-hat"
                 },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.kitchen_bar_light",
+                  "name": "Bar",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": "mdi:table-furniture"
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.dining_room_light",
+                  "name": "Dining",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none"
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.first_floor_hall_light",
@@ -880,7 +917,8 @@
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "secondary_info": "none"
+                  "secondary_info": "none",
+                  "icon": "mdi:light-recessed"
                 },
                 {
                   "type": "custom:mushroom-light-card",
@@ -895,7 +933,24 @@
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "secondary_info": "none"
+                  "secondary_info": "none",
+                  "icon": "mdi:lightbulb-variant-outline"
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.corner_lamp",
+                  "name": "Living Room",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": ""
                 }
               ]
             },
@@ -915,12 +970,13 @@
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "secondary_info": "none"
+                  "secondary_info": "none",
+                  "icon": "mdi:stairs-up"
                 },
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.dining_room_light",
-                  "name": "Dining",
+                  "entity": "light.guest_bedroom_ceiling_fan_light",
+                  "name": "Guest",
                   "tap_action": {
                     "action": "toggle"
                   },
@@ -931,7 +987,7 @@
                     "action": "more-info"
                   },
                   "secondary_info": "none",
-                  "icon": "mdi:chandelier"
+                  "icon": "mdi:globe-light"
                 },
                 {
                   "type": "custom:mushroom-light-card",
