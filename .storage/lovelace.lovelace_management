@@ -335,6 +335,14 @@
               "show_header_toggle": false,
               "title": "Sunrise Alarm",
               "type": "entities"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "script.stranger_things_lighting_chase"
+                }
+              ]
             }
           ],
           "icon": "mdi:flask",
@@ -873,6 +881,22 @@
                 }
               ],
               "title": "Water Leak Sensors",
+              "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "script.stranger_things_lighting_chase"
+                },
+                {
+                  "entity": "input_select.stranger_things_next_light_on"
+                },
+                {
+                  "entity": "input_select.stranger_things_next_light_off"
+                }
+              ],
+              "title": "Stranger Things",
               "show_header_toggle": false
             }
           ]

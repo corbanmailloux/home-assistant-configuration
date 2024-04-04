@@ -1,0 +1,73 @@
+# Goofy scripts to make the house do odd things...
+
+input_select:
+  stranger_things_next_light_on:
+    name: "Stranger Things - Internal - Next On"
+    options:
+      - light.corner_lamp # Living Room
+      - light.first_floor_hall_light
+      - light.kitchen_main_lights
+      - light.kitchen_bar_light
+      - light.dining_room_light
+      - light.front_entry_lights
+      # - light.light.upstairs_hall_light
+  stranger_things_next_light_off:
+    name: "Stranger Things - Internal - Next Off"
+    options:
+      - light.corner_lamp
+      - light.first_floor_hall_light
+      - light.kitchen_main_lights
+      - light.kitchen_bar_light
+      - light.dining_room_light
+      - light.front_entry_lights
+      # - light.light.upstairs_hall_light
+
+script:
+  stranger_things_lighting_chase:
+    alias: "Stranger Things - Lighting Chase"
+    sequence:
+      - alias: "Reset input_selects"
+        service: input_select.select_first
+        target:
+          entity_id:
+            - input_select.stranger_things_next_light_on
+            - input_select.stranger_things_next_light_off
+      - repeat:
+          count: 1 # 1 lights on at a time, configurable
+          sequence:
+            - service: input_select.select_previous
+              target:
+                entity_id: input_select.stranger_things_next_light_off
+      - alias: "Main loop"
+        repeat:
+          count: 18 # 6 lights, 3 cycles total = 18
+          sequence:
+            - service: light.turn_on
+              data:
+                transition: 0
+                brightness_pct: 100
+              target:
+                entity_id: '{{ states("input_select.stranger_things_next_light_on") }}'
+            - service: light.turn_off
+              data:
+                transition: 0
+              target:
+                entity_id: '{{ states("input_select.stranger_things_next_light_off") }}'
+            - alias: "Increment lists"
+              service: input_select.select_next
+              target:
+                entity_id:
+                  - input_select.stranger_things_next_light_on
+                  - input_select.stranger_things_next_light_off
+            - delay:
+                milliseconds: 400
+      - alias: "Turn lights off"
+        service: light.turn_off
+        target:
+          entity_id:
+            - light.corner_lamp
+            - light.first_floor_hall_light
+            - light.kitchen_main_lights
+            - light.kitchen_bar_light
+            - light.dining_room_light
+            - light.front_entry_lights
