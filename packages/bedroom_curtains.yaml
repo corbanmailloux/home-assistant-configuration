@@ -104,6 +104,6 @@ template:
         device_class: battery
         state: >-
           {{
-            states("sensor.curtain_3_b14b_battery") | int(100) < 15 or
-            states("sensor.curtain_3_41ca_battery") | int(100) < 15
+            states("sensor.curtain_3_b14b_battery") | int(100) < 20 or
+            states("sensor.curtain_3_41ca_battery") | int(100) < 20
           }}
