@@ -47,7 +47,7 @@ script:
         variables:
           training_entity_ids: >
             {% if is_state("input_boolean.room_exclude_office", "off") -%}
-            {{ training_entity_ids + ["light.corban_s_office_lamp", "light.office_corner_light"] }}
+            {{ training_entity_ids + ["light.corban_s_office_lamp"] }}
             {%- else -%}
             {{ training_entity_ids }}
             {% endif %}
@@ -65,7 +65,7 @@ script:
         variables:
           training_entity_ids: >
             {% if is_state("input_boolean.room_exclude_kitchen", "off") -%}
-            {{ training_entity_ids + ["light.kitchen_main_lights", "light.kitchen_bar_light"] }}
+            {{ training_entity_ids + ["light.kitchen_main_lights", "light.kitchen_bar_light", "light.mudroom_lamp"] }}
             {%- else -%}
             {{ training_entity_ids }}
             {% endif %}

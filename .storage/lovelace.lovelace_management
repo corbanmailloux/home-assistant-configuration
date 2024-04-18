@@ -317,6 +317,12 @@
               ]
             },
             {
+              "type": "entities",
+              "entities": [
+                "device_tracker.emilys_iphone_unifi"
+              ]
+            },
+            {
               "entities": [
                 "automation.sunrise_alarm",
                 {
@@ -335,14 +341,6 @@
               "show_header_toggle": false,
               "title": "Sunrise Alarm",
               "type": "entities"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "script.stranger_things_lighting_chase"
-                }
-              ]
             }
           ],
           "icon": "mdi:flask",

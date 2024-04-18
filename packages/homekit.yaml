@@ -5,7 +5,7 @@ homekit:
         # - light.wled_master
         - light.office_leds
         - light.corban_s_office_lamp
-        - light.office_corner_light
+        # - light.office_corner_light
         # - climate.corbans_office_ac
 
         # Living Room
@@ -23,6 +23,7 @@ homekit:
         # Kitchen
         - light.kitchen_main_lights
         - light.kitchen_bar_light
+        - light.mudroom_lamp
 
         # Dining Room
         - light.dining_room_light

@@ -10,9 +10,9 @@ automation:
         subtype: toggle
     action:
       - if:
-          # If the key light is on, turn off both video lights.
+          # If the video light is on, turn off both video lights.
           - condition: state
-            entity_id: light.key_light_air_1
+            entity_id: light.corban_s_office_lamp_bottom
             state: "on"
         then:
           - service: light.turn_off
@@ -127,7 +127,7 @@ automation:
         service: light.turn_on
         entity_id:
           - light.corban_s_office_lamp
-          - light.office_corner_light
+          # - light.office_corner_light
         data:
           brightness: 255
 
@@ -145,25 +145,25 @@ automation:
         service: light.turn_off
         entity_id:
           - light.corban_s_office_lamp
-          - light.office_corner_light
+          # - light.office_corner_light
 
   # TODO: Updated plan
   # left and right click: adjust lamp video light brightness
   # left hold: activate/deactivate meeting scene
   # right hold: (Unknown) Maybe still toggle fan?
 
-  - alias: Office Remote - Left Button Click - Toggle Corner Lamp
-    id: 4f982672-4257-4cb7-a498-1df044a30150
-    trigger:
-      - platform: device
-        device_id: 66f76df28bdd462e84227f8f164ee7c3
-        discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
-        domain: mqtt
-        type: action
-        subtype: arrow_left_click
-    action:
-      - service: light.toggle
-        entity_id: light.office_corner_light
+  # - alias: Office Remote - Left Button Click - Toggle Corner Lamp
+  #   id: 4f982672-4257-4cb7-a498-1df044a30150
+  #   trigger:
+  #     - platform: device
+  #       device_id: 66f76df28bdd462e84227f8f164ee7c3
+  #       discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
+  #       domain: mqtt
+  #       type: action
+  #       subtype: arrow_left_click
+  #   action:
+  #     - service: light.toggle
+  #       entity_id: light.office_corner_light
 
   - alias: Office Remote - Left Button Hold - Toggle Shelf LEDs
     id: df89803c-e20a-4418-ae99-1371f154ecd4

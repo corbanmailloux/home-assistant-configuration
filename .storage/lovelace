@@ -757,27 +757,30 @@
               "cards": [
                 {
                   "type": "custom:mushroom-light-card",
-                  "icon": "mdi:lightbulb",
-                  "fill_container": true,
-                  "show_brightness_control": true,
-                  "use_light_color": false,
-                  "show_color_temp_control": true,
-                  "collapsible_controls": true,
-                  "show_color_control": false,
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "entity": "light.office_corner_light",
-                  "name": "Corner Lamp"
-                },
-                {
-                  "type": "custom:mushroom-light-card",
                   "entity": "light.corban_s_office_lamp",
                   "name": "Lamp",
                   "fill_container": true,
                   "show_brightness_control": true,
                   "collapsible_controls": true,
                   "show_color_temp_control": true,
+                  "double_tap_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.office_leds",
+                  "icon": "",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "use_light_color": false,
+                  "show_color_temp_control": false,
+                  "collapsible_controls": true,
+                  "show_color_control": true,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "name": "LEDs",
                   "double_tap_action": {
                     "action": "more-info"
                   }
@@ -814,33 +817,6 @@
                   "double_tap_action": {
                     "action": "more-info"
                   }
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.office_leds",
-                  "icon": "",
-                  "fill_container": true,
-                  "show_brightness_control": true,
-                  "use_light_color": false,
-                  "show_color_temp_control": false,
-                  "collapsible_controls": true,
-                  "show_color_control": true,
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "name": "LEDs",
-                  "double_tap_action": {
-                    "action": "more-info"
-                  }
-                },
-                {
-                  "type": "custom:button-card",
-                  "color_type": "blank-card"
                 }
               ]
             },

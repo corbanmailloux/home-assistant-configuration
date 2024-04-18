@@ -21,6 +21,15 @@
         "url_path": "lovelace-management",
         "mode": "storage",
         "id": "lovelace_management"
+      },
+      {
+        "id": "map",
+        "icon": "mdi:map",
+        "title": "Map",
+        "url_path": "map",
+        "mode": "storage",
+        "require_admin": false,
+        "show_in_sidebar": true
       }
     ]
   }

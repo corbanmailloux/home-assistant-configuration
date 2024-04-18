@@ -7,7 +7,7 @@ light:
       - light.office_leds
       - light.wled_master # Used when there are multiple segments
       - light.corban_s_office_lamp
-      - light.office_corner_light
+      # - light.office_corner_light
 
 automation:
   - alias: Office Motion Lights

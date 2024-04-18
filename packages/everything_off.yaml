@@ -173,7 +173,7 @@ script:
                 - light.corban_s_office_lamp_bottom
                 - light.corban_s_office_lamp_middle
                 - light.corban_s_office_lamp_top
-                - light.office_corner_light
+                # - light.office_corner_light
                 - light.key_light_air_1
                 - light.wled_master # Includes all segments
           # - if:
@@ -234,17 +234,18 @@ script:
               entity_id:
                 - light.dining_room_light
 
-      # - alias: "Mudroom"
-      #   if:
-      #     - or:
-      #         - "{{ ignore_room_exclusions == true }}"
-      #         - condition: state
-      #           entity_id: input_boolean.room_exclude_mud_room
-      #           state: "off"
-      #   then:
-      #     - service: homeassistant.turn_off
-      #       target:
-      #         entity_id:
+      - alias: "Mudroom"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_mud_room
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.mudroom_lamp
 
       - alias: "Sunporch"
         if:
