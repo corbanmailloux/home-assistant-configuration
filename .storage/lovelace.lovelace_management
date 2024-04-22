@@ -457,6 +457,19 @@
                   "needle": true,
                   "max": 100,
                   "min": 0
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.tubby_volume_used",
+                  "severity": {
+                    "green": 0,
+                    "yellow": 80,
+                    "red": 90
+                  },
+                  "needle": true,
+                  "max": 100,
+                  "min": 0,
+                  "name": "Tubby Disk"
                 }
               ]
             },
