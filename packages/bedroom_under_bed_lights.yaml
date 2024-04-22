@@ -34,6 +34,9 @@ automation:
       - condition: state
         entity_id: input_select.home_mode
         state: "Home" # Don't run if we're away or asleep.
+      - condition: state
+        entity_id: person.corban
+        state: "home"
     action:
       - service: light.turn_on
         entity_id: light.bed_lighting_rgb_light
