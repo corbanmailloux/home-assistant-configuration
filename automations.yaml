@@ -133,7 +133,18 @@
           target:
             device_id: 9f61f3f1b573c3799a54ee705f98034f
           effect: Solid
-        alias: Set LED strip to purple
+        alias: Set LED strip to purple - Kitchen Bar Light
+      - alias: Set LED strip to purple - Utility Closet Light
+        service: script.inovelli_led_control
+        metadata: {}
+        data:
+          led: All
+          color: Purple
+          level: 62
+          duration: Indefinitely
+          effect: Solid
+          target:
+            device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
       alias: If any door is open
     default:
     - service: script.inovelli_led_control
@@ -143,7 +154,16 @@
         target:
           device_id: 9f61f3f1b573c3799a54ee705f98034f
         effect: Clear
-      alias: Clear LED Strip
+      alias: Clear LED Strip - Kitchen Bar Light
+    - alias: Clear LED Strip - Utility Closet Light
+      service: script.inovelli_led_control
+      metadata: {}
+      data:
+        led: All
+        target:
+          device_id:
+          - b61d7bab7432d5e91ddb6fb6e28bf5fd
+        effect: Clear
   mode: single
 - id: '1711145973507'
   alias: Pantry Door Light
