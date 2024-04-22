@@ -28,7 +28,7 @@ template:
         unique_id: 05c6b204-85da-4fd4-9175-e6862fea8002
         device_class: door
         auto_off:
-          minutes: 1
+          seconds: 10
         state: "on" # Covered by auto_off.
 
   - binary_sensor:
