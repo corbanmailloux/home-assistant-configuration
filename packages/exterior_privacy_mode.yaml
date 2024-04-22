@@ -1,0 +1,84 @@
+input_boolean:
+  exterior_privacy_mode:
+    name: Exterior Privacy Mode
+    icon: mdi:cctv-off
+
+automation:
+  - id: b5a21457-b97b-437b-ab19-bb7d3ac2935b
+    alias: Exterior Privacy Mode
+    trigger:
+      - platform: state
+        entity_id: input_boolean.exterior_privacy_mode
+        from: "off"
+        to: "on"
+        id: "on"
+      - platform: state
+        entity_id: input_boolean.exterior_privacy_mode
+        from: "on"
+        to: "off"
+        id: "off"
+    action:
+      - alias: "On or Off?"
+        choose:
+          - conditions: "{{ trigger.to_state.state == 'on' }}"
+            sequence:
+              - alias: "Exterior lights off"
+                service: light.turn_off
+                target:
+                  entity_id: light.exterior_lights
+              - alias: "Garage lights off"
+                service: light.turn_off
+                target:
+                  entity_id: light.garage_lights
+              - alias: "Disable recording"
+                service: switch.turn_off
+                target:
+                  entity_id: switch.main_doorbell_record
+              # TODO: It would be nice to control the garage motion light as well.
+              # TODO: Person detection events will still appear in HomeKit/Apple TV.
+
+          - conditions: "{{ trigger.to_state.state == 'off' }}"
+            sequence:
+              - alias: "Re-enable recording"
+                service: switch.turn_on
+                target:
+                  entity_id: switch.main_doorbell_record
+
+  - id: 59bfa9b6-a76e-4acd-bf9e-1050328c1981
+    alias: Exterior Privacy Mode - Notify if left on in the morning
+    trigger:
+      - platform: state
+        entity_id: input_select.home_mode
+        to: "Home"
+    condition:
+      - alias: "Exterior Privacy Mode enabled"
+        condition: state
+        entity_id: input_boolean.exterior_privacy_mode
+        state: "on"
+    action:
+      - alias: "Notify Corban"
+        service: notify.corban
+        data:
+          title: "Exterior Privacy Mode Enabled"
+          message: >-
+            Privacy mode is still enabled.
+          data:
+            tag: "privacy_mode"
+            actions:
+              - action: "PRIVACY_MODE_OFF"
+                title: "Turn Off Privacy Mode"
+                activationMode: "background"
+                authenticationRequired: false # Don't require unlocking the device
+
+  - alias: Exterior Privacy Mode - Notification Action - Disable
+    id: 720b4f63-4fb6-46a2-9ce3-d519e13fb73b
+    trigger:
+      - platform: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "PRIVACY_MODE_OFF"
+    action:
+      - alias: "Turn off Privacy Mode"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.exterior_privacy_mode

@@ -10,6 +10,10 @@ automation:
       - condition: state
         entity_id: timer.doorbell_person_mute_time
         state: idle
+      - alias: "Privacy Mode disabled"
+        condition: state
+        entity_id: input_boolean.exterior_privacy_mode
+        state: "off"
     action:
       - service: script.doorbell_snapshot_and_notify
 
