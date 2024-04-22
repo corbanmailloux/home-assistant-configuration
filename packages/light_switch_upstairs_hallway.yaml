@@ -47,6 +47,8 @@ automation:
         entity_id: sensor.litter_robot_4_litter_level
       - platform: state
         entity_id: sensor.litter_robot_4_waste_drawer
+      - platform: state
+        entity_id: sensor.litter_robot_4_status_code
     action:
       - choose:
           # - conditions:
@@ -65,6 +67,10 @@ automation:
                 condition: numeric_state
                 entity_id: sensor.litter_robot_4_waste_drawer
                 above: 89
+              - alias: "Litter Drawer Full - Status Code"
+                condition: state
+                entity_id: sensor.litter_robot_4_status_code
+                above: "dfs"
             sequence:
               - service: input_select.select_option
                 target:
@@ -83,6 +89,14 @@ automation:
                 condition: numeric_state
                 entity_id: sensor.litter_robot_4_waste_drawer
                 above: 80
+              - alias: "Litter Drawer Almost Full - Status Code 2"
+                condition: state
+                entity_id: sensor.litter_robot_4_status_code
+                above: "df2"
+              - alias: "Litter Drawer Almost Full - Status Code 1"
+                condition: state
+                entity_id: sensor.litter_robot_4_status_code
+                above: "df1"
             sequence:
               - service: input_select.select_option
                 target:
