@@ -70,7 +70,7 @@ automation:
               - alias: "Litter Drawer Full - Status Code"
                 condition: state
                 entity_id: sensor.litter_robot_4_status_code
-                above: "dfs"
+                state: "dfs"
             sequence:
               - service: input_select.select_option
                 target:
@@ -92,11 +92,11 @@ automation:
               - alias: "Litter Drawer Almost Full - Status Code 2"
                 condition: state
                 entity_id: sensor.litter_robot_4_status_code
-                above: "df2"
+                state: "df2"
               - alias: "Litter Drawer Almost Full - Status Code 1"
                 condition: state
                 entity_id: sensor.litter_robot_4_status_code
-                above: "df1"
+                state: "df1"
             sequence:
               - service: input_select.select_option
                 target:
