@@ -261,17 +261,18 @@ script:
                 - light.sunporch_sconces
                 - light.sunporch_string_lights
 
-      # - alias: "Bathrooms"
-      #   if:
-      #     - or:
-      #         - "{{ ignore_room_exclusions == true }}"
-      #         - condition: state
-      #           entity_id: input_boolean.room_exclude_bathrooms
-      #           state: "off"
-      #   then:
-      #     - service: homeassistant.turn_off
-      #       target:
-      #         entity_id:
+      - alias: "Bathrooms"
+        if:
+          - or:
+              - "{{ ignore_room_exclusions == true }}"
+              - condition: state
+                entity_id: input_boolean.room_exclude_bathrooms
+                state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - switch.master_bathroom_night_light
 
       - alias: "Hallways"
         if:
