@@ -83,7 +83,13 @@ automation:
     #         entity_id: input_select.home_mode
     #         state: "Vacation"
     action:
-      - alias: "Lights On"
+      - alias: "Lights Off"
         service: homeassistant.turn_off
+        target:
+          entity_id: light.exterior_lights
+      - alias: "Wait 5 minutes and try again (race condition fix)"
+        delay:
+          minutes: 5
+      - service: homeassistant.turn_off
         target:
           entity_id: light.exterior_lights

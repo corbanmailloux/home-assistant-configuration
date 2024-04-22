@@ -36,7 +36,6 @@ recorder:
       - camera
       - script
     entities:
-      - sun.sun
       - sensor.time
 
 history:
