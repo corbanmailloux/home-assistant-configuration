@@ -65,6 +65,10 @@ script:
                 title: "Open Feed"
                 uri: "/lovelace/security"
                 icon: "sfsymbols:camera"
+              - action: URI
+                title: Open Reolink App
+                uri: fb1675493782511558://
+                icon: "sfsymbols:camera.viewfinder"
               - action: "DOORBELL_PERSON_SILENCE_ONE_HOUR"
                 title: "Mute for an Hour"
                 icon: "sfsymbols:bell.slash"
