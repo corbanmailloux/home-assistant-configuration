@@ -218,6 +218,20 @@
               "type": "horizontal-stack"
             },
             {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "device_tracker.emilys_iphone_unifi",
+                  "name": "Emily"
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "input_boolean.guest_mode"
+                }
+              ]
+            },
+            {
               "type": "custom:button-card",
               "entity": "group.living_room_lights",
               "name": "Living Room",

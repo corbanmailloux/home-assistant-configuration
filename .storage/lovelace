@@ -542,16 +542,35 @@
               "type": "horizontal-stack"
             },
             {
-              "type": "custom:mushroom-climate-card",
-              "entity": "climate.t9_thermostat",
-              "name": "Thermostat",
-              "hvac_modes": [],
-              "show_temperature_control": false,
-              "collapsible_controls": false,
-              "tap_action": {
-                "action": "more-info"
-              },
-              "secondary_info": "state"
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "device_tracker.emilys_iphone_unifi",
+                  "name": "Emily"
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
+                  "entity": "input_boolean.guest_mode"
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.t9_thermostat",
+                  "name": "Thermostat",
+                  "hvac_modes": [],
+                  "show_temperature_control": false,
+                  "collapsible_controls": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "state"
+                }
+              ]
             },
             {
               "type": "custom:button-card",
