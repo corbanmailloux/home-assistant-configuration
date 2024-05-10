@@ -85,3 +85,11 @@ input_datetime:
     name: Power Outage Start Time
     has_date: true
     has_time: true
+
+script:
+  wol_proxmoxbox:
+    alias: "Wake on LAN - ProxMoxBox"
+    sequence:
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: e8:d8:d1:51:49:ab
