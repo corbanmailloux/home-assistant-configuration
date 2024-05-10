@@ -39,7 +39,8 @@ template:
         state: >-
           {{
             ( is_state('binary_sensor.garage_door_just_opened', 'on') and is_state('light.garage_main_lights', 'off')) or
-            is_state('binary_sensor.garage_right_motion', 'on')
+            is_state('binary_sensor.garage_right_motion', 'on') or
+            is_state('binary_sensor.garage_opener_motion_sensor_occupancy', 'on')
           }}
 
 automation:
@@ -74,7 +75,7 @@ automation:
         entity_id: binary_sensor.garage_assumed_motion
         to: "off"
         for:
-          minutes: 5
+          minutes: 10
         id: "off"
     condition:
       - alias: "Garage automations are not disabled"
