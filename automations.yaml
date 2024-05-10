@@ -370,3 +370,92 @@
           entity_id: light.guest_bedroom_ceiling_fan_light
         alias: Brightness down
   mode: single
+- id: '1714050484487'
+  alias: Run air purifier after a cat uses the litter box
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - sensor.litter_robot_4_status_code
+    to: cst
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  condition:
+  - condition: device
+    device_id: 6c3eb97f2dda23f91af953ece510fb49
+    domain: fan
+    entity_id: 11fe02f23790619b4315b86446562ed6
+    type: is_off
+  action:
+  - type: turn_on
+    device_id: 6c3eb97f2dda23f91af953ece510fb49
+    entity_id: 11fe02f23790619b4315b86446562ed6
+    domain: fan
+  - delay:
+      hours: 0
+      minutes: 20
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: 6c3eb97f2dda23f91af953ece510fb49
+    entity_id: 11fe02f23790619b4315b86446562ed6
+    domain: fan
+  mode: single
+- id: '1714258867767'
+  alias: Kitchen Bar Light Switch - Double Tap Config for Garage Doors
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 9f61f3f1b573c3799a54ee705f98034f
+    type: action
+    subtype: config_double
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: or
+        conditions:
+        - condition: device
+          device_id: 2bbbe29de187f6e1b1522f5f2513b258
+          domain: cover
+          entity_id: 5401d8e4327d5e9b6d71d56d09b8ec35
+          type: is_open
+        - condition: device
+          device_id: a918ed1d740d5527c120a872d5b36fdd
+          domain: cover
+          entity_id: fa3c1b2c28746f6e9edce10a8a74e955
+          type: is_open
+      sequence:
+      - service: cover.close_cover
+        metadata: {}
+        data: {}
+        target:
+          entity_id:
+          - cover.ratgdo_right_garage_door_door
+          - cover.ratgdo_left_garage_door_door
+      alias: 'If either garage door is open, close it. '
+    default:
+    - service: cover.open_cover
+      metadata: {}
+      data: {}
+      target:
+        entity_id: cover.ratgdo_left_garage_door_door
+  mode: single
+- id: '1715117158694'
+  alias: Upstairs Hall Light Switch - Triple tap config to move Eve to dump spot
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 6239543fc9a684fbba5d4af77ccdf052
+    type: action
+    subtype: config_triple
+  condition: []
+  action:
+  - service: script.vacuum_dump_process
+    metadata: {}
+    data: {}
+  mode: single
