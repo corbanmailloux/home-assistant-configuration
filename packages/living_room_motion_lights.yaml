@@ -1,13 +1,24 @@
+template:
+  - binary_sensor:
+      - name: "Living Room Assumed Presence"
+        unique_id: c647ffd9-f8af-4e09-a862-9959a99e2a9a
+        device_class: occupancy
+        state: >-
+          {{
+            is_state('binary_sensor.living_room_presence', 'on') or
+            is_state('media_player.living_room_lg_tv', 'on')
+          }}
+
 automation:
   - alias: Living Room Motion Lights
     id: 42109bf8-895c-4fca-88f4-2e2d17975d27
     mode: restart
     trigger:
       - platform: state
-        entity_id: binary_sensor.living_room_presence
+        entity_id: binary_sensor.living_room_assumed_presence
         to: "on"
       - platform: state
-        entity_id: binary_sensor.living_room_presence
+        entity_id: binary_sensor.living_room_assumed_presence
         to: "off"
         for:
           minutes: 5
