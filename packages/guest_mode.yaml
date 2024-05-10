@@ -30,6 +30,19 @@ automation:
                 target:
                   entity_id: switch.whatfi_guest
 
+  - alias: Guest Mode - Add Guest Room Exclusion When Enabling
+    id: 846ee07b-3953-48f7-9255-31b4a5d0cde7
+    trigger:
+      - platform: state
+        entity_id: input_boolean.guest_mode
+        from: "off"
+        to: "on"
+    action:
+      - alias: "Set guest room exclusions"
+        service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.room_exclude_guest_bedroom
+
   - alias: Guest Mode - Disable Room Exclusions when Unset
     id: 1567def0-c8f1-4297-a2bd-628fb03db93e
     trigger:
