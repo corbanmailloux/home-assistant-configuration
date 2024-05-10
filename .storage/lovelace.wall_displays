@@ -227,6 +227,11 @@
                 },
                 {
                   "type": "custom:mushroom-entity-card",
+                  "entity": "device_tracker.bens_iphone_se_unifi",
+                  "name": "Ben"
+                },
+                {
+                  "type": "custom:mushroom-entity-card",
                   "entity": "input_boolean.guest_mode"
                 }
               ]
