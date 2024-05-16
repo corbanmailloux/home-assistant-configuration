@@ -565,15 +565,19 @@
               "cards": [
                 {
                   "type": "custom:mushroom-climate-card",
-                  "entity": "climate.t9_thermostat",
+                  "entity": "climate.hallway",
                   "name": "Thermostat",
-                  "hvac_modes": [],
-                  "show_temperature_control": false,
+                  "hvac_modes": [
+                    "heat",
+                    "off"
+                  ],
+                  "show_temperature_control": true,
                   "collapsible_controls": false,
                   "tap_action": {
                     "action": "more-info"
                   },
-                  "secondary_info": "state"
+                  "secondary_info": "state",
+                  "layout": "horizontal"
                 }
               ]
             },
