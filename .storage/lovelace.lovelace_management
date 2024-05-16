@@ -494,6 +494,19 @@
                 }
               ],
               "title": "Device Controls"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "script.wol_proxmoxbox"
+                },
+                {
+                  "entity": "sensor.pi_hole_ads_percentage_blocked_today"
+                }
+              ],
+              "title": "ProxMoxBox",
+              "show_header_toggle": false
             }
           ]
         },
