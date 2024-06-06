@@ -6,6 +6,7 @@ light:
       # - light.garage_main_lights
       - light.ratgdo_left_garage_door_light
       - light.ratgdo_right_garage_door_light
+      - light.garage_nook_light
 
 template:
   - trigger:
