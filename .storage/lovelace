@@ -545,25 +545,6 @@
               "type": "horizontal-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "device_tracker.emilys_iphone_unifi",
-                  "name": "Emily"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "device_tracker.bens_iphone_se_unifi",
-                  "name": "Ben"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "input_boolean.guest_mode"
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
                   "type": "custom:mushroom-climate-card",
                   "entity": "climate.hallway",
                   "name": "Thermostat",
@@ -772,6 +753,27 @@
               ]
             },
             {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-cover-card",
+                  "name": "Right Curtain",
+                  "fill_container": true,
+                  "show_position_control": false,
+                  "show_buttons_control": true,
+                  "layout": "horizontal",
+                  "show_tilt_position_control": false,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "entity": "cover.master_bedroom_right_curtain"
+                }
+              ]
+            },
+            {
               "type": "custom:layout-break"
             },
             {
@@ -858,22 +860,6 @@
               "cards": [
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.kitchen_main_lights",
-                  "name": "Kitchen",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "secondary_info": "none",
-                  "icon": "mdi:chef-hat"
-                },
-                {
-                  "type": "custom:mushroom-light-card",
                   "entity": "light.kitchen_bar_light",
                   "name": "Bar",
                   "tap_action": {
@@ -890,8 +876,8 @@
                 },
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.dining_room_light",
-                  "name": "Dining",
+                  "entity": "light.kitchen_main_lights",
+                  "name": "Kitchen",
                   "tap_action": {
                     "action": "toggle"
                   },
@@ -901,13 +887,9 @@
                   "hold_action": {
                     "action": "more-info"
                   },
-                  "secondary_info": "none"
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
+                  "secondary_info": "none",
+                  "icon": "mdi:chef-hat"
+                },
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.first_floor_hall_light",
@@ -923,6 +905,26 @@
                   },
                   "secondary_info": "none",
                   "icon": "mdi:light-recessed"
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.dining_room_light",
+                  "name": "Dining",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none"
                 },
                 {
                   "type": "custom:mushroom-light-card",
@@ -1061,6 +1063,27 @@
                   },
                   "secondary_info": "none",
                   "icon": "mdi:coach-lamp-variant"
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.mudroom_lamp",
+                  "name": "Mudroom (TV)",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": ""
                 }
               ]
             }
@@ -2694,6 +2717,12 @@
                   "name": "Main Door"
                 },
                 {
+                  "entity": "binary_sensor.sunporch_door_contact",
+                  "name": "Sunporch Door",
+                  "icon": "mdi:door-sliding",
+                  "secondary_info": "last-changed"
+                },
+                {
                   "entity": "cover.ratgdo_left_garage_door_door",
                   "name": "Left Garage Door",
                   "secondary_info": "last-changed"
@@ -2723,8 +2752,9 @@
                   "secondary_info": "none"
                 }
               ],
-              "title": "Doors and Windows",
-              "show_header_toggle": false
+              "title": "Doors",
+              "show_header_toggle": false,
+              "state_color": true
             },
             {
               "type": "entities",
@@ -2758,6 +2788,11 @@
                   "entity": "binary_sensor.garage_right_motion",
                   "name": "Garage Parking Sensor Motion",
                   "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.garage_opener_motion_sensor_occupancy",
+                  "secondary_info": "last-changed",
+                  "name": "Garage Opener Motion"
                 }
               ],
               "title": "Motion Sensors",
