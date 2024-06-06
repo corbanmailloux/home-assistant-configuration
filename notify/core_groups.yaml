@@ -27,3 +27,9 @@
   platform: group
   services:
     - service: mobile_app_margarets_iphone
+
+- name: corban_phone_and_ipad
+  platform: group
+  services:
+    - service: mobile_app_corbans_iphone_pro
+    - service: mobile_app_corbans_ipad
