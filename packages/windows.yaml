@@ -1,0 +1,36 @@
+# Tracking all of the window sensors throughout the house.
+
+group:
+  window_sensors:
+    name: Window Sensors
+    entities:
+      - binary_sensor.master_bedroom_window_contact
+      - binary_sensor.sunporch_window_7_contact
+
+template:
+  - sensor:
+    - name: "Open Windows"
+      icon: mdi:window-closed
+      unique_id: 624cd1f3-195a-4a7b-a4a4-fd44884bbb11
+      state: >-
+        {% set group_name = 'group.window_sensors' %}
+        {% set sensors = expand(group_name) %}
+        {% set active_sensors = sensors | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | map('area_name') | reject('eq', none) | unique | join(', ') %}
+        {{ active_sensors if active_sensors else 'None' }}
+    - name: "Open Window Count"
+      state_class: measurement
+      icon: mdi:window-closed
+      unique_id: d0ab48ae-8d29-4518-af52-6506857d2154
+      state: >-
+        {% set group_name = 'group.window_sensors' %}
+        {% set sensors = expand(group_name) %}
+        {% set active_sensors = sensors | selectattr('state', 'eq', 'on') %}
+          {{ active_sensors | list | length }}
+
+# TODO: Rooms with open windows:
+# {% set group_name = 'group.window_sensors' %}
+# {% set sensors = expand(group_name) %}
+# {% set active_sensors = sensors | selectattr('state', 'eq', 'on') | map(attribute='entity_id') | map('area_name') | reject('eq', none) | unique | join(', ') %}
+# {{ active_sensors if active_sensors else 'None' }}
+
+# TODO: Does it make sense to use labels for this now?

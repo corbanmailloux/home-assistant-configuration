@@ -665,6 +665,25 @@
               "type": "conditional"
             },
             {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "sensor.open_window_count",
+                  "state": 0
+                }
+              ],
+              "card": {
+                "color": "lightblue",
+                "entity": "sensor.open_windows",
+                "layout": "icon_name_state2nd",
+                "name": "Rooms with Open Windows:",
+                "show_icon": true,
+                "show_state": true,
+                "type": "custom:button-card"
+              }
+            },
+            {
               "card": {
                 "entity": "input_boolean.cat_claw_clip_needed",
                 "layout": "icon_name",
