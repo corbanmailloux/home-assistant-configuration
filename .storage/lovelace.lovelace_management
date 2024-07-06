@@ -491,6 +491,9 @@
                 },
                 {
                   "entity": "script.game_mode_start"
+                },
+                {
+                  "entity": "button.tubby_shutdown"
                 }
               ],
               "title": "Device Controls"

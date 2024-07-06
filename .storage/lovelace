@@ -219,9 +219,7 @@
         {
           "theme": "Mushroom Square",
           "title": "Home",
-          "type": "custom:vertical-layout",
           "icon": "mdi:home",
-          "badges": [],
           "cards": [
             {
               "type": "custom:mushroom-chips-card",
@@ -787,30 +785,28 @@
               "cards": [
                 {
                   "type": "custom:mushroom-light-card",
+                  "entity": "light.office_ceiling",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "collapsible_controls": true,
+                  "show_color_temp_control": false,
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "name": "Ceiling",
+                  "icon": "",
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-light-card",
                   "entity": "light.corban_s_office_lamp",
                   "name": "Lamp",
                   "fill_container": true,
                   "show_brightness_control": true,
                   "collapsible_controls": true,
                   "show_color_temp_control": true,
-                  "double_tap_action": {
-                    "action": "more-info"
-                  }
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.office_leds",
-                  "icon": "",
-                  "fill_container": true,
-                  "show_brightness_control": true,
-                  "use_light_color": false,
-                  "show_color_temp_control": false,
-                  "collapsible_controls": true,
-                  "show_color_control": true,
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "name": "LEDs",
                   "double_tap_action": {
                     "action": "more-info"
                   }
@@ -1087,7 +1083,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "type": "custom:vertical-layout"
         },
         {
           "theme": "Backend-selected",
