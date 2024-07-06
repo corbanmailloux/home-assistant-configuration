@@ -38,15 +38,5 @@ output:
 light:
   - platform: monochromatic
     name: "Fairy Lights"
+    icon: "mdi:bed"
     output: pin_2
-    effects:
-      - strobe:
-      - strobe:
-          name: Fast Strobe
-          colors:
-            - state: True
-              brightness: 100%
-              duration: 250ms
-            - state: True
-              brightness: 0%
-              duration: 250ms
