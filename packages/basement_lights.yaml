@@ -16,7 +16,9 @@ light:
 template:
   - trigger:
       - platform: state
-        entity_id: binary_sensor.basement_door_sensor_contact
+        entity_id:
+          - binary_sensor.basement_stairs_door_sensor_contact
+          - binary_sensor.basement_exterior_door_sensor_contact
         from: "off"
         to: "on"
     binary_sensor:

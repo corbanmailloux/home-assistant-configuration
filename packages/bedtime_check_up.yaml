@@ -4,8 +4,8 @@ group:
     entities:
       - binary_sensor.front_door
       - binary_sensor.garage_side_person_door_contact
-      # TODO: Add slider
-      # TODO: Add basement exterior door
+      - binary_sensor.basement_exterior_door_sensor_contact
+      - binary_sensor.sunporch_sliding_door_contact
       # TODO: Add garage rear person door
 
 script:
@@ -42,7 +42,7 @@ script:
       # TODO: Extend to the garage person door
 
   bedtime_checkup_notify:
-    description: "Bedtime Checkup - Notify and Flash Fairy Lights"
+    description: "Bedtime Checkup - Notify and Flash Bed Lights"
     fields:
       message:
         description: "Message for the notification"
@@ -63,7 +63,7 @@ script:
                 behavior: "default"
       - delay:
           seconds: 1
-      - alias: "Flash bed lights"
+      - alias: "Turn on bed lights"
         service: light.turn_on
         target:
           entity_id: light.bed_lighting_rgb_light
