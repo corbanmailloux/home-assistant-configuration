@@ -2,11 +2,11 @@ homekit:
   - filter:
       include_entities:
         # Office
+        - light.office_ceiling
         # - light.wled_master
         - light.office_leds
         - light.corban_s_office_lamp
         # - light.office_corner_light
-        # - climate.corbans_office_ac
 
         # Living Room
         - light.corner_lamp
@@ -32,10 +32,8 @@ homekit:
         - light.front_entry_lights
         - light.upstairs_hall_light
         - light.first_floor_hall_light
-        - climate.t9_thermostat
 
         # Craft Room
-        # - fan.bedroom_fan
 
         # Master Bedroom
         - light.master_bedroom_ceiling_fan_light
@@ -55,7 +53,7 @@ homekit:
         # Closets
         - light.pantry_lights
         - light.coat_closet_light
-        - light.office_closet_light
+        - light.office_closet
         - light.utility_closet_switch
 
         # Garage

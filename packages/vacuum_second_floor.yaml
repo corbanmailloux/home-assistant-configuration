@@ -1,0 +1,123 @@
+# The Roborock S5 vacuum is now running Vatetudo and connected over MQTT.
+# See also: https://valetudo.cloud/pages/integrations/home-assistant-integration.html
+
+# Add a basic REST sensor for confirming that Rockbin is running.
+# https://github.com/johnDorian/rockbin
+sensor:
+  - platform: rest
+    resource: http://192.168.1.83:9999/status
+    name: Rockbin Version
+    value_template: "{{ value_json.version }}"
+
+
+# Set up individual switches for selecting zones to clean.
+# input_boolean:
+#   # vacuum_bedroom:
+#   #   name: Bedroom
+#   #   icon: mdi:bed-empty
+#   # vacuum_master_bath:
+#   #   name: Master Bathroom
+#   #   icon: mdi:toilet
+#   vacuum_office:
+#     name: Office
+#     icon: mdi:monitor
+#   vacuum_livingroom:
+#     name: Living Room
+#     icon: mdi:sofa
+#   vacuum_kitchen:
+#     name: Kitchen
+#     icon: mdi:silverware-fork-knife
+#   vacuum_mud_room:
+#     name: Mud Room
+#     icon: mdi:door-open
+
+# homeassistant:
+#   customize:
+#     # input_boolean.vacuum_bedroom:
+#     #   room_id: "21"
+#     # input_boolean.vacuum_master_bath:
+#     #   room_id: "20"
+#     input_boolean.vacuum_office:
+#       room_id: "1"
+#     input_boolean.vacuum_livingroom:
+#       room_id: "16"
+#     input_boolean.vacuum_kitchen:
+#       room_id: "22"
+#     input_boolean.vacuum_mud_room:
+#       room_id: "23"
+
+# group:
+#   vacuum_rooms:
+#     name: Vacuum Rooms
+#     entities:
+#       - input_boolean.vacuum_office
+#       # - input_boolean.vacuum_bedroom
+#       # - input_boolean.vacuum_master_bath
+#       - input_boolean.vacuum_livingroom
+#       - input_boolean.vacuum_kitchen
+#       - input_boolean.vacuum_mud_room
+
+# script:
+#   vacuum_clean_segments:
+#     sequence:
+#       - alias: "If any room is on, clean them. Otherwise, run full clean."
+#         choose:
+#           - conditions:
+#               - condition: state
+#                 entity_id: group.vacuum_rooms
+#                 state: "on"
+#             sequence:
+#               - service: script.turn_on
+#                 target:
+#                   entity_id: script.vacuum_clean_segments_message
+#                 data:
+#                   variables:
+#                     segments:
+#                       '{{expand("group.vacuum_rooms") | selectattr("state","eq","on")
+#                       | map(attribute="attributes.room_id") | list | to_json}}'
+#         default:
+#           - service: vacuum.start
+#             target:
+#               entity_id: vacuum.valetudo_eve
+#     mode: single
+#     alias: vacuum_clean_segments
+#     icon: mdi:arrow-right
+
+#   vacuum_clean_segments_message:
+#     alias: vacuum_clean_segments_message
+#     sequence:
+#       - service: mqtt.publish
+#         data:
+#           topic: valetudo/eve/MapSegmentationCapability/clean/set
+#           payload_template: '{"segment_ids": {{segments}}}'
+#     mode: single
+
+#   toggle_all_room_selections:
+#     alias: Toggle All Room Selections
+#     sequence:
+#       - alias: "If any room is on, turn all off. Otherwise, turn all on."
+#         choose:
+#           - conditions:
+#               - condition: state
+#                 entity_id: group.vacuum_rooms
+#                 state: "on"
+#             sequence:
+#               - service: homeassistant.turn_off
+#                 target:
+#                   entity_id: group.vacuum_rooms
+#         default:
+#           - service: homeassistant.turn_on
+#             target:
+#               entity_id: group.vacuum_rooms
+
+# automation:
+#   - alias: Turn off vacuum room selectors when cleaning is complete
+#     id: 725a0f27-9925-4fc8-b29c-702c0029d971
+#     trigger:
+#       - platform: state
+#         entity_id: vacuum.valetudo_eve
+#         to: "docked"
+#     action:
+#       - service: homeassistant.turn_off
+#         target:
+#           entity_id: group.vacuum_rooms

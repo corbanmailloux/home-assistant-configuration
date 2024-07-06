@@ -7,105 +7,105 @@
 # TODO: These are for the heating season only. Once the HVAC is replaced with a heat pump, update to work for both heating and cooling.
 
 automation:
-  - alias: HVAC - Vacation Mode
-    id: b273e1b3-cf99-45c1-bced-c9bddfd7e2cf
-    trigger:
-      - platform: state
-        entity_id: input_select.home_mode
-        to: "Vacation"
-        id: "on"
-      - platform: state
-        entity_id: input_select.home_mode
-        from: "Vacation"
-        id: "off"
-    condition:
-      - alias: "Thermostat in heating mode"
-        condition: state
-        entity_id: climate.hallway
-        state: "heat"
-    action:
-      - alias: "Vacation mode on or off?"
-        choose:
-          - conditions: >-
-              {{ trigger.id == "on" }}
-            sequence:
-              - alias: "Wait a few seconds in case this is going from Away to Vacation"
-                delay:
-                  seconds: 5
-              - alias: "Set the temperature"
-                service: climate.set_temperature
-                data:
-                  temperature: 62
-                target:
-                  entity_id: climate.hallway
-              - delay:
-                  seconds: 1
-              - alias: "Lock the temperature"
-                service: climate.set_preset_mode
-                data:
-                  preset_mode: PermanentHold
-                target:
-                  entity_id: climate.hallway
+  # - alias: HVAC - Vacation Mode
+  #   id: b273e1b3-cf99-45c1-bced-c9bddfd7e2cf
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_select.home_mode
+  #       to: "Vacation"
+  #       id: "on"
+  #     - platform: state
+  #       entity_id: input_select.home_mode
+  #       from: "Vacation"
+  #       id: "off"
+  #   condition:
+  #     - alias: "Thermostat in heating mode"
+  #       condition: state
+  #       entity_id: climate.hallway
+  #       state: "heat"
+  #   action:
+  #     - alias: "Vacation mode on or off?"
+  #       choose:
+  #         - conditions: >-
+  #             {{ trigger.id == "on" }}
+  #           sequence:
+  #             - alias: "Wait a few seconds in case this is going from Away to Vacation"
+  #               delay:
+  #                 seconds: 5
+  #             - alias: "Set the temperature"
+  #               service: climate.set_temperature
+  #               data:
+  #                 temperature: 62
+  #               target:
+  #                 entity_id: climate.hallway
+  #             - delay:
+  #                 seconds: 1
+  #             - alias: "Lock the temperature"
+  #               service: climate.set_preset_mode
+  #               data:
+  #                 preset_mode: PermanentHold
+  #               target:
+  #                 entity_id: climate.hallway
 
-          - conditions: >-
-              {{ trigger.id == "off" }}
-            sequence:
-              - alias: "Reset to default schedule"
-                service: climate.set_preset_mode
-                data:
-                  preset_mode: NoHold
-                target:
-                  entity_id: climate.hallway
+  #         - conditions: >-
+  #             {{ trigger.id == "off" }}
+  #           sequence:
+  #             - alias: "Reset to default schedule"
+  #               service: climate.set_preset_mode
+  #               data:
+  #                 preset_mode: NoHold
+  #               target:
+  #                 entity_id: climate.hallway
 
-  - alias: HVAC - Reduce temperature when away
-    id: 977e9e4a-0906-460f-9197-ccc1d866052c
-    trigger:
-      - platform: state
-        entity_id: input_select.home_mode
-        to: "Away"
-        id: "on"
-      - platform: state
-        entity_id: input_select.home_mode
-        from: "Away"
-        id: "off"
-    condition:
-      - alias: "Thermostat in heating mode"
-        condition: state
-        entity_id: climate.hallway
-        state: "heat"
-    action:
-      - alias: "Away mode on or off?"
-        choose:
-          - conditions: >-
-              {{ trigger.id == "on" }}
-            sequence:
-              - alias: "Wait a few seconds in case this is going from Vacation to Away"
-                delay:
-                  seconds: 5
-              - alias: "Set the temperature"
-                service: climate.set_temperature
-                data:
-                  temperature: 64
-                target:
-                  entity_id: climate.hallway
-              - delay:
-                  seconds: 1
-              - alias: "Lock the temperature"
-                service: climate.set_preset_mode
-                data:
-                  preset_mode: PermanentHold
-                target:
-                  entity_id: climate.hallway
+  # - alias: HVAC - Reduce temperature when away
+  #   id: 977e9e4a-0906-460f-9197-ccc1d866052c
+  #   trigger:
+  #     - platform: state
+  #       entity_id: input_select.home_mode
+  #       to: "Away"
+  #       id: "on"
+  #     - platform: state
+  #       entity_id: input_select.home_mode
+  #       from: "Away"
+  #       id: "off"
+  #   condition:
+  #     - alias: "Thermostat in heating mode"
+  #       condition: state
+  #       entity_id: climate.hallway
+  #       state: "heat"
+  #   action:
+  #     - alias: "Away mode on or off?"
+  #       choose:
+  #         - conditions: >-
+  #             {{ trigger.id == "on" }}
+  #           sequence:
+  #             - alias: "Wait a few seconds in case this is going from Vacation to Away"
+  #               delay:
+  #                 seconds: 5
+  #             - alias: "Set the temperature"
+  #               service: climate.set_temperature
+  #               data:
+  #                 temperature: 64
+  #               target:
+  #                 entity_id: climate.hallway
+  #             - delay:
+  #                 seconds: 1
+  #             - alias: "Lock the temperature"
+  #               service: climate.set_preset_mode
+  #               data:
+  #                 preset_mode: PermanentHold
+  #               target:
+  #                 entity_id: climate.hallway
 
-          - conditions: >-
-              {{ trigger.id == "off" }}
-            sequence:
-              - alias: Reset to default schedule
-                service: climate.set_preset_mode
-                data:
-                  preset_mode: NoHold
-                target:
-                  entity_id: climate.hallway
+  #         - conditions: >-
+  #             {{ trigger.id == "off" }}
+  #           sequence:
+  #             - alias: Reset to default schedule
+  #               service: climate.set_preset_mode
+  #               data:
+  #                 preset_mode: NoHold
+  #               target:
+  #                 entity_id: climate.hallway
 
   - alias: HVAC - Notify if the internal temperature drops below 55
     id: f36d39b0-74ac-46a1-b2a0-e9b54ab17ecc
@@ -114,7 +114,6 @@ automation:
         value_template: >-
           {{
             [
-              states("sensor.t9_thermostat_current_temperature") | int(100),
               states("sensor.bedroom_temperature") | int(100),
               states("sensor.living_room_temperature") | int(100),
               states("sensor.office_temperature") | int(100),

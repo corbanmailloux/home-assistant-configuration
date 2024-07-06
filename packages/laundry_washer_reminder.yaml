@@ -96,26 +96,6 @@ automation:
           notify_device: adult_phones
           dismiss_notification: true
 
-  # - id: d5b0370d-5043-4835-909f-88e4a1e24836
-  #   alias: Washer Reminder - Acknowledge alert when opening the laundry room door
-  #   trigger:
-  #     - platform: state
-  #       entity_id: binary_sensor.laundry_room_door_sensor_contact
-  #       from: "off"
-  #       to: "on"
-  #       for:
-  #         seconds: 3
-  #   condition:
-  #     - alias: "Notification active"
-  #       condition: state
-  #       entity_id: input_boolean.washer_reminder_notifying
-  #       state: "on"
-  #   action:
-  #     - alias: "Turn off boolean"
-  #       service: input_boolean.turn_off
-  #       target:
-  #         entity_id: input_boolean.washer_reminder_notifying
-
   - id: beba8d5b-7898-4d1e-b796-e63b19c2bdba
     alias: Washer Reminder - Acknowledge alert when motion is detected in the basement
     trigger:

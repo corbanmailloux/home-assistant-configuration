@@ -1,4 +1,5 @@
-# Create sensors to get the average temperature on each floor
+# Create sensors to get the average temperature on each floor.
+
 sensor:
   - platform: min_max
     name: FL1 - Average Temperature
@@ -9,7 +10,6 @@ sensor:
       - sensor.living_room_temperature
       - sensor.kitchen_temperature_sensor_temperature
       - sensor.office_temperature
-      - sensor.t9_thermostat_current_temperature
 
   - platform: min_max
     name: FL2 - Average Temperature

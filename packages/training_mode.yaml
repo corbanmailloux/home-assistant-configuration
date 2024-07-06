@@ -47,7 +47,7 @@ script:
         variables:
           training_entity_ids: >
             {% if is_state("input_boolean.room_exclude_office", "off") -%}
-            {{ training_entity_ids + ["light.corban_s_office_lamp"] }}
+            {{ training_entity_ids + ["light.office_ceiling", "light.corban_s_office_lamp"] }}
             {%- else -%}
             {{ training_entity_ids }}
             {% endif %}

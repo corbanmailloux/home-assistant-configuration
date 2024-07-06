@@ -109,7 +109,6 @@ script:
                 target:
                   entity_id:
                     - fan.master_bedroom_ceiling_fan
-                    - fan.bedroom_fan
                     - fan.office_air_purifier # Moved to bedroom
 
       - alias: "Guest Bedroom"
@@ -170,6 +169,7 @@ script:
           - service: homeassistant.turn_off
             target:
               entity_id:
+                - light.office_ceiling
                 - light.corban_s_office_lamp_bottom
                 - light.corban_s_office_lamp_middle
                 - light.corban_s_office_lamp_top
@@ -300,7 +300,6 @@ script:
           - service: homeassistant.turn_off
             target:
               entity_id:
-                - light.right_garage_door_local_light
                 - light.garage_main_lights
 
       - alias: "Closets"
@@ -316,5 +315,5 @@ script:
               entity_id:
                 - light.pantry_lights
                 - light.coat_closet_light
-                - light.office_closet_light
+                - light.office_closet
                 - light.utility_closet_switch

@@ -89,7 +89,7 @@ automation:
     id: e7e99aed-348c-4fb8-b607-df0b902f1387
     trigger:
       - platform: state
-        entity_id: binary_sensor.front_door
+        entity_id: group.exterior_doors # See packages/bedtime_check_up.yaml
         to: "on"
     condition:
       - condition: state
@@ -102,7 +102,8 @@ automation:
       - service: notify.corban
         data:
           title: "Warning: Door Opened"
-          message: "Front door opened."
+          message: >-
+            Exterior door(s) open: {{ expand("group.exterior_doors") | selectattr('state','eq','on') | map(attribute='name') | list | join(", ") }}
           data:
             tag: "vacation_alarm"
             actions:

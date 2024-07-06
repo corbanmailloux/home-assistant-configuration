@@ -1,0 +1,19 @@
+# Fairy lights mounted on the headboard in the guest room.
+# See also: packages/bedroom_light_alarm.yaml
+
+automation:
+  - alias: "Fairy Lights - Auto-Off"
+    id: 4c3b7cbe-c585-4f4f-987c-db16fd814cdd
+    trigger:
+      - platform: state
+        entity_id: light.fairy_lights
+        to: "on"
+        for:
+          hours: 5
+          minutes: 0
+          seconds: 0
+    action:
+      - service: light.turn_off
+        entity_id: light.fairy_lights
+        data:
+          transition: 5
