@@ -27,14 +27,15 @@
       device_id: 0e47eccd7765e50037be8ffc24099a13
   mode: single
 - id: '1710728057701'
-  alias: Utility Closet Light - Door Trigger
+  alias: Linen Closet Light - Door Trigger
   description: ''
   use_blueprint:
     path: mkosmo/closet-light-from-door-sensor.yaml
     input:
       door_sensor: binary_sensor.linen_closet_door_sensor_contact
       light_switch:
-        entity_id: light.utility_closet_switch
+        entity_id:
+        - light.linen_closet_wall_switch
       light_timeout: 1800
 - id: '1710728130096'
   alias: Coat Closet Light - Door Trigger

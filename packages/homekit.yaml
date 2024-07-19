@@ -10,6 +10,7 @@ homekit:
 
         # Living Room
         - light.corner_lamp
+        - light.living_room_ceiling_lights # Zigbee Group
         - scene.movie_mode
         - cover.living_room_curtain_right
         # - fan.living_room_fan # Seasonal
@@ -51,10 +52,9 @@ homekit:
         - light.basement_lights
 
         # Closets
-        - light.pantry_lights
-        - light.coat_closet_light
-        - light.office_closet
-        - light.utility_closet_switch
+        # - light.pantry_lights
+        # - light.coat_closet_light
+        # - light.office_closet
 
         # Garage
         - cover.ratgdo_left_garage_door_door

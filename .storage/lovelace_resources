@@ -80,12 +80,12 @@
         "id": "ff34917b3c6a44b4b37d905f037ebc51"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375362",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375364",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },
       {
-        "url": "/hacsfiles/apexcharts-card/apexcharts-card.js?hacstag=331701152204",
+        "url": "/hacsfiles/apexcharts-card/apexcharts-card.js?hacstag=331701152212",
         "type": "module",
         "id": "1a480f1e8ae24f60808f839d79ef7ff6"
       },
@@ -101,12 +101,17 @@
       },
       {
         "id": "52bdcfd4312d426dbc45d05ad4fa2818",
-        "url": "/hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js?hacstag=193372044222",
+        "url": "/hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js?hacstag=193372044223",
         "type": "module"
       },
       {
         "id": "e7f7cc87b0284064b0e54f02d3e72354",
         "url": "/webrtc/webrtc-camera.js?v=v3.5.2",
+        "type": "module"
+      },
+      {
+        "id": "567b9db865f54fd8a30ae9a727ed4dfe",
+        "url": "/hacsfiles/restriction-card/restriction-card.js?hacstag=215633404129",
         "type": "module"
       }
     ]

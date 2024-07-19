@@ -316,4 +316,5 @@ script:
                 - light.pantry_lights
                 - light.coat_closet_light
                 - light.office_closet
-                - light.utility_closet_switch
+                - light.craft_room_closet_wall_switch # Zigbee binding to smart bulbs
+                - light.linen_closet_wall_switch # Zigbee binding to smart bulb

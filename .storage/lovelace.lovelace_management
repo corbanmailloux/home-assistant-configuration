@@ -319,8 +319,11 @@
             {
               "type": "entities",
               "entities": [
-                "device_tracker.emilys_iphone_unifi"
-              ]
+                {
+                  "entity": "input_boolean.guest_mode"
+                }
+              ],
+              "show_header_toggle": false
             },
             {
               "entities": [
@@ -486,14 +489,22 @@
                   "entity": "script.tablet_wall_display_restart"
                 },
                 {
-                  "entity": "button.biden_shutdown",
-                  "name": "Shutdown Gaming PC"
-                },
-                {
                   "entity": "script.game_mode_start"
                 },
                 {
-                  "entity": "button.tubby_shutdown"
+                  "card": {
+                    "entity": "button.biden_shutdown",
+                    "name": "Shutdown Gaming PC"
+                  },
+                  "type": "custom:restriction-card",
+                  "row": true
+                },
+                {
+                  "card": {
+                    "entity": "button.tubby_shutdown"
+                  },
+                  "type": "custom:restriction-card",
+                  "row": true
                 }
               ],
               "title": "Device Controls"
