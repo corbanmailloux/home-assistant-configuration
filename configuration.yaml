@@ -54,10 +54,10 @@ wake_on_lan:
 logger:
   default: warning
   logs:
-    # Spits out errors because I don't leave OctoPrint running.
+    # 3D printer integrations spit out errors because I don't leave them running.
     homeassistant.components.octoprint: critical
-    # The TV is often sleeping when HASS restarts. I should force it to wake up on reboots or use standby mode, but it works for now.
-    homeassistant.components.media_player.roku: critical
+    custom_components.moonraker: critical
+    moonraker_api: critical
 
 ifttt:
   key: !secret ifttt_key
