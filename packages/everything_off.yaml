@@ -196,6 +196,7 @@ script:
             target:
               entity_id:
                 - light.corner_lamp
+                - light.living_room_ceiling_lights # Zigbee group
                 - media_player.living_room_apple_tv
                 - light.christmas_tree_lights # Seasonal
           # - if:
