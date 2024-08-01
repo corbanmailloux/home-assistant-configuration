@@ -70,6 +70,7 @@ google_cloud_credentials.json
 google_cloud_assistant_credentials.json
 appdaemon/compiled
 aircast.xml
+kumo_cache.json
 # Hide all of the storage directory, but keep the UI config.
 .storage/*
 !.storage/lovelace*

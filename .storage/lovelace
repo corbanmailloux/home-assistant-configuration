@@ -540,6 +540,59 @@
               "type": "horizontal-stack"
             },
             {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.first_floor_hvac",
+                  "fill_container": false,
+                  "primary_info": "name",
+                  "secondary_info": "state",
+                  "icon_type": "none",
+                  "hvac_modes": [
+                    "off",
+                    "cool"
+                  ],
+                  "show_temperature_control": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "layout": "horizontal",
+                  "name": "First Floor",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.second_floor_hvac",
+                  "fill_container": false,
+                  "primary_info": "name",
+                  "secondary_info": "state",
+                  "icon_type": "none",
+                  "hvac_modes": [
+                    "off",
+                    "cool"
+                  ],
+                  "show_temperature_control": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "layout": "horizontal",
+                  "name": "Second Floor",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                }
+              ]
+            },
+            {
               "type": "custom:button-card",
               "name": "Living Room",
               "entity": "sensor.living_room_temperature",
@@ -1968,12 +2021,6 @@
                   "name": "Main Door"
                 },
                 {
-                  "entity": "binary_sensor.sunporch_door_contact",
-                  "name": "Sunporch Door",
-                  "icon": "mdi:door-sliding",
-                  "secondary_info": "last-changed"
-                },
-                {
                   "entity": "cover.ratgdo_left_garage_door_door",
                   "name": "Left Garage Door",
                   "secondary_info": "last-changed"
@@ -1984,12 +2031,16 @@
                   "name": "Right Garage Door"
                 },
                 {
-                  "entity": "binary_sensor.garage_side_person_door_contact",
-                  "name": "Garage Side Person Door",
+                  "entity": "binary_sensor.sunporch_sliding_door_contact",
                   "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.basement_door_sensor_contact",
+                  "entity": "binary_sensor.basement_exterior_door_sensor_contact",
+                  "name": "Basement Exterior Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.basement_stairs_door_sensor_contact",
                   "name": "Basement Stairs Door",
                   "secondary_info": "last-changed"
                 },
