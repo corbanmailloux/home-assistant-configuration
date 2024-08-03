@@ -540,6 +540,26 @@
               "type": "horizontal-stack"
             },
             {
+              "type": "custom:mushroom-climate-card",
+              "entity": "climate.home_hvac",
+              "tap_action": {
+                "action": "more-info"
+              },
+              "hold_action": {
+                "action": "more-info"
+              },
+              "double_tap_action": {
+                "action": "more-info"
+              },
+              "hvac_modes": [
+                "cool",
+                "off",
+                "heat"
+              ],
+              "show_temperature_control": true,
+              "layout": "horizontal"
+            },
+            {
               "type": "horizontal-stack",
               "cards": [
                 {

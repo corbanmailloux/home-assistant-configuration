@@ -1,3 +1,22 @@
+# There are two zones in the house. Using the custom climate_group integration, merge them to a single entity for easier control.
+# See: https://github.com/bjrnptrsn/climate_group
+# Feature request for this to be native: https://community.home-assistant.io/t/climate-group-helper/465876
+# PR for this to be native: https://github.com/home-assistant/core/pull/114290
+
+climate:
+  - platform: climate_group
+    name: 'Home HVAC'
+    temperature_unit: F
+    decimal_accuracy_to_half: False  # Round the averaged temperatures to 0.5 degree increments.
+    unique_id: c97027fa-0aaa-41be-a2cf-da459c724999
+    entities:
+      - climate.first_floor_hvac
+      - climate.second_floor_hvac
+
+
+## OLD STUFF BELOW
+
+
 # The main thermostat is pulled in through both HomeKit and through the Honeywell Lyric cloud integration.
 # Generally we use the HomeKit version for local control (climate.t9_thermostat), but that doesn't
 # expose the options for setting and clearing holds. In those cases, use the cloud version (climate.hallway).
