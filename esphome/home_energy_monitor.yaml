@@ -1,0 +1,200 @@
+esphome:
+  name: home-energy-monitor
+  friendly_name: Home Energy Monitor
+
+packages:
+  device_base: !include common/device_base.yaml
+
+# Enable logging
+logger:
+  level: INFO
+
+external_components:
+  - source: github://emporia-vue-local/esphome@dev
+    components:
+      - emporia_vue
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+    version: recommended
+
+# Enable Home Assistant API
+api:
+  services:
+    - service: play_rtttl
+      variables:
+        song_str: string
+      then:
+        - rtttl.play:
+            rtttl: !lambda 'return song_str;'
+
+preferences:
+  # please also make sure `restore: false` is set on all `platform: total_daily_energy`
+  # sensors below.
+  flash_write_interval: "48h"
+
+output:
+  - platform: ledc
+    pin: GPIO12
+    id: buzzer
+  - platform: gpio
+    pin: GPIO27
+    id: buzzer_gnd
+
+rtttl:
+  output: buzzer
+  on_finished_playback:
+    - logger.log: 'Song ended!'
+
+button:
+  - platform: template
+    name: "Two Beeps"
+    on_press:
+      - rtttl.play: "two short:d=4,o=5,b=100:16e6,16e6"
+
+light:
+  - platform: status_led
+    name: "D3_LED"
+    pin: 23
+    restore_mode: ALWAYS_ON
+    entity_category: config
+
+i2c:
+  sda: 21
+  scl: 22
+  scan: false
+  frequency: 200kHz  # recommended range is 50-200kHz
+  id: i2c_a
+
+time:
+  - platform: sntp
+    id: my_time
+
+# these are called references in YAML. They allow you to reuse
+# this configuration in each sensor, while only defining it once
+.defaultfilters:
+  - &throttle_avg
+    # average all raw readings together over a 5 second span before publishing
+    throttle_average: 5s
+  - &throttle_time
+    # only send the most recent measurement every 60 seconds
+    throttle: 60s
+  - &invert
+    # invert and filter out any values below 0.
+    lambda: 'return max(-x, 0.0f);'
+  - &pos
+    # filter out any values below 0.
+    lambda: 'return max(x, 0.0f);'
+  - &abs
+    # take the absolute value of the value
+    lambda: 'return abs(x);'
+
+sensor:
+  - platform: emporia_vue
+    i2c_id: i2c_a
+    phases:
+      - id: phase_a  # Verify that this specific phase/leg is connected to correct input wire color on device listed below
+        input: BLACK  # Vue device wire color
+        calibration: 0.022  # 0.022 is used as the default as starting point but may need adjusted to ensure accuracy
+        # To calculate new calibration value use the formula <in-use calibration value> * <accurate voltage> / <reporting voltage>
+        voltage:
+          name: "Phase A Voltage"
+          filters: [*throttle_avg, *pos]
+        frequency:
+          name: "Phase A Frequency"
+          filters: [*throttle_avg, *pos]
+      - id: phase_b  # Verify that this specific phase/leg is connected to correct input wire color on device listed below
+        input: RED  # Vue device wire color
+        calibration: 0.022  # 0.022 is used as the default as starting point but may need adjusted to ensure accuracy
+        # To calculate new calibration value use the formula <in-use calibration value> * <accurate voltage> / <reporting voltage>
+        voltage:
+          name: "Phase B Voltage"
+          filters: [*throttle_avg, *pos]
+        phase_angle:
+          name: "Phase B Phase Angle"
+          filters: [*throttle_avg, *pos]
+    ct_clamps:
+      # Do not specify a name for any of the power sensors here, only an id. This leaves the power sensors internal to ESPHome.
+      # Copy sensors will filter and then send power measurements to HA
+      # These non-throttled power sensors are used for accurately calculating energy
+      - phase_id: phase_a
+        input: "A"  # Verify the CT going to this device input also matches the phase/leg
+        power:
+          id: phase_a_power
+          filters: [*pos]
+      - phase_id: phase_b
+        input: "B"  # Verify the CT going to this device input also matches the phase/leg
+        power:
+          id: phase_b_power
+          filters: [*pos]
+      # Pay close attention to set the phase_id for each breaker by matching it to the phase/leg it connects to in the panel
+      - { phase_id: phase_b, input:  "1", power: { id:  cir1, filters: [ *pos, multiply: 2 ] } }
+      - { phase_id: phase_a, input:  "2", power: { id:  cir2, filters: [ *pos, multiply: 2 ] } }
+      - { phase_id: phase_b, input:  "3", power: { id:  cir3, filters: [ *pos, multiply: 2 ] } }
+      - { phase_id: phase_b, input:  "4", power: { id:  cir4, filters: [ *pos, multiply: 2 ] } }
+      - { phase_id: phase_b, input:  "5", power: { id:  cir5, filters: [ *pos, multiply: 2 ] } }
+      - { phase_id: phase_a, input:  "6", power: { id:  cir6, filters: [ *pos ] } }
+      - { phase_id: phase_b, input:  "7", power: { id:  cir7, filters: [ *pos, multiply: 2 ] } }
+      - { phase_id: phase_b, input:  "8", power: { id:  cir8, filters: [ *pos ] } }
+    on_update:
+      then:
+        - component.update: total_power
+        - component.update: balance_power
+  # The copy sensors filter and send the power state to HA
+  - { platform: copy, name: "Phase A Power", source_id: phase_a_power, filters: *throttle_avg }
+  - { platform: copy, name: "Phase B Power", source_id: phase_b_power, filters: *throttle_avg }
+  - { platform: copy, name: "Total Power", source_id: total_power, filters: *throttle_avg }
+  - { platform: copy, name: "Balance Power", source_id: balance_power, filters: *throttle_avg }
+  - { platform: copy, name: "Power - FL1 HVAC", source_id:  cir1, filters: *throttle_avg }
+  - { platform: copy, name: "Power - FL2 HVAC", source_id:  cir2, filters: *throttle_avg }
+  - { platform: copy, name: "Power - FL2 Heat Strips", source_id:  cir3, filters: *throttle_avg }
+  - { platform: copy, name: "Power - FL1 Heat Strips", source_id:  cir4, filters: *throttle_avg }
+  - { platform: copy, name: "Power - Water Heater", source_id:  cir5, filters: *throttle_avg }
+  - { platform: copy, name: "Power - Network Rack", source_id:  cir6, filters: *throttle_avg }
+  - { platform: copy, name: "Power - Dryer", source_id:  cir7, filters: *throttle_avg }
+  - { platform: copy, name: "Power - Dishwasher", source_id:  cir8, filters: *throttle_avg }
+  - platform: template
+    lambda: return id(phase_a_power).state + id(phase_b_power).state;
+    update_interval: never   # will be updated after all power sensors update via on_update trigger
+    id: total_power
+    device_class: power
+    state_class: measurement
+    unit_of_measurement: "W"
+  - platform: total_daily_energy
+    name: "Total Daily Energy"
+    power_id: total_power
+    accuracy_decimals: 0
+    restore: false
+    filters: *throttle_time
+  - platform: template
+    lambda: !lambda |-
+      return max(0.0f, id(total_power).state -
+        id( cir1).state -
+        id( cir2).state -
+        id( cir3).state -
+        id( cir4).state -
+        id( cir5).state -
+        id( cir6).state -
+        id( cir7).state -
+        id( cir8).state);
+    update_interval: never   # will be updated after all power sensors update via on_update trigger
+    id: balance_power
+    device_class: power
+    state_class: measurement
+    unit_of_measurement: "W"
+  - platform: total_daily_energy
+    name: "Balance Daily Energy"
+    power_id: balance_power
+    accuracy_decimals: 0
+    restore: false
+    filters: *throttle_time
+  - { power_id:  cir1, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - FL1 HVAC", filters: *throttle_time }
+  - { power_id:  cir2, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - FL2 HVAC", filters: *throttle_time }
+  - { power_id:  cir3, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - FL2 Heat Strips", filters: *throttle_time }
+  - { power_id:  cir4, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - FL1 Heat Strips", filters: *throttle_time }
+  - { power_id:  cir5, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - Water Heater", filters: *throttle_time }
+  - { power_id:  cir6, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - Network Rack", filters: *throttle_time }
+  - { power_id:  cir7, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - Dryer", filters: *throttle_time }
+  - { power_id:  cir8, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - Dishwasher", filters: *throttle_time }
