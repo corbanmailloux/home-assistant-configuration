@@ -1,0 +1,232 @@
+input_number:
+  total_cost_per_kwh:
+    name: Total Cost Per kWh
+    min: 0
+    max: 2
+    step: 0.001
+    mode: box
+    unit_of_measurement: "$/kWh"
+    icon: "mdi:cash-multiple"
+
+template:
+  - sensor:
+      - name: "Energy Cost Per Wh"
+        unique_id: b8ac618f-0526-4f7e-9900-612bb15c4358
+        unit_of_measurement: "$/Wh"
+        state: >-
+          {{ states("input_number.total_cost_per_kwh")|float / 1000 }}
+
+      ## Combine the Living Room Lights Together
+      - name: Power - Living Room Ceiling Lights
+        unique_id: b89f5f19-9283-4561-822a-0f04136db409
+        icon: "mdi:flash"
+        unit_of_measurement: "W"
+        device_class: "power"
+        state: >-
+          {{
+            (
+              states('sensor.living_room_lights_wall_switch_1_power')|float +
+              states('sensor.living_room_lights_wall_switch_2_power')|float +
+              states('sensor.living_room_lights_wall_switch_3_power')|float
+            ) | round(2)
+          }}
+        availability: >-
+          {{
+            is_number(states('sensor.living_room_lights_wall_switch_1_power')) and
+            is_number(states('sensor.living_room_lights_wall_switch_2_power')) and
+            is_number(states('sensor.living_room_lights_wall_switch_3_power'))
+          }}
+      - name: Energy - Living Room Ceiling Lights
+        unique_id: c6032ac9-c162-4c3a-9782-565048983161
+        icon: "mdi:calculator"
+        unit_of_measurement: "Wh"
+        device_class: "energy"
+        state_class: "total_increasing"
+        state: >-
+          {{
+            states('sensor.living_room_lights_wall_switch_1_energy')|float +
+            states('sensor.living_room_lights_wall_switch_2_energy')|float +
+            states('sensor.living_room_lights_wall_switch_3_energy')|float
+          }}
+        availability: >-
+          {{
+            is_number(states('sensor.living_room_lights_wall_switch_1_energy')) and
+            is_number(states('sensor.living_room_lights_wall_switch_2_energy')) and
+            is_number(states('sensor.living_room_lights_wall_switch_3_energy'))
+          }}
+
+      ## Combine all tracked lighting
+      - name: Power - FL1 Lighting
+        unique_id: 2ce1738b-0545-4dff-a8cb-6c3589788d94
+        # icon: "mdi:flash"
+        unit_of_measurement: "W"
+        device_class: "power"
+        state: >-
+          {{
+            (
+              states('sensor.power_living_room_ceiling_lights')|float +
+              states('sensor.kitchen_bar_light_power')|float +
+              states('sensor.dining_room_light_power')|float +
+              states('sensor.office_wall_switch_power')|float +
+              states('sensor.office_closet_wall_switch_power')|float +
+              states('sensor.first_floor_hall_light_power')|float +
+              states('sensor.upstairs_hall_light_power')|float
+            ) | round(2)
+          }}
+        availability: >-
+          {{
+            is_number(states('sensor.power_living_room_ceiling_lights')) and
+            is_number(states('sensor.kitchen_bar_light_power')) and
+            is_number(states('sensor.dining_room_light_power')) and
+            is_number(states('sensor.office_wall_switch_power')) and
+            is_number(states('sensor.office_closet_wall_switch_power')) and
+            is_number(states('sensor.first_floor_hall_light_power')) and
+            is_number(states('sensor.upstairs_hall_light_power'))
+          }}
+      - name: Energy - FL1 Lighting
+        unique_id: 3ae5cde1-3501-46aa-bc16-70d05c2128b7
+        unit_of_measurement: "Wh"
+        device_class: "energy"
+        state_class: "total_increasing"
+        state: >-
+          {{
+            (
+              states('sensor.energy_living_room_ceiling_lights')|float +
+              states('sensor.kitchen_bar_light_energy')|float +
+              states('sensor.dining_room_light_energy')|float +
+              states('sensor.office_wall_switch_energy')|float +
+              states('sensor.office_closet_wall_switch_energy')|float +
+              states('sensor.first_floor_hall_light_energy')|float +
+              states('sensor.upstairs_hall_light_energy')|float
+            ) | round(2)
+          }}
+        availability: >-
+          {{
+            is_number(states('sensor.energy_living_room_ceiling_lights')) and
+            is_number(states('sensor.kitchen_bar_light_energy')) and
+            is_number(states('sensor.dining_room_light_energy')) and
+            is_number(states('sensor.office_wall_switch_energy')) and
+            is_number(states('sensor.office_closet_wall_switch_energy')) and
+            is_number(states('sensor.first_floor_hall_light_energy')) and
+            is_number(states('sensor.upstairs_hall_light_energy'))
+          }}
+
+      ## Create a true "balance power" sensor, handling individual devices
+      - name: Power - Untracked Sources
+        unique_id: 7b976442-8d93-4dc4-81d8-467ca9e97484
+        unit_of_measurement: "W"
+        device_class: "power"
+        state: >-
+          {{
+            states('sensor.home_energy_monitor_balance_power')|float -
+            states('sensor.power_fl1_lighting')|float -
+            states('sensor.washing_machine_power_draw')|float
+          }}
+        availability: >-
+          {{
+            is_number(states('sensor.home_energy_monitor_balance_power')) and
+            is_number(states('sensor.power_fl1_lighting')) and
+            is_number(states('sensor.washing_machine_power_draw'))
+          }}
+      - name: Energy - Untracked Sources
+        unique_id: 6cb082bf-93aa-478d-8455-0e23400da84d
+        unit_of_measurement: "Wh"
+        device_class: "energy"
+        state_class: "total_increasing"
+        state: >-
+          {{
+            states('sensor.home_energy_monitor_balance_daily_energy')|float -
+            states('sensor.energy_fl1_lighting')|float -
+            states('sensor.washing_machine_energy_today')|float
+          }}
+        availability: >-
+          {{
+            is_number(states('sensor.home_energy_monitor_balance_daily_energy')) and
+            is_number(states('sensor.energy_fl1_lighting')) and
+            is_number(states('sensor.washing_machine_energy_today'))
+          }}
+
+
+# TODO: Add scrape sensors for our rates.
+# https://www.home-assistant.io/integrations/scrape/#energy-price
+# https://community.home-assistant.io/t/scraping-my-electric-providers-rates-eversource-in-new-england/351138/10
+# https://www.eversource.com/content/residential/account-billing/manage-bill/about-your-bill/rates-tariffs/electric-supply-rates
+# https://www.eversource.com/content/residential/account-billing/manage-bill/about-your-bill/rates-tariffs/electric-delivery-rates
+
+# sensor:
+#   - platform: scrape
+#     resource: https://www.eversource.com/content/residential/account-billing/manage-bill/about-your-bill/rates-tariffs/electric-delivery-rates
+#     name: Eversource Distribution Energy Charge
+#     select: "#MainContentPlaceholder_TEF602CA6001_Col00 > div:nth-child(6) > div > div:nth-child(5) > div > table > tbody > tr:nth-child(2) > td:nth-child(2)"
+#     index: 2
+#     value_template: "{{ value | float / 100.0 }}"
+#     unit_of_measurement: "USD/kWh"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-supply-rates
+  #   name: Eversource Supply Rate
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(3) td"
+  #   index: 2
+  #   value_template: "{{ value | float / 100.0 }}"
+  #   unit_of_measurement: "USD/kWh"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-delivery-rates
+  #   name: Eversource Transmission Charge
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(5) td"
+  #   index: 1
+  #   value_template: '{{ value.split("(")[0].split("$")[1] | float }}'
+  #   unit_of_measurement: "USD/kWh"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-delivery-rates
+  #   name: Eversource Distribution Customer Service Charge
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(1) td"
+  #   index: 1
+  #   value_template: '{{ value.split("(")[0].split("$")[1] | float }}'
+  #   unit_of_measurement: "USD/month"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-delivery-rates
+  #   name: Eversource Electric System Improvements Charge
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(3) td"
+  #   index: 1
+  #   value_template: '{{ value.split("(")[0].split("$")[1] | float }}'
+  #   unit_of_measurement: "USD/kWh"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-delivery-rates
+  #   name: Eversource Distribution Charge
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(2) td"
+  #   index: 1
+  #   value_template: '{{ value.split("(")[0].split("$")[1] | float }}'
+  #   unit_of_measurement: "USD/kWh"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-delivery-rates
+  #   name: Eversource Revenue Adjustment Mechanism
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(4) td"
+  #   index: 1
+  #   value_template: '{{ value.split("(")[0].split("$")[1] | float }}'
+  #   unit_of_measurement: "USD/kWh"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-delivery-rates
+  #   name: Eversource Competitive Transition Assessment
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(7) td"
+  #   index: 1
+  #   value_template: '{{ value.split("(")[0].split("$")[1] | float * -1.0 }}'
+  #   unit_of_measurement: "USD/kWh"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-delivery-rates
+  #   name: Eversource Federally Mandated Congestion Charge
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(8) td"
+  #   index: 1
+  #   value_template: '{{ value.split("(")[0].split("$")[1] | float }}'
+  #   unit_of_measurement: "USD/kWh"
+  # - platform: scrape
+  #   resource: https://www.eversource.com/content/ct-c/residential/my-account/billing-payments/about-your-bill/rates-tariffs/electric-delivery-rates
+  #   name: Eversource Combined Public Benefits Charge
+  #   select: "#MainContentPlaceholder_TEF602CA6001_Col00 .table-responsive tr:nth-child(6) td"
+  #   index: 1
+  #   value_template: '{{ value.split("(")[0].split("$")[1] | float }}'
+  #   unit_of_measurement: "USD/kWh"
+  # - platform: template
+  #   sensors:
+  #     eversource_total_rate:
+  #       friendly_name: "Eversource Total Rate"
+  #       value_template: "{{ states('sensor.eversource_supply_rate') | float + states('sensor.eversource_transmission_charge') | float + states('sensor.eversource_electric_system_improvements_charge') | float + states('sensor.eversource_distribution_charge') | float + states('sensor.eversource_revenue_adjustment_mechanism') | float + states('sensor.eversource_competitive_transition_assessment') | float + states('sensor.eversource_federally_mandated_congestion_charge') | float + states('sensor.eversource_combined_public_benefits_charge') | float }}"
+  #       unit_of_measurement: "USD/kWh"

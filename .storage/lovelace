@@ -2176,19 +2176,99 @@
           ]
         },
         {
-          "icon": "mdi:bird",
-          "path": "camera",
-          "cards": [
+          "title": "Energy",
+          "path": "energy",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
             {
-              "show_state": false,
-              "show_name": false,
-              "camera_view": "auto",
-              "type": "picture-entity",
-              "camera_image": "camera.bird_feeder",
-              "entity": "camera.bird_feeder"
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1h",
+                  "update_interval": "10s",
+                  "header": {
+                    "show": true,
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    }
+                  },
+                  "experimental": {
+                    "hidden_by_default": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.home_energy_monitor_total_power",
+                      "type": "area",
+                      "color": "grey",
+                      "opacity": 0.4,
+                      "name": "Total",
+                      "show": {
+                        "hidden_by_default": true
+                      }
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_fl1_hvac",
+                      "name": "FL1 HVAC"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_fl2_hvac",
+                      "name": "FL2 HVAC"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_network_rack",
+                      "name": "Network Rack",
+                      "color": "purple"
+                    },
+                    {
+                      "entity": "sensor.power_fl1_lighting",
+                      "name": "FL1 Lighting",
+                      "color": "yellow"
+                    },
+                    {
+                      "entity": "sensor.washing_machine_power_draw",
+                      "name": "Washing Machine"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_dryer",
+                      "name": "Dryer"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_dishwasher",
+                      "name": "Dishwasher"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_fl1_heat_strips",
+                      "name": "FL1 Heat Strips",
+                      "color": "darkred"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_fl2_heat_strips",
+                      "name": "FL2 Heat Strips",
+                      "color": "darkred"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_water_heater",
+                      "name": "Water Heater",
+                      "color": "#dd0000"
+                    },
+                    {
+                      "entity": "sensor.power_untracked_sources",
+                      "name": "Untracked Sources"
+                    }
+                  ]
+                }
+              ],
+              "title": "Instantaneous Power"
             }
           ],
-          "type": "panel"
+          "icon": "mdi:home-lightning-bolt",
+          "cards": []
         }
       ]
     }
