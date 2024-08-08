@@ -434,6 +434,58 @@
                     },
                     "name": "Fountain Cleaning"
                   }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.washer_reminder_notifying",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.washer_reminder_notifying",
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "hold_action": {
+                      "action": "more-info"
+                    },
+                    "double_tap_action": {
+                      "action": "more-info"
+                    },
+                    "content_info": "name",
+                    "name": "Washer Complete",
+                    "icon_color": "blue"
+                  }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.dryer_reminder_notifying",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.dryer_reminder_notifying",
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "hold_action": {
+                      "action": "more-info"
+                    },
+                    "double_tap_action": {
+                      "action": "more-info"
+                    },
+                    "content_info": "name",
+                    "name": "Dryer Complete",
+                    "icon_color": "red"
+                  }
                 }
               ],
               "alignment": "center"

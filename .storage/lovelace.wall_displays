@@ -598,6 +598,29 @@
               "type": "conditional"
             },
             {
+              "card": {
+                "entity": "input_boolean.dryer_reminder_notifying",
+                "layout": "icon_name",
+                "name": "Dryer done.",
+                "color": "red",
+                "show_icon": true,
+                "show_state": false,
+                "tap_action": {
+                  "action": "toggle"
+                },
+                "hold_action": "none",
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "input_boolean.dryer_reminder_notifying",
+                  "state": "on"
+                }
+              ],
+              "type": "conditional"
+            },
+            {
               "type": "conditional",
               "conditions": [
                 {

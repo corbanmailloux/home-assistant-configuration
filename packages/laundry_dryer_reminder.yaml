@@ -1,62 +1,56 @@
-# Notification System for our Washing Machine
+# Notification System for our Clothes Dryer
 # -------
-# The washer is plugged into a power-monitoring smart plug (Linksio).
-# It's flashed with Tasmota, and `PowerOnState 4` means that it's always on.
-# Using the real-time power usage, Home Assistant can see when the washer is running.
+# Power-monitoring-based notifications when the dryer has completed a cycle.
 #
-# When the washer finishes, send a notification to our phones.
+# When the dryer finishes, send a notification to our phones.
 # Additional features:
-# - Only send the “washer done” notification to people who are home.
+# - Only send the “dryer done” notification to people who are home.
 # - If the notification should have been sent but you weren’t home, send it when you do get home.
-# - Motion near the washer acknowledges and dismisses the notification automatically on all devices.
+# - Motion near the dryer acknowledges and dismisses the notification automatically on all devices.
 # - The notification has an action button added to acknowledge and dismiss on all devices.
-
-# TODO/Ideas:
-# - The average washer cycle here is ~58 minutes. When starting, set a countdown timer on a wall display for an estimated completion.
-# - The new washer has WiFi and uses the LQ ThinQ app. Set up that integration?
 
 template:
   - binary_sensor:
-      - name: "Washing Machine Running"
-        unique_id: 5b770b3c-326a-49ca-87ee-fa3de53fdeff
+      - name: "Dryer Running"
+        unique_id: 1db556f2-b73e-4127-85b1-7bbd1cff4d17
         device_class: running
         delay_on:
           minutes: 1
         delay_off:
-          minutes: 3
+          minutes: 1
         state: >-
-          {{ states('sensor.washing_machine_power_draw') | float(default=0) > 10 }}
+          {{ states('sensor.home_energy_monitor_power_dryer') | float(default=0) > 50 }}
         icon: >
-          {% if is_state("binary_sensor.washing_machine_running", "on") %}
-            mdi:washing-machine
+          {% if is_state("binary_sensor.dryer_running", "on") %}
+            mdi:tumble-dryer
           {% else %}
-            mdi:washing-machine-off
+            mdi:tumble-dryer-off
           {% endif %}
 
 input_boolean:
-  washer_reminder_notifying:
-    name: Washer Reminder - Notifying
-    icon: mdi:washing-machine
+  dryer_reminder_notifying:
+    name: Dryer Reminder - Notifying
+    icon: mdi:tumble-dryer
 
 automation:
-  - id: e3edfa1f-a705-4394-bedb-945151332a3c
-    alias: Washer Reminder - Notify when washing machine finishes
+  - id: 3d45c62b-c99a-43cb-a1b7-7e5ab2974a1b
+    alias: Dryer Reminder - Notify when dryer finishes
     trigger:
       - platform: state
-        entity_id: binary_sensor.washing_machine_running
+        entity_id: binary_sensor.dryer_running
         from: "on"
         to: "off"
     action:
       - alias: "Turn on notify switch"
         service: input_boolean.turn_on
         target:
-          entity_id: input_boolean.washer_reminder_notifying
+          entity_id: input_boolean.dryer_reminder_notifying
 
-  - id: 1ede28c4-0132-418b-b526-373b02b53798
-    alias: Washer Reminder - Send notifications based on boolean
+  - id: b7826c90-2dc8-40fb-9abb-a21e5678a23d
+    alias: Dryer Reminder - Send notifications based on boolean
     trigger:
       - platform: state
-        entity_id: input_boolean.washer_reminder_notifying
+        entity_id: input_boolean.dryer_reminder_notifying
         from: "off"
         to: "on"
     action:
@@ -67,7 +61,7 @@ automation:
             state: "home"
         then:
           - alias: "Notify Corban"
-            service: script.washer_reminder_send_notification_to_variable
+            service: script.dryer_reminder_send_notification_to_variable
             data:
               notify_device: corban
               dismiss_notification: false
@@ -78,27 +72,27 @@ automation:
             state: "home"
         then:
           - alias: "Notify Maggie"
-            service: script.washer_reminder_send_notification_to_variable
+            service: script.dryer_reminder_send_notification_to_variable
             data:
               notify_device: maggie
               dismiss_notification: false
 
-  - id: 93b3840e-76d3-4cbe-a1ed-179aac220154
-    alias: Washer Reminder - Dismiss notifications based on boolean
+  - id: 081bf63f-8413-4dea-be82-d537dd2e1a20
+    alias: Dryer Reminder - Dismiss notifications based on boolean
     trigger:
       - platform: state
-        entity_id: input_boolean.washer_reminder_notifying
+        entity_id: input_boolean.dryer_reminder_notifying
         from: "on"
         to: "off"
     action:
       - alias: "Clear notifications"
-        service: script.washer_reminder_send_notification_to_variable
+        service: script.dryer_reminder_send_notification_to_variable
         data:
           notify_device: adult_phones
           dismiss_notification: true
 
-  - id: beba8d5b-7898-4d1e-b796-e63b19c2bdba
-    alias: Washer Reminder - Acknowledge alert when motion is detected in the basement
+  - id: 3b991b80-fc3f-4d67-9900-5cf5f6510c96
+    alias: Dryer Reminder - Acknowledge alert when motion is detected in the basement
     trigger:
       - platform: state
         entity_id: binary_sensor.laundry_motion_sensor_occupancy
@@ -107,34 +101,34 @@ automation:
     condition:
       - alias: "Notification active"
         condition: state
-        entity_id: input_boolean.washer_reminder_notifying
+        entity_id: input_boolean.dryer_reminder_notifying
         state: "on"
     action:
       - alias: "Turn off boolean"
         service: input_boolean.turn_off
         target:
-          entity_id: input_boolean.washer_reminder_notifying
+          entity_id: input_boolean.dryer_reminder_notifying
 
-  - id: 19098e11-621e-4f4c-a0f4-aee3c5d8e8cf
-    alias: Washer Reminder - Acknowledge alert from notification
+  - id: 551dc831-c06e-4af2-843f-6654fb049661
+    alias: Dryer Reminder - Acknowledge alert from notification
     trigger:
       - platform: event
         event_type: mobile_app_notification_action
         event_data:
-          action: "WASHER_REMINDER_ACK"
+          action: "DRYER_REMINDER_ACK"
     condition:
       - alias: "Notification active"
         condition: state
-        entity_id: input_boolean.washer_reminder_notifying
+        entity_id: input_boolean.dryer_reminder_notifying
         state: "on"
     action:
       - alias: "Turn off boolean"
         service: input_boolean.turn_off
         target:
-          entity_id: input_boolean.washer_reminder_notifying
+          entity_id: input_boolean.dryer_reminder_notifying
 
-  - id: 7201114f-3317-4c7b-8488-8930f2722faf
-    alias: Washer Reminder - Send delayed notification if someone gets home
+  - id: b8d28099-0cb5-4290-82ef-90dbeb9717a9
+    alias: Dryer Reminder - Send delayed notification if someone gets home
     mode: parallel
     trigger:
       - platform: state
@@ -148,18 +142,18 @@ automation:
     condition:
       - alias: "Notification active"
         condition: state
-        entity_id: input_boolean.washer_reminder_notifying
+        entity_id: input_boolean.dryer_reminder_notifying
         state: "on"
     action:
       - alias: "Notify the right person"
-        service: script.washer_reminder_send_notification_to_variable
+        service: script.dryer_reminder_send_notification_to_variable
         data:
           notify_device: >-
             {{ trigger.id }}
           dismiss_notification: false
 
-  - id: 9d4ec00e-140f-458e-a2ab-84ec7e45069b
-    alias: Washer Reminder - Dismiss notification if someone leaves home
+  - id: 3f6458fd-c731-47ff-a825-fec4f7591fd1
+    alias: Dryer Reminder - Dismiss notification if someone leaves home
     mode: parallel
     trigger:
       - platform: state
@@ -173,19 +167,19 @@ automation:
     condition:
       - alias: "Notification active"
         condition: state
-        entity_id: input_boolean.washer_reminder_notifying
+        entity_id: input_boolean.dryer_reminder_notifying
         state: "on"
     action:
       - alias: "Notify the right person"
-        service: script.washer_reminder_send_notification_to_variable
+        service: script.dryer_reminder_send_notification_to_variable
         data:
           notify_device: >-
             {{ trigger.id }}
           dismiss_notification: true
 
 script:
-  washer_reminder_send_notification_to_variable:
-    description: "Washer Reminder - Send notification to variable"
+  dryer_reminder_send_notification_to_variable:
+    description: "Dryer Reminder - Send notification to variable"
     fields:
       notify_device:
         description: "The service call to use for notification: notify.X"
@@ -201,14 +195,14 @@ script:
             data:
               message: clear_notification
               data:
-                tag: "laundry_reminder_washer"
+                tag: "laundry_reminder_dryer"
         else:
           - service: notify.{{ notify_device }}
             data:
               title: "Laundry Reminder"
-              message: Washing machine done.
+              message: Dryer done.
               data:
-                tag: "laundry_reminder_washer"
+                tag: "laundry_reminder_dryer"
                 actions:
-                  - action: "WASHER_REMINDER_ACK"
+                  - action: "DRYER_REMINDER_ACK"
                     title: "Mark complete."
