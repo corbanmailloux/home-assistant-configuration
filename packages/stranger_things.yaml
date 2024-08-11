@@ -4,23 +4,25 @@ input_select:
   stranger_things_next_light_on:
     name: "Stranger Things - Internal - Next On"
     options:
-      - light.corner_lamp # Living Room
+      - light.living_room_lights_wall_switch_3
+      - light.living_room_lights_wall_switch_2
+      - light.living_room_lights_wall_switch_1
       - light.first_floor_hall_light
       - light.kitchen_main_lights
       - light.kitchen_bar_light
       - light.dining_room_light
       - light.front_entry_lights
-      # - light.light.upstairs_hall_light
   stranger_things_next_light_off:
     name: "Stranger Things - Internal - Next Off"
     options:
-      - light.corner_lamp
+      - light.living_room_lights_wall_switch_3
+      - light.living_room_lights_wall_switch_2
+      - light.living_room_lights_wall_switch_1
       - light.first_floor_hall_light
       - light.kitchen_main_lights
       - light.kitchen_bar_light
       - light.dining_room_light
       - light.front_entry_lights
-      # - light.light.upstairs_hall_light
 
 script:
   stranger_things_lighting_chase:
@@ -40,7 +42,7 @@ script:
                 entity_id: input_select.stranger_things_next_light_off
       - alias: "Main loop"
         repeat:
-          count: 18 # 6 lights, 3 cycles total = 18
+          count: 24 # 8 lights, 3 cycles total = 24
           sequence:
             - service: light.turn_on
               data:
@@ -65,7 +67,9 @@ script:
         service: light.turn_off
         target:
           entity_id:
-            - light.corner_lamp
+            - light.living_room_lights_wall_switch_3
+            - light.living_room_lights_wall_switch_2
+            - light.living_room_lights_wall_switch_1
             - light.first_floor_hall_light
             - light.kitchen_main_lights
             - light.kitchen_bar_light
