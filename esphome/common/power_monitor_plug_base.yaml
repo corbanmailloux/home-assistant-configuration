@@ -1,0 +1,95 @@
+substitutions:
+  update_interval: 20s
+## Provide these in the implementations:
+#   device_name: "power-monitor-plug-1"
+#   friendly_name: "Power Monitor Plug 1"
+
+
+# Sonoff S31
+# https://devices.esphome.io/devices/Sonoff-S31
+
+esphome:
+  name: "${device_name}"
+  friendly_name: "${friendly_name}"
+  platform: ESP8266
+  board: esp01_1m
+
+packages:
+  device_base: !include device_base.yaml
+
+logger:
+  baud_rate: 0 # (UART logging interferes with cse7766)
+  level: INFO
+
+uart:
+  rx_pin: RX
+  baud_rate: 4800
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO0
+      mode: INPUT_PULLUP
+      inverted: True
+    name: "Button"
+    # on_press:
+    #   - switch.toggle: relay
+  - platform: status
+    name: "Status"
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: ${update_interval}
+  - platform: cse7766
+    current:
+      name: "Current"
+      accuracy_decimals: 2
+      filters:
+        - throttle_average: ${update_interval}
+    voltage:
+      name: "Voltage"
+      accuracy_decimals: 2
+      filters:
+        - throttle_average: ${update_interval}
+    power:
+      name: "Power"
+      accuracy_decimals: 2
+      id: my_power
+      filters:
+        - throttle_average: ${update_interval}
+    energy:
+      name: "Energy"
+      accuracy_decimals: 2
+      filters:
+        - throttle: ${update_interval}
+    # apparent_power: #(only available with version 2024.3.0 or greater)
+    #   name: "Apparent Power"
+    #   filters:
+    #     - throttle_average: ${update_interval}
+    # power_factor: #(only available with version 2024.3.0 or greater)
+    #   name: "Power Factor"
+    #   accuracy_decimals: 2
+    #   filters:
+    #     - throttle_average: ${update_interval}
+
+  - platform: total_daily_energy #(Optional, not specific to cse7766)
+    name: "Daily Energy"
+    power_id: my_power
+    accuracy_decimals: 2
+
+switch:
+  - platform: gpio
+    name: "Relay"
+    pin: GPIO12
+    id: relay
+    restore_mode: ALWAYS_ON
+
+time:
+  - platform: sntp #(required for total_daily_energy)
+    id: my_time
+
+status_led:
+  pin:
+    number: GPIO13
+    inverted: True

@@ -2243,6 +2243,10 @@
                       "name": "Dishwasher"
                     },
                     {
+                      "entity": "sensor.power_monitor_plug_1_power",
+                      "name": "LR TV"
+                    },
+                    {
                       "entity": "sensor.home_energy_monitor_power_fl1_heat_strips",
                       "name": "FL1 Heat Strips",
                       "color": "darkred"

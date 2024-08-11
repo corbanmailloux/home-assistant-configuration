@@ -1,0 +1,6 @@
+substitutions:
+  device_name: "power-monitor-plug-1"
+  friendly_name: "Power Monitor Plug 1"
+
+packages:
+  power_monitor_plug_base: !include common/power_monitor_plug_base.yaml

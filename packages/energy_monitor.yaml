@@ -64,23 +64,23 @@ template:
         state: >-
           {{
             (
-              states('sensor.power_living_room_ceiling_lights')|float +
-              states('sensor.kitchen_bar_light_power')|float +
-              states('sensor.dining_room_light_power')|float +
-              states('sensor.office_wall_switch_power')|float +
-              states('sensor.office_closet_wall_switch_power')|float +
-              states('sensor.first_floor_hall_light_power')|float +
-              states('sensor.upstairs_hall_light_power')|float
+              states('sensor.power_living_room_ceiling_lights')|float(default=0) +
+              states('sensor.kitchen_bar_light_power')|float(default=0) +
+              states('sensor.dining_room_light_power')|float(default=0) +
+              states('sensor.office_wall_switch_power')|float(default=0) +
+              states('sensor.office_closet_wall_switch_power')|float(default=0) +
+              states('sensor.first_floor_hall_light_power')|float(default=0) +
+              states('sensor.upstairs_hall_light_power')|float(default=0)
             ) | round(2)
           }}
         availability: >-
           {{
-            is_number(states('sensor.power_living_room_ceiling_lights')) and
-            is_number(states('sensor.kitchen_bar_light_power')) and
-            is_number(states('sensor.dining_room_light_power')) and
-            is_number(states('sensor.office_wall_switch_power')) and
-            is_number(states('sensor.office_closet_wall_switch_power')) and
-            is_number(states('sensor.first_floor_hall_light_power')) and
+            is_number(states('sensor.power_living_room_ceiling_lights')) or
+            is_number(states('sensor.kitchen_bar_light_power')) or
+            is_number(states('sensor.dining_room_light_power')) or
+            is_number(states('sensor.office_wall_switch_power')) or
+            is_number(states('sensor.office_closet_wall_switch_power')) or
+            is_number(states('sensor.first_floor_hall_light_power')) or
             is_number(states('sensor.upstairs_hall_light_power'))
           }}
       - name: Energy - FL1 Lighting
@@ -91,23 +91,23 @@ template:
         state: >-
           {{
             (
-              states('sensor.energy_living_room_ceiling_lights')|float +
-              states('sensor.kitchen_bar_light_energy')|float +
-              states('sensor.dining_room_light_energy')|float +
-              states('sensor.office_wall_switch_energy')|float +
-              states('sensor.office_closet_wall_switch_energy')|float +
-              states('sensor.first_floor_hall_light_energy')|float +
-              states('sensor.upstairs_hall_light_energy')|float
+              states('sensor.energy_living_room_ceiling_lights')|float(default=0) +
+              states('sensor.kitchen_bar_light_energy')|float(default=0) +
+              states('sensor.dining_room_light_energy')|float(default=0) +
+              states('sensor.office_wall_switch_energy')|float(default=0) +
+              states('sensor.office_closet_wall_switch_energy')|float(default=0) +
+              states('sensor.first_floor_hall_light_energy')|float(default=0) +
+              states('sensor.upstairs_hall_light_energy')|float(default=0)
             ) | round(2)
           }}
         availability: >-
           {{
-            is_number(states('sensor.energy_living_room_ceiling_lights')) and
-            is_number(states('sensor.kitchen_bar_light_energy')) and
-            is_number(states('sensor.dining_room_light_energy')) and
-            is_number(states('sensor.office_wall_switch_energy')) and
-            is_number(states('sensor.office_closet_wall_switch_energy')) and
-            is_number(states('sensor.first_floor_hall_light_energy')) and
+            is_number(states('sensor.energy_living_room_ceiling_lights')) or
+            is_number(states('sensor.kitchen_bar_light_energy')) or
+            is_number(states('sensor.dining_room_light_energy')) or
+            is_number(states('sensor.office_wall_switch_energy')) or
+            is_number(states('sensor.office_closet_wall_switch_energy')) or
+            is_number(states('sensor.first_floor_hall_light_energy')) or
             is_number(states('sensor.upstairs_hall_light_energy'))
           }}
 
@@ -119,14 +119,14 @@ template:
         state: >-
           {{
             states('sensor.home_energy_monitor_balance_power')|float -
-            states('sensor.power_fl1_lighting')|float -
-            states('sensor.washing_machine_power_draw')|float
+            states('sensor.power_fl1_lighting')|float(default=0) -
+            states('sensor.washing_machine_power_draw')|float(default=0) -
+            states('sensor.power_monitor_plug_1_power')|float(default=0) -
+            states('sensor.power_monitor_plug_2_power')|float(default=0)
           }}
         availability: >-
           {{
-            is_number(states('sensor.home_energy_monitor_balance_power')) and
-            is_number(states('sensor.power_fl1_lighting')) and
-            is_number(states('sensor.washing_machine_power_draw'))
+            is_number(states('sensor.home_energy_monitor_balance_power'))
           }}
       - name: Energy - Untracked Sources
         unique_id: 6cb082bf-93aa-478d-8455-0e23400da84d
@@ -136,14 +136,14 @@ template:
         state: >-
           {{
             states('sensor.home_energy_monitor_balance_daily_energy')|float -
-            states('sensor.energy_fl1_lighting')|float -
-            states('sensor.washing_machine_energy_today')|float
+            states('sensor.energy_fl1_lighting')|float(default=0) -
+            states('sensor.washing_machine_energy_today')|float(default=0) -
+            states('sensor.power_monitor_plug_1_daily_energy')|float(default=0) -
+            states('sensor.power_monitor_plug_2_daily_energy')|float(default=0)
           }}
         availability: >-
           {{
-            is_number(states('sensor.home_energy_monitor_balance_daily_energy')) and
-            is_number(states('sensor.energy_fl1_lighting')) and
-            is_number(states('sensor.washing_machine_energy_today'))
+            is_number(states('sensor.home_energy_monitor_balance_daily_energy'))
           }}
 
 
