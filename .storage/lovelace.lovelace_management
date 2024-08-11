@@ -492,10 +492,12 @@
                   "entity": "script.tablet_wall_display_reload"
                 },
                 {
-                  "entity": "script.tablet_wall_display_restart"
+                  "entity": "script.tablet_wall_display_restart",
+                  "icon": "mdi:power-cycle"
                 },
                 {
-                  "entity": "script.game_mode_start"
+                  "entity": "script.game_mode_start",
+                  "icon": "mdi:microsoft-xbox-controller"
                 },
                 {
                   "card": {
@@ -507,10 +509,29 @@
                 },
                 {
                   "card": {
-                    "entity": "button.tubby_shutdown"
+                    "entity": "button.tubby_shutdown",
+                    "name": "Shutdown Tubby NAS"
                   },
                   "type": "custom:restriction-card",
                   "row": true
+                },
+                {
+                  "card": {
+                    "entity": "script.shutdown_proxmoxbox",
+                    "icon": "mdi:power"
+                  },
+                  "type": "custom:restriction-card",
+                  "row": true
+                },
+                {
+                  "entity": "script.wol_proxmoxbox",
+                  "name": "Wake/Start ProxMoxBox",
+                  "icon": "mdi:power"
+                },
+                {
+                  "entity": "script.wol_tubby",
+                  "name": "Wake/Start Tubby NAS",
+                  "icon": "mdi:power"
                 }
               ],
               "title": "Device Controls"
@@ -518,9 +539,6 @@
             {
               "type": "entities",
               "entities": [
-                {
-                  "entity": "script.wol_proxmoxbox"
-                },
                 {
                   "entity": "sensor.pi_hole_ads_percentage_blocked_today"
                 }
@@ -863,32 +881,6 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "light.basement_lights"
-                },
-                {
-                  "entity": "automation.basement_motion_lights"
-                },
-                {
-                  "entity": "binary_sensor.basement_assumed_motion"
-                },
-                {
-                  "entity": "binary_sensor.basement_door_sensor_contact"
-                },
-                {
-                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy"
-                },
-                {
-                  "entity": "binary_sensor.laundry_motion_sensor_occupancy"
-                }
-              ],
-              "title": "Basement Lights",
-              "show_header_toggle": false,
-              "state_color": false
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
                   "entity": "automation.water_leak_detected_send_critical_notifications",
                   "name": "Notify on Leak",
                   "icon": "mdi:alarm-light-outline",
@@ -960,78 +952,6 @@
           "badges": [],
           "cards": [
             {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.kitchen_counter_lights",
-                  "fill_container": true,
-                  "show_brightness_control": false,
-                  "collapsible_controls": true,
-                  "name": "Counter Lights",
-                  "layout": "horizontal"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "input_boolean.kitchen_lights_lock_on",
-                  "name": "Motion Lock",
-                  "layout": "horizontal",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
-                }
-              ]
-            },
-            {
-              "card": {
-                "entity": "input_boolean.dryer_reminder_notifying",
-                "layout": "icon_name",
-                "name": "Dryer done.",
-                "color": "red",
-                "show_icon": true,
-                "show_state": false,
-                "tap_action": {
-                  "action": "toggle"
-                },
-                "hold_action": "none",
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.dryer_reminder_notifying",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "card": {
-                "entity": "timer.dryer_running_countdown",
-                "layout": "icon_name_state2nd",
-                "name": "Dryer Running - Tap to cancel",
-                "icon": "mdi:timer-remove-outline",
-                "color": "yellow",
-                "show_icon": true,
-                "show_state": true,
-                "tap_action": {
-                  "action": "call-service",
-                  "service": "timer.cancel",
-                  "service_data": {
-                    "entity_id": "timer.dryer_running_countdown"
-                  }
-                },
-                "hold_action": "none",
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "timer.dryer_running_countdown",
-                  "state_not": "idle"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
               "camera_view": "auto",
               "type": "picture-glance",
               "entities": [
@@ -1044,27 +964,6 @@
               ],
               "camera_image": "camera.main_doorbell_sub",
               "title": "Doorbell"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-cover-card",
-                  "entity": "cover.living_room_curtain_right",
-                  "name": "Curtains",
-                  "fill_container": true,
-                  "show_position_control": true,
-                  "show_buttons_control": true,
-                  "layout": "horizontal",
-                  "show_tilt_position_control": false,
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  }
-                }
-              ]
             },
             {
               "type": "horizontal-stack",

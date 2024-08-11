@@ -93,3 +93,16 @@ script:
       - service: wake_on_lan.send_magic_packet
         data:
           mac: e8:d8:d1:51:49:ab
+  wol_tubby:
+    alias: "Wake on LAN - Tubby NAS"
+    sequence:
+      - service: wake_on_lan.send_magic_packet
+        data:
+          mac: 00:11:32:c0:fc:77
+  shutdown_proxmoxbox:
+    alias: "Shutdown ProxMoxBox"
+    sequence:
+      - service: shell_command.proxmoxbox_shutdown
+
+shell_command:
+  proxmoxbox_shutdown: !secret proxmox_api_shutdown
