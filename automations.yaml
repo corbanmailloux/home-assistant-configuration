@@ -460,3 +460,53 @@
     metadata: {}
     data: {}
   mode: single
+- id: '1724423649065'
+  alias: Stairs Wall Switch - Red During Meetings
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.corban_on_a_call
+    from: 'off'
+    to: 'on'
+    id: 'on'
+  - platform: state
+    entity_id:
+    - binary_sensor.corban_on_a_call
+    from: 'on'
+    to: 'off'
+    id: 'off'
+  condition: []
+  action:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: script.inovelli_led_control
+        metadata: {}
+        data:
+          led: All
+          color: Red
+          level: 100
+          duration: Indefinitely
+          target:
+            device_id: 6239543fc9a684fbba5d4af77ccdf052
+          effect: Aurora
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: script.inovelli_led_control
+        metadata: {}
+        data:
+          led: All
+          color: Red
+          level: 100
+          duration: Indefinitely
+          target:
+            device_id: 6239543fc9a684fbba5d4af77ccdf052
+          effect: Clear
+  mode: single
