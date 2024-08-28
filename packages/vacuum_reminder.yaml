@@ -113,7 +113,7 @@ script:
         service: mqtt.publish
         data:
           topic: valetudo/eve/GoToLocationCapability/go/set
-          payload_template: >-
+          payload: >-
             {
               "coordinates": {
                 "x": 2634,
@@ -147,7 +147,7 @@ script:
         service: mqtt.publish
         data:
           topic: valetudo/eve/BasicControlCapability/operation/set
-          payload_template: "HOME"
+          payload: "HOME"
 
   vacuum_alert_timeout:
     # Duplicated in `vacuum_when_not_home.yaml`, but commented out.

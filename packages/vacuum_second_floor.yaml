@@ -89,7 +89,7 @@ sensor:
 #       - service: mqtt.publish
 #         data:
 #           topic: valetudo/eve/MapSegmentationCapability/clean/set
-#           payload_template: '{"segment_ids": {{segments}}}'
+#           payload: '{"segment_ids": {{segments}}}'
 #     mode: single
 
 #   toggle_all_room_selections:
