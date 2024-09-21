@@ -54,14 +54,61 @@ automation:
           - "unknown"
           - "unavailable"
     action:
-      - service: >-
-          {% if trigger.to_state.state == "on" %}
-            light.turn_on
-          {% else %}
-            light.turn_off
-          {% endif %}
+      - alias: "On or Off?"
+        choose:
+          - conditions: >-
+              {{ trigger.to_state.state == "on" }}
+            sequence:
+              - alias: "Turn on lights"
+                service: light.turn_on
+                target:
+                  entity_id: light.garage_lights # Group
+                data:
+                  kelvin: 5000
+          - conditions: >-
+              {{ trigger.to_state.state == "off" }}
+            sequence:
+              - alias: "Turn off lights"
+                service: light.turn_off
+                target:
+                  entity_id: light.garage_lights # Group
+
+  # This is disabled and may be removed in the future.
+  - id: 6bfc0d18-4b00-4728-ba56-5c6eccb3bee2
+    alias: Garage - New Motion Lights
+    mode: restart
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: binary_sensor.garage_assumed_motion
+      from: "off"
+      to: "on"
+    condition:
+      - alias: "Garage automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_garage
+        state: "off"
+    action:
+      - service: light.turn_on
         target:
-          entity_id: light.garage_lights # Group
+          entity_id: light.garage_main_lights
+        data:
+          kelvin: 5000
+      - wait_for_trigger:
+          platform: state
+          entity_id: binary_sensor.garage_assumed_motion
+          from: "on"
+          to: "off"
+      - delay:
+          minutes: >-
+            {% if states("device_tracker.bens_iphone_se_unifi") == "home" %}
+              60
+            {% else %}
+              10
+            {% endif %}
+      - service: light.turn_off
+        target:
+          entity_id: light.garage_main_lights
 
   - id: 6f80226a-15d7-4285-83c5-e643c16f1b7f
     alias: Garage - Motion Lights
@@ -93,6 +140,8 @@ automation:
                 service: light.turn_on
                 target:
                   entity_id: light.garage_main_lights
+                data:
+                  kelvin: 5000
           - conditions: >-
               {{ trigger.id == "off" }}
             sequence:
@@ -120,3 +169,5 @@ automation:
         service: light.turn_on
         target:
           entity_id: light.garage_lights
+        data:
+          kelvin: 5000
