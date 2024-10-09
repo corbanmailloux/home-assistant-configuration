@@ -264,6 +264,79 @@
               "type": "horizontal-stack"
             },
             {
+              "type": "custom:mushroom-climate-card",
+              "entity": "climate.home_hvac",
+              "tap_action": {
+                "action": "more-info"
+              },
+              "hold_action": {
+                "action": "more-info"
+              },
+              "double_tap_action": {
+                "action": "more-info"
+              },
+              "hvac_modes": [
+                "cool",
+                "off",
+                "heat"
+              ],
+              "show_temperature_control": true,
+              "layout": "horizontal"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.first_floor_hvac",
+                  "fill_container": false,
+                  "primary_info": "name",
+                  "secondary_info": "state",
+                  "icon_type": "none",
+                  "hvac_modes": [
+                    "off",
+                    "cool"
+                  ],
+                  "show_temperature_control": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "layout": "horizontal",
+                  "name": "First Floor",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "custom:mushroom-climate-card",
+                  "entity": "climate.second_floor_hvac",
+                  "fill_container": false,
+                  "primary_info": "name",
+                  "secondary_info": "state",
+                  "icon_type": "none",
+                  "hvac_modes": [
+                    "off",
+                    "cool"
+                  ],
+                  "show_temperature_control": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "layout": "horizontal",
+                  "name": "Second Floor",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  }
+                }
+              ]
+            },
+            {
               "type": "conditional",
               "conditions": [
                 {

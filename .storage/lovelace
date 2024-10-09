@@ -1185,6 +1185,22 @@
                   },
                   "secondary_info": "none",
                   "icon": ""
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": "",
+                  "entity": "light.living_room_cabinet_lights",
+                  "name": "LR Built-Ins"
                 }
               ]
             }
@@ -2073,6 +2089,9 @@
                 },
                 {
                   "entity": "input_boolean.cats_are_home"
+                },
+                {
+                  "entity": "device_tracker.bens_iphone_se_unifi"
                 }
               ],
               "show_header_toggle": false,
@@ -2101,6 +2120,10 @@
                   "entity": "cover.ratgdo_right_garage_door_door",
                   "secondary_info": "last-changed",
                   "name": "Right Garage Door"
+                },
+                {
+                  "entity": "binary_sensor.garage_side_person_door_contact",
+                  "secondary_info": "last-changed"
                 },
                 {
                   "entity": "binary_sensor.sunporch_sliding_door_contact",
