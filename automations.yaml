@@ -510,3 +510,103 @@
             device_id: 6239543fc9a684fbba5d4af77ccdf052
           effect: Clear
   mode: single
+- id: '1724980786427'
+  alias: Notify if windows are open with rain forecast overnight
+  description: ''
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: state
+    entity_id: input_select.home_mode
+    state: Home
+  - condition: numeric_state
+    entity_id: sensor.open_window_count
+    above: 0
+  action:
+  - action: weather.get_forecasts
+    metadata: {}
+    data:
+      type: hourly
+    target:
+      entity_id: weather.openweathermap
+    response_variable: forecasts
+    alias: Get Hourly Forecast
+  - variables:
+      hours_to_check: 8
+      precip_percent_min: 70
+      entity_id: weather.openweathermap
+      max_precipitation_chance: '{{ forecasts[entity_id].forecast[0:hours_to_check]
+        | map(attribute=''precipitation_probability'') | max }}'
+  - alias: Check if there's >70% chance of rain in the next 8 hours
+    condition: template
+    value_template: '{{ max_precipitation_chance > precip_percent_min }}'
+  - action: notify.corban
+    metadata: {}
+    data:
+      title: Rain Tonight. Close Windows?
+      message: 'There is a {{ max_precipitation_chance }}% chance of rain tonight
+        and these windows are open: {{ states(''sensor.open_windows'') }}'
+  mode: single
+- id: '1725645532252'
+  alias: Notify Corban when Ben leaves with guest mode on
+  description: ''
+  trigger:
+  - platform: state
+    entity_id:
+    - device_tracker.bens_iphone_se_unifi
+    to: not_home
+    from: home
+    for:
+      hours: 0
+      minutes: 3
+      seconds: 0
+  condition:
+  - condition: state
+    entity_id: input_boolean.guest_mode
+    state: 'on'
+  - condition: state
+    entity_id: binary_sensor.corban_person_home
+    state: 'off'
+  action:
+  - action: notify.corban
+    metadata: {}
+    data:
+      message: Ben left
+      title: Ben Left
+  mode: single
+- id: '1725649471485'
+  alias: Toggle Living Room Cabinet Lights with Wall Switch Button
+  description: ''
+  trigger:
+  - platform: device
+    domain: mqtt
+    device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
+    type: action
+    subtype: config_single
+  - platform: device
+    domain: mqtt
+    device_id: d9db549c961eecf0f3fc66794fe297ad
+    type: action
+    subtype: config_single
+  condition: []
+  action:
+  - action: light.toggle
+    metadata: {}
+    data:
+      brightness_pct: 100
+    target:
+      entity_id: light.living_room_cabinet_lights
+  mode: single
+- id: '1725812307580'
+  alias: Reload the Wall Display After Home Assistant Restarts
+  description: ''
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - action: script.tablet_wall_display_reload
+    metadata: {}
+    data: {}
+  mode: single
