@@ -28,7 +28,7 @@ automation:
       - service: script.doorbell_snapshot_and_notify
 
   - id: 4f90db44-8017-48b9-a950-f304d34b9702
-    alias: Doorbell - Notification Action - Mute for one hour
+    alias: Doorbell - Notification Action - Mute for 4 hours
     trigger:
       - platform: event
         event_type: mobile_app_notification_action
@@ -38,7 +38,7 @@ automation:
       - service: timer.start
         entity_id: timer.doorbell_person_mute_time
         data:
-          duration: "01:00:00"
+          duration: "04:00:00"
 
 timer:
   doorbell_person_mute_time:
@@ -69,12 +69,12 @@ script:
                 title: "Open Feed"
                 uri: "/lovelace/security"
                 icon: "sfsymbols:camera"
-              - action: URI
-                title: Open Reolink App
-                uri: fb1675493782511558://
-                icon: "sfsymbols:camera.viewfinder"
+              # - action: URI
+              #   title: Open Reolink App
+              #   uri: fb1675493782511558://
+              #   icon: "sfsymbols:camera.viewfinder"
               - action: "DOORBELL_PERSON_SILENCE_ONE_HOUR"
-                title: "Mute for an Hour"
+                title: "Mute for 4 Hours"
                 icon: "sfsymbols:bell.slash"
               - action: "DOORBELL_UPDATE_SNAPSHOT"
                 title: "Refresh Image"
