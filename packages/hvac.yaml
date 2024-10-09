@@ -145,3 +145,19 @@ automation:
           title: "House is Too Cold"
           message: >-
             The internal temperature at home has dropped below 55°. Is the heat working?
+
+  - alias: HVAC - Notify when the heat strips activate
+    id: 42810f98-39f3-4f23-b3f5-c00810e9430f
+    trigger:
+      - platform: numeric_state
+        entity_id:
+          - sensor.home_energy_monitor_power_fl1_heat_strips
+          - sensor.home_energy_monitor_power_fl2_heat_strips
+        above: 10
+    action:
+      - alias: "Notify"
+        service: notify.corban
+        data:
+          title: "Heat Strips Active"
+          message: >-
+            One or more of the heat strips are active.
