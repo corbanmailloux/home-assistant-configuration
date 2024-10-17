@@ -4,12 +4,102 @@ light:
     name: Main Office Lights
     unique_id: 164722fa-2fce-4e46-9054-af4f2a08b0dd
     entities:
+      - light.office_ceiling
       - light.office_leds
       - light.wled_master # Used when there are multiple segments
-      - light.corban_s_office_lamp
+      # - light.corban_s_office_lamp
       # - light.office_corner_light
 
+input_boolean:
+  office_motion_lights_override:
+    name: Office Motion Lights - Override Active
+
 automation:
+  - alias: Office Motion Light - Override with triple tap
+    id: a7273b48-a15c-4fd1-8402-312a8980ec42
+    trigger:
+      - platform: device
+        domain: mqtt
+        device_id: 0d88963feb93fc454e4d3c4115034675
+        type: action
+        subtype: up_triple
+        id: "toggle"
+      - platform: device
+        domain: mqtt
+        device_id: 0d88963feb93fc454e4d3c4115034675
+        type: action
+        subtype: down_single
+        id: "disable"
+    action:
+      - choose:
+        - conditions:
+            - condition: trigger
+              id:
+                - "toggle"
+          sequence:
+            - service: input_boolean.toggle
+              target:
+                entity_id: input_boolean.office_motion_lights_override
+        - conditions:
+            - condition: trigger
+              id:
+                - "disable"
+          sequence:
+            - service: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.office_motion_lights_override
+
+  - alias: Office Motion Light Override - Set LEDs
+    id: 32ed809a-9c4e-49d0-ab9b-fdd5cd4dac45
+    trigger:
+      - platform: state
+        entity_id:
+          - input_boolean.office_motion_lights_override
+        from: "off"
+        to: "on"
+        id: "on"
+      - platform: state
+        entity_id:
+          - input_boolean.office_motion_lights_override
+        from: "on"
+        to: "off"
+        id: "off"
+    condition: []
+    action:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - "on"
+            sequence:
+              - action: script.inovelli_led_control
+                metadata: {}
+                data:
+                  led: All
+                  color: Green
+                  level: 100
+                  effect: Solid
+                  duration: Indefinitely
+                  target:
+                    device_id: 0d88963feb93fc454e4d3c4115034675
+                alias: Set Switch LEDs Green
+          - conditions:
+              - condition: trigger
+                id:
+                  - "off"
+            sequence:
+              - action: script.inovelli_led_control
+                metadata: {}
+                data:
+                  led: All
+                  color: Green
+                  level: 100
+                  effect: Clear
+                  duration: Indefinitely
+                  target:
+                    device_id: 0d88963feb93fc454e4d3c4115034675
+                alias: Clear Switch LEDs
+
   - alias: Office Motion Lights
     id: 3c42906d-db94-454e-8dc9-bc980e94223f
     mode: restart
@@ -21,7 +111,7 @@ automation:
         entity_id: binary_sensor.office_mini_motion_presence
         to: "off"
         for:
-          minutes: 3
+          minutes: 2
     condition:
       - alias: "Home Mode"
         condition: state
@@ -30,6 +120,10 @@ automation:
       - alias: "Office is not marked as excluded"
         condition: state
         entity_id: input_boolean.room_exclude_office
+        state: "off"
+      - alias: "Office Motion Lighting isn't overridden"
+        condition: state
+        entity_id: input_boolean.office_motion_lights_override
         state: "off"
     action:
       - choose:
@@ -51,6 +145,10 @@ automation:
                       - platform: state
                         entity_id: input_boolean.training_mode
                         to: "off"
+                  - delay:
+                      seconds: 10
               - service: light.turn_off
                 target:
                   entity_id: light.main_office_lights
+                data:
+                  transition: 10
