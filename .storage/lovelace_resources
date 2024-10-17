@@ -106,7 +106,7 @@
       },
       {
         "id": "e7f7cc87b0284064b0e54f02d3e72354",
-        "url": "/webrtc/webrtc-camera.js?v=v3.5.2",
+        "url": "/webrtc/webrtc-camera.js?v=v3.6.0",
         "type": "module"
       },
       {

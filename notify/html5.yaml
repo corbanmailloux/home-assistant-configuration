@@ -1,7 +1,0 @@
-# HTML5 Notification
-
-- platform: html5
-  name: HTML5
-  vapid_pub_key: !secret html5_vapid_public_key
-  vapid_prv_key: !secret html5_vapid_private_key
-  vapid_email: !secret html5_email
