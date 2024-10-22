@@ -1,0 +1,27 @@
+timer:
+  camera_homekit_mute_timer:
+
+template:
+  - binary_sensor:
+    - name: "Driveway Camera Object Detected - For Alerting"
+      unique_id: 18565270-3d6c-41f1-937a-90bfd2707463
+      device_class: motion
+      # Muted if the timer is running. Otherwise, set if either object detector is triggering.
+      state: >-
+        {{
+          (not is_state("timer.camera_homekit_mute_timer", "active")) and
+          (
+            is_state("binary_sensor.driveway_person_detected", true) or
+            is_state("binary_sensor.driveway_vehicle_detected", true)
+          )
+        }}
+
+script:
+  mute_camera_alerts_for_time:
+    alias: "Mute Camera Alerts for Some Time"
+    sequence:
+      - action: timer.start
+        data:
+          duration: "2:00:00"
+        target:
+          entity_id: timer.camera_homekit_mute_timer
