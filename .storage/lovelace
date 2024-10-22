@@ -720,6 +720,43 @@
               ]
             },
             {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.corner_lamp",
+                  "name": "LR Corner Lamp",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": ""
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": "",
+                  "entity": "light.living_room_cabinet_lights",
+                  "name": "LR Built-Ins"
+                }
+              ]
+            },
+            {
               "cards": [
                 {
                   "entity": "media_player.living_room_apple_tv",
@@ -1015,8 +1052,8 @@
                 },
                 {
                   "type": "custom:mushroom-light-card",
-                  "entity": "light.corner_lamp",
-                  "name": "Living Room",
+                  "entity": "light.mudroom_lamp",
+                  "name": "Mudroom",
                   "tap_action": {
                     "action": "toggle"
                   },
@@ -1134,43 +1171,6 @@
                   },
                   "secondary_info": "none",
                   "icon": "mdi:coach-lamp-variant"
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.mudroom_lamp",
-                  "name": "Mudroom",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "secondary_info": "none",
-                  "icon": ""
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "secondary_info": "none",
-                  "icon": "",
-                  "entity": "light.living_room_cabinet_lights",
-                  "name": "LR Built-Ins"
                 }
               ]
             }
@@ -2008,6 +2008,23 @@
           "badges": [],
           "cards": [
             {
+              "camera_view": "auto",
+              "type": "picture-glance",
+              "entities": [
+                {
+                  "entity": "light.exterior_lights"
+                },
+                {
+                  "entity": "binary_sensor.driveway_vehicle_detected"
+                },
+                {
+                  "entity": "binary_sensor.driveway_person_detected"
+                }
+              ],
+              "camera_image": "camera.driveway_medium_resolution_channel",
+              "title": "Driveway"
+            },
+            {
               "type": "custom:webrtc-camera",
               "ui": true,
               "muted": true,
@@ -2132,6 +2149,9 @@
                   "secondary_info": "last-changed"
                 },
                 {
+                  "entity": "binary_sensor.living_room_presence"
+                },
+                {
                   "entity": "binary_sensor.laundry_motion_sensor_occupancy",
                   "name": "Basement Laundry Motion",
                   "secondary_info": "last-changed"
@@ -2147,11 +2167,6 @@
                   "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.main_doorbell_motion",
-                  "name": "Doorbell - Motion",
-                  "secondary_info": "last-changed"
-                },
-                {
                   "entity": "binary_sensor.garage_right_motion",
                   "name": "Garage Parking Sensor Motion",
                   "secondary_info": "last-changed"
@@ -2160,6 +2175,16 @@
                   "entity": "binary_sensor.garage_opener_motion_sensor_occupancy",
                   "secondary_info": "last-changed",
                   "name": "Garage Opener Motion"
+                },
+                {
+                  "entity": "binary_sensor.driveway_person_detected",
+                  "secondary_info": "last-changed",
+                  "name": "Driveway - Person"
+                },
+                {
+                  "entity": "binary_sensor.driveway_vehicle_detected",
+                  "secondary_info": "last-changed",
+                  "name": "Driveway - Vehicle"
                 }
               ],
               "title": "Motion Sensors",

@@ -11,6 +11,7 @@ homekit:
         # Living Room
         - light.corner_lamp
         - light.living_room_ceiling_lights # Zigbee Group
+        - light.living_room_cabinet_lights
         - scene.movie_mode
         - cover.living_room_curtain_right
         # - fan.living_room_fan # Seasonal
@@ -82,3 +83,14 @@ homekit:
         support_audio: True
         linked_doorbell_sensor: binary_sensor.main_doorbell_visitor
         linked_motion_sensor: binary_sensor.main_doorbell_person
+
+  # - name: HASS Driveway Camera
+  #   port: 21066
+  #   mode: accessory
+  #   filter:
+  #     include_entities:
+  #       - camera.driveway_medium_resolution_channel
+  #   entity_config:
+  #     camera.driveway_medium_resolution_channel:
+  #       support_audio: True
+  #       linked_motion_sensor: binary_sensor.driveway_camera_object_detected_for_alerting
