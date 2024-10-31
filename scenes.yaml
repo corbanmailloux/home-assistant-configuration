@@ -78,7 +78,7 @@
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 115
+      brightness: 87
       color_temp_kelvin: 3496
       color_temp: 286
       hs_color:
@@ -98,7 +98,7 @@
       supported_color_modes:
       - brightness
       color_mode: brightness
-      brightness: 161
+      brightness: 148
       activeEnergyReports: ''
       activePowerReports: 10
       autoTimerOff: 0
@@ -145,7 +145,7 @@
       doubleTapClearNotifications: Enabled (Default)
       doubleTapDownToParam56:
       doubleTapUpToParam55: Enabled
-      energy: 2.42
+      energy: 3.88
       fanControlMode:
       fanLedLevelType:
       firmwareUpdateInProgressIndicator:
@@ -161,7 +161,11 @@
       ledIntensityWhenOff: 1
       ledIntensityWhenOn: 33
       led_effect:
-      linkquality: 72
+        color: 85
+        duration: 255
+        effect: clear_effect
+        level: 100
+      linkquality: 36
       loadLevelIndicatorTimeout:
       localProtection:
       lowLevelForFanControlMode:
@@ -172,7 +176,7 @@
       outputMode: Dimmer
       overheat: No Alert
       periodicPowerAndEnergyReports:
-      power: 58.4
+      power: 0
       powerType: Neutral
       quickStartLevel:
       quickStartTime:
