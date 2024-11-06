@@ -1,0 +1,450 @@
+esphome:
+  name: office-status-lcd
+  friendly_name: "Office Status LCD"
+
+esp32:
+  board: ttgo-t7-v14-mini32 # esp32doit-devkit-v1
+
+packages:
+  device_base: !include common/device_base.yaml
+
+# Enable logging
+logger:
+  level: INFO
+
+spi:
+  clk_pin: GPIO18
+  miso_pin: GPIO19
+  mosi_pin: GPIO23
+
+display:
+  - platform: ili9xxx
+    id: my_display
+    model: "TFT 2.4" # ili9341
+    dc_pin: GPIO05
+    cs_pin: GPIO26
+    invert_colors: false
+    show_test_card: false
+    auto_clear_enabled: false
+    update_interval: never
+    transform:
+      swap_xy: true
+      mirror_x: true
+      mirror_y: true
+    dimensions:
+      height: 240
+      width: 320
+    # lambda: |-
+    #   auto touch = id(my_touchscreen)->get_touch();
+    #   if (touch) // or touch.has_value()
+    #     it.filled_circle(touch.value().x, touch.value().y, 10, id(color_red));
+
+touchscreen:
+  platform: xpt2046
+  id: my_touchscreen
+  cs_pin: GPIO27
+  calibration:
+    x_min: 340
+    x_max: 3900
+    y_min: 200
+    y_max: 3890
+  transform:
+    mirror_x: true
+    mirror_y: false
+    swap_xy: true
+  on_release:
+      then:
+        - if:
+            condition: lvgl.is_paused
+            then:
+              - switch.turn_off: switch_antiburn
+  ## Helper for calibration:
+  # on_touch:
+  #   - lambda: |-
+  #         ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
+  #             touch.x,
+  #             touch.y,
+  #             touch.x_raw,
+  #             touch.y_raw
+  #             );
+
+
+# Backlight
+output:
+  - platform: ledc
+    pin: GPIO22
+    id: backlight_pwm
+light:
+  - platform: monochromatic
+    output: backlight_pwm
+    name: "Display Backlight"
+    id: back_light
+    restore_mode: ALWAYS_ON
+
+time:
+  - platform: homeassistant
+    id: esptime
+    on_time_sync:
+      - script.execute: update_clock
+    on_time:
+      - minutes: '*'
+        seconds: 0
+        then:
+          - script.execute: update_clock
+
+      # Run the anti-burn process overnight
+      - hours: 2,3,4,5
+        minutes: 5
+        seconds: 0
+        then:
+          - switch.turn_on: switch_antiburn
+      - hours: 2,3,4,5
+        minutes: 35
+        seconds: 0
+        then:
+          - switch.turn_off: switch_antiburn
+
+switch:
+  - platform: template
+    name: Antiburn
+    id: switch_antiburn
+    icon: mdi:television-shimmer
+    optimistic: true
+    entity_category: "config"
+    turn_on_action:
+      - logger.log: "Starting Antiburn"
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+            - delay: 1s
+      - lvgl.pause:
+          show_snow: true
+    turn_off_action:
+      - logger.log: "Stopping Antiburn"
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+
+font:
+  # Clock Font
+  - file: 'resources/fonts/BebasNeue-Regular.ttf'
+    id: clock_font
+    size: 72
+    bpp: 4
+  - file: "resources/fonts/materialdesignicons-webfont.ttf"
+    id: mdi_font_30
+    size: 30
+    glyphs:
+      - "\U000F0567" # mdi-video
+      - "\U000F0568" # mdi-video-off
+      - "\U000F032A" # mdi-leaf
+      - "\U000F0F55" # mdi-home-thermometer-outline
+      - "\U000F0590" # mdi-weather-cloudy
+      - "\U000F010B" # mdi-car
+      - "\U000F0E5B" # mdi-printer-3d-nozzle
+  - file: "resources/fonts/materialdesignicons-webfont.ttf"
+    id: mdi_font_24
+    size: 24
+    glyphs:
+      - "\U000F0567" # mdi-video
+      - "\U000F0568" # mdi-video-off
+      - "\U000F032A" # mdi-leaf
+      - "\U000F0F55" # mdi-home-thermometer-outline
+      - "\U000F0590" # mdi-weather-cloudy
+      - "\U000F010B" # mdi-car
+      - "\U000F0E5B" # mdi-printer-3d-nozzle
+
+lvgl:
+  displays:
+    - my_display
+  touchscreens:
+    - my_touchscreen
+  theme:
+    label:
+      text_color: white
+  pages:
+    - id: main_page
+      widgets:
+        - obj: # a properly placed container object for all these controls
+            align: CENTER
+            width: 320
+            height: 240
+            pad_all: 2
+            bg_color: black
+            radius: 0 # Square corners
+            border_opa: TRANSP
+            scrollable: "OFF"
+            layout: # enable the GRID layout for the children widgets
+              # pad_row: 6
+              # pad_column: 8
+              type: GRID # split the rows and the columns proportionally
+              grid_columns: [FR(1), FR(1), FR(1)]
+              grid_rows: [FR(1), FR(1), FR(1)]
+            widgets:
+
+              ### TOP ROW
+              # - button:
+              #     id: but_backlight_toggle
+              #     grid_cell_column_pos: 0
+              #     grid_cell_row_pos: 0
+              #     grid_cell_x_align: STRETCH
+              #     grid_cell_y_align: STRETCH
+              #     widgets:
+              #       - label:
+              #           id: lable_backlight_toggle
+              #           align: CENTER
+              #           text: "Toggle"
+              #     on_click:
+              #       - light.toggle: back_light
+              # - button:
+              #     id: but_office_meeting
+              #     grid_cell_column_pos: 1
+              #     grid_cell_row_pos: 0
+              #     grid_cell_x_align: STRETCH
+              #     grid_cell_y_align: STRETCH
+              #     checkable: true
+              #     widgets:
+              #       - label:
+              #           id: label_office_meeting
+              #           align: CENTER
+              #           text: "Meeting"
+              # - button:
+              #     id: but_cov_down_east
+              #     grid_cell_column_pos: 2
+              #     grid_cell_row_pos: 0
+              #     grid_cell_x_align: STRETCH
+              #     grid_cell_y_align: STRETCH
+              #     widgets:
+              #       - label:
+              #           id: cov_down_east
+              #           align: CENTER
+              #           text: "TODO"
+
+              ### MIDDLE ROW
+              - obj:
+                  id: driveway_alert_container
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 1
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  grid_cell_column_span: 3
+                  pad_all: 4
+                  scrollable: "OFF"
+                  bg_color: red # For testing
+                  bg_opa: 100% # For testing
+                  border_width: 1
+                  hidden: true # Start hidden
+                  layout: # enable the GRID layout for the children widgets
+                    type: GRID # split the rows and the columns proportionally
+                    grid_columns: [FR(1), FR(4)]
+                    grid_rows: [FR(1)]
+                  widgets:
+                    - label:
+                        id: driveway_alert_icon
+                        grid_cell_column_pos: 0
+                        grid_cell_row_pos: 0
+                        grid_cell_x_align: CENTER
+                        grid_cell_y_align: CENTER
+                        # align: LEFT
+                        text_align: CENTER
+                        text_font: mdi_font_30
+                        text_color: white
+                        text: "\U000F010B" # mdi-car
+                    - label:
+                        id: driveway_alert_label
+                        grid_cell_column_pos: 1
+                        grid_cell_row_pos: 0
+                        grid_cell_x_align: CENTER
+                        grid_cell_y_align: CENTER
+                        # align: CENTER
+                        text_align: CENTER
+                        text_font: montserrat_20
+                        text_color: white
+                        text: "Vehicle in Driveway"
+
+              ### BOTTOM ROW
+              - obj:
+                  id: maggie_eta_container
+                  grid_cell_column_pos: 0
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: STRETCH
+                  grid_cell_y_align: STRETCH
+                  pad_all: 4
+                  scrollable: "OFF"
+                  bg_color: dimgrey
+                  bg_opa: 50%
+                  border_width: 1
+                  hidden: true # Start hidden
+                  widgets:
+                    - label:
+                        id: maggie_eta_icon
+                        align: BOTTOM_LEFT
+                        text_align: LEFT
+                        text_font: mdi_font_24
+                        text_color: white
+                        text: "\U000F010B" # mdi-car
+                    - label:
+                        id: maggie_eta_label
+                        align: TOP_MID
+                        text_align: CENTER
+                        text_font: montserrat_12
+                        text_color: white
+                        text: "Maggie ETA"
+                    - label:
+                        id: maggie_eta_number
+                        align: BOTTOM_RIGHT
+                        text_align: LEFT
+                        text_font: montserrat_24
+                        text_color: white
+                        text: "Wait"
+              - label:
+                  id: meeting_indicator
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 2
+                  grid_cell_x_align: CENTER
+                  grid_cell_y_align: END
+                  # bg_color: blue
+                  # bg_opa: 50%
+                  hidden: true # Start hidden
+                  text_align: CENTER
+                  text_font: mdi_font_30
+                  text_color: red
+                  text: "\U000F0568" # mdi-video-off
+              - label:
+                  id: label_clock
+                  grid_cell_column_pos: 1
+                  grid_cell_row_pos: 2
+                  grid_cell_column_span: 2
+                  grid_cell_x_align: STRETCH # or CENTER
+                  grid_cell_y_align: STRETCH # or CENTER
+                  text_align: RIGHT
+                  text_font: clock_font
+                  text: "WAIT"
+
+sensor:
+#   - platform: homeassistant
+#     id: inside_temperature
+#     entity_id: sensor.living_room_temperature
+#     internal: true
+
+#   - platform: homeassistant
+#     id: outside_temperature
+#     entity_id: sensor.openweathermap_temperature
+#     internal: true
+
+  # Maggie's ETA
+  - platform: homeassistant
+    internal: true
+    id: maggie_eta
+    entity_id: sensor.maggie_time_to_home_for_display
+    on_value:
+      then:
+        - script.execute: update_maggie_eta
+
+binary_sensor:
+  - platform: status
+    internal: true
+    id: system_status
+
+  # Meeting Status:
+  # Display whether or not the camera is on when in a meeting.
+  - platform: homeassistant
+    id: meeting_active
+    entity_id: binary_sensor.corban_on_a_call
+    internal: true
+    on_state:
+      then:
+        - script.execute: update_meeting_indicator
+  - platform: homeassistant
+    id: meeting_camera_active
+    entity_id: binary_sensor.cmaillouxtjq31_camera_in_use
+    internal: true
+    on_state:
+      then:
+        - script.execute: update_meeting_indicator
+
+  # When Maggie is on her way home, show her ETA.
+  - platform: homeassistant
+    id: display_maggie_eta
+    entity_id: input_boolean.wall_display_show_map
+    internal: true
+    on_state:
+      then:
+        - script.execute: update_maggie_eta
+
+  - platform: homeassistant
+    id: driveway_vehicle_detected
+    entity_id: binary_sensor.driveway_vehicle_detected
+    internal: true
+    filters:
+      - delayed_off: 5s
+    on_press:
+      then:
+        - lvgl.widget.show: driveway_alert_container
+    on_release:
+      then:
+        - lvgl.widget.hide: driveway_alert_container
+
+#   # Front Door Status:
+#   # When the front door is opened, display an animation for a few seconds.
+#   - platform: homeassistant
+#     id: front_door_open
+#     entity_id: binary_sensor.front_door
+#     internal: true
+#     on_press:
+#       then:
+#         - display.page.show: page_door
+#         - delay: 10s
+#         - display.page.show: page_main
+
+script:
+  - id: update_clock
+    then:
+      - lvgl.label.update:
+          id: label_clock
+          text:
+            time_format: "%I:%M"
+            time: esptime
+          # text: !lambda |-
+          #   return id(esptime).now().strftime("%I:%M");
+
+  - id: update_meeting_indicator
+    then:
+      - if:
+          condition:
+            - binary_sensor.is_on: meeting_active
+          then:
+            - if:
+                condition:
+                  - binary_sensor.is_on: meeting_camera_active
+                then:
+                  - lvgl.label.update:
+                      id: meeting_indicator
+                      text: "\U000F0567" # mdi-video
+                  - lvgl.widget.show: meeting_indicator
+                else:
+                  - lvgl.label.update:
+                      id: meeting_indicator
+                      text: "\U000F0568" # mdi-video-off
+                  - lvgl.widget.show: meeting_indicator
+          else:
+            - lvgl.widget.hide: meeting_indicator
+
+  - id: update_maggie_eta
+    then:
+      - if:
+          condition:
+            - binary_sensor.is_on: display_maggie_eta
+          then:
+            - lvgl.label.update:
+                id: maggie_eta_number
+                text:
+                  format: "%.0f"
+                  args: [ "id(maggie_eta).state" ]
+            - lvgl.widget.show: maggie_eta_container
+          else:
+            - lvgl.widget.hide: maggie_eta_container

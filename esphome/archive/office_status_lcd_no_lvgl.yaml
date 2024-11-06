@@ -1,5 +1,5 @@
 esphome:
-  name: office-status-lcd
+  name: office-status-lcd-no-lvgl
 
 esp32:
   board: esp32dev
