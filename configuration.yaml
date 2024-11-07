@@ -1,8 +1,8 @@
 homeassistant:
   customize: !include customize.yaml # Allows adding customizations (mostly icon overrides) in the UI.
   packages: !include_dir_named packages
-  allowlist_external_dirs:
-    - /config/openhasp
+  # allowlist_external_dirs:
+  #   - /config/openhasp
 
 default_config:
 
