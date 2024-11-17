@@ -131,7 +131,10 @@ automation:
             sequence:
               - service: light.turn_on
                 target:
-                  entity_id: light.main_office_lights
+                  entity_id:
+                    - light.main_office_lights
+                    - light.office_desk_screen_display_backlight
+                    # - light.office_status_lcd_display_backlight
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
               - if:
@@ -149,6 +152,9 @@ automation:
                       seconds: 10
               - service: light.turn_off
                 target:
-                  entity_id: light.main_office_lights
+                  entity_id:
+                    - light.main_office_lights
+                    - light.office_desk_screen_display_backlight
+                    # - light.office_status_lcd_display_backlight
                 data:
                   transition: 10

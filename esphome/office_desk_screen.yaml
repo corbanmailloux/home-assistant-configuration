@@ -1,0 +1,831 @@
+esphome:
+  name: office-desk-screen
+  friendly_name: "Office Desk Screen"
+  on_boot:
+    - delay: 5s
+    - lvgl.widget.hide: boot_screen
+
+esp32:
+  board: esp32dev
+  flash_size: 4MB
+
+packages:
+  device_base: !include common/device_base.yaml
+
+# Enable logging
+logger:
+  level: INFO
+
+# api:
+#   on_client_connected:
+#     - delay: 2s
+#     - lvgl.widget.hide: boot_screen
+
+# Setup a pin to control the backlight and channels for the red/green/blue of the LED
+output:
+  - platform: ledc
+    pin: GPIO27
+    id: backlight_pin
+  - platform: ledc
+    id: output_red
+    pin: GPIO4
+    inverted: true
+  - platform: ledc
+    id: output_green
+    pin: GPIO16
+    inverted: true
+  - platform: ledc
+    id: output_blue
+    pin: GPIO17
+    inverted: true
+
+# Set up backlight
+light:
+  - platform: monochromatic
+    output: backlight_pin
+    name: Display Backlight
+    id: backlight
+    restore_mode: ALWAYS_ON
+  # Set up the LED on the back and turn it off by default
+  - platform: rgb
+    name: LED
+    id: led
+    red: output_red
+    green: output_green
+    blue: output_blue
+    restore_mode: ALWAYS_OFF
+    default_transition_length: 50ms
+
+# Setup SPI for the display.
+spi:
+  - id: tft
+    clk_pin: GPIO14
+    mosi_pin: GPIO13
+    miso_pin: GPIO12
+
+# Setup i2c bus for capacitive touch
+i2c:
+  sda: 33
+  scl: 32
+  scan: false
+  id: bus_a
+
+# Configure display in landscape mode
+display:
+  - platform: ili9xxx
+    id: my_display
+    model: ST7789V
+    spi_id: tft
+    cs_pin: GPIO15
+    dc_pin: GPIO2
+    invert_colors: false
+    dimensions:
+      width: 320
+      height: 240
+    auto_clear_enabled: false
+    update_interval: never
+    data_rate: 40MHz
+    # show_test_card: true
+    transform:
+      swap_xy: true
+      mirror_x: true
+      mirror_y: false
+    # lambda: |-
+    #   auto touch = id(my_touchscreen)->get_touch();
+    #   if (touch) // or touch.has_value()
+    #     it.filled_circle(touch.value().x, touch.value().y, 10, id(color_red));
+
+touchscreen:
+  platform: cst816
+  id: my_touchscreen
+  update_interval: 50ms
+  calibration:
+    x_min: 1
+    x_max: 240
+    y_min: 9
+    y_max: 310
+  transform:
+    swap_xy: true
+    mirror_x: true
+    mirror_y: false
+  ## Helper for calibration:
+  # on_touch:
+  #   - lambda: |-
+  #         ESP_LOGI("cal", "x=%d, y=%d, x_raw=%d, y_raw=%0d",
+  #             touch.x,
+  #             touch.y,
+  #             touch.x_raw,
+  #             touch.y_raw
+  #             );
+
+# color:
+#   - id: color_red
+#     red: 100%
+#     green: 0%
+#     blue: 0%
+
+time:
+  - platform: homeassistant
+    id: esptime
+    on_time_sync:
+      - script.execute: update_clock
+    on_time:
+      - minutes: "*"
+        seconds: 0
+        then:
+          - script.execute: update_clock
+
+      # Run the anti-burn process overnight
+      - hours: 2,3,4,5
+        minutes: 5
+        seconds: 0
+        then:
+          - switch.turn_on: switch_antiburn
+      - hours: 2,3,4,5
+        minutes: 35
+        seconds: 0
+        then:
+          - switch.turn_off: switch_antiburn
+
+switch:
+  - platform: template
+    name: Antiburn
+    id: switch_antiburn
+    icon: mdi:television-shimmer
+    optimistic: true
+    entity_category: "config"
+    turn_on_action:
+      - logger.log: "Starting Antiburn"
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+            - delay: 1s
+      - lvgl.pause:
+          show_snow: true
+    turn_off_action:
+      - logger.log: "Stopping Antiburn"
+      - if:
+          condition: lvgl.is_paused
+          then:
+            - lvgl.resume:
+            - lvgl.widget.redraw:
+
+  - platform: template
+    name: Show Alert
+    id: switch_alert
+    icon: mdi:alert
+    optimistic: true
+    entity_category: "config"
+    turn_on_action:
+      - script.execute:
+          id: trigger_mac_alert
+          message: Sample! We good!
+          icon: "\U000F002A" # mdi-alert-outline
+    turn_off_action:
+      - script.execute: reset_mac_alert
+
+font:
+  # Clock Font
+  - file: "resources/fonts/BebasNeue-Regular.ttf"
+    id: clock_font
+    size: 72
+    bpp: 4
+
+  # MDI in various sizes
+  - file: "resources/fonts/materialdesignicons-webfont.ttf"
+    id: mdi_font_40
+    size: 40
+    bpp: 4
+    glyphs:
+      - "\U000F002A" # mdi-alert-outline
+      - "\U000F010B" # mdi-car
+  - file: "resources/fonts/materialdesignicons-webfont.ttf"
+    id: mdi_font_30
+    size: 30
+    bpp: 4
+    glyphs:
+      - "\U000F0567" # mdi-video
+      - "\U000F0568" # mdi-video-off
+      - "\U000F0F55" # mdi-home-thermometer-outline
+      - "\U000F0590" # mdi-weather-cloudy
+      - "\U000F010B" # mdi-car
+  - file: "resources/fonts/materialdesignicons-webfont.ttf"
+    id: mdi_font_24
+    size: 24
+    bpp: 4
+    glyphs:
+      - "\U000F0567" # mdi-video
+      - "\U000F0568" # mdi-video-off
+      - "\U000F0F55" # mdi-home-thermometer-outline
+      - "\U000F0590" # mdi-weather-cloudy
+      - "\U000F010B" # mdi-car
+      - "\U000F0035" # mdi-apple - Apple logo
+      - "\U000F05A9" # mdi-wifi
+      - "\U000F0A1E" # mdi-microsoft-visual-studio-code
+      - "\U000F0361" # mdi-message
+      - "\U000F0100" # mdi-camera
+      - "\U000F05DF" # mdi-camera-off
+      - "\U000F08BB" # mdi-cog-outline (Settings)
+      - "\U000F002A" # mdi-alert-outline
+  - file: "resources/fonts/materialdesignicons-webfont.ttf"
+    id: mdi_font_22
+    size: 22
+    bpp: 4
+    glyphs:
+      - "\U000F0035" # mdi-apple - Apple logo
+      - "\U000F05A9" # mdi-wifi
+      - "\U000F092B" # mdi-wifi-strength-alert-outline
+
+  # Mac Font: SF Pro Display
+  - file: "resources/fonts/SF-Pro-Display-Regular.otf"
+    id: mac_font_20
+    size: 20
+    bpp: 4
+  - file: "resources/fonts/SF-Pro-Display-Regular.otf"
+    id: mac_font_14
+    size: 14
+    bpp: 4
+  - file: "resources/fonts/SF-Pro-Display-Regular.otf"
+    id: mac_font_10
+    size: 10
+    bpp: 4
+  - file: "resources/fonts/SF-Pro-Display-Semibold.otf"
+    id: mac_font_bold_20
+    size: 20
+    bpp: 4
+    glyphs: ["°", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+
+image:
+  - file: https://corb.co/icons/logo.min.svg
+    id: boot_logo
+    resize: 100x100
+    type: RGB565
+    use_transparency: true
+
+lvgl:
+  displays:
+    - my_display
+  touchscreens:
+    - my_touchscreen
+  buffer_size: 25% # Important to fit without PSRAM.
+  theme:
+    label:
+      text_color: white
+  top_layer:
+    widgets:
+      # Boot screen must be last in the list.
+      - obj:
+          id: boot_screen
+          x: 0
+          y: 0
+          width: 100%
+          height: 100%
+          bg_color: 0x000000
+          bg_opa: COVER
+          radius: 0
+          pad_all: 0
+          border_width: 0
+          widgets:
+            - image:
+                align: CENTER
+                src: boot_logo
+                y: -40
+            - spinner:
+                align: CENTER
+                y: 70
+                height: 50
+                width: 50
+                spin_time: 1s
+                arc_length: 60deg
+                arc_rounded: true
+                arc_width: 8
+                arc_opa: 0%
+                # arc_color: 0x003265 # corb.co blue
+                indicator:
+                  arc_color: 0xDA742A # corb.co orange
+                  arc_width: 8
+          on_press:
+            - lvgl.widget.hide: boot_screen
+  gradients:
+    - id: color_bar
+      direction: hor
+      dither: none
+      stops:
+        - color: 0xFF0000
+          position: 0
+        - color: 0xFFFF00
+          position: 42
+        - color: 0x00FF00
+          position: 84
+        - color: 0x00FFFF
+          position: 127
+        - color: 0x0000FF
+          position: 169
+        - color: 0xFF00FF
+          position: 212
+        - color: 0xFF0000
+          position: 255
+  pages:
+    - id: mac_desktop_page
+      # bg_color: 0x000000
+      bg_grad: color_bar
+      bg_opa: COVER
+      widgets:
+        # Menu Bar
+        - obj:
+            id: mac_menu_bar
+            x: 0
+            y: 0
+            width: 100%
+            height: 30px
+            pad_top: 0
+            pad_bottom: 0
+            pad_left: 2
+            pad_right: 2
+            bg_color: 0x181818
+            bg_opa: COVER
+            radius: 0
+            border_width: 0
+            scrollable: "OFF"
+            layout:
+              type: FLEX
+              flex_flow: ROW
+              flex_align_main: SPACE_EVENLY # Does this matter with flex_grow set?
+              flex_align_cross: CENTER
+              flex_align_track: CENTER
+              pad_column: 4
+            widgets:
+              - label:
+                  id: mac_menu_apple_icon
+                  text: "\U000F0035" # mdi-apple
+                  text_align: LEFT
+                  text_font: mdi_font_22
+              - label:
+                  id: mac_menu_title
+                  flex_grow: 1 # Take up the rest of the space in the menu bar
+                  text: "Welcome!"
+                  text_align: LEFT
+                  text_font: mac_font_20
+              - label:
+                  id: mac_menu_temperature
+                  text: "XX°"
+                  text_font: mac_font_20
+                  text_align: CENTER
+              - label:
+                  id: mac_menu_wifi_icon
+                  text: "\U000F092B" # mdi-wifi-strength-alert-outline"
+                  text_font: mdi_font_22
+                  text_align: CENTER
+              - label:
+                  id: label_clock
+                  text: "XX:XX"
+                  text_align: RIGHT
+                  text_font: mac_font_20
+
+        # Dock
+        - obj:
+            id: mac_dock
+            x: 0
+            y: -2
+            align: BOTTOM_MID
+            width: 180px # 75%
+            height: 44px
+            pad_all: 0
+            bg_color: 0x181818
+            bg_opa: 80% # COVER
+            radius: 10
+            border_width: 2
+            border_color: 0x323232
+            scrollable: "OFF"
+            layout:
+              type: FLEX
+              flex_flow: ROW
+              flex_align_main: SPACE_EVENLY
+              flex_align_cross: CENTER
+              flex_align_track: CENTER
+              pad_column: 5
+            widgets:
+              - obj:
+                  id: dock_imessage
+                  width: 34px
+                  height: 34px
+                  bg_color: 0x45EB53
+                  bg_opa: COVER
+                  scrollable: "OFF"
+                  border_width: 0
+                  radius: 6
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text: "\U000F0361" # mdi-message
+                        text_color: 0xFEFEFE
+                        text_align: CENTER
+                        text_font: mdi_font_24
+              - obj:
+                  id: dock_vscode
+                  width: 34px
+                  height: 34px
+                  bg_color: 0xFFFFFF
+                  bg_opa: COVER
+                  scrollable: "OFF"
+                  border_width: 0
+                  radius: 6
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text: "\U000F0A1E" # mdi-microsoft-visual-studio-code
+                        text_align: CENTER
+                        text_font: mdi_font_24
+                        text_color: 0x0D63C1
+              - obj:
+                  id: dock_facetime
+                  width: 34px
+                  height: 34px
+                  bg_color: 0x45EB53
+                  bg_opa: COVER
+                  scrollable: "OFF"
+                  border_width: 0
+                  radius: 6
+                  widgets:
+                    - label:
+                        id: dock_facetime_icon
+                        align: CENTER
+                        y: -1 # This icon doesn't look centered otherwise.
+                        text: "\U000F0567" # mdi-video
+                        text_align: CENTER
+                        text_font: mdi_font_30
+                        text_color: 0xFEFEFE
+              - obj:
+                  id: dock_settings
+                  width: 34px
+                  height: 34px
+                  bg_color: 0xC8C7CE
+                  bg_opa: COVER
+                  scrollable: "OFF"
+                  border_width: 0
+                  radius: 6
+                  widgets:
+                    - label:
+                        align: CENTER
+                        text: "\U000F08BB" # mdi-cog-outline (Settings)
+                        text_align: CENTER
+                        text_font: mdi_font_24
+                        text_color: 0x131313
+
+        # Floating Window
+        - obj:
+            id: mac_window
+            hidden: true
+            x: 0
+            y: -10
+            align: CENTER
+            width: 80%
+            height: 50%
+            pad_all: 2
+            bg_color: 0x1F1F1F
+            bg_opa: 80% # COVER
+            radius: 5
+            border_width: 1
+            border_color: 0x363636
+            scrollable: "OFF"
+            widgets:
+              # Title Bar Buttons
+              - obj:
+                  id: mac_window_red_button
+                  align: TOP_LEFT
+                  x: 2
+                  y: 2
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0xF44546
+                  bg_opa: COVER
+                  border_width: 0
+              - obj:
+                  id: mac_window_yellow_button
+                  align_to:
+                    id: mac_window_red_button
+                    align: OUT_RIGHT_MID
+                    x: 4
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0xFDB024
+                  bg_opa: COVER
+                  border_width: 0
+              - obj:
+                  id: mac_window_green_button
+                  align_to:
+                    id: mac_window_yellow_button
+                    align: OUT_RIGHT_MID
+                    x: 4
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0x2AC131
+                  bg_opa: COVER
+                  border_width: 0
+              - label:
+                  id: mac_window_title
+                  align: TOP_MID
+                  text: "Alert"
+                  text_font: mac_font_10 # montserrat_10
+                  text_align: CENTER
+              - line:
+                  id: mac_window_divider_line
+                  points:
+                    - -4, 14
+                    - 300, 14
+                  width: 100%
+                  line_width: 1
+                  line_color: 0x808080
+
+              - label:
+                  id: mac_window_alert_icon
+                  align: LEFT_MID
+                  x: 10
+                  y: 5 # Push down from the title bar
+                  text_font: mdi_font_40
+                  text_align: CENTER
+                  text: "\U000F002A" # mdi-alert-outline
+              - label:
+                  id: mac_window_alert_message
+                  align_to:
+                    id: mac_window_alert_icon
+                    align: OUT_RIGHT_MID
+                    x: 15
+                  text_font: mac_font_20
+                  text_align: CENTER
+                  text: "No active alert."
+
+              # Confirmation Button
+              # - obj:
+              #     id: mac_window_confirm_button
+              #     align: BOTTOM_RIGHT
+              #     x: -10
+              #     y: -4
+              #     width: 60
+              #     height: 20
+              #     radius: 3
+              #     bg_color: 0x565E60
+              #     bg_opa: COVER
+              #     border_width: 0
+              #     scrollable: "OFF"
+              #     widgets:
+              #       - label:
+              #           align: CENTER
+              #           text: "Confirm"
+              #           text_font: montserrat_10
+              #           text_align: CENTER
+
+        # Temperature Widget
+        - obj:
+            id: mac_widget_temperature
+            align: BOTTOM_RIGHT
+            x: -8
+            y: -5
+            width: 50px
+            height: 50px
+            pad_top: 3
+            pad_left: 5
+            bg_color: 0x216791
+            bg_opa: COVER
+            radius: 10
+            border_width: 0
+            scrollable: "OFF"
+            layout:
+              type: FLEX
+              flex_flow: COLUMN
+              # Align everything top-left
+              flex_align_main: START
+              flex_align_cross: START
+              flex_align_track: START
+              pad_row: 1
+            widgets:
+              - label:
+                  id: mac_widget_temperature_title
+                  text: "Office"
+                  text_align: LEFT
+                  text_font: mac_font_14
+              - label:
+                  id: mac_widget_temperature_value
+                  text: "XX°"
+                  text_align: LEFT
+                  text_font: mac_font_bold_20
+
+sensor:
+  - platform: homeassistant
+    id: inside_temperature
+    entity_id: sensor.office_temperature
+    internal: true
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: mac_widget_temperature_value
+            text:
+              format: "%.0f°"
+              args: [x]
+
+  - platform: homeassistant
+    id: outside_temperature
+    entity_id: sensor.outdoor_porch_temperature # sensor.openweathermap_temperature
+    internal: true
+    on_value:
+      then:
+        - lvgl.label.update:
+            id: mac_menu_temperature
+            text:
+              format: "%.0f°"
+              args: [x]
+
+  # Maggie's ETA
+  - platform: homeassistant
+    internal: true
+    id: maggie_eta
+    entity_id: sensor.maggie_time_to_home_for_display
+    on_value:
+      then:
+        - script.execute: update_maggie_eta
+
+  # Does not work. Maybe the wrong pin?
+  # - platform: adc
+  #   pin: GPIO34
+  #   name: "Photoresistor Raw"
+  #   update_interval: 10s
+
+binary_sensor:
+  - platform: status
+    internal: true
+    id: system_status
+    on_press:
+      then:
+        - lvgl.label.update:
+            id: mac_menu_wifi_icon
+            text: "\U000F05A9" # mdi-wifi
+            text_color: 0xFFFFFF
+    on_release:
+      then:
+        - lvgl.label.update:
+            id: mac_menu_wifi_icon
+            text: "\U000F092B" # mdi-wifi-strength-alert-outline"
+            text_color: 0xFF0000
+
+  # Meeting Status:
+  # Display whether or not the camera is on when in a meeting.
+  - platform: homeassistant
+    id: meeting_active
+    entity_id: binary_sensor.corban_on_a_call
+    internal: true
+    on_state:
+      then:
+        - script.execute: update_meeting_indicator
+  - platform: homeassistant
+    id: meeting_camera_active
+    entity_id: binary_sensor.cmaillouxtjq31_camera_in_use
+    internal: true
+    on_state:
+      then:
+        - script.execute: update_meeting_indicator
+
+  # When Maggie is on her way home, show her ETA.
+  - platform: homeassistant
+    id: display_maggie_eta
+    entity_id: input_boolean.wall_display_show_map
+    internal: true
+    on_state:
+      then:
+        - script.execute: update_maggie_eta
+
+  - platform: homeassistant
+    id: driveway_vehicle_detected
+    entity_id: binary_sensor.driveway_vehicle_detected
+    internal: true
+    filters:
+      - delayed_off: 5s
+    on_press:
+      then:
+        - script.execute:
+            id: trigger_mac_alert
+            icon: "\U000F010B" # mdi-car
+            message: "Vehicle in Driveway"
+        - repeat:
+            count: 5
+            then:
+              - light.turn_on:
+                  id: led
+                  brightness: 100%
+                  red: 100%
+                  green: 0%
+                  blue: 0%
+                  transition_length: 0ms
+              - delay: 250ms
+              - light.turn_off:
+                  id: led
+                  transition_length: 0ms
+              - delay: 100ms
+    on_release:
+      then:
+        - script.execute: reset_mac_alert
+
+#   # Front Door Status:
+#   # When the front door is opened, display an animation for a few seconds.
+#   - platform: homeassistant
+#     id: front_door_open
+#     entity_id: binary_sensor.front_door
+#     internal: true
+#     on_press:
+#       then:
+#         - display.page.show: page_door
+#         - delay: 10s
+#         - display.page.show: page_main
+
+script:
+  - id: update_clock
+    then:
+      - lvgl.label.update:
+          id: label_clock
+          text:
+            # time_format: "%I:%M" # Ex: 09:45
+            time_format: "%l:%M" # Ex: 9:45
+            time: esptime
+
+  - id: update_meeting_indicator
+    then:
+      - if:
+          condition:
+            - binary_sensor.is_on: meeting_active
+          then:
+            - if:
+                condition:
+                  - binary_sensor.is_on: meeting_camera_active
+                then:
+                  - lvgl.label.update:
+                      id: dock_facetime_icon
+                      text: "\U000F0567" # mdi-video
+                      text_color: 0xFF0000
+                else:
+                  - lvgl.label.update:
+                      id: dock_facetime_icon
+                      text: "\U000F0568" # mdi-video-off
+                      text_color: 0xFF0000
+          else:
+            - lvgl.label.update:
+                id: dock_facetime_icon
+                text: "\U000F0567" # mdi-video
+                text_color: 0xFEFEFE
+
+  - id: update_maggie_eta
+    then:
+      - if:
+          condition:
+            - binary_sensor.is_on: display_maggie_eta
+          then:
+            - lvgl.label.update:
+                id: mac_menu_title
+                text:
+                  format: "Maggie: %.0f min."
+                  args: ["id(maggie_eta).state"]
+            - if:
+                condition:
+                  - sensor.in_range:
+                      id: maggie_eta
+                      below: 10.0
+                then:
+                  - lvgl.label.update:
+                      id: mac_menu_title
+                      text_color: 0xFF7C5E
+                else:
+                  - lvgl.label.update:
+                      id: mac_menu_title
+                      text_color: 0xFFFFFF
+          else:
+            - lvgl.label.update:
+                id: mac_menu_title
+                text: "Welcome!"
+                text_color: 0xFFFFFF
+
+  # Reusable, parameterized script to show an alert on the screen.
+  - id: trigger_mac_alert
+    parameters:
+      message: string
+      icon: string
+    then:
+      - lvgl.label.update:
+          id: mac_window_alert_icon
+          text: !lambda return icon;
+      - lvgl.label.update:
+          id: mac_window_alert_message
+          text: !lambda return message;
+      - lvgl.widget.show: mac_window
+
+  - id: reset_mac_alert
+    then:
+      - lvgl.widget.hide: mac_window
+      - lvgl.label.update:
+          id: mac_window_alert_icon
+          text: "\U000F002A" # mdi-alert-outline
+      - lvgl.label.update:
+          id: mac_window_alert_message
+          text: "No active alert."
