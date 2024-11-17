@@ -371,39 +371,6 @@
           entity_id: light.guest_bedroom_ceiling_fan_light
         alias: Brightness down
   mode: single
-- id: '1714050484487'
-  alias: Run air purifier after a cat uses the litter box
-  description: ''
-  trigger:
-  - platform: state
-    entity_id:
-    - sensor.litter_robot_4_status_code
-    to: cst
-    for:
-      hours: 0
-      minutes: 0
-      seconds: 30
-  condition:
-  - condition: device
-    device_id: 6c3eb97f2dda23f91af953ece510fb49
-    domain: fan
-    entity_id: 11fe02f23790619b4315b86446562ed6
-    type: is_off
-  action:
-  - type: turn_on
-    device_id: 6c3eb97f2dda23f91af953ece510fb49
-    entity_id: 11fe02f23790619b4315b86446562ed6
-    domain: fan
-  - delay:
-      hours: 0
-      minutes: 20
-      seconds: 0
-      milliseconds: 0
-  - type: turn_off
-    device_id: 6c3eb97f2dda23f91af953ece510fb49
-    entity_id: 11fe02f23790619b4315b86446562ed6
-    domain: fan
-  mode: single
 - id: '1714258867767'
   alias: Kitchen Bar Light Switch - Double Tap Config for Garage Doors
   description: ''

@@ -695,33 +695,44 @@
                   "icon": "mdi:light-recessed"
                 },
                 {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-cover-card",
-                      "entity": "cover.living_room_curtain_right",
-                      "fill_container": true,
-                      "show_position_control": false,
-                      "show_buttons_control": true,
-                      "show_tilt_position_control": false,
-                      "hold_action": {
-                        "action": "more-info"
-                      },
-                      "double_tap_action": {
-                        "action": "more-info"
-                      },
-                      "secondary_info": "none",
-                      "layout": "horizontal",
-                      "name": "Curtains",
-                      "primary_info": "none"
-                    }
-                  ]
+                  "type": "custom:mushroom-light-card",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": "",
+                  "entity": "light.living_room_cabinet_lights",
+                  "name": "LR Built-Ins"
                 }
               ]
             },
             {
               "type": "horizontal-stack",
               "cards": [
+                {
+                  "type": "custom:mushroom-cover-card",
+                  "entity": "cover.living_room_curtain_right",
+                  "fill_container": true,
+                  "show_position_control": false,
+                  "show_buttons_control": true,
+                  "show_tilt_position_control": false,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "layout": "horizontal",
+                  "name": "Curtains",
+                  "primary_info": "none"
+                },
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.corner_lamp",
@@ -737,22 +748,6 @@
                   },
                   "secondary_info": "none",
                   "icon": ""
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "secondary_info": "none",
-                  "icon": "",
-                  "entity": "light.living_room_cabinet_lights",
-                  "name": "LR Built-Ins"
                 }
               ]
             },
@@ -817,15 +812,34 @@
                   "primary_info": "none",
                   "secondary_info": "none",
                   "layout": "horizontal",
-                  "name": "Overhead",
-                  "icon": "mdi:globe-light",
+                  "icon": "mdi:bed-double-outline",
                   "hold_action": {
                     "action": "more-info"
                   },
                   "double_tap_action": {
                     "action": "more-info"
                   },
-                  "entity": "light.master_bedroom_ceiling_fan_light"
+                  "name": "Headboard",
+                  "entity": "light.master_bedroom_headboard"
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "fill_container": true,
+                  "show_brightness_control": true,
+                  "collapsible_controls": false,
+                  "primary_info": "none",
+                  "secondary_info": "none",
+                  "layout": "horizontal",
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "use_light_color": true,
+                  "entity": "light.master_bedroom_ceiling_fan_light",
+                  "name": "Overhead",
+                  "icon": "mdi:dome-light"
                 }
               ]
             },
@@ -1374,6 +1388,16 @@
               "title": "Temperature Overview",
               "type": "history-graph",
               "hours_to_show": 24
+            },
+            {
+              "type": "custom:scheduler-card",
+              "include": [
+                "climate.first_floor_hvac",
+                "climate.home_hvac",
+                "climate.second_floor_hvac",
+                "fan.office_air_purifier"
+              ],
+              "exclude": []
             }
           ]
         },
