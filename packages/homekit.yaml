@@ -36,12 +36,15 @@ homekit:
         - light.first_floor_hall_light
 
         # Craft Room
+        - light.craft_room_ceiling_fan_light
+        - fan.craft_room_ceiling_fan
 
         # Master Bedroom
         - light.master_bedroom_ceiling_fan_light
         - fan.master_bedroom_ceiling_fan
         - cover.master_bedroom_curtains
         - light.bed_lighting_rgb_light
+        - light.master_bedroom_headboard
         - fan.office_air_purifier
 
         # Guest Bedroom

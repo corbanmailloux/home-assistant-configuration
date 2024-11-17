@@ -102,6 +102,7 @@ script:
               entity_id:
                 - light.master_bedroom_ceiling_fan_light
                 - light.bed_lighting_rgb_light
+                - light.master_bedroom_headboard
           - if:
               - "{{ include_fans == true }}"
             then:
@@ -132,18 +133,25 @@ script:
                   entity_id:
                     - fan.guest_bedroom_ceiling_fan
 
-      # - alias: "Craft Room"
-      #   if:
-      #     - or:
-      #       - "{{ ignore_room_exclusions == true }}"
-      #       - condition: state
-      #         entity_id: input_boolean.room_exclude_craft_room
-      #         state: "off"
-      #   then:
-      #     - service: homeassistant.turn_off
-      #       target:
-      #         entity_id:
-      #           - light.fairy_lights
+      - alias: "Craft Room"
+        if:
+          - or:
+            - "{{ ignore_room_exclusions == true }}"
+            - condition: state
+              entity_id: input_boolean.room_exclude_craft_room
+              state: "off"
+        then:
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - light.craft_room_ceiling_fan_light
+          - if:
+              - "{{ include_fans == true }}"
+            then:
+              - service: homeassistant.turn_off
+                target:
+                  entity_id:
+                    - fan.craft_room_ceiling_fan
 
       - alias: "Basement"
         if:

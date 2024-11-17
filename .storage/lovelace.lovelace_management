@@ -532,6 +532,15 @@
                   "entity": "script.wol_tubby",
                   "name": "Wake/Start Tubby NAS",
                   "icon": "mdi:power"
+                },
+                {
+                  "entity": "sensor.biden_display_display_count"
+                },
+                {
+                  "entity": "button.biden_monitor_switch_to_monitor"
+                },
+                {
+                  "entity": "button.biden_monitor_switch_to_tv"
                 }
               ],
               "title": "Device Controls"
