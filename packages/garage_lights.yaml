@@ -36,13 +36,20 @@ template:
       - name: "Garage Assumed Motion"
         unique_id: 75e72911-0217-4df9-a900-f7808bb0081e
         device_class: occupancy
-        # Only count the door sensors as motion if the lights are off. This avoids retriggering when leaving the garage.
         state: >-
           {{
-            ( is_state('binary_sensor.garage_door_just_opened', 'on') and is_state('light.garage_main_lights', 'off')) or
+            is_state('binary_sensor.garage_door_just_opened', 'on') or
             is_state('binary_sensor.garage_right_motion', 'on') or
             is_state('binary_sensor.garage_opener_motion_sensor_occupancy', 'on')
           }}
+        # OLD:
+        # # Only count the door sensors as motion if the lights are off. This avoids retriggering when leaving the garage.
+        # state: >-
+        #   {{
+        #     ( is_state('binary_sensor.garage_door_just_opened', 'on') and is_state('light.garage_main_lights', 'off')) or
+        #     is_state('binary_sensor.garage_right_motion', 'on') or
+        #     is_state('binary_sensor.garage_opener_motion_sensor_occupancy', 'on')
+        #   }}
 
 automation:
   - id: 01c0a256-d577-4934-b97f-208357c58cb8
@@ -73,7 +80,6 @@ automation:
                 target:
                   entity_id: light.garage_lights # Group
 
-  # This is disabled and may be removed in the future.
   - id: 6bfc0d18-4b00-4728-ba56-5c6eccb3bee2
     alias: Garage - New Motion Lights
     mode: restart
@@ -110,6 +116,7 @@ automation:
         target:
           entity_id: light.garage_main_lights
 
+  # This is disabled and may be removed in the future.
   - id: 6f80226a-15d7-4285-83c5-e643c16f1b7f
     alias: Garage - Motion Lights
     mode: restart
