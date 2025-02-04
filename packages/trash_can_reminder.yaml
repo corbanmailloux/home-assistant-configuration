@@ -7,9 +7,13 @@ template:
       - name: Trash Can at Home
         unique_id: 55af1538-229e-4c9e-acee-72d26f6cf97c
         device_class: presence
+        # Default to assuming the trash can is at home when the beacon isn't working.
+        # This is helpful when the battery dies, or when I unplug the ESP (like right now).
         state: >-
           {{
-            is_state('device_tracker.trash_can_tracker', 'home') and states("sensor.trash_can_tracker_estimated_distance") | int(999) < 60
+            not has_value("device_tracker.trash_can_tracker") or (
+            is_state('device_tracker.trash_can_tracker', 'home')
+            and states("sensor.trash_can_tracker_estimated_distance") | int(999) < 60)
           }}
 
 automation:
