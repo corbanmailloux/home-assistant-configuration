@@ -159,10 +159,10 @@
                     },
                     {
                       "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_craft_room",
+                      "entity": "input_boolean.room_exclude_lucys_room",
                       "fill_container": true,
                       "layout": "vertical",
-                      "name": "Craft",
+                      "name": "Lucy",
                       "tap_action": {
                         "action": "toggle"
                       },
@@ -350,6 +350,19 @@
               "show_header_toggle": false,
               "title": "Sunrise Alarm",
               "type": "entities"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.unavailable_tracked_devices",
+                  "name": " ",
+                  "secondary_info": "none",
+                  "icon": "mdi:cloud-off-outline"
+                }
+              ],
+              "title": "Unavailable Devices",
+              "show_header_toggle": false
             }
           ],
           "icon": "mdi:flask",

@@ -227,82 +227,92 @@
 - id: '1712374070637'
   alias: Mudroom Lamp Follows Kitchen Bar Light
   description: ''
-  trigger:
-  - platform: device
-    type: turned_on
+  triggers:
+  - type: turned_on
     device_id: 9f61f3f1b573c3799a54ee705f98034f
     entity_id: bf668f7758c2b3fe2ca6adb4bf41ea23
     domain: light
     id: 'on'
-  - platform: device
-    type: turned_off
+    trigger: device
+  - type: turned_off
     device_id: 9f61f3f1b573c3799a54ee705f98034f
     entity_id: bf668f7758c2b3fe2ca6adb4bf41ea23
     domain: light
     id: 'off'
-  condition: []
-  action:
+    trigger: device
+  conditions: []
+  actions:
   - choose:
     - conditions:
       - condition: trigger
         id:
         - 'on'
       sequence:
-      - service: light.turn_on
-        metadata: {}
+      - metadata: {}
         data:
           transition: 0
           brightness_pct: 100
         target:
           device_id: def287c341c870f1a188cf2c5e84a3a3
+        action: light.turn_on
+      - metadata: {}
+        data:
+          transition: 0
+          brightness_pct: 100
+          kelvin: 3200
+        action: light.turn_on
+        target:
+          device_id: 5fde3d24df137723731bafe28dd07084
     - conditions:
       - condition: trigger
         id:
         - 'off'
       sequence:
-      - service: light.turn_off
-        metadata: {}
+      - metadata: {}
         data:
           transition: 0
         target:
-          device_id: def287c341c870f1a188cf2c5e84a3a3
+          device_id:
+          - def287c341c870f1a188cf2c5e84a3a3
+          - 5fde3d24df137723731bafe28dd07084
+        action: light.turn_off
   mode: single
 - id: '1712671842634'
   alias: Guest Room Remote
   description: ''
-  trigger:
-  - platform: device
-    device_id: f55558e66b8f403aed6dc6acc7450363
+  triggers:
+  - device_id: f55558e66b8f403aed6dc6acc7450363
     domain: lutron_caseta
     type: press
     subtype: 'on'
     id: 'on'
-  - platform: device
-    device_id: f55558e66b8f403aed6dc6acc7450363
+    trigger: device
+  - device_id: f55558e66b8f403aed6dc6acc7450363
     domain: lutron_caseta
     type: press
     subtype: 'off'
     id: 'off'
-  - platform: device
-    device_id: f55558e66b8f403aed6dc6acc7450363
+    trigger: device
+  - device_id: f55558e66b8f403aed6dc6acc7450363
     domain: lutron_caseta
     type: press
     subtype: stop
     id: center
-  - platform: device
-    device_id: f55558e66b8f403aed6dc6acc7450363
+    trigger: device
+  - device_id: f55558e66b8f403aed6dc6acc7450363
     domain: lutron_caseta
     type: press
     subtype: raise
     id: up
-  - platform: device
-    device_id: f55558e66b8f403aed6dc6acc7450363
+    trigger: device
+  - device_id: f55558e66b8f403aed6dc6acc7450363
     domain: lutron_caseta
     type: press
     subtype: lower
     id: down
-  condition: []
-  action:
+    trigger: device
+  conditions: []
+  actions:
   - choose:
     - conditions:
       - condition: trigger
@@ -310,66 +320,67 @@
         - 'on'
       sequence:
       - if:
-        - condition: device
-          type: is_on
-          device_id: d147d6e3346a3d70950d269c7a076981
-          entity_id: 185cf978cbd071ed26785da783bafbb2
-          domain: light
+        - condition: state
+          entity_id: light.guest_bedroom_ceiling_fan_light
+          state: 'on'
         then:
-        - service: light.turn_on
-          metadata: {}
+        - metadata: {}
           data:
             brightness_pct: 100
           target:
-            device_id: d147d6e3346a3d70950d269c7a076981
+            entity_id: light.guest_bedroom_ceiling_fan_light
+          action: light.turn_on
         else:
-        - service: light.turn_on
-          metadata: {}
+        - metadata: {}
           data: {}
           target:
-            device_id: d147d6e3346a3d70950d269c7a076981
+            entity_id: light.guest_bedroom_ceiling_fan_light
+          action: light.turn_on
+        alias: Main light on, or to full brightness
     - conditions:
       - condition: trigger
         id:
         - 'off'
       sequence:
-      - type: turn_off
-        device_id: d147d6e3346a3d70950d269c7a076981
-        entity_id: 185cf978cbd071ed26785da783bafbb2
-        domain: light
+      - action: light.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.guest_bedroom_ceiling_fan_light
     - conditions:
       - condition: trigger
         id:
         - center
       sequence:
-      - type: toggle
-        device_id: a5a3ebd634d6ed70eb3fac972d75fa58
-        entity_id: 3a460dca444dfc6c59d66cb0cddc89b4
-        domain: light
+      - action: light.toggle
+        metadata: {}
+        data: {}
+        target:
+          entity_id: light.fairy_lights
     - conditions:
       - condition: trigger
         id:
         - up
       sequence:
       - alias: Brightness up
-        service: light.turn_on
         metadata: {}
         data:
           brightness_step_pct: 25
         target:
           entity_id: light.guest_bedroom_ceiling_fan_light
+        action: light.turn_on
     - conditions:
       - condition: trigger
         id:
         - down
       sequence:
-      - service: light.turn_on
-        metadata: {}
+      - metadata: {}
         data:
           brightness_step_pct: -25
         target:
           entity_id: light.guest_bedroom_ceiling_fan_light
         alias: Brightness down
+        action: light.turn_on
   mode: single
 - id: '1714258867767'
   alias: Kitchen Bar Light Switch - Double Tap Config for Garage Doors
@@ -576,4 +587,220 @@
   - action: script.tablet_wall_display_reload
     metadata: {}
     data: {}
+  mode: single
+- id: '1735588370721'
+  alias: Office Closet Light - Door Trigger
+  description: ''
+  use_blueprint:
+    path: mkosmo/closet-light-from-door-sensor.yaml
+    input:
+      door_sensor: binary_sensor.office_closet_door_sensor_contact
+      light_switch:
+        entity_id: light.office_closet
+      light_timeout: 900
+- id: '1735601423932'
+  alias: Movie Mode - Lighting and Pause
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - media_player.living_room_apple_tv
+    to: playing
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+    id: playing
+  - trigger: state
+    entity_id:
+    - media_player.living_room_apple_tv
+    to:
+    - paused
+    - standby
+    - 'off'
+    id: paused
+    for:
+      seconds: 5
+  - trigger: state
+    entity_id:
+    - input_boolean.movie_mode_active
+    to: 'on'
+    from: 'off'
+    id: movie_mode_start
+  - trigger: state
+    entity_id:
+    - input_boolean.movie_mode_active
+    to: 'off'
+    from: 'on'
+    id: movie_mode_end
+  - trigger: state
+    entity_id:
+    - binary_sensor.living_room_couch_presence
+    from: 'on'
+    to: 'off'
+    id: couch_empty
+  conditions:
+  - condition: state
+    entity_id: input_boolean.room_exclude_livingroom
+    state: 'off'
+    alias: Living Room automations are enabled
+  - condition: state
+    entity_id: input_select.home_mode
+    state: Home
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - movie_mode_start
+      sequence:
+      - action: scene.turn_on
+        metadata: {}
+        target:
+          entity_id: scene.movie_mode
+        data:
+          transition: 2
+    - conditions:
+      - condition: trigger
+        id:
+        - movie_mode_end
+      sequence:
+      - alias: If Cabinet Lights are on, set to bright. Otherwise, skip.
+        if:
+        - condition: state
+          entity_id: light.living_room_cabinet_lights
+          state: 'on'
+        then:
+        - action: scene.turn_on
+          metadata: {}
+          target:
+            entity_id: scene.movie_mode_end
+          data:
+            transition: 2
+  - condition: state
+    entity_id: input_boolean.movie_mode_active
+    state: 'on'
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - playing
+      sequence:
+      - action: scene.turn_on
+        metadata: {}
+        target:
+          entity_id: scene.movie_mode
+        data:
+          transition: 1
+    - conditions:
+      - condition: trigger
+        id:
+        - paused
+      sequence:
+      - action: scene.turn_on
+        metadata: {}
+        data:
+          transition: 1
+        target:
+          entity_id: scene.movie_mode_pause
+    - conditions:
+      - condition: trigger
+        id:
+        - couch_empty
+      sequence:
+      - action: media_player.media_pause
+        metadata: {}
+        data: {}
+        target:
+          entity_id: media_player.living_room_apple_tv
+  mode: single
+- id: '1735606719113'
+  alias: Dining Room Switch - Dining Scene
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 8eb976a9c0f474a3f6de93a5f04bcb72
+    type: action
+    subtype: config_double
+    trigger: device
+  conditions: []
+  actions:
+  - action: scene.turn_on
+    metadata: {}
+    target:
+      entity_id: scene.dining
+    data:
+      transition: 3
+  mode: single
+- id: '1735871090165'
+  alias: Movie Mode - Set Wall Switch LED Bar
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_boolean.movie_mode_active
+    from: 'off'
+    to: 'on'
+    id: 'on'
+  - trigger: state
+    entity_id:
+    - input_boolean.movie_mode_active
+    from: 'on'
+    to: 'off'
+    id: 'off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: script.inovelli_led_control
+        metadata: {}
+        data:
+          led: All
+          color: Orange
+          level: 7
+          effect: Solid
+          duration: Indefinitely
+          target:
+            device_id: d9db549c961eecf0f3fc66794fe297ad
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: script.inovelli_led_control
+        metadata: {}
+        data:
+          led: All
+          color: Orange
+          level: 5
+          duration: Indefinitely
+          target:
+            device_id: d9db549c961eecf0f3fc66794fe297ad
+          effect: Clear
+  mode: single
+- id: '1735871229135'
+  alias: Movie Mode - Toggle with Wall Switch buttons
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: d9db549c961eecf0f3fc66794fe297ad
+    type: action
+    subtype: config_double
+    trigger: device
+  - domain: mqtt
+    device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
+    type: action
+    subtype: config_double
+    trigger: device
+  conditions: []
+  actions:
+  - action: input_boolean.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.movie_mode_active
   mode: single

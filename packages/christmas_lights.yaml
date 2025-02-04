@@ -1,12 +1,12 @@
 # Each year I end up changing what switch is used for the Christmas Tree, so
 # make it configurable here.
-light:
-  - platform: switch
-    name: Christmas Tree Lights
-    entity_id: switch.christmas_tree
+# light:
+#   - platform: switch
+#     name: Christmas Tree Lights
+#     entity_id: switch.christmas_tree
 
 automation:
-  # See also `package/home_away_mode.yaml`.
+  # See also `package/everything_off.yaml` for the off mode.
   - alias: Christmas lights on when getting home or waking up
     id: 515b458d-c596-434e-a356-c824bf229171
     trigger:

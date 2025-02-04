@@ -5,17 +5,17 @@ homekit:
         - light.office_ceiling
         # - light.wled_master
         - light.office_leds
-        - light.corban_s_office_lamp
+        # - light.corban_s_office_lamp # Moved to Mudroom, at least for now.
         # - light.office_corner_light
 
         # Living Room
         - light.corner_lamp
         - light.living_room_ceiling_lights # Zigbee Group
         - light.living_room_cabinet_lights
-        - scene.movie_mode
+        - input_boolean.movie_mode_active
         - cover.living_room_curtain_right
         # - fan.living_room_fan # Seasonal
-        # - light.christmas_tree_lights # Seasonal
+        - light.christmas_tree_lights # Seasonal
         - script.game_mode_start
 
         # Sunporch
@@ -35,10 +35,6 @@ homekit:
         - light.upstairs_hall_light
         - light.first_floor_hall_light
 
-        # Craft Room
-        - light.craft_room_ceiling_fan_light
-        - fan.craft_room_ceiling_fan
-
         # Master Bedroom
         - light.master_bedroom_ceiling_fan_light
         - fan.master_bedroom_ceiling_fan
@@ -46,6 +42,10 @@ homekit:
         - light.bed_lighting_rgb_light
         - light.master_bedroom_headboard
         - fan.office_air_purifier
+
+        # Lucy's Bedroom
+        - light.lucys_bedroom_ceiling_fan_light
+        - fan.lucys_bedroom_ceiling_fan
 
         # Guest Bedroom
         - light.fairy_lights

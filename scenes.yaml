@@ -15,10 +15,22 @@
       - stop_effect
       supported_color_modes:
       - color_temp
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      entity_id:
+      - light.tv_lamp_top
+      - light.tv_lamp_middle
+      - light.tv_lamp_bottom
       icon: mdi:lightbulb-group
       friendly_name: Corner Lamp
       supported_features: 44
-      state: unavailable
+      state: 'off'
     light.front_entry_lights:
       supported_color_modes:
       - onoff
@@ -38,8 +50,8 @@
       - brightness
       effect:
       color_mode: brightness
-      brightness: 128
-      linkquality: 18
+      brightness: 87
+      linkquality: 25
       power_on_behavior:
       update:
         installed_version: 16777220
@@ -204,4 +216,404 @@
     light.key_light_air_1:
       entity_only: true
     light.office_ceiling:
+      entity_only: true
+- id: '1735600911966'
+  name: Movie Mode - End
+  entities:
+    light.living_room_cabinet_lights:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - brightness
+      effect:
+      color_mode: brightness
+      brightness: 255
+      linkquality: 54
+      power_on_behavior:
+      update:
+        installed_version: 16777220
+        latest_version: 16777220
+        state: idle
+      update_available: false
+      icon: mdi:library-shelves
+      friendly_name: Living Room Cabinet Lights
+      supported_features: 44
+      state: 'on'
+  icon: mdi:movie-check
+  metadata:
+    light.living_room_cabinet_lights:
+      entity_only: true
+- id: '1735606323988'
+  name: Movie Mode - Pause
+  entities:
+    light.living_room_cabinet_lights:
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - brightness
+      effect:
+      color_mode: brightness
+      brightness: 204
+      linkquality: 127
+      power_on_behavior:
+      update:
+        installed_version: 16777220
+        latest_version: 16777220
+        state: idle
+      update_available: false
+      icon: mdi:library-shelves
+      friendly_name: Living Room Cabinet Lights
+      supported_features: 44
+      state: 'on'
+  icon: mdi:movie-check
+  metadata:
+    light.living_room_cabinet_lights:
+      entity_only: true
+- id: '1735606656048'
+  name: Dining
+  entities:
+    light.dining_room_light:
+      supported_color_modes:
+      - brightness
+      color_mode: brightness
+      brightness: 74
+      activeEnergyReports:
+      activePowerReports:
+      autoTimerOff: 0
+      auxSwitchUniqueScenes: Disabled
+      bindingOffToOnSyncLevel: Disabled
+      brightnessLevelForDoubleTapDown: 2
+      brightnessLevelForDoubleTapUp: 254
+      buttonDelay: 100ms
+      defaultLed1ColorWhenOff:
+      defaultLed1ColorWhenOn:
+      defaultLed1IntensityWhenOff:
+      defaultLed1IntensityWhenOn:
+      defaultLed2ColorWhenOff:
+      defaultLed2ColorWhenOn:
+      defaultLed2IntensityWhenOff:
+      defaultLed2IntensityWhenOn:
+      defaultLed3ColorWhenOff:
+      defaultLed3ColorWhenOn:
+      defaultLed3IntensityWhenOff:
+      defaultLed3IntensityWhenOn:
+      defaultLed4ColorWhenOff:
+      defaultLed4ColorWhenOn:
+      defaultLed4IntensityWhenOff:
+      defaultLed4IntensityWhenOn:
+      defaultLed5ColorWhenOff:
+      defaultLed5ColorWhenOn:
+      defaultLed5IntensityWhenOff:
+      defaultLed5IntensityWhenOn:
+      defaultLed6ColorWhenOff:
+      defaultLed6ColorWhenOn:
+      defaultLed6IntensityWhenOff:
+      defaultLed6IntensityWhenOn:
+      defaultLed7ColorWhenOff:
+      defaultLed7ColorWhenOn:
+      defaultLed7IntensityWhenOff:
+      defaultLed7IntensityWhenOn: 101
+      defaultLevelLocal: 255
+      defaultLevelRemote: 255
+      deviceBindNumber: 0
+      dimmingSpeedDownLocal: 127
+      dimmingSpeedDownRemote: 127
+      dimmingSpeedUpLocal: 8
+      dimmingSpeedUpRemote: 8
+      doubleTapClearNotifications: Enabled (Default)
+      doubleTapDownToParam56: Disabled
+      doubleTapUpToParam55: Enabled
+      energy: 0
+      fanControlMode:
+      fanLedLevelType:
+      firmwareUpdateInProgressIndicator: Enabled
+      highLevelForFanControlMode:
+      higherOutputInNonNeutral: Disabled (default)
+      individual_led_effect:
+      internalTemperature: 30
+      invertSwitch: 'No'
+      ledBarScaling: Gen3 method (VZM-style)
+      ledColorForFanControlMode:
+      ledColorWhenOff: 255
+      ledColorWhenOn: 255
+      ledIntensityWhenOff: 1
+      ledIntensityWhenOn: 33
+      led_effect:
+      linkquality: 109
+      loadLevelIndicatorTimeout: Stay On
+      localProtection: Disabled
+      lowLevelForFanControlMode:
+      maximumLevel: 254
+      mediumLevelForFanControlMode:
+      minimumLevel: 1
+      onOffLedMode: All
+      outputMode: Dimmer
+      overheat: No Alert
+      periodicPowerAndEnergyReports:
+      power: 0
+      powerType: Non Neutral
+      quickStartLevel:
+      quickStartTime:
+      rampRateOffToOnLocal: 127
+      rampRateOffToOnRemote: 127
+      rampRateOnToOffLocal: 127
+      rampRateOnToOffRemote: 127
+      relayClick: Disabled (Click Sound On)
+      remoteProtection: Disabled
+      singleTapBehavior:
+      smartBulbMode: Disabled
+      stateAfterPowerRestored: 255
+      switchType: 3-Way Aux Switch
+      update:
+        installed_version: 16908818
+        latest_version: 16908818
+        state: idle
+      update_available: false
+      icon: mdi:chandelier
+      friendly_name: Dining Room Lights
+      supported_features: 40
+      state: 'on'
+    light.kitchen_bar_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      activeEnergyReports:
+      activePowerReports:
+      autoTimerOff: 0
+      auxSwitchUniqueScenes:
+      bindingOffToOnSyncLevel:
+      brightnessLevelForDoubleTapDown:
+      brightnessLevelForDoubleTapUp:
+      buttonDelay: 0ms
+      defaultLed1ColorWhenOff:
+      defaultLed1ColorWhenOn:
+      defaultLed1IntensityWhenOff:
+      defaultLed1IntensityWhenOn:
+      defaultLed2ColorWhenOff:
+      defaultLed2ColorWhenOn:
+      defaultLed2IntensityWhenOff:
+      defaultLed2IntensityWhenOn:
+      defaultLed3ColorWhenOff:
+      defaultLed3ColorWhenOn:
+      defaultLed3IntensityWhenOff:
+      defaultLed3IntensityWhenOn:
+      defaultLed4ColorWhenOff:
+      defaultLed4ColorWhenOn:
+      defaultLed4IntensityWhenOff:
+      defaultLed4IntensityWhenOn:
+      defaultLed5ColorWhenOff:
+      defaultLed5ColorWhenOn:
+      defaultLed5IntensityWhenOff:
+      defaultLed5IntensityWhenOn:
+      defaultLed6ColorWhenOff:
+      defaultLed6ColorWhenOn:
+      defaultLed6IntensityWhenOff:
+      defaultLed6IntensityWhenOn:
+      defaultLed7ColorWhenOff:
+      defaultLed7ColorWhenOn:
+      defaultLed7IntensityWhenOff:
+      defaultLed7IntensityWhenOn:
+      defaultLevelLocal: 255
+      defaultLevelRemote: 255
+      deviceBindNumber: 0
+      dimmingSpeedDownLocal: 127
+      dimmingSpeedDownRemote: 127
+      dimmingSpeedUpLocal: 127
+      dimmingSpeedUpRemote: 25
+      doubleTapClearNotifications: Enabled (Default)
+      doubleTapDownToParam56: Disabled
+      doubleTapUpToParam55: Disabled
+      energy: 9.34
+      fanControlMode:
+      fanLedLevelType:
+      firmwareUpdateInProgressIndicator: Enabled
+      highLevelForFanControlMode:
+      higherOutputInNonNeutral: Disabled (default)
+      individual_led_effect:
+      internalTemperature: 27
+      invertSwitch: 'No'
+      ledBarScaling: Gen3 method (VZM-style)
+      ledColorForFanControlMode:
+      ledColorWhenOff: 255
+      ledColorWhenOn: 255
+      ledIntensityWhenOff: 1
+      ledIntensityWhenOn: 33
+      led_effect:
+        color: 1
+        duration: 255
+        effect: clear_effect
+        level: 100
+      linkquality: 83
+      loadLevelIndicatorTimeout: Stay On
+      localProtection:
+      lowLevelForFanControlMode:
+      maximumLevel: 254
+      mediumLevelForFanControlMode:
+      minimumLevel: 1
+      onOffLedMode: All
+      outputMode: On/Off
+      overheat: No Alert
+      periodicPowerAndEnergyReports:
+      power: 0
+      powerType:
+      quickStartLevel:
+      quickStartTime:
+      rampRateOffToOnLocal: 127
+      rampRateOffToOnRemote: 127
+      rampRateOnToOffLocal: 127
+      rampRateOnToOffRemote: 127
+      relayClick: Enabled (Click Sound Off)
+      remoteProtection: Disabled
+      singleTapBehavior:
+      smartBulbMode: Disabled
+      stateAfterPowerRestored: 255
+      switchType: Single Pole
+      update:
+        installed_version: 16908818
+        latest_version: 16908818
+        state: idle
+      update_available: false
+      friendly_name: Kitchen Bar Light
+      supported_features: 40
+      state: 'off'
+    light.kitchen_main_lights:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Kitchen Main Lights
+      supported_features: 0
+      state: 'off'
+    light.first_floor_hall_light:
+      supported_color_modes:
+      - brightness
+      color_mode:
+      brightness:
+      activeEnergyReports:
+      activePowerReports:
+      autoTimerOff: 0
+      auxSwitchUniqueScenes: Enabled
+      bindingOffToOnSyncLevel:
+      brightnessLevelForDoubleTapDown:
+      brightnessLevelForDoubleTapUp:
+      buttonDelay: 0ms
+      defaultLed1ColorWhenOff:
+      defaultLed1ColorWhenOn:
+      defaultLed1IntensityWhenOff:
+      defaultLed1IntensityWhenOn: 101
+      defaultLed2ColorWhenOff:
+      defaultLed2ColorWhenOn:
+      defaultLed2IntensityWhenOff:
+      defaultLed2IntensityWhenOn:
+      defaultLed3ColorWhenOff:
+      defaultLed3ColorWhenOn:
+      defaultLed3IntensityWhenOff:
+      defaultLed3IntensityWhenOn:
+      defaultLed4ColorWhenOff:
+      defaultLed4ColorWhenOn:
+      defaultLed4IntensityWhenOff:
+      defaultLed4IntensityWhenOn:
+      defaultLed5ColorWhenOff:
+      defaultLed5ColorWhenOn:
+      defaultLed5IntensityWhenOff:
+      defaultLed5IntensityWhenOn:
+      defaultLed6ColorWhenOff:
+      defaultLed6ColorWhenOn:
+      defaultLed6IntensityWhenOff:
+      defaultLed6IntensityWhenOn:
+      defaultLed7ColorWhenOff:
+      defaultLed7ColorWhenOn:
+      defaultLed7IntensityWhenOff:
+      defaultLed7IntensityWhenOn:
+      defaultLevelLocal: 255
+      defaultLevelRemote: 255
+      deviceBindNumber: 0
+      dimmingSpeedDownLocal:
+      dimmingSpeedDownRemote:
+      dimmingSpeedUpLocal:
+      dimmingSpeedUpRemote:
+      doubleTapClearNotifications: Enabled (Default)
+      doubleTapDownToParam56: Disabled
+      doubleTapUpToParam55: Disabled
+      energy: 0
+      fanControlMode:
+      fanLedLevelType:
+      firmwareUpdateInProgressIndicator: Enabled
+      highLevelForFanControlMode:
+      higherOutputInNonNeutral: Disabled (default)
+      individual_led_effect:
+      internalTemperature: 32
+      invertSwitch: 'No'
+      ledBarScaling: Gen3 method (VZM-style)
+      ledColorForFanControlMode:
+      ledColorWhenOff: 255
+      ledColorWhenOn: 255
+      ledIntensityWhenOff: 1
+      ledIntensityWhenOn: 33
+      led_effect:
+        color: 0
+        duration: 25
+        effect: slow_rising
+        level: 58
+      linkquality: 54
+      loadLevelIndicatorTimeout: Stay On
+      localProtection:
+      lowLevelForFanControlMode:
+      maximumLevel: 254
+      mediumLevelForFanControlMode:
+      minimumLevel: 1
+      onOffLedMode: All
+      outputMode: On/Off
+      overheat:
+      periodicPowerAndEnergyReports:
+      power: 0
+      powerType: Non Neutral
+      quickStartLevel:
+      quickStartTime:
+      rampRateOffToOnLocal:
+      rampRateOffToOnRemote: 127
+      rampRateOnToOffLocal:
+      rampRateOnToOffRemote: 127
+      relayClick: Enabled (Click Sound Off)
+      remoteProtection:
+      singleTapBehavior:
+      smartBulbMode: Disabled
+      stateAfterPowerRestored: 255
+      switchType: 3-Way Aux Switch
+      update:
+        installed_version: 16908818
+        latest_version: 16908818
+        state: idle
+      update_available: false
+      friendly_name: First Floor Hall Light
+      supported_features: 40
+      state: 'off'
+    light.front_entry_lights:
+      supported_color_modes:
+      - onoff
+      color_mode:
+      friendly_name: Front Entry Lights
+      supported_features: 0
+      state: 'off'
+  icon: mdi:silverware
+  metadata:
+    light.dining_room_light:
+      entity_only: true
+    light.kitchen_bar_light:
+      entity_only: true
+    light.kitchen_main_lights:
+      entity_only: true
+    light.first_floor_hall_light:
+      entity_only: true
+    light.front_entry_lights:
       entity_only: true
