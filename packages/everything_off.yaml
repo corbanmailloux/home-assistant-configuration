@@ -5,9 +5,9 @@ input_boolean:
   room_exclude_guest_bedroom:
     name: Exclude - Guest Bedroom
     icon: mdi:bag-checked
-  room_exclude_craft_room:
-    name: Exclude - Craft Room
-    icon: mdi:brush
+  room_exclude_lucys_room:
+    name: Exclude - Lucy's Room
+    icon: mdi:cradle-outline
   room_exclude_basement:
     name: Exclude - Basement
     icon: mdi:stairs-down
@@ -48,7 +48,7 @@ group:
     entities:
       - input_boolean.room_exclude_master_bedroom
       - input_boolean.room_exclude_guest_bedroom
-      - input_boolean.room_exclude_craft_room
+      - input_boolean.room_exclude_lucys_room
       - input_boolean.room_exclude_basement
       - input_boolean.room_exclude_office
       - input_boolean.room_exclude_livingroom
@@ -133,25 +133,25 @@ script:
                   entity_id:
                     - fan.guest_bedroom_ceiling_fan
 
-      - alias: "Craft Room"
+      - alias: "Lucy's Room"
         if:
           - or:
             - "{{ ignore_room_exclusions == true }}"
             - condition: state
-              entity_id: input_boolean.room_exclude_craft_room
+              entity_id: input_boolean.room_exclude_lucys_room
               state: "off"
         then:
           - service: homeassistant.turn_off
             target:
               entity_id:
-                - light.craft_room_ceiling_fan_light
+                - light.lucys_bedroom_ceiling_fan_light
           - if:
               - "{{ include_fans == true }}"
             then:
               - service: homeassistant.turn_off
                 target:
                   entity_id:
-                    - fan.craft_room_ceiling_fan
+                    - fan.lucys_bedroom_ceiling_fan
 
       - alias: "Basement"
         if:
@@ -208,13 +208,11 @@ script:
                 - light.living_room_cabinet_lights
                 - media_player.living_room_apple_tv
                 - light.christmas_tree_lights # Seasonal
-          # - if:
-          #     - "{{ include_fans == true }}"
-          #   then:
-          #     - service: homeassistant.turn_off
-          #       target:
-          #         entity_id:
-          #           - fan.living_room_fan
+
+          - service: homeassistant.turn_off
+            target:
+              entity_id:
+                - input_boolean.movie_mode_active
 
       - alias: "Kitchen"
         if:

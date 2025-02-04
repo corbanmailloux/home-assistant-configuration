@@ -3,15 +3,17 @@ light:
     name: Basement Lights
     unique_id: 838fff02-b354-4132-af97-db73d769affa
     entities:
-      - light.basement_laundry_light
-      - light.basement_network_rack_light
-      - light.basement_oil_tank_light
       - light.basement_main_lights
-      - light.basement_craft_table_light
-      - light.basement_storage_shelf_light
-      - light.basement_furnace_light
-      - light.basement_near_storage_doors_light
-      - light.basement_water_softener_light
+      - light.basement_lights_2 # Zigbee Group
+      # - light.basement_laundry_light
+      # - light.basement_network_rack_light
+      # - light.basement_oil_tank_light
+      # - light.basement_craft_table_light
+      # - light.basement_storage_shelf_light
+      # - light.basement_furnace_light
+      # - light.basement_near_storage_doors_light
+      # - light.basement_water_softener_light
+
 
 template:
   - trigger:
