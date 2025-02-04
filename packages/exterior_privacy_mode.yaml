@@ -33,8 +33,13 @@ automation:
               - alias: "Disable recording"
                 service: switch.turn_off
                 target:
-                  entity_id: switch.main_doorbell_record
-              # TODO: It would be nice to control the garage motion light as well.
+                  entity_id:
+                    - switch.main_doorbell_record # Reolink
+                    - switch.driveway_privacy_mode # UniFi
+              - alias: "Disable garage lighting automations"
+                service: input_boolean.turn_on
+                target:
+                  entity_id: input_boolean.room_exclude_garage
               # TODO: Person detection events will still appear in HomeKit/Apple TV.
 
           - conditions: "{{ trigger.to_state.state == 'off' }}"
@@ -42,7 +47,13 @@ automation:
               - alias: "Re-enable recording"
                 service: switch.turn_on
                 target:
-                  entity_id: switch.main_doorbell_record
+                  entity_id:
+                    - switch.main_doorbell_record
+                    - switch.driveway_privacy_mode
+              - alias: "Re-enable garage lighting automations"
+                service: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.room_exclude_garage
 
   - id: 59bfa9b6-a76e-4acd-bf9e-1050328c1981
     alias: Exterior Privacy Mode - Notify if left on in the morning
