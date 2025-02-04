@@ -47,7 +47,7 @@
       {
         "id": "b9ec5fec89054ffeb91508eafed17d54",
         "type": "module",
-        "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524343"
+        "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524344"
       },
       {
         "id": "9717aed771b445c5965d83897ccb1714",
@@ -80,7 +80,7 @@
         "id": "ff34917b3c6a44b4b37d905f037ebc51"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375410",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375421",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },
@@ -111,7 +111,7 @@
       },
       {
         "id": "567b9db865f54fd8a30ae9a727ed4dfe",
-        "url": "/hacsfiles/restriction-card/restriction-card.js?hacstag=215633404129",
+        "url": "/hacsfiles/restriction-card/restriction-card.js?hacstag=2156334041215",
         "type": "module"
       },
       {

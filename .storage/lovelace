@@ -407,9 +407,7 @@
                       "action": "none"
                     },
                     "tap_action": {
-                      "action": "call-service",
-                      "service": "script.vacuum_dump_process",
-                      "target": {}
+                      "action": "more-info"
                     },
                     "hold_action": {
                       "action": "more-info"
@@ -731,7 +729,11 @@
                   "secondary_info": "none",
                   "layout": "horizontal",
                   "name": "Curtains",
-                  "primary_info": "none"
+                  "primary_info": "none",
+                  "icon": "",
+                  "tap_action": {
+                    "action": "more-info"
+                  }
                 },
                 {
                   "type": "custom:mushroom-light-card",
@@ -1187,219 +1189,62 @@
                   "icon": "mdi:coach-lamp-variant"
                 }
               ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.christmas_tree_lights",
+                  "name": "Tree",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": ""
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.sunporch_string_lights",
+                  "name": "Sunporch",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": ""
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.sunporch_sconces",
+                  "name": "Sunporch",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": "mdi:wall-sconce"
+                }
+              ]
             }
           ],
           "type": "custom:vertical-layout"
-        },
-        {
-          "theme": "Backend-selected",
-          "title": "environment",
-          "path": "environment",
-          "icon": "mdi:thermometer-lines",
-          "type": "custom:vertical-layout",
-          "badges": [
-            {
-              "entity": "sensor.openweathermap_temperature"
-            },
-            {
-              "entity": "sensor.outdoor_porch_temperature"
-            },
-            {
-              "entity": "sensor.office_temperature"
-            },
-            {
-              "entity": "sensor.living_room_temperature"
-            },
-            {
-              "entity": "sensor.bedroom_temperature"
-            }
-          ],
-          "cards": [
-            {
-              "cards": [
-                {
-                  "entity": "sensor.openweathermap_temperature",
-                  "name": "Out (OWM)",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.outdoor_porch_temperature",
-                  "name": "Out (Local)",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "cards": [
-                {
-                  "entity": "sensor.living_room_temperature",
-                  "name": "Living",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.kitchen_temperature_sensor_temperature",
-                  "name": "Kitchen",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.office_temperature",
-                  "name": "Office",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.bedroom_temperature",
-                  "name": "Bedroom",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "cards": [
-                {
-                  "entity": "sensor.basement_temperature_sensor_temperature",
-                  "name": "Basement",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.sunporch_temperature_sensor_temperature",
-                  "name": "Sunporch",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "cards": [
-                {
-                  "entities": [
-                    {
-                      "entity": "sensor.living_room_temperature",
-                      "name": "FL1 - Living Room"
-                    },
-                    {
-                      "entity": "sensor.office_temperature",
-                      "name": "FL1 - Office"
-                    },
-                    {
-                      "entity": "sensor.t9_thermostat_current_temperature",
-                      "name": "FL1 - Thermostat"
-                    },
-                    {
-                      "entity": "sensor.bedroom_temperature",
-                      "name": "FL2 - Bedroom"
-                    },
-                    {
-                      "entity": "sensor.basement_temperature_sensor_temperature",
-                      "name": "Basement"
-                    }
-                  ],
-                  "refresh_interval": 0,
-                  "title": "Temperatures",
-                  "type": "history-graph",
-                  "hours_to_show": 24
-                },
-                {
-                  "entities": [
-                    {
-                      "entity": "sensor.bedroom_humidity",
-                      "name": "FL2 - Bedroom"
-                    },
-                    {
-                      "entity": "sensor.office_temperature_sensor_humidity",
-                      "name": "FL1 - Office"
-                    },
-                    {
-                      "entity": "sensor.openweathermap_humidity",
-                      "name": "Outside - OpenWeatherMap"
-                    },
-                    {
-                      "entity": "sensor.outdoor_porch_humidity",
-                      "name": "Outside - Deck"
-                    }
-                  ],
-                  "title": "Humidities",
-                  "type": "history-graph",
-                  "hours_to_show": 24
-                }
-              ],
-              "type": "vertical-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "entities": [
-                {
-                  "entity": "sensor.living_room_temperature",
-                  "name": "FL1 - Living Room"
-                },
-                {
-                  "entity": "sensor.office_temperature",
-                  "name": "FL1 - Office"
-                },
-                {
-                  "entity": "sensor.bedroom_temperature",
-                  "name": "FL2 - Bedroom"
-                },
-                {
-                  "entity": "sensor.sunporch_temperature_sensor_temperature",
-                  "name": "Sunporch"
-                },
-                {
-                  "entity": "sensor.basement_temperature_sensor_temperature",
-                  "name": "Basement"
-                },
-                {
-                  "entity": "sensor.openweathermap_temperature",
-                  "name": "Outside - OpenWeatherMap"
-                },
-                {
-                  "entity": "sensor.outdoor_porch_temperature",
-                  "name": "Outside - Deck"
-                }
-              ],
-              "refresh_interval": 0,
-              "title": "Temperature Overview",
-              "type": "history-graph",
-              "hours_to_show": 24
-            },
-            {
-              "type": "custom:scheduler-card",
-              "include": [
-                "climate.first_floor_hvac",
-                "climate.home_hvac",
-                "climate.second_floor_hvac",
-                "fan.office_air_purifier"
-              ],
-              "exclude": []
-            }
-          ]
         },
         {
           "theme": "Backend-selected",
@@ -1640,6 +1485,26 @@
               "type": "custom:layout-break"
             },
             {
+              "type": "custom:mushroom-vacuum-card",
+              "entity": "vacuum.q5_max",
+              "icon_animation": false,
+              "fill_container": false,
+              "commands": [
+                "start_pause",
+                "return_home"
+              ],
+              "tap_action": {
+                "action": "more-info"
+              },
+              "hold_action": {
+                "action": "more-info"
+              },
+              "double_tap_action": {
+                "action": "more-info"
+              },
+              "name": "Second Floor"
+            },
+            {
               "type": "custom:xiaomi-vacuum-map-card",
               "map_source": {
                 "camera": "camera.eve_rendered_map",
@@ -1655,7 +1520,7 @@
               },
               "entity": "vacuum.valetudo_eve",
               "vacuum_platform": "Hypfer/Valetudo",
-              "title": "Second Floor",
+              "title": "Basement",
               "map_locked": true,
               "internal_variables": {
                 "topic": "valetudo/eve"
@@ -1919,28 +1784,6 @@
                       "fan_speed": "low"
                     }
                   }
-                },
-                {
-                  "icon": "mdi:trash-can-outline",
-                  "conditions": [
-                    {
-                      "entity": "vacuum.valetudo_eve",
-                      "value_not": "cleaning"
-                    },
-                    {
-                      "entity": "vacuum.valetudo_eve",
-                      "value_not": "error"
-                    },
-                    {
-                      "entity": "vacuum.valetudo_eve",
-                      "value_not": "returning"
-                    }
-                  ],
-                  "tooltip": "Go To Trash",
-                  "tap_action": {
-                    "action": "call-service",
-                    "service": "script.vacuum_dump_process"
-                  }
                 }
               ],
               "tiles": [
@@ -1957,16 +1800,6 @@
                   "attribute": "battery_level",
                   "icon_source": "vacuum.valetudo_eve.attributes.battery_icon",
                   "unit": "%"
-                },
-                {
-                  "tile_id": "filter_left",
-                  "label": "Filter left",
-                  "icon": "mdi:air-filter",
-                  "unit": "h",
-                  "multiplier": 0.016666666666666666,
-                  "entity": "sensor.valetudo_eve_main_filter",
-                  "precision": 0,
-                  "translations": {}
                 },
                 {
                   "tile_id": "dust_bin_minutes",
@@ -2022,6 +1855,218 @@
                 }
               ],
               "additional_presets": []
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "environment",
+          "path": "environment",
+          "icon": "mdi:thermometer-lines",
+          "type": "custom:vertical-layout",
+          "badges": [
+            {
+              "entity": "sensor.openweathermap_temperature"
+            },
+            {
+              "entity": "sensor.outdoor_porch_temperature"
+            },
+            {
+              "entity": "sensor.office_temperature"
+            },
+            {
+              "entity": "sensor.living_room_temperature"
+            },
+            {
+              "entity": "sensor.bedroom_temperature"
+            }
+          ],
+          "cards": [
+            {
+              "cards": [
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "Out (OWM)",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.outdoor_porch_temperature",
+                  "name": "Out (Local)",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
+              "cards": [
+                {
+                  "entity": "sensor.living_room_temperature",
+                  "name": "Living",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.kitchen_temperature_sensor_temperature",
+                  "name": "Kitchen",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.office_temperature",
+                  "name": "Office",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.bedroom_temperature",
+                  "name": "Bedroom",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
+              "cards": [
+                {
+                  "entity": "sensor.basement_temperature_sensor_temperature",
+                  "name": "Basement",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.sunporch_temperature_sensor_temperature",
+                  "name": "Sunporch",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
+              "cards": [
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.living_room_temperature",
+                      "name": "FL1 - Living Room"
+                    },
+                    {
+                      "entity": "sensor.office_temperature",
+                      "name": "FL1 - Office"
+                    },
+                    {
+                      "entity": "sensor.t9_thermostat_current_temperature",
+                      "name": "FL1 - Thermostat"
+                    },
+                    {
+                      "entity": "sensor.bedroom_temperature",
+                      "name": "FL2 - Bedroom"
+                    },
+                    {
+                      "entity": "sensor.basement_temperature_sensor_temperature",
+                      "name": "Basement"
+                    }
+                  ],
+                  "refresh_interval": 0,
+                  "title": "Temperatures",
+                  "type": "history-graph",
+                  "hours_to_show": 24
+                },
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.office_temperature_sensor_humidity",
+                      "name": "FL1 - Office"
+                    },
+                    {
+                      "entity": "sensor.openweathermap_humidity",
+                      "name": "Outside - OpenWeatherMap"
+                    },
+                    {
+                      "entity": "sensor.outdoor_porch_humidity",
+                      "name": "Outside - Deck"
+                    },
+                    {
+                      "entity": "sensor.bedroom_temperature_sensor_humidity"
+                    }
+                  ],
+                  "title": "Humidities",
+                  "type": "history-graph",
+                  "hours_to_show": 24
+                }
+              ],
+              "type": "vertical-stack"
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "entities": [
+                {
+                  "entity": "sensor.living_room_temperature",
+                  "name": "FL1 - Living Room"
+                },
+                {
+                  "entity": "sensor.office_temperature",
+                  "name": "FL1 - Office"
+                },
+                {
+                  "entity": "sensor.bedroom_temperature",
+                  "name": "FL2 - Bedroom"
+                },
+                {
+                  "entity": "sensor.sunporch_temperature_sensor_temperature",
+                  "name": "Sunporch"
+                },
+                {
+                  "entity": "sensor.basement_temperature_sensor_temperature",
+                  "name": "Basement"
+                },
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "Outside - OpenWeatherMap"
+                },
+                {
+                  "entity": "sensor.outdoor_porch_temperature",
+                  "name": "Outside - Deck"
+                }
+              ],
+              "refresh_interval": 0,
+              "title": "Temperature Overview",
+              "type": "history-graph",
+              "hours_to_show": 24
+            },
+            {
+              "type": "custom:scheduler-card",
+              "include": [
+                "climate.first_floor_hvac",
+                "climate.home_hvac",
+                "climate.second_floor_hvac",
+                "fan.craft_room_ceiling_fan",
+                "fan.guest_bedroom_ceiling_fan",
+                "fan.master_bedroom_ceiling_fan",
+                "fan.office_air_purifier"
+              ],
+              "exclude": []
             }
           ]
         },
@@ -2289,8 +2334,8 @@
                       "name": "Dishwasher"
                     },
                     {
-                      "entity": "sensor.power_monitor_plug_1_power",
-                      "name": "LR TV"
+                      "entity": "sensor.power_monitor_plug_2_power",
+                      "name": "Humidifier"
                     },
                     {
                       "entity": "sensor.home_energy_monitor_power_fl1_heat_strips",

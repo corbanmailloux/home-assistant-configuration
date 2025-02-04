@@ -755,11 +755,7 @@
                 "name": "Empty Eve's Bin",
                 "show_icon": true,
                 "show_state": true,
-                "type": "custom:button-card",
-                "tap_action": {
-                  "action": "call-service",
-                  "service": "script.vacuum_dump_process"
-                }
+                "type": "custom:button-card"
               }
             },
             {
