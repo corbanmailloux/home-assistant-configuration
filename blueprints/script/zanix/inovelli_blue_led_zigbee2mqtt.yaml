@@ -1,7 +1,7 @@
 blueprint:
   name: Inovelli Blue LED (Zigbee2MQTT)
   description: "Set LED effects for Inovelli Blue Series Switches using Zigbee2MQTT.\n\nℹ️
-    Version: 2024.8.0\n\nTo update this blueprint, read [Re-importing a blueprint](https://www.home-assistant.io/docs/automation/using_blueprints/#re-importing-a-blueprint)\n\n✨
+    Version: 2025.1.0\n\nTo update this blueprint, read [Re-importing a blueprint](https://www.home-assistant.io/docs/automation/using_blueprints/#re-importing-a-blueprint)\n\n✨
     Features:\n\n- Select one or multiple devices, entities, floors, labels, or areas
     with Inovelli switches\n- Selectors for LED Number, Color, Brightness Level, Effect,
     and Duration\n- LED Number, Color, Effect, and Duration can accept direct values
@@ -10,7 +10,7 @@ blueprint:
     in the script plus 1\n\n✅ Supported Models:\n\n- Inovelli 2-in-1 switch + dimmer
     (VZM31-SN)\n- Inovelli Fan Controller (VZM35-SN)\n\n\U0001F4AC Forum: https://community.home-assistant.io/t/z2m-inovelli-blue-series-switch-led-notification-script-vzm31-sn-vzm35-sn/489620\n\n\U0001F4DC
     GitHub: https://github.com/zanix/home-assistant-blueprints\n\n## Using this Blueprint\n\nSee
-    [Using the Blueprint](https://community.home-assistant.io/t/z2m-inovelli-blue-series-switch-led-notification-script-vzm31-sn-vzm35-sn/489620#using-the-blueprint-13)
+    [Using the Script](https://community.home-assistant.io/t/z2m-inovelli-blue-series-switch-led-notification-script-vzm31-sn-vzm35-sn/489620#using-the-script-17)
     in the forum topic.\n\n> The main idea is you set the LED values when you call
     the script, the inputs below are for default values.\n\n## Default Values\n\nThe
     fields below are set as defaults for the instance of the script created from this
@@ -237,6 +237,8 @@ variables:
   models:
   - VZM31-SN
   - VZM35-SN
+  - 2-in-1 switch + dimmer
+  - Fan controller
   target: '{{ target|default([])|map(lower) }}'
   floor: '{{ target.floor_id|default([])|lower }}'
   area: '{{ target.area_id|default([])|lower }}'
@@ -305,11 +307,22 @@ variables:
     == 1 %}\n    {# if the first item in the list has only a single character, it
     can't be a valid entity #}\n    {% set labels.labels = labels.labels + [label|string|trim]
     %}\n  {% else %}\n    {% set labels.labels = label %}\n  {% endif %}\n  {# Detect
-    switches #}\n  {% for label in labels.labels %}\n    {% for ent in label_entities(label)
-    %}\n      {% for model in models %}\n        {% if model in device_attr(ent, 'model')
-    | default('', true) and ent.split('.')[0] in domains %}\n          {% set switch.entities
-    = switch.entities + [ent|string|trim] %}\n        {% endif %}\n      {% endfor
-    %}\n    {% endfor %}\n  {% endfor %}\n{% endif %}\n{# Output #} {{ switch.entities|unique|list|lower
+    switches #}\n  {% for label in labels.labels %}\n    {# Parse areas #}\n    {%
+    for area in label_areas(label) %}\n        {% for ent in area_entities(area) %}\n
+    \         {% for model in models %}\n            {% if model in device_attr(ent,
+    'model') | default('', true) and ent.split('.')[0] in domains %}\n              {%
+    set switch.entities = switch.entities + [ent|string|trim] %}\n            {% endif
+    %}\n          {% endfor %}\n        {% endfor %}\n    {% endfor %}\n    {# Parse
+    devices #}\n    {% for device in label_devices(label) %}\n      {% for ent in
+    device_entities(device) %}\n        {% for model in models %}\n          {% if
+    model in device_attr(ent, 'model') | default('', true) and ent.split('.')[0] in
+    domains %}\n            {% set switch.entities = switch.entities + [ent|string|trim]
+    %}\n          {% endif %}\n        {% endfor %}\n      {% endfor %}\n    {% endfor
+    %}\n    {# Parse entities #}\n    {% for ent in label_entities(label) %}\n      {%
+    for model in models %}\n        {% if model in device_attr(ent, 'model') | default('',
+    true) and ent.split('.')[0] in domains %}\n          {% set switch.entities =
+    switch.entities + [ent|string|trim] %}\n        {% endif %}\n      {% endfor %}\n
+    \   {% endfor %}\n  {% endfor %}\n{% endif %}\n{# Output #} {{ switch.entities|unique|list|lower
     }}\n"
   leds:
     all: -1
