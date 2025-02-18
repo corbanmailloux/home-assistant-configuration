@@ -484,6 +484,32 @@
                     "name": "Dryer Complete",
                     "icon_color": "red"
                   }
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "input_boolean.movie_mode_active",
+                      "state": "on"
+                    }
+                  ],
+                  "chip": {
+                    "type": "entity",
+                    "entity": "input_boolean.movie_mode_active",
+                    "content_info": "name",
+                    "icon_color": "amber",
+                    "tap_action": {
+                      "action": "toggle"
+                    },
+                    "hold_action": {
+                      "action": "more-info"
+                    },
+                    "double_tap_action": {
+                      "action": "more-info"
+                    },
+                    "name": "Movie Mode"
+                  }
                 }
               ],
               "alignment": "center"
@@ -1193,22 +1219,6 @@
             {
               "type": "horizontal-stack",
               "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.christmas_tree_lights",
-                  "name": "Tree",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "secondary_info": "none",
-                  "icon": ""
-                },
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.sunporch_string_lights",
