@@ -98,6 +98,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.master_bedroom_ceiling_fan_light
@@ -107,6 +108,7 @@ script:
               - "{{ include_fans == true }}"
             then:
               - service: homeassistant.turn_off
+                continue_on_error: true
                 target:
                   entity_id:
                     - fan.master_bedroom_ceiling_fan
@@ -121,6 +123,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.guest_bedroom_ceiling_fan_light
@@ -129,6 +132,7 @@ script:
               - "{{ include_fans == true }}"
             then:
               - service: homeassistant.turn_off
+                continue_on_error: true
                 target:
                   entity_id:
                     - fan.guest_bedroom_ceiling_fan
@@ -142,6 +146,7 @@ script:
               state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.lucys_bedroom_ceiling_fan_light
@@ -149,6 +154,7 @@ script:
               - "{{ include_fans == true }}"
             then:
               - service: homeassistant.turn_off
+                continue_on_error: true
                 target:
                   entity_id:
                     - fan.lucys_bedroom_ceiling_fan
@@ -162,6 +168,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.basement_lights
@@ -175,6 +182,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.office_ceiling
@@ -188,6 +196,7 @@ script:
           #     - "{{ include_fans == true }}"
           #   then:
           #     - service: homeassistant.turn_off
+          #       continue_on_error: true
           #       target:
           #         entity_id:
           #           # - fan.office_fan
@@ -201,6 +210,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.corner_lamp
@@ -223,6 +233,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.tablet_wall_display_screen
@@ -238,6 +249,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.dining_room_light
@@ -251,6 +263,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.mudroom_lamp
@@ -264,6 +277,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.sunporch_sconces
@@ -278,6 +292,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - switch.master_bathroom_night_light
@@ -291,6 +306,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.front_entry_lights
@@ -306,6 +322,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.garage_main_lights
@@ -319,6 +336,7 @@ script:
                 state: "off"
         then:
           - service: homeassistant.turn_off
+            continue_on_error: true
             target:
               entity_id:
                 - light.pantry_lights
