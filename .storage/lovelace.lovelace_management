@@ -320,41 +320,6 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "input_boolean.guest_mode"
-                },
-                {
-                  "entity": "input_number.total_cost_per_kwh"
-                },
-                {
-                  "entity": "sensor.energy_cost_per_wh"
-                }
-              ],
-              "show_header_toggle": false
-            },
-            {
-              "entities": [
-                "automation.sunrise_alarm",
-                {
-                  "type": "custom:fold-entity-row",
-                  "head": {
-                    "type": "section",
-                    "label": "Configuration"
-                  },
-                  "entities": [
-                    "input_number.alarm_max_brightness",
-                    "input_datetime.alarm_start_time",
-                    "input_datetime.alarm_target_time"
-                  ]
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Sunrise Alarm",
-              "type": "entities"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
                   "entity": "sensor.unavailable_tracked_devices",
                   "name": " ",
                   "secondary_info": "none",
@@ -380,193 +345,222 @@
         {
           "theme": "Backend-selected",
           "icon": "mdi:server-network",
-          "path": "network",
           "title": "Network",
-          "type": "custom:vertical-layout",
+          "type": "sections",
           "badges": [],
-          "cards": [
+          "cards": [],
+          "sections": [
             {
+              "type": "grid",
               "cards": [
                 {
-                  "entities": [
+                  "type": "heading",
+                  "heading": "Downloads",
+                  "heading_style": "title",
+                  "badges": [
                     {
+                      "type": "entity",
                       "entity": "input_select.download_speed"
+                    }
+                  ]
+                },
+                {
+                  "cards": [
+                    {
+                      "entities": [
+                        {
+                          "entity": "input_select.download_speed"
+                        },
+                        {
+                          "entity": "input_boolean.download_mode_change_lock"
+                        },
+                        {
+                          "entity": "sensor.nzbget_speed",
+                          "icon": "mdi:progress-download",
+                          "name": "Current Download Speed",
+                          "secondary_info": "last-updated"
+                        },
+                        {
+                          "entity": "sensor.nzbget_queue_size",
+                          "name": "Remaining Download Queue Size",
+                          "icon": "mdi:trending-down",
+                          "secondary_info": "last-updated"
+                        }
+                      ],
+                      "show_header_toggle": false,
+                      "type": "entities"
                     },
                     {
-                      "entity": "input_boolean.download_mode_change_lock"
-                    },
-                    {
-                      "entity": "sensor.nzbget_speed",
-                      "icon": "mdi:progress-download",
-                      "name": "Current Download Speed",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.nzbget_queue_size",
-                      "name": "Remaining Download Queue Size",
-                      "icon": "mdi:trending-down",
-                      "secondary_info": "last-updated"
+                      "entities": [
+                        {
+                          "entity": "sensor.download_speed_limit",
+                          "name": "Limit"
+                        },
+                        {
+                          "entity": "sensor.nzbget_speed",
+                          "name": "Download Speed"
+                        }
+                      ],
+                      "hours_to_show": 2,
+                      "refresh_interval": 20,
+                      "type": "history-graph"
                     }
                   ],
-                  "show_header_toggle": false,
-                  "title": "Automatic Downloads",
-                  "type": "entities"
-                },
-                {
-                  "entities": [
-                    {
-                      "entity": "sensor.download_speed_limit",
-                      "name": "Limit"
-                    },
-                    {
-                      "entity": "sensor.nzbget_speed",
-                      "name": "Download Speed"
-                    }
-                  ],
-                  "hours_to_show": 2,
-                  "refresh_interval": 20,
-                  "type": "history-graph"
-                }
-              ],
-              "type": "vertical-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.ups_status",
-                  "name": "Status"
-                },
-                {
-                  "entity": "sensor.ups_input_voltage",
-                  "name": "Input Voltage"
-                },
-                {
-                  "entity": "sensor.ups_load_w",
-                  "name": "Load",
-                  "icon": "mdi:gauge-low"
-                }
-              ],
-              "title": "UPS"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "gauge",
-                  "entity": "sensor.ups_battery_charge",
-                  "needle": true,
-                  "severity": {
-                    "green": 80,
-                    "yellow": 20,
-                    "red": 0
-                  },
-                  "min": 0,
-                  "max": 100,
-                  "name": "UPS Battery"
-                },
-                {
-                  "type": "gauge",
-                  "entity": "sensor.ups_load",
-                  "severity": {
-                    "green": 0,
-                    "yellow": 80,
-                    "red": 90
-                  },
-                  "needle": true,
-                  "max": 100,
-                  "min": 0
-                },
-                {
-                  "type": "gauge",
-                  "entity": "sensor.tubby_volume_used",
-                  "severity": {
-                    "green": 0,
-                    "yellow": 80,
-                    "red": 90
-                  },
-                  "needle": true,
-                  "max": 100,
-                  "min": 0,
-                  "name": "Tubby Disk"
+                  "type": "vertical-stack"
                 }
               ]
             },
             {
-              "type": "entities",
-              "entities": [
+              "type": "grid",
+              "cards": [
                 {
-                  "entity": "light.tablet_wall_display_screen"
+                  "type": "heading",
+                  "heading": "Network Rack",
+                  "heading_style": "title"
                 },
                 {
-                  "entity": "script.tablet_wall_display_reload"
+                  "type": "heading",
+                  "icon": "mdi:power-plug-battery",
+                  "heading": "UPS",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "entity": "sensor.ups_status"
+                    }
+                  ]
                 },
                 {
-                  "entity": "script.tablet_wall_display_restart",
-                  "icon": "mdi:power-cycle"
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.ups_battery_charge",
+                      "needle": true,
+                      "severity": {
+                        "green": 80,
+                        "yellow": 20,
+                        "red": 0
+                      },
+                      "min": 0,
+                      "max": 100,
+                      "name": "UPS Battery"
+                    },
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.ups_load",
+                      "severity": {
+                        "green": 0,
+                        "yellow": 80,
+                        "red": 90
+                      },
+                      "needle": true,
+                      "max": 100,
+                      "min": 0
+                    },
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.ups_load_w",
+                      "needle": false,
+                      "min": 0,
+                      "max": 600
+                    },
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.tubby_volume_used",
+                      "severity": {
+                        "green": 0,
+                        "yellow": 80,
+                        "red": 90
+                      },
+                      "needle": true,
+                      "max": 100,
+                      "min": 0,
+                      "name": "Tubby Disk"
+                    }
+                  ]
                 },
                 {
-                  "entity": "script.game_mode_start",
-                  "icon": "mdi:microsoft-xbox-controller"
+                  "type": "heading",
+                  "icon": "mdi:server-network-outline",
+                  "heading": "ProxMoxBox",
+                  "heading_style": "subtitle",
+                  "badges": []
                 },
                 {
-                  "card": {
-                    "entity": "button.biden_shutdown",
-                    "name": "Shutdown Gaming PC"
-                  },
-                  "type": "custom:restriction-card",
-                  "row": true
-                },
-                {
-                  "card": {
-                    "entity": "button.tubby_shutdown",
-                    "name": "Shutdown Tubby NAS"
-                  },
-                  "type": "custom:restriction-card",
-                  "row": true
-                },
-                {
-                  "card": {
-                    "entity": "script.shutdown_proxmoxbox",
-                    "icon": "mdi:power"
-                  },
-                  "type": "custom:restriction-card",
-                  "row": true
-                },
-                {
-                  "entity": "script.wol_proxmoxbox",
-                  "name": "Wake/Start ProxMoxBox",
-                  "icon": "mdi:power"
-                },
-                {
-                  "entity": "script.wol_tubby",
-                  "name": "Wake/Start Tubby NAS",
-                  "icon": "mdi:power"
-                },
-                {
-                  "entity": "sensor.biden_display_display_count"
-                },
-                {
-                  "entity": "button.biden_monitor_switch_to_monitor"
-                },
-                {
-                  "entity": "button.biden_monitor_switch_to_tv"
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.pi_hole_ads_percentage_blocked_today"
+                    }
+                  ],
+                  "show_header_toggle": false
                 }
-              ],
-              "title": "Device Controls"
+              ]
             },
             {
-              "type": "entities",
-              "entities": [
+              "type": "grid",
+              "cards": [
                 {
-                  "entity": "sensor.pi_hole_ads_percentage_blocked_today"
+                  "type": "heading",
+                  "heading": "Device Controls",
+                  "heading_style": "title",
+                  "icon": "mdi:power"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "light.tablet_wall_display_screen"
+                    },
+                    {
+                      "entity": "script.tablet_wall_display_reload"
+                    },
+                    {
+                      "entity": "script.tablet_wall_display_restart",
+                      "icon": "mdi:power-cycle"
+                    },
+                    {
+                      "entity": "script.game_mode_start",
+                      "icon": "mdi:microsoft-xbox-controller"
+                    },
+                    {
+                      "card": {
+                        "entity": "button.biden_shutdown",
+                        "name": "Shutdown Gaming PC"
+                      },
+                      "type": "custom:restriction-card",
+                      "row": true
+                    },
+                    {
+                      "card": {
+                        "entity": "button.tubby_shutdown",
+                        "name": "Shutdown Tubby NAS"
+                      },
+                      "type": "custom:restriction-card",
+                      "row": true
+                    },
+                    {
+                      "card": {
+                        "entity": "script.shutdown_proxmoxbox",
+                        "icon": "mdi:power"
+                      },
+                      "type": "custom:restriction-card",
+                      "row": true
+                    },
+                    {
+                      "entity": "script.wol_proxmoxbox",
+                      "name": "Wake/Start ProxMoxBox",
+                      "icon": "mdi:power"
+                    },
+                    {
+                      "entity": "script.wol_tubby",
+                      "name": "Wake/Start Tubby NAS",
+                      "icon": "mdi:power"
+                    }
+                  ]
                 }
-              ],
-              "title": "ProxMoxBox",
-              "show_header_toggle": false
+              ]
             }
           ]
         },
@@ -753,50 +747,6 @@
                 "hours_to_show": 3,
                 "name": "Print Progress"
               }
-            }
-          ]
-        },
-        {
-          "icon": "mdi:tablet-dashboard",
-          "title": "Wall Displays",
-          "path": "wall-displays",
-          "badges": [],
-          "cards": [
-            {
-              "entities": [
-                {
-                  "entity": "light.tablet_wall_display_screen"
-                },
-                {
-                  "entity": "script.tablet_wall_display_reload"
-                },
-                {
-                  "entity": "script.tablet_wall_display_restart"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Wall Display",
-              "type": "entities"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "script.reload_openhasp"
-                },
-                {
-                  "entity": "openhasp.office_plate"
-                },
-                {
-                  "entity": "number.office_plate_page_number"
-                },
-                {
-                  "entity": "light.office_plate_backlight"
-                }
-              ],
-              "title": "openHASP",
-              "show_header_toggle": false,
-              "state_color": false
             }
           ]
         },
@@ -1005,6 +955,219 @@
                   "entity": "input_boolean.guest_mode"
                 }
               ]
+            },
+            {
+              "entities": [
+                "automation.sunrise_alarm",
+                {
+                  "type": "custom:fold-entity-row",
+                  "head": {
+                    "type": "section",
+                    "label": "Configuration"
+                  },
+                  "entities": [
+                    "input_number.alarm_max_brightness",
+                    "input_datetime.alarm_start_time",
+                    "input_datetime.alarm_target_time"
+                  ]
+                }
+              ],
+              "show_header_toggle": false,
+              "title": "Sunrise Alarm",
+              "type": "entities"
+            }
+          ]
+        },
+        {
+          "theme": "Backend-selected",
+          "icon": "mdi:server-network",
+          "path": "network",
+          "title": "Network",
+          "type": "custom:vertical-layout",
+          "badges": [],
+          "cards": [
+            {
+              "cards": [
+                {
+                  "entities": [
+                    {
+                      "entity": "input_select.download_speed"
+                    },
+                    {
+                      "entity": "input_boolean.download_mode_change_lock"
+                    },
+                    {
+                      "entity": "sensor.nzbget_speed",
+                      "icon": "mdi:progress-download",
+                      "name": "Current Download Speed",
+                      "secondary_info": "last-updated"
+                    },
+                    {
+                      "entity": "sensor.nzbget_queue_size",
+                      "name": "Remaining Download Queue Size",
+                      "icon": "mdi:trending-down",
+                      "secondary_info": "last-updated"
+                    }
+                  ],
+                  "show_header_toggle": false,
+                  "title": "Automatic Downloads",
+                  "type": "entities"
+                },
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.download_speed_limit",
+                      "name": "Limit"
+                    },
+                    {
+                      "entity": "sensor.nzbget_speed",
+                      "name": "Download Speed"
+                    }
+                  ],
+                  "hours_to_show": 2,
+                  "refresh_interval": 20,
+                  "type": "history-graph"
+                }
+              ],
+              "type": "vertical-stack"
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.ups_status",
+                  "name": "Status"
+                },
+                {
+                  "entity": "sensor.ups_input_voltage",
+                  "name": "Input Voltage"
+                },
+                {
+                  "entity": "sensor.ups_load_w",
+                  "name": "Load",
+                  "icon": "mdi:gauge-low"
+                }
+              ],
+              "title": "UPS"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "gauge",
+                  "entity": "sensor.ups_battery_charge",
+                  "needle": true,
+                  "severity": {
+                    "green": 80,
+                    "yellow": 20,
+                    "red": 0
+                  },
+                  "min": 0,
+                  "max": 100,
+                  "name": "UPS Battery"
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.ups_load",
+                  "severity": {
+                    "green": 0,
+                    "yellow": 80,
+                    "red": 90
+                  },
+                  "needle": true,
+                  "max": 100,
+                  "min": 0
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.tubby_volume_used",
+                  "severity": {
+                    "green": 0,
+                    "yellow": 80,
+                    "red": 90
+                  },
+                  "needle": true,
+                  "max": 100,
+                  "min": 0,
+                  "name": "Tubby Disk"
+                }
+              ]
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "light.tablet_wall_display_screen"
+                },
+                {
+                  "entity": "script.tablet_wall_display_reload"
+                },
+                {
+                  "entity": "script.tablet_wall_display_restart",
+                  "icon": "mdi:power-cycle"
+                },
+                {
+                  "entity": "script.game_mode_start",
+                  "icon": "mdi:microsoft-xbox-controller"
+                },
+                {
+                  "card": {
+                    "entity": "button.biden_shutdown",
+                    "name": "Shutdown Gaming PC"
+                  },
+                  "type": "custom:restriction-card",
+                  "row": true
+                },
+                {
+                  "card": {
+                    "entity": "button.tubby_shutdown",
+                    "name": "Shutdown Tubby NAS"
+                  },
+                  "type": "custom:restriction-card",
+                  "row": true
+                },
+                {
+                  "card": {
+                    "entity": "script.shutdown_proxmoxbox",
+                    "icon": "mdi:power"
+                  },
+                  "type": "custom:restriction-card",
+                  "row": true
+                },
+                {
+                  "entity": "script.wol_proxmoxbox",
+                  "name": "Wake/Start ProxMoxBox",
+                  "icon": "mdi:power"
+                },
+                {
+                  "entity": "script.wol_tubby",
+                  "name": "Wake/Start Tubby NAS",
+                  "icon": "mdi:power"
+                },
+                {
+                  "entity": "sensor.biden_display_display_count"
+                },
+                {
+                  "entity": "button.biden_monitor_switch_to_monitor"
+                },
+                {
+                  "entity": "button.biden_monitor_switch_to_tv"
+                }
+              ],
+              "title": "Device Controls"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "sensor.pi_hole_ads_percentage_blocked_today"
+                }
+              ],
+              "title": "ProxMoxBox",
+              "show_header_toggle": false
             }
           ]
         }

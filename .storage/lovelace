@@ -2372,7 +2372,20 @@
             }
           ],
           "icon": "mdi:home-lightning-bolt",
-          "cards": []
+          "cards": [
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "input_number.total_cost_per_kwh"
+                },
+                {
+                  "entity": "sensor.energy_cost_per_wh"
+                }
+              ],
+              "show_header_toggle": false
+            }
+          ]
         }
       ]
     }
