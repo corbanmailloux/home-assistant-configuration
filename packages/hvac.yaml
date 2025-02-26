@@ -154,6 +154,8 @@ automation:
           - sensor.home_energy_monitor_power_fl1_heat_strips
           - sensor.home_energy_monitor_power_fl2_heat_strips
         above: 10
+        for:
+          minutes: 1
     action:
       - alias: "Notify"
         service: notify.corban
