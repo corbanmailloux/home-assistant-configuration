@@ -872,8 +872,7 @@
                   "name": "Kitchen Sink Leak Sensor"
                 },
                 {
-                  "entity": "binary_sensor.first_floor_vacuum_water_leak_sensor_water_sensor",
-                  "name": "First Floor Vacuum Leak Sensor"
+                  "entity": "binary_sensor.first_floor_bathroom_water_leak_sensor_water_sensor"
                 },
                 {
                   "entity": "binary_sensor.washing_machine_water_leak_sensor_water_sensor",

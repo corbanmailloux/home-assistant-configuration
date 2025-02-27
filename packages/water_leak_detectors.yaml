@@ -27,9 +27,9 @@ automation:
         to: "on"
         id: "under the guest bathroom sink"
       - platform: state
-        entity_id: binary_sensor.first_floor_vacuum_water_leak_sensor_water_sensor
+        entity_id: binary_sensor.first_floor_bathroom_water_leak_sensor_water_sensor
         to: "on"
-        id: "near Derek's base station (mudroom corner)"
+        id: "under the first floor bathroom sink"
     action:
       - alias: "Notify Everyone with a Critical Notification"
         service: notify.adult_ios_phones
