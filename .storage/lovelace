@@ -2367,25 +2367,24 @@
                       "name": "Untracked Sources"
                     }
                   ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "input_number.total_cost_per_kwh"
+                    },
+                    {
+                      "entity": "sensor.energy_cost_per_wh"
+                    }
+                  ],
+                  "show_header_toggle": false
                 }
               ]
             }
           ],
           "icon": "mdi:home-lightning-bolt",
-          "cards": [
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "input_number.total_cost_per_kwh"
-                },
-                {
-                  "entity": "sensor.energy_cost_per_wh"
-                }
-              ],
-              "show_header_toggle": false
-            }
-          ]
+          "cards": []
         }
       ]
     }
