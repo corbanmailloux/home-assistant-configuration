@@ -198,6 +198,7 @@ automation:
 
   - alias: "Hall Light Config - 2x - Training Mode Toggle"
     id: 1586cf0a-cf0f-4b81-bc77-05090c64f186
+    mode: single
     trigger:
       - platform: device
         domain: mqtt
@@ -209,3 +210,5 @@ automation:
       - service: input_boolean.toggle
         target:
           entity_id: input_boolean.training_mode
+      - delay:
+          seconds: 1
