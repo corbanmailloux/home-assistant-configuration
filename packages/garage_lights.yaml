@@ -71,7 +71,7 @@ automation:
                 target:
                   entity_id: light.garage_lights # Group
                 data:
-                  kelvin: 5000
+                  color_temp_kelvin: 5000
           - conditions: >-
               {{ trigger.to_state.state == "off" }}
             sequence:
@@ -99,7 +99,7 @@ automation:
         target:
           entity_id: light.garage_main_lights
         data:
-          kelvin: 5000
+          color_temp_kelvin: 5000
       - wait_for_trigger:
           platform: state
           entity_id: binary_sensor.garage_assumed_motion
@@ -148,7 +148,7 @@ automation:
                 target:
                   entity_id: light.garage_main_lights
                 data:
-                  kelvin: 5000
+                  color_temp_kelvin: 5000
           - conditions: >-
               {{ trigger.id == "off" }}
             sequence:
@@ -177,4 +177,4 @@ automation:
         target:
           entity_id: light.garage_lights
         data:
-          kelvin: 5000
+          color_temp_kelvin: 5000

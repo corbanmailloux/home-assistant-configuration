@@ -58,6 +58,9 @@ logger:
     homeassistant.components.octoprint: critical
     custom_components.moonraker: critical
     moonraker_api: critical
+  filters:
+    moonraker_api.websockets.websocketclient:
+      - ".*Websocket connection error: Cannot connect to host*"
 
 ifttt:
   key: !secret ifttt_key

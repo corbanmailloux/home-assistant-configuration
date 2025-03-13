@@ -55,11 +55,6 @@
         "url": "/hacsfiles/weather-card/weather-card.js"
       },
       {
-        "url": "/hacsfiles/google_home_timers_card/googletimers-card.js",
-        "type": "module",
-        "id": "35185b85c10b415696425cfa04a66d1f"
-      },
-      {
         "url": "/hacsfiles/lovelace-valetudo-map-card/valetudo-map-card.js?hacstag=2030361082022012",
         "type": "module",
         "id": "1cf10dc4f7744e18b1b9f06015ba439e"
@@ -80,7 +75,7 @@
         "id": "ff34917b3c6a44b4b37d905f037ebc51"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375421",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375431",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },

@@ -61,7 +61,7 @@ automation:
               - alias: "Turn on basement lights"
                 service: light.turn_on
                 data:
-                  kelvin: 4000
+                  color_temp_kelvin: 4000
                   brightness: 255
                 target:
                   entity_id: light.basement_lights
@@ -105,7 +105,7 @@ automation:
               - alias: "Turn on basement lights"
                 service: light.turn_on
                 data:
-                  kelvin: 4000
+                  color_temp_kelvin: 4000
                   brightness: 255
                 target:
                   entity_id: light.basement_lights
