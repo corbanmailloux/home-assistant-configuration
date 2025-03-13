@@ -894,6 +894,25 @@
               "type": "entities",
               "entities": [
                 {
+                  "entity": "light.motion_nightlight"
+                },
+                {
+                  "entity": "sensor.motion_nightlight_illuminance"
+                },
+                {
+                  "entity": "binary_sensor.motion_nightlight_occupancy"
+                },
+                {
+                  "entity": "automation.master_bathroom_motion_and_lux_nightlight"
+                }
+              ],
+              "title": "Nightlight",
+              "show_header_toggle": false
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
                   "entity": "script.stranger_things_lighting_chase"
                 },
                 {
