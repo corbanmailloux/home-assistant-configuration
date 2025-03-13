@@ -1,0 +1,13 @@
+# Using a label on the relevant entities, track when certain devices go unavailable.
+# This is useful for battery-powered Zigbee devices.
+
+template:
+  - sensor:
+    - name: "Unavailable Tracked Devices"
+      icon: mdi:battery-off-outline
+      unique_id: a884f362-2646-4172-865a-a425989b3452
+      state: >-
+        {{ label_entities('monitor_unavailability') | reject('has_value') | map('device_id') | map('device_attr', 'name') | unique | list | join(', ') }}
+
+# To get entity names instead of device names:
+#  {{ label_entities('monitor_unavailability') | reject('has_value') | map('state_attr', 'friendly_name') | list | join(', '') }}
