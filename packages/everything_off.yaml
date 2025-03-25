@@ -216,6 +216,7 @@ script:
                 - light.corner_lamp
                 - light.living_room_ceiling_lights # Zigbee group
                 - light.living_room_cabinet_lights
+                - light.reading_lamp
                 - media_player.living_room_apple_tv
                 - light.christmas_tree_lights # Seasonal
 

@@ -12,6 +12,7 @@ homekit:
         - light.corner_lamp
         - light.living_room_ceiling_lights # Zigbee Group
         - light.living_room_cabinet_lights
+        - light.reading_lamp
         - input_boolean.movie_mode_active
         - cover.living_room_curtain_right
         # - fan.living_room_fan # Seasonal
