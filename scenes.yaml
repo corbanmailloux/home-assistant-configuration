@@ -83,14 +83,14 @@
   name: Office Meeting
   entities:
     light.key_light_air_1:
-      min_color_temp_kelvin: 2906
-      max_color_temp_kelvin: 6993
-      min_mireds: 143
+      min_color_temp_kelvin: 2900
+      max_color_temp_kelvin: 7000
+      min_mireds: 142
       max_mireds: 344
       supported_color_modes:
       - color_temp
       color_mode: color_temp
-      brightness: 87
+      brightness: 92
       color_temp_kelvin: 3496
       color_temp: 286
       hs_color:
@@ -99,10 +99,10 @@
       rgb_color:
       - 255
       - 192
-      - 140
+      - 141
       xy_color:
-      - 0.455
-      - 0.374
+      - 0.454
+      - 0.373
       friendly_name: Key Light 1
       supported_features: 0
       state: 'on'
@@ -110,103 +110,7 @@
       supported_color_modes:
       - brightness
       color_mode: brightness
-      brightness: 148
-      activeEnergyReports: ''
-      activePowerReports: 10
-      autoTimerOff: 0
-      auxSwitchUniqueScenes:
-      bindingOffToOnSyncLevel:
-      brightnessLevelForDoubleTapDown:
-      brightnessLevelForDoubleTapUp: 254
-      buttonDelay: 200ms
-      defaultLed1ColorWhenOff:
-      defaultLed1ColorWhenOn:
-      defaultLed1IntensityWhenOff:
-      defaultLed1IntensityWhenOn:
-      defaultLed2ColorWhenOff:
-      defaultLed2ColorWhenOn:
-      defaultLed2IntensityWhenOff:
-      defaultLed2IntensityWhenOn:
-      defaultLed3ColorWhenOff:
-      defaultLed3ColorWhenOn:
-      defaultLed3IntensityWhenOff:
-      defaultLed3IntensityWhenOn:
-      defaultLed4ColorWhenOff:
-      defaultLed4ColorWhenOn:
-      defaultLed4IntensityWhenOff:
-      defaultLed4IntensityWhenOn:
-      defaultLed5ColorWhenOff:
-      defaultLed5ColorWhenOn:
-      defaultLed5IntensityWhenOff:
-      defaultLed5IntensityWhenOn:
-      defaultLed6ColorWhenOff:
-      defaultLed6ColorWhenOn:
-      defaultLed6IntensityWhenOff:
-      defaultLed6IntensityWhenOn:
-      defaultLed7ColorWhenOff:
-      defaultLed7ColorWhenOn:
-      defaultLed7IntensityWhenOff:
-      defaultLed7IntensityWhenOn:
-      defaultLevelLocal: 255
-      defaultLevelRemote:
-      deviceBindNumber:
-      dimmingSpeedDownLocal: 127
-      dimmingSpeedDownRemote: 127
-      dimmingSpeedUpLocal: 127
-      dimmingSpeedUpRemote: 5
-      doubleTapClearNotifications: Enabled (Default)
-      doubleTapDownToParam56:
-      doubleTapUpToParam55: Enabled
-      energy: 3.88
-      fanControlMode:
-      fanLedLevelType:
-      firmwareUpdateInProgressIndicator:
-      highLevelForFanControlMode:
-      higherOutputInNonNeutral:
-      individual_led_effect:
-      internalTemperature: 33
-      invertSwitch: 'No'
-      ledBarScaling:
-      ledColorForFanControlMode:
-      ledColorWhenOff: 255
-      ledColorWhenOn: 255
-      ledIntensityWhenOff: 1
-      ledIntensityWhenOn: 33
-      led_effect:
-        color: 85
-        duration: 255
-        effect: clear_effect
-        level: 100
-      linkquality: 36
-      loadLevelIndicatorTimeout:
-      localProtection:
-      lowLevelForFanControlMode:
-      maximumLevel: 254
-      mediumLevelForFanControlMode:
-      minimumLevel: 1
-      onOffLedMode: All
-      outputMode: Dimmer
-      overheat: No Alert
-      periodicPowerAndEnergyReports:
-      power: 0
-      powerType: Neutral
-      quickStartLevel:
-      quickStartTime:
-      rampRateOffToOnLocal: 127
-      rampRateOffToOnRemote: 127
-      rampRateOnToOffLocal: 127
-      rampRateOnToOffRemote: 127
-      relayClick: Disabled (Click Sound On)
-      remoteProtection:
-      singleTapBehavior:
-      smartBulbMode: Disabled
-      stateAfterPowerRestored: 255
-      switchType: Single Pole
-      update:
-        installed_version: 16908818
-        latest_version: 16908818
-        state: idle
-      update_available: false
+      brightness: 115
       icon: mdi:light-recessed
       friendly_name: Office Ceiling Lights
       supported_features: 40
