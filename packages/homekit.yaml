@@ -4,7 +4,7 @@ homekit:
         # Office
         - light.office_ceiling
         # - light.wled_master
-        - light.office_leds
+        # - light.office_leds
         # - light.corban_s_office_lamp # Moved to Mudroom, at least for now.
         # - light.office_corner_light
 
@@ -16,8 +16,8 @@ homekit:
         - input_boolean.movie_mode_active
         - cover.living_room_curtain_right
         # - fan.living_room_fan # Seasonal
-        - light.christmas_tree_lights # Seasonal
-        - script.game_mode_start
+        # - light.christmas_tree_lights # Seasonal
+        # - script.game_mode_start
 
         # Sunporch
         - light.sunporch_string_lights
@@ -40,7 +40,7 @@ homekit:
         - light.master_bedroom_ceiling_fan_light
         - fan.master_bedroom_ceiling_fan
         - cover.master_bedroom_curtains
-        - light.bed_lighting_rgb_light
+        # - light.bed_lighting_rgb_light
         - light.master_bedroom_headboard
         - fan.office_air_purifier
 
