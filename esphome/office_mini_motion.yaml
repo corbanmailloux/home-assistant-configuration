@@ -5,7 +5,9 @@ esphome:
 esp32:
   board: esp32dev
   framework:
-    type: arduino
+    # type: arduino
+    type: esp-idf
+    # esp-idf is recommended for Bluetooth proxies
 
 packages:
   device_base: !include common/device_base.yaml
@@ -13,6 +15,14 @@ packages:
 logger:
   level: INFO
 
+# Act as a Bluetooth Proxy
+esp32_ble_tracker:
+  scan_parameters:
+    active: true
+bluetooth_proxy:
+  active: true
+
+# Connect to the mmWave sensor:
 uart:
   tx_pin: 17
   rx_pin: 21
