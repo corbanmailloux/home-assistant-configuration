@@ -740,31 +740,25 @@
               "type": "horizontal-stack",
               "cards": [
                 {
-                  "type": "custom:mushroom-cover-card",
-                  "entity": "cover.living_room_curtain_right",
-                  "fill_container": true,
-                  "show_position_control": false,
-                  "show_buttons_control": true,
-                  "show_tilt_position_control": false,
-                  "hold_action": {
-                    "action": "more-info"
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.reading_lamp",
+                  "name": "Reading Lamp",
+                  "tap_action": {
+                    "action": "toggle"
                   },
                   "double_tap_action": {
                     "action": "more-info"
                   },
-                  "secondary_info": "none",
-                  "layout": "horizontal",
-                  "name": "Curtains",
-                  "primary_info": "none",
-                  "icon": "",
-                  "tap_action": {
+                  "hold_action": {
                     "action": "more-info"
-                  }
+                  },
+                  "secondary_info": "none",
+                  "icon": "mdi:book-open-blank-variant-outline"
                 },
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.corner_lamp",
-                  "name": "LR Corner Lamp",
+                  "name": "Corner Lamp",
                   "tap_action": {
                     "action": "toggle"
                   },
@@ -780,6 +774,7 @@
               ]
             },
             {
+              "type": "horizontal-stack",
               "cards": [
                 {
                   "entity": "media_player.living_room_apple_tv",
@@ -801,9 +796,30 @@
                   "artwork": "cover",
                   "replace_mute": "play_pause",
                   "name": "TV"
+                },
+                {
+                  "type": "custom:mushroom-cover-card",
+                  "entity": "cover.living_room_curtain_right",
+                  "fill_container": true,
+                  "show_position_control": false,
+                  "show_buttons_control": true,
+                  "show_tilt_position_control": false,
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "layout": "horizontal",
+                  "name": "Curtains",
+                  "primary_info": "none",
+                  "icon": "",
+                  "tap_action": {
+                    "action": "more-info"
+                  }
                 }
-              ],
-              "type": "vertical-stack"
+              ]
             },
             {
               "type": "custom:button-card",
@@ -814,24 +830,6 @@
             {
               "type": "horizontal-stack",
               "cards": [
-                {
-                  "type": "custom:mushroom-light-card",
-                  "fill_container": true,
-                  "show_brightness_control": true,
-                  "collapsible_controls": false,
-                  "primary_info": "none",
-                  "secondary_info": "none",
-                  "layout": "horizontal",
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "entity": "light.bed_lighting_rgb_light",
-                  "name": "Under Bed",
-                  "use_light_color": true
-                },
                 {
                   "type": "custom:mushroom-light-card",
                   "fill_container": true,
@@ -1147,6 +1145,27 @@
                 },
                 {
                   "type": "custom:mushroom-light-card",
+                  "entity": "light.fairy_lights",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": "",
+                  "name": "Fairy Lights"
+                }
+              ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "custom:mushroom-light-card",
                   "entity": "light.basement_lights",
                   "name": "Basement",
                   "tap_action": {
@@ -1160,12 +1179,7 @@
                   },
                   "secondary_info": "none",
                   "icon": "mdi:stairs-down"
-                }
-              ]
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
+                },
                 {
                   "type": "custom:mushroom-light-card",
                   "entity": "light.garage_main_lights",
@@ -1197,22 +1211,6 @@
                   },
                   "secondary_info": "none",
                   "icon": "mdi:engine-outline"
-                },
-                {
-                  "type": "custom:mushroom-light-card",
-                  "entity": "light.exterior_lights",
-                  "name": "Exterior",
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "secondary_info": "none",
-                  "icon": "mdi:coach-lamp-variant"
                 }
               ]
             },
@@ -1250,6 +1248,22 @@
                   },
                   "secondary_info": "none",
                   "icon": "mdi:wall-sconce"
+                },
+                {
+                  "type": "custom:mushroom-light-card",
+                  "entity": "light.exterior_lights",
+                  "name": "Exterior",
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "secondary_info": "none",
+                  "icon": "mdi:coach-lamp-variant"
                 }
               ]
             }
@@ -2173,7 +2187,8 @@
                   "entity": "input_boolean.cats_are_home"
                 },
                 {
-                  "entity": "device_tracker.bens_iphone_se_unifi"
+                  "entity": "device_tracker.bens_iphone_se_unifi",
+                  "secondary_info": "last-changed"
                 }
               ],
               "show_header_toggle": false,
@@ -2223,12 +2238,13 @@
                 },
                 {
                   "entity": "binary_sensor.linen_closet_door_sensor_contact",
-                  "name": "Linen Closet Door"
+                  "name": "Linen Closet Door",
+                  "secondary_info": "last-changed"
                 },
                 {
                   "entity": "binary_sensor.coat_closet_door_sensor_contact",
                   "name": "Coat Closet Door",
-                  "secondary_info": "none"
+                  "secondary_info": "last-changed"
                 }
               ],
               "title": "Doors",
@@ -2244,7 +2260,8 @@
                   "secondary_info": "last-changed"
                 },
                 {
-                  "entity": "binary_sensor.living_room_presence"
+                  "entity": "binary_sensor.living_room_presence",
+                  "secondary_info": "last-changed"
                 },
                 {
                   "entity": "binary_sensor.laundry_motion_sensor_occupancy",

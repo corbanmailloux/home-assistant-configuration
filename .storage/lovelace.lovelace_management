@@ -731,22 +731,20 @@
               }
             },
             {
-              "type": "conditional",
-              "conditions": [
+              "type": "gauge",
+              "entity": "sensor.elegoo_neptune_4_pro_progress",
+              "name": "Print Progress",
+              "min": 0,
+              "max": 100,
+              "unit": "%",
+              "needle": false,
+              "visibility": [
                 {
+                  "condition": "state",
                   "entity": "switch.3d_printer_power",
                   "state": "on"
                 }
-              ],
-              "card": {
-                "graph": "line",
-                "type": "sensor",
-                "entity": "sensor.elegoo_neptune_4_pro_progress",
-                "detail": 2,
-                "unit": "%",
-                "hours_to_show": 3,
-                "name": "Print Progress"
-              }
+              ]
             }
           ]
         },

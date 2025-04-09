@@ -51,13 +51,6 @@
       effect:
       color_mode: brightness
       brightness: 87
-      linkquality: 25
-      power_on_behavior:
-      update:
-        installed_version: 16777220
-        latest_version: 16777220
-        state: idle
-      update_available: false
       icon: mdi:library-shelves
       friendly_name: Living Room Cabinet Lights
       supported_features: 44
@@ -71,6 +64,31 @@
       friendly_name: Living Room Ceiling Lights
       supported_features: 40
       state: 'off'
+    light.reading_lamp:
+      min_color_temp_kelvin: 2202
+      max_color_temp_kelvin: 4000
+      min_mireds: 250
+      max_mireds: 454
+      effect_list:
+      - blink
+      - breathe
+      - okay
+      - channel_change
+      - finish_effect
+      - stop_effect
+      supported_color_modes:
+      - color_temp
+      effect:
+      color_mode:
+      brightness:
+      color_temp_kelvin:
+      color_temp:
+      hs_color:
+      rgb_color:
+      xy_color:
+      friendly_name: Reading Lamp
+      supported_features: 44
+      state: 'off'
   icon: mdi:movie-open-play
   metadata:
     light.front_entry_lights:
@@ -78,6 +96,8 @@
     light.living_room_cabinet_lights:
       entity_only: true
     light.living_room_ceiling_lights:
+      entity_only: true
+    light.reading_lamp:
       entity_only: true
 - id: '1684776530169'
   name: Office Meeting

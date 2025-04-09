@@ -5,8 +5,8 @@ light:
     unique_id: 164722fa-2fce-4e46-9054-af4f2a08b0dd
     entities:
       - light.office_ceiling
-      - light.office_leds
-      - light.wled_master # Used when there are multiple segments
+      # - light.office_leds
+      # - light.wled_master # Used when there are multiple segments
       # - light.corban_s_office_lamp
       # - light.office_corner_light
 
