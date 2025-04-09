@@ -46,13 +46,13 @@ automation:
       # If it's on at 100%, set it to 50%.
       # If it's on but not at 100%, turn it off.
       - service: light.turn_on
-        entity_id: light.bed_lighting_rgb_light
+        entity_id: light.master_bedroom_headboard
         data_template:
           brightness: >
             {%- set percent = 100 -%}
-            {%- if states("light.bed_lighting_rgb_light") == "off" -%}
+            {%- if states("light.master_bedroom_headboard") == "off" -%}
               {%- set percent = 100 -%}
-            {%- elif state_attr("light.bed_lighting_rgb_light", "brightness") == 255 -%}
+            {%- elif state_attr("light.master_bedroom_headboard", "brightness") == 255 -%}
               {%- set percent = 50 -%}
             {%- else -%}
               {%- set percent = 0 -%}
