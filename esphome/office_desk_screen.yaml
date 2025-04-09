@@ -262,7 +262,7 @@ image:
     id: boot_logo
     resize: 100x100
     type: RGB565
-    use_transparency: true
+    transparency: alpha_channel
 
 lvgl:
   displays:
@@ -584,7 +584,7 @@ lvgl:
         - obj:
             id: mac_widget_temperature
             align: BOTTOM_RIGHT
-            x: -8
+            x: -5
             y: -5
             width: 50px
             height: 50px
@@ -614,6 +614,86 @@ lvgl:
                   text: "XX°"
                   text_align: LEFT
                   text_font: mac_font_bold_20
+
+        # 3D Printer Window
+        - obj:
+            id: mac_3d_printer_window
+            hidden: true
+            # Put this window in the top-right of the screen, with a bit of padding.
+            align_to:
+              id: mac_menu_bar
+              align: OUT_BOTTOM_RIGHT
+              x: -3
+              y: 3
+            width: 45%
+            height: 35%
+            pad_all: 2
+            bg_color: 0x1F1F1F
+            bg_opa: 80%
+            radius: 5
+            border_width: 1
+            border_color: 0x363636
+            scrollable: "OFF"
+            widgets:
+              # Title Bar Buttons
+              - obj:
+                  id: mac_3d_window_red_button
+                  align: TOP_LEFT
+                  x: 2
+                  y: 2
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0xF44546
+                  bg_opa: COVER
+                  border_width: 0
+              - obj:
+                  id: mac_3d_window_yellow_button
+                  align_to:
+                    id: mac_3d_window_red_button
+                    align: OUT_RIGHT_MID
+                    x: 4
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0xFDB024
+                  bg_opa: COVER
+                  border_width: 0
+              - obj:
+                  id: mac_3d_window_green_button
+                  align_to:
+                    id: mac_3d_window_yellow_button
+                    align: OUT_RIGHT_MID
+                    x: 4
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0x2AC131
+                  bg_opa: COVER
+                  border_width: 0
+              - label:
+                  id: mac_3d_window_title
+                  align: TOP_MID
+                  text: "3D Printer"
+                  text_font: mac_font_10 # montserrat_10
+                  text_align: CENTER
+              - line:
+                  id: mac_3d_window_divider_line
+                  points:
+                    - -4, 14
+                    - 300, 14
+                  width: 100%
+                  line_width: 1
+                  line_color: 0x808080
+
+              - label:
+                  id: mac_3d_window_message
+                  align: LEFT_MID
+                  # x: 10
+                  y: 7 # Center on the window below the title bar
+                  text_font: mac_font_20
+                  text_align: LEFT
+                  text: "State: XXX\nProgress: XXX%"
 
 sensor:
   - platform: homeassistant
@@ -649,11 +729,34 @@ sensor:
       then:
         - script.execute: update_maggie_eta
 
+  # 3D Printer Status Sensors
+  - platform: homeassistant
+    internal: true
+    id: printer_progress
+    entity_id: sensor.elegoo_neptune_4_pro_progress
+    on_value:
+      then:
+        - script.execute: update_3d_print_window
+
   # Does not work. Maybe the wrong pin?
   # - platform: adc
   #   pin: GPIO34
   #   name: "Photoresistor Raw"
   #   update_interval: 10s
+
+text_sensor:
+  - platform: homeassistant
+    internal: true
+    id: printer_status
+    entity_id: sensor.elegoo_neptune_4_pro_current_print_state
+    filters:
+      - map:
+        - printing -> Printing
+        - standby -> Standby
+        - error -> Error
+    on_value:
+      then:
+        - script.execute: update_3d_print_window
 
 binary_sensor:
   - platform: status
@@ -741,6 +844,15 @@ binary_sensor:
 #         - delay: 10s
 #         - display.page.show: page_main
 
+  - platform: homeassistant
+    id: printer_power
+    entity_id: switch.3d_printer_power
+    internal: true
+    on_press:
+      - script.execute: update_3d_print_window
+    on_release:
+      - script.execute: update_3d_print_window
+
 script:
   - id: update_clock
     then:
@@ -805,6 +917,21 @@ script:
                 id: mac_menu_title
                 text: "Welcome!"
                 text_color: 0xFFFFFF
+
+  - id: update_3d_print_window
+    then:
+      - if:
+          condition:
+            - binary_sensor.is_on: printer_power
+          then:
+            - lvgl.label.update:
+                id: mac_3d_window_message
+                text:
+                  format: "State: %s\nProgress: %.0f%%"
+                  args: ["id(printer_status).state.c_str()", "id(printer_progress).state"]
+            - lvgl.widget.show: mac_3d_printer_window
+          else:
+            - lvgl.widget.hide: mac_3d_printer_window
 
   # Reusable, parameterized script to show an alert on the screen.
   - id: trigger_mac_alert
