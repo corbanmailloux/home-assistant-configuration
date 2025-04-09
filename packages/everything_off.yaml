@@ -296,7 +296,7 @@ script:
             continue_on_error: true
             target:
               entity_id:
-                - switch.master_bathroom_night_light
+                - light.motion_nightlight # Master bathroom
 
       - alias: "Hallways"
         if:
