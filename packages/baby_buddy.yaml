@@ -1,0 +1,38 @@
+# Inspiration: https://martinnoah.com/babybuddy-and-home-assistant.html
+# Uses the Baby Buddy custom component here: https://github.com/jcgoette/baby_buddy_homeassistant
+
+rest_command:
+  pee_and_or_poop:
+    url: "https://baby.corb.co/api/changes/"
+    method: post
+    headers:
+      authorization: !secret baby_buddy_api_header
+    payload: '{"child":"2", "time":"{{ now() }}", "wet": "{{ wet_bool }}", "solid": "{{ solid_bool }}", "tags": ["Home Assistant"]}'
+    content_type: "application/json"
+  # feedings:
+  #   url: "https://baby.corb.co/api/feedings/"
+  #   method: post
+  #   headers:
+  #     authorization: !secret baby_buddy_api_header
+  #   payload: '{"child":"2", "start":"{{ now() - timedelta(seconds=60) }}", "end": "{{ now() }}", "type": "{{ feeding_type }}", "method":"{{ feeding_method }}"}'
+  #   content_type: "application/json"
+
+
+automation:
+  - alias: Log Lucy's Weight in Baby Buddy from Withings
+    id: b299324f-f288-455d-b941-98b0a3a2b589
+    triggers:
+      - trigger: state
+        entity_id: sensor.withings_lucy_weight
+        not_from:
+          - "unknown"
+          - "unavailable"
+    actions:
+      - action: babybuddy.add_weight
+        data:
+          weight: >-
+            {{ states("sensor.withings_lucy_weight") | round(2) }}
+          tags:
+            - Home Assistant
+        target:
+          entity_id: sensor.baby_lucy_mailloux

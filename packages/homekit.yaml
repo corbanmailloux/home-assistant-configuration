@@ -71,6 +71,7 @@ homekit:
 
         # Misc
         - input_boolean.training_mode
+        - switch.lucy_mailloux_timer # "Baby Timer"
 
         # Locks
         - input_boolean.fake_side_door_lock_status

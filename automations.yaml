@@ -862,3 +862,332 @@
         target:
           entity_id: light.motion_nightlight
   mode: restart
+- id: '1743484522580'
+  alias: Kitchen Bar Light - Config button to toggle lamp
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 9f61f3f1b573c3799a54ee705f98034f
+    type: action
+    subtype: config_single
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.mudroom_triple_lamp
+  mode: single
+- id: '1743972311093'
+  alias: Changing Table Remote
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 52b2f81b59b1104f1e7ee8114a23c2a0
+    type: action
+    subtype: toggle
+    trigger: device
+    id: center
+  - domain: mqtt
+    device_id: 52b2f81b59b1104f1e7ee8114a23c2a0
+    type: action
+    subtype: brightness_up_click
+    trigger: device
+    id: up
+  - domain: mqtt
+    device_id: 52b2f81b59b1104f1e7ee8114a23c2a0
+    type: action
+    subtype: brightness_down_click
+    trigger: device
+    id: down
+  - domain: mqtt
+    device_id: 52b2f81b59b1104f1e7ee8114a23c2a0
+    type: action
+    subtype: arrow_left_click
+    trigger: device
+    id: left
+  - domain: mqtt
+    device_id: 52b2f81b59b1104f1e7ee8114a23c2a0
+    type: action
+    subtype: arrow_right_click
+    trigger: device
+    id: right
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - center
+      sequence:
+      - action: light.toggle
+        metadata: {}
+        data:
+          brightness_pct: 3
+        target:
+          entity_id: light.lucys_bedroom_ceiling_fan_light
+      alias: Center - Toggle Light
+    - conditions:
+      - condition: trigger
+        id:
+        - left
+        - up
+        - right
+      sequence:
+      - choose:
+        - conditions:
+          - condition: trigger
+            id:
+            - left
+          sequence:
+          - action: rest_command.pee_and_or_poop
+            metadata: {}
+            data:
+              wet_bool: 'True'
+              solid_bool: 'False'
+            response_variable: response
+          - variables:
+              action_color:
+              - 255
+              - 255
+              - 0
+          alias: Left - Pee
+        - conditions:
+          - condition: trigger
+            id:
+            - up
+          sequence:
+          - action: rest_command.pee_and_or_poop
+            metadata: {}
+            data:
+              wet_bool: 'True'
+              solid_bool: 'True'
+            response_variable: response
+          - variables:
+              action_color:
+              - 128
+              - 0
+              - 128
+          alias: Up - Pee and Poop
+        - conditions:
+          - condition: trigger
+            id:
+            - right
+          sequence:
+          - action: rest_command.pee_and_or_poop
+            metadata: {}
+            data:
+              wet_bool: 'False'
+              solid_bool: 'True'
+            response_variable: response
+          - variables:
+              action_color:
+              - 255
+              - 140
+              - 0
+          alias: Right - Poop
+      - alias: Check API response code and set light
+        if:
+        - alias: API Success Response
+          condition: template
+          value_template: '{{ response["status"] == 201 }}'
+        then:
+        - alias: Flash nightlight green
+          repeat:
+            count: 1
+            sequence:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                transition: 0
+                rgb_color:
+                - 0
+                - 255
+                - 0
+                brightness_pct: 74
+              target:
+                entity_id: light.lucys_nightlight
+            - delay:
+                hours: 0
+                minutes: 0
+                seconds: 0
+                milliseconds: 500
+            - action: light.turn_off
+              metadata: {}
+              data:
+                transition: 0
+              target:
+                entity_id: light.lucys_nightlight
+            - delay:
+                hours: 0
+                minutes: 0
+                seconds: 0
+                milliseconds: 500
+            - action: light.turn_on
+              metadata: {}
+              data:
+                transition: 0
+                rgb_color: '{{ action_color }}'
+                brightness_pct: 74
+              target:
+                entity_id: light.lucys_nightlight
+            - delay:
+                hours: 0
+                minutes: 0
+                seconds: 0
+                milliseconds: 500
+            - action: light.turn_off
+              metadata: {}
+              data:
+                transition: 0
+              target:
+                entity_id: light.lucys_nightlight
+            - delay:
+                hours: 0
+                minutes: 0
+                seconds: 0
+                milliseconds: 500
+        else:
+        - alias: Flash nightlight red
+          repeat:
+            count: 2
+            sequence:
+            - action: light.turn_on
+              metadata: {}
+              data:
+                transition: 0
+                rgb_color:
+                - 255
+                - 0
+                - 0
+                brightness_pct: 74
+              target:
+                entity_id: light.lucys_nightlight
+            - delay:
+                hours: 0
+                minutes: 0
+                seconds: 0
+                milliseconds: 500
+            - action: light.turn_off
+              metadata: {}
+              data:
+                transition: 0
+              target:
+                entity_id: light.lucys_nightlight
+            - delay:
+                hours: 0
+                minutes: 0
+                seconds: 0
+                milliseconds: 500
+        - action: notify.corban
+          metadata: {}
+          data:
+            title: Baby Buddy - Error logging diaper
+            message: '{{ response }}'
+      alias: Left, Up, Right - Diaper Logging
+  mode: single
+- id: '1744169676303'
+  alias: Lucy's Nightlight - Motion and Lux
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.lucys_nightlight_occupancy
+    to: 'on'
+    id: 'on'
+  - trigger: state
+    entity_id:
+    - binary_sensor.lucys_nightlight_occupancy
+    id: 'off'
+    to: 'off'
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions:
+  - condition: state
+    entity_id: input_boolean.room_exclude_lucys_room
+    state: 'off'
+  actions:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - 'on'
+        - condition: numeric_state
+          entity_id: sensor.lucys_nightlight_illuminance
+          below: 15
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          rgb_color:
+          - 255
+          - 175
+          - 91
+          brightness_pct: 50
+          transition: 1
+        target:
+          entity_id:
+          - light.lucys_nightlight
+      alias: On, if room brightness is low enough
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data:
+          transition: 2
+        target:
+          entity_id:
+          - light.lucys_nightlight
+  mode: restart
+- id: '1744675790269'
+  alias: Bedside Buttons - Toggle Headboard Lights
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: ac01e2cb060249f980958e940eb74383
+    type: action
+    subtype: single
+    trigger: device
+    alias: Corban - Single click
+  - domain: mqtt
+    device_id: 902fe0fc069711eb8fc8e19795714a1d
+    type: action
+    subtype: arrow_right_click
+    trigger: device
+    alias: Maggie - Right Arrow
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_select.home_mode
+        state: Sleep
+        enabled: false
+      - condition: time
+        after: '21:00:00'
+        before: 09:00:00
+      sequence:
+      - action: light.toggle
+        metadata: {}
+        data:
+          transition: 2
+          brightness_pct: 4
+        target:
+          entity_id: light.master_bedroom_headboard
+    default:
+    - action: light.toggle
+      metadata: {}
+      data:
+        transition: 2
+        brightness_pct: 75
+      target:
+        entity_id: light.master_bedroom_headboard
+  mode: single
