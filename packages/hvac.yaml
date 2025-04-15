@@ -10,8 +10,8 @@ climate:
     decimal_accuracy_to_half: False  # Round the averaged temperatures to 0.5 degree increments.
     unique_id: c97027fa-0aaa-41be-a2cf-da459c724999
     entities:
-      - climate.first_floor_hvac
-      - climate.second_floor_hvac
+      - climate.mitp_heat_pump_first_floor_climate
+      - climate.mitp_heat_pump_second_floor_climate
 
 
 ## OLD STUFF BELOW

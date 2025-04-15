@@ -640,7 +640,7 @@
               "cards": [
                 {
                   "type": "custom:mushroom-climate-card",
-                  "entity": "climate.first_floor_hvac",
+                  "entity": "climate.mitp_heat_pump_first_floor_climate",
                   "fill_container": false,
                   "primary_info": "name",
                   "secondary_info": "state",

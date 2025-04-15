@@ -288,14 +288,15 @@
               "cards": [
                 {
                   "type": "custom:mushroom-climate-card",
-                  "entity": "climate.first_floor_hvac",
+                  "entity": "climate.mitp_heat_pump_first_floor_climate",
                   "fill_container": false,
                   "primary_info": "name",
                   "secondary_info": "state",
                   "icon_type": "none",
                   "hvac_modes": [
                     "off",
-                    "cool"
+                    "cool",
+                    "heat"
                   ],
                   "show_temperature_control": false,
                   "tap_action": {
@@ -312,14 +313,15 @@
                 },
                 {
                   "type": "custom:mushroom-climate-card",
-                  "entity": "climate.second_floor_hvac",
+                  "entity": "climate.mitp_heat_pump_second_floor_climate",
                   "fill_container": false,
                   "primary_info": "name",
                   "secondary_info": "state",
                   "icon_type": "none",
                   "hvac_modes": [
-                    "off",
-                    "cool"
+                    "cool",
+                    "heat",
+                    "off"
                   ],
                   "show_temperature_control": false,
                   "tap_action": {
@@ -332,7 +334,8 @@
                   },
                   "hold_action": {
                     "action": "more-info"
-                  }
+                  },
+                  "collapsible_controls": false
                 }
               ]
             },
