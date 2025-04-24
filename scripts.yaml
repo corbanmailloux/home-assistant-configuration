@@ -3,3 +3,87 @@ inovelli_led_control:
   use_blueprint:
     path: zanix/inovelli_blue_led_zigbee2mqtt.yaml
   icon: mdi:led-strip
+living_room_dramatic_lighting:
+  sequence:
+  - action: scene.create
+    metadata: {}
+    data:
+      scene_id: living_room_pre_drama
+      snapshot_entities:
+      - update.living_room_lights_wall_switch_1
+      - update.living_room_lights_wall_switch_2
+      - update.living_room_lights_wall_switch_3
+      - light.corner_lamp
+      - update.reading_lamp
+      - update.living_room_cabinet_lights
+  - action: light.turn_off
+    metadata: {}
+    data:
+      transition: 0
+    target:
+      area_id: 6a82246dbc29484cb9558c88e6e7be5d
+  - repeat:
+      count: 3
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        data:
+          transition: 0
+        target:
+          entity_id: light.living_room_lights_wall_switch_1
+      - action: light.turn_on
+        metadata: {}
+        data:
+          transition: 0
+          brightness_pct: 50
+        target:
+          entity_id: light.living_room_lights_wall_switch_3
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 0
+          milliseconds: 600
+      - action: light.turn_off
+        metadata: {}
+        data:
+          transition: 0
+        target:
+          entity_id: light.living_room_lights_wall_switch_3
+      - action: light.turn_on
+        metadata: {}
+        data:
+          transition: 0
+          brightness_pct: 50
+        target:
+          entity_id: light.living_room_lights_wall_switch_2
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 0
+          milliseconds: 600
+      - action: light.turn_off
+        metadata: {}
+        data:
+          transition: 0
+        target:
+          entity_id: light.living_room_lights_wall_switch_2
+      - action: light.turn_on
+        metadata: {}
+        data:
+          transition: 0
+          brightness_pct: 50
+        target:
+          entity_id: light.living_room_lights_wall_switch_1
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 0
+          milliseconds: 600
+  - action: scene.turn_on
+    metadata: {}
+    data:
+      transition: 2
+    target:
+      entity_id: scene.living_room_pre_drama
+  alias: Living Room Dramatic Lighting
+  description: ''
