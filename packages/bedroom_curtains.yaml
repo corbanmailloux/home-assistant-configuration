@@ -72,11 +72,17 @@ automation:
             entity_id: input_select.home_mode
             state: "Vacation"
     action:
-      - service: cover.set_cover_position
-        target:
-          entity_id: cover.master_bedroom_curtains
+      # - service: cover.set_cover_position
+      #   target:
+      #     entity_id: cover.master_bedroom_curtains
+      #   data:
+      #     position: 30
+      - action: v6_quietdrift.set_switchbot_curtain_position
         data:
+          entity_id:
+            - cover.master_bedroom_curtains
           position: 30
+          speed: 2
 
   - alias: "Close curtains around sunset"
     id: 3ba2dda8-25b0-4ceb-96d2-c79fe7612603
@@ -93,9 +99,15 @@ automation:
             entity_id: input_select.home_mode
             state: "Vacation"
     action:
-      - service: cover.close_cover
-        target:
-          entity_id: cover.master_bedroom_curtains
+      # - service: cover.close_cover
+      #   target:
+      #     entity_id: cover.master_bedroom_curtains
+      - action: v6_quietdrift.set_switchbot_curtain_position
+        data:
+          entity_id:
+            - cover.master_bedroom_curtains
+          position: 0
+          speed: 2
 
 template:
   - binary_sensor:
