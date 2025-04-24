@@ -1483,7 +1483,7 @@
                   "variables": {}
                 },
                 {
-                  "name": "Zone cleanup",
+                  "name": "Zone Cleanup",
                   "icon": "mdi:select-drag",
                   "run_immediately": false,
                   "coordinates_rounding": true,
@@ -1645,7 +1645,7 @@
                 },
                 {
                   "menu_id": "fan_speed",
-                  "icon": "mdi:fan-remove",
+                  "icon": "valetudo:fan-off",
                   "label": "Silent",
                   "conditions": [
                     {
@@ -1763,7 +1763,7 @@
                 },
                 {
                   "menu_id": "cleaning_mode",
-                  "icon": "mdi:broom",
+                  "icon": "valetudo:mode-vacuum",
                   "label": "Sweeping",
                   "conditions": [
                     {
@@ -1783,7 +1783,7 @@
                 },
                 {
                   "menu_id": "cleaning_mode",
-                  "icon": "mdi:water",
+                  "icon": "valetudo:mode-vacuum-and-mop",
                   "label": "Sweeping and Mopping",
                   "conditions": [
                     {
@@ -1803,7 +1803,7 @@
                 },
                 {
                   "menu_id": "cleaning_mode",
-                  "icon": "mdi:water-outline",
+                  "icon": "valetudo:mode-mop",
                   "label": "Mopping",
                   "conditions": [
                     {
@@ -2177,7 +2177,7 @@
                   "variables": {}
                 },
                 {
-                  "name": "Zone cleanup",
+                  "name": "Zone Cleanup",
                   "icon": "mdi:select-drag",
                   "run_immediately": false,
                   "coordinates_rounding": true,
@@ -2567,16 +2567,13 @@
             {
               "type": "custom:xiaomi-vacuum-map-card",
               "map_source": {
-                "camera": "camera.eve_rendered_map",
+                "camera": "camera.eve_camera",
                 "crop": {
-                  "top": 40,
-                  "bottom": -10,
-                  "right": -20,
-                  "left": -20
+                  "top": 55
                 }
               },
               "calibration_source": {
-                "identity": true
+                "camera": true
               },
               "entity": "vacuum.valetudo_eve",
               "vacuum_platform": "Hypfer/Valetudo",
@@ -2874,7 +2871,76 @@
               ],
               "map_modes": [
                 {
-                  "name": "Zone cleanup",
+                  "template": "vacuum_clean_segment",
+                  "predefined_selections": [
+                    {
+                      "id": "16",
+                      "icon": {
+                        "name": "mdi:washing-machine",
+                        "x": 2800,
+                        "y": 2470
+                      },
+                      "label": {
+                        "text": "Utility",
+                        "x": 2800,
+                        "y": 2470,
+                        "offset_y": 30
+                      },
+                      "outline": [
+                        [
+                          2380,
+                          2290
+                        ],
+                        [
+                          3375,
+                          2290
+                        ],
+                        [
+                          3375,
+                          2990
+                        ],
+                        [
+                          2380,
+                          2990
+                        ]
+                      ]
+                    },
+                    {
+                      "id": "17",
+                      "icon": {
+                        "name": "mdi:package-variant-closed",
+                        "x": 3730,
+                        "y": 2600
+                      },
+                      "label": {
+                        "text": "Rec Room",
+                        "x": 3730,
+                        "y": 2600,
+                        "offset_y": 30
+                      },
+                      "outline": [
+                        [
+                          3285,
+                          2305
+                        ],
+                        [
+                          4110,
+                          2305
+                        ],
+                        [
+                          4110,
+                          2985
+                        ],
+                        [
+                          3285,
+                          2985
+                        ]
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Zone Cleanup",
                   "icon": "mdi:select-drag",
                   "run_immediately": false,
                   "coordinates_rounding": true,
@@ -3135,6 +3201,98 @@
               }
             }
           ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "icon": "mdi:baby-bottle-outline",
+          "path": "lucy",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Baby Buddy"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "sensor.lucy_last_feeding_time",
+                  "name": "Last Feeding"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Time Ago",
+                  "entity": "sensor.lucy_last_feeding_timestamp"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "switch.lucy_mailloux_timer",
+                  "name": "Timer",
+                  "state_content": [
+                    "state",
+                    "last_changed"
+                  ],
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "chart_type": "line",
+                  "period": "day",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.lucy_mailloux_last_weight"
+                  ],
+                  "hide_legend": true,
+                  "days_to_show": 30,
+                  "title": "Weight Trend",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 3
+                  },
+                  "stat_types": [
+                    "max"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Controls"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "light.lucys_nightlight",
+                  "name": "Nightlight",
+                  "icon": "mdi:lightbulb-night"
+                }
+              ]
+            }
+          ],
+          "cards": []
         },
         {
           "title": "Security",

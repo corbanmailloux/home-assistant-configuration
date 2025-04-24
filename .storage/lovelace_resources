@@ -10,11 +10,6 @@
         "url": "/hacsfiles/lovelace-card-tools/card-tools.js"
       },
       {
-        "id": "9fb206a7694a4cdcb5fa596e6914ee83",
-        "type": "module",
-        "url": "/hacsfiles/roku-card/roku-card.js?hacstag=164367214124"
-      },
-      {
         "id": "4047cd6f267f4453bfddfd94708537d8",
         "type": "module",
         "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=1485208381169"
@@ -112,6 +107,11 @@
       {
         "id": "3458e41b97cf402fb54c606a3302f36c",
         "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701573214",
+        "type": "module"
+      },
+      {
+        "id": "b618b7f7959c4d42a84ff4f5f6cc4dd5",
+        "url": "/hacsfiles/hass-valetudo-icons/valetudo-icons.js?hacstag=8819423242024110",
         "type": "module"
       }
     ]
