@@ -1191,3 +1191,97 @@
       target:
         entity_id: light.master_bedroom_headboard
   mode: single
+- id: '1745036234044'
+  alias: Upstairs Light Switch - Config Single Press - Toggle Headboard
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 6239543fc9a684fbba5d4af77ccdf052
+    type: action
+    subtype: config_single
+    trigger: device
+  conditions: []
+  actions:
+  - data:
+      brightness_pct: 10
+      rgb_color:
+      - 255
+      - 78
+      - 30
+    action: light.toggle
+    target:
+      entity_id: light.master_bedroom_headboard
+  mode: single
+- id: '1745258240039'
+  alias: Baby Timer - Show on Living Room Switch
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.lucy_mailloux_timer
+    to: 'off'
+    from: 'on'
+    id: 'off'
+  - trigger: state
+    entity_id:
+    - switch.lucy_mailloux_timer
+    to: 'on'
+    id: 'on'
+    from: 'off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: script.inovelli_led_control
+        metadata: {}
+        data:
+          color: Pink
+          level: 100
+          effect: Aurora
+          duration: Indefinitely
+          target:
+            device_id: d9db549c961eecf0f3fc66794fe297ad
+          led: All
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: script.inovelli_led_control
+        metadata: {}
+        data:
+          color: Pink
+          level: 100
+          effect: Clear
+          duration: Indefinitely
+          target:
+            device_id: d9db549c961eecf0f3fc66794fe297ad
+          led: All
+  mode: single
+- id: '1745344633140'
+  alias: Living Room Switch - Double Down to Turn Off All Lights
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
+    type: action
+    subtype: down_double
+    trigger: device
+  - domain: mqtt
+    device_id: d9db549c961eecf0f3fc66794fe297ad
+    type: action
+    subtype: down_double
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data:
+      transition: 2
+    target:
+      area_id: 6a82246dbc29484cb9558c88e6e7be5d
+  mode: single
