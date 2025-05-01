@@ -20,10 +20,13 @@ automation:
     action:
       # - service: cover.open_cover
       #   target:
-      #     entity_id: cover.living_room_curtain_right
+      #     entity_id:
+      #       - cover.living_room_curtain_left
+      #       - cover.living_room_curtain_right
       - action: v6_quietdrift.set_switchbot_curtain_position
         data:
           entity_id:
+            - cover.living_room_curtain_left
             - cover.living_room_curtain_right
           position: 100
           speed: 2
@@ -31,6 +34,7 @@ automation:
 
   - alias: "Close living room curtains around sunset"
     id: 7b1fcd09-ff2a-4257-a733-06e7840ee49c
+    mode: restart
     trigger:
       - platform: sun
         event: sunset
@@ -44,15 +48,42 @@ automation:
             entity_id: input_select.home_mode
             state: "Vacation"
     action:
-      # - service: cover.close_cover
-      #   target:
-      #     entity_id: cover.living_room_curtain_right
-      - action: v6_quietdrift.set_switchbot_curtain_position
-        data:
-          entity_id:
-            - cover.living_room_curtain_right
-          position: 0
-          speed: 2
+      - if:
+        - condition: state
+          entity_id: binary_sensor.living_room_window_1_contact
+          state: "off"
+        then:
+          - action: v6_quietdrift.set_switchbot_curtain_position
+            data:
+              entity_id:
+                - cover.living_room_curtain_left
+                - cover.living_room_curtain_right
+              position: 0
+              speed: 2
+        else:
+          # Close left, and then wait to close right once the window is closed.
+          - action: v6_quietdrift.set_switchbot_curtain_position
+            data:
+              entity_id:
+                - cover.living_room_curtain_left
+              position: 0
+              speed: 2
+          - wait_for_trigger:
+              - trigger: state
+                entity_id:
+                  - binary_sensor.living_room_window_1_contact
+                to: "off"
+                for:
+                  seconds: 2
+            continue_on_timeout: false
+            timeout:
+              hours: 8
+          - action: v6_quietdrift.set_switchbot_curtain_position
+            data:
+              entity_id:
+                - cover.living_room_curtain_right
+              position: 0
+              speed: 2
 
 template:
   - binary_sensor:
@@ -61,6 +92,37 @@ template:
         device_class: battery
         state: >-
           {{
-            states("sensor.curtain_3_87ef_battery") | int(100) < 20 or
+            states("sensor.living_room_curtain_left_battery") | int(100) < 20 or
             states("sensor.living_room_curtain_right_battery") | int(100) < 20
           }}
+
+# Group the left and right curtains together
+cover:
+  # - platform: group
+  #   name: "Living Room Curtains"
+  #   entities:
+  #     - cover.living_room_curtain_left
+  #     - cover.living_room_curtain_right
+
+  - platform: template
+    covers:
+      living_room_window_1_curtains:
+        unique_id: 684b2cc9-618d-4d7e-a42c-6fe9c5c5980b
+        device_class: curtain
+        friendly_name: "Living Room Window 1 Curtains"
+        position_template: >-
+          {% set position = (state_attr("cover.living_room_curtain_left", "current_position") + state_attr("cover.living_room_curtain_right", "current_position")) / 2 %}
+
+          {% if position < 3 %}
+            0
+          {% else %}
+            {{ position }}
+          {% endif %}
+        set_cover_position:
+          action: v6_quietdrift.set_switchbot_curtain_position
+          data:
+            entity_id:
+              - cover.living_room_curtain_left
+              - cover.living_room_curtain_right
+            position: "{{position}}"
+            speed: 2

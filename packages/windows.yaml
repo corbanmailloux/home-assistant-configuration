@@ -6,6 +6,7 @@ group:
     entities:
       - binary_sensor.master_bedroom_window_contact
       - binary_sensor.sunporch_window_7_contact
+      - binary_sensor.living_room_window_1_contact
 
 template:
   - sensor:

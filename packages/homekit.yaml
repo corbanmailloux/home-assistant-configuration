@@ -14,7 +14,7 @@ homekit:
         - light.living_room_cabinet_lights
         - light.reading_lamp
         - input_boolean.movie_mode_active
-        - cover.living_room_curtain_right
+        - cover.living_room_window_1_curtains # Cover Group
         # - fan.living_room_fan # Seasonal
         # - light.christmas_tree_lights # Seasonal
         # - script.game_mode_start
@@ -47,6 +47,7 @@ homekit:
         # Lucy's Bedroom
         - light.lucys_bedroom_ceiling_fan_light
         - fan.lucys_bedroom_ceiling_fan
+        - light.lucys_dresser_lamp
 
         # Guest Bedroom
         - light.fairy_lights
