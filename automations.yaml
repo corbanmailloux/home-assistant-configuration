@@ -924,9 +924,11 @@
       - action: light.toggle
         metadata: {}
         data:
-          brightness_pct: 3
+          brightness_pct: 1
+          transition: 0
         target:
-          entity_id: light.lucys_bedroom_ceiling_fan_light
+          entity_id:
+          - light.lucys_dresser_lamp
       alias: Center - Toggle Light
     - conditions:
       - condition: trigger
@@ -1163,6 +1165,12 @@
     subtype: arrow_right_click
     trigger: device
     alias: Maggie - Right Arrow
+  - alias: Maggie - Center Button
+    domain: mqtt
+    device_id: 902fe0fc069711eb8fc8e19795714a1d
+    type: action
+    subtype: toggle
+    trigger: device
   conditions: []
   actions:
   - choose:
@@ -1284,4 +1292,38 @@
       transition: 2
     target:
       area_id: 6a82246dbc29484cb9558c88e6e7be5d
+  mode: single
+- id: '1745702388569'
+  alias: Living Room Switch 2 - Toggle Corner Lamp
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 53afe29f4d972deb626552ed9a4f89f6
+    type: action
+    subtype: config_single
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.corner_lamp
+  mode: single
+- id: '1745702457597'
+  alias: Living Room Switch 3 - Toggle Reading Lamp
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: ff32bc927588740f5739a61d42afee60
+    type: action
+    subtype: config_single
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.reading_lamp
   mode: single
