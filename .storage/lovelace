@@ -936,27 +936,6 @@
               ]
             },
             {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-cover-card",
-                  "name": "Right Curtain",
-                  "fill_container": true,
-                  "show_position_control": false,
-                  "show_buttons_control": true,
-                  "layout": "horizontal",
-                  "show_tilt_position_control": false,
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  },
-                  "entity": "cover.master_bedroom_right_curtain"
-                }
-              ]
-            },
-            {
               "type": "custom:layout-break"
             },
             {

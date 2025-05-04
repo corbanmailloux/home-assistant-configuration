@@ -1,41 +1,29 @@
 # There are two Switchbot Curtain 3 motors installed in the Master Bedroom.
 
-# Use a template cover to combine them:
-# cover:
-#   - platform: template
-#     covers:
-#       master_bedroom_curtains:
-#         unique_id: bb610c2a-cbea-4c95-9846-83341e2ef576
-#         device_class: curtain
-#         friendly_name: "Master Bedroom Curtains"
-#         position_template: >-
-#           {{ (state_attr("cover.master_bedroom_left_curtain", "current_position") + state_attr("cover.master_bedroom_right_curtain", "current_position")) / 2 }}
-#         open_cover:
-#           service: cover.open_cover
-#           target:
-#             entity_id:
-#               - cover.master_bedroom_left_curtain
-#               - cover.master_bedroom_right_curtain
-#         close_cover:
-#           service: cover.close_cover
-#           target:
-#             entity_id:
-#               - cover.master_bedroom_left_curtain
-#               - cover.master_bedroom_right_curtain
-#         stop_cover:
-#           service: cover.stop_cover
-#           target:
-#             entity_id:
-#               - cover.master_bedroom_left_curtain
-#               - cover.master_bedroom_right_curtain
-#         set_cover_position:
-#           service: cover.set_cover_position
-#           data:
-#             position: "{{position}}"
-#           target:
-#             entity_id:
-#               - cover.master_bedroom_left_curtain
-#               - cover.master_bedroom_right_curtain
+# Group the left and right curtains together
+cover:
+  - platform: template
+    covers:
+      master_bedroom_curtains:
+        unique_id: 473164d6-14b5-4357-9177-678e86f29e39
+        device_class: curtain
+        friendly_name: "Master Bedroom Curtains"
+        position_template: >-
+          {% set position = (state_attr("cover.master_bedroom_curtain_left", "current_position") + state_attr("cover.master_bedroom_curtain_right", "current_position")) / 2 %}
+
+          {% if position < 3 %}
+            0
+          {% else %}
+            {{ position }}
+          {% endif %}
+        set_cover_position:
+          action: v6_quietdrift.set_switchbot_curtain_position
+          data:
+            entity_id:
+              - cover.master_bedroom_curtain_left
+              - cover.master_bedroom_curtain_right
+            position: "{{position}}"
+            speed: 2
 
 automation:
   - alias: "Open curtains when Corban wakes up"
@@ -99,15 +87,42 @@ automation:
             entity_id: input_select.home_mode
             state: "Vacation"
     action:
-      # - service: cover.close_cover
-      #   target:
-      #     entity_id: cover.master_bedroom_curtains
-      - action: v6_quietdrift.set_switchbot_curtain_position
-        data:
-          entity_id:
-            - cover.master_bedroom_curtains
-          position: 0
-          speed: 2
+      - if:
+        - condition: state
+          entity_id: binary_sensor.master_bedroom_window_contact
+          state: "off"
+        then:
+          - action: v6_quietdrift.set_switchbot_curtain_position
+            data:
+              entity_id:
+                - cover.master_bedroom_curtain_left
+                - cover.master_bedroom_curtain_right
+              position: 0
+              speed: 2
+        else:
+          # Close left, and then wait to close right once the window is closed.
+          - action: v6_quietdrift.set_switchbot_curtain_position
+            data:
+              entity_id:
+                - cover.master_bedroom_curtain_left
+              position: 0
+              speed: 2
+          - wait_for_trigger:
+              - trigger: state
+                entity_id:
+                  - binary_sensor.master_bedroom_window_contact
+                to: "off"
+                for:
+                  seconds: 2
+            continue_on_timeout: false
+            timeout:
+              hours: 8
+          - action: v6_quietdrift.set_switchbot_curtain_position
+            data:
+              entity_id:
+                - cover.master_bedroom_curtain_right
+              position: 0
+              speed: 2
 
 template:
   - binary_sensor:
@@ -116,6 +131,6 @@ template:
         device_class: battery
         state: >-
           {{
-            states("sensor.curtain_3_b14b_battery") | int(100) < 20 or
-            states("sensor.curtain_3_41ca_battery") | int(100) < 20
+            states("sensor.master_bedroom_curtain_left_battery") | int(100) < 20 or
+            states("sensor.master_bedroom_curtain_right_battery") | int(100) < 20
           }}
