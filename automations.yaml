@@ -1327,3 +1327,77 @@
     target:
       entity_id: light.reading_lamp
   mode: single
+- id: '1746243913739'
+  alias: Notify if Garage Door is Left Open When Leaving
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_select.home_mode
+    to: Away
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  - trigger: state
+    entity_id:
+    - input_select.home_mode
+    to: Vacation
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 30
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: cover.ratgdo_left_garage_door_door
+      state: open
+    - condition: state
+      state: open
+      entity_id: cover.ratgdo_right_garage_door_door
+    alias: If either door is open
+  actions:
+  - action: notify.adult_phones
+    metadata: {}
+    data:
+      title: Garage Door Open
+      data:
+        tag: garage_door_open_reminder
+        actions:
+        - action: CLOSE_GARAGE_DOORS
+          title: Close Garage Doors
+          activationMode: background
+          authenticationRequired: false
+          destructive: false
+          behavior: default
+      message: A garage door was left open. Close it?
+    alias: Notify adult phones
+  - wait_for_trigger:
+    - trigger: event
+      event_type: mobile_app_notification_action
+      event_data:
+        action: CLOSE_GARAGE_DOORS
+    continue_on_timeout: false
+    timeout:
+      hours: 24
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+    alias: Wait for notification action (or timeout)
+  - action: cover.close_cover
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - cover.ratgdo_left_garage_door_door
+      - cover.ratgdo_right_garage_door_door
+    alias: Close the garage doors
+  - action: notify.adult_phones
+    metadata: {}
+    data:
+      message: clear_notification
+      data:
+        tag: garage_door_open_reminder
+    alias: Clear the notification from remaining devices
+  mode: restart
