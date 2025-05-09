@@ -35,7 +35,7 @@
       door_sensor: binary_sensor.linen_closet_door_sensor_contact
       light_switch:
         entity_id:
-        - light.linen_closet_wall_switch
+        - light.linen_closet_light
       light_timeout: 1800
 - id: '1710728130096'
   alias: Coat Closet Light - Door Trigger
@@ -50,54 +50,78 @@
 - id: '1710814441742'
   alias: Hold Kitchen Light Switches to Control Area Lights
   description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
+  triggers:
+  - domain: mqtt
     device_id: 9f61f3f1b573c3799a54ee705f98034f
     type: action
     subtype: up_held
     id: 'on'
-  - platform: device
-    domain: mqtt
+    trigger: device
+  - domain: mqtt
     device_id: 9f61f3f1b573c3799a54ee705f98034f
     type: action
     subtype: down_held
     id: 'off'
-  - platform: device
-    domain: mqtt
+    trigger: device
+  - domain: mqtt
     device_id: f6a3f0606ae31f561f4c700f5917deed
     type: action
     subtype: up_held
     id: 'on'
-  - platform: device
-    domain: mqtt
+    trigger: device
+  - domain: mqtt
     device_id: f6a3f0606ae31f561f4c700f5917deed
     type: action
     subtype: down_held
     id: 'off'
-  condition: []
-  action:
+    trigger: device
+  - domain: mqtt
+    device_id: 9f61f3f1b573c3799a54ee705f98034f
+    type: action
+    subtype: up_double
+    trigger: device
+    id: 'on'
+  - domain: mqtt
+    device_id: 9f61f3f1b573c3799a54ee705f98034f
+    type: action
+    subtype: down_double
+    trigger: device
+    id: 'off'
+  - domain: mqtt
+    device_id: f6a3f0606ae31f561f4c700f5917deed
+    type: action
+    subtype: up_double
+    trigger: device
+    id: 'on'
+  - domain: mqtt
+    device_id: f6a3f0606ae31f561f4c700f5917deed
+    type: action
+    subtype: down_double
+    trigger: device
+    id: 'off'
+  conditions: []
+  actions:
   - choose:
     - conditions:
       - condition: trigger
         id:
         - 'on'
       sequence:
-      - service: light.turn_on
-        metadata: {}
+      - metadata: {}
         data: {}
         target:
           area_id: 4872200594374640b069eaeee79e9ec6
+        action: light.turn_on
     - conditions:
       - condition: trigger
         id:
         - 'off'
       sequence:
-      - service: light.turn_off
-        metadata: {}
+      - metadata: {}
         data: {}
         target:
           area_id: 4872200594374640b069eaeee79e9ec6
+        action: light.turn_off
   mode: single
 - id: '1710989410744'
   alias: Display Garage Door Status on Kitchen Bar Light LED Strip
