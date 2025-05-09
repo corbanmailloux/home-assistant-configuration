@@ -4,9 +4,9 @@ group:
     entities:
       - binary_sensor.front_door
       - binary_sensor.garage_side_person_door_contact
+      - binary_sensor.garage_back_person_door_contact
       - binary_sensor.basement_exterior_door_sensor_contact
       - binary_sensor.sunporch_sliding_door_contact
-      # TODO: Add garage rear person door
 
 script:
   bedtime_checkup:
@@ -39,8 +39,6 @@ script:
         service: lock.lock
         target:
           entity_id: lock.side_door
-
-      # TODO: Extend to the garage person door
 
   bedtime_checkup_notify:
     description: "Bedtime Checkup - Notify and Flash Bed Lights"

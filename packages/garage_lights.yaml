@@ -21,7 +21,7 @@ template:
       - platform: state
         entity_id:
           - binary_sensor.garage_side_person_door_contact
-          # - binary_sensor.garage_back_door_contact # TODO: Update
+          - binary_sensor.garage_back_person_door_contact
         from: "off"
         to: "on"
     binary_sensor:
