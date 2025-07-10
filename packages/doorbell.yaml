@@ -56,7 +56,7 @@ script:
           entity_id: "{{ camera }}"
         data:
           filename: "{{ snapshot_create_file_path }}"
-      - service: notify.corban_phone_and_ipad # Previously just notify.corban
+      - service: notify.adult_iphones_and_corban_ipad
         data:
           title: "Person Detected at the Doorbell"
           message: "Hold for Image"

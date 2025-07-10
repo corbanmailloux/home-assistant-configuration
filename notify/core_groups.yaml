@@ -33,3 +33,10 @@
   services:
     - service: mobile_app_corbans_iphone_pro
     - service: mobile_app_corbans_ipad
+
+- name: adult_iphones_and_corban_ipad
+  platform: group
+  services:
+    - service: mobile_app_corbans_iphone_pro
+    - service: mobile_app_corbans_ipad
+    - service: mobile_app_margarets_iphone
