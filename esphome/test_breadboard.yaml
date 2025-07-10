@@ -1,0 +1,28 @@
+esphome:
+  name: test_breadboard
+  friendly_name: "Test Breadboard"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: esp-idf
+
+packages:
+  device_base: !include common/device_base.yaml
+
+logger:
+  level: INFO
+
+sensor:
+  - platform: ultrasonic
+    trigger_pin: 27
+    echo_pin: 26
+    update_interval: 500ms
+    timeout: 5m
+    name: "Ultrasonic Sensor"
+    unit_of_measurement: "inches"
+    filters:
+      # - calibrate_linear:
+      #     - 0.0 -> 0.0
+      #     - 10.0 -> 3.94
+      - multiply: 39.37  # Convert from m to inches
