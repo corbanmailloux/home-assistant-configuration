@@ -203,29 +203,34 @@
 - id: '1711159946532'
   alias: Hall Light Aux Switch - Hold to Control Multiple Lights
   description: ''
-  trigger:
-  - platform: device
-    domain: mqtt
+  triggers:
+  - domain: mqtt
     device_id: f6a3f0606ae31f561f4c700f5917deed
     type: action
     subtype: aux_up_held
     id: 'on'
-  - platform: device
-    domain: mqtt
+    trigger: device
+  - domain: mqtt
+    device_id: f6a3f0606ae31f561f4c700f5917deed
+    type: action
+    subtype: aux_down_double
+    trigger: device
+    id: 'off'
+  - domain: mqtt
     device_id: f6a3f0606ae31f561f4c700f5917deed
     type: action
     subtype: aux_down_held
+    trigger: device
     id: 'off'
-  condition: []
-  action:
+  conditions: []
+  actions:
   - choose:
     - conditions:
       - condition: trigger
         id:
         - 'on'
       sequence:
-      - service: light.turn_on
-        metadata: {}
+      - metadata: {}
         data:
           transition: 0
         target:
@@ -233,13 +238,13 @@
           - light.first_floor_hall_light
           - light.kitchen_main_lights
           - light.kitchen_bar_light
+        action: light.turn_on
     - conditions:
       - condition: trigger
         id:
         - 'off'
       sequence:
-      - service: light.turn_off
-        metadata: {}
+      - metadata: {}
         data:
           transition: 0
         target:
@@ -247,6 +252,7 @@
           - light.first_floor_hall_light
           - light.kitchen_main_lights
           - light.kitchen_bar_light
+        action: light.turn_off
   mode: single
 - id: '1712374070637'
   alias: Mudroom Lamp Follows Kitchen Bar Light
@@ -961,6 +967,12 @@
         - up
         - right
       sequence:
+      - action: scene.create
+        metadata: {}
+        data:
+          scene_id: lucy_nightlight_remote_pre
+          snapshot_entities:
+          - light.lucys_nightlight
       - choose:
         - conditions:
           - condition: trigger
@@ -1111,6 +1123,17 @@
           data:
             title: Baby Buddy - Error logging diaper
             message: '{{ response }}'
+      - delay:
+          hours: 0
+          minutes: 0
+          seconds: 0
+          milliseconds: 500
+      - action: scene.turn_on
+        metadata: {}
+        data:
+          transition: 1
+        target:
+          entity_id: scene.lucy_nightlight_remote_pre
       alias: Left, Up, Right - Diaper Logging
   mode: single
 - id: '1744169676303'
@@ -1165,6 +1188,9 @@
         id:
         - 'off'
       sequence:
+      - condition: state
+        entity_id: light.lucys_nightlight
+        state: 'on'
       - action: light.turn_off
         metadata: {}
         data:
@@ -1211,7 +1237,7 @@
         metadata: {}
         data:
           transition: 2
-          brightness_pct: 4
+          brightness_pct: 2
         target:
           entity_id: light.master_bedroom_headboard
     default:
@@ -1276,7 +1302,8 @@
           effect: Aurora
           duration: Indefinitely
           target:
-            device_id: d9db549c961eecf0f3fc66794fe297ad
+            device_id:
+            - d9db549c961eecf0f3fc66794fe297ad
           led: All
     - conditions:
       - condition: trigger
@@ -1291,7 +1318,8 @@
           effect: Clear
           duration: Indefinitely
           target:
-            device_id: d9db549c961eecf0f3fc66794fe297ad
+            device_id:
+            - d9db549c961eecf0f3fc66794fe297ad
           led: All
   mode: single
 - id: '1745344633140'
@@ -1425,3 +1453,341 @@
         tag: garage_door_open_reminder
     alias: Clear the notification from remaining devices
   mode: restart
+- id: '1747349188668'
+  alias: Tummy Time Reminder
+  description: ''
+  triggers:
+  - trigger: time
+    at: '16:00:00'
+  conditions:
+  - alias: No tummy time entered today
+    condition: template
+    value_template: '{{ as_timestamp(state_attr(''sensor.lucy_mailloux_last_tummy_time'',
+      ''start'')) | timestamp_custom(''%Y-%m-%d'') != now().date().isoformat() }}'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: input_select.home_mode
+      state: Vacation
+    alias: Not on vacation
+  actions:
+  - action: notify.adult_phones
+    metadata: {}
+    data:
+      message: 'No tummy time has been entered today.'
+      title: Tummy Time?
+  mode: single
+- id: '1747521825959'
+  alias: Notify if Lucy’s timer is running for too long
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.lucy_mailloux_timer
+    to: 'on'
+    for:
+      hours: 2
+      minutes: 0
+      seconds: 0
+  conditions:
+  - condition: time
+    after: 08:00:00
+    before: '20:00:00'
+  actions:
+  - action: notify.adult_phones
+    metadata: {}
+    data:
+      title: Napping Too Long?
+      message: A BabyBuddy timer has been running for more than 2 hours.
+      data:
+        group: babybuddy
+        tag: baby-nap-too-long
+  - wait_for_trigger:
+    - trigger: state
+      entity_id:
+      - switch.lucy_mailloux_timer
+      to: 'off'
+    continue_on_timeout: false
+    timeout:
+      hours: 3
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - action: notify.adult_phones
+    metadata: {}
+    data:
+      data:
+        tag: baby-nap-too-long
+      message: clear_notification
+    alias: Clear notification
+  mode: single
+- id: '1748960622382'
+  alias: Wake window timer reminder
+  description: ''
+  triggers:
+  - trigger: time
+    at:
+      entity_id: sensor.lucy_last_sleep_end_timestamp
+      offset: '1:30:00'
+  conditions:
+  - condition: time
+    after: 07:00:00
+    before: '21:00:00'
+  - condition: state
+    entity_id: switch.lucy_mailloux_timer
+    state: 'off'
+  actions:
+  - action: notify.adult_phones
+    metadata: {}
+    data:
+      title: Wake Window Ending
+      message: It's been more than 90 minutes since a sleep entry. Is it nap time?
+      data:
+        group: babybuddy
+        tag: baby-wake-window-ending
+  - wait_for_trigger:
+    - trigger: state
+      entity_id:
+      - switch.lucy_mailloux_timer
+      to: 'on'
+    continue_on_timeout: false
+    timeout:
+      hours: 3
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - alias: Clear notification
+    action: notify.adult_phones
+    metadata: {}
+    data:
+      data:
+        tag: baby-wake-window-ending
+      message: clear_notification
+  mode: single
+- id: '1748974264156'
+  alias: Turn off sprinkler at end of timer
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: timer.finished
+    event_data:
+      entity_id: timer.irrigation_off_timer
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.sprinkler_valve_1
+  mode: single
+- id: '1750027073324'
+  alias: Turn on exterior lights at night when a vehicle is detected
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.driveway_vehicle_detected
+    - binary_sensor.driveway_person_detected
+    from: 'off'
+    to: 'on'
+  conditions:
+  - condition: time
+    after: '23:00:00'
+    before: 05:00:00
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.exterior_lights
+  - delay:
+      hours: 0
+      minutes: 5
+      seconds: 0
+      milliseconds: 0
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.exterior_lights
+  mode: restart
+- id: '1750264262233'
+  alias: Notify on low litter level
+  description: ''
+  triggers:
+  - trigger: numeric_state
+    entity_id:
+    - sensor.litter_robot_4_litter_level
+    below: 70
+  conditions: []
+  actions:
+  - action: notify.corban
+    metadata: {}
+    data:
+      title: Litter Low
+      message: 'Check the box '
+  mode: single
+- id: '1750469258428'
+  alias: Maggie’s Alarm
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: maggie_ios_alarm
+  conditions:
+  - condition: or
+    conditions:
+    - condition: state
+      entity_id: input_select.home_mode
+      state: Home
+    - condition: state
+      entity_id: input_select.home_mode
+      state: Sleep
+    alias: Home or Sleep
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      transition: 2
+      brightness_pct: 100
+    target:
+      entity_id: light.fairy_lights
+  mode: single
+- id: '1750769716810'
+  alias: Triple tap config on kitchen bar switch to open right garage door
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 9f61f3f1b573c3799a54ee705f98034f
+    type: action
+    subtype: config_triple
+    trigger: device
+  conditions: []
+  actions:
+  - action: cover.toggle
+    metadata: {}
+    data: {}
+    target:
+      entity_id: cover.ratgdo_right_garage_door_door
+  mode: single
+- id: '1750861927898'
+  alias: Notify Corban on HVAC error
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.mitp_heat_pump_first_floor_error_code
+    from: No Error Reported
+    to:
+    id: First Floor HVAC
+  - trigger: state
+    entity_id:
+    - sensor.mitp_heat_pump_second_floor_error_code
+    from: No Error Reported
+    to:
+    id: Second Floor HVAC
+  conditions: []
+  actions:
+  - action: notify.corban
+    metadata: {}
+    data:
+      title: HVAC Error
+      message: 'Error in {{ trigger.id }}: {{ trigger.to_state.state }}'
+  mode: single
+- id: '1750862231781'
+  alias: Notify when HVAC filter needs to be replaced
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.mitp_heat_pump_first_floor_filter_status
+    id: First Floor HVAC
+    to: 'on'
+    from: 'off'
+  - trigger: state
+    entity_id:
+    - binary_sensor.mitp_heat_pump_second_floor_filter_status
+    id: Second Floor HVAC
+    to: 'on'
+    from: 'off'
+  conditions: []
+  actions:
+  - action: notify.adult_phones
+    metadata: {}
+    data:
+      title: HVAC Filter Needs to be Replaced
+      message: The filter in the {{ trigger.id }} needs to be replaced.
+  mode: single
+- id: '1751916259666'
+  alias: Bedroom Proxy - Button Actions
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - event.bluetooth_proxy_master_bedroom_bluetooth_proxy_master_bedroom_button_event
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ trigger.to_state.attributes.event_type == "single" }}'
+        alias: Single Press
+      sequence:
+      - choose:
+        - conditions:
+          - condition: time
+            after: '21:00:00'
+            before: 09:00:00
+          sequence:
+          - action: light.toggle
+            metadata: {}
+            data:
+              transition: 2
+              brightness_pct: 2
+            target:
+              entity_id: light.master_bedroom_headboard
+            alias: Toggle Dim
+        default:
+        - action: light.toggle
+          metadata: {}
+          data:
+            transition: 2
+            brightness_pct: 75
+          target:
+            entity_id: light.master_bedroom_headboard
+          alias: Toggle Bright
+      alias: Single Press
+    - conditions:
+      - alias: Long Press
+        condition: template
+        value_template: '{{ trigger.to_state.attributes.event_type == "long" }}'
+      sequence:
+      - alias: If sleep mode is on, force everything off.
+        choose:
+        - conditions:
+          - condition: state
+            entity_id: input_select.home_mode
+            state: Sleep
+          sequence:
+          - alias: Turn truly everything off
+            data:
+              ignore_room_exclusions: true
+              include_fans: true
+            action: script.everything_off
+        default:
+        - data:
+            entity_id: input_select.home_mode
+            option: Sleep
+          action: input_select.select_option
+      alias: Long Press
+    - conditions:
+      - alias: Double Press
+        condition: template
+        value_template: '{{ trigger.to_state.attributes.event_type == "double" }}'
+      sequence:
+      - action: fan.toggle
+        metadata: {}
+        data: {}
+        target:
+          entity_id: fan.master_bedroom_ceiling_fan
+      alias: Double Press
+  mode: single

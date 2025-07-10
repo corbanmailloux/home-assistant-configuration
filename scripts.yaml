@@ -87,3 +87,17 @@ living_room_dramatic_lighting:
       entity_id: scene.living_room_pre_drama
   alias: Living Room Dramatic Lighting
   description: ''
+start_sprinker_for_limited_time:
+  sequence:
+  - action: timer.start
+    metadata: {}
+    data: {}
+    target:
+      entity_id: timer.irrigation_off_timer
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.sprinkler_valve_1
+  alias: Start sprinker for limited time
+  description: ''

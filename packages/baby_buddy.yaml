@@ -7,7 +7,7 @@ rest_command:
     method: post
     headers:
       authorization: !secret baby_buddy_api_header
-    payload: '{"child":"2", "time":"{{ now() }}", "wet": "{{ wet_bool }}", "solid": "{{ solid_bool }}", "tags": ["Home Assistant"]}'
+    payload: '{"child":"2", "time":"{{ now() - timedelta(seconds=30) }}", "wet": "{{ wet_bool }}", "solid": "{{ solid_bool }}", "tags": ["Home Assistant"]}'
     content_type: "application/json"
   # feedings:
   #   url: "https://baby.corb.co/api/feedings/"
