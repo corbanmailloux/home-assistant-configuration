@@ -1624,7 +1624,7 @@
                 },
                 {
                   "menu_id": "fan_speed",
-                  "icon": "valetudo:fan-off",
+                  "icon": "valetudo:fan-min",
                   "label": "Silent",
                   "conditions": [
                     {
@@ -1645,7 +1645,7 @@
                 },
                 {
                   "menu_id": "fan_speed",
-                  "icon": "mdi:fan-speed-1",
+                  "icon": "valetudo:fan-medium",
                   "label": "Standard",
                   "conditions": [
                     {
@@ -1666,7 +1666,7 @@
                 },
                 {
                   "menu_id": "fan_speed",
-                  "icon": "mdi:fan-speed-2",
+                  "icon": "valetudo:fan-high",
                   "label": "Strong",
                   "conditions": [
                     {
@@ -1687,7 +1687,7 @@
                 },
                 {
                   "menu_id": "fan_speed",
-                  "icon": "mdi:fan-speed-3",
+                  "icon": "valetudo:fan-turbo",
                   "label": "Turbo",
                   "conditions": [
                     {
@@ -1849,6 +1849,11 @@
                   "entity": "vacuum.l10s_ultra",
                   "precision": 0,
                   "translations": {}
+                },
+                {
+                  "tile_id": "custom_cleaning",
+                  "entity": "switch.l10s_ultra_customized_cleaning",
+                  "label": "Custom Clean"
                 }
               ],
               "additional_presets": []
@@ -3072,36 +3077,44 @@
                 {
                   "entities": [
                     {
-                      "entity": "sensor.living_room_temperature",
-                      "name": "FL1 - Living Room"
-                    },
-                    {
-                      "entity": "sensor.office_temperature",
-                      "name": "FL1 - Office"
-                    },
-                    {
-                      "entity": "sensor.t9_thermostat_current_temperature",
-                      "name": "FL1 - Thermostat"
-                    },
-                    {
                       "entity": "sensor.bedroom_temperature",
                       "name": "FL2 - Bedroom"
                     },
                     {
-                      "entity": "sensor.basement_temperature_sensor_temperature",
-                      "name": "Basement"
+                      "entity": "sensor.mitp_heat_pump_second_floor_thermostat_temperature",
+                      "name": "FL2 Thermo"
+                    },
+                    {
+                      "entity": "sensor.living_room_temperature",
+                      "name": "FL1 - Living Room"
+                    },
+                    {
+                      "entity": "sensor.mitp_heat_pump_first_floor_thermostat_temperature",
+                      "name": "FL1 Thermo"
+                    },
+                    {
+                      "entity": "sensor.office_temperature",
+                      "name": "FL1 - Office"
                     }
                   ],
                   "refresh_interval": 0,
-                  "title": "Temperatures",
+                  "title": "Interior Temperatures",
                   "type": "history-graph",
                   "hours_to_show": 24
                 },
                 {
                   "entities": [
                     {
+                      "entity": "sensor.bedroom_temperature_sensor_humidity",
+                      "name": "FL2 - Bedroom"
+                    },
+                    {
                       "entity": "sensor.office_temperature_sensor_humidity",
                       "name": "FL1 - Office"
+                    },
+                    {
+                      "entity": "sensor.basement_temperature_sensor_humidity",
+                      "name": "Basement"
                     },
                     {
                       "entity": "sensor.openweathermap_humidity",
@@ -3110,9 +3123,6 @@
                     {
                       "entity": "sensor.outdoor_porch_humidity",
                       "name": "Outside - Deck"
-                    },
-                    {
-                      "entity": "sensor.bedroom_temperature_sensor_humidity"
                     }
                   ],
                   "title": "Humidities",
@@ -3124,6 +3134,34 @@
             },
             {
               "type": "custom:layout-break"
+            },
+            {
+              "entities": [
+                {
+                  "entity": "sensor.sunporch_temperature_sensor_temperature",
+                  "name": "Sunporch"
+                },
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "OpenWeatherMap"
+                },
+                {
+                  "entity": "sensor.outdoor_porch_temperature",
+                  "name": "Deck"
+                },
+                {
+                  "entity": "sensor.mitp_heat_pump_first_floor_outdoor_temperature",
+                  "name": "HP 1"
+                },
+                {
+                  "entity": "sensor.mitp_heat_pump_second_floor_outdoor_temperature",
+                  "name": "HP 2"
+                }
+              ],
+              "refresh_interval": 0,
+              "title": "Outside Sensors",
+              "type": "history-graph",
+              "hours_to_show": 24
             },
             {
               "entities": [
@@ -3233,6 +3271,14 @@
                   }
                 },
                 {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "sensor.lucy_last_sleep_end_timestamp",
+                  "name": "Last Sleep",
+                  "icon": "mdi:power-sleep"
+                },
+                {
                   "chart_type": "line",
                   "period": "day",
                   "type": "statistics-graph",
@@ -3267,6 +3313,12 @@
                   "entity": "light.lucys_nightlight",
                   "name": "Nightlight",
                   "icon": "mdi:lightbulb-night"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "light.lucys_dresser_lamp"
                 }
               ]
             }
@@ -3541,7 +3593,7 @@
                     },
                     {
                       "entity": "sensor.power_monitor_plug_2_power",
-                      "name": "Humidifier"
+                      "name": "Burner"
                     },
                     {
                       "entity": "sensor.home_energy_monitor_power_fl1_heat_strips",

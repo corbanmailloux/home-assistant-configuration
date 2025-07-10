@@ -8,7 +8,7 @@ template:
         delay_off:
           minutes: 30
         state: >-
-          {{ is_state('media_player.kitchen', 'playing') }}
+          {{ is_state('media_player.kitchen_2', 'playing') }}
         icon: mdi:music-circle-outline
 
       - name: Corban On a Call

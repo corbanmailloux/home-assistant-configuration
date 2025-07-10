@@ -377,6 +377,36 @@
               }
             },
             {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "binary_sensor.wall_display_show_kitchen_media_card",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "type": "custom:mini-media-player",
+                "entity": "media_player.kitchen_2",
+                "name": "Kitchen HomePod",
+                "artwork": "cover",
+                "icon": "mdi:speaker",
+                "toggle_power": true,
+                "hide": {
+                  "icon": true,
+                  "source": true,
+                  "power": true,
+                  "runtime": false
+                },
+                "volume_stateless": false,
+                "sound_mode": "full",
+                "source": "full",
+                "info": "scroll",
+                "idle_view": {
+                  "when_idle": true
+                }
+              }
+            },
+            {
               "type": "custom:layout-break"
             },
             {
@@ -635,24 +665,6 @@
             },
             {
               "card": {
-                "color": "red",
-                "entity": "input_boolean.litter_box_clean_needed",
-                "layout": "icon_name",
-                "name": "Litter Box Clean Needed",
-                "show_icon": true,
-                "show_state": false,
-                "type": "custom:button-card"
-              },
-              "conditions": [
-                {
-                  "entity": "input_boolean.litter_box_clean_needed",
-                  "state": "on"
-                }
-              ],
-              "type": "conditional"
-            },
-            {
-              "card": {
                 "entity": "input_boolean.washer_reminder_notifying",
                 "layout": "icon_name",
                 "name": "Washing machine done.",
@@ -785,27 +797,6 @@
               "type": "conditional",
               "conditions": [
                 {
-                  "entity": "binary_sensor.wall_display_show_kitchen_media_card",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "type": "custom:mini-media-player",
-                "entity": "media_player.kitchen",
-                "name": "Kitchen HomePod",
-                "artwork": "none",
-                "icon": "mdi:speaker",
-                "toggle_power": false,
-                "hide": {
-                  "icon": false,
-                  "source": true
-                }
-              }
-            },
-            {
-              "type": "conditional",
-              "conditions": [
-                {
                   "entity": "binary_sensor.bedroom_curtains_low_battery",
                   "state": "on"
                 }
@@ -886,6 +877,36 @@
                   }
                 ]
               }
+            },
+            {
+              "card": {
+                "color": "yellow",
+                "entity": "binary_sensor.mitp_heat_pump_first_floor_filter_status",
+                "layout": "icon_name",
+                "name": "HVAC Filter Needs Replacement",
+                "icon": "mdi:fan-alert",
+                "show_icon": true,
+                "show_state": false,
+                "type": "custom:button-card"
+              },
+              "conditions": [
+                {
+                  "condition": "or",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "binary_sensor.mitp_heat_pump_first_floor_filter_status",
+                      "state": "on"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "binary_sensor.mitp_heat_pump_second_floor_filter_status",
+                      "state": "on"
+                    }
+                  ]
+                }
+              ],
+              "type": "conditional"
             }
           ]
         },

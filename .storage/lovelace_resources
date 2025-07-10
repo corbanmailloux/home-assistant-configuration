@@ -37,12 +37,12 @@
       {
         "id": "49dae12118f643c19955e01675348008",
         "type": "module",
-        "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620121"
+        "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620130"
       },
       {
         "id": "b9ec5fec89054ffeb91508eafed17d54",
         "type": "module",
-        "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524344"
+        "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524345"
       },
       {
         "id": "9717aed771b445c5965d83897ccb1714",
@@ -55,12 +55,12 @@
         "id": "1cf10dc4f7744e18b1b9f06015ba439e"
       },
       {
-        "url": "/hacsfiles/lovelace-layout-card/layout-card.js?hacstag=156434866245",
+        "url": "/hacsfiles/lovelace-layout-card/layout-card.js?hacstag=156434866246",
         "type": "module",
         "id": "ad5e2552f9ec4dbb96308ac020109a99"
       },
       {
-        "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994220",
+        "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994232",
         "type": "module",
         "id": "3be86917498147c08cb200b17d63894b"
       },
@@ -80,7 +80,7 @@
         "id": "1a480f1e8ae24f60808f839d79ef7ff6"
       },
       {
-        "url": "/browser_mod.js?automatically-added",
+        "url": "/browser_mod.js?automatically-added&2.4.1",
         "type": "module",
         "id": "b9781c9d8ab340f089a8a0da2cc2a497"
       },
@@ -106,7 +106,7 @@
       },
       {
         "id": "3458e41b97cf402fb54c606a3302f36c",
-        "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701573214",
+        "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701573215",
         "type": "module"
       },
       {
