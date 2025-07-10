@@ -5,7 +5,7 @@ substitutions:
 esphome:
   name: "${device_name}"
   friendly_name: "${friendly_name}"
-  compile_process_limit: 3 # This is a big config. Reduce the threading to help with performance.
+  # compile_process_limit: 3 # This is a big config. Reduce the threading to help with performance.
 
 esp32:
   board: esp32doit-devkit-v1
@@ -22,14 +22,50 @@ wifi:
 logger:
   level: INFO
 
+switch:
+  - platform: template
+    name: "Poll Range Sensor - Left"
+    optimistic: true
+    icon: mdi:update
+    id: poll_range_sensor_left
+  - platform: template
+    name: "Poll Range Sensor - Right"
+    optimistic: true
+    icon: mdi:update
+    id: poll_range_sensor_right
+
+interval:
+  - interval: 100ms
+    then:
+      - if:
+          condition:
+            switch.is_on: poll_range_sensor_left
+          then:
+            - component.update: ultrasonic_sensor_left
+      - if:
+          condition:
+            switch.is_on: poll_range_sensor_right
+          then:
+            - component.update: ultrasonic_sensor_right
+
 sensor:
   - platform: wifi_signal
     name: "${friendly_name} - WiFi Signal"
     update_interval: 60s
 
-  - platform: homeassistant
-    name: "Remote Range Sensor - Left"
-    entity_id: sensor.garage_parking_sensor_left_distance
+  - platform: ultrasonic
+    trigger_pin: 32
+    echo_pin: 12
+    update_interval: never # Triggered by the interval above.
+    timeout: 5m
+    id: ultrasonic_sensor_left
+    name: "Range Sensor - Left"
+    unit_of_measurement: "inches"
+    filters:
+      - multiply: 39.37 # Convert from meters to inches
+      - exponential_moving_average:
+          send_every: 3 # Send every few readings to smooth out noise.
+      - timeout: 1000ms # When polling is disabled, automatically reset to NaN.
     on_value:
       then:
         - number.set:
@@ -38,7 +74,15 @@ sensor:
               if (isnan(x)) {
                 return -10;
               }
-              return max( -9, min( (int)(round(x) - id(target_distance_left).state), 99 ));
+
+              int display_value = max( -9, min( (int)(round(x) - id(target_distance_left).state), 99 ));
+
+              if (display_value >= 20) {
+                // Over 20 is noisy. Just display "--"
+                return -11;
+              }
+
+              return display_value;
         - lambda: |-
             if (isnan(x)) {
               id(light_hand).turn_off().perform();
@@ -51,9 +95,19 @@ sensor:
               id(light_walk).turn_on().perform();
             }
 
-  - platform: homeassistant
-    name: "Remote Range Sensor - Right"
-    entity_id: sensor.garage_parking_sensor_right_distance
+  - platform: ultrasonic
+    trigger_pin: 27
+    echo_pin: 25
+    update_interval: never # Triggered by the interval above.
+    timeout: 5m
+    id: ultrasonic_sensor_right
+    name: "Range Sensor - Right"
+    unit_of_measurement: "inches"
+    filters:
+      - multiply: 39.37 # Convert from meters to inches
+      - exponential_moving_average:
+          send_every: 5 # Send every few readings to smooth out noise.
+      - timeout: 1000ms # When polling is disabled, automatically reset to NaN.
     on_value:
       then:
         - number.set:
@@ -62,18 +116,19 @@ sensor:
               if (isnan(x)) {
                 return -10;
               }
-              if (id(range_status_right).state != 0) {
+
+              int display_value = max( -9, min( (int)(round(x) - id(target_distance_right).state), 99 ));
+
+              if (display_value >= 20) {
+                // Over 20 is noisy. Just display "--"
                 return -11;
               }
 
-              return max( -9, min( (int)(round(x) - id(target_distance_right).state), 99 ));
+              return display_value;
         - lambda: |-
             if (isnan(x)) {
               id(light_hand).turn_off().perform();
               id(light_walk).turn_off().perform();
-            } else if (id(range_status_right).state != 0) {
-              id(light_hand).turn_off().perform();
-              id(light_walk).turn_on().perform();
             } else if ((x - id(target_distance_right).state) < 3) {
               id(light_hand).turn_on().perform();
               id(light_walk).turn_off().perform();
@@ -81,11 +136,6 @@ sensor:
               id(light_hand).turn_off().perform();
               id(light_walk).turn_on().perform();
             }
-
-  - platform: homeassistant
-    name: "Remote Range Sensor Status - Right"
-    entity_id: sensor.garage_parking_sensor_right_range_status
-    id: range_status_right
 
 output:
   - platform: ledc
@@ -115,7 +165,6 @@ light:
     rgb_order: GRB
     pin: 22
     num_leds: 87
-    rmt_channel: 0
     chipset: WS2812
     id: digit_display_light
     name: "Digit Full Light"

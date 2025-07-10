@@ -6,11 +6,11 @@ automation:
       - platform: state
         entity_id: cover.ratgdo_left_garage_door_door
         to: opening
-        id: "switch.garage_parking_sensor_left_poll_range_sensor"
+        id: "switch.garage_parking_sign_poll_range_sensor_left"
       - platform: state
         entity_id: cover.ratgdo_right_garage_door_door
         to: opening
-        id: "switch.garage_parking_sensor_right_poll_range_sensor"
+        id: "switch.garage_parking_sign_poll_range_sensor_right"
     condition:
       - alias: "Garage automations are not disabled"
         condition: state
@@ -21,8 +21,8 @@ automation:
         service: switch.turn_off
         target:
           entity_id:
-            - switch.garage_parking_sensor_left_poll_range_sensor
-            - switch.garage_parking_sensor_right_poll_range_sensor
+            - switch.garage_parking_sign_poll_range_sensor_left
+            - switch.garage_parking_sign_poll_range_sensor_right
       - alias: Start polling the sensor
         service: switch.turn_on
         target:
