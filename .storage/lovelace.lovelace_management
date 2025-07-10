@@ -107,242 +107,6 @@
       },
       "views": [
         {
-          "badges": [],
-          "cards": [
-            {
-              "type": "vertical-stack",
-              "cards": [
-                {
-                  "type": "custom:button-card",
-                  "name": "Room Exclusions",
-                  "template": "header_clickable",
-                  "entity": "script.reset_room_exclusions"
-                },
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_guest_bedroom",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Guest",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_office",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Office",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_livingroom",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Living",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_lucys_room",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Lucy",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    }
-                  ]
-                },
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_basement",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Basement",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_sunporch",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Sunporch",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_master_bedroom",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Master",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_kitchen",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Kitchen",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    }
-                  ]
-                },
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_hallways",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Hallways",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_bathrooms",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Bathrooms",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_mud_room",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Mudroom",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Garage",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none",
-                      "entity": "input_boolean.room_exclude_garage"
-                    }
-                  ]
-                },
-                {
-                  "type": "horizontal-stack",
-                  "cards": [
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_dining_room",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "name": "Dining",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "type": "custom:mushroom-entity-card",
-                      "entity": "input_boolean.room_exclude_closets",
-                      "fill_container": true,
-                      "layout": "vertical",
-                      "tap_action": {
-                        "action": "toggle"
-                      },
-                      "icon_color": "deep-orange",
-                      "secondary_info": "none",
-                      "name": "Closets"
-                    },
-                    {
-                      "type": "custom:button-card",
-                      "color_type": "blank-card"
-                    },
-                    {
-                      "type": "custom:button-card",
-                      "color_type": "blank-card"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.unavailable_tracked_devices",
-                  "name": " ",
-                  "secondary_info": "none",
-                  "icon": "mdi:cloud-off-outline"
-                }
-              ],
-              "title": "Unavailable Devices",
-              "show_header_toggle": false
-            }
-          ],
-          "icon": "mdi:flask",
-          "path": "experiments",
-          "title": "Experiments",
-          "visible": [
-            {
-              "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
-            },
-            {
-              "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
-            }
-          ]
-        },
-        {
           "theme": "Backend-selected",
           "icon": "mdi:server-network",
           "title": "Network",
@@ -360,9 +124,24 @@
                   "badges": [
                     {
                       "type": "entity",
-                      "entity": "input_select.download_speed"
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "input_select.download_speed",
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    },
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "input_boolean.download_mode_change_lock",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
                     }
-                  ]
+                  ],
+                  "icon": "mdi:download"
                 },
                 {
                   "cards": [
@@ -416,7 +195,8 @@
                 {
                   "type": "heading",
                   "heading": "Network Rack",
-                  "heading_style": "title"
+                  "heading_style": "title",
+                  "icon": "mdi:server-outline"
                 },
                 {
                   "type": "heading",
@@ -563,6 +343,291 @@
               ]
             }
           ]
+        },
+        {
+          "badges": [],
+          "cards": [],
+          "icon": "mdi:flask",
+          "path": "experiments",
+          "title": "Experiments",
+          "visible": [
+            {
+              "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
+            },
+            {
+              "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
+            }
+          ],
+          "type": "sections",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Room Exclusions",
+                  "heading_style": "title",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "input_boolean.guest_mode",
+                      "state_content": [
+                        "name",
+                        "state"
+                      ],
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_guest_bedroom",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Guest",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_office",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Office",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_livingroom",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Living",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_lucys_room",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Lucy",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_basement",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Basement",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_sunporch",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Sunporch",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_master_bedroom",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Master",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_kitchen",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Kitchen",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_hallways",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Hallways",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_bathrooms",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Bathrooms",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_mud_room",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Mudroom",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Garage",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none",
+                          "entity": "input_boolean.room_exclude_garage"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "horizontal-stack",
+                      "cards": [
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_dining_room",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "name": "Dining",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "type": "custom:mushroom-entity-card",
+                          "entity": "input_boolean.room_exclude_closets",
+                          "fill_container": true,
+                          "layout": "vertical",
+                          "tap_action": {
+                            "action": "toggle"
+                          },
+                          "icon_color": "deep-orange",
+                          "secondary_info": "none",
+                          "name": "Closets"
+                        },
+                        {
+                          "type": "custom:button-card",
+                          "color_type": "blank-card"
+                        },
+                        {
+                          "type": "custom:button-card",
+                          "color_type": "blank-card"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:cog-box",
+                  "heading": "Device Management",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "show_state": true,
+                  "type": "glance",
+                  "entities": [
+                    {
+                      "entity": "sensor.private_ble_corban_s_watch_area",
+                      "name": "Corban's Watch"
+                    },
+                    {
+                      "entity": "sensor.private_ble_corban_s_iphone_area",
+                      "name": "Corban's iPhone"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.unavailable_tracked_devices",
+                      "name": " ",
+                      "secondary_info": "none",
+                      "icon": "mdi:cloud-off-outline"
+                    }
+                  ],
+                  "title": "Unavailable Devices",
+                  "show_header_toggle": false
+                }
+              ]
+            }
+          ],
+          "max_columns": 4
         },
         {
           "title": "3D Printing",
@@ -814,14 +879,6 @@
               "type": "entities",
               "entities": [
                 {
-                  "entity": "switch.garage_parking_sensor_left_poll_range_sensor",
-                  "name": "Left Sensor - Poll"
-                },
-                {
-                  "entity": "sensor.garage_parking_sensor_left_distance",
-                  "name": "Left Sensor - Distance"
-                },
-                {
                   "entity": "switch.garage_parking_sensor_right_poll_range_sensor",
                   "name": "Right Sensor - Poll",
                   "secondary_info": "none"
@@ -843,85 +900,177 @@
         },
         {
           "title": "Debug",
-          "path": "debug",
           "icon": "mdi:bug",
           "badges": [],
-          "cards": [
+          "cards": [],
+          "type": "sections",
+          "sections": [
             {
-              "type": "entities",
-              "entities": [
+              "type": "grid",
+              "cards": [
                 {
-                  "entity": "automation.water_leak_detected_send_critical_notifications",
-                  "name": "Notify on Leak",
-                  "icon": "mdi:alarm-light-outline",
-                  "secondary_info": "last-triggered"
+                  "type": "heading",
+                  "heading": "Mail and Packages",
+                  "heading_style": "title"
                 },
                 {
-                  "entity": "binary_sensor.master_bathroom_sink_water_leak_sensor_water_sensor",
-                  "name": "Master Bathroom Sink Leak Sensor"
-                },
-                {
-                  "entity": "binary_sensor.guest_bathroom_sink_water_leak_sensor_water_sensor",
-                  "name": "Guest Bathroom Sink Leak Sensor",
-                  "secondary_info": "none"
-                },
-                {
-                  "entity": "binary_sensor.kitchen_sink_water_leak_sensor_water_sensor",
-                  "name": "Kitchen Sink Leak Sensor"
-                },
-                {
-                  "entity": "binary_sensor.first_floor_bathroom_water_leak_sensor_water_sensor"
-                },
-                {
-                  "entity": "binary_sensor.washing_machine_water_leak_sensor_water_sensor",
-                  "name": "Washing Machine Leak Sensor"
-                },
-                {
-                  "entity": "binary_sensor.water_softener_water_leak_sensor_water_sensor",
-                  "name": "Water Softener Leak Sensor"
-                },
-                {
-                  "entity": "binary_sensor.water_heater_water_leak_sensor_water_sensor",
-                  "name": "Water Heater Leak Sensor"
+                  "type": "vertical-stack",
+                  "cards": [
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "show_state": true,
+                      "type": "glance",
+                      "entities": [
+                        {
+                          "entity": "sensor.mail_usps_delivering",
+                          "name": "USPS",
+                          "image": "https://home.corb.co/local/images/logos/usps.png"
+                        },
+                        {
+                          "entity": "sensor.mail_ups_delivering",
+                          "name": "UPS",
+                          "image": "https://home.corb.co/local/images/logos/ups.png"
+                        },
+                        {
+                          "entity": "sensor.mail_fedex_delivering",
+                          "name": "FedEx",
+                          "image": "https://home.corb.co/local/images/logos/fedex-bg.png"
+                        },
+                        {
+                          "entity": "sensor.mail_amazon_packages",
+                          "name": "Amazon",
+                          "image": "https://home.corb.co/local/images/logos/amazon-simple.png"
+                        },
+                        {
+                          "entity": "sensor.mail_usps_mail",
+                          "name": "Mail"
+                        }
+                      ],
+                      "title": "Expected Today"
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "show_state": true,
+                      "type": "glance",
+                      "entities": [
+                        {
+                          "entity": "sensor.mail_usps_delivered",
+                          "name": "USPS",
+                          "image": "https://home.corb.co/local/images/logos/usps.png"
+                        },
+                        {
+                          "entity": "sensor.mail_ups_delivered",
+                          "name": "UPS",
+                          "image": "https://home.corb.co/local/images/logos/ups.png"
+                        },
+                        {
+                          "entity": "sensor.mail_fedex_delivered",
+                          "name": "FedEx",
+                          "image": "https://home.corb.co/local/images/logos/fedex-bg.png"
+                        },
+                        {
+                          "entity": "sensor.mail_amazon_packages_delivered",
+                          "name": "Amazon",
+                          "image": "https://home.corb.co/local/images/logos/amazon-simple.png"
+                        },
+                        {
+                          "entity": "sensor.mail_usps_mail",
+                          "name": "Mail"
+                        }
+                      ],
+                      "title": "Delivered Today"
+                    }
+                  ]
                 }
-              ],
-              "title": "Water Leak Sensors",
-              "show_header_toggle": false
+              ]
             },
             {
-              "type": "entities",
-              "entities": [
+              "type": "grid",
+              "cards": [
                 {
-                  "entity": "light.motion_nightlight"
+                  "type": "heading",
+                  "heading": "Configurations",
+                  "heading_style": "title"
                 },
                 {
-                  "entity": "sensor.motion_nightlight_illuminance"
-                },
-                {
-                  "entity": "binary_sensor.motion_nightlight_occupancy"
-                },
-                {
-                  "entity": "automation.master_bathroom_motion_and_lux_nightlight"
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "automation.water_leak_detected_send_critical_notifications",
+                      "name": "Notify on Leak",
+                      "icon": "mdi:alarm-light-outline",
+                      "secondary_info": "last-triggered"
+                    },
+                    {
+                      "type": "custom:fold-entity-row",
+                      "head": {
+                        "type": "section",
+                        "label": "Sensors"
+                      },
+                      "entities": [
+                        {
+                          "entity": "binary_sensor.master_bathroom_sink_water_leak_sensor_water_sensor",
+                          "name": "Master Bathroom Sink Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.guest_bathroom_sink_water_leak_sensor_water_sensor",
+                          "name": "Guest Bathroom Sink Leak Sensor",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "entity": "binary_sensor.kitchen_sink_water_leak_sensor_water_sensor",
+                          "name": "Kitchen Sink Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.first_floor_bathroom_water_leak_sensor_water_sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.washing_machine_water_leak_sensor_water_sensor",
+                          "name": "Washing Machine Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.water_softener_water_leak_sensor_water_sensor",
+                          "name": "Water Softener Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.water_heater_water_leak_sensor_water_sensor",
+                          "name": "Water Heater Leak Sensor"
+                        }
+                      ]
+                    }
+                  ],
+                  "title": "Water Leak Sensors",
+                  "show_header_toggle": false
                 }
-              ],
-              "title": "Nightlight",
-              "show_header_toggle": false
+              ]
             },
             {
-              "type": "entities",
-              "entities": [
+              "type": "grid",
+              "cards": [
                 {
-                  "entity": "script.stranger_things_lighting_chase"
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Fun"
                 },
                 {
-                  "entity": "input_select.stranger_things_next_light_on"
-                },
-                {
-                  "entity": "input_select.stranger_things_next_light_off"
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "script.stranger_things_lighting_chase"
+                    },
+                    {
+                      "entity": "input_select.stranger_things_next_light_on"
+                    },
+                    {
+                      "entity": "input_select.stranger_things_next_light_off"
+                    }
+                  ],
+                  "title": "Stranger Things",
+                  "show_header_toggle": false
                 }
-              ],
-              "title": "Stranger Things",
-              "show_header_toggle": false
+              ]
             }
           ]
         },
@@ -991,199 +1140,6 @@
               "show_header_toggle": false,
               "title": "Sunrise Alarm",
               "type": "entities"
-            }
-          ]
-        },
-        {
-          "theme": "Backend-selected",
-          "icon": "mdi:server-network",
-          "path": "network",
-          "title": "Network",
-          "type": "custom:vertical-layout",
-          "badges": [],
-          "cards": [
-            {
-              "cards": [
-                {
-                  "entities": [
-                    {
-                      "entity": "input_select.download_speed"
-                    },
-                    {
-                      "entity": "input_boolean.download_mode_change_lock"
-                    },
-                    {
-                      "entity": "sensor.nzbget_speed",
-                      "icon": "mdi:progress-download",
-                      "name": "Current Download Speed",
-                      "secondary_info": "last-updated"
-                    },
-                    {
-                      "entity": "sensor.nzbget_queue_size",
-                      "name": "Remaining Download Queue Size",
-                      "icon": "mdi:trending-down",
-                      "secondary_info": "last-updated"
-                    }
-                  ],
-                  "show_header_toggle": false,
-                  "title": "Automatic Downloads",
-                  "type": "entities"
-                },
-                {
-                  "entities": [
-                    {
-                      "entity": "sensor.download_speed_limit",
-                      "name": "Limit"
-                    },
-                    {
-                      "entity": "sensor.nzbget_speed",
-                      "name": "Download Speed"
-                    }
-                  ],
-                  "hours_to_show": 2,
-                  "refresh_interval": 20,
-                  "type": "history-graph"
-                }
-              ],
-              "type": "vertical-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.ups_status",
-                  "name": "Status"
-                },
-                {
-                  "entity": "sensor.ups_input_voltage",
-                  "name": "Input Voltage"
-                },
-                {
-                  "entity": "sensor.ups_load_w",
-                  "name": "Load",
-                  "icon": "mdi:gauge-low"
-                }
-              ],
-              "title": "UPS"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "gauge",
-                  "entity": "sensor.ups_battery_charge",
-                  "needle": true,
-                  "severity": {
-                    "green": 80,
-                    "yellow": 20,
-                    "red": 0
-                  },
-                  "min": 0,
-                  "max": 100,
-                  "name": "UPS Battery"
-                },
-                {
-                  "type": "gauge",
-                  "entity": "sensor.ups_load",
-                  "severity": {
-                    "green": 0,
-                    "yellow": 80,
-                    "red": 90
-                  },
-                  "needle": true,
-                  "max": 100,
-                  "min": 0
-                },
-                {
-                  "type": "gauge",
-                  "entity": "sensor.tubby_volume_used",
-                  "severity": {
-                    "green": 0,
-                    "yellow": 80,
-                    "red": 90
-                  },
-                  "needle": true,
-                  "max": 100,
-                  "min": 0,
-                  "name": "Tubby Disk"
-                }
-              ]
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "light.tablet_wall_display_screen"
-                },
-                {
-                  "entity": "script.tablet_wall_display_reload"
-                },
-                {
-                  "entity": "script.tablet_wall_display_restart",
-                  "icon": "mdi:power-cycle"
-                },
-                {
-                  "entity": "script.game_mode_start",
-                  "icon": "mdi:microsoft-xbox-controller"
-                },
-                {
-                  "card": {
-                    "entity": "button.biden_shutdown",
-                    "name": "Shutdown Gaming PC"
-                  },
-                  "type": "custom:restriction-card",
-                  "row": true
-                },
-                {
-                  "card": {
-                    "entity": "button.tubby_shutdown",
-                    "name": "Shutdown Tubby NAS"
-                  },
-                  "type": "custom:restriction-card",
-                  "row": true
-                },
-                {
-                  "card": {
-                    "entity": "script.shutdown_proxmoxbox",
-                    "icon": "mdi:power"
-                  },
-                  "type": "custom:restriction-card",
-                  "row": true
-                },
-                {
-                  "entity": "script.wol_proxmoxbox",
-                  "name": "Wake/Start ProxMoxBox",
-                  "icon": "mdi:power"
-                },
-                {
-                  "entity": "script.wol_tubby",
-                  "name": "Wake/Start Tubby NAS",
-                  "icon": "mdi:power"
-                },
-                {
-                  "entity": "sensor.biden_display_display_count"
-                },
-                {
-                  "entity": "button.biden_monitor_switch_to_monitor"
-                },
-                {
-                  "entity": "button.biden_monitor_switch_to_tv"
-                }
-              ],
-              "title": "Device Controls"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "sensor.pi_hole_ads_percentage_blocked_today"
-                }
-              ],
-              "title": "ProxMoxBox",
-              "show_header_toggle": false
             }
           ]
         }
