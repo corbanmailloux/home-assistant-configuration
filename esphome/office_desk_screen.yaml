@@ -3,6 +3,7 @@ esphome:
   friendly_name: Office Desk Screen
   on_boot:
     - delay: 5s
+    - script.execute: update_timer_icon # Force a refresh because this one stays stale.
     - lvgl.widget.hide: boot_screen
 
 esp32:
@@ -188,10 +189,10 @@ switch:
 
 font:
   # Clock Font
-  - file: "resources/fonts/BebasNeue-Regular.ttf"
-    id: clock_font
-    size: 72
-    bpp: 4
+  # - file: "resources/fonts/BebasNeue-Regular.ttf"
+  #   id: clock_font
+  #   size: 72
+  #   bpp: 4
 
   # MDI in various sizes
   - file: "resources/fonts/materialdesignicons-webfont.ttf"
@@ -201,6 +202,7 @@ font:
     glyphs:
       - "\U000F002A" # mdi-alert-outline
       - "\U000F010B" # mdi-car
+      - "\U000F0A48" # mdi-exit-run
   - file: "resources/fonts/materialdesignicons-webfont.ttf"
     id: mdi_font_30
     size: 30
@@ -208,6 +210,10 @@ font:
     glyphs:
       - "\U000F0567" # mdi-video
       - "\U000F0568" # mdi-video-off
+      - "\U000F0954" # mdi-clock
+      - "\U000F0955" # mdi-clock-alert
+      - "\U000F0FA8" # mdi-clock-check
+      - "\U000F1865" # mdi-clock-remove
       - "\U000F0F55" # mdi-home-thermometer-outline
       - "\U000F0590" # mdi-weather-cloudy
       - "\U000F010B" # mdi-car
@@ -228,6 +234,7 @@ font:
       - "\U000F0100" # mdi-camera
       - "\U000F05DF" # mdi-camera-off
       - "\U000F08BB" # mdi-cog-outline (Settings)
+      - "\U000F0020" # mdi-alarm
       - "\U000F002A" # mdi-alert-outline
   - file: "resources/fonts/materialdesignicons-webfont.ttf"
     id: mdi_font_22
@@ -248,9 +255,13 @@ font:
     size: 14
     bpp: 4
   - file: "resources/fonts/SF-Pro-Display-Regular.otf"
-    id: mac_font_10
-    size: 10
+    id: mac_font_12
+    size: 12
     bpp: 4
+  # - file: "resources/fonts/SF-Pro-Display-Regular.otf"
+  #   id: mac_font_10
+  #   size: 10
+  #   bpp: 4
   - file: "resources/fonts/SF-Pro-Display-Semibold.otf"
     id: mac_font_bold_20
     size: 20
@@ -275,7 +286,7 @@ lvgl:
       text_color: white
   top_layer:
     widgets:
-      # Boot screen must be last in the list.
+      # Boot screen must be last in the list of the top layer widgets.
       - obj:
           id: boot_screen
           x: 0
@@ -318,15 +329,28 @@ lvgl:
         - color: 0xFFFF00
           position: 42
         - color: 0x00FF00
-          position: 84
+          position: 85
         - color: 0x00FFFF
-          position: 127
+          position: 128
         - color: 0x0000FF
-          position: 169
+          position: 170
         - color: 0xFF00FF
-          position: 212
+          position: 213
         - color: 0xFF0000
           position: 255
+
+        # - color: 0xFF0000
+        #   position: 0
+        # - color: 0xFFA500
+        #   position: 51
+        # - color: 0xFFFF00
+        #   position: 102
+        # - color: 0x00FF00
+        #   position: 153
+        # - color: 0x0000FF
+        #   position: 204
+        # - color: 0x4B0082
+        #   position: 255
   pages:
     - id: mac_desktop_page
       # bg_color: 0x000000
@@ -344,7 +368,7 @@ lvgl:
             pad_bottom: 0
             pad_left: 2
             pad_right: 2
-            bg_color: 0x181818
+            bg_color: 0x080808 #0x181818
             bg_opa: COVER
             radius: 0
             border_width: 0
@@ -393,7 +417,7 @@ lvgl:
             width: 180px # 75%
             height: 44px
             pad_all: 0
-            bg_color: 0x181818
+            bg_color: 0x080808 #0x181818
             bg_opa: 80% # COVER
             radius: 10
             border_width: 2
@@ -457,128 +481,45 @@ lvgl:
                         text_align: CENTER
                         text_font: mdi_font_30
                         text_color: 0xFEFEFE
+              # - obj:
+              #     id: dock_settings
+              #     width: 34px
+              #     height: 34px
+              #     bg_color: 0xC8C7CE
+              #     bg_opa: COVER
+              #     scrollable: "OFF"
+              #     border_width: 0
+              #     radius: 6
+              #     widgets:
+              #       - label:
+              #           align: CENTER
+              #           text: "\U000F08BB" # mdi-cog-outline (Settings)
+              #           text_align: CENTER
+              #           text_font: mdi_font_24
+              #           text_color: 0x131313
+
               - obj:
-                  id: dock_settings
+                  id: dock_clock
                   width: 34px
                   height: 34px
-                  bg_color: 0xC8C7CE
+                  bg_color: 0x303030
                   bg_opa: COVER
                   scrollable: "OFF"
                   border_width: 0
                   radius: 6
                   widgets:
                     - label:
+                        id: dock_clock_icon
                         align: CENTER
-                        text: "\U000F08BB" # mdi-cog-outline (Settings)
+                        # "\U000F0020" # mdi-alarm
+                        # "\U000F0954" # mdi-clock
+                        # "\U000F0FA8" # mdi-clock-check
+                        # "\U000F0955" # mdi-clock-alert
+                        # "\U000F1865" # mdi-clock-remove
+                        text: "\U000F0954" # mdi-clock
                         text_align: CENTER
-                        text_font: mdi_font_24
-                        text_color: 0x131313
-
-        # Floating Window
-        - obj:
-            id: mac_window
-            hidden: true
-            x: 0
-            y: -10
-            align: CENTER
-            width: 80%
-            height: 50%
-            pad_all: 2
-            bg_color: 0x1F1F1F
-            bg_opa: 80% # COVER
-            radius: 5
-            border_width: 1
-            border_color: 0x363636
-            scrollable: "OFF"
-            widgets:
-              # Title Bar Buttons
-              - obj:
-                  id: mac_window_red_button
-                  align: TOP_LEFT
-                  x: 2
-                  y: 2
-                  width: 8
-                  height: 8
-                  radius: 4
-                  bg_color: 0xF44546
-                  bg_opa: COVER
-                  border_width: 0
-              - obj:
-                  id: mac_window_yellow_button
-                  align_to:
-                    id: mac_window_red_button
-                    align: OUT_RIGHT_MID
-                    x: 4
-                  width: 8
-                  height: 8
-                  radius: 4
-                  bg_color: 0xFDB024
-                  bg_opa: COVER
-                  border_width: 0
-              - obj:
-                  id: mac_window_green_button
-                  align_to:
-                    id: mac_window_yellow_button
-                    align: OUT_RIGHT_MID
-                    x: 4
-                  width: 8
-                  height: 8
-                  radius: 4
-                  bg_color: 0x2AC131
-                  bg_opa: COVER
-                  border_width: 0
-              - label:
-                  id: mac_window_title
-                  align: TOP_MID
-                  text: "Alert"
-                  text_font: mac_font_10 # montserrat_10
-                  text_align: CENTER
-              - line:
-                  id: mac_window_divider_line
-                  points:
-                    - -4, 14
-                    - 300, 14
-                  width: 100%
-                  line_width: 1
-                  line_color: 0x808080
-
-              - label:
-                  id: mac_window_alert_icon
-                  align: LEFT_MID
-                  x: 10
-                  y: 5 # Push down from the title bar
-                  text_font: mdi_font_40
-                  text_align: CENTER
-                  text: "\U000F002A" # mdi-alert-outline
-              - label:
-                  id: mac_window_alert_message
-                  align_to:
-                    id: mac_window_alert_icon
-                    align: OUT_RIGHT_MID
-                    x: 15
-                  text_font: mac_font_20
-                  text_align: CENTER
-                  text: "No active alert."
-
-              # Confirmation Button
-              # - obj:
-              #     id: mac_window_confirm_button
-              #     align: BOTTOM_RIGHT
-              #     x: -10
-              #     y: -4
-              #     width: 60
-              #     height: 20
-              #     radius: 3
-              #     bg_color: 0x565E60
-              #     bg_opa: COVER
-              #     border_width: 0
-              #     scrollable: "OFF"
-              #     widgets:
-              #       - label:
-              #           align: CENTER
-              #           text: "Confirm"
-              #           text_font: montserrat_10
-              #           text_align: CENTER
+                        text_font: mdi_font_30
+                        text_color: 0xECECEC
 
         # Temperature Widget
         - obj:
@@ -674,8 +615,10 @@ lvgl:
               - label:
                   id: mac_3d_window_title
                   align: TOP_MID
-                  text: "3D Printer"
-                  text_font: mac_font_10 # montserrat_10
+                  y: -2
+                  x: 6
+                  text: "3D  Printer"
+                  text_font: mac_font_12
                   text_align: CENTER
               - line:
                   id: mac_3d_window_divider_line
@@ -694,6 +637,195 @@ lvgl:
                   text_font: mac_font_20
                   text_align: LEFT
                   text: "State: XXX\nProgress: XXX%"
+
+        # Mower Window
+        - obj:
+            id: mac_mower_window
+            hidden: true
+            # Put this window in the top-left of the screen, with a bit of padding.
+            align_to:
+              id: mac_menu_bar
+              align: OUT_BOTTOM_LEFT
+              x: 3
+              y: 3
+            width: 45%
+            height: 35%
+            pad_all: 2
+            bg_color: 0x1F1F1F
+            bg_opa: 80%
+            radius: 5
+            border_width: 1
+            border_color: 0x363636
+            scrollable: "OFF"
+            widgets:
+              # Title Bar Buttons
+              - obj:
+                  id: mac_mower_window_red_button
+                  align: TOP_LEFT
+                  x: 2
+                  y: 2
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0xF44546
+                  bg_opa: COVER
+                  border_width: 0
+              - obj:
+                  id: mac_mower_window_yellow_button
+                  align_to:
+                    id: mac_mower_window_red_button
+                    align: OUT_RIGHT_MID
+                    x: 4
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0xFDB024
+                  bg_opa: COVER
+                  border_width: 0
+              - obj:
+                  id: mac_mower_window_green_button
+                  align_to:
+                    id: mac_mower_window_yellow_button
+                    align: OUT_RIGHT_MID
+                    x: 4
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0x2AC131
+                  bg_opa: COVER
+                  border_width: 0
+              - label:
+                  id: mac_mower_window_title
+                  align: TOP_MID
+                  y: -2
+                  x: 8 # Center the title bar text
+                  text: "Lawn  Mower"
+                  text_font: mac_font_12
+                  text_align: CENTER
+              - line:
+                  id: mac_mower_window_divider_line
+                  points:
+                    - -4, 14
+                    - 300, 14
+                  width: 100%
+                  line_width: 1
+                  line_color: 0x808080
+
+              - label:
+                  id: mac_mower_window_message
+                  align: LEFT_MID
+                  x: 2
+                  y: 7 # Center on the window below the title bar
+                  text_font: mac_font_20
+                  text_align: LEFT
+                  text: "State: XXX\nProgress: XXX%"
+
+        # Floating Alert Window
+        - obj:
+            id: mac_window
+            hidden: true
+            x: 0
+            y: -10
+            align: CENTER
+            width: 80%
+            height: 50%
+            pad_all: 2
+            bg_color: 0x1F1F1F
+            bg_opa: COVER #80% # COVER
+            radius: 5
+            border_width: 1
+            border_color: 0x363636
+            scrollable: "OFF"
+            widgets:
+              # Title Bar Buttons
+              - obj:
+                  id: mac_window_red_button
+                  align: TOP_LEFT
+                  x: 2
+                  y: 2
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0xF44546
+                  bg_opa: COVER
+                  border_width: 0
+              - obj:
+                  id: mac_window_yellow_button
+                  align_to:
+                    id: mac_window_red_button
+                    align: OUT_RIGHT_MID
+                    x: 4
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0xFDB024
+                  bg_opa: COVER
+                  border_width: 0
+              - obj:
+                  id: mac_window_green_button
+                  align_to:
+                    id: mac_window_yellow_button
+                    align: OUT_RIGHT_MID
+                    x: 4
+                  width: 8
+                  height: 8
+                  radius: 4
+                  bg_color: 0x2AC131
+                  bg_opa: COVER
+                  border_width: 0
+              - label:
+                  id: mac_window_title
+                  align: TOP_MID
+                  y: -2
+                  text: "Alert"
+                  text_font: mac_font_12
+                  text_align: CENTER
+              - line:
+                  id: mac_window_divider_line
+                  points:
+                    - -4, 14
+                    - 300, 14
+                  width: 100%
+                  line_width: 1
+                  line_color: 0x808080
+
+              - label:
+                  id: mac_window_alert_icon
+                  align: LEFT_MID
+                  x: 10
+                  y: 5 # Push down from the title bar
+                  text_font: mdi_font_40
+                  text_align: CENTER
+                  text: "\U000F002A" # mdi-alert-outline
+              - label:
+                  id: mac_window_alert_message
+                  align_to:
+                    id: mac_window_alert_icon
+                    align: OUT_RIGHT_MID
+                    x: 15
+                  text_font: mac_font_20
+                  text_align: CENTER
+                  text: "No active alert."
+
+              # Confirmation Button
+              # - obj:
+              #     id: mac_window_confirm_button
+              #     align: BOTTOM_RIGHT
+              #     x: -10
+              #     y: -4
+              #     width: 60
+              #     height: 20
+              #     radius: 3
+              #     bg_color: 0x565E60
+              #     bg_opa: COVER
+              #     border_width: 0
+              #     scrollable: "OFF"
+              #     widgets:
+              #       - label:
+              #           align: CENTER
+              #           text: "Confirm"
+              #           text_font: montserrat_10
+              #           text_align: CENTER
 
 sensor:
   - platform: homeassistant
@@ -738,6 +870,14 @@ sensor:
       then:
         - script.execute: update_3d_print_window
 
+  - platform: homeassistant
+    internal: true
+    id: mower_progress
+    entity_id: sensor.lucas_progress
+    on_value:
+      then:
+        - script.execute: update_mower_window
+
   # Does not work. Maybe the wrong pin?
   # - platform: adc
   #   pin: GPIO34
@@ -757,6 +897,18 @@ text_sensor:
     on_value:
       then:
         - script.execute: update_3d_print_window
+
+  - platform: homeassistant
+    internal: true
+    id: mower_status
+    entity_id: lawn_mower.lucas
+    filters:
+      - map:
+        - docked -> Docked
+        - mowing -> Mowing
+    on_value:
+      then:
+        - script.execute: update_mower_window
 
 binary_sensor:
   - platform: status
@@ -802,6 +954,14 @@ binary_sensor:
         - script.execute: update_maggie_eta
 
   - platform: homeassistant
+    id: lucy_timer_active
+    entity_id: switch.lucy_mailloux_timer
+    internal: true
+    on_state:
+      then:
+        - script.execute: update_timer_icon
+
+  - platform: homeassistant
     id: driveway_vehicle_detected
     entity_id: binary_sensor.driveway_vehicle_detected
     internal: true
@@ -821,6 +981,38 @@ binary_sensor:
                   brightness: 100%
                   red: 100%
                   green: 0%
+                  blue: 0%
+                  transition_length: 0ms
+              - delay: 250ms
+              - light.turn_off:
+                  id: led
+                  transition_length: 0ms
+              - delay: 100ms
+    on_release:
+      then:
+        - script.execute: reset_mac_alert
+
+  - platform: homeassistant
+    id: corban_away
+    entity_id: binary_sensor.corban_person_home
+    internal: true
+    filters:
+      - invert:
+      - delayed_off: 5s
+    on_press:
+      then:
+        - script.execute:
+            id: trigger_mac_alert
+            icon: "\U000F0A48" # mdi-exit-run
+            message: "Corban is away."
+        - repeat:
+            count: 5
+            then:
+              - light.turn_on:
+                  id: led
+                  brightness: 100%
+                  red: 100%
+                  green: 100%
                   blue: 0%
                   transition_length: 0ms
               - delay: 250ms
@@ -933,6 +1125,40 @@ script:
           else:
             - lvgl.widget.hide: mac_3d_printer_window
 
+  - id: update_mower_window
+    then:
+      - if:
+          condition:
+            not:
+              text_sensor.state:
+                id: mower_status
+                state: "Docked"
+          then:
+            - lvgl.label.update:
+                id: mac_mower_window_message
+                text:
+                  format: "State: %s\nProgress: %.0f%%"
+                  args: ["id(mower_status).state.c_str()", "id(mower_progress).state"]
+            - lvgl.widget.show: mac_mower_window
+          else:
+            - lvgl.widget.hide: mac_mower_window
+
+  - id: update_timer_icon
+    then:
+      - if:
+          condition:
+            - binary_sensor.is_on: lucy_timer_active
+          then:
+            - lvgl.label.update:
+                id: dock_clock_icon
+                text: "\U000F0FA8" # mdi-clock-check
+                text_color: 0xFFA000
+          else:
+            - lvgl.label.update:
+                id: dock_clock_icon
+                text: "\U000F0954" # mdi-clock
+                text_color: 0xECECEC
+
   # Reusable, parameterized script to show an alert on the screen.
   - id: trigger_mac_alert
     parameters:
@@ -956,3 +1182,11 @@ script:
       - lvgl.label.update:
           id: mac_window_alert_message
           text: "No active alert."
+
+# Expose some buttons to Home Assistant for testing.
+button:
+  - platform: template
+    name: "Update Timer Icon"
+    entity_category: "config"
+    on_press:
+      - script.execute: update_timer_icon
