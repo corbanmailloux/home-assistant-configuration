@@ -1,0 +1,6 @@
+substitutions:
+  device_name: "bluetooth-proxy-living-room"
+  friendly_name: "Bluetooth Proxy - Living Room"
+
+packages:
+  bluetooth_proxy_base: !include common/bluetooth_proxy_base.yaml

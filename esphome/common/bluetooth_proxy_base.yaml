@@ -1,0 +1,99 @@
+# substitutions:
+#   device_name: "bluetooth-proxy-living-room"
+#   friendly_name: "Bluetooth Proxy - Living Room"
+
+# NOTE: Uses an M5Stack Atom Lite.
+
+esphome:
+  name: "${device_name}"
+  friendly_name: "${friendly_name}"
+
+esp32:
+  board: m5stack-atom
+  framework:
+    type: esp-idf
+
+packages:
+  device_base: !include device_base.yaml
+
+# Enable logging
+logger:
+  level: INFO
+
+esp32_ble_tracker:
+  scan_parameters:
+    # Defaults
+    active: true
+
+bluetooth_proxy:
+  active: true
+
+sensor:
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    update_interval: 60s
+
+button:
+  - platform: safe_mode
+    id: button_safe_mode
+    name: Safe Mode Boot
+
+# Built-in LED on the M5Stack Atom Lite
+light:
+  - platform: esp32_rmt_led_strip
+    rgb_order: GRB
+    pin: 27
+    num_leds: 1
+    chipset: SK6812
+    id: status_led
+    name: ${friendly_name} Light
+    effects:
+      - random:
+      - flicker:
+      - addressable_rainbow:
+
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: 39
+      inverted: true
+    name: ${friendly_name} Button
+    on_multi_click:
+    - timing:
+        - ON for at most 1s
+        - OFF for at most 1s
+        - ON for at most 1s
+        - OFF for at least 0.2s
+      then:
+        - logger.log: "Double Clicked"
+        - event.trigger:
+            id: button_event
+            event_type: "double"
+    - timing:
+        - ON for at least 1s
+        # - ON for 1s to 2s
+        # - OFF for at least 0.5s
+      then:
+        - logger.log: "Single Long Clicked"
+        - event.trigger:
+            id: button_event
+            event_type: "long"
+    - timing:
+        - ON for at most 1s
+        - OFF for at least 0.5s
+      then:
+        - logger.log: "Single Short Clicked"
+        - event.trigger:
+            id: button_event
+            event_type: "single"
+
+
+event:
+  - platform: template
+    name: "${friendly_name} Button Event"
+    id: button_event
+    device_class: "button"
+    event_types:
+      - "single"
+      - "double"
+      - "long"

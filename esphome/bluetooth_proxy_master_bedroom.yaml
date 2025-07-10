@@ -1,0 +1,6 @@
+substitutions:
+  device_name: "bluetooth-proxy-master-bedroom"
+  friendly_name: "Bluetooth Proxy - Master Bedroom"
+
+packages:
+  bluetooth_proxy_base: !include common/bluetooth_proxy_base.yaml

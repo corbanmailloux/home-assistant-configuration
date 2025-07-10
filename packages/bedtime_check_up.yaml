@@ -8,10 +8,19 @@ group:
       - binary_sensor.basement_exterior_door_sensor_contact
       - binary_sensor.sunporch_sliding_door_contact
 
+input_boolean:
+  bedtime_checkup_error:
+    name: "Bedtime Checkup Error"
+    initial: off
+
 script:
   bedtime_checkup:
     alias: Bedtime Checkup
     sequence:
+      - alias: "Reset bedtime checkup error"
+        service: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.bedtime_checkup_error
       - alias: "Turn everything off"
         service: script.everything_off
         continue_on_error: true
@@ -39,6 +48,29 @@ script:
         service: lock.lock
         target:
           entity_id: lock.side_door
+      - alias: "If no error, show green on the bedside button LED"
+        if:
+          - alias: "No bedtime checkup error"
+            condition: state
+            entity_id: input_boolean.bedtime_checkup_error
+            state: "off"
+        then:
+          - alias: "Green on the bedside button LED"
+            service: light.turn_on
+            target:
+              entity_id: light.bluetooth_proxy_master_bedroom_light
+            data:
+              color_name: green
+              brightness_pct: 100
+              transition: 0.5
+          - delay:
+              seconds: 1
+          - alias: "Turn off the bedside button LED"
+            service: light.turn_off
+            target:
+              entity_id: light.bluetooth_proxy_master_bedroom_light
+            data:
+              transition: 3
 
   bedtime_checkup_notify:
     description: "Bedtime Checkup - Notify and Flash Bed Lights"
@@ -47,6 +79,10 @@ script:
         description: "Message for the notification"
         example: "Door open"
     sequence:
+      - alias: "Set bedtime checkup error"
+        service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.bedtime_checkup_error
       - service: notify.corban
         data:
           title: "Bedtime Checkup Failed"
@@ -62,13 +98,30 @@ script:
                 behavior: "default"
       - delay:
           seconds: 1
-      - alias: "Turn on bed lights"
+      - alias: "Red on the bedside button LED"
         service: light.turn_on
         target:
-          entity_id: light.bed_lighting_rgb_light
+          entity_id: light.bluetooth_proxy_master_bedroom_light
         data:
+          color_name: red
           brightness_pct: 100
-          # effect: blink
+          transition: 0
+      - delay:
+          seconds: 20
+      - alias: "Turn off the bedside button LED"
+        service: light.turn_off
+        target:
+          entity_id: light.bluetooth_proxy_master_bedroom_light
+        data:
+          transition: 3
+
+      # - alias: "Turn on bed lights"
+      #   service: light.turn_on
+      #   target:
+      #     entity_id: light.bed_lighting_rgb_light
+      #   data:
+      #     brightness_pct: 100
+      #     # effect: blink
       # - delay:
       #     seconds: 1
       # - alias: "Turn on the bed lights (to help remediate the problem)"
