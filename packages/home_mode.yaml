@@ -101,10 +101,16 @@ automation:
         state: "Home"
     action:
       - if:
-          - alias: "If guest mode is active"
-            condition: state
-            entity_id: input_boolean.guest_mode
-            state: "on"
+          - condition: or
+            conditions:
+              - alias: "If guest mode is active"
+                condition: state
+                entity_id: input_boolean.guest_mode
+                state: "on"
+              # Temporarily adding this extra clause to avoid the lights turning off when I'm on a call.
+              - condition: state
+                entity_id: binary_sensor.corban_on_a_call
+                state: "on"
         then:
           - alias: "Notify Corban to manually set away mode"
             service: notify.corban

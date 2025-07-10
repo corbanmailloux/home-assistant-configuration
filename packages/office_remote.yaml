@@ -151,6 +151,19 @@ automation:
         entity_id:
           - light.office_ceiling
 
+  - alias: Office Remote - Left Button Click
+    id: 466c98e8-bc17-4edc-b29d-a527e66a27af
+    trigger:
+      - platform: device
+        device_id: 66f76df28bdd462e84227f8f164ee7c3
+        discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
+        domain: mqtt
+        type: action
+        subtype: arrow_left_click
+    action:
+      - service: fan.toggle
+        entity_id: fan.office_fan
+
   # TODO: Updated plan
   # left and right click: adjust lamp video light brightness
   # left hold: activate/deactivate meeting scene
