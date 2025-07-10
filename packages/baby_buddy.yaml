@@ -36,3 +36,13 @@ automation:
             - Home Assistant
         target:
           entity_id: sensor.baby_lucy_mailloux
+      - action: script.inovelli_led_control
+        data:
+          target:
+            device_id:
+              - a2726cb3f7bd7519599fdc4147272d87
+          led: All
+          color: Green
+          level: 100
+          effect: Fast Chase
+          duration: 3 Seconds
