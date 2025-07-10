@@ -1,0 +1,165 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "lovelace.dashboard_irrigation",
+  "data": {
+    "config": {
+      "views": [
+        {
+          "title": "Irrigation",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Front Sprinklers",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.sprinkler_valve_1",
+                      "secondary_info": "last-changed"
+                    },
+                    {
+                      "entity": "script.start_sprinker_for_limited_time",
+                      "name": "Run for 10 minutes",
+                      "icon": "mdi:timer-play",
+                      "secondary_info": "last-triggered"
+                    },
+                    {
+                      "entity": "sensor.sprinkler_valve_1_flow"
+                    },
+                    {
+                      "entity": "timer.irrigation_off_timer"
+                    }
+                  ]
+                },
+                {
+                  "type": "custom:scheduler-card",
+                  "include": [
+                    "switch.sprinkler_valve_1"
+                  ],
+                  "exclude": []
+                }
+              ]
+            }
+          ],
+          "type": "sections",
+          "max_columns": 4,
+          "icon": "mdi:water-circle",
+          "cards": []
+        },
+        {
+          "type": "sections",
+          "max_columns": 3,
+          "title": "Lawn",
+          "path": "lawn",
+          "icon": "mdi:mower",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Lucas (Luba)"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "lawn_mower.lucas"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_battery",
+                  "features_position": "bottom",
+                  "vertical": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_progress",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Progress"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_elapsed_time",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Elapsed"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_time_left",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Time Left"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_work_area",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Area"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.lucas_area_front_yard"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.lucas_area_main_back_and_side"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.lucas_area_garage_side_and_back"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.lucas_area_driveway_hosta_strip"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.lucas_area_mailbox_lawn"
+                },
+                {
+                  "type": "tile",
+                  "entity": "number.lucas_blade_height_inches",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Blade Height"
+                },
+                {
+                  "type": "tile",
+                  "entity": "select.lucas_cutting_path_mode",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Path Mode"
+                },
+                {
+                  "type": "tile",
+                  "entity": "select.lucas_cutting_path_angle_mode",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Path Angle Mode"
+                },
+                {
+                  "type": "tile",
+                  "entity": "number.lucas_cutting_path_angle",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Path Angle"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

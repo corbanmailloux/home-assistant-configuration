@@ -30,6 +30,15 @@
         "mode": "storage",
         "require_admin": false,
         "show_in_sidebar": true
+      },
+      {
+        "id": "dashboard_irrigation",
+        "show_in_sidebar": true,
+        "title": "Irrigation",
+        "require_admin": false,
+        "mode": "storage",
+        "url_path": "dashboard-irrigation",
+        "icon": "mdi:water-circle"
       }
     ]
   }
