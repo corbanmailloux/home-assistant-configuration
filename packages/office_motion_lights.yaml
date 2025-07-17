@@ -28,8 +28,20 @@ automation:
         domain: mqtt
         device_id: 0d88963feb93fc454e4d3c4115034675
         type: action
-        subtype: down_single
-        id: "disable"
+        subtype: down_triple
+        id: "toggle"
+      - platform: device
+        domain: mqtt
+        device_id: 0d88963feb93fc454e4d3c4115034675
+        type: action
+        subtype: config_single
+        id: "toggle"
+      # - platform: device
+      #   domain: mqtt
+      #   device_id: 0d88963feb93fc454e4d3c4115034675
+      #   type: action
+      #   subtype: down_single
+      #   id: "disable"
     action:
       - choose:
         - conditions:
@@ -77,7 +89,7 @@ automation:
                 data:
                   led: All
                   color: Green
-                  level: 100
+                  level: 20
                   effect: Solid
                   duration: Indefinitely
                   target:
