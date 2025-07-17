@@ -1474,7 +1474,7 @@
   - action: notify.adult_phones
     metadata: {}
     data:
-      message: 'No tummy time has been entered today.'
+      message: No tummy time has been entered today.
       title: Tummy Time?
   mode: single
 - id: '1747521825959'
@@ -1790,4 +1790,44 @@
         target:
           entity_id: fan.master_bedroom_ceiling_fan
       alias: Double Press
+  mode: single
+- id: '1752358411714'
+  alias: Living Room Switch 3 - Triple tap for curtain control
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: ff32bc927588740f5739a61d42afee60
+    type: action
+    subtype: up_triple
+    trigger: device
+    id: Open
+  - domain: mqtt
+    device_id: ff32bc927588740f5739a61d42afee60
+    type: action
+    subtype: down_triple
+    trigger: device
+    id: Close
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - Open
+      sequence:
+      - action: cover.open_cover
+        metadata: {}
+        data: {}
+        target:
+          entity_id: cover.living_room_window_1_curtains
+    - conditions:
+      - condition: trigger
+        id:
+        - Close
+      sequence:
+      - action: cover.close_cover
+        metadata: {}
+        data: {}
+        target:
+          entity_id: cover.living_room_window_1_curtains
   mode: single
