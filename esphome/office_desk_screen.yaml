@@ -893,6 +893,7 @@ text_sensor:
       - map:
         - printing -> Printing
         - standby -> Standby
+        - complete -> Complete
         - error -> Error
     on_value:
       then:
@@ -906,6 +907,8 @@ text_sensor:
       - map:
         - docked -> Docked
         - mowing -> Mowing
+        - paused -> Paused
+        - returning -> Returning
     on_value:
       then:
         - script.execute: update_mower_window
