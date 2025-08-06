@@ -3611,6 +3611,10 @@
                       "color": "#dd0000"
                     },
                     {
+                      "entity": "sensor.power_monitor_plug_1_power",
+                      "name": "Dehumidifier"
+                    },
+                    {
                       "entity": "sensor.power_untracked_sources",
                       "name": "Untracked Sources"
                     }

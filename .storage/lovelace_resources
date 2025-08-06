@@ -70,7 +70,7 @@
         "id": "ff34917b3c6a44b4b37d905f037ebc51"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375440",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375450",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },
@@ -80,7 +80,7 @@
         "id": "1a480f1e8ae24f60808f839d79ef7ff6"
       },
       {
-        "url": "/browser_mod.js?automatically-added&2.4.1",
+        "url": "/browser_mod.js?automatically-added&2.4.2",
         "type": "module",
         "id": "b9781c9d8ab340f089a8a0da2cc2a497"
       },
@@ -112,6 +112,16 @@
       {
         "id": "b618b7f7959c4d42a84ff4f5f6cc4dd5",
         "url": "/hacsfiles/hass-valetudo-icons/valetudo-icons.js?hacstag=8819423242024110",
+        "type": "module"
+      },
+      {
+        "id": "c12044eb8ee14e75a9828ab367111c88",
+        "url": "/hacsfiles/lawn-mower-card/lawn-mower-card.js?hacstag=806765460117",
+        "type": "module"
+      },
+      {
+        "id": "e68ae68f9432455c8ab2829886ae7691",
+        "url": "/openweathermaphistory/www/openweathermaphistory.js?v=2025.06.03",
         "type": "module"
       }
     ]
