@@ -1221,6 +1221,12 @@
     type: action
     subtype: toggle
     trigger: device
+  - domain: mqtt
+    device_id: 6239543fc9a684fbba5d4af77ccdf052
+    type: action
+    subtype: config_single
+    trigger: device
+    alias: Upstairs Hall Light Switch - Config Single
   conditions: []
   actions:
   - choose:
@@ -1528,10 +1534,10 @@
   - trigger: time
     at:
       entity_id: sensor.lucy_last_sleep_end_timestamp
-      offset: '1:30:00'
+      offset: '2:00:00'
   conditions:
   - condition: time
-    after: 07:00:00
+    after: 08:00:00
     before: '21:00:00'
   - condition: state
     entity_id: switch.lucy_mailloux_timer
@@ -1541,7 +1547,7 @@
     metadata: {}
     data:
       title: Wake Window Ending
-      message: It's been more than 90 minutes since a sleep entry. Is it nap time?
+      message: It's been more than 2 hours since a sleep entry. Is it nap time?
       data:
         group: babybuddy
         tag: baby-wake-window-ending
@@ -1677,13 +1683,15 @@
     entity_id:
     - sensor.mitp_heat_pump_first_floor_error_code
     from: No Error Reported
-    to:
+    not_to:
+    - unavailable
     id: First Floor HVAC
   - trigger: state
     entity_id:
     - sensor.mitp_heat_pump_second_floor_error_code
     from: No Error Reported
-    to:
+    not_to:
+    - unavailable
     id: Second Floor HVAC
   conditions: []
   actions:
@@ -1830,4 +1838,20 @@
         data: {}
         target:
           entity_id: cover.living_room_window_1_curtains
+  mode: single
+- id: '1754364930470'
+  alias: Mower - Notify if Locked/Lifted
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.lucas_activity_mode
+    to: MODE_LOCK
+  conditions: []
+  actions:
+  - action: notify.corban
+    metadata: {}
+    data:
+      message: Mower is locked or has been lifted. You need to manually reset it.
+      title: Mower Locked
   mode: single
