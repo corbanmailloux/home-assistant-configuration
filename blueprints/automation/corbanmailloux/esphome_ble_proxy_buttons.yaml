@@ -1,0 +1,64 @@
+blueprint:
+  name: ESPHome Event Button
+  description: >
+    Handle single/double/long presses from an ESPHome Event Entity button.
+    Safe against reconnects, restarts, and duplicate triggers.
+  author: Corban Mailloux
+  domain: automation
+  input:
+    event_entity:
+      name: Event Entity
+      description: The ESPHome event entity for the button
+      selector:
+        entity:
+          domain: event
+    single_press:
+      name: Single Press Action
+      description: Action(s) to run on single press
+      default: []
+      selector:
+        action: {}
+    double_press:
+      name: Double Press Action
+      description: Action(s) to run on double press
+      default: []
+      selector:
+        action: {}
+    long_press:
+      name: Long Press Action
+      description: Action(s) to run on long press
+      default: []
+      selector:
+        action: {}
+
+mode: single
+
+trigger:
+  - platform: state
+    entity_id: !input event_entity
+
+condition:
+  - condition: template
+    alias: Ignore false triggers (reconnections)
+    value_template: >
+      {{ trigger.from_state is not none
+         and trigger.from_state.state != "unavailable"
+         and trigger.from_state.state != trigger.to_state.state }}
+
+action:
+  - choose:
+      - alias: Single Press
+        conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.attributes.event_type == 'single' }}"
+        sequence: !input single_press
+      - alias: Double Press
+        conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.attributes.event_type == 'double' }}"
+        sequence: !input double_press
+      - alias: Long Press
+        conditions:
+          - condition: template
+            value_template: "{{ trigger.to_state.attributes.event_type == 'long' }}"
+        sequence: !input long_press

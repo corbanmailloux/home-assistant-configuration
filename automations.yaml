@@ -1725,80 +1725,6 @@
       title: HVAC Filter Needs to be Replaced
       message: The filter in the {{ trigger.id }} needs to be replaced.
   mode: single
-- id: '1751916259666'
-  alias: Bedroom Proxy - Button Actions
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - event.bluetooth_proxy_master_bedroom_bluetooth_proxy_master_bedroom_button_event
-  conditions: []
-  actions:
-  - choose:
-    - conditions:
-      - condition: template
-        value_template: '{{ trigger.to_state.attributes.event_type == "single" }}'
-        alias: Single Press
-      sequence:
-      - choose:
-        - conditions:
-          - condition: time
-            after: '21:00:00'
-            before: 09:00:00
-          sequence:
-          - action: light.toggle
-            metadata: {}
-            data:
-              transition: 2
-              brightness_pct: 2
-            target:
-              entity_id: light.master_bedroom_headboard
-            alias: Toggle Dim
-        default:
-        - action: light.toggle
-          metadata: {}
-          data:
-            transition: 2
-            brightness_pct: 75
-          target:
-            entity_id: light.master_bedroom_headboard
-          alias: Toggle Bright
-      alias: Single Press
-    - conditions:
-      - alias: Long Press
-        condition: template
-        value_template: '{{ trigger.to_state.attributes.event_type == "long" }}'
-      sequence:
-      - alias: If sleep mode is on, force everything off.
-        choose:
-        - conditions:
-          - condition: state
-            entity_id: input_select.home_mode
-            state: Sleep
-          sequence:
-          - alias: Turn truly everything off
-            data:
-              ignore_room_exclusions: true
-              include_fans: true
-            action: script.everything_off
-        default:
-        - data:
-            entity_id: input_select.home_mode
-            option: Sleep
-          action: input_select.select_option
-      alias: Long Press
-    - conditions:
-      - alias: Double Press
-        condition: template
-        value_template: '{{ trigger.to_state.attributes.event_type == "double" }}'
-      sequence:
-      - action: fan.toggle
-        metadata: {}
-        data: {}
-        target:
-          entity_id: fan.master_bedroom_ceiling_fan
-      alias: Double Press
-  mode: single
 - id: '1752358411714'
   alias: Living Room Switch 3 - Triple tap for curtain control
   description: ''
@@ -1855,3 +1781,316 @@
       message: Mower is locked or has been lifted. You need to manually reset it.
       title: Mower Locked
   mode: single
+- id: '1754537218111'
+  alias: Mower Schedule
+  description: ''
+  triggers:
+  - trigger: time_pattern
+    minutes: /15
+  conditions:
+  - condition: time
+    weekday:
+    - tue
+    - wed
+    - thu
+    - fri
+    after: '11:00:00'
+    before: '19:00:00'
+  - condition: state
+    entity_id: input_boolean.mower_schedule_enabled
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.mower_do_not_mow
+    state: 'off'
+  - condition: sun
+    before: sunset
+    before_offset: '-1:00:00'
+    after: sunrise
+    alias: Between sunrise and 1 hour before sunset
+  actions:
+  - variables:
+      area_options:
+      - back_yard_main
+      - garage_side
+      - front_yard
+      - mailbox
+      chosen_area: "{% set today = now().date() %} {% for cid in area_options %}\n
+        \ {% set ent_id_last_mow = 'input_datetime.mower_last_mow_' ~ cid %}\n  {%
+        set ent_id_schedule = 'input_number.mower_schedule_days_delay_' ~ cid %}\n
+        \ {% set last_mow_dt = states(ent_id_last_mow) | as_datetime | as_local %}\n
+        \ {% set delay = states(ent_id_schedule) | int %}\n  {% if (delay > 0) and
+        (last_mow_dt.date() <= (today - timedelta(days=delay))) %}\n    {{ cid }}\n
+        \   {% break %}\n  {% endif %}\n{% endfor %} \n"
+    alias: Select the first valid yard zone
+  - condition: template
+    value_template: '{{ chosen_area != '''' }}'
+    alias: Test if a yard zone is configured
+  - action: notify.corban
+    metadata: {}
+    data:
+      message: Mowing {{ chosen_area }}.
+      title: Mower Schedule Triggered
+  - alias: Start Mower Script for Area
+    action: script.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: '{{ ''script.mower_mow_'' ~ chosen_area }}'
+  mode: single
+- id: '1754538262555'
+  alias: Mower Schedule - Do Not Mow Controls
+  description: Monitors various entities to enable and disable mowing based on conditions.
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.lucas_activity_mode
+    from:
+    to:
+  - trigger: state
+    entity_id:
+    - sensor.lucas_battery
+    from:
+    to:
+  - trigger: state
+    entity_id:
+    - sensor.owmh_home_forecast0rain
+    - sensor.owmh_home_day0rain
+    - sensor.owmh_home_current_rain
+    from:
+    to:
+  - trigger: state
+    entity_id:
+    - input_select.home_mode
+    from:
+    to:
+  - trigger: state
+    entity_id:
+    - input_boolean.mower_schedule_enabled
+    from: 'off'
+    to: 'on'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: input_select.home_mode
+        state: Vacation
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.mower_do_not_mow
+      - action: input_text.set_value
+        metadata: {}
+        data:
+          value: Vacation Mode
+        target:
+          entity_id: input_text.mower_reason_no_mow
+      alias: Vacation
+    - conditions:
+      - condition: not
+        conditions:
+        - condition: state
+          entity_id: sensor.lucas_activity_mode
+          state: MODE_READY
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.mower_do_not_mow
+      - action: input_text.set_value
+        metadata: {}
+        data:
+          value: Mower Not Ready
+        target:
+          entity_id: input_text.mower_reason_no_mow
+      alias: Mower Not Ready
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.lucas_battery
+        below: 95
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.mower_do_not_mow
+      - action: input_text.set_value
+        metadata: {}
+        data:
+          value: Mower Battery Not Charged
+        target:
+          entity_id: input_text.mower_reason_no_mow
+      alias: Mower Battery Not Charged
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.owmh_home_day0rain
+        above: 0.75
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.mower_do_not_mow
+      - action: input_text.set_value
+        metadata: {}
+        data:
+          value: Heavy Rain Recently
+        target:
+          entity_id: input_text.mower_reason_no_mow
+      alias: Heavy Rain - Historical
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.owmh_home_forecast0rain
+        above: 0.5
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.mower_do_not_mow
+      - action: input_text.set_value
+        metadata: {}
+        data:
+          value: Heavy Rain Predicted
+        target:
+          entity_id: input_text.mower_reason_no_mow
+      alias: Heavy Rain - Predicted
+    - conditions:
+      - condition: numeric_state
+        entity_id: sensor.owmh_home_current_rain
+        above: 0.2
+      sequence:
+      - action: input_boolean.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: input_boolean.mower_do_not_mow
+      - action: input_text.set_value
+        metadata: {}
+        data:
+          value: Currently Raining
+        target:
+          entity_id: input_text.mower_reason_no_mow
+      alias: Rain - Current
+    default:
+    - action: input_boolean.turn_off
+      metadata: {}
+      data: {}
+      target:
+        entity_id: input_boolean.mower_do_not_mow
+      alias: Turn off "Do Not Mow"
+    - alias: Clear the No Mow Reason
+      action: input_text.set_value
+      metadata: {}
+      data:
+        value: None
+      target:
+        entity_id: input_text.mower_reason_no_mow
+  mode: single
+- id: '1756128484018'
+  alias: Trigger Corban’s location update when leaving
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - person.corban
+    to: not_home
+    from: home
+  conditions: []
+  actions:
+  - action: script.request_corban_location_update
+    metadata: {}
+    data: {}
+  mode: single
+- id: '1756138764072'
+  alias: Hold-to-Cycle Brightness - Office Ceiling Lights
+  description: ''
+  use_blueprint:
+    path: corbanmailloux/inovelli_hold_to_dim.yaml
+    input:
+      switch_device: 0d88963feb93fc454e4d3c4115034675
+      light_entity: light.office_ceiling
+      step_size: 25
+- id: '1756139380632'
+  alias: Hold-to-Cycle Brightness - Cabinet Lights
+  description: ''
+  use_blueprint:
+    path: corbanmailloux/inovelli_hold_to_dim.yaml
+    input:
+      switch_device: 21e10aa0c624e6abdcbbbbb97e0373c5
+      light_entity: light.living_room_cabinet_lights
+      step_size: 25
+- id: '1756139422665'
+  alias: Hold-to-Cycle Brightness - Living Room Corner Lamp
+  description: ''
+  use_blueprint:
+    path: corbanmailloux/inovelli_hold_to_dim.yaml
+    input:
+      switch_device: 53afe29f4d972deb626552ed9a4f89f6
+      light_entity: light.corner_lamp
+- id: '1756139451249'
+  alias: Hold-to-Cycle Brightness - Living Room Reading Lamp
+  description: ''
+  use_blueprint:
+    path: corbanmailloux/inovelli_hold_to_dim.yaml
+    input:
+      switch_device: ff32bc927588740f5739a61d42afee60
+      light_entity: light.reading_lamp
+- id: '1756155639815'
+  alias: Master Bedroom Proxy Button Actions
+  description: ''
+  use_blueprint:
+    path: corbanmailloux/esphome_ble_proxy_buttons.yaml
+    input:
+      event_entity: event.bluetooth_proxy_master_bedroom_bluetooth_proxy_master_bedroom_button_event
+      single_press:
+      - choose:
+        - conditions:
+          - condition: time
+            after: '21:00:00'
+            before: 09:00:00
+          sequence:
+          - action: light.toggle
+            metadata: {}
+            data:
+              transition: 2
+              brightness_pct: 2
+            target:
+              entity_id: light.master_bedroom_headboard
+            alias: Toggle Dim
+        default:
+        - action: light.toggle
+          metadata: {}
+          data:
+            transition: 2
+            brightness_pct: 75
+          target:
+            entity_id: light.master_bedroom_headboard
+          alias: Toggle Bright
+      double_press:
+      - action: fan.toggle
+        metadata: {}
+        data: {}
+        target:
+          entity_id: fan.master_bedroom_ceiling_fan
+      long_press:
+      - alias: Activate sleep mode. If sleep mode is on, force everything off.
+        choose:
+        - conditions:
+          - condition: state
+            entity_id: input_select.home_mode
+            state: Sleep
+          sequence:
+          - alias: Turn truly everything off
+            data:
+              ignore_room_exclusions: true
+              include_fans: true
+            action: script.everything_off
+        default:
+        - data:
+            entity_id: input_select.home_mode
+            option: Sleep
+          action: input_select.select_option

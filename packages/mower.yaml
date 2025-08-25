@@ -1,0 +1,185 @@
+# Controls for my Mammotion Luba 2X.
+# Note that some automations are managed through the UI for simplicity. See the "Lawn" category.
+
+# Many parts are inspired by https://peterblandford.com/blog/2025/04/19/fully-automated-scheduler-for-my-luba-mower-in-home-assistant/
+
+automation:
+  - id: 8ccee857-49d3-4652-b5e2-8501aa847da3
+    alias: Mower - Update Last Lawn Mowed Name
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id:
+          - input_datetime.mower_last_mow_back_yard_main
+          - input_datetime.mower_last_mow_garage_side
+          - input_datetime.mower_last_mow_front_yard
+          - input_datetime.mower_last_mow_mailbox
+    actions:
+      - variables:
+          lawns:
+            input_datetime.mower_last_mow_back_yard_main: Back Yard Main
+            input_datetime.mower_last_mow_garage_side: Garage Side
+            input_datetime.mower_last_mow_front_yard: Front Yard
+            input_datetime.mower_last_mow_mailbox: Mailbox
+      - variables:
+          last_mow: >-
+            {% set last = namespace(entity='', timestamp=0) %}
+            {% for entity_id, name in lawns.items() %}
+              {% set ts = state_attr(entity_id, 'timestamp') %}
+              {% if ts is number and ts > last.timestamp %}
+                {% set last.entity = name %}
+                {% set last.timestamp = ts %}
+              {% endif %}
+            {% endfor%}
+            {{ last.entity }}
+      - action: input_text.set_value
+        target:
+          entity_id: input_text.mower_last_area_mowed
+        data:
+          value: "{{ last_mow }}"
+
+input_datetime:
+  mower_last_mow_back_yard_main:
+    name: Last Mow - Back Yard
+    icon: mdi:grass
+    has_date: true
+    has_time: true
+  mower_last_mow_garage_side:
+    name: Last Mow - Garage Side
+    icon: mdi:grass
+    has_date: true
+    has_time: true
+  mower_last_mow_front_yard:
+    name: Last Mow - Front Yard
+    icon: mdi:grass
+    has_date: true
+    has_time: true
+  mower_last_mow_mailbox:
+    name: Last Mow - Mailbox
+    icon: mdi:grass
+    has_date: true
+    has_time: true
+
+input_boolean:
+  mower_do_not_mow:
+    name: Do Not Mow
+    icon: mdi:cancel
+  mower_schedule_enabled:
+    name: Mower Schedule Enabled
+    icon: mdi:calendar-check
+
+input_number:
+  mower_schedule_days_delay_back_yard_main:
+    name: Back Yard Main Schedule Days Delay
+    icon: mdi:calendar-clock
+    min: 0
+    max: 14
+    step: 1
+    mode: box
+  mower_schedule_days_delay_garage_side:
+    name: Garage Side Schedule Days Delay
+    icon: mdi:calendar-clock
+    min: 0
+    max: 14
+    step: 1
+    mode: box
+  mower_schedule_days_delay_front_yard:
+    name: Front Yard Schedule Days Delay
+    icon: mdi:calendar-clock
+    min: 0
+    max: 14
+    step: 1
+    mode: box
+  mower_schedule_days_delay_mailbox:
+    name: Mailbox Schedule Days Delay
+    icon: mdi:calendar-clock
+    min: 0
+    max: 14
+    step: 1
+    mode: box
+
+input_text:
+  mower_reason_no_mow:
+    name: Reason No Mow
+    max: 100
+
+  mower_last_area_mowed:
+    name: Last Lawn Mowed
+    max: 100
+
+script:
+  mower_mow_back_yard_main:
+    alias: Mow Back Yard Main
+    description: Mow the back yard main area.
+    icon: mdi:robot-mower
+    sequence:
+      - action: script.mower_mow_area
+        data:
+          area_entity_id: switch.lucas_area_main_back_and_low_side
+          last_mow_entity_id: input_datetime.mower_last_mow_back_yard_main
+
+  mower_mow_garage_side:
+    alias: Mow Garage Side
+    description: Mow the garage side area.
+    icon: mdi:robot-mower
+    sequence:
+      - action: script.mower_mow_area
+        data:
+          area_entity_id: switch.lucas_area_garage_side_and_back
+          last_mow_entity_id: input_datetime.mower_last_mow_garage_side
+
+  mower_mow_front_yard:
+    alias: Mow Front Yard
+    description: Mow the front yard area.
+    icon: mdi:robot-mower
+    sequence:
+      - action: script.mower_mow_area
+        data:
+          area_entity_id: switch.lucas_area_front_yard
+          last_mow_entity_id: input_datetime.mower_last_mow_front_yard
+
+  mower_mow_mailbox:
+    alias: Mow Mailbox Area
+    description: Mow the mailbox area.
+    icon: mdi:robot-mower
+    sequence:
+      - action: script.mower_mow_area
+        data:
+          area_entity_id: switch.lucas_area_mailbox_lawn
+          last_mow_entity_id: input_datetime.mower_last_mow_mailbox
+
+  mower_mow_area:
+    alias: Mow Area
+    description: Mow an area. Use variables.
+    icon: mdi:robot-mower
+    fields:
+      area_entity_id:
+        description: entity_id of the area switch to mow
+        example: switch.lucas_area_main_back_and_low_side
+      last_mow_entity_id:
+        description: entity_id of the input_datetime to set as last mow time
+        example: input_datetime.mower_last_mow_back_yard_main
+    sequence:
+      - action: input_datetime.set_datetime
+        target:
+          entity_id: "{{ last_mow_entity_id }}"
+        data:
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+      - action: mammotion.start_mow
+        data:
+          is_dump: false
+          border_mode: 0
+          speed: 0.4
+          ultra_wave: 10
+          # channel_mode: 2 # Adaptive zigzag
+          channel_mode: 0 # Zigzag
+          toward_mode: 2 # Random angle (for zigzag)
+          rain_tactics: 1
+          blade_height: 75
+          mowing_laps: 2
+          obstacle_laps: 1
+          areas:
+            - "{{ area_entity_id }}"
+        target:
+          entity_id: lawn_mower.lucas

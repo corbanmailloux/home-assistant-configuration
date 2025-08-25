@@ -1,0 +1,100 @@
+blueprint:
+  name: Inovelli Hold-to-Cycle Brightness
+  description: >
+    Press and hold an Inovelli switch's config button (connected via Zigbee2MQTT) to smoothly cycle a light's brightness up and down.
+    Release the button to stop cycling.
+  domain: automation
+  author: Corban Mailloux
+  input:
+    switch_device:
+      name: Inovelli Switch
+      description: Inovelli Blue switch device (Zigbee2MQTT).
+      selector:
+        device:
+          integration: mqtt
+    light_entity:
+      name: Light
+      description: The light entity to control.
+      selector:
+        entity:
+          domain: light
+    step_size:
+      name: Brightness step
+      description: How much to increase/decrease brightness each tick (1–255).
+      default: 25
+      selector:
+        number:
+          min: 1
+          max: 50
+          mode: slider
+          step: 1
+    delay_time:
+      name: Delay time (s)
+      description: Time between brightness changes in seconds.
+      default: 0.2
+      selector:
+        number:
+          min: 0.05
+          max: 1
+          step: 0.05
+          mode: slider
+
+mode: restart
+max_exceeded: silent
+
+triggers:
+  - trigger: device
+    domain: mqtt
+    device_id: !input switch_device
+    type: action
+    subtype: config_held
+    id: hold
+
+  - trigger: device
+    domain: mqtt
+    device_id: !input switch_device
+    type: action
+    subtype: config_release
+    id: release
+
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: hold
+        sequence:
+          - variables:
+              light_target: !input light_entity
+              step: !input step_size
+              delay_time: !input delay_time
+              direction: 1
+          - repeat:
+              until:
+                - condition: trigger
+                  id: release
+              sequence:
+                - variables:
+                    current: "{{ state_attr(light_target, 'brightness') | int(1) }}"
+                    direction: >-
+                      {% if current >= 255 - step %}
+                        -1
+                      {% elif current <= step %}
+                        1
+                      {% else %}
+                        {{ direction }}
+                      {% endif %}
+                    next: >-
+                      {% set raw = current + (step * direction) %}
+                      {% if raw > 255 %}
+                        255
+                      {% elif raw < 1 %}
+                        1
+                      {% else %}
+                        {{ raw }}
+                      {% endif %}
+                - action: light.turn_on
+                  target:
+                    entity_id: !input light_entity
+                  data:
+                    brightness: "{{ next }}"
+                - delay: "{{ delay_time }}"

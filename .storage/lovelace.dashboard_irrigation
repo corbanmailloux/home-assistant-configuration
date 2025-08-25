@@ -6,6 +6,326 @@
     "config": {
       "views": [
         {
+          "type": "sections",
+          "max_columns": 3,
+          "title": "Lawn",
+          "path": "lawn",
+          "icon": "mdi:mower",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Lucas (Luba)",
+                  "icon": "mdi:robot-mower-outline"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "lawn_mower.lucas"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_battery",
+                  "features_position": "bottom",
+                  "vertical": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_progress",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Progress"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_activity_mode",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Current Mode"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_elapsed_time",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Elapsed"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_time_left",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Time Left"
+                },
+                {
+                  "type": "tile",
+                  "entity": "number.lucas_blade_height_inches",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Blade Height"
+                },
+                {
+                  "type": "tile",
+                  "entity": "select.lucas_cutting_path_mode",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Path Mode"
+                },
+                {
+                  "type": "tile",
+                  "entity": "select.lucas_cutting_path_angle_mode",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Path Angle Mode"
+                },
+                {
+                  "type": "tile",
+                  "entity": "number.lucas_cutting_path_angle",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Path Angle"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Schedule",
+                  "heading_style": "title",
+                  "icon": "mdi:calendar",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "input_boolean.mower_schedule_enabled",
+                      "color": "green",
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_boolean.mower_do_not_mow",
+                  "features_position": "bottom",
+                  "vertical": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_text.mower_reason_no_mow",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "No Mow Reason",
+                  "icon": "mdi:chat-question-outline"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_boolean.mower_schedule_enabled",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Schedule Enabled",
+                  "color": "green"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_text.mower_last_area_mowed",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "icon": "mdi:robot-mower-outline",
+                  "show_entity_picture": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "automation.mower_schedule",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": false,
+                  "state_content": "last_triggered",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 1
+                  },
+                  "name": "Auto - Schedule"
+                },
+                {
+                  "type": "tile",
+                  "entity": "automation.mower_schedule_do_not_mow_controls",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "state_content": "last_triggered",
+                  "grid_options": {
+                    "rows": 1,
+                    "columns": 6
+                  },
+                  "name": "Auto - Do Not Mow"
+                },
+                {
+                  "type": "heading",
+                  "icon": "mdi:cog",
+                  "heading_style": "subtitle",
+                  "heading": "Config - Days Between Mowing"
+                },
+                {
+                  "features": [
+                    {
+                      "type": "numeric-input",
+                      "style": "buttons"
+                    }
+                  ],
+                  "type": "tile",
+                  "entity": "input_number.mower_schedule_days_delay_back_yard_main",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": true,
+                  "name": "Back Yard"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_datetime.mower_last_mow_back_yard_main",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 1
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.mower_mow_back_yard_main",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": true,
+                  "name": "Mow Back Yard Main"
+                },
+                {
+                  "features": [
+                    {
+                      "type": "numeric-input",
+                      "style": "buttons"
+                    }
+                  ],
+                  "type": "tile",
+                  "entity": "input_number.mower_schedule_days_delay_garage_side",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": true,
+                  "name": "Garage Side"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_datetime.mower_last_mow_garage_side",
+                  "features_position": "bottom",
+                  "vertical": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.mower_mow_garage_side",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": true
+                },
+                {
+                  "features": [
+                    {
+                      "type": "numeric-input",
+                      "style": "buttons"
+                    }
+                  ],
+                  "type": "tile",
+                  "entity": "input_number.mower_schedule_days_delay_front_yard",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": true,
+                  "name": "Front Yard"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_datetime.mower_last_mow_front_yard",
+                  "features_position": "bottom",
+                  "vertical": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.mower_mow_front_yard",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": true
+                },
+                {
+                  "features": [
+                    {
+                      "type": "numeric-input",
+                      "style": "buttons"
+                    }
+                  ],
+                  "type": "tile",
+                  "entity": "input_number.mower_schedule_days_delay_mailbox",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": true,
+                  "name": "Mailbox Area"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_datetime.mower_last_mow_mailbox",
+                  "features_position": "bottom",
+                  "vertical": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.mower_mow_mailbox",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "hide_state": true
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:map-marker-radius",
+                  "heading": "Live Map",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "map",
+                  "entities": [
+                    {
+                      "entity": "zone.home_point",
+                      "focus": true
+                    },
+                    {
+                      "entity": "device_tracker.lucas_luba_vpq8wupk",
+                      "label_mode": "icon",
+                      "focus": false
+                    }
+                  ],
+                  "fit_zones": true,
+                  "cluster": false,
+                  "default_zoom": 19,
+                  "hours_to_show": 4,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 5
+                  },
+                  "aspect_ratio": "1",
+                  "theme_mode": "dark"
+                }
+              ]
+            }
+          ]
+        },
+        {
           "title": "Irrigation",
           "sections": [
             {
@@ -51,113 +371,6 @@
           "max_columns": 4,
           "icon": "mdi:water-circle",
           "cards": []
-        },
-        {
-          "type": "sections",
-          "max_columns": 3,
-          "title": "Lawn",
-          "path": "lawn",
-          "icon": "mdi:mower",
-          "sections": [
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading_style": "title",
-                  "heading": "Lucas (Luba)"
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "entity": "lawn_mower.lucas"
-                },
-                {
-                  "type": "tile",
-                  "entity": "sensor.lucas_battery",
-                  "features_position": "bottom",
-                  "vertical": false
-                },
-                {
-                  "type": "tile",
-                  "entity": "sensor.lucas_progress",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Progress"
-                },
-                {
-                  "type": "tile",
-                  "entity": "sensor.lucas_elapsed_time",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Elapsed"
-                },
-                {
-                  "type": "tile",
-                  "entity": "sensor.lucas_time_left",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Time Left"
-                },
-                {
-                  "type": "tile",
-                  "entity": "sensor.lucas_work_area",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Area"
-                },
-                {
-                  "type": "tile",
-                  "entity": "switch.lucas_area_front_yard"
-                },
-                {
-                  "type": "tile",
-                  "entity": "switch.lucas_area_main_back_and_side"
-                },
-                {
-                  "type": "tile",
-                  "entity": "switch.lucas_area_garage_side_and_back"
-                },
-                {
-                  "type": "tile",
-                  "entity": "switch.lucas_area_driveway_hosta_strip"
-                },
-                {
-                  "type": "tile",
-                  "entity": "switch.lucas_area_mailbox_lawn"
-                },
-                {
-                  "type": "tile",
-                  "entity": "number.lucas_blade_height_inches",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Blade Height"
-                },
-                {
-                  "type": "tile",
-                  "entity": "select.lucas_cutting_path_mode",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Path Mode"
-                },
-                {
-                  "type": "tile",
-                  "entity": "select.lucas_cutting_path_angle_mode",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Path Angle Mode"
-                },
-                {
-                  "type": "tile",
-                  "entity": "number.lucas_cutting_path_angle",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Path Angle"
-                }
-              ]
-            }
-          ]
         }
       ]
     }
