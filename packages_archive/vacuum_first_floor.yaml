@@ -5,17 +5,17 @@
 # automation:
 #   - alias: Vacuum - Reset selected map when docked
 #     id: 72ac115c-0e2c-4653-b5dc-274d6b2c94ec
-#     trigger:
-#       - platform: state
+#     triggers:
+#       - trigger: state
 #         entity_id: vacuum.dreamebot_l10s_ultra
 #         to: "docked"
-#     condition:
+#     conditions:
 #       - not:
 #           - condition: state
 #             entity_id: select.dreamebot_l10s_ultra_selected_map
 #             state: "Main"
-#     action:
-#       - service: select.select_option
+#     actions:
+#       - action: select.select_option
 #         target:
 #           entity_id: select.dreamebot_l10s_ultra_selected_map
 #         data:

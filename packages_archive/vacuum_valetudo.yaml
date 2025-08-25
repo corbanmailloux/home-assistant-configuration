@@ -1,15 +1,6 @@
 # The Roborock S5 vacuum is now running Vatetudo and connected over MQTT.
 # See also: https://valetudo.cloud/pages/integrations/home-assistant-integration.html
 
-# Add a basic REST sensor for confirming that Rockbin is running.
-# https://github.com/johnDorian/rockbin
-sensor:
-  - platform: rest
-    resource: http://192.168.1.83:9999/status
-    name: Rockbin Version
-    value_template: "{{ value_json.version }}"
-
-
 # Set up individual switches for selecting zones to clean.
 # input_boolean:
 #   # vacuum_bedroom:
@@ -67,7 +58,7 @@ sensor:
 #                 entity_id: group.vacuum_rooms
 #                 state: "on"
 #             sequence:
-#               - service: script.turn_on
+#               - action: script.turn_on
 #                 target:
 #                   entity_id: script.vacuum_clean_segments_message
 #                 data:
@@ -76,7 +67,7 @@ sensor:
 #                       '{{expand("group.vacuum_rooms") | selectattr("state","eq","on")
 #                       | map(attribute="attributes.room_id") | list | to_json}}'
 #         default:
-#           - service: vacuum.start
+#           - action: vacuum.start
 #             target:
 #               entity_id: vacuum.valetudo_eve
 #     mode: single
@@ -86,7 +77,7 @@ sensor:
 #   vacuum_clean_segments_message:
 #     alias: vacuum_clean_segments_message
 #     sequence:
-#       - service: mqtt.publish
+#       - action: mqtt.publish
 #         data:
 #           topic: valetudo/eve/MapSegmentationCapability/clean/set
 #           payload: '{"segment_ids": {{segments}}}'
@@ -102,22 +93,22 @@ sensor:
 #                 entity_id: group.vacuum_rooms
 #                 state: "on"
 #             sequence:
-#               - service: homeassistant.turn_off
+#               - action: homeassistant.turn_off
 #                 target:
 #                   entity_id: group.vacuum_rooms
 #         default:
-#           - service: homeassistant.turn_on
+#           - action: homeassistant.turn_on
 #             target:
 #               entity_id: group.vacuum_rooms
 
 # automation:
 #   - alias: Turn off vacuum room selectors when cleaning is complete
 #     id: 725a0f27-9925-4fc8-b29c-702c0029d971
-#     trigger:
-#       - platform: state
+#     triggers:
+#       - trigger: state
 #         entity_id: vacuum.valetudo_eve
 #         to: "docked"
-#     action:
-#       - service: homeassistant.turn_off
+#     actions:
+#       - action: homeassistant.turn_off
 #         target:
 #           entity_id: group.vacuum_rooms

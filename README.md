@@ -1,86 +1,8 @@
 # Corban Mailloux's Home Assistant Configuration
 
-This is the configuration I use for [Home Assistant](https://www.home-assistant.io/). I have Home Assistant running on the official [Home Assistant Blue](https://www.home-assistant.io/blue) bundle (basically an [ODROID-N2+](https://www.hardkernel.com/shop/odroid-n2-with-4gbyte-ram-2/) plus eMMC and a pretty case).
+This is the configuration I use for [Home Assistant](https://www.home-assistant.io/). Currently, I have Home Assistant running on the official [Home Assistant Blue](https://www.home-assistant.io/blue) bundle (basically an [ODROID-N2+](https://www.hardkernel.com/shop/odroid-n2-with-4gbyte-ram-2/) plus eMMC and a pretty case).
 
 ## Explanation of Packages/Automations
-I use [packages](https://www.home-assistant.io/docs/configuration/packages/) for the vast majority of my YAML configuration to help segregate and clarify my system.
-I've tried to document most of the `packages` I use in the [wiki](https://github.com/corbanmailloux/home-assistant-configuration/wiki/Packages). These inevitably get a bit out of date, but I try to be thorough in documenting what they do and why.
+I use [packages](https://www.home-assistant.io/docs/configuration/packages/) for the vast majority of my YAML configuration to help group projects together. The packages are located [here](https://github.com/corbanmailloux/home-assistant-configuration/tree/master/packages).
 
-## Services and Devices
-
-Here are (some of) the services/platforms/other devices that I use with Home Assistant:
-
-Name                                                         | Product Link                                                                                                                                                                                                                                          | How It's Used in HASS
------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-TCL Roku TV (Model: 65S405)                                  | [TCL](https://www.tclusa.com/products/home-theater/4-series/tcl-65-class-4-series-4k-uhd-led-roku-smart-tv-65s405)                                                                                                                                    | [Roku media player component](https://www.home-assistant.io/components/media_player.roku/)
-Roku Streaming Stick                                         | [Amazon](https://www.amazon.com/gp/product/B075XN5L53/)                                                                                                                                                                                               | [Roku media player component](https://www.home-assistant.io/components/media_player.roku/)
-ESP8266 (in many ways)                                       | [Generic ESP8266-01](https://www.amazon.com/gp/product/B00PA3UQNI/), [NodeMCU](https://www.amazon.com/gp/product/B010O1G1ES/), [D1 Mini](https://www.amazon.com/gp/product/B01N3P763C/)                                                               | [ESPHome](https://esphome.io/) is the best for my purposes (see the [esphome directory](https://github.com/corbanmailloux/home-assistant-configuration/tree/master/esphome)). I've also used [ESPEasy](https://www.letscontrolit.com/wiki/index.php/ESPEasy) and some of my own firmware: [ESP MQTT RGB LED](https://github.com/corbanmailloux/esp-mqtt-rgb-led), [ESP MQTT DHT](https://github.com/corbanmailloux/esp-mqtt-dht)
-Sonoff                                                       | [ITEAD](https://www.itead.cc/sonoff-wifi-wireless-switch.html)                                                                                                                                                                                        | [Sonoff-Tasmota](https://github.com/arendst/Sonoff-Tasmota) and MQTT
-Google Home Mini                                             | [Google Store](https://store.google.com/us/product/google_home_mini)                                                                                                                                                                                  | [Google Assistant component](https://www.home-assistant.io/components/google_assistant/)
-IKEA Trådfri (Lights, Outlets, and Control Devices)          | IKEA: [Light](https://www.ikea.com/us/en/p/tradfri-remote-control-kit-white-spectrum-50460042/), [Outlet](https://www.ikea.com/us/en/p/tradfri-control-outlet-kit-70364803/), [Remote](https://www.ikea.com/us/en/p/tradfri-remote-control-00443130/) | [Zigbee2MQTT](https://www.zigbee2mqtt.io/) as a Hass.io add-on
-OctoPrint with a Monoprice MP Select Mini 3D Printer V2      | [OctoPrint](https://octoprint.org/), [Monoprice](https://www.monoprice.com/product?p_id=21711)                                                                                                                                                        | [OctoPrint component](https://www.home-assistant.io/components/octoprint/)
-Roborock S5 Vacuum                                           | [Amazon](https://www.amazon.com/gp/product/B0792BWMV4/)                                                                                                                                                                                               | [Xiaomi Mi Robot Vacuum](https://www.home-assistant.io/integrations/vacuum.xiaomi_miio/)
-Aqara (Zigbee) Buttons, Contact Sensors, Temperature Sensors | Aliexpress: [Button](https://www.aliexpress.com/item/32998319647.html), [Door Sensor](https://www.aliexpress.com/item/32967550225.html)                                                                                                               | [Zigbee2MQTT](https://www.zigbee2mqtt.io/) as a Hass.io add-on
-Windows 10 (Gaming PC)                                       |                                                                                                                                                                                                                                                       | [IOT Link](https://iotlink.gitlab.io/) through MQTT for power/state management
-Synology DS1019+ (NAS, Plex Media Server)                    | [Amazon](https://www.amazon.com/Synology-Bay-DiskStation-DS1019-Diskless/dp/B07NF9XDWG/)                                                                                                                                                              | [Plex integration](https://www.home-assistant.io/integrations/plex/) for the media server, [NZBGet integration](https://www.home-assistant.io/integrations/nzbget/) for download controls
-
-## Things that Might be Helpful Again
-These are just some helpful things that I used at some point and wanted to keep around as a reference for later.
-
-### List all `entity_id`s
-
-During the update to v0.85 of Home Assistant, `slugify` changed. I was nervous this would cause subtle changes in my `entity_id` values and I wouldn't notice, so I exported them all before and after the update. I could have also grabbed this from the "States" page in HASS, but I wanted it as a template.
-
-```
-{% for state in states -%}
-  {{ state.entity_id }}
-{% endfor %}
-```
-
-### "Flicker" a traditional light
-
-```yaml
-scary_mode_flicker_lights:
-  sequence:
-    # Delay for 0 to 6 seconds
-    - delay: 00:00:{{ (range(0, 7) | random | string).rjust(2, '0') }}
-    - service: homeassistant.turn_on
-      entity_id: light.entry_lamp
-    - delay:
-        milliseconds: 100
-    - service: homeassistant.turn_off
-      entity_id: light.entry_lamp
-    - service: script.turn_on
-      entity_id: script.scary_mode_flicker_lights_loop
-
-scary_mode_flicker_lights_loop:
-  sequence:
-    - delay: 00:00:01
-    - service: script.turn_on
-      entity_id: script.scary_mode_flicker_lights
-```
-
-### Extract the battery level from a Google Maps tracker and build a battery icon
-
-```yaml
-corban_phone_battery:
-  friendly_name: "Corban's Phone Battery"
-  device_class: battery
-  unit_of_measurement: "%"
-  entity_id: "device_tracker.google_maps_110168280884137709870"
-  icon_template: >-
-    {%- set tracker_name = 'device_tracker.google_maps_110168280884137709870' -%}
-
-    {%- set battery_level = state_attr(tracker_name, 'battery_level') -%}
-    {%- set battery_charging = state_attr(tracker_name, 'battery_charging') -%}
-
-    {%- if battery_level is none -%}
-      mdi:battery-unknown
-    {%- else -%}
-      {%- set icon_suffix = ['-outline', '-10', '-20', '-30', '-40', '-50', '-60', '-70', '-80', '-90', ''] -%}
-      {%- set charge = (battery_level | float / 10) | round -%}
-      mdi:battery{%- if battery_charging -%}-charging{%- endif -%}{{ icon_suffix[charge] }}
-    {%- endif -%}
-  value_template: >-
-    {{ state_attr('device_tracker.google_maps_110168280884137709870', 'battery_level') }}
-```
+With Home Assistant's recent focus on UI configuration over YAML, many of my recent projects are built directly in the UI and not cleanly separated into `packages`. That makes this shared configuration less useful for reference, but it makes quick mobile edits significantly easier. Where appropriate, I use Home Assistant's native category and labeling features to group related automations.

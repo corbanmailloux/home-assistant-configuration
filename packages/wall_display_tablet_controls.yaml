@@ -9,15 +9,15 @@ light:
         value_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenOn") }}'
         level_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenBrightness") }}'
         turn_on:
-          service: rest_command.tablet_wall_display_command
+          action: rest_command.tablet_wall_display_command
           data:
             cmd: screenOn
         turn_off:
-          service: rest_command.tablet_wall_display_command
+          action: rest_command.tablet_wall_display_command
           data:
             cmd: screenOff
         set_level:
-          service: rest_command.tablet_wall_display_command
+          action: rest_command.tablet_wall_display_command
           data_template:
             cmd: setStringSetting
             key: screenBrightness
@@ -43,7 +43,7 @@ script:
     alias: "Reload the Wall Display"
     icon: "mdi:refresh"
     sequence:
-      - service: rest_command.tablet_wall_display_command
+      - action: rest_command.tablet_wall_display_command
         data:
           cmd: loadStartUrl
 
@@ -51,22 +51,22 @@ script:
     alias: "Restart the Wall Display"
     icon: "mdi:power"
     sequence:
-      - service: rest_command.tablet_wall_display_command
+      - action: rest_command.tablet_wall_display_command
         data:
           cmd: rebootDevice
 
 automation:
   - alias: Notify if the wall display comes unplugged
     id: 6885c896-0a99-4cbe-bbf5-16fc703f1c32
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: sensor.tablet_wall_display_device_info
         attribute: plugged
         from: true
         to: false
         for: "00:00:30"
-    action:
-      - service: notify.corban
+    actions:
+      - action: notify.corban
         data:
           title: "Wall Display Unplugged"
           message: "The wall display has been unplugged for at least 30 seconds."

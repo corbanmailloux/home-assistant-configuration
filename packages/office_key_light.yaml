@@ -3,14 +3,14 @@
 automation:
   - alias: Office Key Light - Reconnect when Unavailable
     id: b687c68a-7ea3-41ed-bc6b-d5350415770f
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: light.key_light_air_1
         to: unavailable
         for:
           minutes: 1
-    action:
+    actions:
       - alias: "Reconnect the Key Light"
-        service: unifi.reconnect_client
+        action: unifi.reconnect_client
         data:
           device_id: 91d1b0c08edf642406c61ae9e191942a

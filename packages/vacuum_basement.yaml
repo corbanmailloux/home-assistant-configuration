@@ -1,0 +1,9 @@
+# Roborock S5 vacuum is running Vatetudo and connected over MQTT.
+
+# Add a basic REST sensor for confirming that Rockbin is running.
+# https://github.com/johnDorian/rockbin
+sensor:
+  - platform: rest
+    resource: http://192.168.1.83:9999/status
+    name: Rockbin Version
+    value_template: "{{ value_json.version }}"

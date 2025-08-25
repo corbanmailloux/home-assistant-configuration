@@ -14,42 +14,42 @@ input_text:
 automation:
   - alias: Guest Mode - Enable and Disable Guest WiFi
     id: f8188dc5-e5f0-4821-ae9b-88bf14229932
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.guest_mode
-    action:
+    actions:
       - choose:
           - conditions: "{{ trigger.to_state.state == 'on' }}"
             sequence:
-              - service: switch.turn_on
+              - action: switch.turn_on
                 target:
                   entity_id: switch.whatfi_guest
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
-              - service: switch.turn_off
+              - action: switch.turn_off
                 target:
                   entity_id: switch.whatfi_guest
 
   - alias: Guest Mode - Add Guest Room Exclusion When Enabling
     id: 846ee07b-3953-48f7-9255-31b4a5d0cde7
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.guest_mode
         from: "off"
         to: "on"
-    action:
+    actions:
       - alias: "Set guest room exclusions"
-        service: input_boolean.turn_on
+        action: input_boolean.turn_on
         target:
           entity_id: input_boolean.room_exclude_guest_bedroom
 
   - alias: Guest Mode - Disable Room Exclusions when Unset
     id: 1567def0-c8f1-4297-a2bd-628fb03db93e
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.guest_mode
         from: "on"
         to: "off"
-    action:
+    actions:
       - alias: "Reset room exclusions"
-        service: script.reset_room_exclusions
+        action: script.reset_room_exclusions

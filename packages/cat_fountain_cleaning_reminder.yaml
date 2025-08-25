@@ -2,15 +2,15 @@ automation:
   - alias: Show Cat Fountain Reminder - Calendar Automation
     id: 2b837114-1867-4836-9a66-91dfe7c7a25f
     mode: queued
-    trigger:
-      - platform: calendar
+    triggers:
+      - trigger: calendar
         event: start
         entity_id: calendar.chores
-    condition:
+    conditions:
       - condition: template
         value_template: "{{ 'Cat Fountain Cleaning' in trigger.calendar_event.summary }}"
-    action:
-      - service: input_boolean.turn_on
+    actions:
+      - action: input_boolean.turn_on
         entity_id: input_boolean.cat_fountain_clean_needed
 
 input_boolean:

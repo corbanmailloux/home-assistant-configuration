@@ -23,37 +23,37 @@ automation:
 
   - alias: Sleep Mode - Enabled - Turn Everything Off
     id: a0fb5a75-9d4f-4bf4-a6fb-81b6bf3f8682
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_select.home_mode
         to: "Sleep"
-    action:
+    actions:
       - alias: "Run bedtime check up"
-        service: script.bedtime_checkup
+        action: script.bedtime_checkup
 
   - alias: Sleep Mode - Disable in Morning
     id: 60dc7343-2499-4137-bfc9-7fa7bbc50540
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "06:00:00"
         # TODO: Move to a input_datetime. Share with wall display wake up time.
-    condition:
+    conditions:
       - condition: state
         entity_id: input_select.home_mode
         state: "Sleep"
-    action:
-      - service: input_select.select_option
+    actions:
+      - action: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Home"
 
   - alias: Mark home occupied when the door opens
     id: 9abcaf04-6f2a-41dc-b392-9c29d4d2b2e8
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.front_door
         to: "on"
-    condition:
+    conditions:
       # Only count this as someone coming home if the home has been unoccupied for at least 1 minute.
       # This allows a grace period to leave, much like alarm systems.
       # This DOES NOT trigger from Vacation mode. See `vacation_mode` and `vacation_cat_sitter`.
@@ -62,8 +62,8 @@ automation:
         state: "Away"
         for:
           minutes: 1
-    action:
-      - service: input_select.select_option
+    actions:
+      - action: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Home"
@@ -71,35 +71,35 @@ automation:
   - alias: Mark home occupied when someone is home for a few minutes
     id: fb337c2f-3474-43db-9269-21c4658c8d27
     # This functions as a backup in case the door sensor didn't trip somehow.
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.adults
         to: "home"
         for:
           minutes: 1
-    condition:
+    conditions:
       - condition: state
         entity_id: input_select.home_mode
         state: "Away"
-    action:
-      - service: input_select.select_option
+    actions:
+      - action: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Home"
 
   - alias: Automatically mark the home as unoccupied if no one is home
     id: f024de99-f4dd-4d30-9aeb-cb3f0252a676
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.adults
         to: "not_home"
         for:
           minutes: 3
-    condition:
+    conditions:
       - condition: state
         entity_id: input_select.home_mode
         state: "Home"
-    action:
+    actions:
       - if:
           - condition: or
             conditions:
@@ -113,7 +113,7 @@ automation:
                 state: "on"
         then:
           - alias: "Notify Corban to manually set away mode"
-            service: notify.corban
+            action: notify.corban
             data:
               title: "Did everyone leave?"
               message: >-
@@ -135,34 +135,34 @@ automation:
                     behavior: "default"
         else:
           - alias: "Mark home as away"
-            service: input_select.select_option
+            action: input_select.select_option
             data:
               entity_id: input_select.home_mode
               option: "Away"
 
   - alias: Guest Mode Away Reminder - Notification Action
     id: f8d01735-cf06-4e03-b5cd-0cf6a00cd121
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "MARK_HOME_AWAY"
-      - platform: event
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "DISABLE_GUEST_AND_MARK_HOME_AWAY"
         id: disable_guest
-    action:
+    actions:
       - if:
           - condition: trigger
             id: "disable_guest"
         then:
           - alias: "Disable guest mode"
-            service: input_boolean.turn_off
+            action: input_boolean.turn_off
             target:
               entity_id: input_boolean.guest_mode
       - alias: "Mark home as away"
-        service: input_select.select_option
+        action: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Away"
@@ -170,25 +170,25 @@ automation:
   ## Outputs/actions from Home/Away Changes ##
   - alias: Home Occupied - Wall Display on
     id: e2855b3b-04a7-4e28-b4d9-97091b1975fd
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_select.home_mode
         to: "Home"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         data:
           entity_id: light.tablet_wall_display_screen
 
   - alias: Home Occupied from Away - Kitchen Light On
     id: f88f1445-2171-493a-be4c-d0b32e855871
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_select.home_mode
         to: "Home"
         from:
           - "Away"
           - "Vacation"
-    condition:
+    conditions:
       - alias: "Kitchen automations are not disabled"
         condition: state
         entity_id: input_boolean.room_exclude_kitchen
@@ -197,39 +197,39 @@ automation:
         condition: state
         entity_id: sun.sun
         state: "below_horizon"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         data:
           entity_id: light.kitchen_main_lights
 
   - alias: Home Unoccupied - Turn everything off
     id: 230957ce-f646-4c5d-8819-9b6b069d3628
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_select.home_mode
         to:
           - "Away"
           - "Vacation"
-    action:
+    actions:
       - alias: "Turn truly everything off"
-        service: script.everything_off
+        action: script.everything_off
         data:
           ignore_room_exclusions: true
           include_fans: true
       - alias: "Lock side door"
-        service: lock.lock
+        action: lock.lock
         target:
           entity_id: lock.side_door
 
   - alias: Turn and keep a light on for the cats when leaving after sunset
     id: 2d03492c-8f7c-40da-8b54-0d6fa94d3093
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_select.home_mode
         to: "Away"
-      - platform: sun
+      - trigger: sun
         event: sunset
-    condition:
+    conditions:
       - alias: "Living room automations are not disabled"
         condition: state
         entity_id: input_boolean.room_exclude_livingroom
@@ -246,11 +246,11 @@ automation:
         condition: state
         entity_id: input_boolean.cats_are_home
         state: "on"
-    action:
+    actions:
       - alias: "Delay to allow leaving automation to run"
         delay:
           seconds: 15
       - alias: "Turn on a light"
-        service: light.turn_on
+        action: light.turn_on
         target:
           entity_id: light.christmas_tree_lights

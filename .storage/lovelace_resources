@@ -75,7 +75,7 @@
         "id": "39a732e40929449aab2045af85893af1"
       },
       {
-        "url": "/hacsfiles/apexcharts-card/apexcharts-card.js?hacstag=331701152212",
+        "url": "/hacsfiles/apexcharts-card/apexcharts-card.js?hacstag=331701152223",
         "type": "module",
         "id": "1a480f1e8ae24f60808f839d79ef7ff6"
       },
@@ -96,7 +96,7 @@
       },
       {
         "id": "e7f7cc87b0284064b0e54f02d3e72354",
-        "url": "/webrtc/webrtc-camera.js?v=v3.6.0",
+        "url": "/webrtc/webrtc-camera.js?v=v3.6.1",
         "type": "module"
       },
       {
@@ -115,13 +115,8 @@
         "type": "module"
       },
       {
-        "id": "c12044eb8ee14e75a9828ab367111c88",
-        "url": "/hacsfiles/lawn-mower-card/lawn-mower-card.js?hacstag=806765460117",
-        "type": "module"
-      },
-      {
         "id": "e68ae68f9432455c8ab2829886ae7691",
-        "url": "/openweathermaphistory/www/openweathermaphistory.js?v=2025.06.03",
+        "url": "/openweathermaphistory/www/openweathermaphistory.js?v=2025.08.01",
         "type": "module"
       }
     ]

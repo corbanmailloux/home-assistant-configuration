@@ -13,16 +13,16 @@ automation:
   - alias: Living Room Motion Lights
     id: 42109bf8-895c-4fca-88f4-2e2d17975d27
     mode: restart
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.living_room_assumed_presence
         to: "on"
-      - platform: state
+      - trigger: state
         entity_id: binary_sensor.living_room_assumed_presence
         to: "off"
         for:
           minutes: 5
-    condition:
+    conditions:
       - alias: "Home Mode"
         condition: state
         entity_id: input_select.home_mode
@@ -31,11 +31,11 @@ automation:
         condition: state
         entity_id: input_boolean.room_exclude_livingroom
         state: "off"
-    action:
+    actions:
       - choose:
           - conditions: "{{ trigger.to_state.state == 'on' }}"
             sequence:
-              - service: light.turn_on
+              - action: light.turn_on
                 target:
                   entity_id: light.corner_lamp
           - conditions: "{{ trigger.to_state.state == 'off' }}"
@@ -48,9 +48,9 @@ automation:
                 then:
                   - alias: "Wait until Training Mode is off"
                     wait_for_trigger:
-                      - platform: state
+                      - trigger: state
                         entity_id: input_boolean.training_mode
                         to: "off"
-              - service: light.turn_off
+              - action: light.turn_off
                 target:
                   entity_id: light.corner_lamp

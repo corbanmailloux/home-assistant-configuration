@@ -6,38 +6,38 @@ input_boolean:
 automation:
   - id: b5a21457-b97b-437b-ab19-bb7d3ac2935b
     alias: Exterior Privacy Mode
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.exterior_privacy_mode
         from: "off"
         to: "on"
         id: "on"
-      - platform: state
+      - trigger: state
         entity_id: input_boolean.exterior_privacy_mode
         from: "on"
         to: "off"
         id: "off"
-    action:
+    actions:
       - alias: "On or Off?"
         choose:
           - conditions: "{{ trigger.to_state.state == 'on' }}"
             sequence:
               - alias: "Exterior lights off"
-                service: light.turn_off
+                action: light.turn_off
                 target:
                   entity_id: light.exterior_lights
               - alias: "Garage lights off"
-                service: light.turn_off
+                action: light.turn_off
                 target:
                   entity_id: light.garage_lights
               - alias: "Disable recording"
-                service: switch.turn_off
+                action: switch.turn_off
                 target:
                   entity_id:
                     - switch.main_doorbell_record # Reolink
                     - switch.driveway_privacy_mode # UniFi
               - alias: "Disable garage lighting automations"
-                service: input_boolean.turn_on
+                action: input_boolean.turn_on
                 target:
                   entity_id: input_boolean.room_exclude_garage
               # TODO: Person detection events will still appear in HomeKit/Apple TV.
@@ -45,30 +45,30 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
               - alias: "Re-enable recording"
-                service: switch.turn_on
+                action: switch.turn_on
                 target:
                   entity_id:
                     - switch.main_doorbell_record
                     - switch.driveway_privacy_mode
               - alias: "Re-enable garage lighting automations"
-                service: input_boolean.turn_off
+                action: input_boolean.turn_off
                 target:
                   entity_id: input_boolean.room_exclude_garage
 
   - id: 59bfa9b6-a76e-4acd-bf9e-1050328c1981
     alias: Exterior Privacy Mode - Notify if left on in the morning
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_select.home_mode
         to: "Home"
-    condition:
+    conditions:
       - alias: "Exterior Privacy Mode enabled"
         condition: state
         entity_id: input_boolean.exterior_privacy_mode
         state: "on"
-    action:
+    actions:
       - alias: "Notify Corban"
-        service: notify.corban
+        action: notify.corban
         data:
           title: "Exterior Privacy Mode Enabled"
           message: >-
@@ -83,13 +83,13 @@ automation:
 
   - alias: Exterior Privacy Mode - Notification Action - Disable
     id: 720b4f63-4fb6-46a2-9ce3-d519e13fb73b
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "PRIVACY_MODE_OFF"
-    action:
+    actions:
       - alias: "Turn off Privacy Mode"
-        service: input_boolean.turn_off
+        action: input_boolean.turn_off
         target:
           entity_id: input_boolean.exterior_privacy_mode

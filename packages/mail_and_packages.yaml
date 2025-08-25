@@ -1,12 +1,12 @@
 automation:
   - id: 2cb23cab-a4a4-4e67-8af0-7bbe9ef1709d
     alias: Mail Reminder - Notify Maggie if there's mail
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: person.maggie
         from: "L3Harris"
         to: "not_home"
-    condition:
+    conditions:
       - alias: "After 2 pm, to avoid alerting over lunch."
         condition: time
         after: "14:00:00"
@@ -20,9 +20,9 @@ automation:
             condition: numeric_state
             entity_id: sensor.mail_usps_delivered
             above: 0
-    action:
+    actions:
       - alias: "Notify Maggie"
-        service: notify.maggie
+        action: notify.maggie
         data:
           title: "Check the Mail"
           message: >-

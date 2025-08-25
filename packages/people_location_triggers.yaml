@@ -6,16 +6,16 @@
 automation:
   - alias: Door opened - Trigger phone location updates
     id: 85f0013d-587a-444c-a7c9-9b427a99d335
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.front_door
         to: "on"
-      - platform: state
+      - trigger: state
         entity_id:
-          - cover.left_garage_door
-          - cover.right_garage_door
+          - cover.ratgdo_left_garage_door_door
+          - cover.ratgdo_right_garage_door_door
         to: "opening"
-    action:
+    actions:
       - choose:
           - alias: "If Maggie isn't home, trigger an update."
             conditions:
@@ -23,7 +23,7 @@ automation:
                 entity_id: binary_sensor.maggie_person_home
                 state: "off"
             sequence:
-              - service: script.request_maggie_location_update
+              - action: script.request_maggie_location_update
       - choose:
           - alias: "If Corban isn't home, trigger an update."
             conditions:
@@ -31,19 +31,19 @@ automation:
                 entity_id: binary_sensor.corban_person_home
                 state: "off"
             sequence:
-              - service: script.request_corban_location_update
+              - action: script.request_corban_location_update
 
 script:
   request_maggie_location_update:
     alias: "Request a location update from Maggie's phone"
     sequence:
-      - service: notify.maggie
+      - action: notify.maggie
         data:
           message: "request_location_update"
 
   request_corban_location_update:
     alias: "Request a location update from Corban's phone"
     sequence:
-      - service: notify.corban
+      - action: notify.corban
         data:
           message: "request_location_update"

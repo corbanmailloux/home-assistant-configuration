@@ -18,17 +18,17 @@ script:
     alias: Bedtime Checkup
     sequence:
       - alias: "Reset bedtime checkup error"
-        service: input_boolean.turn_off
+        action: input_boolean.turn_off
         target:
           entity_id: input_boolean.bedtime_checkup_error
       - alias: "Turn everything off"
-        service: script.everything_off
+        action: script.everything_off
         continue_on_error: true
         data:
           ignore_room_exclusions: false
           include_fans: false
       - alias: "Close garage doors"
-        service: cover.close_cover
+        action: cover.close_cover
         target:
           entity_id:
             - cover.ratgdo_left_garage_door_door
@@ -40,12 +40,12 @@ script:
             entity_id: group.exterior_doors
             state: "on"
         then:
-          - service: script.bedtime_checkup_notify
+          - action: script.bedtime_checkup_notify
             data:
               message: >-
                 Exterior door(s) open: {{ expand("group.exterior_doors") | selectattr('state','eq','on') | map(attribute='name') | list | join(", ") }}
       - alias: "Lock side door"
-        service: lock.lock
+        action: lock.lock
         target:
           entity_id: lock.side_door
       - alias: "If no error, show green on the bedside button LED"
@@ -56,7 +56,7 @@ script:
             state: "off"
         then:
           - alias: "Green on the bedside button LED"
-            service: light.turn_on
+            action: light.turn_on
             target:
               entity_id: light.bluetooth_proxy_master_bedroom_light
             data:
@@ -66,7 +66,7 @@ script:
           - delay:
               seconds: 1
           - alias: "Turn off the bedside button LED"
-            service: light.turn_off
+            action: light.turn_off
             target:
               entity_id: light.bluetooth_proxy_master_bedroom_light
             data:
@@ -80,10 +80,10 @@ script:
         example: "Door open"
     sequence:
       - alias: "Set bedtime checkup error"
-        service: input_boolean.turn_on
+        action: input_boolean.turn_on
         target:
           entity_id: input_boolean.bedtime_checkup_error
-      - service: notify.corban
+      - action: notify.corban
         data:
           title: "Bedtime Checkup Failed"
           message: "{{ message }}"
@@ -99,7 +99,7 @@ script:
       - delay:
           seconds: 1
       - alias: "Red on the bedside button LED"
-        service: light.turn_on
+        action: light.turn_on
         target:
           entity_id: light.bluetooth_proxy_master_bedroom_light
         data:
@@ -109,14 +109,14 @@ script:
       - delay:
           seconds: 20
       - alias: "Turn off the bedside button LED"
-        service: light.turn_off
+        action: light.turn_off
         target:
           entity_id: light.bluetooth_proxy_master_bedroom_light
         data:
           transition: 3
 
       # - alias: "Turn on bed lights"
-      #   service: light.turn_on
+      #   action: light.turn_on
       #   target:
       #     entity_id: light.bed_lighting_rgb_light
       #   data:
@@ -125,7 +125,7 @@ script:
       # - delay:
       #     seconds: 1
       # - alias: "Turn on the bed lights (to help remediate the problem)"
-      #   service: light.turn_on
+      #   action: light.turn_on
       #   target:
       #     entity_id: light.bed_lighting_rgb_light
       #   data:
@@ -134,11 +134,11 @@ script:
 automation:
   - alias: Bedtime Checkup - Notification Action
     id: 3335ad34-ca40-424a-ae4e-b7d4f73ed851
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "BEDTIME_CHECKUP_TRIGGER"
-    action:
+    actions:
       - alias: "Run bedtime check up"
-        service: script.bedtime_checkup
+        action: script.bedtime_checkup

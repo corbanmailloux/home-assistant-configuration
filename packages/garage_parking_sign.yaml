@@ -2,35 +2,35 @@ automation:
   - id: e5c316e1-78f0-4f4b-8dac-a0140926aaf1
     alias: Garage Parking Sign - Door Triggers
     mode: restart # It's possible for both doors to be triggered. If so, use the later door.
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: cover.ratgdo_left_garage_door_door
         to: opening
         id: "switch.garage_parking_sign_poll_range_sensor_left"
-      - platform: state
+      - trigger: state
         entity_id: cover.ratgdo_right_garage_door_door
         to: opening
         id: "switch.garage_parking_sign_poll_range_sensor_right"
-    condition:
+    conditions:
       - alias: "Garage automations are not disabled"
         condition: state
         entity_id: input_boolean.room_exclude_garage
         state: "off"
-    action:
+    actions:
       - alias: Start with both sensors off
-        service: switch.turn_off
+        action: switch.turn_off
         target:
           entity_id:
             - switch.garage_parking_sign_poll_range_sensor_left
             - switch.garage_parking_sign_poll_range_sensor_right
       - alias: Start polling the sensor
-        service: switch.turn_on
+        action: switch.turn_on
         target:
           entity_id: >-
             {{ trigger.id }}
       - alias: "Wait for the door to be closing OR 2 minutes."
         wait_for_trigger:
-          - platform: state
+          - trigger: state
             entity_id:
               - cover.ratgdo_left_garage_door_door
               - cover.ratgdo_right_garage_door_door
@@ -40,17 +40,17 @@ automation:
         timeout:
           minutes: 2
       - alias: Stop polling
-        service: switch.turn_off
+        action: switch.turn_off
         target:
           entity_id: >-
             {{ trigger.id }}
 
   - id: 2e88e5a9-888e-417d-9070-f4ddc96df4cf
     alias: Show Hand on Sign During Meetings
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.corban_on_a_call
-    condition:
+    conditions:
       - alias: "Home Mode"
         condition: state
         entity_id: input_select.home_mode
@@ -59,16 +59,16 @@ automation:
         condition: state
         entity_id: person.corban
         state: "home"
-    action:
+    actions:
       - choose:
           - conditions: "{{ trigger.to_state.state == 'on' }}"
             sequence:
-              - service: light.turn_on
+              - action: light.turn_on
                 target:
                   entity_id: light.garage_parking_sign_hand
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
-              - service: light.turn_off
+              - action: light.turn_off
                 target:
                   entity_id: light.garage_parking_sign_hand
 
@@ -78,13 +78,13 @@ script:
     icon: mdi:monitor-off
     sequence:
       - alias: "Turn off walk and hand sign"
-        service: light.turn_off
+        action: light.turn_off
         target:
           entity_id:
             - light.garage_parking_sign_hand
             - light.garage_parking_sign_walk
       - alias: "Turn off numbers"
-        service: number.set_value
+        action: number.set_value
         target:
           entity_id: number.garage_parking_sign_display_number
         data:

@@ -5,13 +5,13 @@
 # automation:
 #   - alias: "PagerDuty Webhook - Triggered Event"
 #     id: 1395c62b-66d9-4294-9d08-a81895583f61
-#     trigger:
-#       - platform: webhook
+#     triggers:
+#       - trigger: webhook
 #         webhook_id: !secret pagerduty_webhook
 #         allowed_methods:
 #           - POST
 #         local_only: false
-#     condition:
+#     conditions:
 #       - condition: template
 #         value_template: >
 #           {# Set the PagerDuty user ID here. #}
@@ -42,9 +42,9 @@
 #       - condition: state
 #         entity_id: light.fairy_lights
 #         state: "off" # Only run if the lights are already off to avoid changing them.
-#     action:
+#     actions:
 #       # Partially turn on the fairy lights so I can pick up my laptop to respond to the page.
-#       - service: light.turn_on
+#       - action: light.turn_on
 #         entity_id: light.fairy_lights
 #         data:
 #           transition: 5
@@ -52,7 +52,7 @@
 #       # Wait 10 minutes, then turn them off.
 #       - delay:
 #           minutes: 10
-#       - service: light.turn_off
+#       - action: light.turn_off
 #         entity_id: light.fairy_lights
 #         data:
 #           transition: 10

@@ -33,42 +33,42 @@ input_boolean:
 automation:
   - alias: Show map when Maggie's away from home
     id: 229ee037-4e8d-43bc-a5ab-acd4f19bb2a0
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: person.maggie
         to: "not_home"
         for: "00:01:00" # Debounce for a minute
-    action:
-      - service: input_boolean.turn_on
+    actions:
+      - action: input_boolean.turn_on
         data:
           entity_id: input_boolean.wall_display_show_map
 
   - alias: Hide map when Maggie gets home or to work
     id: df202fb6-6230-4c51-bcc5-18572973fbba
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: person.maggie
         to:
           - "home"
           - "L3Harris"
           - "Clay Studio"
         for: "00:01:00"
-    action:
-      - service: input_boolean.turn_off
+    actions:
+      - action: input_boolean.turn_off
         data:
           entity_id: input_boolean.wall_display_show_map
 
   # See also `package/home_away_mode.yaml`.
   - alias: Turn on the wall display in the morning # if someone is home
     id: ec56904d-4cc0-4966-9b98-8c790bf6e76d
-    trigger:
-      - platform: time
-        at: "06:00:00"
-    condition:
+    triggers:
+      - trigger: time
+        at: "06:01:00"
+    conditions:
       - condition: state
         entity_id: input_select.home_mode
         state: "Home"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         data:
           entity_id: light.tablet_wall_display_screen

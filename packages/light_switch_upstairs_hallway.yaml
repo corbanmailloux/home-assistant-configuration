@@ -3,14 +3,14 @@ automation:
 
   - id: 34a158cc-aa49-4aeb-9426-705f3a98bd85
     alias: Upstairs Light Switch - Config Single Press - Toggle Under Bed Lighting
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         domain: mqtt
         device_id: 6239543fc9a684fbba5d4af77ccdf052
         type: action
         subtype: config_single
-    action:
-      - service: light.toggle
+    actions:
+      - action: light.toggle
         data:
           brightness_pct: 100
           rgb_color:
@@ -22,14 +22,14 @@ automation:
 
   - id: f65fe143-e99c-4bb8-b131-295e121d2240
     alias: Upstairs Light Switch - Config Double Press - Toggle Fairy Lights
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         domain: mqtt
         device_id: 6239543fc9a684fbba5d4af77ccdf052
         type: action
         subtype: config_double
-    action:
-      - service: light.toggle
+    actions:
+      - action: light.toggle
         target:
           entity_id: light.fairy_lights
         data:
@@ -40,16 +40,16 @@ automation:
   - id: a8f98277-f3cf-4a9d-a2a2-9cdfbd2196ff
     alias: Litter Box Status - Set Input Select
     mode: restart
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: vacuum.litter_robot_4_litter_box
-      - platform: state
+      - trigger: state
         entity_id: sensor.litter_robot_4_litter_level
-      - platform: state
+      - trigger: state
         entity_id: sensor.litter_robot_4_waste_drawer
-      - platform: state
+      - trigger: state
         entity_id: sensor.litter_robot_4_status_code
-    action:
+    actions:
       - choose:
           # - conditions:
           #     - alias: "Litter Box Cycling"
@@ -57,7 +57,7 @@ automation:
           #       entity_id: vacuum.litter_robot_4_litter_box
           #       state: "cleaning"
           #   sequence:
-          #     - service: input_select.select_option
+          #     - action: input_select.select_option
           #       target:
           #         entity_id: input_select.upstairs_hall_light_switch_led_mode
           #       data:
@@ -72,14 +72,14 @@ automation:
                 entity_id: sensor.litter_robot_4_status_code
                 state: "dfs"
             sequence:
-              - service: input_select.select_option
+              - action: input_select.select_option
                 target:
                   entity_id: input_select.upstairs_hall_light_switch_led_mode
                 data:
                   option: "Off"
               - delay:
                   seconds: 1
-              - service: input_select.select_option
+              - action: input_select.select_option
                 target:
                   entity_id: input_select.upstairs_hall_light_switch_led_mode
                 data:
@@ -98,14 +98,14 @@ automation:
                 entity_id: sensor.litter_robot_4_status_code
                 state: "df1"
             sequence:
-              - service: input_select.select_option
+              - action: input_select.select_option
                 target:
                   entity_id: input_select.upstairs_hall_light_switch_led_mode
                 data:
                   option: "Off"
               - delay:
                   seconds: 1
-              - service: input_select.select_option
+              - action: input_select.select_option
                 target:
                   entity_id: input_select.upstairs_hall_light_switch_led_mode
                 data:
@@ -116,20 +116,20 @@ automation:
                 entity_id: sensor.litter_robot_4_litter_level
                 below: 40
             sequence:
-              - service: input_select.select_option
+              - action: input_select.select_option
                 target:
                   entity_id: input_select.upstairs_hall_light_switch_led_mode
                 data:
                   option: "Off"
               - delay:
                   seconds: 1
-              - service: input_select.select_option
+              - action: input_select.select_option
                 target:
                   entity_id: input_select.upstairs_hall_light_switch_led_mode
                 data:
                   option: "Litter Level Low"
         default:
-          - service: input_select.select_option
+          - action: input_select.select_option
             target:
               entity_id: input_select.upstairs_hall_light_switch_led_mode
             data:
@@ -138,15 +138,15 @@ automation:
   - id: 8efcc481-cdef-4943-b443-93860546c935
     alias: Upstairs Hall Light Switch - Set LEDs Based on Input Select
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_select.upstairs_hall_light_switch_led_mode
-    action:
+    actions:
       - choose:
           - conditions: >-
               {{ trigger.to_state.state == "Off" }}
             sequence:
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: All
@@ -156,7 +156,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 1
@@ -166,7 +166,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 2
@@ -176,7 +176,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 3
@@ -186,7 +186,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 4
@@ -196,7 +196,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 5
@@ -206,7 +206,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 6
@@ -216,7 +216,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 7
@@ -229,7 +229,7 @@ automation:
           - conditions: >-
               {{ trigger.to_state.state == "Litter Level Low" }}
             sequence:
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 1
@@ -239,7 +239,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 2
@@ -252,7 +252,7 @@ automation:
           - conditions: >-
               {{ trigger.to_state.state == "Litter Drawer Almost Full" }}
             sequence:
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 1
@@ -262,7 +262,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 2
@@ -272,7 +272,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 3
@@ -282,7 +282,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 4
@@ -292,7 +292,7 @@ automation:
                   duration: Indefinitely
                   target:
                     device_id: 6239543fc9a684fbba5d4af77ccdf052
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: Led 5
@@ -305,7 +305,7 @@ automation:
           - conditions: >-
               {{ trigger.to_state.state == "Litter Drawer Full" }}
             sequence:
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 metadata: {}
                 data:
                   led: All
@@ -318,7 +318,7 @@ automation:
           - conditions: >-
               {{ trigger.to_state.state == "Litter Box Cycling" }}
             sequence:
-              - service: script.inovelli_led_control
+              - action: script.inovelli_led_control
                 data:
                   target:
                     device_id:

@@ -2,7 +2,7 @@ automation:
   - alias: Office Remote - Toggle - Toggle Video Call Scene
     id: e8cfeb3b-e051-4b20-9d80-fd19a96a16dd
     triggers:
-      - platform: device
+      - trigger: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_toggle
         domain: mqtt
@@ -32,14 +32,14 @@ automation:
 
   - alias: Office Remote - Brightness Up
     id: 917b79fd-9825-4100-bca6-d44847d8ef10
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_brightness_up_click
         domain: mqtt
         type: action
         subtype: brightness_up_click
-    action:
+    actions:
       - choose:
           # If the key light is on, control it directly.
           - conditions:
@@ -47,7 +47,7 @@ automation:
                 entity_id: light.key_light_air_1
                 state: "on"
             sequence:
-              - service: light.turn_on
+              - action: light.turn_on
                 entity_id: light.key_light_air_1
                 data_template:
                   brightness: >
@@ -63,7 +63,7 @@ automation:
                 entity_id: light.key_light_air_1
                 state: "off"
             sequence:
-              - service: light.turn_on
+              - action: light.turn_on
                 entity_id: light.office_ceiling
                 data_template:
                   # Handles the light being off as well, treating it as 0 brightness.
@@ -77,14 +77,14 @@ automation:
 
   - alias: Office Remote - Brightness Down
     id: 664afecb-08e5-4d33-bdca-c11ebe09bf12
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_brightness_down_click
         domain: mqtt
         type: action
         subtype: brightness_down_click
-    action:
+    actions:
       - choose:
           # If the key light is on, control it directly.
           - conditions:
@@ -92,7 +92,7 @@ automation:
                 entity_id: light.key_light_air_1
                 state: "on"
             sequence:
-              - service: light.turn_on
+              - action: light.turn_on
                 entity_id: light.key_light_air_1
                 data_template:
                   brightness: >
@@ -108,7 +108,7 @@ automation:
                 entity_id: light.key_light_air_1
                 state: "off"
             sequence:
-              - service: light.turn_on
+              - action: light.turn_on
                 entity_id: light.office_ceiling
                 data_template:
                   brightness: >
@@ -121,16 +121,16 @@ automation:
 
   - alias: Office Remote - Brightness Up Hold
     id: 0a1f28ae-c8f2-40d6-b664-43b7969de628
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_brightness_up_hold
         domain: mqtt
         type: action
         subtype: brightness_up_hold
-    action:
+    actions:
       - alias: "Ceiling full brighness"
-        service: light.turn_on
+        action: light.turn_on
         entity_id:
           - light.office_ceiling
         data:
@@ -138,30 +138,30 @@ automation:
 
   - alias: Office Remote - Brightness Down Hold
     id: 47437150-269c-46d4-b9d7-da8c4efa1695
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_brightness_down_hold
         domain: mqtt
         type: action
         subtype: brightness_down_hold
-    action:
+    actions:
       - alias: "Lights off"
-        service: light.turn_off
+        action: light.turn_off
         entity_id:
           - light.office_ceiling
 
   - alias: Office Remote - Left Button Click
     id: 466c98e8-bc17-4edc-b29d-a527e66a27af
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 66f76df28bdd462e84227f8f164ee7c3
         discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
         domain: mqtt
         type: action
         subtype: arrow_left_click
-    action:
-      - service: fan.toggle
+    actions:
+      - action: fan.toggle
         entity_id: fan.office_fan
 
   # TODO: Updated plan
@@ -171,54 +171,54 @@ automation:
 
   # - alias: Office Remote - Left Button Click - Toggle Corner Lamp
   #   id: 4f982672-4257-4cb7-a498-1df044a30150
-  #   trigger:
-  #     - platform: device
+  #   triggers:
+  #     - trigger: device
   #       device_id: 66f76df28bdd462e84227f8f164ee7c3
   #       discovery_id: 0x90fd9ffffe886c5f action_arrow_left_click
   #       domain: mqtt
   #       type: action
   #       subtype: arrow_left_click
-  #   action:
-  #     - service: light.toggle
+  #   actions:
+  #     - action: light.toggle
   #       entity_id: light.office_corner_light
 
   # - alias: Office Remote - Left Button Hold - Toggle Shelf LEDs
   #   id: df89803c-e20a-4418-ae99-1371f154ecd4
-  #   trigger:
-  #     - platform: device
+  #   triggers:
+  #     - trigger: device
   #       device_id: 66f76df28bdd462e84227f8f164ee7c3
   #       discovery_id: 0x90fd9ffffe886c5f action_arrow_left_hold
   #       domain: mqtt
   #       type: action
   #       subtype: arrow_left_hold
-  #   action:
-  #     - service: light.toggle
+  #   actions:
+  #     - action: light.toggle
   #       entity_id: light.office_leds
 
   # - alias: Office Remote - Right Button Click - Toggle Main Light
   #   id: 74eee1be-0bea-4009-9621-59e44cc2d8a4
-  #   trigger:
-  #     - platform: device
+  #   triggers:
+  #     - trigger: device
   #       device_id: 66f76df28bdd462e84227f8f164ee7c3
   #       discovery_id: 0x90fd9ffffe886c5f action_arrow_right_click
   #       domain: mqtt
   #       type: action
   #       subtype: arrow_right_click
-  #   action:
-  #     - service: light.toggle
+  #   actions:
+  #     - action: light.toggle
   #       data:
   #         entity_id: light.corban_s_office_lamp
   #         # brightness: 255
 
   # - alias: Office Remote - Right Button Hold - Toggle Fan
   #   id: e4f83809-9377-42ee-9a19-8cfe4966e944
-  #   trigger:
-  #     - platform: device
+  #   triggers:
+  #     - trigger: device
   #       device_id: 66f76df28bdd462e84227f8f164ee7c3
   #       discovery_id: 0x90fd9ffffe886c5f action_arrow_right_hold
   #       domain: mqtt
   #       type: action
   #       subtype: arrow_right_hold
-  #   action:
-  #     - service: fan.toggle
+  #   actions:
+  #     - action: fan.toggle
   #       entity_id: fan.office_fan

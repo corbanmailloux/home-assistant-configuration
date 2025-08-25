@@ -4,26 +4,26 @@
 automation:
   - alias: "Bed Lights - Auto-Off"
     id: a873b354-e261-4790-b2b8-2b1ca8b7b558
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: light.bed_lighting_rgb_light
         to: "on"
         for:
           hours: 5
           minutes: 0
           seconds: 0
-    action:
-      - service: light.turn_off
+    actions:
+      - action: light.turn_off
         entity_id: light.bed_lighting_rgb_light
         data:
           transition: 5
 
   - alias: Turn on under-bed lights at bedtime
     id: 26a2133f-97ce-463e-bc39-f23c54f57f47
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "22:45"
-    condition:
+    conditions:
       - alias: "Room not excluded"
         condition: state
         entity_id: input_boolean.room_exclude_master_bedroom
@@ -37,8 +37,8 @@ automation:
       - condition: state
         entity_id: person.corban
         state: "home"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         entity_id: light.bed_lighting_rgb_light
         data:
           transition: 5

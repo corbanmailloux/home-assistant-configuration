@@ -17,67 +17,67 @@ input_boolean:
 automation:
   - alias: Office Motion Light - Override with triple tap
     id: a7273b48-a15c-4fd1-8402-312a8980ec42
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         domain: mqtt
         device_id: 0d88963feb93fc454e4d3c4115034675
         type: action
         subtype: up_triple
         id: "toggle"
-      - platform: device
+      - trigger: device
         domain: mqtt
         device_id: 0d88963feb93fc454e4d3c4115034675
         type: action
         subtype: down_triple
         id: "toggle"
-      - platform: device
+      - trigger: device
         domain: mqtt
         device_id: 0d88963feb93fc454e4d3c4115034675
         type: action
         subtype: config_single
         id: "toggle"
-      # - platform: device
+      # - trigger: device
       #   domain: mqtt
       #   device_id: 0d88963feb93fc454e4d3c4115034675
       #   type: action
       #   subtype: down_single
       #   id: "disable"
-    action:
+    actions:
       - choose:
-        - conditions:
-            - condition: trigger
-              id:
-                - "toggle"
-          sequence:
-            - service: input_boolean.toggle
-              target:
-                entity_id: input_boolean.office_motion_lights_override
-        - conditions:
-            - condition: trigger
-              id:
-                - "disable"
-          sequence:
-            - service: input_boolean.turn_off
-              target:
-                entity_id: input_boolean.office_motion_lights_override
+          - conditions:
+              - condition: trigger
+                id:
+                  - "toggle"
+            sequence:
+              - action: input_boolean.toggle
+                target:
+                  entity_id: input_boolean.office_motion_lights_override
+          - conditions:
+              - condition: trigger
+                id:
+                  - "disable"
+            sequence:
+              - action: input_boolean.turn_off
+                target:
+                  entity_id: input_boolean.office_motion_lights_override
 
   - alias: Office Motion Light Override - Set LEDs
     id: 32ed809a-9c4e-49d0-ab9b-fdd5cd4dac45
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id:
           - input_boolean.office_motion_lights_override
         from: "off"
         to: "on"
         id: "on"
-      - platform: state
+      - trigger: state
         entity_id:
           - input_boolean.office_motion_lights_override
         from: "on"
         to: "off"
         id: "off"
-    condition: []
-    action:
+    conditions: []
+    actions:
       - choose:
           - conditions:
               - condition: trigger
@@ -115,16 +115,16 @@ automation:
   - alias: Office Motion Lights
     id: 3c42906d-db94-454e-8dc9-bc980e94223f
     mode: restart
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.office_mini_motion_presence
         to: "on"
-      - platform: state
+      - trigger: state
         entity_id: binary_sensor.office_mini_motion_presence
         to: "off"
         for:
           minutes: 2
-    condition:
+    conditions:
       - alias: "Home Mode"
         condition: state
         entity_id: input_select.home_mode
@@ -137,11 +137,11 @@ automation:
         condition: state
         entity_id: input_boolean.office_motion_lights_override
         state: "off"
-    action:
+    actions:
       - choose:
           - conditions: "{{ trigger.to_state.state == 'on' }}"
             sequence:
-              - service: light.turn_on
+              - action: light.turn_on
                 target:
                   entity_id:
                     - light.main_office_lights
@@ -157,12 +157,12 @@ automation:
                 then:
                   - alias: "Wait until Training Mode is off"
                     wait_for_trigger:
-                      - platform: state
+                      - trigger: state
                         entity_id: input_boolean.training_mode
                         to: "off"
                   - delay:
                       seconds: 10
-              - service: light.turn_off
+              - action: light.turn_off
                 target:
                   entity_id:
                     - light.main_office_lights

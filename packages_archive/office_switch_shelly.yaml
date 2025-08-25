@@ -4,16 +4,16 @@
 # automation:
 #   - alias: Office Light Switch - Toggle Office Light
 #     id: 564f131b-bb04-4746-bd8f-4ada8e8babad
-#     trigger:
-#       - platform: state
+#     triggers:
+#       - trigger: state
 #         entity_id: binary_sensor.office_switch_sensor
 #         from: "off"
 #         to: "on"
-#       - platform: state
+#       - trigger: state
 #         entity_id: binary_sensor.office_switch_sensor
 #         from: "on"
 #         to: "off"
-#     action:
+#     actions:
 #       - choose:
 #           # If off, turn on.
 #           - conditions:
@@ -21,7 +21,7 @@
 #                 entity_id: light.corban_s_office_lamp
 #                 state: "off"
 #             sequence:
-#               - service: light.turn_on
+#               - action: light.turn_on
 #                 entity_id: light.corban_s_office_lamp
 #                 # Brightness is currently controlled by Adaptive Lighting.
 #                 # data:
@@ -32,7 +32,7 @@
 #                 entity_id: light.corban_s_office_lamp
 #                 state: "on"
 #             sequence:
-#               - service: light.turn_off
+#               - action: light.turn_off
 #                 target:
 #                   entity_id: light.corban_s_office_lamp
 #       - delay:

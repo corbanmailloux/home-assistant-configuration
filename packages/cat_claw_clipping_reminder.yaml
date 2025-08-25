@@ -2,15 +2,15 @@ automation:
   - alias: Show Cat Claw Clipping Card - Calendar Automation
     id: 07d5496d-3810-43a3-b371-59d65c7bc10f
     mode: queued
-    trigger:
-      - platform: calendar
+    triggers:
+      - trigger: calendar
         event: start
         entity_id: calendar.chores
-    condition:
+    conditions:
       - condition: template
         value_template: "{{ 'Cat Claw Clipping' in trigger.calendar_event.summary }}"
-    action:
-      - service: input_boolean.turn_on
+    actions:
+      - action: input_boolean.turn_on
         entity_id: input_boolean.cat_claw_clip_needed
 
 input_boolean:
@@ -23,16 +23,16 @@ script:
     alias: Clear Clipping Card and Vacuum Kitchen
     sequence:
       - alias: Hide the card on the wall display
-        service: input_boolean.turn_off
+        action: input_boolean.turn_off
         entity_id: input_boolean.cat_claw_clip_needed
       - alias: "Set vacuum mode"
-        service: select.select_option
+        action: select.select_option
         target:
           entity_id: select.dreamebot_l10s_ultra_cleaning_mode
         data:
           option: "sweeping"
       - alias: Vacuum kitchen
-        service: dreame_vacuum.vacuum_clean_segment
+        action: dreame_vacuum.vacuum_clean_segment
         target:
           entity_id: vacuum.dreamebot_l10s_ultra
         data:

@@ -35,25 +35,25 @@ input_boolean:
 automation:
   - id: 3d45c62b-c99a-43cb-a1b7-7e5ab2974a1b
     alias: Dryer Reminder - Notify when dryer finishes
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.dryer_running
         from: "on"
         to: "off"
-    action:
+    actions:
       - alias: "Turn on notify switch"
-        service: input_boolean.turn_on
+        action: input_boolean.turn_on
         target:
           entity_id: input_boolean.dryer_reminder_notifying
 
   - id: b7826c90-2dc8-40fb-9abb-a21e5678a23d
     alias: Dryer Reminder - Send notifications based on boolean
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.dryer_reminder_notifying
         from: "off"
         to: "on"
-    action:
+    actions:
       - if:
           - alias: "Is Corban home?"
             condition: state
@@ -61,7 +61,7 @@ automation:
             state: "home"
         then:
           - alias: "Notify Corban"
-            service: script.dryer_reminder_send_notification_to_variable
+            action: script.dryer_reminder_send_notification_to_variable
             data:
               notify_device: corban
               dismiss_notification: false
@@ -72,81 +72,81 @@ automation:
             state: "home"
         then:
           - alias: "Notify Maggie"
-            service: script.dryer_reminder_send_notification_to_variable
+            action: script.dryer_reminder_send_notification_to_variable
             data:
               notify_device: maggie
               dismiss_notification: false
 
   - id: 081bf63f-8413-4dea-be82-d537dd2e1a20
     alias: Dryer Reminder - Dismiss notifications based on boolean
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.dryer_reminder_notifying
         from: "on"
         to: "off"
-    action:
+    actions:
       - alias: "Clear notifications"
-        service: script.dryer_reminder_send_notification_to_variable
+        action: script.dryer_reminder_send_notification_to_variable
         data:
           notify_device: adult_phones
           dismiss_notification: true
 
   - id: 3b991b80-fc3f-4d67-9900-5cf5f6510c96
     alias: Dryer Reminder - Acknowledge alert when motion is detected in the basement
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.laundry_motion_sensor_occupancy
         from: "off"
         to: "on"
-    condition:
+    conditions:
       - alias: "Notification active"
         condition: state
         entity_id: input_boolean.dryer_reminder_notifying
         state: "on"
-    action:
+    actions:
       - alias: "Turn off boolean"
-        service: input_boolean.turn_off
+        action: input_boolean.turn_off
         target:
           entity_id: input_boolean.dryer_reminder_notifying
 
   - id: 551dc831-c06e-4af2-843f-6654fb049661
     alias: Dryer Reminder - Acknowledge alert from notification
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "DRYER_REMINDER_ACK"
-    condition:
+    conditions:
       - alias: "Notification active"
         condition: state
         entity_id: input_boolean.dryer_reminder_notifying
         state: "on"
-    action:
+    actions:
       - alias: "Turn off boolean"
-        service: input_boolean.turn_off
+        action: input_boolean.turn_off
         target:
           entity_id: input_boolean.dryer_reminder_notifying
 
   - id: b8d28099-0cb5-4290-82ef-90dbeb9717a9
     alias: Dryer Reminder - Send delayed notification if someone gets home
     mode: parallel
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: person.corban
         to: "home"
         id: "corban"
-      - platform: state
+      - trigger: state
         entity_id: person.maggie
         to: "home"
         id: "maggie"
-    condition:
+    conditions:
       - alias: "Notification active"
         condition: state
         entity_id: input_boolean.dryer_reminder_notifying
         state: "on"
-    action:
+    actions:
       - alias: "Notify the right person"
-        service: script.dryer_reminder_send_notification_to_variable
+        action: script.dryer_reminder_send_notification_to_variable
         data:
           notify_device: >-
             {{ trigger.id }}
@@ -155,23 +155,23 @@ automation:
   - id: 3f6458fd-c731-47ff-a825-fec4f7591fd1
     alias: Dryer Reminder - Dismiss notification if someone leaves home
     mode: parallel
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: person.corban
         from: "home"
         id: "corban"
-      - platform: state
+      - trigger: state
         entity_id: person.maggie
         from: "home"
         id: "maggie"
-    condition:
+    conditions:
       - alias: "Notification active"
         condition: state
         entity_id: input_boolean.dryer_reminder_notifying
         state: "on"
-    action:
+    actions:
       - alias: "Notify the right person"
-        service: script.dryer_reminder_send_notification_to_variable
+        action: script.dryer_reminder_send_notification_to_variable
         data:
           notify_device: >-
             {{ trigger.id }}
@@ -191,13 +191,13 @@ script:
       - if:
           - "{{ dismiss_notification == true }}"
         then:
-          - service: notify.{{ notify_device }}
+          - action: notify.{{ notify_device }}
             data:
               message: clear_notification
               data:
                 tag: "laundry_reminder_dryer"
         else:
-          - service: notify.{{ notify_device }}
+          - action: notify.{{ notify_device }}
             data:
               title: "Laundry Reminder"
               message: Dryer done.

@@ -21,10 +21,10 @@ input_datetime:
 automation:
   - alias: "Sunrise Alarm"
     id: cc8e52c9-a310-4b0d-8ec1-69296230588c
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: input_datetime.alarm_start_time
-    condition:
+    conditions:
       - alias: "Room not excluded"
         condition: state
         entity_id: input_boolean.room_exclude_guest_bedroom
@@ -38,8 +38,8 @@ automation:
       - condition: state
         entity_id: light.fairy_lights
         state: "off"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         entity_id: light.fairy_lights
         data_template:
           brightness: "{{ ((states.input_number.alarm_max_brightness.state | int) / 100 * 255) | int }}"
@@ -47,7 +47,7 @@ automation:
           transition: "{{ states.input_datetime.alarm_target_time.attributes.timestamp - states.input_datetime.alarm_start_time.attributes.timestamp }}"
       - delay:
           hours: 2
-      - service: light.turn_off
+      - action: light.turn_off
         entity_id: light.fairy_lights
         data:
           transition: 20

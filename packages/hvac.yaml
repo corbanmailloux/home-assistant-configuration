@@ -5,17 +5,15 @@
 
 climate:
   - platform: climate_group
-    name: 'Home HVAC'
+    name: "Home HVAC"
     temperature_unit: F
-    decimal_accuracy_to_half: False  # Round the averaged temperatures to 0.5 degree increments.
+    decimal_accuracy_to_half: False # Round the averaged temperatures to 0.5 degree increments.
     unique_id: c97027fa-0aaa-41be-a2cf-da459c724999
     entities:
       - climate.mitp_heat_pump_first_floor_climate
       - climate.mitp_heat_pump_second_floor_climate
 
-
 ## OLD STUFF BELOW
-
 
 # The main thermostat is pulled in through both HomeKit and through the Honeywell Lyric cloud integration.
 # Generally we use the HomeKit version for local control (climate.t9_thermostat), but that doesn't
@@ -28,21 +26,21 @@ climate:
 automation:
   # - alias: HVAC - Vacation Mode
   #   id: b273e1b3-cf99-45c1-bced-c9bddfd7e2cf
-  #   trigger:
-  #     - platform: state
+  #   triggers:
+  #     - trigger: state
   #       entity_id: input_select.home_mode
   #       to: "Vacation"
   #       id: "on"
-  #     - platform: state
+  #     - trigger: state
   #       entity_id: input_select.home_mode
   #       from: "Vacation"
   #       id: "off"
-  #   condition:
+  #   conditions:
   #     - alias: "Thermostat in heating mode"
   #       condition: state
   #       entity_id: climate.hallway
   #       state: "heat"
-  #   action:
+  #   actions:
   #     - alias: "Vacation mode on or off?"
   #       choose:
   #         - conditions: >-
@@ -52,7 +50,7 @@ automation:
   #               delay:
   #                 seconds: 5
   #             - alias: "Set the temperature"
-  #               service: climate.set_temperature
+  #               action: climate.set_temperature
   #               data:
   #                 temperature: 62
   #               target:
@@ -60,7 +58,7 @@ automation:
   #             - delay:
   #                 seconds: 1
   #             - alias: "Lock the temperature"
-  #               service: climate.set_preset_mode
+  #               action: climate.set_preset_mode
   #               data:
   #                 preset_mode: PermanentHold
   #               target:
@@ -70,7 +68,7 @@ automation:
   #             {{ trigger.id == "off" }}
   #           sequence:
   #             - alias: "Reset to default schedule"
-  #               service: climate.set_preset_mode
+  #               action: climate.set_preset_mode
   #               data:
   #                 preset_mode: NoHold
   #               target:
@@ -78,21 +76,21 @@ automation:
 
   # - alias: HVAC - Reduce temperature when away
   #   id: 977e9e4a-0906-460f-9197-ccc1d866052c
-  #   trigger:
-  #     - platform: state
+  #   triggers:
+  #     - trigger: state
   #       entity_id: input_select.home_mode
   #       to: "Away"
   #       id: "on"
-  #     - platform: state
+  #     - trigger: state
   #       entity_id: input_select.home_mode
   #       from: "Away"
   #       id: "off"
-  #   condition:
+  #   conditions:
   #     - alias: "Thermostat in heating mode"
   #       condition: state
   #       entity_id: climate.hallway
   #       state: "heat"
-  #   action:
+  #   actions:
   #     - alias: "Away mode on or off?"
   #       choose:
   #         - conditions: >-
@@ -102,7 +100,7 @@ automation:
   #               delay:
   #                 seconds: 5
   #             - alias: "Set the temperature"
-  #               service: climate.set_temperature
+  #               action: climate.set_temperature
   #               data:
   #                 temperature: 64
   #               target:
@@ -110,7 +108,7 @@ automation:
   #             - delay:
   #                 seconds: 1
   #             - alias: "Lock the temperature"
-  #               service: climate.set_preset_mode
+  #               action: climate.set_preset_mode
   #               data:
   #                 preset_mode: PermanentHold
   #               target:
@@ -120,7 +118,7 @@ automation:
   #             {{ trigger.id == "off" }}
   #           sequence:
   #             - alias: Reset to default schedule
-  #               service: climate.set_preset_mode
+  #               action: climate.set_preset_mode
   #               data:
   #                 preset_mode: NoHold
   #               target:
@@ -128,8 +126,8 @@ automation:
 
   - alias: HVAC - Notify if the internal temperature drops below 55
     id: f36d39b0-74ac-46a1-b2a0-e9b54ab17ecc
-    trigger:
-      - platform: template
+    triggers:
+      - trigger: template
         value_template: >-
           {{
             [
@@ -138,9 +136,9 @@ automation:
               states("sensor.office_temperature") | int(100),
             ] | min < 55
           }}
-    action:
+    actions:
       - alias: "Notify"
-        service: notify.adult_phones
+        action: notify.adult_phones
         data:
           title: "House is Too Cold"
           message: >-
@@ -148,17 +146,17 @@ automation:
 
   - alias: HVAC - Notify when the heat strips activate
     id: 42810f98-39f3-4f23-b3f5-c00810e9430f
-    trigger:
-      - platform: numeric_state
+    triggers:
+      - trigger: numeric_state
         entity_id:
           - sensor.home_energy_monitor_power_fl1_heat_strips
           - sensor.home_energy_monitor_power_fl2_heat_strips
         above: 10
         for:
           minutes: 1
-    action:
+    actions:
       - alias: "Notify"
-        service: notify.corban
+        action: notify.corban
         data:
           title: "Heat Strips Active"
           message: >-

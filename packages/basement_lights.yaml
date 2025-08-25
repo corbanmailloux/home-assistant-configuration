@@ -14,10 +14,9 @@ light:
       # - light.basement_near_storage_doors_light
       # - light.basement_water_softener_light
 
-
 template:
-  - trigger:
-      - platform: state
+  - triggers:
+      - trigger: state
         entity_id:
           - binary_sensor.basement_stairs_door_sensor_contact
           - binary_sensor.basement_exterior_door_sensor_contact
@@ -46,20 +45,20 @@ template:
 automation:
   - id: a057b5d7-4be2-4815-ae9a-616bc0af99c0
     alias: Basement - All Lights Follow Switched Lights
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: light.basement_main_lights
         not_from:
           - "unknown"
           - "unavailable"
-    action:
+    actions:
       - alias: "On or Off?"
         choose:
           - conditions: >-
               {{ trigger.to_state.state == "on" }}
             sequence:
               - alias: "Turn on basement lights"
-                service: light.turn_on
+                action: light.turn_on
                 data:
                   color_temp_kelvin: 4000
                   brightness: 255
@@ -69,7 +68,7 @@ automation:
               {{ trigger.to_state.state == "off" }}
             sequence:
               - alias: "Turn off basement lights"
-                service: light.turn_off
+                action: light.turn_off
                 data:
                   transition: 0
                 target:
@@ -79,31 +78,31 @@ automation:
     alias: Basement - Motion Lights
     # If motion is detected within the delay, we restart the script.
     mode: restart
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.basement_assumed_motion
         from: "off"
         to: "on"
         id: "on"
-      - platform: state
+      - trigger: state
         entity_id: binary_sensor.basement_assumed_motion
         to: "off"
         for:
           minutes: 5
         id: "off"
-    condition:
+    conditions:
       - alias: "Basement automations are not disabled"
         condition: state
         entity_id: input_boolean.room_exclude_basement
         state: "off"
-    action:
+    actions:
       - alias: "On or Off?"
         choose:
           - conditions: >-
               {{ trigger.id == "on" }}
             sequence:
               - alias: "Turn on basement lights"
-                service: light.turn_on
+                action: light.turn_on
                 data:
                   color_temp_kelvin: 4000
                   brightness: 255
@@ -113,7 +112,7 @@ automation:
               {{ trigger.id == "off" }}
             sequence:
               - alias: "Turn off basement lights"
-                service: light.turn_off
+                action: light.turn_off
                 data:
                   transition: 20
                 target:

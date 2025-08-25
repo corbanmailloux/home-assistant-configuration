@@ -10,14 +10,14 @@
 # automation:
 #   - alias: Trigger vacuum when no one is home for 5 minutes
 #     id: b789d523-89bf-4bd6-884d-6ad7a4e63b06
-#     trigger:
-#       - platform: state
+#     triggers:
+#       - trigger: state
 #         entity_id: input_select.home_mode
 #         from: "Home"
 #         to: "Away"
 #         for:
 #           minutes: 5
-#     condition:
+#     conditions:
 #       - alias: "Vacuum didn't run already today"
 #         condition: template
 #         value_template: >
@@ -26,20 +26,20 @@
 #         condition: state
 #         entity_id: vacuum.valetudo_eve
 #         state: "docked"
-#     action:
+#     actions:
 #       - alias: "Make sure no rooms are selected"
-#         service: homeassistant.turn_off
+#         action: homeassistant.turn_off
 #         target:
 #           entity_id: group.vacuum_rooms
 #       - alias: "Start cleaning"
-#         service: script.vacuum_clean_segments
+#         action: script.vacuum_clean_segments
 #       - alias: Wait for room clean to complete, or for someone to get home
 #         wait_for_trigger:
-#           - platform: state
+#           - trigger: state
 #             entity_id: vacuum.valetudo_eve
 #             to: "returning"
 #             id: "complete"
-#           - platform: state
+#           - trigger: state
 #             entity_id: input_select.home_mode
 #             to: "Home"
 #             id: "someone_home"
@@ -50,13 +50,13 @@
 #           - conditions: >-
 #               {{ wait.trigger == None }}
 #             sequence:
-#               - service: script.vacuum_alert_timeout
+#               - action: script.vacuum_alert_timeout
 
 #           # Someone got home during the clean: Return to base.
 #           - conditions: >-
 #               {{ wait.trigger.id == "someone_home" }}
 #             sequence:
-#               - service: vacuum.return_to_base
+#               - action: vacuum.return_to_base
 #                 target:
 #                   entity_id: vacuum.valetudo_eve
 
@@ -64,7 +64,7 @@
 #           - conditions: >-
 #               {{ wait.trigger.id == "complete" }}
 #             sequence:
-#               - service: input_datetime.set_datetime
+#               - action: input_datetime.set_datetime
 #                 target:
 #                   entity_id: input_datetime.last_vacuum_run
 #                 data:
@@ -74,7 +74,7 @@ script:
   # vacuum_alert_timeout:
   #   alias: "Vacuum Helper: Notify Corban of a timeout"
   #   sequence:
-  #     - service: notify.corban
+  #     - action: notify.corban
   #       data:
   #         title: "Cleaning Error"
   #         message: "Vacuum didn't complete before timeout."
@@ -84,7 +84,7 @@ script:
   # vacuum_skip_today:
   #   alias: Skip today's automatic run of the vacuum
   #   sequence:
-  #     - service: input_datetime.set_datetime
+  #     - action: input_datetime.set_datetime
   #       target:
   #         entity_id: input_datetime.last_vacuum_run
   #       data:

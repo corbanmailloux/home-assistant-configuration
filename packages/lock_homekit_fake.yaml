@@ -31,27 +31,27 @@ lock:
     value_template: >
       {{ is_state('input_boolean.fake_side_door_lock_status', 'off') }}
     lock:
-      - service: input_number.set_value
+      - action: input_number.set_value
         data:
           value: 10
         target:
           entity_id: input_number.fake_side_door_lock_input
       - delay:
           seconds: 10
-      - service: input_number.set_value
+      - action: input_number.set_value
         data:
           value: 0
         target:
           entity_id: input_number.fake_side_door_lock_input
     unlock:
-      - service: input_number.set_value
+      - action: input_number.set_value
         data:
           value: -10
         target:
           entity_id: input_number.fake_side_door_lock_input
       - delay:
           seconds: 10
-      - service: input_number.set_value
+      - action: input_number.set_value
         data:
           value: 0
         target:

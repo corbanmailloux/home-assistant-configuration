@@ -28,12 +28,12 @@ cover:
 automation:
   - alias: "Open curtains when Corban wakes up"
     id: 49524a70-ea40-4ed6-b07f-e6bd950baef0
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: corban_iphone_sleep
         event_data:
           sleep: false
-    condition:
+    conditions:
       - alias: "Weekdays"
         condition: time
         weekday:
@@ -59,8 +59,8 @@ automation:
           - condition: state
             entity_id: input_select.home_mode
             state: "Vacation"
-    action:
-      # - service: cover.set_cover_position
+    actions:
+      # - action: cover.set_cover_position
       #   target:
       #     entity_id: cover.master_bedroom_curtains
       #   data:
@@ -74,10 +74,10 @@ automation:
 
   - alias: "Close curtains around sunset"
     id: 3ba2dda8-25b0-4ceb-96d2-c79fe7612603
-    trigger:
-      - platform: sun
+    triggers:
+      - trigger: sun
         event: sunset
-    condition:
+    conditions:
       - alias: "Master Bedroom automations are not disabled"
         condition: state
         entity_id: input_boolean.room_exclude_master_bedroom
@@ -86,11 +86,11 @@ automation:
           - condition: state
             entity_id: input_select.home_mode
             state: "Vacation"
-    action:
+    actions:
       - if:
-        - condition: state
-          entity_id: binary_sensor.master_bedroom_window_contact
-          state: "off"
+          - condition: state
+            entity_id: binary_sensor.master_bedroom_window_contact
+            state: "off"
         then:
           - action: v6_quietdrift.set_switchbot_curtain_position
             data:

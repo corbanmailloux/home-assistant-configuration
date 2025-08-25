@@ -29,7 +29,7 @@ script:
     alias: "Stranger Things - Lighting Chase"
     sequence:
       - alias: "Reset input_selects"
-        service: input_select.select_first
+        action: input_select.select_first
         target:
           entity_id:
             - input_select.stranger_things_next_light_on
@@ -37,26 +37,26 @@ script:
       - repeat:
           count: 1 # 1 lights on at a time, configurable
           sequence:
-            - service: input_select.select_previous
+            - action: input_select.select_previous
               target:
                 entity_id: input_select.stranger_things_next_light_off
       - alias: "Main loop"
         repeat:
           count: 24 # 8 lights, 3 cycles total = 24
           sequence:
-            - service: light.turn_on
+            - action: light.turn_on
               data:
                 transition: 0
                 brightness_pct: 100
               target:
                 entity_id: '{{ states("input_select.stranger_things_next_light_on") }}'
-            - service: light.turn_off
+            - action: light.turn_off
               data:
                 transition: 0
               target:
                 entity_id: '{{ states("input_select.stranger_things_next_light_off") }}'
             - alias: "Increment lists"
-              service: input_select.select_next
+              action: input_select.select_next
               target:
                 entity_id:
                   - input_select.stranger_things_next_light_on
@@ -64,7 +64,7 @@ script:
             - delay:
                 milliseconds: 400
       - alias: "Turn lights off"
-        service: light.turn_off
+        action: light.turn_off
         target:
           entity_id:
             - light.living_room_lights_wall_switch_3

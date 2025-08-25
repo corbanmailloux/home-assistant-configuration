@@ -41,25 +41,25 @@ input_boolean:
 automation:
   - id: e3edfa1f-a705-4394-bedb-945151332a3c
     alias: Washer Reminder - Notify when washing machine finishes
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.washing_machine_running
         from: "on"
         to: "off"
-    action:
+    actions:
       - alias: "Turn on notify switch"
-        service: input_boolean.turn_on
+        action: input_boolean.turn_on
         target:
           entity_id: input_boolean.washer_reminder_notifying
 
   - id: 1ede28c4-0132-418b-b526-373b02b53798
     alias: Washer Reminder - Send notifications based on boolean
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.washer_reminder_notifying
         from: "off"
         to: "on"
-    action:
+    actions:
       - if:
           - alias: "Is Corban home?"
             condition: state
@@ -67,7 +67,7 @@ automation:
             state: "home"
         then:
           - alias: "Notify Corban"
-            service: script.washer_reminder_send_notification_to_variable
+            action: script.washer_reminder_send_notification_to_variable
             data:
               notify_device: corban
               dismiss_notification: false
@@ -78,81 +78,81 @@ automation:
             state: "home"
         then:
           - alias: "Notify Maggie"
-            service: script.washer_reminder_send_notification_to_variable
+            action: script.washer_reminder_send_notification_to_variable
             data:
               notify_device: maggie
               dismiss_notification: false
 
   - id: 93b3840e-76d3-4cbe-a1ed-179aac220154
     alias: Washer Reminder - Dismiss notifications based on boolean
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.washer_reminder_notifying
         from: "on"
         to: "off"
-    action:
+    actions:
       - alias: "Clear notifications"
-        service: script.washer_reminder_send_notification_to_variable
+        action: script.washer_reminder_send_notification_to_variable
         data:
           notify_device: adult_phones
           dismiss_notification: true
 
   - id: beba8d5b-7898-4d1e-b796-e63b19c2bdba
     alias: Washer Reminder - Acknowledge alert when motion is detected in the basement
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.laundry_motion_sensor_occupancy
         from: "off"
         to: "on"
-    condition:
+    conditions:
       - alias: "Notification active"
         condition: state
         entity_id: input_boolean.washer_reminder_notifying
         state: "on"
-    action:
+    actions:
       - alias: "Turn off boolean"
-        service: input_boolean.turn_off
+        action: input_boolean.turn_off
         target:
           entity_id: input_boolean.washer_reminder_notifying
 
   - id: 19098e11-621e-4f4c-a0f4-aee3c5d8e8cf
     alias: Washer Reminder - Acknowledge alert from notification
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "WASHER_REMINDER_ACK"
-    condition:
+    conditions:
       - alias: "Notification active"
         condition: state
         entity_id: input_boolean.washer_reminder_notifying
         state: "on"
-    action:
+    actions:
       - alias: "Turn off boolean"
-        service: input_boolean.turn_off
+        action: input_boolean.turn_off
         target:
           entity_id: input_boolean.washer_reminder_notifying
 
   - id: 7201114f-3317-4c7b-8488-8930f2722faf
     alias: Washer Reminder - Send delayed notification if someone gets home
     mode: parallel
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: person.corban
         to: "home"
         id: "corban"
-      - platform: state
+      - trigger: state
         entity_id: person.maggie
         to: "home"
         id: "maggie"
-    condition:
+    conditions:
       - alias: "Notification active"
         condition: state
         entity_id: input_boolean.washer_reminder_notifying
         state: "on"
-    action:
+    actions:
       - alias: "Notify the right person"
-        service: script.washer_reminder_send_notification_to_variable
+        action: script.washer_reminder_send_notification_to_variable
         data:
           notify_device: >-
             {{ trigger.id }}
@@ -161,23 +161,23 @@ automation:
   - id: 9d4ec00e-140f-458e-a2ab-84ec7e45069b
     alias: Washer Reminder - Dismiss notification if someone leaves home
     mode: parallel
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: person.corban
         from: "home"
         id: "corban"
-      - platform: state
+      - trigger: state
         entity_id: person.maggie
         from: "home"
         id: "maggie"
-    condition:
+    conditions:
       - alias: "Notification active"
         condition: state
         entity_id: input_boolean.washer_reminder_notifying
         state: "on"
-    action:
+    actions:
       - alias: "Notify the right person"
-        service: script.washer_reminder_send_notification_to_variable
+        action: script.washer_reminder_send_notification_to_variable
         data:
           notify_device: >-
             {{ trigger.id }}
@@ -197,13 +197,13 @@ script:
       - if:
           - "{{ dismiss_notification == true }}"
         then:
-          - service: notify.{{ notify_device }}
+          - action: notify.{{ notify_device }}
             data:
               message: clear_notification
               data:
                 tag: "laundry_reminder_washer"
         else:
-          - service: notify.{{ notify_device }}
+          - action: notify.{{ notify_device }}
             data:
               title: "Laundry Reminder"
               message: Washing machine done.

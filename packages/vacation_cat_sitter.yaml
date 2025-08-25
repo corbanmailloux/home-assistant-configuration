@@ -6,19 +6,19 @@ input_boolean:
 automation:
   - alias: Cat Sitter - Door Opened
     id: 94d03ec3-81b3-4402-903d-3cd85ea8cf93
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.front_door
         to: "on"
-    condition:
+    conditions:
       - condition: state
         entity_id: input_select.home_mode
         state: "Vacation"
       - condition: state
         entity_id: input_boolean.cat_sitter_mode
         state: "on"
-    action:
-      - service: notify.corban
+    actions:
+      - action: notify.corban
         data:
           title: "Cat Sitter's Here"
           message: "Front door opened. Take action?"
@@ -40,28 +40,28 @@ automation:
 
   - alias: Cat Sitter - Unoccupied Notification Clicked
     id: 80c08868-f03b-4fb8-bff2-e169f3c6bbb5
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "VACATION_SITTER_HOME_UNOCCUPIED"
-    action:
-      - service: input_select.select_option
+    actions:
+      - action: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Vacation"
 
   - alias: Cat Sitter - Reset Notification Clicked
     id: ac5ed0e3-798e-4682-ba51-9fc54eb309f6
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "VACATION_SITTER_HOME_CLEAR"
-    action:
-      - service: input_select.select_option
+    actions:
+      - action: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Home"
-      - service: input_boolean.turn_off
+      - action: input_boolean.turn_off
         entity_id: input_boolean.cat_sitter_mode

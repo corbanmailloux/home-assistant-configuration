@@ -9,10 +9,10 @@ input_datetime:
 automation:
   - alias: Remind Corban to run the vacuum upstairs
     id: e3cb3255-914c-458c-83e6-d400d5ec50b8
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "12:00:00"
-    condition:
+    conditions:
       - condition: time
         weekday:
           - mon
@@ -23,7 +23,7 @@ automation:
         entity_id: input_select.home_mode
         state: "Home"
     action:
-      - service: notify.corban
+      - action: notify.corban
         data:
           title: "Vacuum Upstairs"
           message: "Hold for options."
@@ -45,13 +45,13 @@ automation:
 
   - alias: Run vacuum full clean from notification
     id: 9df6c398-3721-4f52-9ace-b7082489c551
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "VACUUM_FULL_CLEAN"
     action:
-      - service: vacuum.start
+      - action: vacuum.start
         target:
           entity_id: vacuum.valetudo_eve
       - alias: "Wait for the vacuum to get off the dock"
@@ -64,9 +64,9 @@ automation:
       - choose:
           - conditions: "{{ not wait.completed }}"
             sequence:
-              - service: script.vacuum_alert_timeout
+              - action: script.vacuum_alert_timeout
         default:
-          - service: notify.corban
+          - action: notify.corban
             data:
               title: "Empty Eve's Bin"
               message: "Are you ready to empty the vacuum's bin?"
@@ -82,14 +82,14 @@ automation:
 
   # - alias: Vacuum Reminder - Skip vacuum cycle from notification
   #   id: c3c4dc5d-306f-40db-859c-69cd173f53ef
-  #   trigger:
-  #     - platform: event
+  #   triggers:
+  #     - trigger: event
   #       event_type: mobile_app_notification_action
   #       event_data:
   #         action: "VACUUM_SKIP"
   #   action:
   #     - alias: Store the last run time
-  #       service: input_datetime.set_datetime
+  #       action: input_datetime.set_datetime
   #       target:
   #         entity_id: input_datetime.last_vacuum_run
   #       data:
@@ -97,20 +97,20 @@ automation:
 
   - alias: Vacuum Reminder - Go To Dump Spot from Notification
     id: f2fb73d1-444a-440d-b1f4-4b226657c94f
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "VACUUM_GOTO_DUMP_SPOT"
     action:
-      - service: script.vacuum_dump_process
+      - action: script.vacuum_dump_process
 
 script:
   vacuum_dump_process:
     alias: "Move Upstairs Vacuum to Dump Spot"
     sequence:
       - alias: Move the vacuum to an easy dumping spot.
-        service: mqtt.publish
+        action: mqtt.publish
         data:
           topic: valetudo/eve/GoToLocationCapability/go/set
           payload: >-
@@ -130,7 +130,7 @@ script:
           - conditions: "{{ not wait.completed }}"
             sequence:
               - alias: Send the notification again to be ready
-                service: notify.corban
+                action: notify.corban
                 data:
                   title: "Empty Eve's Bin"
                   message: "Are you ready to empty the vacuum's bin?"
@@ -144,7 +144,7 @@ script:
                         destructive: false
                         behavior: "default"
       - alias: Go back to the dock
-        service: mqtt.publish
+        action: mqtt.publish
         data:
           topic: valetudo/eve/BasicControlCapability/operation/set
           payload: "HOME"
@@ -153,7 +153,7 @@ script:
     # Duplicated in `vacuum_when_not_home.yaml`, but commented out.
     alias: "Vacuum Helper: Notify Corban of a timeout"
     sequence:
-      - service: notify.corban
+      - action: notify.corban
         data:
           title: "Cleaning Error"
           message: "Vacuum didn't complete before timeout."

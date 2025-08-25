@@ -1,14 +1,14 @@
 automation:
   - alias: Bedside Button 1 - Toggle Bedroom Light
     id: 725241e1-3311-4dbd-a9a7-2d7693bff407
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
         discovery_id: 0x680ae2fffebeb7ca action_toggle
         domain: mqtt
         type: action
         subtype: toggle
-    action:
+    actions:
       - if:
           - alias: "Light On"
             condition: state
@@ -16,7 +16,7 @@ automation:
             state: "on"
         then:
           - alias: "Turn off"
-            service: light.turn_off
+            action: light.turn_off
             target:
               entity_id: light.master_bedroom_ceiling_fan_light
         else:
@@ -27,14 +27,14 @@ automation:
                 before: "06:00:00"
             then:
               - alias: "Turn on at 50%"
-                service: light.turn_on
+                action: light.turn_on
                 target:
                   entity_id: light.master_bedroom_ceiling_fan_light
                 data_template:
                   brightness: 127 # 50%
             else:
               - alias: "Turn on at 100%"
-                service: light.turn_on
+                action: light.turn_on
                 target:
                   entity_id: light.master_bedroom_ceiling_fan_light
                 data_template:
@@ -42,15 +42,15 @@ automation:
 
   - alias: Bedside Button 1 - Brightness Up
     id: ab376db0-75fe-4dfd-80ed-e79aa7fbe7b5
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
         discovery_id: 0x680ae2fffebeb7ca action_brightness_up_click
         domain: mqtt
         type: action
         subtype: brightness_up_click
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         entity_id: light.master_bedroom_ceiling_fan_light
         data_template:
           # Handles the light being off as well, treating it as 0 brightness.
@@ -64,19 +64,19 @@ automation:
 
   - alias: Bedside Button 1 - Brightness Down
     id: 40de4391-a6b7-4ed4-a679-7257f6353a82
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
         discovery_id: 0x680ae2fffebeb7ca action_brightness_down_click
         domain: mqtt
         type: action
         subtype: brightness_down_click
-    condition:
+    conditions:
       - condition: state
         entity_id: light.master_bedroom_ceiling_fan_light
         state: "on"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         entity_id: light.master_bedroom_ceiling_fan_light
         data_template:
           brightness: >
@@ -89,49 +89,49 @@ automation:
 
   - alias: Bedside Button 1 - Brightness Up Hold
     id: 6eb4c698-0b5a-43cb-a878-7d9d0b718d3b
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
         discovery_id: 0x680ae2fffebeb7ca action_brightness_up_hold
         domain: mqtt
         type: action
         subtype: brightness_up_hold
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         entity_id: light.master_bedroom_ceiling_fan_light
         data:
           brightness: 255
 
   - alias: Bedside Button 1 - Brightness Down Hold
     id: 20ce4286-315e-495b-b4ed-d88a4862a1f6
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
         discovery_id: 0x680ae2fffebeb7ca action_brightness_down_hold
         domain: mqtt
         type: action
         subtype: brightness_down_hold
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         entity_id: light.master_bedroom_ceiling_fan_light
         data:
           brightness: 10
 
   - alias: Bedside Button 1 - Right Button Click - Headboard Lighting
     id: 486310de-869d-4c86-88c5-d06a28f7fd2b
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
         discovery_id: 0x680ae2fffebeb7ca action_arrow_right_click
         domain: mqtt
         type: action
         subtype: arrow_right_click
-    action:
+    actions:
       # Explanation of the tri-state logic:
       # If the light is off, turn it on to 100%.
       # If it's on at 100%, set it to 50%.
       # If it's on but not at 100%, turn it off.
-      - service: light.turn_on
+      - action: light.turn_on
         entity_id: light.master_bedroom_headboard
         data_template:
           brightness: >
@@ -145,16 +145,15 @@ automation:
             {%- endif -%}
             {{ (percent / 100 * 255) | int}}
 
-
   - alias: Bedside Button 1 - Left Button Click - Fan
     id: 1d146753-e4ca-4514-883d-7bb0efd99554
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         device_id: 902fe0fc069711eb8fc8e19795714a1d
         discovery_id: 0x680ae2fffebeb7ca action_arrow_left_click
         domain: mqtt
         type: action
         subtype: arrow_left_click
-    action:
-      - service: homeassistant.toggle
+    actions:
+      - action: homeassistant.toggle
         entity_id: fan.master_bedroom_ceiling_fan

@@ -11,16 +11,16 @@
 - id: '1705870296732'
   alias: Hall Aux Switch - Pause Living Room TV
   description: ''
-  trigger:
-  - platform: device
+  triggers:
+  - trigger: device
     domain: mqtt
     device_id: f6a3f0606ae31f561f4c700f5917deed
     type: action
     subtype: aux_config_single
     discovery_id: 0xb43a31fffe34e475 action_aux_config_single
-  condition: []
-  action:
-  - service: media_player.media_play_pause
+  conditions: []
+  actions:
+  - action: media_player.media_play_pause
     metadata: {}
     data: {}
     target:
@@ -126,14 +126,14 @@
 - id: '1710989410744'
   alias: Display Garage Door Status on Kitchen Bar Light LED Strip
   description: ''
-  trigger:
-  - platform: state
+  triggers:
+  - trigger: state
     entity_id:
     - cover.ratgdo_left_garage_door_door
     - cover.ratgdo_right_garage_door_door
     - binary_sensor.garage_side_person_door_contact
-  condition: []
-  action:
+  conditions: []
+  actions:
   - choose:
     - conditions:
       - condition: or
@@ -148,7 +148,7 @@
           entity_id: binary_sensor.garage_side_person_door_contact
           state: 'on'
       sequence:
-      - service: script.inovelli_led_control
+      - action: script.inovelli_led_control
         metadata: {}
         data:
           led: All
@@ -160,7 +160,7 @@
           effect: Solid
         alias: Set LED strip to purple - Kitchen Bar Light
       - alias: Set LED strip to purple - Utility Closet Light
-        service: script.inovelli_led_control
+        action: script.inovelli_led_control
         metadata: {}
         data:
           led: All
@@ -172,7 +172,7 @@
             device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
       alias: If any door is open
     default:
-    - service: script.inovelli_led_control
+    - action: script.inovelli_led_control
       metadata: {}
       data:
         led: All
@@ -181,7 +181,7 @@
         effect: Clear
       alias: Clear LED Strip - Kitchen Bar Light
     - alias: Clear LED Strip - Utility Closet Light
-      service: script.inovelli_led_control
+      action: script.inovelli_led_control
       metadata: {}
       data:
         led: All
@@ -415,14 +415,14 @@
 - id: '1714258867767'
   alias: Kitchen Bar Light Switch - Double Tap Config for Garage Doors
   description: ''
-  trigger:
-  - platform: device
+  triggers:
+  - trigger: device
     domain: mqtt
     device_id: 9f61f3f1b573c3799a54ee705f98034f
     type: action
     subtype: config_double
-  condition: []
-  action:
+  conditions: []
+  actions:
   - choose:
     - conditions:
       - condition: or
@@ -438,7 +438,7 @@
           entity_id: fa3c1b2c28746f6e9edce10a8a74e955
           type: is_open
       sequence:
-      - service: cover.close_cover
+      - action: cover.close_cover
         metadata: {}
         data: {}
         target:
@@ -447,7 +447,7 @@
           - cover.ratgdo_left_garage_door_door
       alias: 'If either garage door is open, close it. '
     default:
-    - service: cover.open_cover
+    - action: cover.open_cover
       metadata: {}
       data: {}
       target:
@@ -456,36 +456,36 @@
 - id: '1715117158694'
   alias: Upstairs Hall Light Switch - Triple tap config to move Eve to dump spot
   description: ''
-  trigger:
-  - platform: device
+  triggers:
+  - trigger: device
     domain: mqtt
     device_id: 6239543fc9a684fbba5d4af77ccdf052
     type: action
     subtype: config_triple
-  condition: []
-  action:
-  - service: script.vacuum_dump_process
+  conditions: []
+  actions:
+  - action: script.vacuum_dump_process
     metadata: {}
     data: {}
   mode: single
 - id: '1724423649065'
   alias: Stairs Wall Switch - Red During Meetings
   description: ''
-  trigger:
-  - platform: state
+  triggers:
+  - trigger: state
     entity_id:
     - binary_sensor.corban_on_a_call
     from: 'off'
     to: 'on'
     id: 'on'
-  - platform: state
+  - trigger: state
     entity_id:
     - binary_sensor.corban_on_a_call
     from: 'on'
     to: 'off'
     id: 'off'
-  condition: []
-  action:
+  conditions: []
+  actions:
   - choose:
     - conditions:
       - condition: trigger
@@ -521,17 +521,17 @@
 - id: '1724980786427'
   alias: Notify if windows are open with rain forecast overnight
   description: ''
-  trigger:
-  - platform: time
+  triggers:
+  - trigger: time
     at: '22:00:00'
-  condition:
+  conditions:
   - condition: state
     entity_id: input_select.home_mode
     state: Home
   - condition: numeric_state
     entity_id: sensor.open_window_count
     above: 0
-  action:
+  actions:
   - action: weather.get_forecasts
     metadata: {}
     data:
@@ -559,8 +559,8 @@
 - id: '1725645532252'
   alias: Notify Corban when Ben leaves with guest mode on
   description: ''
-  trigger:
-  - platform: state
+  triggers:
+  - trigger: state
     entity_id:
     - device_tracker.bens_iphone_se_unifi
     to: not_home
@@ -569,14 +569,14 @@
       hours: 0
       minutes: 3
       seconds: 0
-  condition:
+  conditions:
   - condition: state
     entity_id: input_boolean.guest_mode
     state: 'on'
   - condition: state
     entity_id: binary_sensor.corban_person_home
     state: 'off'
-  action:
+  actions:
   - action: notify.corban
     metadata: {}
     data:
@@ -586,19 +586,19 @@
 - id: '1725649471485'
   alias: Toggle Living Room Cabinet Lights with Wall Switch Button
   description: ''
-  trigger:
-  - platform: device
+  triggers:
+  - trigger: device
     domain: mqtt
     device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
     type: action
     subtype: config_single
-  - platform: device
+  - trigger: device
     domain: mqtt
     device_id: d9db549c961eecf0f3fc66794fe297ad
     type: action
     subtype: config_single
-  condition: []
-  action:
+  conditions: []
+  actions:
   - action: light.toggle
     metadata: {}
     data:
@@ -609,11 +609,11 @@
 - id: '1725812307580'
   alias: Reload the Wall Display After Home Assistant Restarts
   description: ''
-  trigger:
-  - platform: homeassistant
+  triggers:
+  - trigger: homeassistant
     event: start
-  condition: []
-  action:
+  conditions: []
+  actions:
   - action: script.tablet_wall_display_reload
     metadata: {}
     data: {}
@@ -1631,7 +1631,7 @@
     metadata: {}
     data:
       title: Litter Low
-      message: 'Check the box '
+      message: Check the box.
   mode: single
 - id: '1750469258428'
   alias: Maggie’s Alarm

@@ -9,8 +9,8 @@ light:
       - light.garage_nook_light
 
 template:
-  - trigger:
-      - platform: state
+  - triggers:
+      - trigger: state
         entity_id:
           - cover.ratgdo_left_garage_door_door
           - cover.ratgdo_right_garage_door_door
@@ -18,7 +18,7 @@ template:
         to:
           - "opening"
           - "open"
-      - platform: state
+      - trigger: state
         entity_id:
           - binary_sensor.garage_side_person_door_contact
           - binary_sensor.garage_back_person_door_contact
@@ -54,20 +54,20 @@ template:
 automation:
   - id: 01c0a256-d577-4934-b97f-208357c58cb8
     alias: Garage - All Lights Follow Switched Lights
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: light.garage_main_lights
         not_from:
           - "unknown"
           - "unavailable"
-    action:
+    actions:
       - alias: "On or Off?"
         choose:
           - conditions: >-
               {{ trigger.to_state.state == "on" }}
             sequence:
               - alias: "Turn on lights"
-                service: light.turn_on
+                action: light.turn_on
                 target:
                   entity_id: light.garage_lights # Group
                 data:
@@ -78,7 +78,7 @@ automation:
               {{ trigger.to_state.state == "off" }}
             sequence:
               - alias: "Turn off lights"
-                service: light.turn_off
+                action: light.turn_off
                 target:
                   entity_id: light.garage_lights # Group
 
@@ -86,18 +86,18 @@ automation:
     alias: Garage - New Motion Lights
     mode: restart
     max_exceeded: silent
-    trigger:
-      platform: state
-      entity_id: binary_sensor.garage_assumed_motion
-      from: "off"
-      to: "on"
-    condition:
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.garage_assumed_motion
+        from: "off"
+        to: "on"
+    conditions:
       - alias: "Garage automations are not disabled"
         condition: state
         entity_id: input_boolean.room_exclude_garage
         state: "off"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         target:
           entity_id: light.garage_main_lights
         data:
@@ -105,7 +105,7 @@ automation:
           brightness_pct: 100
           transition: 0
       - wait_for_trigger:
-          platform: state
+          trigger: state
           entity_id: binary_sensor.garage_assumed_motion
           from: "on"
           to: "off"
@@ -116,7 +116,7 @@ automation:
             {% else %}
               10
             {% endif %}
-      - service: light.turn_off
+      - action: light.turn_off
         target:
           entity_id: light.garage_main_lights
         data:
@@ -126,31 +126,31 @@ automation:
   - id: 6f80226a-15d7-4285-83c5-e643c16f1b7f
     alias: Garage - Motion Lights
     mode: restart
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.garage_assumed_motion
         from: "off"
         to: "on"
         id: "on"
-      - platform: state
+      - trigger: state
         entity_id: binary_sensor.garage_assumed_motion
         to: "off"
         for:
           minutes: 10
         id: "off"
-    condition:
+    conditions:
       - alias: "Garage automations are not disabled"
         condition: state
         entity_id: input_boolean.room_exclude_garage
         state: "off"
-    action:
+    actions:
       - alias: "On or Off?"
         choose:
           - conditions: >-
               {{ trigger.id == "on" }}
             sequence:
               - alias: "Turn on lights"
-                service: light.turn_on
+                action: light.turn_on
                 target:
                   entity_id: light.garage_main_lights
                 data:
@@ -159,27 +159,27 @@ automation:
               {{ trigger.id == "off" }}
             sequence:
               - alias: "Turn off lights"
-                service: light.turn_off
+                action: light.turn_off
                 target:
                   entity_id: light.garage_main_lights
 
   - id: 170ab84a-5bab-4192-ba0e-21e72c395bb4
     alias: Garage - Keep the garage door opener lights on when the main lights are on
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id:
           - light.ratgdo_left_garage_door_light
           - light.ratgdo_right_garage_door_light
         from: "on"
         to: "off"
-    condition:
+    conditions:
       - alias: "Main lights on"
         condition: state
         entity_id: light.garage_main_lights
         state: "on"
-    action:
+    actions:
       - alias: "Turn the lights back on"
-        service: light.turn_on
+        action: light.turn_on
         target:
           entity_id: light.garage_lights
         data:

@@ -9,13 +9,13 @@ script:
       - if:
           - "{{ dismiss_notification == true }}"
         then:
-          - service: notify.corban
+          - action: notify.corban
             data:
               message: clear_notification
               data:
                 tag: "maggie_home_warning"
         else:
-          - service: notify.corban
+          - action: notify.corban
             data:
               title: "Maggie's Almost Home"
               message: "She's less than 10 minutes away." # TODO: Could I have this notification silently updated every couple minutes to show the current time?
@@ -27,11 +27,11 @@ script:
 automation:
   - alias: Notify Corban when Maggie is almost home
     id: 5277f05f-3f90-4eb7-8ba2-973a54482623
-    trigger:
-      - platform: numeric_state
+    triggers:
+      - trigger: numeric_state
         entity_id: sensor.maggie_to_home_travel_time
         below: 11
-    condition:
+    conditions:
       - condition: state
         entity_id: person.corban
         state: "home"
@@ -47,27 +47,27 @@ automation:
       - condition: state
         entity_id: input_select.home_mode
         state: "Home"
-    action:
+    actions:
       - alias: "Notify Corban"
-        service: script.maggie_travel_time_send
+        action: script.maggie_travel_time_send
         data:
           dismiss_notification: false
-      - service: timer.start
+      - action: timer.start
         entity_id: timer.maggie_home_notification_cooldown
         data:
           duration: "00:10:00" # 10 minute cooldown before retriggering.
 
   - id: 380345d6-b3ab-4cc1-908d-741051bb8ccf
     alias: Dismiss the notification after Maggie arrives
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: person.maggie
         to: "home"
         for:
           minutes: 1
-    action:
+    actions:
       - alias: "Dismiss notification"
-        service: script.maggie_travel_time_send
+        action: script.maggie_travel_time_send
         data:
           dismiss_notification: true
 

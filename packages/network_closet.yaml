@@ -2,21 +2,21 @@ automation:
   - alias: UPS Power Outage Notification
     id: 249c1373-c037-4b3c-80b8-8460daa3c79f
     mode: single
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.ups_power_normal
         from: "on"
         to: "off"
         variables:
           outage_start_time: "{{ now().timestamp() }}"
-    action:
-      - service: input_datetime.set_datetime
+    actions:
+      - action: input_datetime.set_datetime
         alias: Store the start time
         target:
           entity_id: input_datetime.power_outage_start_time
         data:
           timestamp: "{{ outage_start_time }}"
-      - service: notify.corban
+      - action: notify.corban
         data:
           title: "Power Outage at Home"
           message: >-
@@ -33,21 +33,21 @@ automation:
 
   - alias: UPS Power Outage Notification Action - Shutdown NAS
     id: 4f983a53-9c85-4f66-8a7a-9239c00d37c4
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "POWER_OUTAGE_SHUTDOWN_NAS"
-    action:
-      - service: button.press
+    actions:
+      - action: button.press
         target:
           entity_id: button.tubby_shutdown
 
   - alias: UPS Power Outage - Back On Notification
     id: b0c8df7d-160e-4ae8-b2a2-6372a9736aec
     mode: single
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.ups_power_normal
         from: "off"
         to: "on"
@@ -56,8 +56,8 @@ automation:
             {{ now().timestamp() }}
           outage_start_time: >-
             {{ states("input_datetime.power_outage_start_time") | as_timestamp }}
-    action:
-      - service: notify.corban
+    actions:
+      - action: notify.corban
         data:
           title: "Power Outage at Home - Recovered"
           message: >-
@@ -90,19 +90,19 @@ script:
   wol_proxmoxbox:
     alias: "Wake on LAN - ProxMoxBox"
     sequence:
-      - service: wake_on_lan.send_magic_packet
+      - action: wake_on_lan.send_magic_packet
         data:
           mac: e8:d8:d1:51:49:ab
   wol_tubby:
     alias: "Wake on LAN - Tubby NAS"
     sequence:
-      - service: wake_on_lan.send_magic_packet
+      - action: wake_on_lan.send_magic_packet
         data:
           mac: 00:11:32:c0:fc:77
   shutdown_proxmoxbox:
     alias: "Shutdown ProxMoxBox"
     sequence:
-      - service: shell_command.proxmoxbox_shutdown
+      - action: shell_command.proxmoxbox_shutdown
 
 shell_command:
   proxmoxbox_shutdown: !secret proxmox_api_shutdown

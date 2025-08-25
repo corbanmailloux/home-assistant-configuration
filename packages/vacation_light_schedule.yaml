@@ -7,96 +7,96 @@ automation:
   ## Scheduled vacation lighting. Partly for the cats.
   - alias: Schedule - Enable/Disable Automations
     id: f09c1102-a64e-469c-bc7b-1ef5e0a9ef90
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.vacation_mode_light_schedule
-    action:
+    actions:
       - choose:
           - conditions: "{{ trigger.to_state.state == 'on' }}"
             sequence:
-              - service: homeassistant.turn_on
+              - action: homeassistant.turn_on
                 entity_id: group.vacation_schedule_automations
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
-              - service: homeassistant.turn_off
+              - action: homeassistant.turn_off
                 entity_id: group.vacation_schedule_automations
 
   - alias: Schedule - Disable When Vacation Mode is Disabled
     id: 8adc1a54-a9de-43f6-bc08-9037b230e574
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_select.home_mode
         from: "Vacation"
-    action:
-      - service: input_boolean.turn_off
+    actions:
+      - action: input_boolean.turn_off
         entity_id: input_boolean.vacation_mode_light_schedule
 
   - alias: Schedule - 1 - Some Lights On
     id: 15766a62-8506-4300-b76a-7beac8dbe97f
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "17:33:00" # 5:33 PM
-    condition:
+    conditions:
       - condition: state
         entity_id: input_boolean.vacation_mode_light_schedule
         state: "on"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         data:
           entity_id: light.corner_lamp
           brightness_pct: 80
   - alias: Schedule - 2 - Dim for movie
     id: 629411da-48de-4ffe-9e17-7d32370f2b8d
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "19:26:00" # 7:26 PM
-    condition:
+    conditions:
       - condition: state
         entity_id: input_boolean.vacation_mode_light_schedule
         state: "on"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         data:
           entity_id: light.corner_lamp
           brightness_pct: 40
   - alias: Schedule - 3 - Maggs to bed
     id: 7b57bfde-dbbc-43d4-86f5-6b15ec94d44e
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "21:49:00" # 9:49 PM
-    condition:
+    conditions:
       - condition: state
         entity_id: input_boolean.vacation_mode_light_schedule
         state: "on"
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         data:
           entity_id: light.front_entry_lights
       # TODO: Update when there's bedroom lights under control.
   - alias: Schedule - 4 - Maggs sleep
     id: a5428791-727a-4e3d-a137-5eae0db3a9f8
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "22:15:00" # 10:15 PM
-    condition:
+    conditions:
       - condition: state
         entity_id: input_boolean.vacation_mode_light_schedule
         state: "on"
-    action:
-      - service: light.turn_off
+    actions:
+      - action: light.turn_off
         data:
           entity_id: light.front_entry_lights
   - alias: Schedule - 5 - Everything off
     id: 29494677-5ec8-407d-a5a9-adda62a9eb39
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "22:32:00" # 10:32 PM
-    condition:
+    conditions:
       - condition: state
         entity_id: input_boolean.vacation_mode_light_schedule
         state: "on"
-    action:
-      - service: light.turn_off
+    actions:
+      - action: light.turn_off
         data:
           entity_id: light.corner_lamp
 

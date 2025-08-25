@@ -1,12 +1,12 @@
 automation:
   - id: 0c6fbbda-5e27-4659-9e73-556a4c18d805
     alias: Notify on Doorbell Person Detection
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.main_doorbell_person
         from: "off"
         to: "on"
-    condition:
+    conditions:
       - condition: state
         entity_id: timer.doorbell_person_mute_time
         state: idle
@@ -14,28 +14,28 @@ automation:
         condition: state
         entity_id: input_boolean.exterior_privacy_mode
         state: "off"
-    action:
-      - service: script.doorbell_snapshot_and_notify
+    actions:
+      - action: script.doorbell_snapshot_and_notify
 
   - id: cb72d982-0be9-485c-a170-2f143227268c
     alias: Doorbell - Notification Action - Refresh Image
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "DOORBELL_UPDATE_SNAPSHOT"
-    action:
-      - service: script.doorbell_snapshot_and_notify
+    actions:
+      - action: script.doorbell_snapshot_and_notify
 
   - id: 4f90db44-8017-48b9-a950-f304d34b9702
     alias: Doorbell - Notification Action - Mute for 4 hours
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "DOORBELL_PERSON_SILENCE_ONE_HOUR"
-    action:
-      - service: timer.start
+    actions:
+      - action: timer.start
         entity_id: timer.doorbell_person_mute_time
         data:
           duration: "04:00:00"
@@ -51,12 +51,12 @@ script:
       snapshot_create_file_path: /config/www/tmp/snapshot_{{ states[camera].object_id }}.jpg
       snapshot_access_file_path: "{{ snapshot_create_file_path | replace('/config/www','/local') }}"
     sequence:
-      - service: camera.snapshot
+      - action: camera.snapshot
         target:
           entity_id: "{{ camera }}"
         data:
           filename: "{{ snapshot_create_file_path }}"
-      - service: notify.adult_iphones_and_corban_ipad
+      - action: notify.adult_iphones_and_corban_ipad
         data:
           title: "Person Detected at the Doorbell"
           message: "Hold for Image"

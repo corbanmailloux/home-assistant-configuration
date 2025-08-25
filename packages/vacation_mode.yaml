@@ -2,19 +2,19 @@ automation:
   ## After we've both been away for 24 hours, remind Corban to turn on vacation mode.
   - alias: Remind to enable vacation mode
     id: fecb932d-1057-4dcd-86ef-02aa781ad1cb
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.adults
         to: "not_home"
         for: "24:00:00" # 1 day
-    condition:
+    conditions:
       - condition: state
         entity_id: input_select.home_mode
         state:
           - "Home"
           - "Away"
-    action:
-      - service: notify.corban
+    actions:
+      - action: notify.corban
         data:
           title: "Are you on vacation?"
           message: "Would you like to turn on vacation mode?"
@@ -30,13 +30,13 @@ automation:
 
   - alias: Turn on vacation mode notification clicked
     id: 4d882b21-3b3e-4623-a56a-a0613e116f2d
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "VACATION_MODE_ENABLE"
-    action:
-      - service: input_select.select_option
+    actions:
+      - action: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Vacation"
@@ -44,16 +44,16 @@ automation:
   ## Disable vacation mode
   - alias: Remind us to turn off vacation mode when we get home
     id: 6ef4ff8e-8071-40b8-a733-dc82174b4cdc
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.adults
         to: "home"
-    condition:
+    conditions:
       - condition: state
         entity_id: input_select.home_mode
         state: "Vacation"
-    action:
-      - service: notify.adult_ios_phones
+    actions:
+      - action: notify.adult_ios_phones
         data:
           title: "Welcome back!"
           message: "Turn off vacation mode?"
@@ -69,17 +69,17 @@ automation:
 
   - alias: Turn off vacation mode notification clicked
     id: 89fa50e0-26af-422b-b527-fae14c20da8b
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "VACATION_MODE_DISABLE"
-    action:
-      - service: input_select.select_option
+    actions:
+      - action: input_select.select_option
         data:
           entity_id: input_select.home_mode
           option: "Home"
-      - service: notify.adult_ios_phones
+      - action: notify.adult_ios_phones
         data:
           message: clear_notification
           data:
@@ -87,19 +87,19 @@ automation:
 
   - alias: Notify when door opened while on vacation
     id: e7e99aed-348c-4fb8-b607-df0b902f1387
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.exterior_doors # See packages/bedtime_check_up.yaml
         to: "on"
-    condition:
+    conditions:
       - condition: state
         entity_id: input_select.home_mode
         state: "Vacation"
       - condition: state
         entity_id: input_boolean.cat_sitter_mode
         state: "off" # If on, this is handled by the cat sitter mode.
-    action:
-      - service: notify.corban
+    actions:
+      - action: notify.corban
         data:
           title: "Warning: Door Opened"
           message: >-
@@ -122,19 +122,19 @@ automation:
 
   - alias: Vacation Alarm Notification Action
     id: fb1b06e3-4897-4d16-98bf-a66cef5f414d
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "VACATION_ALARM"
-    action:
-      - service: tts.cloud_say
+    actions:
+      - action: tts.cloud_say
         entity_id: media_player.kitchen_homepod
         data_template:
           message: Intruder. The owner has been notified.
       - delay:
           seconds: 15
-      - service: tts.cloud_say
+      - action: tts.cloud_say
         entity_id: media_player.kitchen_homepod
         data_template:
           message: Intruder. The owner has been notified.

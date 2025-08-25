@@ -4,7 +4,7 @@ script:
     icon: mdi:trophy-outline
     sequence:
       - alias: "Disable adaptive lighting temporarily"
-        service: switch.turn_off
+        action: switch.turn_off
         target:
           entity_id:
             - switch.adaptive_lighting_adapt_brightness_main_adaptive_lighting
@@ -33,15 +33,6 @@ script:
             {%- else -%}
             {{ training_entity_ids }}
             {% endif %}
-
-      # - alias: "Craft Room"
-      #   variables:
-      #     training_entity_ids: >
-      #       {% if is_state("input_boolean.room_exclude_craft_room", "off") -%}
-      #       {{ training_entity_ids + ["light.WHATEVER"] }}
-      #       {%- else -%}
-      #       {{ training_entity_ids }}
-      #       {% endif %}
 
       - alias: "Office"
         variables:
@@ -99,14 +90,14 @@ script:
 
       # Now that we have all of the impacted lights in a variable, make a scene.
       - alias: "Create scene with all impacted lights"
-        service: scene.create
+        action: scene.create
         data:
           scene_id: state_before_training
           snapshot_entities: >
             {{ training_entity_ids }}
 
       - alias: "Turn on the lights"
-        service: light.turn_on
+        action: light.turn_on
         data:
           brightness_pct: 100
         target:
@@ -128,33 +119,33 @@ input_boolean:
 automation:
   - alias: Training Mode Start
     id: 0306466a-8dab-4d80-b814-d0b5a7d97f31
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.training_mode
         to: "on"
-    action:
-      - service: script.training_mode_start
+    actions:
+      - action: script.training_mode_start
 
   - alias: Training Mode Stop
     id: 6c0d187b-c08f-4e96-a602-1dd87e972df6
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.training_mode
         to: "off"
-    action:
+    actions:
       - alias: "Re-enable adaptive lighting"
-        service: switch.turn_on
+        action: switch.turn_on
         target:
           entity_id:
             - switch.adaptive_lighting_adapt_brightness_main_adaptive_lighting
             - switch.adaptive_lighting_adapt_brightness_office
       - delay:
           milliseconds: 250
-      - service: scene.turn_on
+      - action: scene.turn_on
         target:
           entity_id: scene.state_before_training
       - alias: "Clear notification"
-        service: notify.corban
+        action: notify.corban
         data:
           message: "clear_notification"
           data:
@@ -162,15 +153,15 @@ automation:
 
   - alias: Training Mode Left On Notification
     id: 1a38b478-549d-4d84-9a00-8c1ce37bddea
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.training_mode
         to: "on"
         for:
           minutes: 15
-    action:
+    actions:
       - alias: "Notify Corban"
-        service: notify.corban
+        action: notify.corban
         data:
           title: "Training Mode Reminder"
           message: "Training mode is still on. Turn off?"
@@ -186,28 +177,28 @@ automation:
 
   - alias: Training Mode Left On - Notification Action
     id: 40261cea-1c15-4dfc-b795-ce11a932e394
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: mobile_app_notification_action
         event_data:
           action: "TRAINING_TURN_OFF"
-    action:
-      - service: input_boolean.turn_off
+    actions:
+      - action: input_boolean.turn_off
         data:
           entity_id: input_boolean.training_mode
 
   - alias: "Hall Light Config - 2x - Training Mode Toggle"
     id: 1586cf0a-cf0f-4b81-bc77-05090c64f186
     mode: single
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         domain: mqtt
         device_id: f6a3f0606ae31f561f4c700f5917deed
         type: action
         subtype: config_double
         discovery_id: 0xb43a31fffe34e475 action_config_double
-    action:
-      - service: input_boolean.toggle
+    actions:
+      - action: input_boolean.toggle
         target:
           entity_id: input_boolean.training_mode
       - delay:

@@ -1,43 +1,43 @@
 automation:
   - id: 547a0b9b-1878-4e4a-b020-5d660a77d3f3
     alias: Sunporch Switch - On - String Lights
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         domain: mqtt
         device_id: c267d3d48bf04135851855dc4be36cbb
         type: action
         subtype: "on"
         discovery_id: 0x000d6ffffea6b202 action_on
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         target:
           entity_id: light.sunporch_string_lights
 
   - id: e9209406-f904-49a7-a49a-4f14501bdf68
     alias: Sunporch Switch - Off - String Lights
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         domain: mqtt
         device_id: c267d3d48bf04135851855dc4be36cbb
         type: action
         subtype: "off"
         discovery_id: 0x000d6ffffea6b202 action_off
-    action:
-      - service: light.turn_off
+    actions:
+      - action: light.turn_off
         target:
           entity_id: light.sunporch_string_lights
 
   - id: 79a605a4-6f3f-4668-b5a5-ee52bda22304
     alias: Sunporch Switch - Hold On - Turn on all sunporch lights
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         domain: mqtt
         device_id: c267d3d48bf04135851855dc4be36cbb
         type: action
         subtype: brightness_move_up
         discovery_id: 0x000d6ffffea6b202 action_brightness_move_up
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         target:
           entity_id:
             - light.sunporch_sconces
@@ -47,15 +47,15 @@ automation:
 
   - id: 8ca6b5bb-fa21-4f04-8535-b374bf0314da
     alias: Sunporch Switch - Hold Off - Turn off all sunporch lights.
-    trigger:
-      - platform: device
+    triggers:
+      - trigger: device
         domain: mqtt
         device_id: c267d3d48bf04135851855dc4be36cbb
         type: action
         subtype: brightness_move_down
         discovery_id: 0x000d6ffffea6b202 action_brightness_move_down
-    action:
-      - service: light.turn_off
+    actions:
+      - action: light.turn_off
         target:
           entity_id:
             - light.sunporch_sconces

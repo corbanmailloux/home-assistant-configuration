@@ -16,45 +16,45 @@ light:
 automation:
   - id: 7bb9e3c3-514c-4a64-9556-40dde9551500
     alias: Exterior Lighting - Lights On Before Sunset
-    trigger:
-      - platform: sun
+    triggers:
+      - trigger: sun
         event: sunset
         offset: "-00:45:00"
-    # condition:
+    # conditions:
     #   - alias: "Not in Vacation Mode"
     #     not:
     #       - condition: state
     #         entity_id: input_select.home_mode
     #         state: "Vacation"
-    action:
+    actions:
       - alias: "Lights On"
-        service: homeassistant.turn_on
+        action: homeassistant.turn_on
         target:
           entity_id: light.exterior_lights
 
   - id: 4bb29781-aeaf-426e-88fa-0b4fa5d768cd
     alias: Exterior Lighting - Lights Off At Night
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "23:00:00"
-    # condition:
+    # conditions:
     #   - alias: "Not in Vacation Mode"
     #     not:
     #       - condition: state
     #         entity_id: input_select.home_mode
     #         state: "Vacation"
-    action:
+    actions:
       - alias: "Lights Off"
-        service: homeassistant.turn_off
+        action: homeassistant.turn_off
         target:
           entity_id: light.exterior_lights
 
   - id: ed3ca607-bc60-4952-ba47-395cd6d1b8f1
     alias: Exterior Lighting - Lights On in the Morning
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: "06:00:00"
-    condition:
+    conditions:
       - alias: "Sunrise hasn't happened yet"
         condition: state
         entity_id: sun.sun
@@ -64,32 +64,32 @@ automation:
       #     - condition: state
       #       entity_id: input_select.home_mode
       #       state: "Vacation"
-    action:
+    actions:
       - alias: "Lights On"
-        service: homeassistant.turn_on
+        action: homeassistant.turn_on
         target:
           entity_id: light.exterior_lights
 
   - id: 0222a662-5ec3-4d21-92b4-d208c1d4fee9
     alias: Exterior Lighting - Lights Off After Sunrise
-    trigger:
-      - platform: sun
+    triggers:
+      - trigger: sun
         event: sunrise
         offset: "00:00:00"
-    # condition:
+    # conditions:
     #   - alias: "Not in Vacation Mode"
     #     not:
     #       - condition: state
     #         entity_id: input_select.home_mode
     #         state: "Vacation"
-    action:
+    actions:
       - alias: "Lights Off"
-        service: homeassistant.turn_off
+        action: homeassistant.turn_off
         target:
           entity_id: light.exterior_lights
       - alias: "Wait 5 minutes and try again (race condition fix)"
         delay:
           minutes: 5
-      - service: homeassistant.turn_off
+      - action: homeassistant.turn_off
         target:
           entity_id: light.exterior_lights

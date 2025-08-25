@@ -5,16 +5,16 @@
 # automation:
 #   - alias: Living Room Switch - Toggle Lamp
 #     id: 94d5ae95-169b-4a87-ab06-43585bd7462e
-#     trigger:
-#       - platform: state
+#     triggers:
+#       - trigger: state
 #         entity_id: binary_sensor.office_switch_sensor # binary_sensor.living_room_switch_sensor
 #         from: "off"
 #         to: "on"
-#       - platform: state
+#       - trigger: state
 #         entity_id: binary_sensor.office_switch_sensor # living_room_switch_sensor
 #         from: "on"
 #         to: "off"
-#     action:
+#     actions:
 #       - choose:
 #           # If off, turn on.
 #           - conditions:
@@ -22,7 +22,7 @@
 #                 entity_id: light.corner_lamp
 #                 state: "off"
 #             sequence:
-#               - service: light.turn_on
+#               - action: light.turn_on
 #                 entity_id: light.corner_lamp
 #                 #  Brightness is currently controlled by Adaptive Lighting.
 #                 # data:
@@ -33,7 +33,7 @@
 #                 entity_id: light.corner_lamp
 #                 state: "on"
 #             sequence:
-#               - service: light.turn_off
+#               - action: light.turn_off
 #                 target:
 #                   entity_id: light.corner_lamp
 #       - delay:
