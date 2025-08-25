@@ -1,52 +1,58 @@
 blueprint:
   name: Inovelli Blue LED (Zigbee2MQTT)
   description: "Set LED effects for Inovelli Blue Series Switches using Zigbee2MQTT.\n\nℹ️
-    Version: 2025.1.0\n\nTo update this blueprint, read [Re-importing a blueprint](https://www.home-assistant.io/docs/automation/using_blueprints/#re-importing-a-blueprint)\n\n✨
+    Version: 2025.8.0\n\nTo update this blueprint, read [Re-importing a blueprint](https://www.home-assistant.io/docs/automation/using_blueprints/#re-importing-a-blueprint)\n\n✨
     Features:\n\n- Select one or multiple devices, entities, floors, labels, or areas
     with Inovelli switches\n- Selectors for LED Number, Color, Brightness Level, Effect,
     and Duration\n- LED Number, Color, Effect, and Duration can accept direct values
     or the “friendly name” listed in the dropdown\n- Debug info to diagnose issues\n
     \ - Warning: Debug mode will create a persistent message for every entity called
-    in the script plus 1\n\n✅ Supported Models:\n\n- Inovelli 2-in-1 switch + dimmer
-    (VZM31-SN)\n- Inovelli Fan Controller (VZM35-SN)\n\n\U0001F4AC Forum: https://community.home-assistant.io/t/z2m-inovelli-blue-series-switch-led-notification-script-vzm31-sn-vzm35-sn/489620\n\n\U0001F4DC
+    in the script plus 1\n\n✅ Supported Models:\n\n- Inovelli Blue Series On/Off Switch
+    (VZM30-SN)\n- Inovelli 2-in-1 switch + dimmer (VZM31-SN)\n- Inovelli mmWave Zigbee
+    Dimmer (VZM32-SN)\n- Inovelli Fan Controller (VZM35-SN)\n\n\U0001F4AC Forum: https://community.home-assistant.io/t/z2m-inovelli-blue-series-switch-led-notification-script-vzm31-sn-vzm35-sn/489620\n\n\U0001F4DC
     GitHub: https://github.com/zanix/home-assistant-blueprints\n\n## Using this Blueprint\n\nSee
     [Using the Script](https://community.home-assistant.io/t/z2m-inovelli-blue-series-switch-led-notification-script-vzm31-sn-vzm35-sn/489620#using-the-script-17)
     in the forum topic.\n\n> The main idea is you set the LED values when you call
-    the script, the inputs below are for default values.\n\n## Default Values\n\nThe
-    fields below are set as defaults for the instance of the script created from this
-    blueprint.\n"
+    the script, the inputs below are for default values.\n"
   domain: script
   author: zanixmechanix
   homeassistant:
-    min_version: 2024.4.0
+    min_version: 2024.6.0
   source_url: https://github.com/zanix/home-assistant-blueprints/blob/main/script/inovelli_blue_led_zigbee2mqtt.yaml
   input:
-    command_path_base:
-      name: Default Command Path Base
-      description: Set the base path for the MQTT command path. This is `zigbee2mqtt`
-        by default.
-      default: zigbee2mqtt
-      selector:
-        text: {}
-    command_path_map:
-      name: Default Command Path Map
-      description: 'Map of Entity IDs with a MQTT command path map when HA and Z2M
-        do not match up.
+    advanced:
+      name: '## Default Values'
+      icon: mdi:tune
+      description: The fields below are set as defaults for the instance of the script
+        created from this blueprint.
+      collapsed: true
+      input:
+        command_path_base:
+          name: Default Command Path Base
+          description: Set the base path for the MQTT command path. This is `zigbee2mqtt`
+            by default.
+          default: zigbee2mqtt
+          selector:
+            text: {}
+        command_path_map:
+          name: Default Command Path Map
+          description: 'Map of Entity IDs with a MQTT command path map when HA and
+            Z2M do not match up.
 
 
-        Enter a new row for each mapping:
+            Enter a new row for each mapping:
 
 
-        ```
+            ```
 
-        light.entity_name: "zigbee2mqtt/path/to/device/set"
+            light.entity_name: "zigbee2mqtt/path/to/device/set"
 
-        ```
+            ```
 
-        '
-      default: ''
-      selector:
-        object: {}
+            '
+          default: ''
+          selector:
+            object: {}
 fields:
   target:
     name: Target
@@ -233,97 +239,117 @@ variables:
   debug: '{{ iif(enable_debug is defined, enable_debug, false) }}'
   domains:
   - light
+  - switch
   - fan
   models:
+  - VZM30-SN
+  - On/off switch
   - VZM31-SN
-  - VZM35-SN
   - 2-in-1 switch + dimmer
+  - VZM32-SN
+  - mmWave Zigbee Dimmer
+  - VZM35-SN
   - Fan controller
-  target: '{{ target|default([])|map(lower) }}'
-  floor: '{{ target.floor_id|default([])|lower }}'
-  area: '{{ target.area_id|default([])|lower }}'
-  device: '{{ target.device_id|default([])|lower }}'
-  entity: '{{ target.entity_id|default([])|lower }}'
-  label: '{{ target.label_id|default([])|lower }}'
+  target: '{{ target | default([]) | map(lower) }}'
+  floor: '{{ target.floor_id | default([]) | lower }}'
+  area: '{{ target.area_id | default([]) | lower }}'
+  device: '{{ target.device_id | default([]) | lower }}'
+  entity: '{{ target.entity_id | default([]) | lower }}'
+  label: '{{ target.label_id | default([]) | lower }}'
   input_command_path_base: !input command_path_base
-  command_path_base: '{{ command_path_base|default(input_command_path_base|default("zigbee2mqtt"))
+  command_path_base: '{{ command_path_base | default(input_command_path_base | default("zigbee2mqtt"))
     }}'
   input_command_path_map: !input command_path_map
-  command_path_map: '{{ command_path_map|default(input_command_path_map|default([]))
+  command_path_map: '{{ command_path_map | default(input_command_path_map | default([]))
     }}'
-  entity_list: "{% set switch = namespace(entities=[]) %}\n{# Floors #} {% set floors
-    = namespace(floors=[]) %} {% if floor %}\n  {# Convert to a list #}\n  {% if ','
-    in floor %}\n    {% set floornum = floor.split(',') | count %}\n    {% for i in
-    range(0, floornum) %}\n      {% set floors.floors = floors.floors + [floor.split(',')[i]|string|trim
-    ] %}\n    {% endfor %}\n  {% elif floor[0]|count == 1 %}\n    {# if the first
-    item in the list has only a single character, it can't be a valid entity #}\n
-    \   {% set floors.floors = floors.floors + [floor|string|trim] %}\n  {% else %}\n
-    \   {% set floors.floors = floor %}\n  {% endif %}\n  {# Detect switches #}\n
-    \ {% for floor in floors.floors %}\n    {% for area in floor_areas(floor) %}\n
-    \     {% for ent in area_entities(area) %}\n        {% for model in models %}\n
-    \         {% if model in device_attr(ent, 'model') | default('', true) and ent.split('.')[0]
-    in domains %}\n            {% set switch.entities = switch.entities + [ent|string|trim]
-    %}\n          {% endif %}\n        {% endfor %}\n      {% endfor %}\n    {% endfor
-    %}\n  {% endfor %}\n{% endif %}\n{# Areas #} {% set areas = namespace(areas=[])
-    %} {% if area %}\n  {# Convert to a list #}\n  {% if ',' in area %}\n    {% set
-    areanum = area.split(',') | count %}\n    {% for i in range(0, areanum) %}\n      {%
-    set areas.areas = areas.areas + [area.split(',')[i]|string|trim ] %}\n    {% endfor
-    %}\n  {% elif area[0]|count == 1 %}\n    {# if the first item in the list has
-    only a single character, it can't be a valid entity #}\n    {% set areas.areas
-    = areas.areas + [area|string|trim] %}\n  {% else %}\n    {% set areas.areas =
-    area %}\n  {% endif %}\n  {# Detect switches #}\n  {% for area in areas.areas
-    %}\n    {% for ent in area_entities(area) %}\n      {% for model in models %}\n
-    \       {% if model in device_attr(ent, 'model') | default('', true) and ent.split('.')[0]
-    in domains %}\n          {% set switch.entities = switch.entities + [ent|string|trim]
-    %}\n        {% endif %}\n      {% endfor %}\n    {% endfor %}\n  {% endfor %}\n{%
-    endif %}\n{# Devices #} {% set devices = namespace(devices=[]) %} {% if device
-    %}\n  {# Convert to a list #}\n  {% if ',' in device %}\n    {% set devicenum
-    = device.split(',') | count %}\n    {% for i in range(0, devicenum) %}\n      {%
-    set devices.devices = devices.devices + [device.split(',')[i]|string|trim ] %}\n
-    \   {% endfor %}\n  {% elif device[0]|count == 1 %} {# if the first item in the
-    list has only a single character, it can't be a valid entity #}\n    {% set devices.devices
-    = devices.devices + [device|string|trim] %}\n  {% else %}\n    {% set devices.devices
-    = device %}\n  {% endif %}\n  {# Detect switches #}\n  {% for device in devices.devices
-    %}\n    {% for ent in device_entities(device) %}\n      {% for model in models
-    %}\n        {% if model in device_attr(ent, 'model') | default('', true) and ent.split('.')[0]
-    in domains %}\n          {% set switch.entities = switch.entities + [ent|string|trim]
-    %}\n        {% endif %}\n      {% endfor %}\n    {% endfor %}\n  {% endfor %}\n{%
-    endif %}\n{# Entities #} {% set entities = namespace(entities=[]) %} {% if entity
-    %}\n  {# Convert to a list #}\n  {% if ',' in entity %}\n    {% set entitynum
-    = entity.split(',') | count %}\n    {% for i in range(0, entitynum) %}\n      {%
-    set entities.entities = entities.entities + [entity.split(',')[i]|string|trim
-    ] %}\n    {% endfor %}\n  {% elif entity[0]|count == 1 %} {# if the first item
-    in the list has only a single character, it can't be a valid entity #}\n    {%
-    set entities.entities = entities.entities + [entity|string|trim] %}\n  {% else
-    %}\n    {% set entities.entities = entity %}\n  {% endif %}\n  {# Detect switches
-    #}\n  {% for ent in entities.entities %}\n      {% for model in models %}\n        {%
+  list_from_floors: "{%- set switch = namespace(entities=[]) -%} {%- set floors =
+    namespace(floors=[]) -%} {%- if floor -%}\n  {# Convert to a list #}\n  {%- if
+    ',' in floor -%}\n    {%- set floornum = floor.split(',') | count -%}\n    {%-
+    for i in range(0, floornum) -%}\n      {%- set floors.floors = floors.floors +
+    [floor.split(',')[i] | string | trim ] -%}\n    {%- endfor -%}\n  {%- elif floor[0]
+    | count == 1 -%}\n    {# if the first item in the list has only a single character,
+    it can't be a valid entity #}\n    {%- set floors.floors = floors.floors + [floor
+    | string | trim] -%}\n  {%- else -%}\n    {%- set floors.floors = floor -%}\n
+    \ {%- endif -%}\n  {# Detect switches #}\n  {%- for floor in floors.floors -%}\n
+    \   {%- for area in floor_areas(floor) -%}\n      {%- for ent in area_entities(area)
+    -%}\n        {%- for model in models -%}\n          {%- if model in device_attr(ent,
+    'model') | default('', true) and ent.split('.')[0] in domains -%}\n            {%-
+    set switch.entities = switch.entities + [ent | string | trim] -%}\n          {%-
+    endif -%}\n        {%- endfor -%}\n      {%- endfor -%}\n    {%- endfor -%}\n
+    \ {%- endfor -%}\n{%- endif -%}\n{# Output #} {{ switch.entities | unique | list
+    | lower }}"
+  list_from_areas: "{%- set switch = namespace(entities=[]) -%} {%- set areas = namespace(areas=[])
+    -%} {%- if area -%}\n  {# Convert to a list #}\n  {%- if ',' in area -%}\n    {%-
+    set areanum = area.split(',') | count -%}\n    {%- for i in range(0, areanum)
+    -%}\n      {%- set areas.areas = areas.areas + [area.split(',')[i] | string |
+    trim ] -%}\n    {%- endfor -%}\n  {%- elif area[0] | count == 1 -%}\n    {# if
+    the first item in the list has only a single character, it can't be a valid entity
+    #}\n    {%- set areas.areas = areas.areas + [area | string | trim] -%}\n  {%-
+    else -%}\n    {%- set areas.areas = area -%}\n  {%- endif -%}\n  {# Detect switches
+    #}\n  {%- for area in areas.areas -%}\n    {%- for ent in area_entities(area)
+    -%}\n      {%- for model in models -%}\n        {%- if model in device_attr(ent,
+    'model') | default('', true) and ent.split('.')[0] in domains -%}\n          {%-
+    set switch.entities = switch.entities + [ent | string | trim] -%}\n        {%-
+    endif -%}\n      {%- endfor -%}\n    {%- endfor -%}\n  {%- endfor -%}\n{%- endif
+    -%}\n{# Output #} {{ switch.entities | unique | list | lower }}"
+  list_from_devices: "{%- set switch = namespace(entities=[]) -%} {%- set devices
+    = namespace(devices=[]) -%} {%- if device -%}\n  {# Convert to a list #}\n  {%-
+    if ',' in device -%}\n    {%- set devicenum = device.split(',') | count -%}\n
+    \   {%- for i in range(0, devicenum) -%}\n      {%- set devices.devices = devices.devices
+    + [device.split(',')[i] | string | trim ] -%}\n    {%- endfor -%}\n  {%- elif
+    device[0] | count == 1 -%} {# if the first item in the list has only a single
+    character, it can't be a valid entity #}\n    {%- set devices.devices = devices.devices
+    + [device | string | trim] -%}\n  {%- else -%}\n    {%- set devices.devices =
+    device -%}\n  {%- endif -%}\n  {# Detect switches #}\n  {%- for device in devices.devices
+    -%}\n    {%- for ent in device_entities(device) -%}\n      {%- for model in models
+    -%}\n        {%- if model in device_attr(ent, 'model') | default('', true) and
+    ent.split('.')[0] in domains -%}\n          {%- set switch.entities = switch.entities
+    + [ent | string | trim] -%}\n        {%- endif -%}\n      {%- endfor -%}\n    {%-
+    endfor -%}\n  {%- endfor -%}\n{%- endif -%}\n{# Output #} {{ switch.entities |
+    unique | list | lower }}"
+  list_from_labels: "{%- set switch = namespace(entities=[]) -%} {%- set labels =
+    namespace(labels=[]) -%} {%- if label -%}\n  {# Convert to a list #}\n  {%- if
+    ',' in label -%}\n    {%- set labelnum = label.split(',') | count -%}\n    {%-
+    for i in range(0, labelnum) -%}\n      {%- set labels.labels = labels.labels +
+    [label.split(',')[i] | string | trim ] -%}\n    {%- endfor -%}\n  {%- elif label[0]
+    | count == 1 -%}\n    {# if the first item in the list has only a single character,
+    it can't be a valid entity #}\n    {%- set labels.labels = labels.labels + [label
+    | string | trim] -%}\n  {%- else -%}\n    {%- set labels.labels = label -%}\n
+    \ {%- endif -%}\n  {# Detect switches #}\n  {%- for label in labels.labels -%}\n
+    \   {# Parse areas #}\n    {%- for area in label_areas(label) -%}\n        {%-
+    for ent in area_entities(area) -%}\n          {%- for model in models -%}\n            {%-
     if model in device_attr(ent, 'model') | default('', true) and ent.split('.')[0]
-    in domains %}\n          {% set switch.entities = switch.entities + [ent|string|trim]
-    %}\n        {% endif %}\n      {% endfor %}\n  {% endfor %}\n{% endif %}\n{# Labels
-    #} {% set labels = namespace(labels=[]) %} {% if label %}\n  {# Convert to a list
-    #}\n  {% if ',' in label %}\n    {% set labelnum = label.split(',') | count %}\n
-    \   {% for i in range(0, labelnum) %}\n      {% set labels.labels = labels.labels
-    + [label.split(',')[i]|string|trim ] %}\n    {% endfor %}\n  {% elif label[0]|count
-    == 1 %}\n    {# if the first item in the list has only a single character, it
-    can't be a valid entity #}\n    {% set labels.labels = labels.labels + [label|string|trim]
-    %}\n  {% else %}\n    {% set labels.labels = label %}\n  {% endif %}\n  {# Detect
-    switches #}\n  {% for label in labels.labels %}\n    {# Parse areas #}\n    {%
-    for area in label_areas(label) %}\n        {% for ent in area_entities(area) %}\n
-    \         {% for model in models %}\n            {% if model in device_attr(ent,
-    'model') | default('', true) and ent.split('.')[0] in domains %}\n              {%
-    set switch.entities = switch.entities + [ent|string|trim] %}\n            {% endif
-    %}\n          {% endfor %}\n        {% endfor %}\n    {% endfor %}\n    {# Parse
-    devices #}\n    {% for device in label_devices(label) %}\n      {% for ent in
-    device_entities(device) %}\n        {% for model in models %}\n          {% if
-    model in device_attr(ent, 'model') | default('', true) and ent.split('.')[0] in
-    domains %}\n            {% set switch.entities = switch.entities + [ent|string|trim]
-    %}\n          {% endif %}\n        {% endfor %}\n      {% endfor %}\n    {% endfor
-    %}\n    {# Parse entities #}\n    {% for ent in label_entities(label) %}\n      {%
-    for model in models %}\n        {% if model in device_attr(ent, 'model') | default('',
-    true) and ent.split('.')[0] in domains %}\n          {% set switch.entities =
-    switch.entities + [ent|string|trim] %}\n        {% endif %}\n      {% endfor %}\n
-    \   {% endfor %}\n  {% endfor %}\n{% endif %}\n{# Output #} {{ switch.entities|unique|list|lower
-    }}\n"
+    in domains -%}\n              {%- set switch.entities = switch.entities + [ent
+    | string | trim] -%}\n            {%- endif -%}\n          {%- endfor -%}\n        {%-
+    endfor -%}\n    {%- endfor -%}\n    {# Parse devices #}\n    {%- for device in
+    label_devices(label) -%}\n      {%- for ent in device_entities(device) -%}\n        {%-
+    for model in models -%}\n          {%- if model in device_attr(ent, 'model') |
+    default('', true) and ent.split('.')[0] in domains -%}\n            {%- set switch.entities
+    = switch.entities + [ent | string | trim] -%}\n          {%- endif -%}\n        {%-
+    endfor -%}\n      {%- endfor -%}\n    {%- endfor -%}\n    {# Parse entities #}\n
+    \   {%- for ent in label_entities(label) -%}\n      {%- for model in models -%}\n
+    \       {%- if model in device_attr(ent, 'model') | default('', true) and ent.split('.')[0]
+    in domains -%}\n          {%- set switch.entities = switch.entities + [ent | string
+    | trim] -%}\n        {%- endif -%}\n      {%- endfor -%}\n    {%- endfor -%}\n
+    \ {%- endfor -%}\n{%- endif -%}\n{# Output #} {{ switch.entities | unique | list
+    | lower }}"
+  list_from_entities: "{%- set switch = namespace(entities=[]) -%} {%- set entities
+    = namespace(entities=[]) -%} {%- if entity -%}\n  {# Convert to a list #}\n  {%-
+    if ',' in entity -%}\n    {%- set entitynum = entity.split(',') | count -%}\n
+    \   {%- for i in range(0, entitynum) -%}\n      {%- set entities.entities = entities.entities
+    + [entity.split(',')[i] | string | trim ] -%}\n    {%- endfor -%}\n  {%- elif
+    entity[0] | count == 1 -%} {# if the first item in the list has only a single
+    character, it can't be a valid entity #}\n    {%- set entities.entities = entities.entities
+    + [entity | string | trim] -%}\n  {%- else -%}\n    {%- set entities.entities
+    = entity -%}\n  {%- endif -%}\n  {# Detect switches #}\n  {%- for ent in entities.entities
+    -%}\n      {%- for model in models -%}\n        {%- if model in device_attr(ent,
+    'model') | default('', true) and ent.split('.')[0] in domains -%}\n          {%-
+    set switch.entities = switch.entities + [ent | string | trim] -%}\n        {%-
+    endif -%}\n      {%- endfor -%}\n  {%- endfor -%}\n{%- endif -%}\n{# Output #}
+    {{ switch.entities | unique | list | lower }}"
+  entity_list: "{%- set selectors = [\n    list_from_floors,\n    list_from_areas,\n
+    \   list_from_devices,\n    list_from_labels,\n    list_from_entities\n  ] | reject('equalto',
+    [])\n  | list\n-%} {{ selectors | flatten | unique | list }}"
   leds:
     all: -1
     led 1: 0
@@ -333,10 +359,10 @@ variables:
     led 5: 4
     led 6: 5
     led 7: 6
-  led: '{{ led|default("all") }}'
-  led_value: "{% if led|int(default=-2) == -2 %}\n  {{ leds[led|lower]|int(default=-1)
-    }}\n{% else %}\n  {{ led|int(default=-1) }}\n{% endif %}"
-  level: '{{ level|default(100) }}'
+  led: '{{ led | default("all") }}'
+  led_value: "{% if led | int(default=-2) == -2 %}\n  {{ leds[led | lower] | int(default=-1)
+    }}\n{% else %}\n  {{ led | int(default=-1) }}\n{% endif %}"
+  level: '{{ level | default(100) }}'
   colors:
     'off': 0
     red: 1
@@ -351,9 +377,9 @@ variables:
     lightpink: 220
     pink: 234
     white: 255
-  color: '{{ color|default("red") }}'
-  color_value: "{% if color|int(default=-1) == -1 %}\n  {{ colors[color|lower]|int(default=0)
-    }}\n{% else %}\n  {{ color|int(default=0) }}\n{% endif %}"
+  color: '{{ color | default("red") }}'
+  color_value: "{% if color | int(default=-1) == -1 %}\n  {{ colors[color | lower]
+    | int(default=0) }}\n{% else %}\n  {{ color | int(default=0) }}\n{% endif %}"
   effects:
     'off': 'off'
     clear: clear_effect
@@ -377,9 +403,9 @@ variables:
     slow rising: slow_rising
     slow siren: slow_siren
     small to big: small_to_big
-  effect: '{{ effect|default("clear") }}'
-  effect_value: "{% if effect|lower in effects %}\n  {{ effects[effect|lower] }}\n{%
-    else %}\n  {{ effect|lower }}\n{% endif %}"
+  effect: '{{ effect | default("clear") }}'
+  effect_value: "{% if effect | lower in effects %}\n  {{ effects[effect | lower]
+    }}\n{% else %}\n  {{ effect | lower }}\n{% endif %}"
   durations:
     'off': 0
     1 second: 1
@@ -439,9 +465,10 @@ variables:
     5 days: 240
     indefinitely: 255
     forever: 255
-  duration: '{{ duration|default("indefinitely") }}'
-  duration_value: "{% if duration|int(default=-1) == -1 %}\n  {{ durations[duration|lower]|int(default=255)
-    }}\n{% else %}\n  {{ duration|int(default=255) }}\n{% endif %}"
+  duration: '{{ duration | default("indefinitely") }}'
+  duration_value: "{% if duration | int(default=-1) == -1 %}\n  {{ durations[duration
+    | lower] | int(default=255) }}\n{% else %}\n  {{ duration | int(default=255) }}\n{%
+    endif %}"
 sequence:
 - alias: 'Debug: Send notification'
   if:
@@ -456,7 +483,7 @@ sequence:
 
         entity list: {{ entity_list }}
 
-        entity count: {{ entity_list|count }}
+        entity count: {{ entity_list | count }}
 
         led: {{ led }} ({{ led_value }})
 
@@ -473,7 +500,7 @@ sequence:
         command_path_map: {{ command_path_map }}'
 - alias: Check for an empty entity list
   condition: template
-  value_template: '{{ entity_list|count > 0 }}
+  value_template: '{{ entity_list | count > 0 }}
 
     '
 - variables:

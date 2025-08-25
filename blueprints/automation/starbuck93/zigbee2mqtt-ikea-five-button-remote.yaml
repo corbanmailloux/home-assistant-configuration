@@ -1,5 +1,5 @@
 blueprint:
-  name: Z2M - IKEA five button remote for lights and actions
+  name: Z2M 2.0 - IKEA five button remote for lights
   description: 'Control lights with an IKEA five button remote (the round ones).
 
 
@@ -25,11 +25,11 @@ blueprint:
   input:
     remote:
       name: Remote
-      description: IKEA remote to use. For example, "sensor.IKEA_REMOTE_action"
+      description: IKEA remote to use
       selector:
-        entity:
-          domain:
-          - sensor
+        device:
+          integration: mqtt
+          manufacturer: IKEA
           multiple: false
     light:
       name: Light(s)
@@ -59,6 +59,18 @@ blueprint:
           mode: slider
           step: 1.0
           unit_of_measurement: '%'
+    button_long_max_loop_repeats:
+      name: (Optional) Button long press - Maximum loop repeats
+      description: Maximum number of repeats for the custom action, when looping is
+        enabled. Use it as a safety limit to prevent an endless loop in case the corresponding
+        stop event is not received.
+      default: 100
+      selector:
+        number:
+          min: 1.0
+          max: 5000.0
+          mode: slider
+          step: 1.0
     button_left_short:
       name: Left button - short press
       description: Action to run on short left button press
@@ -83,18 +95,100 @@ blueprint:
       default: []
       selector:
         action: {}
+    brightness_up_release:
+      name: Up Release
+      description: Action to run on up release - leave this blank for default "stop
+        brightness move" action
+      default: []
+      selector:
+        action: {}
+    brightness_down_release:
+      name: Down Release
+      description: Action to run on down release - leave this blank for default "stop
+        brightness move" action
+      default: []
+      selector:
+        action: {}
   source_url: https://community.home-assistant.io/t/zigbee2mqtt-ikea-five-button-remote/255308
 mode: restart
 max_exceeded: silent
 variables:
   force_brightness: !input force_brightness
 trigger:
-- platform: state
-  entity_id: !input remote
-  attribute: action
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: toggle
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: brightness_down_hold
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: brightness_down_release
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: brightness_down_click
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: arrow_left_hold
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: arrow_left_release
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: arrow_left_click
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: toggle_hold
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: brightness_up_hold
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: brightness_up_release
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: brightness_up_click
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: arrow_right_click
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: arrow_right_hold
+  trigger: device
+- domain: mqtt
+  device_id: !input remote
+  type: action
+  subtype: arrow_right_release
+  trigger: device
 action:
 - variables:
-    command: '{{ trigger.to_state.state }}'
+    command: '{{ trigger.payload }}'
+    button_long_max_loop_repeats: !input button_long_max_loop_repeats
 - choose:
   - conditions:
     - '{{ command == ''toggle'' }}'
@@ -124,11 +218,7 @@ action:
     - '{{ command == ''brightness_up_hold'' }}'
     sequence:
     - repeat:
-        until:
-        - condition: state
-          entity_id: !input remote
-          state: brightness_up_release
-          attribute: action
+        while: '{{ repeat.index < button_long_max_loop_repeats | int }}'
         sequence:
         - service: light.turn_on
           data:
@@ -136,6 +226,9 @@ action:
             transition: 1
           target: !input light
         - delay: '1'
+  - conditions:
+    - '{{ command == ''brightness_up_release'' }}'
+    sequence: !input brightness_up_release
   - conditions:
     - '{{ command == ''brightness_down_click'' }}'
     sequence:
@@ -148,11 +241,7 @@ action:
     - '{{ command == ''brightness_down_hold'' }}'
     sequence:
     - repeat:
-        until:
-        - condition: state
-          entity_id: !input remote
-          state: brightness_down_release
-          attribute: action
+        while: '{{ repeat.index < button_long_max_loop_repeats | int }}'
         sequence:
         - service: light.turn_on
           data:
@@ -160,6 +249,9 @@ action:
             transition: 1
           target: !input light
         - delay: '1'
+  - conditions:
+    - '{{ command == ''brightness_down_release'' }}'
+    sequence: !input brightness_down_release
   - conditions:
     - '{{ command == ''arrow_left_click'' }}'
     sequence: !input button_left_short

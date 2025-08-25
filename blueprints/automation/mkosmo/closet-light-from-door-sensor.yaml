@@ -16,6 +16,7 @@ blueprint:
           domain:
           - binary_sensor
           multiple: false
+          reorder: false
     light_switch:
       name: Light
       selector:
