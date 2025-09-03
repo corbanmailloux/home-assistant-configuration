@@ -104,5 +104,14 @@ script:
     sequence:
       - action: shell_command.proxmoxbox_shutdown
 
+  pi_hole_disable_for_an_hour:
+    alias: "Disable Adblocking for 1 Hour"
+    sequence:
+      action: pi_hole.disable
+      data:
+        duration: "01:00"
+      target:
+        entity_id: all
+
 shell_command:
   proxmoxbox_shutdown: !secret proxmox_api_shutdown

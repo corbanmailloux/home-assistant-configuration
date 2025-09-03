@@ -206,7 +206,12 @@
                   "badges": [
                     {
                       "type": "entity",
-                      "entity": "sensor.ups_status"
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "sensor.ups_status",
+                      "tap_action": {
+                        "action": "more-info"
+                      }
                     }
                   ]
                 },
@@ -244,19 +249,6 @@
                       "needle": false,
                       "min": 0,
                       "max": 600
-                    },
-                    {
-                      "type": "gauge",
-                      "entity": "sensor.tubby_volume_used",
-                      "severity": {
-                        "green": 0,
-                        "yellow": 80,
-                        "red": 90
-                      },
-                      "needle": true,
-                      "max": 100,
-                      "min": 0,
-                      "name": "Tubby Disk"
                     }
                   ]
                 },
@@ -271,10 +263,79 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.pi_hole_ads_percentage_blocked_today"
+                      "entity": "sensor.pi_hole_ads_percentage_blocked",
+                      "name": "Percent Ads Blocked",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "entity": "script.pi_hole_disable_for_an_hour",
+                      "secondary_info": "last-triggered",
+                      "icon": "mdi:timer-cancel-outline"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "script.shutdown_proxmoxbox",
+                      "icon": "mdi:power-settings",
+                      "confirmation": {
+                        "text": "Are you sure you want to shutdown ProxMoxBox?"
+                      }
+                    },
+                    {
+                      "entity": "script.wol_proxmoxbox",
+                      "name": "Wake/Start ProxMoxBox",
+                      "icon": "mdi:power"
                     }
                   ],
                   "show_header_toggle": false
+                },
+                {
+                  "type": "heading",
+                  "icon": "mdi:nas",
+                  "heading": "Tubby NAS",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "sensor.tubby_status",
+                      "name": "Volume",
+                      "state_content": [
+                        "name",
+                        "state"
+                      ],
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.tubby_volume_used",
+                      "name": "Disk Usage"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "button.tubby_shutdown",
+                      "name": "Shutdown Tubby NAS",
+                      "confirmation": {
+                        "text": "Are you sure you want to shutdown Tubby?"
+                      },
+                      "icon": "mdi:power-settings"
+                    },
+                    {
+                      "entity": "script.wol_tubby",
+                      "icon": "mdi:power",
+                      "name": "Wake/Start Tubby NAS"
+                    }
+                  ]
                 }
               ]
             },
@@ -305,38 +366,12 @@
                       "icon": "mdi:microsoft-xbox-controller"
                     },
                     {
-                      "card": {
-                        "entity": "button.biden_shutdown",
-                        "name": "Shutdown Gaming PC"
+                      "entity": "button.biden_shutdown",
+                      "name": "Shutdown Gaming PC",
+                      "confirmation": {
+                        "text": "Are you sure you want to shutdown the gaming PC?"
                       },
-                      "type": "custom:restriction-card",
-                      "row": true
-                    },
-                    {
-                      "card": {
-                        "entity": "button.tubby_shutdown",
-                        "name": "Shutdown Tubby NAS"
-                      },
-                      "type": "custom:restriction-card",
-                      "row": true
-                    },
-                    {
-                      "card": {
-                        "entity": "script.shutdown_proxmoxbox",
-                        "icon": "mdi:power"
-                      },
-                      "type": "custom:restriction-card",
-                      "row": true
-                    },
-                    {
-                      "entity": "script.wol_proxmoxbox",
-                      "name": "Wake/Start ProxMoxBox",
-                      "icon": "mdi:power"
-                    },
-                    {
-                      "entity": "script.wol_tubby",
-                      "name": "Wake/Start Tubby NAS",
-                      "icon": "mdi:power"
+                      "icon": "mdi:power-settings"
                     }
                   ]
                 }
@@ -345,19 +380,10 @@
           ]
         },
         {
+          "title": "Automation Configurations",
+          "icon": "mdi:cog",
           "badges": [],
           "cards": [],
-          "icon": "mdi:flask",
-          "path": "experiments",
-          "title": "Experiments",
-          "visible": [
-            {
-              "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
-            },
-            {
-              "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
-            }
-          ],
           "type": "sections",
           "sections": [
             {
@@ -381,7 +407,8 @@
                         "action": "toggle"
                       }
                     }
-                  ]
+                  ],
+                  "icon": "mdi:floor-plan"
                 },
                 {
                   "type": "vertical-stack",
@@ -591,6 +618,157 @@
               "cards": [
                 {
                   "type": "heading",
+                  "heading": "Unavailable Tracked Devices",
+                  "heading_style": "title",
+                  "icon": "mdi:cloud-off-outline",
+                  "badges": []
+                },
+                {
+                  "type": "markdown",
+                  "content": "{{ states(\"sensor.unavailable_tracked_devices\").split(',') | map('trim') | sort | map('regex_replace', '^(.*)$', '- \\\\1') | join('\\n') }}"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Garage Parking Sign",
+                  "heading_style": "title",
+                  "icon": "mdi:walk"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "number.garage_parking_sign_display_number",
+                      "name": "Display Number"
+                    },
+                    {
+                      "entity": "light.garage_parking_sign_hand",
+                      "name": "Hand"
+                    },
+                    {
+                      "entity": "light.garage_parking_sign_walk",
+                      "name": "Walk",
+                      "secondary_info": "none"
+                    },
+                    {
+                      "entity": "script.parking_sign_clear_display"
+                    },
+                    {
+                      "type": "custom:fold-entity-row",
+                      "head": {
+                        "type": "section",
+                        "label": "Configuration"
+                      },
+                      "entities": [
+                        {
+                          "entity": "number.garage_parking_sign_target_distance_left",
+                          "name": "Target - Left",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "entity": "number.garage_parking_sign_target_distance_right",
+                          "name": "Target - Right"
+                        },
+                        {
+                          "entity": "number.garage_parking_sign_digit_brightness",
+                          "name": "Digit Brightness"
+                        }
+                      ]
+                    }
+                  ],
+                  "show_header_toggle": false
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:water",
+                  "heading": "Water Leak Sensors",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "automation.water_leak_detected_send_critical_notifications",
+                      "name": "Notify on Leak",
+                      "icon": "mdi:alarm-light-outline",
+                      "secondary_info": "last-triggered"
+                    },
+                    {
+                      "type": "custom:fold-entity-row",
+                      "head": {
+                        "type": "section",
+                        "label": "Sensors"
+                      },
+                      "entities": [
+                        {
+                          "entity": "binary_sensor.master_bathroom_sink_water_leak_sensor_water_sensor",
+                          "name": "Master Bathroom Sink Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.guest_bathroom_sink_water_leak_sensor_water_sensor",
+                          "name": "Guest Bathroom Sink Leak Sensor",
+                          "secondary_info": "none"
+                        },
+                        {
+                          "entity": "binary_sensor.kitchen_sink_water_leak_sensor_water_sensor",
+                          "name": "Kitchen Sink Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.first_floor_bathroom_water_leak_sensor_water_sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.washing_machine_water_leak_sensor_water_sensor",
+                          "name": "Washing Machine Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.water_softener_water_leak_sensor_water_sensor",
+                          "name": "Water Softener Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.water_heater_water_leak_sensor_water_sensor",
+                          "name": "Water Heater Leak Sensor"
+                        }
+                      ]
+                    }
+                  ],
+                  "show_header_toggle": false
+                }
+              ]
+            }
+          ],
+          "max_columns": 4,
+          "dense_section_placement": false
+        },
+        {
+          "badges": [],
+          "cards": [],
+          "icon": "mdi:flask",
+          "path": "experiments",
+          "title": "Experiments",
+          "visible": [
+            {
+              "user": "8aadf43f8d7d4513a75f85c0a22b6d82"
+            },
+            {
+              "user": "ea4d86ee1f9b48c7bf6a3049815fa80e"
+            }
+          ],
+          "type": "sections",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
                   "icon": "mdi:cog-box",
                   "heading": "Device Management",
                   "heading_style": "title"
@@ -610,19 +788,88 @@
                       "name": "Corban's iPhone"
                     }
                   ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:email",
+                  "heading": "Mail and Packages",
+                  "heading_style": "title"
                 },
                 {
-                  "type": "entities",
-                  "entities": [
+                  "type": "vertical-stack",
+                  "cards": [
                     {
-                      "entity": "sensor.unavailable_tracked_devices",
-                      "name": " ",
-                      "secondary_info": "none",
-                      "icon": "mdi:cloud-off-outline"
+                      "show_name": true,
+                      "show_icon": true,
+                      "show_state": true,
+                      "type": "glance",
+                      "entities": [
+                        {
+                          "entity": "sensor.mail_usps_delivering",
+                          "name": "USPS",
+                          "image": "https://home.corb.co/local/images/logos/usps.png"
+                        },
+                        {
+                          "entity": "sensor.mail_ups_delivering",
+                          "name": "UPS",
+                          "image": "https://home.corb.co/local/images/logos/ups.png"
+                        },
+                        {
+                          "entity": "sensor.mail_fedex_delivering",
+                          "name": "FedEx",
+                          "image": "https://home.corb.co/local/images/logos/fedex-bg.png"
+                        },
+                        {
+                          "entity": "sensor.mail_amazon_packages",
+                          "name": "Amazon",
+                          "image": "https://home.corb.co/local/images/logos/amazon-simple.png"
+                        },
+                        {
+                          "entity": "sensor.mail_usps_mail",
+                          "name": "Mail"
+                        }
+                      ],
+                      "title": "Expected Today"
+                    },
+                    {
+                      "show_name": true,
+                      "show_icon": true,
+                      "show_state": true,
+                      "type": "glance",
+                      "entities": [
+                        {
+                          "entity": "sensor.mail_usps_delivered",
+                          "name": "USPS",
+                          "image": "https://home.corb.co/local/images/logos/usps.png"
+                        },
+                        {
+                          "entity": "sensor.mail_ups_delivered",
+                          "name": "UPS",
+                          "image": "https://home.corb.co/local/images/logos/ups.png"
+                        },
+                        {
+                          "entity": "sensor.mail_fedex_delivered",
+                          "name": "FedEx",
+                          "image": "https://home.corb.co/local/images/logos/fedex-bg.png"
+                        },
+                        {
+                          "entity": "sensor.mail_amazon_packages_delivered",
+                          "name": "Amazon",
+                          "image": "https://home.corb.co/local/images/logos/amazon-simple.png"
+                        },
+                        {
+                          "entity": "sensor.mail_usps_mail",
+                          "name": "Mail"
+                        }
+                      ],
+                      "title": "Delivered Today"
                     }
-                  ],
-                  "title": "Unavailable Devices",
-                  "show_header_toggle": false
+                  ]
                 }
               ]
             }
@@ -814,267 +1061,6 @@
           ]
         },
         {
-          "title": "Garage Playground",
-          "path": "garage-playground",
-          "icon": "mdi:walk",
-          "badges": [],
-          "cards": [
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "number.garage_parking_sign_display_number",
-                  "name": "Display Number"
-                },
-                {
-                  "entity": "light.garage_parking_sign_hand",
-                  "name": "Hand"
-                },
-                {
-                  "entity": "light.garage_parking_sign_walk",
-                  "name": "Walk",
-                  "secondary_info": "none"
-                },
-                {
-                  "entity": "script.parking_sign_clear_display"
-                },
-                {
-                  "entity": "automation.show_hand_on_sign_during_meetings"
-                },
-                {
-                  "type": "custom:fold-entity-row",
-                  "head": {
-                    "type": "section",
-                    "label": "Configuration"
-                  },
-                  "entities": [
-                    {
-                      "entity": "switch.garage_parking_sensor_left_poll_range_sensor",
-                      "name": "Left Sensor - Poll"
-                    },
-                    {
-                      "entity": "switch.garage_parking_sensor_right_poll_range_sensor",
-                      "name": "Right Sensor - Poll"
-                    },
-                    {
-                      "entity": "number.garage_parking_sign_target_distance_left",
-                      "name": "Target - Left",
-                      "secondary_info": "none"
-                    },
-                    {
-                      "entity": "number.garage_parking_sign_target_distance_right",
-                      "name": "Target - Right"
-                    },
-                    {
-                      "entity": "number.garage_parking_sign_digit_brightness",
-                      "name": "Digit Brightness"
-                    }
-                  ]
-                }
-              ],
-              "title": "Parking Sign",
-              "show_header_toggle": false
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "switch.garage_parking_sensor_right_poll_range_sensor",
-                  "name": "Right Sensor - Poll",
-                  "secondary_info": "none"
-                },
-                {
-                  "entity": "sensor.garage_parking_sensor_right_distance",
-                  "name": "Right Sensor - Distance",
-                  "secondary_info": "none"
-                },
-                {
-                  "entity": "sensor.garage_parking_sensor_right_range_status",
-                  "name": "Right Sensor - Range Status (0 is good)"
-                }
-              ],
-              "title": "Sensor Data",
-              "show_header_toggle": false
-            }
-          ]
-        },
-        {
-          "title": "Debug",
-          "icon": "mdi:bug",
-          "badges": [],
-          "cards": [],
-          "type": "sections",
-          "sections": [
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Mail and Packages",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "vertical-stack",
-                  "cards": [
-                    {
-                      "show_name": true,
-                      "show_icon": true,
-                      "show_state": true,
-                      "type": "glance",
-                      "entities": [
-                        {
-                          "entity": "sensor.mail_usps_delivering",
-                          "name": "USPS",
-                          "image": "https://home.corb.co/local/images/logos/usps.png"
-                        },
-                        {
-                          "entity": "sensor.mail_ups_delivering",
-                          "name": "UPS",
-                          "image": "https://home.corb.co/local/images/logos/ups.png"
-                        },
-                        {
-                          "entity": "sensor.mail_fedex_delivering",
-                          "name": "FedEx",
-                          "image": "https://home.corb.co/local/images/logos/fedex-bg.png"
-                        },
-                        {
-                          "entity": "sensor.mail_amazon_packages",
-                          "name": "Amazon",
-                          "image": "https://home.corb.co/local/images/logos/amazon-simple.png"
-                        },
-                        {
-                          "entity": "sensor.mail_usps_mail",
-                          "name": "Mail"
-                        }
-                      ],
-                      "title": "Expected Today"
-                    },
-                    {
-                      "show_name": true,
-                      "show_icon": true,
-                      "show_state": true,
-                      "type": "glance",
-                      "entities": [
-                        {
-                          "entity": "sensor.mail_usps_delivered",
-                          "name": "USPS",
-                          "image": "https://home.corb.co/local/images/logos/usps.png"
-                        },
-                        {
-                          "entity": "sensor.mail_ups_delivered",
-                          "name": "UPS",
-                          "image": "https://home.corb.co/local/images/logos/ups.png"
-                        },
-                        {
-                          "entity": "sensor.mail_fedex_delivered",
-                          "name": "FedEx",
-                          "image": "https://home.corb.co/local/images/logos/fedex-bg.png"
-                        },
-                        {
-                          "entity": "sensor.mail_amazon_packages_delivered",
-                          "name": "Amazon",
-                          "image": "https://home.corb.co/local/images/logos/amazon-simple.png"
-                        },
-                        {
-                          "entity": "sensor.mail_usps_mail",
-                          "name": "Mail"
-                        }
-                      ],
-                      "title": "Delivered Today"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Configurations",
-                  "heading_style": "title"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "automation.water_leak_detected_send_critical_notifications",
-                      "name": "Notify on Leak",
-                      "icon": "mdi:alarm-light-outline",
-                      "secondary_info": "last-triggered"
-                    },
-                    {
-                      "type": "custom:fold-entity-row",
-                      "head": {
-                        "type": "section",
-                        "label": "Sensors"
-                      },
-                      "entities": [
-                        {
-                          "entity": "binary_sensor.master_bathroom_sink_water_leak_sensor_water_sensor",
-                          "name": "Master Bathroom Sink Leak Sensor"
-                        },
-                        {
-                          "entity": "binary_sensor.guest_bathroom_sink_water_leak_sensor_water_sensor",
-                          "name": "Guest Bathroom Sink Leak Sensor",
-                          "secondary_info": "none"
-                        },
-                        {
-                          "entity": "binary_sensor.kitchen_sink_water_leak_sensor_water_sensor",
-                          "name": "Kitchen Sink Leak Sensor"
-                        },
-                        {
-                          "entity": "binary_sensor.first_floor_bathroom_water_leak_sensor_water_sensor"
-                        },
-                        {
-                          "entity": "binary_sensor.washing_machine_water_leak_sensor_water_sensor",
-                          "name": "Washing Machine Leak Sensor"
-                        },
-                        {
-                          "entity": "binary_sensor.water_softener_water_leak_sensor_water_sensor",
-                          "name": "Water Softener Leak Sensor"
-                        },
-                        {
-                          "entity": "binary_sensor.water_heater_water_leak_sensor_water_sensor",
-                          "name": "Water Heater Leak Sensor"
-                        }
-                      ]
-                    }
-                  ],
-                  "title": "Water Leak Sensors",
-                  "show_header_toggle": false
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading_style": "title",
-                  "heading": "Fun"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "script.stranger_things_lighting_chase"
-                    },
-                    {
-                      "entity": "input_select.stranger_things_next_light_on"
-                    },
-                    {
-                      "entity": "input_select.stranger_things_next_light_off"
-                    }
-                  ],
-                  "title": "Stranger Things",
-                  "show_header_toggle": false
-                }
-              ]
-            }
-          ]
-        },
-        {
           "path": "archive",
           "icon": "mdi:delete-circle-outline",
           "visible": [
@@ -1088,20 +1074,6 @@
           "title": "Archive",
           "badges": [],
           "cards": [
-            {
-              "camera_view": "auto",
-              "type": "picture-glance",
-              "entities": [
-                {
-                  "entity": "light.exterior_lights"
-                },
-                {
-                  "entity": "siren.main_doorbell_siren"
-                }
-              ],
-              "camera_image": "camera.main_doorbell_sub",
-              "title": "Doorbell"
-            },
             {
               "type": "horizontal-stack",
               "cards": [
