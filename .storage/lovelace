@@ -3433,6 +3433,11 @@
                   "entity": "binary_sensor.coat_closet_door_sensor_contact",
                   "name": "Coat Closet Door",
                   "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.garage_back_person_door_contact",
+                  "secondary_info": "last-changed",
+                  "name": "Garage Back Door"
                 }
               ],
               "title": "Doors",

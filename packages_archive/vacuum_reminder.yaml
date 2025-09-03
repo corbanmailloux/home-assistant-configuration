@@ -22,7 +22,7 @@ automation:
         condition: state
         entity_id: input_select.home_mode
         state: "Home"
-    action:
+    actions:
       - action: notify.corban
         data:
           title: "Vacuum Upstairs"
@@ -50,7 +50,7 @@ automation:
         event_type: mobile_app_notification_action
         event_data:
           action: "VACUUM_FULL_CLEAN"
-    action:
+    actions:
       - action: vacuum.start
         target:
           entity_id: vacuum.valetudo_eve
@@ -87,7 +87,7 @@ automation:
   #       event_type: mobile_app_notification_action
   #       event_data:
   #         action: "VACUUM_SKIP"
-  #   action:
+  #   actions:
   #     - alias: Store the last run time
   #       action: input_datetime.set_datetime
   #       target:
@@ -102,7 +102,7 @@ automation:
         event_type: mobile_app_notification_action
         event_data:
           action: "VACUUM_GOTO_DUMP_SPOT"
-    action:
+    actions:
       - action: script.vacuum_dump_process
 
 script:
