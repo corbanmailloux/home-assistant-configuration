@@ -1495,6 +1495,11 @@
       hours: 2
       minutes: 0
       seconds: 0
+    enabled: false
+  - trigger: time
+    at:
+      entity_id: sensor.lucy_timer_start_time
+      offset: '2:00:00'
   conditions:
   - condition: time
     after: 08:00:00
@@ -1819,8 +1824,11 @@
         set ent_id_schedule = 'input_number.mower_schedule_days_delay_' ~ cid %}\n
         \ {% set last_mow_dt = states(ent_id_last_mow) | as_datetime | as_local %}\n
         \ {% set delay = states(ent_id_schedule) | int %}\n  {% if (delay > 0) and
-        (last_mow_dt.date() <= (today - timedelta(days=delay))) %}\n    {{ cid }}\n
-        \   {% break %}\n  {% endif %}\n{% endfor %} \n"
+        (last_mow_dt.date() <= (today - timedelta(days=delay))) and \n    ( cid !=
+        \"back_yard_main\" or \n    ( is_state(\"switch.sprinkler_valve_1\", \"off\")\n
+        \     and (as_timestamp(now()) - as_timestamp(states.switch.sprinkler_valve_1.last_changed
+        | default(0))) > 7200 )\n   )\n   %}\n    {{ cid }}\n    {% break %}\n  {%
+        endif %}\n{% endfor %} \n"
     alias: Select the first valid yard zone
   - condition: template
     value_template: '{{ chosen_area != '''' }}'
@@ -2094,3 +2102,90 @@
             entity_id: input_select.home_mode
             option: Sleep
           action: input_select.select_option
+- id: '1756865296776'
+  alias: Sprinkler Schedule - 3 per day
+  description: ''
+  triggers:
+  - trigger: time
+    at: 07:00:00
+    id: 'on'
+  - trigger: time
+    at: 07:05:00
+    id: 'off'
+  - trigger: time
+    at: '12:00:00'
+    id: 'on'
+  - trigger: time
+    at: '12:05:00'
+    id: 'off'
+  - trigger: time
+    at: '17:15:00'
+    id: 'on'
+  - trigger: time
+    at: '17:22:00'
+    id: 'off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: and
+        conditions:
+        - condition: trigger
+          id:
+          - 'on'
+        - condition: not
+          conditions:
+          - condition: state
+            entity_id: sensor.lucas_work_area
+            state: Main Back and Side
+          alias: Lucas not in back yard
+        - alias: Insignificant rain in the last 2 days or forcast today
+          condition: template
+          value_template: "{{ \nstates(\"sensor.owmh_home_current_rain\") | float(0)
+            < 0.25\nand states(\"sensor.owmh_home_day0rain\") | float(0) < 0.25\nand
+            states(\"sensor.owmh_home_day1rain\") | float(0) < 0.5\nand ((states(\"sensor.owmh_home_forecast0rain\")|float(0))
+            * (states(\"sensor.owmh_home_forecast0pop\")|float(0))) < 0.5\n}}"
+      sequence:
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.sprinkler_valve_1
+      alias: On - Mower not in back yard; insignificant rain
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.sprinkler_valve_1
+  mode: single
+- id: '1756865878813'
+  alias: Turn off sprinkler value after 40 minutes
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.sprinkler_valve_1
+    to: 'on'
+    for:
+      hours: 0
+      minutes: 40
+      seconds: 0
+  conditions: []
+  actions:
+  - action: notify.corban
+    metadata: {}
+    data:
+      title: Sprinkler Still On
+      message: The sprinkler valve has been running for more than 40 minutes. Stopping
+        automatically.
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.sprinkler_valve_1
+  mode: single

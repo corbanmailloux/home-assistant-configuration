@@ -319,7 +319,10 @@
                     "rows": 5
                   },
                   "aspect_ratio": "1",
-                  "theme_mode": "dark"
+                  "theme_mode": "dark",
+                  "card_mod": {
+                    "style": ":host {\n  /* --mdc-icon-size: 20px; */\n}\n"
+                  }
                 }
               ]
             }
@@ -333,7 +336,7 @@
               "cards": [
                 {
                   "type": "heading",
-                  "heading": "Front Sprinklers",
+                  "heading": "Sprinklers",
                   "heading_style": "title"
                 },
                 {
@@ -344,25 +347,19 @@
                       "secondary_info": "last-changed"
                     },
                     {
+                      "entity": "automation.sprinkler_schedule_3_per_day",
+                      "secondary_info": "last-triggered"
+                    },
+                    {
                       "entity": "script.start_sprinker_for_limited_time",
                       "name": "Run for 10 minutes",
                       "icon": "mdi:timer-play",
                       "secondary_info": "last-triggered"
                     },
                     {
-                      "entity": "sensor.sprinkler_valve_1_flow"
-                    },
-                    {
                       "entity": "timer.irrigation_off_timer"
                     }
                   ]
-                },
-                {
-                  "type": "custom:scheduler-card",
-                  "include": [
-                    "switch.sprinkler_valve_1"
-                  ],
-                  "exclude": []
                 }
               ]
             }
