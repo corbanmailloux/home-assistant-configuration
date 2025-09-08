@@ -236,6 +236,7 @@ font:
       - "\U000F08BB" # mdi-cog-outline (Settings)
       - "\U000F0020" # mdi-alarm
       - "\U000F002A" # mdi-alert-outline
+      - "\U000F105F" # mdi-sprinkler
   - file: "resources/fonts/materialdesignicons-webfont.ttf"
     id: mdi_font_22
     size: 22
@@ -458,6 +459,7 @@ lvgl:
                   radius: 6
                   widgets:
                     - label:
+                        id: dock_vscode_icon
                         align: CENTER
                         text: "\U000F0A1E" # mdi-microsoft-visual-studio-code
                         text_align: CENTER
@@ -963,6 +965,24 @@ binary_sensor:
     on_state:
       then:
         - script.execute: update_timer_icon
+
+  - platform: homeassistant
+    id: sprinkler_active
+    entity_id: switch.sprinkler_valve_1
+    internal: true
+    on_state:
+      then:
+        - if:
+            condition:
+              - binary_sensor.is_on: sprinkler_active
+            then:
+              - lvgl.label.update:
+                  id: dock_vscode_icon
+                  text: "\U000F105F" # mdi-sprinkler
+            else:
+              - lvgl.label.update:
+                  id: dock_vscode_icon
+                  text: "\U000F0A1E" # mdi-microsoft-visual-studio-code
 
   - platform: homeassistant
     id: driveway_vehicle_detected

@@ -2107,22 +2107,22 @@
   description: ''
   triggers:
   - trigger: time
-    at: 07:00:00
+    at: 06:59:00
     id: 'on'
   - trigger: time
     at: 07:05:00
     id: 'off'
   - trigger: time
-    at: '12:00:00'
+    at: '11:59:00'
     id: 'on'
   - trigger: time
     at: '12:05:00'
     id: 'off'
   - trigger: time
-    at: '17:15:00'
+    at: '17:14:00'
     id: 'on'
   - trigger: time
-    at: '17:22:00'
+    at: '17:21:00'
     id: 'off'
   conditions: []
   actions:
