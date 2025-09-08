@@ -625,7 +625,7 @@
                 },
                 {
                   "type": "markdown",
-                  "content": "{{ states(\"sensor.unavailable_tracked_devices\").split(',') | map('trim') | sort | map('regex_replace', '^(.*)$', '- \\\\1') | join('\\n') }}"
+                  "content": "{%- set raw = states(\"sensor.unavailable_tracked_devices\") -%}\n{%- set items = raw.split(',') | map('trim') | select('ne','') | list -%}\n{% if items | count > 0 %}\n{{ items | sort | map('regex_replace', '^(.*)$', '- \\\\1') | join('\\n') }}\n{% else %}\nNone\n{% endif %}"
                 }
               ]
             },

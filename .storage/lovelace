@@ -590,7 +590,7 @@
             },
             {
               "type": "custom:mushroom-climate-card",
-              "entity": "climate.home_hvac",
+              "entity": "climate.main_hvac",
               "tap_action": {
                 "action": "more-info"
               },
