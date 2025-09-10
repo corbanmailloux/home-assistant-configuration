@@ -1152,7 +1152,7 @@
     to: 'off'
     for:
       hours: 0
-      minutes: 5
+      minutes: 3
       seconds: 0
   conditions:
   - condition: state
@@ -1799,7 +1799,7 @@
     - wed
     - thu
     - fri
-    after: '11:00:00'
+    after: '11:59:00'
     before: '19:00:00'
   - condition: state
     entity_id: input_boolean.mower_schedule_enabled
@@ -2103,27 +2103,31 @@
             option: Sleep
           action: input_select.select_option
 - id: '1756865296776'
-  alias: Sprinkler Schedule - 3 per day
+  alias: Sprinkler Schedule
   description: ''
   triggers:
   - trigger: time
     at: 06:59:00
     id: 'on'
   - trigger: time
-    at: 07:05:00
+    at: 07:15:00
     id: 'off'
   - trigger: time
     at: '11:59:00'
     id: 'on'
+    enabled: false
   - trigger: time
     at: '12:05:00'
     id: 'off'
+    enabled: false
   - trigger: time
     at: '17:14:00'
     id: 'on'
+    enabled: false
   - trigger: time
     at: '17:21:00'
     id: 'off'
+    enabled: false
   conditions: []
   actions:
   - choose:

@@ -38,9 +38,5 @@ automation:
           message: >-
             Water detected {{ trigger.id }}.
           data:
-            # tag: "water_leak_alert" # Don't tag so they don't get grouped.
             push:
-              sound:
-                # name: "default"
-                critical: 1 # Push through mute and Focus
-                # volume: 1.0
+              interruption-level: critical
