@@ -626,6 +626,66 @@
                 {
                   "type": "markdown",
                   "content": "{%- set raw = states(\"sensor.unavailable_tracked_devices\") -%}\n{%- set items = raw.split(',') | map('trim') | select('ne','') | list -%}\n{% if items | count > 0 %}\n{{ items | sort | map('regex_replace', '^(.*)$', '- \\\\1') | join('\\n') }}\n{% else %}\nNone\n{% endif %}"
+                },
+                {
+                  "type": "custom:battery-state-card",
+                  "filter": {
+                    "include": [
+                      {
+                        "name": "attributes.device_class",
+                        "value": "battery"
+                      }
+                    ],
+                    "exclude": [
+                      {
+                        "name": "entity_id",
+                        "value": "binary_sensor.*"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "sensor.valetudo_eve_battery_level"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "*iphone*"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "*ipad*"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "*macbook*"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "*mbp*"
+                      }
+                    ]
+                  },
+                  "sort": {
+                    "by": "state"
+                  },
+                  "collapse": 10,
+                  "bulk_rename": [
+                    {
+                      "from": " Battery"
+                    },
+                    {
+                      "from": " level"
+                    },
+                    {
+                      "from": " Level"
+                    }
+                  ],
+                  "colors": {
+                    "steps": [
+                      "#ff0000",
+                      "#ffff00",
+                      "#00ff00"
+                    ],
+                    "gradient": true
+                  }
                 }
               ]
             },

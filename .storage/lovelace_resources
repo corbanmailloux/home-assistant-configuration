@@ -70,7 +70,7 @@
         "id": "ff34917b3c6a44b4b37d905f037ebc51"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375450",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375505",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },
@@ -117,6 +117,11 @@
       {
         "id": "e68ae68f9432455c8ab2829886ae7691",
         "url": "/openweathermaphistory/www/openweathermaphistory.js?v=2025.08.01",
+        "type": "module"
+      },
+      {
+        "id": "460b34f886a84a4e9c0ec8dca3d81fdb",
+        "url": "/hacsfiles/battery-state-card/battery-state-card.js?hacstag=256292682321",
         "type": "module"
       }
     ]
