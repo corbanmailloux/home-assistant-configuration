@@ -32,7 +32,7 @@ sensor:
           {% if is_state('person.maggie', 'home') %}
             0
           {% else %}
-            {{ states('sensor.maggie_to_home_travel_time') }}
+            {{ states('sensor.maggie_to_home_travel_time') | round }}
           {% endif %}
 
       corban_location_icon:
