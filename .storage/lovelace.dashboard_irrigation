@@ -376,13 +376,13 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.owmh_home_current_rain"
-                    },
-                    {
                       "entity": "sensor.owmh_home_day1rain"
                     },
                     {
                       "entity": "sensor.owmh_home_day0rain"
+                    },
+                    {
+                      "entity": "sensor.owmh_home_current_rain"
                     },
                     {
                       "entity": "sensor.owmh_home_forecast0rain"
