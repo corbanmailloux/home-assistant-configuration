@@ -1799,7 +1799,7 @@
     - wed
     - thu
     - fri
-    after: '11:59:00'
+    after: '11:30:00'
     before: '19:00:00'
   - condition: state
     entity_id: input_boolean.mower_schedule_enabled
@@ -2193,3 +2193,121 @@
     target:
       entity_id: switch.sprinkler_valve_1
   mode: single
+- id: '1757898273542'
+  alias: Water Leak Detected - Send Critical Notifications
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.kitchen_sink_water_leak_sensor_water_sensor
+    to: 'on'
+    id: under the kitchen sink
+  - trigger: state
+    entity_id: binary_sensor.water_heater_water_leak_sensor_water_sensor
+    to: 'on'
+    id: near the water heater
+  - trigger: state
+    entity_id: binary_sensor.water_softener_water_leak_sensor_water_sensor
+    to: 'on'
+    id: near the water softener
+  - trigger: state
+    entity_id: binary_sensor.washing_machine_water_leak_sensor_water_sensor
+    to: 'on'
+    id: near the washing machine
+  - trigger: state
+    entity_id: binary_sensor.master_bathroom_sink_water_leak_sensor_water_sensor
+    to: 'on'
+    id: under the master bathroom sink
+  - trigger: state
+    entity_id: binary_sensor.guest_bathroom_sink_water_leak_sensor_water_sensor
+    to: 'on'
+    id: under the guest bathroom sink
+  - trigger: state
+    entity_id: binary_sensor.first_floor_bathroom_water_leak_sensor_water_sensor
+    to: 'on'
+    id: under the first floor bathroom sink
+  - trigger: state
+    entity_id:
+    - binary_sensor.water_leak_sensor_first_floor_vacuum_water_sensor
+    to: 'on'
+    id: near the robot vacuum base station
+  - trigger: state
+    entity_id:
+    - binary_sensor.water_leak_sensor_dehumidifier_water_sensor
+    to: 'on'
+    id: near the dehumidifier
+  conditions: []
+  actions:
+  - alias: Notify Everyone with a Critical Notification
+    action: notify.adult_ios_phones
+    data:
+      title: Water Leak Detected at Home
+      message: Water detected {{ trigger.id }}.
+      data:
+        push:
+          interruption-level: critical
+  mode: single
+- id: 03bcaae7-109c-4ccd-9392-d571c09518a8
+  alias: Living Room Curtains - Match Window State
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.living_room_window_1_contact
+    from: 'on'
+    to: 'off'
+    id: closed
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 2
+  - trigger: state
+    entity_id:
+    - binary_sensor.living_room_window_1_contact
+    from: 'off'
+    to: 'on'
+    id: open
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  conditions:
+  - alias: Living room automations are not disabled
+    condition: state
+    entity_id: input_boolean.room_exclude_livingroom
+    state: 'off'
+  - condition: state
+    entity_id: cover.living_room_curtain_left
+    state: closed
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - open
+      - condition: state
+        entity_id: cover.living_room_curtain_right
+        state: closed
+      sequence:
+      - alias: Open the Right Curtain
+        action: v6_quietdrift.set_switchbot_curtain_position
+        data:
+          entity_id:
+          - cover.living_room_curtain_right
+          position: 100
+          speed: 2
+    - conditions:
+      - condition: trigger
+        id:
+        - closed
+      - condition: state
+        entity_id: cover.living_room_curtain_right
+        state: open
+      sequence:
+      - alias: Close the Right Curtain
+        action: v6_quietdrift.set_switchbot_curtain_position
+        data:
+          entity_id:
+          - cover.living_room_curtain_right
+          position: 0
+          speed: 2
+  mode: restart

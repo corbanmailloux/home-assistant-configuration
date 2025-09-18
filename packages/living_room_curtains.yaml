@@ -67,22 +67,88 @@ automation:
                 - cover.living_room_curtain_left
               position: 0
               speed: 2
-          - wait_for_trigger:
-              - trigger: state
-                entity_id:
-                  - binary_sensor.living_room_window_1_contact
-                to: "off"
-                for:
-                  seconds: 2
-            continue_on_timeout: false
-            timeout:
-              hours: 8
-          - action: v6_quietdrift.set_switchbot_curtain_position
-            data:
-              entity_id:
-                - cover.living_room_curtain_right
-              position: 0
-              speed: 2
+          ## This is now handled by the general case automation below.
+          # - wait_for_trigger:
+          #     - trigger: state
+          #       entity_id:
+          #         - binary_sensor.living_room_window_1_contact
+          #       to: "off"
+          #       for:
+          #         seconds: 2
+          #   continue_on_timeout: false
+          #   timeout:
+          #     hours: 8
+          # - action: v6_quietdrift.set_switchbot_curtain_position
+          #   data:
+          #     entity_id:
+          #       - cover.living_room_curtain_right
+          #     position: 0
+          #     speed: 2
+
+  - alias: Living Room Curtains - Match Window State
+    id: 3600672a-34d4-40ef-9154-4d95b8798151
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.living_room_window_1_contact
+        from: "on"
+        to: "off"
+        id: closed
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 2
+      - trigger: state
+        entity_id:
+          - binary_sensor.living_room_window_1_contact
+        from: "off"
+        to: "on"
+        id: open
+        for:
+          hours: 0
+          minutes: 0
+          seconds: 5
+    conditions:
+      - alias: Living room automations are not disabled
+        condition: state
+        entity_id: input_boolean.room_exclude_livingroom
+        state: "off"
+      - condition: state
+        entity_id: cover.living_room_curtain_left
+        state: closed
+    actions:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id:
+                  - open
+              - condition: state
+                entity_id: cover.living_room_curtain_right
+                state: closed
+            sequence:
+              - alias: Open the Right Curtain
+                action: v6_quietdrift.set_switchbot_curtain_position
+                data:
+                  entity_id:
+                    - cover.living_room_curtain_right
+                  position: 100
+                  speed: 2
+          - conditions:
+              - condition: trigger
+                id:
+                  - closed
+              - condition: state
+                entity_id: cover.living_room_curtain_right
+                state: open
+            sequence:
+              - alias: Close the Right Curtain
+                action: v6_quietdrift.set_switchbot_curtain_position
+                data:
+                  entity_id:
+                    - cover.living_room_curtain_right
+                  position: 0
+                  speed: 2
 
 template:
   - binary_sensor:

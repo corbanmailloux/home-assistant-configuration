@@ -757,10 +757,9 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "automation.water_leak_detected_send_critical_notifications",
+                      "entity": "automation.water_leak_detected_send_critical_notifications_2",
                       "name": "Notify on Leak",
-                      "icon": "mdi:alarm-light-outline",
-                      "secondary_info": "last-triggered"
+                      "icon": "mdi:alarm-light-outline"
                     },
                     {
                       "type": "custom:fold-entity-row",
