@@ -10,6 +10,10 @@ automation:
         variables:
           outage_start_time: "{{ now().timestamp() }}"
     actions:
+      - alias: Mark that an outage has started
+        action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.power_outage
       - action: input_datetime.set_datetime
         alias: Store the start time
         target:
@@ -56,7 +60,17 @@ automation:
             {{ now().timestamp() }}
           outage_start_time: >-
             {{ states("input_datetime.power_outage_start_time") | as_timestamp }}
+      - trigger: homeassistant
+        event: start
+    conditions:
+      - condition: state
+        entity_id: input_boolean.power_outage
+        state: "on"
     actions:
+      - alias: Mark that the outage has ended
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.power_outage
       - action: notify.corban
         data:
           title: "Power Outage at Home - Recovered"
@@ -79,6 +93,11 @@ template:
         device_class: power
         state: >-
           {{ states("sensor.ups_load") | float * 0.01 * 560 }}
+
+input_boolean:
+  power_outage:
+    name: Power Outage
+    icon: mdi:power-plug-off
 
 input_datetime:
   power_outage_start_time:
