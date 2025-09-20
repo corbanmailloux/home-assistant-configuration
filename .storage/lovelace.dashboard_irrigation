@@ -88,6 +88,18 @@
                   "features_position": "bottom",
                   "vertical": false,
                   "name": "Path Angle"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_last_error",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 1
+                  },
+                  "name": "Last Error",
+                  "icon": "mdi:alert-circle"
                 }
               ]
             },
