@@ -63,8 +63,11 @@ sensor:
     unit_of_measurement: "inches"
     filters:
       - multiply: 39.37 # Convert from meters to inches
-      - exponential_moving_average:
-          send_every: 3 # Send every few readings to smooth out noise.
+      - sliding_window_moving_average:
+          window_size: 3
+          send_every: 2
+      # - exponential_moving_average:
+      #     send_every: 3 # Send every few readings to smooth out noise.
       - timeout: 1000ms # When polling is disabled, automatically reset to NaN.
     on_value:
       then:
@@ -105,8 +108,11 @@ sensor:
     unit_of_measurement: "inches"
     filters:
       - multiply: 39.37 # Convert from meters to inches
-      - exponential_moving_average:
-          send_every: 5 # Send every few readings to smooth out noise.
+      - sliding_window_moving_average:
+          window_size: 3
+          send_every: 2
+      # - exponential_moving_average:
+      #     send_every: 5 # Send every few readings to smooth out noise.
       - timeout: 1000ms # When polling is disabled, automatically reset to NaN.
     on_value:
       then:
@@ -433,7 +439,6 @@ number:
 
             call_digit_1.perform();
             call_digit_2.perform();
-
 
   # Map the number value to a set of segments.
   # Value meanings:
