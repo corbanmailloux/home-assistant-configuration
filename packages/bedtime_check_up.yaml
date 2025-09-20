@@ -21,6 +21,10 @@ script:
         action: input_boolean.turn_off
         target:
           entity_id: input_boolean.bedtime_checkup_error
+      - alias: Turn off the bedside button LED
+        action: light.turn_off
+        target:
+          entity_id: light.bluetooth_proxy_master_bedroom_light
       - alias: "Turn everything off"
         action: script.everything_off
         continue_on_error: true
@@ -62,9 +66,9 @@ script:
             data:
               color_name: green
               brightness_pct: 100
-              transition: 0.5
+              transition: 1
           - delay:
-              seconds: 1
+              seconds: 2
           - alias: "Turn off the bedside button LED"
             action: light.turn_off
             target:
@@ -96,8 +100,8 @@ script:
                 authenticationRequired: false # Don't require unlocking the device
                 destructive: false
                 behavior: "default"
-      - delay:
-          seconds: 1
+      # - delay:
+      #     seconds: 1
       - alias: "Red on the bedside button LED"
         action: light.turn_on
         target:
@@ -107,23 +111,13 @@ script:
           brightness_pct: 100
           transition: 0
       - delay:
-          seconds: 20
+          seconds: 15
       - alias: "Turn off the bedside button LED"
         action: light.turn_off
         target:
           entity_id: light.bluetooth_proxy_master_bedroom_light
         data:
           transition: 3
-
-      # - alias: "Turn on bed lights"
-      #   action: light.turn_on
-      #   target:
-      #     entity_id: light.bed_lighting_rgb_light
-      #   data:
-      #     brightness_pct: 100
-      #     # effect: blink
-      # - delay:
-      #     seconds: 1
       # - alias: "Turn on the bed lights (to help remediate the problem)"
       #   action: light.turn_on
       #   target:

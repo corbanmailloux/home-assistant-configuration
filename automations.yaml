@@ -2085,18 +2085,15 @@
         target:
           entity_id: fan.master_bedroom_ceiling_fan
       long_press:
-      - alias: Activate sleep mode. If sleep mode is on, force everything off.
+      - alias: Activate sleep mode. If sleep mode is on, run bedtime checkup again.
         choose:
         - conditions:
           - condition: state
             entity_id: input_select.home_mode
             state: Sleep
           sequence:
-          - alias: Turn truly everything off
-            data:
-              ignore_room_exclusions: true
-              include_fans: true
-            action: script.everything_off
+          - action: script.bedtime_checkup
+            data: {}
         default:
         - data:
             entity_id: input_select.home_mode
@@ -2311,3 +2308,30 @@
           position: 0
           speed: 2
   mode: restart
+- id: '1758213615165'
+  alias: Proxy / Bedside Button Light on at Night
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: corban_iphone_charging
+  conditions:
+  - condition: state
+    entity_id: input_select.home_mode
+    state: Home
+  - condition: time
+    after: '21:30:00'
+    before: 03:00:00
+    enabled: true
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data:
+      transition: 1
+      brightness_pct: 100
+      rgb_color:
+      - 0
+      - 0
+      - 255
+    target:
+      entity_id: light.bluetooth_proxy_master_bedroom_light
+  mode: single

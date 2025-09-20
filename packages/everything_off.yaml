@@ -112,7 +112,7 @@ script:
                 target:
                   entity_id:
                     - fan.master_bedroom_ceiling_fan
-                    - fan.office_air_purifier # Moved to bedroom
+                    # - fan.office_air_purifier # Temporarily disabled because we keep it running near the litter box
 
       - alias: "Guest Bedroom"
         if:
