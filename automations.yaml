@@ -1815,9 +1815,9 @@
   actions:
   - variables:
       area_options:
-      - back_yard_main
       - garage_side
       - front_yard
+      - back_yard_main
       - mailbox
       chosen_area: "{% set today = now().date() %} {% for cid in area_options %}\n
         \ {% set ent_id_last_mow = 'input_datetime.mower_last_mow_' ~ cid %}\n  {%
@@ -2329,9 +2329,9 @@
       transition: 1
       brightness_pct: 100
       rgb_color:
-      - 0
-      - 0
       - 255
+      - 84
+      - 106
     target:
       entity_id: light.bluetooth_proxy_master_bedroom_light
   mode: single

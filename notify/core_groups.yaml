@@ -4,13 +4,13 @@
 - name: adult_phones
   platform: group
   services:
-    - service: mobile_app_corbans_iphone_pro
+    - service: mobile_app_corbans_iphone_17_pro
     - service: mobile_app_margarets_iphone
 
 - name: adult_ios_phones
   platform: group
   services:
-    - service: mobile_app_corbans_iphone_pro
+    - service: mobile_app_corbans_iphone_17_pro
     - service: mobile_app_margarets_iphone
 
 # - name: adult_android_phones
@@ -21,7 +21,7 @@
 - name: corban
   platform: group
   services:
-    - service: mobile_app_corbans_iphone_pro
+    - service: mobile_app_corbans_iphone_17_pro
 
 - name: maggie
   platform: group
@@ -31,12 +31,12 @@
 - name: corban_phone_and_ipad
   platform: group
   services:
-    - service: mobile_app_corbans_iphone_pro
+    - service: mobile_app_corbans_iphone_17_pro
     - service: mobile_app_corbans_ipad
 
 - name: adult_iphones_and_corban_ipad
   platform: group
   services:
-    - service: mobile_app_corbans_iphone_pro
+    - service: mobile_app_corbans_iphone_17_pro
     - service: mobile_app_corbans_ipad
     - service: mobile_app_margarets_iphone
