@@ -68,6 +68,7 @@ plex.conf
 .tradfri_psk.conf
 google_cloud_credentials.json
 google_cloud_assistant_credentials.json
+.ha_run.lock
 
 # Hide all of the storage directory, but keep the UI config.
 .storage/*
