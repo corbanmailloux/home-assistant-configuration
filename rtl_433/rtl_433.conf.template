@@ -27,6 +27,7 @@ report_meta time:iso:tz:local
 
 # Filter to only sensors I use
 # See supported devices here: https://github.com/merbanan/rtl_433/blob/master/README.md
+protocol 11  # Acurite 609TXC Temperature and Humidity Sensor
 protocol 40  # Acurite 592TXR temp/humidity, 592TX temp, 5n1, 3n1, Atlas weather station, 515 fridge/freezer, 6045 lightning, 899 rain, 1190/1192 leak
 protocol 192 # Govee Water Leak Detector H5054, Door Contact Sensor B5023
 protocol 231 # Govee Water Leak Detector H5054
