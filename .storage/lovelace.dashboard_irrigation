@@ -63,34 +63,6 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "number.lucas_blade_height_inches",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Blade Height"
-                },
-                {
-                  "type": "tile",
-                  "entity": "select.lucas_cutting_path_mode",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Path Mode"
-                },
-                {
-                  "type": "tile",
-                  "entity": "select.lucas_cutting_path_angle_mode",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Path Angle Mode"
-                },
-                {
-                  "type": "tile",
-                  "entity": "number.lucas_cutting_path_angle",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Path Angle"
-                },
-                {
-                  "type": "tile",
                   "entity": "sensor.lucas_last_error",
                   "features_position": "bottom",
                   "vertical": false,

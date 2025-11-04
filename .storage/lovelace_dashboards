@@ -8,7 +8,7 @@
         "require_admin": false,
         "show_in_sidebar": true,
         "icon": "mdi:view-dashboard-variant-outline",
-        "title": "Wall Displays",
+        "title": "Wall Display",
         "url_path": "wall-displays",
         "mode": "storage",
         "id": "wall_displays"

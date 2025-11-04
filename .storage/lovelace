@@ -3523,7 +3523,7 @@
                     },
                     {
                       "entity": "sensor.power_monitor_plug_2_power",
-                      "name": "Burner"
+                      "name": "Fridge"
                     },
                     {
                       "entity": "sensor.home_energy_monitor_power_fl1_heat_strips",
@@ -3543,6 +3543,10 @@
                     {
                       "entity": "sensor.power_monitor_plug_1_power",
                       "name": "Dehumidifier"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_stove",
+                      "name": "Stove"
                     },
                     {
                       "entity": "sensor.power_untracked_sources",

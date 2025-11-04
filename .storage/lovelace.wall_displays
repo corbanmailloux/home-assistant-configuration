@@ -110,7 +110,7 @@
           "theme": "ios-dark-mode-dark-blue",
           "icon": "mdi:tablet-dashboard",
           "path": "wall-display",
-          "title": "Wall Display",
+          "title": "Welcome Home!",
           "visible": [
             {
               "user": "8aadf43f8d7d4513a75f85c0a22b6d82"

@@ -954,12 +954,32 @@
       - action: light.toggle
         metadata: {}
         data:
-          brightness_pct: 1
           transition: 0
+          brightness_pct: 50
         target:
           entity_id:
           - light.lucys_dresser_lamp
       alias: Center - Toggle Light
+    - conditions:
+      - condition: trigger
+        id:
+        - down
+      sequence:
+      - action: light.toggle
+        metadata: {}
+        data:
+          transition: 0
+          brightness_pct: 50
+        target:
+          entity_id:
+          - light.lucys_dresser_lamp
+      - action: light.turn_off
+        metadata: {}
+        data:
+          transition: 0
+        target:
+          entity_id: light.lucys_bedroom_ceiling_fan_light
+      alias: Down - Reading Mode
     - conditions:
       - condition: trigger
         id:

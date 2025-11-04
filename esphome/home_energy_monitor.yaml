@@ -139,6 +139,7 @@ sensor:
       - { phase_id: phase_a, input:  "6", power: { id:  cir6, filters: [ *pos ] } }
       - { phase_id: phase_b, input:  "7", power: { id:  cir7, filters: [ *pos, multiply: 2 ] } }
       - { phase_id: phase_b, input:  "8", power: { id:  cir8, filters: [ *pos ] } }
+      - { phase_id: phase_b, input:  "9", power: { id:  cir9, filters: [ *pos, multiply: 2 ] } }
     on_update:
       then:
         - component.update: total_power
@@ -156,6 +157,7 @@ sensor:
   - { platform: copy, name: "Power - Network Rack", source_id:  cir6, filters: *throttle_avg }
   - { platform: copy, name: "Power - Dryer", source_id:  cir7, filters: *throttle_avg }
   - { platform: copy, name: "Power - Dishwasher", source_id:  cir8, filters: *throttle_avg }
+  - { platform: copy, name: "Power - Stove", source_id:  cir9, filters: *throttle_avg }
   - platform: template
     lambda: return id(phase_a_power).state + id(phase_b_power).state;
     update_interval: never   # will be updated after all power sensors update via on_update trigger
@@ -179,7 +181,8 @@ sensor:
         id( cir5).state -
         id( cir6).state -
         id( cir7).state -
-        id( cir8).state);
+        id( cir8).state -
+        id( cir9).state);
     update_interval: never   # will be updated after all power sensors update via on_update trigger
     id: balance_power
     device_class: power
@@ -199,3 +202,4 @@ sensor:
   - { power_id:  cir6, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - Network Rack", filters: *throttle_time }
   - { power_id:  cir7, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - Dryer", filters: *throttle_time }
   - { power_id:  cir8, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - Dishwasher", filters: *throttle_time }
+  - { power_id:  cir9, platform: total_daily_energy, accuracy_decimals: 0, restore: false, name: "Daily Energy - Stove", filters: *throttle_time }
