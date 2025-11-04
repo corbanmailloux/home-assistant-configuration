@@ -275,6 +275,10 @@ image:
     resize: 100x100
     type: RGB565
     transparency: alpha_channel
+  - file: "resources/images/office_screen_background.jpeg"
+    id: office_screen_background
+    resize: 320x240
+    type: RGB565
 
 lvgl:
   displays:
@@ -355,8 +359,10 @@ lvgl:
   pages:
     - id: mac_desktop_page
       # bg_color: 0x000000
-      bg_grad: color_bar
-      bg_opa: COVER
+      # bg_grad: color_bar
+      # bg_opa: COVER
+      bg_image_src: office_screen_background
+      # bg_image_opa: COVER
       widgets:
         # Menu Bar
         - obj:
@@ -370,7 +376,8 @@ lvgl:
             pad_left: 2
             pad_right: 2
             bg_color: 0x080808 #0x181818
-            bg_opa: COVER
+            # bg_opa: COVER
+            bg_opa: 70%
             radius: 0
             border_width: 0
             scrollable: "OFF"
@@ -419,7 +426,7 @@ lvgl:
             height: 44px
             pad_all: 0
             bg_color: 0x080808 #0x181818
-            bg_opa: 80% # COVER
+            bg_opa: 70% # COVER
             radius: 10
             border_width: 2
             border_color: 0x323232
@@ -534,7 +541,8 @@ lvgl:
             pad_top: 3
             pad_left: 5
             bg_color: 0x216791
-            bg_opa: COVER
+            # bg_opa: COVER
+            bg_opa: 70%
             radius: 10
             border_width: 0
             scrollable: "OFF"
@@ -893,10 +901,10 @@ text_sensor:
     entity_id: sensor.elegoo_neptune_4_pro_current_print_state
     filters:
       - map:
-        - printing -> Printing
-        - standby -> Standby
-        - complete -> Complete
-        - error -> Error
+          - printing -> Printing
+          - standby -> Standby
+          - complete -> Complete
+          - error -> Error
     on_value:
       then:
         - script.execute: update_3d_print_window
@@ -907,10 +915,10 @@ text_sensor:
     entity_id: lawn_mower.lucas
     filters:
       - map:
-        - docked -> Docked
-        - mowing -> Mowing
-        - paused -> Paused
-        - returning -> Returning
+          - docked -> Docked
+          - mowing -> Mowing
+          - paused -> Paused
+          - returning -> Returning
     on_value:
       then:
         - script.execute: update_mower_window
@@ -1047,17 +1055,17 @@ binary_sensor:
       then:
         - script.execute: reset_mac_alert
 
-#   # Front Door Status:
-#   # When the front door is opened, display an animation for a few seconds.
-#   - platform: homeassistant
-#     id: front_door_open
-#     entity_id: binary_sensor.front_door
-#     internal: true
-#     on_press:
-#       then:
-#         - display.page.show: page_door
-#         - delay: 10s
-#         - display.page.show: page_main
+  #   # Front Door Status:
+  #   # When the front door is opened, display an animation for a few seconds.
+  #   - platform: homeassistant
+  #     id: front_door_open
+  #     entity_id: binary_sensor.front_door
+  #     internal: true
+  #     on_press:
+  #       then:
+  #         - display.page.show: page_door
+  #         - delay: 10s
+  #         - display.page.show: page_main
 
   - platform: homeassistant
     id: printer_power
@@ -1143,7 +1151,11 @@ script:
                 id: mac_3d_window_message
                 text:
                   format: "State: %s\nProgress: %.0f%%"
-                  args: ["id(printer_status).state.c_str()", "id(printer_progress).state"]
+                  args:
+                    [
+                      "id(printer_status).state.c_str()",
+                      "id(printer_progress).state",
+                    ]
             - lvgl.widget.show: mac_3d_printer_window
           else:
             - lvgl.widget.hide: mac_3d_printer_window
@@ -1161,7 +1173,11 @@ script:
                 id: mac_mower_window_message
                 text:
                   format: "State: %s\nProgress: %.0f%%"
-                  args: ["id(mower_status).state.c_str()", "id(mower_progress).state"]
+                  args:
+                    [
+                      "id(mower_status).state.c_str()",
+                      "id(mower_progress).state",
+                    ]
             - lvgl.widget.show: mac_mower_window
           else:
             - lvgl.widget.hide: mac_mower_window
