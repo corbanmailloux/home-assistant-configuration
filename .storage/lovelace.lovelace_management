@@ -1065,6 +1065,21 @@
               ]
             },
             {
+              "camera_view": "auto",
+              "fit_mode": "cover",
+              "type": "picture-glance",
+              "entities": [],
+              "title": "3D Printer",
+              "camera_image": "camera.3d_printer_camera",
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "switch.3d_printer_power",
+                  "state": "on"
+                }
+              ]
+            },
+            {
               "type": "custom:layout-break"
             },
             {

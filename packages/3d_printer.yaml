@@ -15,6 +15,7 @@ automation:
             Current printer state: '{{ states("sensor.elegoo_neptune_4_pro_current_print_state") }}'.
           data:
             tag: "3d_print_status"
+            entity_id: camera.3d_printer_camera
             actions:
               - action: "3D_PRINTER_OFF"
                 title: "Turn Off Printer"
