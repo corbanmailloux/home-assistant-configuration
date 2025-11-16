@@ -67,6 +67,7 @@ automation:
         entity_id: input_boolean.power_outage
         state: "on"
     actions:
+      - delay: "00:01:00" # Wait 1 minute to ensure power is stable
       - alias: Mark that the outage has ended
         action: input_boolean.turn_off
         target:
