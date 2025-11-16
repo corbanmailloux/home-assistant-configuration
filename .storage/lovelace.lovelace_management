@@ -828,23 +828,54 @@
               "cards": [
                 {
                   "type": "heading",
-                  "icon": "mdi:cog-box",
-                  "heading": "Device Management",
-                  "heading_style": "title"
+                  "heading_style": "title",
+                  "heading": "Christmas Controls",
+                  "icon": "mdi:string-lights",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": false,
+                      "entity": "input_boolean.christmas_lighting_active",
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ]
                 },
                 {
-                  "show_name": true,
-                  "show_icon": true,
-                  "show_state": true,
-                  "type": "glance",
+                  "type": "tile",
+                  "entity": "light.christmas_tree_lights",
+                  "name": "Tree",
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.exterior_christmas_lights",
+                  "name": {
+                    "type": "area"
+                  },
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "heading",
+                  "icon": "mdi:cog-box",
+                  "heading": "Configs",
+                  "heading_style": "subtitle"
+                },
+                {
+                  "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.private_ble_corban_s_watch_area",
-                      "name": "Corban's Watch"
+                      "entity": "input_boolean.christmas_lighting_active"
                     },
                     {
-                      "entity": "sensor.private_ble_corban_s_iphone_area",
-                      "name": "Corban's iPhone"
+                      "entity": "automation.turn_on_christmas_tree_when_home_morning"
+                    },
+                    {
+                      "entity": "automation.exterior_christmas_lights_sunset_and_time_controls"
                     }
                   ]
                 }
@@ -927,6 +958,33 @@
                         }
                       ],
                       "title": "Delivered Today"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "icon": "mdi:cog-box",
+                  "heading": "Device Management",
+                  "heading_style": "title"
+                },
+                {
+                  "show_name": true,
+                  "show_icon": true,
+                  "show_state": true,
+                  "type": "glance",
+                  "entities": [
+                    {
+                      "entity": "sensor.private_ble_corban_s_watch_area",
+                      "name": "Corban's Watch"
+                    },
+                    {
+                      "entity": "sensor.private_ble_corban_s_iphone_area",
+                      "name": "Corban's iPhone"
                     }
                   ]
                 }

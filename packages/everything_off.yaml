@@ -41,6 +41,9 @@ input_boolean:
   room_exclude_closets:
     name: Exclude - Closets
     icon: mdi:hanger
+  room_exclude_exterior:
+    name: Exclude - Exterior
+    icon: mdi:home-export-outline
 
 group:
   room_exclusions:
@@ -60,6 +63,7 @@ group:
       - input_boolean.room_exclude_hallways
       - input_boolean.room_exclude_garage
       - input_boolean.room_exclude_closets
+      - input_boolean.room_exclude_exterior
 
 script:
   reset_room_exclusions:

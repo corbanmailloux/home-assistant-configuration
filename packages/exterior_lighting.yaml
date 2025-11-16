@@ -20,12 +20,11 @@ automation:
       - trigger: sun
         event: sunset
         offset: "-00:45:00"
-    # conditions:
-    #   - alias: "Not in Vacation Mode"
-    #     not:
-    #       - condition: state
-    #         entity_id: input_select.home_mode
-    #         state: "Vacation"
+    conditions:
+      - alias: "Exterior automations enabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_exterior
+        state: "off"
     actions:
       - alias: "Lights On"
         action: homeassistant.turn_on
@@ -37,12 +36,11 @@ automation:
     triggers:
       - trigger: time
         at: "23:00:00"
-    # conditions:
-    #   - alias: "Not in Vacation Mode"
-    #     not:
-    #       - condition: state
-    #         entity_id: input_select.home_mode
-    #         state: "Vacation"
+    conditions:
+      - alias: "Exterior automations enabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_exterior
+        state: "off"
     actions:
       - alias: "Lights Off"
         action: homeassistant.turn_off
@@ -59,11 +57,10 @@ automation:
         condition: state
         entity_id: sun.sun
         state: "below_horizon"
-      # - alias: "Not in Vacation Mode"
-      #   not:
-      #     - condition: state
-      #       entity_id: input_select.home_mode
-      #       state: "Vacation"
+      - alias: "Exterior automations enabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_exterior
+        state: "off"
     actions:
       - alias: "Lights On"
         action: homeassistant.turn_on
@@ -76,20 +73,19 @@ automation:
       - trigger: sun
         event: sunrise
         offset: "00:00:00"
-    # conditions:
-    #   - alias: "Not in Vacation Mode"
-    #     not:
-    #       - condition: state
-    #         entity_id: input_select.home_mode
-    #         state: "Vacation"
+    conditions:
+      - alias: "Exterior automations enabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_exterior
+        state: "off"
     actions:
       - alias: "Lights Off"
         action: homeassistant.turn_off
         target:
           entity_id: light.exterior_lights
-      - alias: "Wait 5 minutes and try again (race condition fix)"
+      - alias: "Wait 1 minute and try again (race condition fix)"
         delay:
-          minutes: 5
+          minutes: 1
       - action: homeassistant.turn_off
         target:
           entity_id: light.exterior_lights

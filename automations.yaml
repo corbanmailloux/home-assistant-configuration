@@ -2355,3 +2355,63 @@
     target:
       entity_id: light.bluetooth_proxy_master_bedroom_light
   mode: single
+- id: '1762743440302'
+  alias: Interior Christmas lights on when getting home or waking up
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id: input_select.home_mode
+    to: Home
+  conditions:
+  - condition: state
+    entity_id: input_boolean.christmas_lighting_active
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.room_exclude_livingroom
+    state: 'off'
+  actions:
+  - action: light.turn_on
+    data:
+      entity_id: light.christmas_tree_lights
+  mode: single
+- id: '1762743949454'
+  alias: Exterior Christmas Lights - Sunset and Time Controls
+  description: ''
+  triggers:
+  - trigger: sun
+    event: sunset
+    offset: -01:00:00
+    id: 'on'
+  - trigger: time
+    at: '23:00:00'
+    id: 'off'
+  conditions:
+  - condition: state
+    entity_id: input_boolean.christmas_lighting_active
+    state: 'on'
+  - condition: state
+    entity_id: input_boolean.room_exclude_exterior
+    state: 'off'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: switch.turn_on
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.exterior_christmas_lights
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: switch.turn_off
+        metadata: {}
+        data: {}
+        target:
+          entity_id: switch.exterior_christmas_lights
+  mode: single

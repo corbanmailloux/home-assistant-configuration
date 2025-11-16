@@ -1175,9 +1175,710 @@
                   "icon": "mdi:coach-lamp-variant"
                 }
               ]
+            },
+            {
+              "type": "custom:button-card",
+              "name": "Christmas Controls",
+              "template": "header"
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "light.christmas_tree_lights",
+                  "name": "Tree",
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.exterior_christmas_lights",
+                  "name": "Exterior Lights",
+                  "show_entity_picture": false,
+                  "vertical": false,
+                  "features_position": "bottom"
+                }
+              ]
             }
           ],
           "type": "custom:vertical-layout"
+        },
+        {
+          "title": "Security",
+          "path": "security",
+          "icon": "mdi:shield-lock",
+          "badges": [],
+          "cards": [
+            {
+              "camera_view": "auto",
+              "type": "picture-glance",
+              "entities": [
+                {
+                  "entity": "light.exterior_lights"
+                },
+                {
+                  "entity": "binary_sensor.driveway_vehicle_detected"
+                },
+                {
+                  "entity": "binary_sensor.driveway_person_detected"
+                }
+              ],
+              "camera_image": "camera.driveway_medium_resolution_channel",
+              "title": "Driveway"
+            },
+            {
+              "type": "custom:webrtc-camera",
+              "ui": true,
+              "muted": true,
+              "style": ".screenshot {display: none}",
+              "streams": [
+                {
+                  "entity": "camera.main_doorbell_main",
+                  "mode": "webrtc",
+                  "name": "HD"
+                },
+                {
+                  "entity": "camera.main_doorbell_sub",
+                  "mode": "webrtc",
+                  "name": "Low"
+                }
+              ],
+              "shortcuts": [
+                {
+                  "name": "Exterior Lights",
+                  "icon": "mdi:lightbulb-group",
+                  "service": "light.toggle",
+                  "service_data": {
+                    "entity_id": "light.exterior_lights"
+                  }
+                },
+                {
+                  "name": "Siren",
+                  "icon": "mdi:alarm-light-outline",
+                  "service": "siren.toggle",
+                  "service_data": {
+                    "entity_id": "siren.main_doorbell_siren"
+                  }
+                }
+              ]
+            },
+            {
+              "entities": [
+                {
+                  "entity": "input_select.home_mode"
+                },
+                {
+                  "entity": "input_boolean.vacation_mode_light_schedule"
+                },
+                {
+                  "entity": "input_boolean.cat_sitter_mode"
+                },
+                {
+                  "entity": "input_boolean.guest_mode"
+                },
+                {
+                  "entity": "input_boolean.cats_are_home"
+                },
+                {
+                  "entity": "device_tracker.bens_iphone_se_unifi",
+                  "secondary_info": "last-changed"
+                }
+              ],
+              "show_header_toggle": false,
+              "title": "Home Modes",
+              "type": "entities"
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "lock.side_door",
+                  "secondary_info": "last-changed",
+                  "name": "Main Door Lock"
+                },
+                {
+                  "entity": "binary_sensor.front_door",
+                  "secondary_info": "last-changed",
+                  "name": "Main Door"
+                },
+                {
+                  "entity": "cover.ratgdo_left_garage_door_door",
+                  "name": "Left Garage Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "cover.ratgdo_right_garage_door_door",
+                  "secondary_info": "last-changed",
+                  "name": "Right Garage Door"
+                },
+                {
+                  "entity": "binary_sensor.garage_side_person_door_contact",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.sunporch_sliding_door_contact",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.basement_exterior_door_sensor_contact",
+                  "name": "Basement Exterior Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.basement_stairs_door_sensor_contact",
+                  "name": "Basement Stairs Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.linen_closet_door_sensor_contact",
+                  "name": "Linen Closet Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.coat_closet_door_sensor_contact",
+                  "name": "Coat Closet Door",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.garage_back_person_door_contact",
+                  "secondary_info": "last-changed",
+                  "name": "Garage Back Door"
+                }
+              ],
+              "title": "Doors",
+              "show_header_toggle": false,
+              "state_color": true
+            },
+            {
+              "type": "entities",
+              "entities": [
+                {
+                  "entity": "binary_sensor.office_mini_motion_presence",
+                  "name": "Office mmWave Presence",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.living_room_presence",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.laundry_motion_sensor_occupancy",
+                  "name": "Basement Laundry Motion",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy",
+                  "name": "Basement Stairs Motion",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.main_doorbell_person",
+                  "name": "Doorbell - Person",
+                  "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "binary_sensor.garage_opener_motion_sensor_occupancy",
+                  "secondary_info": "last-changed",
+                  "name": "Garage Opener Motion"
+                },
+                {
+                  "entity": "binary_sensor.driveway_person_detected",
+                  "secondary_info": "last-changed",
+                  "name": "Driveway - Person"
+                },
+                {
+                  "entity": "binary_sensor.driveway_vehicle_detected",
+                  "secondary_info": "last-changed",
+                  "name": "Driveway - Vehicle"
+                }
+              ],
+              "title": "Motion Sensors",
+              "show_header_toggle": false,
+              "state_color": true
+            }
+          ]
+        },
+        {
+          "title": "Energy",
+          "path": "energy",
+          "type": "sections",
+          "max_columns": 2,
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Instantaneous Power"
+                },
+                {
+                  "type": "custom:apexcharts-card",
+                  "graph_span": "1h",
+                  "update_interval": "10s",
+                  "header": {
+                    "show": true,
+                    "show_states": true,
+                    "colorize_states": true
+                  },
+                  "apex_config": {
+                    "legend": {
+                      "show": false
+                    },
+                    "yaxis": {
+                      "min": 0
+                    }
+                  },
+                  "experimental": {
+                    "hidden_by_default": true
+                  },
+                  "series": [
+                    {
+                      "entity": "sensor.home_energy_monitor_total_power",
+                      "type": "area",
+                      "color": "grey",
+                      "opacity": 0.4,
+                      "name": "Total",
+                      "show": {
+                        "hidden_by_default": true
+                      }
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_fl1_hvac",
+                      "name": "FL1 HVAC"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_fl2_hvac",
+                      "name": "FL2 HVAC"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_network_rack",
+                      "name": "Network Rack",
+                      "color": "purple"
+                    },
+                    {
+                      "entity": "sensor.power_fl1_lighting",
+                      "name": "FL1 Lighting",
+                      "color": "yellow"
+                    },
+                    {
+                      "entity": "sensor.washing_machine_power_draw",
+                      "name": "Washing Machine"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_dryer",
+                      "name": "Dryer"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_dishwasher",
+                      "name": "Dishwasher"
+                    },
+                    {
+                      "entity": "sensor.power_monitor_plug_2_power",
+                      "name": "Fridge"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_fl1_heat_strips",
+                      "name": "FL1 Heat Strips",
+                      "color": "darkred"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_fl2_heat_strips",
+                      "name": "FL2 Heat Strips",
+                      "color": "darkred"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_water_heater",
+                      "name": "Water Heater",
+                      "color": "#dd0000"
+                    },
+                    {
+                      "entity": "sensor.power_monitor_plug_1_power",
+                      "name": "Dehumidifier"
+                    },
+                    {
+                      "entity": "sensor.home_energy_monitor_power_stove",
+                      "name": "Stove"
+                    },
+                    {
+                      "entity": "sensor.power_untracked_sources",
+                      "name": "Untracked Sources"
+                    }
+                  ]
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "input_number.total_cost_per_kwh"
+                    },
+                    {
+                      "entity": "sensor.energy_cost_per_wh"
+                    }
+                  ],
+                  "show_header_toggle": false
+                }
+              ]
+            }
+          ],
+          "icon": "mdi:home-lightning-bolt",
+          "cards": []
+        },
+        {
+          "theme": "Backend-selected",
+          "title": "environment",
+          "path": "environment",
+          "icon": "mdi:thermometer-lines",
+          "type": "custom:vertical-layout",
+          "badges": [
+            {
+              "entity": "sensor.openweathermap_temperature"
+            },
+            {
+              "entity": "sensor.outdoor_porch_temperature"
+            },
+            {
+              "entity": "sensor.office_temperature"
+            },
+            {
+              "entity": "sensor.living_room_temperature"
+            },
+            {
+              "entity": "sensor.bedroom_temperature"
+            }
+          ],
+          "cards": [
+            {
+              "cards": [
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "Out (OWM)",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.outdoor_porch_temperature",
+                  "name": "Out (Local)",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
+              "cards": [
+                {
+                  "entity": "sensor.living_room_temperature",
+                  "name": "Living",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.kitchen_temperature_sensor_temperature",
+                  "name": "Kitchen",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.office_temperature",
+                  "name": "Office",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.bedroom_temperature",
+                  "name": "Bedroom",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
+              "cards": [
+                {
+                  "entity": "sensor.basement_temperature_sensor_temperature",
+                  "name": "Basement",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                },
+                {
+                  "entity": "sensor.sunporch_temperature_sensor_temperature",
+                  "name": "Sunporch",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
+                }
+              ],
+              "type": "horizontal-stack"
+            },
+            {
+              "cards": [
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.bedroom_temperature",
+                      "name": "FL2 - Bedroom"
+                    },
+                    {
+                      "entity": "sensor.mitp_heat_pump_second_floor_thermostat_temperature",
+                      "name": "FL2 Thermo"
+                    },
+                    {
+                      "entity": "sensor.living_room_temperature",
+                      "name": "FL1 - Living Room"
+                    },
+                    {
+                      "entity": "sensor.mitp_heat_pump_first_floor_thermostat_temperature",
+                      "name": "FL1 Thermo"
+                    },
+                    {
+                      "entity": "sensor.office_temperature",
+                      "name": "FL1 - Office"
+                    }
+                  ],
+                  "refresh_interval": 0,
+                  "title": "Interior Temperatures",
+                  "type": "history-graph",
+                  "hours_to_show": 24
+                },
+                {
+                  "entities": [
+                    {
+                      "entity": "sensor.bedroom_temperature_sensor_humidity",
+                      "name": "FL2 - Bedroom"
+                    },
+                    {
+                      "entity": "sensor.office_temperature_sensor_humidity",
+                      "name": "FL1 - Office"
+                    },
+                    {
+                      "entity": "sensor.basement_temperature_sensor_humidity",
+                      "name": "Basement"
+                    },
+                    {
+                      "entity": "sensor.openweathermap_humidity",
+                      "name": "Outside - OpenWeatherMap"
+                    },
+                    {
+                      "entity": "sensor.outdoor_porch_humidity",
+                      "name": "Outside - Deck"
+                    }
+                  ],
+                  "title": "Humidities",
+                  "type": "history-graph",
+                  "hours_to_show": 24
+                }
+              ],
+              "type": "vertical-stack"
+            },
+            {
+              "type": "custom:layout-break"
+            },
+            {
+              "entities": [
+                {
+                  "entity": "sensor.sunporch_temperature_sensor_temperature",
+                  "name": "Sunporch"
+                },
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "OpenWeatherMap"
+                },
+                {
+                  "entity": "sensor.outdoor_porch_temperature",
+                  "name": "Deck"
+                },
+                {
+                  "entity": "sensor.mitp_heat_pump_first_floor_outdoor_temperature",
+                  "name": "HP 1"
+                },
+                {
+                  "entity": "sensor.mitp_heat_pump_second_floor_outdoor_temperature",
+                  "name": "HP 2"
+                }
+              ],
+              "refresh_interval": 0,
+              "title": "Outside Sensors",
+              "type": "history-graph",
+              "hours_to_show": 24
+            },
+            {
+              "entities": [
+                {
+                  "entity": "sensor.living_room_temperature",
+                  "name": "FL1 - Living Room"
+                },
+                {
+                  "entity": "sensor.office_temperature",
+                  "name": "FL1 - Office"
+                },
+                {
+                  "entity": "sensor.bedroom_temperature",
+                  "name": "FL2 - Bedroom"
+                },
+                {
+                  "entity": "sensor.sunporch_temperature_sensor_temperature",
+                  "name": "Sunporch"
+                },
+                {
+                  "entity": "sensor.basement_temperature_sensor_temperature",
+                  "name": "Basement"
+                },
+                {
+                  "entity": "sensor.openweathermap_temperature",
+                  "name": "Outside - OpenWeatherMap"
+                },
+                {
+                  "entity": "sensor.outdoor_porch_temperature",
+                  "name": "Outside - Deck"
+                }
+              ],
+              "refresh_interval": 0,
+              "title": "Temperature Overview",
+              "type": "history-graph",
+              "hours_to_show": 24
+            },
+            {
+              "type": "custom:scheduler-card",
+              "include": [
+                "climate",
+                "fan",
+                "input_select"
+              ],
+              "exclude": [],
+              "title": true,
+              "display_options": {
+                "primary_info": "default",
+                "secondary_info": [
+                  "relative-time",
+                  "additional-tasks"
+                ],
+                "icon": "action"
+              }
+            }
+          ]
+        },
+        {
+          "type": "sections",
+          "max_columns": 4,
+          "icon": "mdi:baby-bottle-outline",
+          "path": "lucy",
+          "sections": [
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Baby Buddy"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "sensor.lucy_last_feeding_time",
+                  "name": "Last Feeding"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "name": "Time Ago",
+                  "entity": "sensor.lucy_last_feeding_timestamp"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "switch.lucy_mailloux_timer",
+                  "name": "Timer",
+                  "state_content": [
+                    "state",
+                    "last_changed"
+                  ],
+                  "tap_action": {
+                    "action": "toggle"
+                  },
+                  "icon_tap_action": {
+                    "action": "toggle"
+                  },
+                  "hold_action": {
+                    "action": "more-info"
+                  },
+                  "double_tap_action": {
+                    "action": "more-info"
+                  }
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "sensor.lucy_last_sleep_end_timestamp",
+                  "name": "Last Sleep",
+                  "icon": "mdi:power-sleep"
+                },
+                {
+                  "chart_type": "line",
+                  "period": "day",
+                  "type": "statistics-graph",
+                  "entities": [
+                    "sensor.lucy_mailloux_last_weight"
+                  ],
+                  "hide_legend": true,
+                  "days_to_show": 30,
+                  "title": "Weight Trend",
+                  "grid_options": {
+                    "columns": 12,
+                    "rows": 3
+                  },
+                  "stat_types": [
+                    "max"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Controls"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "light.lucys_nightlight",
+                  "name": "Nightlight",
+                  "icon": "mdi:lightbulb-night"
+                },
+                {
+                  "type": "tile",
+                  "features_position": "bottom",
+                  "vertical": false,
+                  "entity": "light.lucys_dresser_lamp"
+                }
+              ]
+            }
+          ],
+          "cards": []
         },
         {
           "theme": "Backend-selected",
@@ -2895,682 +3596,6 @@
               "additional_presets": []
             }
           ]
-        },
-        {
-          "theme": "Backend-selected",
-          "title": "environment",
-          "path": "environment",
-          "icon": "mdi:thermometer-lines",
-          "type": "custom:vertical-layout",
-          "badges": [
-            {
-              "entity": "sensor.openweathermap_temperature"
-            },
-            {
-              "entity": "sensor.outdoor_porch_temperature"
-            },
-            {
-              "entity": "sensor.office_temperature"
-            },
-            {
-              "entity": "sensor.living_room_temperature"
-            },
-            {
-              "entity": "sensor.bedroom_temperature"
-            }
-          ],
-          "cards": [
-            {
-              "cards": [
-                {
-                  "entity": "sensor.openweathermap_temperature",
-                  "name": "Out (OWM)",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.outdoor_porch_temperature",
-                  "name": "Out (Local)",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "cards": [
-                {
-                  "entity": "sensor.living_room_temperature",
-                  "name": "Living",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.kitchen_temperature_sensor_temperature",
-                  "name": "Kitchen",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.office_temperature",
-                  "name": "Office",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.bedroom_temperature",
-                  "name": "Bedroom",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "cards": [
-                {
-                  "entity": "sensor.basement_temperature_sensor_temperature",
-                  "name": "Basement",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
-                  "entity": "sensor.sunporch_temperature_sensor_temperature",
-                  "name": "Sunporch",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                }
-              ],
-              "type": "horizontal-stack"
-            },
-            {
-              "cards": [
-                {
-                  "entities": [
-                    {
-                      "entity": "sensor.bedroom_temperature",
-                      "name": "FL2 - Bedroom"
-                    },
-                    {
-                      "entity": "sensor.mitp_heat_pump_second_floor_thermostat_temperature",
-                      "name": "FL2 Thermo"
-                    },
-                    {
-                      "entity": "sensor.living_room_temperature",
-                      "name": "FL1 - Living Room"
-                    },
-                    {
-                      "entity": "sensor.mitp_heat_pump_first_floor_thermostat_temperature",
-                      "name": "FL1 Thermo"
-                    },
-                    {
-                      "entity": "sensor.office_temperature",
-                      "name": "FL1 - Office"
-                    }
-                  ],
-                  "refresh_interval": 0,
-                  "title": "Interior Temperatures",
-                  "type": "history-graph",
-                  "hours_to_show": 24
-                },
-                {
-                  "entities": [
-                    {
-                      "entity": "sensor.bedroom_temperature_sensor_humidity",
-                      "name": "FL2 - Bedroom"
-                    },
-                    {
-                      "entity": "sensor.office_temperature_sensor_humidity",
-                      "name": "FL1 - Office"
-                    },
-                    {
-                      "entity": "sensor.basement_temperature_sensor_humidity",
-                      "name": "Basement"
-                    },
-                    {
-                      "entity": "sensor.openweathermap_humidity",
-                      "name": "Outside - OpenWeatherMap"
-                    },
-                    {
-                      "entity": "sensor.outdoor_porch_humidity",
-                      "name": "Outside - Deck"
-                    }
-                  ],
-                  "title": "Humidities",
-                  "type": "history-graph",
-                  "hours_to_show": 24
-                }
-              ],
-              "type": "vertical-stack"
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "entities": [
-                {
-                  "entity": "sensor.sunporch_temperature_sensor_temperature",
-                  "name": "Sunporch"
-                },
-                {
-                  "entity": "sensor.openweathermap_temperature",
-                  "name": "OpenWeatherMap"
-                },
-                {
-                  "entity": "sensor.outdoor_porch_temperature",
-                  "name": "Deck"
-                },
-                {
-                  "entity": "sensor.mitp_heat_pump_first_floor_outdoor_temperature",
-                  "name": "HP 1"
-                },
-                {
-                  "entity": "sensor.mitp_heat_pump_second_floor_outdoor_temperature",
-                  "name": "HP 2"
-                }
-              ],
-              "refresh_interval": 0,
-              "title": "Outside Sensors",
-              "type": "history-graph",
-              "hours_to_show": 24
-            },
-            {
-              "entities": [
-                {
-                  "entity": "sensor.living_room_temperature",
-                  "name": "FL1 - Living Room"
-                },
-                {
-                  "entity": "sensor.office_temperature",
-                  "name": "FL1 - Office"
-                },
-                {
-                  "entity": "sensor.bedroom_temperature",
-                  "name": "FL2 - Bedroom"
-                },
-                {
-                  "entity": "sensor.sunporch_temperature_sensor_temperature",
-                  "name": "Sunporch"
-                },
-                {
-                  "entity": "sensor.basement_temperature_sensor_temperature",
-                  "name": "Basement"
-                },
-                {
-                  "entity": "sensor.openweathermap_temperature",
-                  "name": "Outside - OpenWeatherMap"
-                },
-                {
-                  "entity": "sensor.outdoor_porch_temperature",
-                  "name": "Outside - Deck"
-                }
-              ],
-              "refresh_interval": 0,
-              "title": "Temperature Overview",
-              "type": "history-graph",
-              "hours_to_show": 24
-            },
-            {
-              "type": "custom:scheduler-card",
-              "include": [
-                "climate",
-                "fan",
-                "input_select"
-              ],
-              "exclude": [],
-              "title": true,
-              "display_options": {
-                "primary_info": "default",
-                "secondary_info": [
-                  "relative-time",
-                  "additional-tasks"
-                ],
-                "icon": "action"
-              }
-            }
-          ]
-        },
-        {
-          "type": "sections",
-          "max_columns": 4,
-          "icon": "mdi:baby-bottle-outline",
-          "path": "lucy",
-          "sections": [
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading_style": "title",
-                  "heading": "Baby Buddy"
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "entity": "sensor.lucy_last_feeding_time",
-                  "name": "Last Feeding"
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Time Ago",
-                  "entity": "sensor.lucy_last_feeding_timestamp"
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "entity": "switch.lucy_mailloux_timer",
-                  "name": "Timer",
-                  "state_content": [
-                    "state",
-                    "last_changed"
-                  ],
-                  "tap_action": {
-                    "action": "toggle"
-                  },
-                  "icon_tap_action": {
-                    "action": "toggle"
-                  },
-                  "hold_action": {
-                    "action": "more-info"
-                  },
-                  "double_tap_action": {
-                    "action": "more-info"
-                  }
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "entity": "sensor.lucy_last_sleep_end_timestamp",
-                  "name": "Last Sleep",
-                  "icon": "mdi:power-sleep"
-                },
-                {
-                  "chart_type": "line",
-                  "period": "day",
-                  "type": "statistics-graph",
-                  "entities": [
-                    "sensor.lucy_mailloux_last_weight"
-                  ],
-                  "hide_legend": true,
-                  "days_to_show": 30,
-                  "title": "Weight Trend",
-                  "grid_options": {
-                    "columns": 12,
-                    "rows": 3
-                  },
-                  "stat_types": [
-                    "max"
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading_style": "title",
-                  "heading": "Controls"
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "entity": "light.lucys_nightlight",
-                  "name": "Nightlight",
-                  "icon": "mdi:lightbulb-night"
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "entity": "light.lucys_dresser_lamp"
-                }
-              ]
-            }
-          ],
-          "cards": []
-        },
-        {
-          "title": "Security",
-          "path": "security",
-          "icon": "mdi:shield-lock",
-          "badges": [],
-          "cards": [
-            {
-              "camera_view": "auto",
-              "type": "picture-glance",
-              "entities": [
-                {
-                  "entity": "light.exterior_lights"
-                },
-                {
-                  "entity": "binary_sensor.driveway_vehicle_detected"
-                },
-                {
-                  "entity": "binary_sensor.driveway_person_detected"
-                }
-              ],
-              "camera_image": "camera.driveway_medium_resolution_channel",
-              "title": "Driveway"
-            },
-            {
-              "type": "custom:webrtc-camera",
-              "ui": true,
-              "muted": true,
-              "style": ".screenshot {display: none}",
-              "streams": [
-                {
-                  "entity": "camera.main_doorbell_main",
-                  "mode": "webrtc",
-                  "name": "HD"
-                },
-                {
-                  "entity": "camera.main_doorbell_sub",
-                  "mode": "webrtc",
-                  "name": "Low"
-                }
-              ],
-              "shortcuts": [
-                {
-                  "name": "Exterior Lights",
-                  "icon": "mdi:lightbulb-group",
-                  "service": "light.toggle",
-                  "service_data": {
-                    "entity_id": "light.exterior_lights"
-                  }
-                },
-                {
-                  "name": "Siren",
-                  "icon": "mdi:alarm-light-outline",
-                  "service": "siren.toggle",
-                  "service_data": {
-                    "entity_id": "siren.main_doorbell_siren"
-                  }
-                }
-              ]
-            },
-            {
-              "entities": [
-                {
-                  "entity": "input_select.home_mode"
-                },
-                {
-                  "entity": "input_boolean.vacation_mode_light_schedule"
-                },
-                {
-                  "entity": "input_boolean.cat_sitter_mode"
-                },
-                {
-                  "entity": "input_boolean.guest_mode"
-                },
-                {
-                  "entity": "input_boolean.cats_are_home"
-                },
-                {
-                  "entity": "device_tracker.bens_iphone_se_unifi",
-                  "secondary_info": "last-changed"
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Home Modes",
-              "type": "entities"
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "lock.side_door",
-                  "secondary_info": "last-changed",
-                  "name": "Main Door Lock"
-                },
-                {
-                  "entity": "binary_sensor.front_door",
-                  "secondary_info": "last-changed",
-                  "name": "Main Door"
-                },
-                {
-                  "entity": "cover.ratgdo_left_garage_door_door",
-                  "name": "Left Garage Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "cover.ratgdo_right_garage_door_door",
-                  "secondary_info": "last-changed",
-                  "name": "Right Garage Door"
-                },
-                {
-                  "entity": "binary_sensor.garage_side_person_door_contact",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.sunporch_sliding_door_contact",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.basement_exterior_door_sensor_contact",
-                  "name": "Basement Exterior Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.basement_stairs_door_sensor_contact",
-                  "name": "Basement Stairs Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.linen_closet_door_sensor_contact",
-                  "name": "Linen Closet Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.coat_closet_door_sensor_contact",
-                  "name": "Coat Closet Door",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.garage_back_person_door_contact",
-                  "secondary_info": "last-changed",
-                  "name": "Garage Back Door"
-                }
-              ],
-              "title": "Doors",
-              "show_header_toggle": false,
-              "state_color": true
-            },
-            {
-              "type": "entities",
-              "entities": [
-                {
-                  "entity": "binary_sensor.office_mini_motion_presence",
-                  "name": "Office mmWave Presence",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.living_room_presence",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.laundry_motion_sensor_occupancy",
-                  "name": "Basement Laundry Motion",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.basement_stairs_motion_sensor_occupancy",
-                  "name": "Basement Stairs Motion",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.main_doorbell_person",
-                  "name": "Doorbell - Person",
-                  "secondary_info": "last-changed"
-                },
-                {
-                  "entity": "binary_sensor.garage_opener_motion_sensor_occupancy",
-                  "secondary_info": "last-changed",
-                  "name": "Garage Opener Motion"
-                },
-                {
-                  "entity": "binary_sensor.driveway_person_detected",
-                  "secondary_info": "last-changed",
-                  "name": "Driveway - Person"
-                },
-                {
-                  "entity": "binary_sensor.driveway_vehicle_detected",
-                  "secondary_info": "last-changed",
-                  "name": "Driveway - Vehicle"
-                }
-              ],
-              "title": "Motion Sensors",
-              "show_header_toggle": false,
-              "state_color": true
-            }
-          ]
-        },
-        {
-          "title": "Energy",
-          "path": "energy",
-          "type": "sections",
-          "max_columns": 2,
-          "sections": [
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "Instantaneous Power"
-                },
-                {
-                  "type": "custom:apexcharts-card",
-                  "graph_span": "1h",
-                  "update_interval": "10s",
-                  "header": {
-                    "show": true,
-                    "show_states": true,
-                    "colorize_states": true
-                  },
-                  "apex_config": {
-                    "legend": {
-                      "show": false
-                    },
-                    "yaxis": {
-                      "min": 0
-                    }
-                  },
-                  "experimental": {
-                    "hidden_by_default": true
-                  },
-                  "series": [
-                    {
-                      "entity": "sensor.home_energy_monitor_total_power",
-                      "type": "area",
-                      "color": "grey",
-                      "opacity": 0.4,
-                      "name": "Total",
-                      "show": {
-                        "hidden_by_default": true
-                      }
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_fl1_hvac",
-                      "name": "FL1 HVAC"
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_fl2_hvac",
-                      "name": "FL2 HVAC"
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_network_rack",
-                      "name": "Network Rack",
-                      "color": "purple"
-                    },
-                    {
-                      "entity": "sensor.power_fl1_lighting",
-                      "name": "FL1 Lighting",
-                      "color": "yellow"
-                    },
-                    {
-                      "entity": "sensor.washing_machine_power_draw",
-                      "name": "Washing Machine"
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_dryer",
-                      "name": "Dryer"
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_dishwasher",
-                      "name": "Dishwasher"
-                    },
-                    {
-                      "entity": "sensor.power_monitor_plug_2_power",
-                      "name": "Fridge"
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_fl1_heat_strips",
-                      "name": "FL1 Heat Strips",
-                      "color": "darkred"
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_fl2_heat_strips",
-                      "name": "FL2 Heat Strips",
-                      "color": "darkred"
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_water_heater",
-                      "name": "Water Heater",
-                      "color": "#dd0000"
-                    },
-                    {
-                      "entity": "sensor.power_monitor_plug_1_power",
-                      "name": "Dehumidifier"
-                    },
-                    {
-                      "entity": "sensor.home_energy_monitor_power_stove",
-                      "name": "Stove"
-                    },
-                    {
-                      "entity": "sensor.power_untracked_sources",
-                      "name": "Untracked Sources"
-                    }
-                  ]
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "input_number.total_cost_per_kwh"
-                    },
-                    {
-                      "entity": "sensor.energy_cost_per_wh"
-                    }
-                  ],
-                  "show_header_toggle": false
-                }
-              ]
-            }
-          ],
-          "icon": "mdi:home-lightning-bolt",
-          "cards": []
         }
       ]
     }
