@@ -274,6 +274,7 @@ script:
             target:
               entity_id:
                 - light.mudroom_lamp
+                - light.office_leds # Seasonal. Currently Christmas
 
       - alias: "Sunporch"
         if:
@@ -349,5 +350,4 @@ script:
                 - light.pantry_lights
                 - light.coat_closet_light
                 - light.office_closet
-                - light.craft_room_closet_wall_switch # Zigbee binding to smart bulbs
                 - light.linen_closet_wall_switch # Zigbee binding to smart bulb

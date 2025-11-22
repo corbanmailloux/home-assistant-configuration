@@ -1198,6 +1198,14 @@
                   "show_entity_picture": false,
                   "vertical": false,
                   "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.office_leds",
+                  "name": "Mudroom",
+                  "show_entity_picture": false,
+                  "vertical": false,
+                  "features_position": "bottom"
                 }
               ]
             }

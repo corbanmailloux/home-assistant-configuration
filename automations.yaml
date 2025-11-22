@@ -951,14 +951,29 @@
         id:
         - center
       sequence:
-      - action: light.toggle
-        metadata: {}
-        data:
-          transition: 0
-          brightness_pct: 50
-        target:
-          entity_id:
-          - light.lucys_dresser_lamp
+      - choose:
+        - conditions:
+          - condition: time
+            after: '20:30:00'
+            before: 06:30:00
+          sequence:
+          - action: light.toggle
+            metadata: {}
+            data:
+              transition: 0
+              brightness_pct: 1
+            target:
+              entity_id:
+              - light.lucys_dresser_lamp
+        default:
+        - action: light.toggle
+          metadata: {}
+          data:
+            transition: 1
+            brightness_pct: 50
+          target:
+            entity_id:
+            - light.lucys_dresser_lamp
       alias: Center - Toggle Light
     - conditions:
       - condition: trigger
@@ -2373,6 +2388,11 @@
   - action: light.turn_on
     data:
       entity_id: light.christmas_tree_lights
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.office_leds
   mode: single
 - id: '1762743949454'
   alias: Exterior Christmas Lights - Sunset and Time Controls
