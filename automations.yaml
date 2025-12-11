@@ -2424,6 +2424,18 @@
         data: {}
         target:
           entity_id: switch.exterior_christmas_lights
+      - action: select.select_option
+        metadata: {}
+        target:
+          entity_id: select.wled_garage_preset
+        data:
+          option: Solid Green/Red
+        alias: Set Christmas Preset on WLED-Garage
+      - action: light.turn_on
+        metadata: {}
+        target:
+          entity_id: light.wled_garage
+        data: {}
     - conditions:
       - condition: trigger
         id:
@@ -2434,4 +2446,9 @@
         data: {}
         target:
           entity_id: switch.exterior_christmas_lights
+      - action: light.turn_off
+        metadata: {}
+        target:
+          entity_id: light.wled_garage
+        data: {}
   mode: single
