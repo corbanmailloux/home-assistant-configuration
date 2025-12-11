@@ -161,21 +161,21 @@ template:
             states("sensor.living_room_curtain_right_battery") | int(100) < 20
           }}
 
-# Group the left and right curtains together
-cover:
-  # - platform: group
-  #   name: "Living Room Curtains"
-  #   entities:
-  #     - cover.living_room_curtain_left
-  #     - cover.living_room_curtain_right
-
-  - platform: template
-    covers:
-      living_room_window_1_curtains:
-        unique_id: 684b2cc9-618d-4d7e-a42c-6fe9c5c5980b
+  - cover:
+      # Group the left and right curtains together
+      - unique_id: 684b2cc9-618d-4d7e-a42c-6fe9c5c5980b
+        name: Living Room Window 1 Curtains
         device_class: curtain
-        friendly_name: "Living Room Window 1 Curtains"
-        position_template: >-
+        set_cover_position:
+          - action: v6_quietdrift.set_switchbot_curtain_position
+            data:
+              entity_id:
+                - cover.living_room_curtain_left
+                - cover.living_room_curtain_right
+              position: "{{position}}"
+              speed: 2
+        default_entity_id: cover.living_room_window_1_curtains
+        position: >-
           {% set position = (state_attr("cover.living_room_curtain_left", "current_position") + state_attr("cover.living_room_curtain_right", "current_position")) / 2 %}
 
           {% if position < 3 %}
@@ -183,11 +183,3 @@ cover:
           {% else %}
             {{ position }}
           {% endif %}
-        set_cover_position:
-          action: v6_quietdrift.set_switchbot_curtain_position
-          data:
-            entity_id:
-              - cover.living_room_curtain_left
-              - cover.living_room_curtain_right
-            position: "{{position}}"
-            speed: 2

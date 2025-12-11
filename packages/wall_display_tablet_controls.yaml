@@ -1,27 +1,26 @@
 # New wall display, made with a Samsung Galaxy Tab A7 tablet and using Fully Kiosk browser for control.
 
 # Great structure from https://kleypot.com/fully-kiosk-rest-api-integration-in-home-assistant/
-light:
-  - platform: template
-    lights:
-      tablet_wall_display_screen:
-        friendly_name: Wall Display Screen
-        value_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenOn") }}'
-        level_template: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenBrightness") }}'
+template:
+  - light:
+      - name: Wall Display Screen
         turn_on:
-          action: rest_command.tablet_wall_display_command
-          data:
-            cmd: screenOn
+          - action: rest_command.tablet_wall_display_command
+            data:
+              cmd: screenOn
         turn_off:
-          action: rest_command.tablet_wall_display_command
-          data:
-            cmd: screenOff
+          - action: rest_command.tablet_wall_display_command
+            data:
+              cmd: screenOff
         set_level:
-          action: rest_command.tablet_wall_display_command
-          data_template:
-            cmd: setStringSetting
-            key: screenBrightness
-            value: "{{ brightness }}"
+          - action: rest_command.tablet_wall_display_command
+            data_template:
+              cmd: setStringSetting
+              key: screenBrightness
+              value: "{{ brightness }}"
+        default_entity_id: light.tablet_wall_display_screen
+        level: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenBrightness")}}'
+        state: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenOn") }}'
 
 sensor:
   - platform: rest

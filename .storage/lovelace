@@ -1208,6 +1208,29 @@
                   "features_position": "bottom"
                 }
               ]
+            },
+            {
+              "type": "horizontal-stack",
+              "cards": [
+                {
+                  "type": "tile",
+                  "entity": "light.wled_garage",
+                  "name": "House LEDs",
+                  "show_entity_picture": false,
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "select.wled_garage_preset",
+                  "name": {
+                    "type": "entity"
+                  },
+                  "state_content": "state",
+                  "vertical": false,
+                  "features_position": "bottom"
+                }
+              ]
             }
           ],
           "type": "custom:vertical-layout"
@@ -1794,6 +1817,32 @@
                 {
                   "type": "heading",
                   "heading_style": "title",
+                  "heading": "Controls"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lucys_bedroom_ceiling_fan_light",
+                  "name": "Ceiling Light",
+                  "icon": "mdi:ceiling-fan-light",
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "light.lucys_dresser_lamp",
+                  "name": "Dresser Lamp",
+                  "icon": "mdi:lamp",
+                  "vertical": false,
+                  "features_position": "bottom"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
                   "heading": "Baby Buddy"
                 },
                 {
@@ -1858,30 +1907,6 @@
                   "stat_types": [
                     "max"
                   ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading_style": "title",
-                  "heading": "Controls"
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "entity": "light.lucys_nightlight",
-                  "name": "Nightlight",
-                  "icon": "mdi:lightbulb-night"
-                },
-                {
-                  "type": "tile",
-                  "features_position": "bottom",
-                  "vertical": false,
-                  "entity": "light.lucys_dresser_lamp"
                 }
               ]
             }

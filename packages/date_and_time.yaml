@@ -1,0 +1,13 @@
+sensor:
+  - platform: time_date
+    display_options:
+      - time
+      - date
+
+template:
+  - sensor:
+      - default_entity_id: sensor.local_display_time
+        name: Time
+        state: >-
+          {% set dummy = states("sensor.time") %}
+          {{ now().strftime("%-I:%M%p") }}

@@ -10,15 +10,13 @@ input_select:
       - Paused
     icon: mdi:speedometer
 
-sensor:
-  - platform: template
-    sensors:
-      download_speed_limit:
-        friendly_name: Download Speed Limit
+template:
+  - sensor:
+      - name: Download Speed Limit
         unit_of_measurement: MB/s
-        availability_template: >
-          {{ has_value("input_select.download_speed") }}
-        value_template: >-
+        default_entity_id: sensor.download_speed_limit
+        availability: '{{ has_value("input_select.download_speed") }}'
+        state: >-
           {% set e_id = "input_select.download_speed" %}
           {% if is_state(e_id, "Full Speed") %}
             N/A

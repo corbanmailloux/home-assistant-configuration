@@ -1,14 +1,31 @@
 # There are two Switchbot Curtain 3 motors installed in the Master Bedroom.
 
-# Group the left and right curtains together
-cover:
-  - platform: template
-    covers:
-      master_bedroom_curtains:
-        unique_id: 473164d6-14b5-4357-9177-678e86f29e39
+template:
+  - binary_sensor:
+      - name: "Bedroom Curtains - Low Battery"
+        unique_id: 31ba5362-fa29-4a9f-8eff-f7c2a166f8f2
+        device_class: battery
+        state: >-
+          {{
+            states("sensor.master_bedroom_curtain_left_battery") | int(100) < 20 or
+            states("sensor.master_bedroom_curtain_right_battery") | int(100) < 20
+          }}
+
+  - cover:
+      # Group the left and right curtains together
+      - unique_id: 473164d6-14b5-4357-9177-678e86f29e39
+        name: Master Bedroom Curtains
         device_class: curtain
-        friendly_name: "Master Bedroom Curtains"
-        position_template: >-
+        set_cover_position:
+          - action: v6_quietdrift.set_switchbot_curtain_position
+            data:
+              entity_id:
+                - cover.master_bedroom_curtain_left
+                - cover.master_bedroom_curtain_right
+              position: "{{position}}"
+              speed: 2
+        default_entity_id: cover.master_bedroom_curtains
+        position: >-
           {% set position = (state_attr("cover.master_bedroom_curtain_left", "current_position") + state_attr("cover.master_bedroom_curtain_right", "current_position")) / 2 %}
 
           {% if position < 3 %}
@@ -16,14 +33,6 @@ cover:
           {% else %}
             {{ position }}
           {% endif %}
-        set_cover_position:
-          action: v6_quietdrift.set_switchbot_curtain_position
-          data:
-            entity_id:
-              - cover.master_bedroom_curtain_left
-              - cover.master_bedroom_curtain_right
-            position: "{{position}}"
-            speed: 2
 
 automation:
   - alias: "Open curtains when Corban wakes up"
@@ -123,14 +132,3 @@ automation:
                 - cover.master_bedroom_curtain_right
               position: 0
               speed: 2
-
-template:
-  - binary_sensor:
-      - name: "Bedroom Curtains - Low Battery"
-        unique_id: 31ba5362-fa29-4a9f-8eff-f7c2a166f8f2
-        device_class: battery
-        state: >-
-          {{
-            states("sensor.master_bedroom_curtain_left_battery") | int(100) < 20 or
-            states("sensor.master_bedroom_curtain_right_battery") | int(100) < 20
-          }}

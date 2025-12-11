@@ -1,43 +1,35 @@
-binary_sensor:
-  - platform: template
-    sensors:
-      # Used for the UI
-      corban_person_home:
-        friendly_name: "Corban Home"
+template:
+  - binary_sensor:
+      - name: Corban Home
         device_class: presence
-        availability_template: >
-          {{ has_value('person.corban') }}
-        value_template: >-
-          {{ is_state('person.corban', 'home') }}
-      maggie_person_home:
-        friendly_name: "Maggie Home"
+        default_entity_id: binary_sensor.corban_person_home
+        availability: "{{ has_value('person.corban') }}"
+        state: "{{ is_state('person.corban', 'home') }}"
+      - name: Maggie Home
         device_class: presence
-        availability_template: >
-          {{ has_value('person.maggie') }}
-        value_template: >-
-          {{ is_state('person.maggie', 'home') }}
+        default_entity_id: binary_sensor.maggie_person_home
+        availability: "{{ has_value('person.maggie') }}"
+        state: "{{ is_state('person.maggie', 'home') }}"
 
-sensor:
-  - platform: template
-    sensors:
-      maggie_time_to_home_for_display:
-        friendly_name: "Maggie's ETA"
-        unit_of_measurement: "minutes"
-        availability_template: >
+  - sensor:
+      - name: Maggie's ETA
+        unit_of_measurement: minutes
+        default_entity_id: sensor.maggie_time_to_home_for_display
+        availability: >-
           {{
             has_value('person.maggie') and
             has_value('sensor.maggie_to_home_travel_time')
           }}
-        value_template: >-
+        state: >-
           {% if is_state('person.maggie', 'home') %}
             0
           {% else %}
             {{ states('sensor.maggie_to_home_travel_time') | round }}
           {% endif %}
 
-      corban_location_icon:
-        friendly_name: Corban's Location
-        icon_template: >-
+      - name: Corban's Location
+        default_entity_id: sensor.corban_location_icon
+        icon: >-
           {% set state = states('person.corban') %}
 
           {% if state == "home" %}
@@ -47,12 +39,11 @@ sensor:
           {% else %}
             mdi:account-outline
           {% endif %}
-        value_template: >-
-          {{ states('person.corban') }}
+        state: "{{ states('person.corban') }}"
 
-      maggie_location_icon:
-        friendly_name: Maggie's Location
-        icon_template: >-
+      - name: Maggie's Location
+        default_entity_id: sensor.maggie_location_icon
+        icon: >-
           {% set state = states('person.maggie') %}
 
           {% if state == "home" %}
@@ -66,16 +57,14 @@ sensor:
           {% else %}
             mdi:account-outline
           {% endif %}
-        value_template: >-
-          {{ states('person.maggie') }}
+        state: "{{ states('person.maggie') }}"
 
-      cat_location_icon:
-        friendly_name: Cat's Location
-        icon_template: >-
+      - name: Cat's Location
+        default_entity_id: sensor.cat_location_icon
+        icon: >-
           {% if is_state('input_boolean.cats_are_home', 'on') %}
             mdi:home-heart
           {% else %}
             mdi:heart-broken
           {% endif %}
-        value_template: >-
-          {{ states('input_boolean.cats_are_home') }}
+        state: "{{ states('input_boolean.cats_are_home') }}"
