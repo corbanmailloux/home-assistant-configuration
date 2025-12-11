@@ -9,6 +9,8 @@ esphome:
 esp32:
   board: esp32dev
   flash_size: 4MB
+  framework:
+    type: esp-idf
 
 packages:
   device_base: !include common/device_base.yaml
@@ -1162,25 +1164,25 @@ script:
 
   - id: update_mower_window
     then:
-      - if:
-          condition:
-            not:
-              text_sensor.state:
-                id: mower_status
-                state: "Docked"
-          then:
-            - lvgl.label.update:
-                id: mac_mower_window_message
-                text:
-                  format: "State: %s\nProgress: %.0f%%"
-                  args:
-                    [
-                      "id(mower_status).state.c_str()",
-                      "id(mower_progress).state",
-                    ]
-            - lvgl.widget.show: mac_mower_window
-          else:
-            - lvgl.widget.hide: mac_mower_window
+      # - if:
+      #     condition:
+      #       not:
+      #         text_sensor.state:
+      #           id: mower_status
+      #           state: "Docked"
+      #     then:
+      #       - lvgl.label.update:
+      #           id: mac_mower_window_message
+      #           text:
+      #             format: "State: %s\nProgress: %.0f%%"
+      #             args:
+      #               [
+      #                 "id(mower_status).state.c_str()",
+      #                 "id(mower_progress).state",
+      #               ]
+      #       - lvgl.widget.show: mac_mower_window
+      #     else:
+      #       - lvgl.widget.hide: mac_mower_window
 
   - id: update_timer_icon
     then:
