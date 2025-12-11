@@ -36,6 +36,8 @@ template:
             mdi:home
           {% elif state == "Gym" %}
             mdi:kettlebell
+          {% elif state == "Mimi and Pop's House" %}
+            mdi:shovel
           {% else %}
             mdi:account-outline
           {% endif %}
@@ -52,6 +54,8 @@ template:
             mdi:telescope
           {% elif state == "Clay Studio" %}
             mdi:glass-mug
+          {% elif state == "Mimi and Pop's House" %}
+            mdi:shovel
           {% elif state == "Gym" %}
             mdi:kettlebell
           {% else %}
