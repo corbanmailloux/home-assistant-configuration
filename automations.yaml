@@ -2452,3 +2452,12 @@
           entity_id: light.wled_garage
         data: {}
   mode: single
+- id: '1765492557082'
+  alias: Notify Corban when Maggie Leaves Mimi's
+  description: ''
+  use_blueprint:
+    path: homeassistant/notify_leaving_zone.yaml
+    input:
+      person_entity: person.maggie
+      zone_entity: zone.mimi_and_pop_s_house
+      notify_device: 36a969296e1e2104f4a98c5e1584f926
