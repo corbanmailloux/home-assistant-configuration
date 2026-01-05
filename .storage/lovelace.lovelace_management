@@ -997,200 +997,285 @@
           "title": "3D Printing",
           "path": "3d-printing",
           "icon": "mdi:printer-3d",
-          "type": "custom:vertical-layout",
+          "type": "sections",
           "badges": [],
-          "cards": [
+          "cards": [],
+          "sections": [
             {
-              "type": "horizontal-stack",
+              "type": "grid",
               "cards": [
                 {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "switch.3d_printer_power",
-                  "name": "3D Printer Power",
-                  "fill_container": true,
-                  "layout": "vertical",
-                  "secondary_info": "state",
-                  "icon": "mdi:power",
-                  "icon_color": "primary",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
+                  "type": "heading",
+                  "heading_style": "title",
+                  "heading": "Creality K2 Pro",
+                  "icon": "mdi:printer-3d"
                 },
                 {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "button.elegoo_neptune_4_pro_emergency_stop",
-                  "name": "Emergency Stop",
-                  "fill_container": true,
-                  "layout": "vertical",
-                  "secondary_info": "none",
-                  "icon": "",
-                  "icon_color": "red",
-                  "tap_action": {
-                    "action": "toggle"
-                  }
+                  "name": "K2 Pro",
+                  "camera": "camera.k2_pro_printer_camera",
+                  "status": "sensor.k2_pro_print_status",
+                  "progress": "sensor.k2_pro_print_progress",
+                  "time_left": "sensor.k2_pro_print_time_left",
+                  "nozzle": "sensor.k2_pro_nozzle_temperature",
+                  "bed": "sensor.k2_pro_bed_temperature",
+                  "box": "sensor.k2_pro_chamber_temperature",
+                  "power": "switch.3d_printer_power_k2_pro",
+                  "show_power_button": true,
+                  "layer": "sensor.k2_pro_working_layer",
+                  "total_layers": "sensor.k2_pro_total_layers",
+                  "light": "light.k2_pro_light",
+                  "pause_btn": "button.k2_pro_pause_print",
+                  "resume_btn": "button.k2_pro_resume_print",
+                  "stop_btn": "button.k2_pro_stop_print",
+                  "theme": {
+                    "pause_bg": "rgba(252, 109, 9, .90)",
+                    "resume_bg": "rgba(76, 175, 80, .90)",
+                    "stop_bg": "rgba(244, 67, 54, .95)",
+                    "light_on_bg": "rgba(255, 235, 59, .95)",
+                    "light_off_bg": "rgba(150,150,150,.35)",
+                    "pause_icon": "#fff",
+                    "resume_icon": "#fff",
+                    "stop_icon": "#fff",
+                    "light_icon_on": "#000",
+                    "light_icon_off": "#000",
+                    "status_icon": "auto",
+                    "progress_ring": "auto",
+                    "status_bg": "auto",
+                    "telemetry_icon": "auto",
+                    "telemetry_text": "auto",
+                    "custom_bg": "rgba(33, 150, 243, .90)",
+                    "custom_icon": "#fff"
+                  },
+                  "custom_btn": "",
+                  "custom_btn_icon": "",
+                  "custom_btn_hidden": false,
+                  "button_order": [
+                    "pause",
+                    "resume",
+                    "stop",
+                    "light",
+                    "power",
+                    "custom"
+                  ],
+                  "pause_btn_icon": "",
+                  "resume_btn_icon": "",
+                  "stop_btn_icon": "",
+                  "light_btn_icon": "",
+                  "power_btn_icon": "",
+                  "hide_box_temp": false,
+                  "type": "custom:k-printer-card"
+                },
+                {
+                  "camera_view": "auto",
+                  "fit_mode": "contain",
+                  "type": "picture-glance",
+                  "entities": [],
+                  "title": "Live Feed",
+                  "camera_image": "camera.k2_pro_printer_camera",
+                  "aspect_ratio": "2:1"
                 }
               ]
             },
             {
-              "type": "conditional",
-              "conditions": [
+              "type": "grid",
+              "cards": [
                 {
-                  "entity": "switch.3d_printer_power",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "type": "vertical-stack",
-                "cards": [
-                  {
-                    "type": "horizontal-stack",
+                  "type": "heading",
+                  "heading": "Elegoo Neptune 4 Pro",
+                  "heading_style": "title",
+                  "icon": "mdi:all-inclusive-box"
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "switch.3d_printer_power",
+                      "name": "3D Printer Power",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "secondary_info": "state",
+                      "icon": "mdi:power",
+                      "icon_color": "primary",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    },
+                    {
+                      "type": "custom:mushroom-entity-card",
+                      "entity": "button.elegoo_neptune_4_pro_emergency_stop",
+                      "name": "Emergency Stop",
+                      "fill_container": true,
+                      "layout": "vertical",
+                      "secondary_info": "none",
+                      "icon": "",
+                      "icon_color": "red",
+                      "tap_action": {
+                        "action": "toggle"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "switch.3d_printer_power",
+                      "state": "on"
+                    }
+                  ],
+                  "card": {
+                    "type": "vertical-stack",
                     "cards": [
                       {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight",
-                        "name": "Light",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "name",
-                        "icon": "mdi:led-strip-variant",
-                        "primary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        }
-                      },
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight1",
-                        "name": "Headlight",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "name",
-                        "primary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        }
-                      },
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "button.elegoo_neptune_4_pro_pause_print",
-                        "name": "Pause",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "icon_color": "amber"
-                      },
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "button.elegoo_neptune_4_pro_resume_print",
-                        "name": "Resume",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "icon_color": "green"
-                      },
-                      {
-                        "type": "custom:mushroom-entity-card",
-                        "entity": "button.elegoo_neptune_4_pro_cancel_print",
-                        "name": "Cancel",
-                        "fill_container": true,
-                        "layout": "vertical",
-                        "secondary_info": "none",
-                        "tap_action": {
-                          "action": "toggle"
-                        },
-                        "icon_color": "red"
+                        "type": "horizontal-stack",
+                        "cards": [
+                          {
+                            "type": "custom:mushroom-entity-card",
+                            "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight",
+                            "name": "Light",
+                            "fill_container": true,
+                            "layout": "vertical",
+                            "secondary_info": "name",
+                            "icon": "mdi:led-strip-variant",
+                            "primary_info": "none",
+                            "tap_action": {
+                              "action": "toggle"
+                            }
+                          },
+                          {
+                            "type": "custom:mushroom-entity-card",
+                            "entity": "switch.elegoo_neptune_4_pro_output_pin_caselight1",
+                            "name": "Headlight",
+                            "fill_container": true,
+                            "layout": "vertical",
+                            "secondary_info": "name",
+                            "primary_info": "none",
+                            "tap_action": {
+                              "action": "toggle"
+                            }
+                          },
+                          {
+                            "type": "custom:mushroom-entity-card",
+                            "entity": "button.elegoo_neptune_4_pro_pause_print",
+                            "name": "Pause",
+                            "fill_container": true,
+                            "layout": "vertical",
+                            "secondary_info": "none",
+                            "tap_action": {
+                              "action": "toggle"
+                            },
+                            "icon_color": "amber"
+                          },
+                          {
+                            "type": "custom:mushroom-entity-card",
+                            "entity": "button.elegoo_neptune_4_pro_resume_print",
+                            "name": "Resume",
+                            "fill_container": true,
+                            "layout": "vertical",
+                            "secondary_info": "none",
+                            "tap_action": {
+                              "action": "toggle"
+                            },
+                            "icon_color": "green"
+                          },
+                          {
+                            "type": "custom:mushroom-entity-card",
+                            "entity": "button.elegoo_neptune_4_pro_cancel_print",
+                            "name": "Cancel",
+                            "fill_container": true,
+                            "layout": "vertical",
+                            "secondary_info": "none",
+                            "tap_action": {
+                              "action": "toggle"
+                            },
+                            "icon_color": "red"
+                          }
+                        ]
                       }
                     ]
                   }
-                ]
-              }
-            },
-            {
-              "type": "entities",
-              "entities": [
+                },
                 {
-                  "type": "weblink",
-                  "name": "Printer UI",
-                  "url": "http://192.168.1.53/#/",
-                  "icon": "mdi:cloud-print-outline"
-                }
-              ]
-            },
-            {
-              "camera_view": "auto",
-              "fit_mode": "cover",
-              "type": "picture-glance",
-              "entities": [],
-              "title": "3D Printer",
-              "camera_image": "camera.3d_printer_camera",
-              "visibility": [
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "type": "weblink",
+                      "name": "Printer UI",
+                      "url": "http://192.168.1.53/#/",
+                      "icon": "mdi:cloud-print-outline"
+                    }
+                  ]
+                },
                 {
-                  "condition": "state",
-                  "entity": "switch.3d_printer_power",
-                  "state": "on"
-                }
-              ]
-            },
-            {
-              "type": "custom:layout-break"
-            },
-            {
-              "type": "conditional",
-              "conditions": [
+                  "type": "gauge",
+                  "entity": "sensor.elegoo_neptune_4_pro_progress",
+                  "name": "Print Progress",
+                  "min": 0,
+                  "max": 100,
+                  "unit": "%",
+                  "needle": false,
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.3d_printer_power",
+                      "state": "on"
+                    }
+                  ]
+                },
                 {
-                  "entity": "switch.3d_printer_power",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "show_name": true,
-                "show_icon": true,
-                "show_state": true,
-                "type": "glance",
-                "entities": [
-                  {
-                    "entity": "sensor.elegoo_neptune_4_pro_current_print_state",
-                    "name": "Print State"
-                  },
-                  {
-                    "entity": "sensor.elegoo_neptune_4_pro_print_duration",
-                    "name": "Duration"
-                  },
-                  {
-                    "entity": "sensor.elegoo_neptune_4_pro_print_eta",
-                    "name": "ETA"
-                  },
-                  {
-                    "entity": "sensor.elegoo_neptune_4_pro_slicer_print_time_left_estimate",
-                    "name": "Slicer ETA"
+                  "camera_view": "auto",
+                  "fit_mode": "cover",
+                  "type": "picture-glance",
+                  "entities": [],
+                  "title": "3D Printer",
+                  "camera_image": "camera.3d_printer_camera",
+                  "visibility": [
+                    {
+                      "condition": "state",
+                      "entity": "switch.3d_printer_power",
+                      "state": "on"
+                    }
+                  ]
+                },
+                {
+                  "type": "conditional",
+                  "conditions": [
+                    {
+                      "entity": "switch.3d_printer_power",
+                      "state": "on"
+                    }
+                  ],
+                  "card": {
+                    "show_name": true,
+                    "show_icon": true,
+                    "show_state": true,
+                    "type": "glance",
+                    "entities": [
+                      {
+                        "entity": "sensor.elegoo_neptune_4_pro_current_print_state",
+                        "name": "Print State"
+                      },
+                      {
+                        "entity": "sensor.elegoo_neptune_4_pro_print_duration",
+                        "name": "Duration"
+                      },
+                      {
+                        "entity": "sensor.elegoo_neptune_4_pro_print_eta",
+                        "name": "ETA"
+                      },
+                      {
+                        "entity": "sensor.elegoo_neptune_4_pro_slicer_print_time_left_estimate",
+                        "name": "Slicer ETA"
+                      }
+                    ],
+                    "state_color": true
                   }
-                ],
-                "state_color": true
-              }
-            },
-            {
-              "type": "gauge",
-              "entity": "sensor.elegoo_neptune_4_pro_progress",
-              "name": "Print Progress",
-              "min": 0,
-              "max": 100,
-              "unit": "%",
-              "needle": false,
-              "visibility": [
-                {
-                  "condition": "state",
-                  "entity": "switch.3d_printer_power",
-                  "state": "on"
                 }
               ]
             }
-          ]
+          ],
+          "max_columns": 4
         },
         {
           "path": "archive",

@@ -65,7 +65,7 @@
         "id": "ff34917b3c6a44b4b37d905f037ebc51"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375508",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375509",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },
@@ -101,7 +101,7 @@
       },
       {
         "id": "3458e41b97cf402fb54c606a3302f36c",
-        "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=286270157409",
+        "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701574010",
         "type": "module"
       },
       {
@@ -117,6 +117,11 @@
       {
         "id": "460b34f886a84a4e9c0ec8dca3d81fdb",
         "url": "/hacsfiles/battery-state-card/battery-state-card.js?hacstag=256292682321",
+        "type": "module"
+      },
+      {
+        "id": "0d2f31628eb84fa8ad32b185cc11d1a0",
+        "url": "/ha_creality_ws/k_printer_card.js?v=1",
         "type": "module"
       }
     ]

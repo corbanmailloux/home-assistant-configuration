@@ -974,7 +974,7 @@
           target:
             entity_id:
             - light.lucys_dresser_lamp
-      alias: Center - Toggle Light
+      alias: Center - Toggle Lamp
     - conditions:
       - condition: trigger
         id:
@@ -984,17 +984,10 @@
         metadata: {}
         data:
           transition: 0
-          brightness_pct: 50
-        target:
-          entity_id:
-          - light.lucys_dresser_lamp
-      - action: light.turn_off
-        metadata: {}
-        data:
-          transition: 0
+          brightness_pct: 40
         target:
           entity_id: light.lucys_bedroom_ceiling_fan_light
-      alias: Down - Reading Mode
+      alias: Down - Toggle Overhead Light
     - conditions:
       - condition: trigger
         id:
@@ -1271,8 +1264,8 @@
         state: Sleep
         enabled: false
       - condition: time
-        after: '21:00:00'
-        before: 09:00:00
+        after: '23:00:00'
+        before: 07:00:00
       sequence:
       - action: light.toggle
         metadata: {}
@@ -2093,8 +2086,8 @@
       - choose:
         - conditions:
           - condition: time
-            after: '21:00:00'
-            before: 09:00:00
+            after: '23:00:00'
+            before: 07:00:00
           sequence:
           - action: light.toggle
             metadata: {}
@@ -2114,11 +2107,24 @@
             entity_id: light.master_bedroom_headboard
           alias: Toggle Bright
       double_press:
-      - action: fan.toggle
-        metadata: {}
-        data: {}
-        target:
+      - if:
+        - condition: state
           entity_id: fan.master_bedroom_ceiling_fan
+          state:
+          - 'off'
+        then:
+        - action: fan.set_percentage
+          metadata: {}
+          target:
+            entity_id: fan.master_bedroom_ceiling_fan
+          data:
+            percentage: 25
+        else:
+        - action: fan.turn_off
+          metadata: {}
+          target:
+            entity_id: fan.master_bedroom_ceiling_fan
+          data: {}
       long_press:
       - alias: Activate sleep mode. If sleep mode is on, run bedtime checkup again.
         choose:
@@ -2431,11 +2437,13 @@
         data:
           option: Solid Green/Red
         alias: Set Christmas Preset on WLED-Garage
+        enabled: false
       - action: light.turn_on
         metadata: {}
         target:
           entity_id: light.wled_garage
         data: {}
+        enabled: false
     - conditions:
       - condition: trigger
         id:
@@ -2451,6 +2459,7 @@
         target:
           entity_id: light.wled_garage
         data: {}
+        enabled: false
   mode: single
 - id: '1765492557082'
   alias: Notify Corban when Maggie Leaves Mimi's
@@ -2461,3 +2470,88 @@
       person_entity: person.maggie
       zone_entity: zone.mimi_and_pop_s_house
       notify_device: 36a969296e1e2104f4a98c5e1584f926
+- id: '1766805392237'
+  alias: 3D Printer - K2 - Notify Corban when print stops
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - sensor.k2_pro_print_status
+    from:
+    - printing
+    not_to:
+    - self-testing
+  conditions: []
+  actions:
+  - alias: Notify Corban
+    action: notify.corban
+    data:
+      title: K2 - 3D Print Stopped
+      message: 'Current printer state: ''{{ states("sensor.k2_pro_print_status") }}''.'
+      data:
+        tag: 3d_print_status_k2
+        entity_id: camera.k2_pro_printer_camera
+        actions:
+        - action: 3D_PRINTER_OFF_K2_PRO
+          title: Turn Off K2 Printer
+          activationMode: background
+          authenticationRequired: false
+          destructive: true
+          behavior: default
+  mode: single
+- id: '1766979160240'
+  alias: 3D Printer - K2 Pro - Notification Off Action
+  description: ''
+  triggers:
+  - trigger: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: 3D_PRINTER_OFF_K2_PRO
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    target:
+      entity_id:
+      - switch.3d_printer_power_k2_pro
+    data: {}
+  mode: single
+- id: '1767046504457'
+  alias: Upstairs All Lights - Hall Triple Click
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 6239543fc9a684fbba5d4af77ccdf052
+    type: action
+    subtype: up_triple
+    trigger: device
+    id: 'on'
+  - domain: mqtt
+    device_id: 6239543fc9a684fbba5d4af77ccdf052
+    type: action
+    subtype: down_triple
+    trigger: device
+    id: 'off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        target:
+          floor_id: second_floor
+        data: {}
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        target:
+          floor_id: second_floor
+        data: {}
+  mode: single

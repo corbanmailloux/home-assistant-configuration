@@ -845,22 +845,31 @@
                   {
                     "type": "tile",
                     "entity": "sensor.elegoo_neptune_4_pro_current_print_state",
-                    "features_position": "bottom",
-                    "vertical": false,
-                    "name": "Print State",
+                    "name": [
+                      {
+                        "type": "text",
+                        "text": "Elegoo"
+                      },
+                      {
+                        "type": "text",
+                        "text": "Print State"
+                      }
+                    ],
                     "icon": "mdi:printer-3d-nozzle",
                     "hide_state": false,
                     "state_content": [
                       "state",
                       "last_changed"
                     ],
+                    "vertical": false,
                     "tap_action": {
                       "action": "perform-action",
                       "perform_action": "switch.turn_off",
                       "target": {
                         "entity_id": "switch.3d_printer_power"
                       }
-                    }
+                    },
+                    "features_position": "bottom"
                   },
                   {
                     "graph": "none",
@@ -907,6 +916,70 @@
                 }
               ],
               "type": "conditional"
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "switch.3d_printer_power_k2_pro",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "type": "horizontal-stack",
+                "cards": [
+                  {
+                    "type": "tile",
+                    "entity": "sensor.k2_pro_print_status",
+                    "name": [
+                      {
+                        "type": "device"
+                      },
+                      {
+                        "type": "text",
+                        "text": "Print State"
+                      }
+                    ],
+                    "icon": "mdi:printer-3d-nozzle",
+                    "hide_state": false,
+                    "state_content": [
+                      "state",
+                      "last_changed"
+                    ],
+                    "vertical": false,
+                    "tap_action": {
+                      "action": "perform-action",
+                      "perform_action": "switch.toggle",
+                      "target": {
+                        "entity_id": "switch.3d_printer_power_k2_pro"
+                      }
+                    },
+                    "features_position": "bottom"
+                  },
+                  {
+                    "graph": "none",
+                    "type": "sensor",
+                    "entity": "sensor.k2_pro_print_progress",
+                    "detail": 1,
+                    "name": [
+                      {
+                        "type": "device"
+                      },
+                      {
+                        "type": "text",
+                        "text": "Progress"
+                      }
+                    ],
+                    "hours_to_show": 1,
+                    "limits": {
+                      "max": 100,
+                      "min": 0
+                    },
+                    "icon": "mdi:printer-3d-nozzle"
+                  }
+                ]
+              }
             }
           ]
         }
