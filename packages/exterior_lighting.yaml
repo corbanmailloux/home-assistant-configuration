@@ -12,6 +12,7 @@ light:
       - light.exterior_front_porch
       - light.exterior_garage
       - light.exterior_side_door
+      - light.wled_garage
 
 automation:
   - id: 7bb9e3c3-514c-4a64-9556-40dde9551500
