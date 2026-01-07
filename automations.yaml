@@ -2555,3 +2555,73 @@
           floor_id: second_floor
         data: {}
   mode: single
+- id: '1767664857708'
+  alias: Show Living Room Camera Privacy Mode on Wall Switch
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.g4_instant_privacy_mode
+    to:
+    - 'on'
+    from:
+    - 'off'
+    id: 'on'
+  - trigger: state
+    entity_id:
+    - switch.g4_instant_privacy_mode
+    to:
+    - 'off'
+    id: 'off'
+    from:
+    - 'on'
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - 'on'
+    then:
+    - action: script.inovelli_led_control
+      metadata: {}
+      data:
+        led: All
+        color: Green
+        level: 100
+        effect: Solid
+        duration: Indefinitely
+        target:
+          device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
+    else:
+    - action: script.inovelli_led_control
+      metadata: {}
+      data:
+        led: All
+        color: Green
+        level: 100
+        effect: Clear
+        duration: Indefinitely
+        target:
+          device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
+  mode: single
+- id: '1767666008041'
+  alias: Turn off Living Room Camera Privacy at Sleep
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - input_select.home_mode
+    to:
+    - Sleep
+  conditions:
+  - condition: device
+    type: is_on
+    device_id: 4a48f38f65e678245c196b409bd1e8f5
+    entity_id: 5c26f72c022771703e5dbb7409424ba8
+    domain: switch
+  actions:
+  - type: turn_off
+    device_id: 4a48f38f65e678245c196b409bd1e8f5
+    entity_id: 5c26f72c022771703e5dbb7409424ba8
+    domain: switch
+  mode: single

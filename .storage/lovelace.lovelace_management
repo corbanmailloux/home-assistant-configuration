@@ -795,6 +795,14 @@
                         {
                           "entity": "binary_sensor.water_heater_water_leak_sensor_water_sensor",
                           "name": "Water Heater Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.water_leak_sensor_dehumidifier_water_sensor",
+                          "name": "Dehumidifier Leak Sensor"
+                        },
+                        {
+                          "entity": "binary_sensor.water_leak_sensor_first_floor_vacuum_water_sensor",
+                          "name": "Vacuum (Derek) Leak Sensor"
                         }
                       ]
                     }
@@ -985,6 +993,23 @@
                     {
                       "entity": "sensor.private_ble_corban_s_iphone_area",
                       "name": "Corban's iPhone"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "New section"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "switch.g4_instant_privacy_mode"
                     }
                   ]
                 }
