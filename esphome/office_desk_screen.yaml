@@ -270,6 +270,11 @@ font:
     size: 20
     bpp: 4
     glyphs: ["°", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+  - file: "resources/fonts/SF-Pro-Display-Semibold.otf"
+    id: mac_font_bold_14
+    size: 14
+    bpp: 4
+    glyphs: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "%"]
 
 image:
   - file: https://corb.co/icons/logo.min.svg
@@ -643,12 +648,37 @@ lvgl:
 
               - label:
                   id: mac_3d_window_message
-                  align: LEFT_MID
-                  # x: 10
-                  y: 7 # Center on the window below the title bar
+                  align_to:
+                    id: mac_3d_window_divider_line
+                    align: OUT_BOTTOM_MID
+                    y: 4
+                  width: 90%
                   text_font: mac_font_20
                   text_align: LEFT
-                  text: "State: XXX\nProgress: XXX%"
+                  # text: "State: XXX\nProgress: XXX%"
+                  text: "K2: XXX"
+              - bar:
+                  id: mac_3d_window_progress_bar
+                  align: BOTTOM_MID
+                  y: -10 # Pull up from the bottom of the window
+                  width: 90%
+                  height: 18
+                  radius: 9 # Half of height
+
+                  value: 0
+                  min_value: 0
+                  max_value: 100
+              - label:
+                  id: mac_3d_window_progress_bar_label
+                  align_to:
+                    id: mac_3d_window_progress_bar
+                    align: OUT_BOTTOM_MID
+                    y: -18 # Stack on top of the progress bar
+                  bg_opa: 0%
+                  text_font: mac_font_bold_14
+                  text_align: CENTER
+                  text_color: black
+                  text: "X%"
 
         # Mower Window
         - obj:
@@ -877,7 +907,8 @@ sensor:
   - platform: homeassistant
     internal: true
     id: printer_progress
-    entity_id: sensor.elegoo_neptune_4_pro_progress
+    entity_id: sensor.k2_pro_print_progress
+    # OLD: sensor.elegoo_neptune_4_pro_progress
     on_value:
       then:
         - script.execute: update_3d_print_window
@@ -900,12 +931,16 @@ text_sensor:
   - platform: homeassistant
     internal: true
     id: printer_status
-    entity_id: sensor.elegoo_neptune_4_pro_current_print_state
+    entity_id: sensor.k2_pro_print_status
+    # OLD: sensor.elegoo_neptune_4_pro_current_print_state
     filters:
       - map:
+          - self-testing -> Testing
+          - idle -> Idle
           - printing -> Printing
           - standby -> Standby
-          - complete -> Complete
+          - completed -> Done
+          - complete -> Done
           - error -> Error
     on_value:
       then:
@@ -1071,7 +1106,8 @@ binary_sensor:
 
   - platform: homeassistant
     id: printer_power
-    entity_id: switch.3d_printer_power
+    entity_id: switch.3d_printer_power_k2_pro
+    # OLD: switch.3d_printer_power
     internal: true
     on_press:
       - script.execute: update_3d_print_window
@@ -1152,12 +1188,40 @@ script:
             - lvgl.label.update:
                 id: mac_3d_window_message
                 text:
-                  format: "State: %s\nProgress: %.0f%%"
+                  format: "K2: %s"
                   args:
-                    [
-                      "id(printer_status).state.c_str()",
-                      "id(printer_progress).state",
-                    ]
+                    - "id(printer_status).state.c_str()"
+                # text:
+                #   format: "State: %s\nProgress: %.0f%%"
+                #   args:
+                #     [
+                #       "id(printer_status).state.c_str()",
+                #       "id(printer_progress).state",
+                #     ]
+            - lvgl.bar.update:
+                id: mac_3d_window_progress_bar
+                value: !lambda return (int)id(printer_progress).state;
+            - lvgl.label.update:
+                id: mac_3d_window_progress_bar_label
+                text:
+                  format: "%.0f%%"
+                  args:
+                    - "id(printer_progress).state"
+            - if:
+                condition:
+                  - text_sensor.state:
+                      id: printer_status
+                      state: "Done"
+                then:
+                  - lvgl.bar.update:
+                      id: mac_3d_window_progress_bar
+                      indicator:
+                        bg_color: 0x00C800 # green
+                else:
+                  - lvgl.bar.update:
+                      id: mac_3d_window_progress_bar
+                      indicator:
+                        bg_color: 0x0078D7 # blue
             - lvgl.widget.show: mac_3d_printer_window
           else:
             - lvgl.widget.hide: mac_3d_printer_window
