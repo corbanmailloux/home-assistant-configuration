@@ -810,10 +810,40 @@
                   "show_header_toggle": false
                 }
               ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Chore Controls",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "input_boolean.cat_fountain_clean_needed"
+                    },
+                    {
+                      "entity": "input_datetime.cat_fountain_last_cleaned"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "input_boolean.cat_claw_clip_needed"
+                    },
+                    {
+                      "entity": "input_datetime.cat_claw_last_clipped"
+                    }
+                  ]
+                }
+              ]
             }
           ],
           "max_columns": 4,
-          "dense_section_placement": false
+          "dense_section_placement": true
         },
         {
           "badges": [],

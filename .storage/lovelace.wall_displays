@@ -737,10 +737,6 @@
                 "tap_action": {
                   "action": "toggle"
                 },
-                "hold_action": {
-                  "action": "call-service",
-                  "service": "script.cat_claw_clipped_run_vacuum"
-                },
                 "type": "custom:button-card"
               },
               "conditions": [

@@ -1,19 +1,45 @@
-automation:
-  - alias: Show Cat Fountain Reminder - Calendar Automation
-    id: 2b837114-1867-4836-9a66-91dfe7c7a25f
-    mode: queued
-    triggers:
-      - trigger: calendar
-        event: start
-        entity_id: calendar.chores
-    conditions:
-      - condition: template
-        value_template: "{{ 'Cat Fountain Cleaning' in trigger.calendar_event.summary }}"
-    actions:
-      - action: input_boolean.turn_on
-        entity_id: input_boolean.cat_fountain_clean_needed
-
 input_boolean:
   cat_fountain_clean_needed:
     name: Time to clean the fountain.
     icon: mdi:fountain
+
+input_datetime:
+  cat_fountain_last_cleaned:
+    name: Cat Fountain - Last Cleaned
+    has_date: true
+    has_time: false
+
+automation:
+  - alias: Cat Fountain - Mark Cleaned
+    mode: single
+    id: 38acac42-28a1-4674-95ca-d3e0292cd287
+    trigger:
+      - platform: state
+        entity_id: input_boolean.cat_fountain_clean_needed
+        to: "off"
+    action:
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.cat_fountain_last_cleaned
+        data:
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+  - alias: Cat Fountain - Needs Cleaning Reminder
+    mode: single
+    id: cecedd30-f7e9-4462-a5e1-16d3b5ff89ae
+    trigger:
+      - platform: time_pattern
+        hours: "/1"
+    condition:
+      - condition: template
+        value_template: >
+          {% set last = states('input_datetime.cat_fountain_last_cleaned') %}
+          {% if last in ('unknown', 'unavailable', '') %}
+            true
+          {% else %}
+            {{ (now() - strptime(last, '%Y-%m-%d %H:%M:%S')).days >= 14 }}
+          {% endif %}
+    action:
+      - service: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.cat_fountain_clean_needed

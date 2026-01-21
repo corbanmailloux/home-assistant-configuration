@@ -1,39 +1,45 @@
-automation:
-  - alias: Show Cat Claw Clipping Card - Calendar Automation
-    id: 07d5496d-3810-43a3-b371-59d65c7bc10f
-    mode: queued
-    triggers:
-      - trigger: calendar
-        event: start
-        entity_id: calendar.chores
-    conditions:
-      - condition: template
-        value_template: "{{ 'Cat Claw Clipping' in trigger.calendar_event.summary }}"
-    actions:
-      - action: input_boolean.turn_on
-        entity_id: input_boolean.cat_claw_clip_needed
-
 input_boolean:
   cat_claw_clip_needed:
     name: Time to clip some claws!
     icon: mdi:paw
 
-script:
-  cat_claw_clipped_run_vacuum:
-    alias: Clear Clipping Card and Vacuum Kitchen
-    sequence:
-      - alias: Hide the card on the wall display
-        action: input_boolean.turn_off
+input_datetime:
+  cat_claw_last_clipped:
+    name: Cat Claw Clipping - Last Clipped
+    has_date: true
+    has_time: false
+
+automation:
+  - alias: Cat Claw Clipping - Mark Clipped
+    mode: single
+    id: c577630f-a024-453e-a4a4-dd3732fe7493
+    trigger:
+      - platform: state
         entity_id: input_boolean.cat_claw_clip_needed
-      - alias: "Set vacuum mode"
-        action: select.select_option
+        to: "off"
+    action:
+      - service: input_datetime.set_datetime
         target:
-          entity_id: select.dreamebot_l10s_ultra_cleaning_mode
+          entity_id: input_datetime.cat_claw_last_clipped
         data:
-          option: "sweeping"
-      - alias: Vacuum kitchen
-        action: dreame_vacuum.vacuum_clean_segment
+          datetime: "{{ now().strftime('%Y-%m-%d %H:%M:%S') }}"
+
+  - alias: Cat Claw Clipping - Needs Clipping Reminder
+    mode: single
+    id: 6124cc2c-b790-4554-9b99-7bbe3488d4a2
+    trigger:
+      - platform: time_pattern
+        hours: "/1"
+    condition:
+      - condition: template
+        value_template: >
+          {% set last = states('input_datetime.cat_claw_last_clipped') %}
+          {% if last in ('unknown', 'unavailable', '') %}
+            true
+          {% else %}
+            {{ (now() - strptime(last, '%Y-%m-%d %H:%M:%S')).days >= 7 }}
+          {% endif %}
+    action:
+      - service: input_boolean.turn_on
         target:
-          entity_id: vacuum.dreamebot_l10s_ultra
-        data:
-          segments: 9 # Kitchen
+          entity_id: input_boolean.cat_claw_clip_needed
