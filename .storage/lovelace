@@ -1210,6 +1210,11 @@
               ]
             },
             {
+              "type": "custom:button-card",
+              "name": "Exterior Lighting",
+              "template": "header"
+            },
+            {
               "type": "horizontal-stack",
               "cards": [
                 {
