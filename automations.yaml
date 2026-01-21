@@ -99,6 +99,18 @@
     subtype: down_double
     trigger: device
     id: 'off'
+  - domain: mqtt
+    device_id: f6a3f0606ae31f561f4c700f5917deed
+    type: action
+    subtype: aux_down_double
+    trigger: device
+    id: 'off'
+  - domain: mqtt
+    device_id: f6a3f0606ae31f561f4c700f5917deed
+    type: action
+    subtype: aux_up_double
+    trigger: device
+    id: 'on'
   conditions: []
   actions:
   - choose:
@@ -1567,7 +1579,7 @@
   - trigger: time
     at:
       entity_id: sensor.lucy_last_sleep_end_timestamp
-      offset: '2:00:00'
+      offset: '3:00:00'
   conditions:
   - condition: time
     after: 08:00:00
@@ -1580,7 +1592,7 @@
     metadata: {}
     data:
       title: Wake Window Ending
-      message: It's been more than 2 hours since a sleep entry. Is it nap time?
+      message: It's been more than 3 hours since a sleep entry. Is it nap time?
       data:
         group: babybuddy
         tag: baby-wake-window-ending
@@ -2624,4 +2636,53 @@
     device_id: 4a48f38f65e678245c196b409bd1e8f5
     entity_id: 5c26f72c022771703e5dbb7409424ba8
     domain: switch
+  mode: single
+- id: '1768237337857'
+  alias: Living Room Triple Tap for Room Light Control
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
+    type: action
+    subtype: up_triple
+    trigger: device
+    id: 'on'
+  - domain: mqtt
+    device_id: d9db549c961eecf0f3fc66794fe297ad
+    type: action
+    subtype: up_triple
+    trigger: device
+    id: 'on'
+  - domain: mqtt
+    device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
+    type: action
+    subtype: down_triple
+    trigger: device
+    id: 'off'
+  - domain: mqtt
+    device_id: d9db549c961eecf0f3fc66794fe297ad
+    type: action
+    subtype: down_triple
+    trigger: device
+    id: 'off'
+  conditions: []
+  actions:
+  - if:
+    - condition: trigger
+      id:
+      - 'on'
+    then:
+    - action: light.turn_on
+      metadata: {}
+      target:
+        area_id: 6a82246dbc29484cb9558c88e6e7be5d
+      data:
+        transition: 1
+    else:
+    - action: light.turn_off
+      metadata: {}
+      target:
+        area_id: 6a82246dbc29484cb9558c88e6e7be5d
+      data:
+        transition: 1
   mode: single
