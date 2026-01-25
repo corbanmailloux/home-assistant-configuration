@@ -77,7 +77,8 @@ automation:
       - action: v6_quietdrift.set_switchbot_curtain_position
         data:
           entity_id:
-            - cover.master_bedroom_curtains
+            - cover.master_bedroom_curtain_left
+            - cover.master_bedroom_curtain_right
           position: 30
           speed: 2
 

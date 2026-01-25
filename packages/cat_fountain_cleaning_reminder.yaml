@@ -37,7 +37,7 @@ automation:
           {% if last in ('unknown', 'unavailable', '') %}
             true
           {% else %}
-            {{ (now() - strptime(last, '%Y-%m-%d %H:%M:%S')).days >= 14 }}
+            {{ (now().date() - strptime(last, '%Y-%m-%d').date()).days >= 14 }}
           {% endif %}
     action:
       - service: input_boolean.turn_on
