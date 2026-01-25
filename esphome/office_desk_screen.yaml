@@ -269,12 +269,12 @@ font:
     id: mac_font_bold_20
     size: 20
     bpp: 4
-    glyphs: ["°", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+    glyphs: ["X", "°", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
   - file: "resources/fonts/SF-Pro-Display-Semibold.otf"
     id: mac_font_bold_14
     size: 14
     bpp: 4
-    glyphs: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "%"]
+    glyphs: ["X", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "%"]
 
 image:
   - file: https://corb.co/icons/logo.min.svg
