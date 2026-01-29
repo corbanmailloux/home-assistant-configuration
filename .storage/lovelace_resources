@@ -121,7 +121,12 @@
       },
       {
         "id": "0d2f31628eb84fa8ad32b185cc11d1a0",
-        "url": "/ha_creality_ws/k_printer_card.js?v=1",
+        "url": "/ha_creality_ws/k_printer_card.js?v=1769530906",
+        "type": "module"
+      },
+      {
+        "id": "a0a3da9a73074a7696909072f4e769b0",
+        "url": "/ha_creality_ws/k_cfs_card.js?v=1769530906",
         "type": "module"
       }
     ]

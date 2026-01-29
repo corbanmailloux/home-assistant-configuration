@@ -960,6 +960,14 @@ text_sensor:
       then:
         - script.execute: update_mower_window
 
+  - platform: homeassistant
+    internal: true
+    id: maggie_location_icon
+    entity_id: sensor.maggie_location_icon
+    on_value:
+      then:
+        - script.execute: update_maggie_eta
+
 binary_sensor:
   - platform: status
     internal: true
@@ -1155,24 +1163,35 @@ script:
           condition:
             - binary_sensor.is_on: display_maggie_eta
           then:
-            - lvgl.label.update:
-                id: mac_menu_title
-                text:
-                  format: "Maggie: %.0f min."
-                  args: ["id(maggie_eta).state"]
             - if:
                 condition:
-                  - sensor.in_range:
-                      id: maggie_eta
-                      below: 10.0
+                  - text_sensor.state:
+                      id: maggie_location_icon
+                      state: "Mimi and Pop's House"
                 then:
                   - lvgl.label.update:
                       id: mac_menu_title
-                      text_color: 0xFF7C5E
+                      text: "Maggie: @ Mimi's"
+                      text_color: 0xFFFFFF
                 else:
                   - lvgl.label.update:
                       id: mac_menu_title
-                      text_color: 0xFFFFFF
+                      text:
+                        format: "Maggie: %.0f min."
+                        args: ["id(maggie_eta).state"]
+                  - if:
+                      condition:
+                        - sensor.in_range:
+                            id: maggie_eta
+                            below: 10.0
+                      then:
+                        - lvgl.label.update:
+                            id: mac_menu_title
+                            text_color: 0xFF7C5E
+                      else:
+                        - lvgl.label.update:
+                            id: mac_menu_title
+                            text_color: 0xFFFFFF
           else:
             - lvgl.label.update:
                 id: mac_menu_title
