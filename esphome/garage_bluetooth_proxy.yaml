@@ -6,6 +6,8 @@ esp32:
   board: esp32doit-devkit-v1
   framework:
     type: esp-idf
+    advanced:
+      minimum_chip_revision: "3.0"
 
 packages:
   device_base: !include common/device_base.yaml

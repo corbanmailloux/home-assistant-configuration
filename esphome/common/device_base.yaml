@@ -2,7 +2,6 @@ wifi:
   ssid: !secret wifi_ssid
   password: !secret wifi_password
   fast_connect: true
-  domain: .localdomain # Set from UniFi
 
 ota:
   platform: esphome

@@ -5,9 +5,9 @@ esphome:
 esp32:
   board: esp32dev
   framework:
-    # type: arduino
     type: esp-idf
-    # esp-idf is recommended for Bluetooth proxies
+    advanced:
+      minimum_chip_revision: "3.0"
 
 packages:
   device_base: !include common/device_base.yaml

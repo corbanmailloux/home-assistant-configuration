@@ -11,6 +11,8 @@ esp32:
   board: esp32doit-devkit-v1
   framework:
     type: esp-idf
+    advanced:
+      minimum_chip_revision: "3.1"
 
 packages:
   device_base: !include common/device_base.yaml
@@ -57,7 +59,6 @@ sensor:
     trigger_pin: 32
     echo_pin: 12
     update_interval: never # Triggered by the interval above.
-    timeout: 5m
     id: ultrasonic_sensor_left
     name: "Range Sensor - Left"
     unit_of_measurement: "inches"
@@ -102,7 +103,6 @@ sensor:
     trigger_pin: 27
     echo_pin: 25
     update_interval: never # Triggered by the interval above.
-    timeout: 5m
     id: ultrasonic_sensor_right
     name: "Range Sensor - Right"
     unit_of_measurement: "inches"
