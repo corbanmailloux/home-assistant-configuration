@@ -65,7 +65,7 @@
         "id": "ff34917b3c6a44b4b37d905f037ebc51"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375509",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=4443503755010",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },
@@ -121,12 +121,12 @@
       },
       {
         "id": "0d2f31628eb84fa8ad32b185cc11d1a0",
-        "url": "/ha_creality_ws/k_printer_card.js?v=1769530906",
+        "url": "/ha_creality_ws/k_printer_card.js?v=1769963827",
         "type": "module"
       },
       {
         "id": "a0a3da9a73074a7696909072f4e769b0",
-        "url": "/ha_creality_ws/k_cfs_card.js?v=1769530906",
+        "url": "/ha_creality_ws/k_cfs_card.js?v=1769963827",
         "type": "module"
       }
     ]
