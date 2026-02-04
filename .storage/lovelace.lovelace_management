@@ -263,9 +263,29 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.pi_hole_ads_percentage_blocked",
-                      "name": "Percent Ads Blocked",
+                      "entity": "sensor.pi_hole_lxc_ads_percentage_blocked",
+                      "name": [
+                        {
+                          "type": "device"
+                        },
+                        {
+                          "type": "text",
+                          "text": "- % Blocked"
+                        }
+                      ],
                       "secondary_info": "none"
+                    },
+                    {
+                      "entity": "sensor.pi_hole_tubby_ads_percentage_blocked",
+                      "name": [
+                        {
+                          "type": "device"
+                        },
+                        {
+                          "type": "text",
+                          "text": "- % Blocked"
+                        }
+                      ]
                     },
                     {
                       "entity": "script.pi_hole_disable_for_an_hour",
@@ -372,6 +392,43 @@
                         "text": "Are you sure you want to shutdown the gaming PC?"
                       },
                       "icon": "mdi:power-settings"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "StonePerch ProxMox",
+                  "heading_style": "title",
+                  "icon": "mdi:shovel"
+                },
+                {
+                  "type": "entities",
+                  "entities": [
+                    {
+                      "entity": "sensor.syncthing_stoneperch_tv_shows"
+                    },
+                    {
+                      "entity": "sensor.syncthing_stoneperch_movies"
+                    },
+                    {
+                      "entity": "sensor.pve_stoneperch_last_seen"
+                    },
+                    {
+                      "entity": "binary_sensor.stoneperch_sync_active"
+                    },
+                    {
+                      "entity": "sensor.stoneperch_sync_speed"
+                    },
+                    {
+                      "entity": "switch.syncthing_stoneperch_sync_control"
+                    },
+                    {
+                      "entity": "automation.syncthing_run_sync_at_night_only"
                     }
                   ]
                 }
