@@ -1,7 +1,7 @@
 {
   "version": 1,
   "minor_version": 1,
-  "key": "lovelace",
+  "key": "lovelace.lovelace",
   "data": {
     "config": {
       "button_card_templates": {
@@ -502,15 +502,6 @@
                       "card_mod": {
                         "style": ":host {\n  --paper-item-icon-color:\n    {% if states(config.entity) == \"home\" %} \n      dimgray\n    {% elif states(config.entity) == \"not_home\"%}\n      black\n    {% else %}\n      red\n    {% endif %};\n}\n"
                       }
-                    },
-                    {
-                      "type": "state-label",
-                      "entity": "input_select.home_mode",
-                      "style": {
-                        "top": "90%",
-                        "left": "50%",
-                        "color": "yellow"
-                      }
                     }
                   ],
                   "image": "/local/images/corban-memoji.png",
@@ -518,6 +509,40 @@
                   "state_filter": {
                     "off": "grayscale(100%) brightness(40%)"
                   }
+                },
+                {
+                  "type": "picture-elements",
+                  "elements": [
+                    {
+                      "type": "image",
+                      "entity": "input_boolean.lucy_home",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "hold_action": "none",
+                      "image": "/local/images/lucy.png",
+                      "style": {
+                        "top": "50%",
+                        "left": "50%",
+                        "width": "100%"
+                      },
+                      "state_filter": {
+                        "off": "grayscale(100%) brightness(40%)"
+                      }
+                    },
+                    {
+                      "type": "state-icon",
+                      "entity": "input_boolean.lucy_home",
+                      "style": {
+                        "top": "15%",
+                        "left": "85%"
+                      },
+                      "card_mod": {
+                        "style": ":host {\n  --paper-item-icon-color:\n    {% if states(config.entity) == \"on\" %} \n      dimgray\n    {% else %}\n      red\n    {% endif %};\n}\n"
+                      }
+                    }
+                  ],
+                  "image": "/local/images/empty.png"
                 },
                 {
                   "type": "picture-elements",
@@ -1659,6 +1684,12 @@
                   "show_icon": false,
                   "show_state": true,
                   "type": "custom:button-card"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucys_bedroom_temperature_temperature",
+                  "vertical": false,
+                  "features_position": "bottom"
                 }
               ],
               "type": "horizontal-stack"

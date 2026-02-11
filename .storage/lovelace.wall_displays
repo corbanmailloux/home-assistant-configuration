@@ -152,6 +152,40 @@
                   "elements": [
                     {
                       "type": "image",
+                      "entity": "input_boolean.lucy_home",
+                      "tap_action": {
+                        "action": "toggle"
+                      },
+                      "hold_action": "none",
+                      "image": "/local/images/lucy.png",
+                      "style": {
+                        "top": "50%",
+                        "left": "50%",
+                        "width": "100%"
+                      },
+                      "state_filter": {
+                        "off": "grayscale(100%) brightness(40%)"
+                      }
+                    },
+                    {
+                      "type": "state-icon",
+                      "entity": "input_boolean.lucy_home",
+                      "style": {
+                        "top": "15%",
+                        "left": "85%"
+                      },
+                      "card_mod": {
+                        "style": ":host {\n  --paper-item-icon-color:\n    {% if states(config.entity) == \"on\" %} \n      dimgray\n    {% else %}\n      red\n    {% endif %};\n}\n"
+                      }
+                    }
+                  ],
+                  "image": "/local/images/empty.png"
+                },
+                {
+                  "type": "picture-elements",
+                  "elements": [
+                    {
+                      "type": "image",
                       "entity": "input_boolean.cats_are_home",
                       "tap_action": {
                         "action": "toggle"
