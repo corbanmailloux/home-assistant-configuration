@@ -12,6 +12,9 @@ esp32:
   board: m5stack-atom
   framework:
     type: esp-idf
+    # Temp fix for https://github.com/esphome/esphome/issues/13560
+    version: 5.5.2
+    release: "260206"
 
 packages:
   device_base: !include device_base.yaml
@@ -59,34 +62,33 @@ binary_sensor:
       inverted: true
     name: ${friendly_name} Button
     on_multi_click:
-    - timing:
-        - ON for at most 1s
-        - OFF for at most 1s
-        - ON for at most 1s
-        - OFF for at least 0.2s
-      then:
-        - logger.log: "Double Clicked"
-        - event.trigger:
-            id: button_event
-            event_type: "double"
-    - timing:
-        - ON for at least 1s
-        # - ON for 1s to 2s
-        # - OFF for at least 0.5s
-      then:
-        - logger.log: "Single Long Clicked"
-        - event.trigger:
-            id: button_event
-            event_type: "long"
-    - timing:
-        - ON for at most 1s
-        - OFF for at least 0.5s
-      then:
-        - logger.log: "Single Short Clicked"
-        - event.trigger:
-            id: button_event
-            event_type: "single"
-
+      - timing:
+          - ON for at most 1s
+          - OFF for at most 1s
+          - ON for at most 1s
+          - OFF for at least 0.2s
+        then:
+          - logger.log: "Double Clicked"
+          - event.trigger:
+              id: button_event
+              event_type: "double"
+      - timing:
+          - ON for at least 1s
+          # - ON for 1s to 2s
+          # - OFF for at least 0.5s
+        then:
+          - logger.log: "Single Long Clicked"
+          - event.trigger:
+              id: button_event
+              event_type: "long"
+      - timing:
+          - ON for at most 1s
+          - OFF for at least 0.5s
+        then:
+          - logger.log: "Single Short Clicked"
+          - event.trigger:
+              id: button_event
+              event_type: "single"
 
 event:
   - platform: template

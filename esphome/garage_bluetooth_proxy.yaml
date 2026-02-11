@@ -8,6 +8,9 @@ esp32:
     type: esp-idf
     advanced:
       minimum_chip_revision: "3.0"
+    # Temp fix for https://github.com/esphome/esphome/issues/13560
+    version: 5.5.2
+    release: "260206"
 
 packages:
   device_base: !include common/device_base.yaml

@@ -6,6 +6,9 @@ esp32:
   board: esp32doit-devkit-v1
   framework:
     type: esp-idf
+    # Temp fix for https://github.com/esphome/esphome/issues/13560
+    version: 5.5.2
+    release: "260206"
 
 packages:
   device_base: !include common/device_base.yaml
