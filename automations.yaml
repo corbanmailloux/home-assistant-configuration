@@ -2686,3 +2686,65 @@
       data:
         transition: 1
   mode: single
+- id: d82d1145-5086-4670-802f-37c0b15c75f2
+  alias: VacMop Tank Clean Reminder
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
+    type: action
+    subtype: config_single
+    trigger: device
+  actions:
+  - alias: Flash green confirmation
+    data:
+      level: 100
+      target:
+        device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
+      color: Green
+      led: All
+      duration: 10 Seconds
+      effect: Solid
+    action: script.inovelli_led_control
+  - alias: Wait up to 4 minutes for door to open
+    wait_for_trigger:
+    - entity_id: binary_sensor.linen_closet_door_sensor_contact
+      to: 'on'
+      trigger: state
+    timeout:
+      hours: 0
+      minutes: 4
+      seconds: 0
+      milliseconds: 0
+    continue_on_timeout: true
+  - alias: Stop if door opened before timeout
+    choose:
+    - conditions:
+      - condition: template
+        value_template: '{{ wait.completed }}'
+      sequence:
+      - alias: Exit early
+        stop: Door opened before reminder timeout
+  - alias: Turn LEDs red indefinitely
+    data:
+      led: All
+      color: Red
+      level: 100
+      effect: Open/Close
+      duration: Indefinitely
+      target:
+        entity_id: light.linen_closet_wall_switch
+    action: script.inovelli_led_control
+  - alias: Wait until door opens
+    wait_for_trigger:
+    - entity_id: binary_sensor.linen_closet_door_sensor_contact
+      to: 'on'
+      trigger: state
+  - alias: Clear LED notification
+    data:
+      led: All
+      effect: Clear
+      target:
+        entity_id: light.linen_closet_wall_switch
+    action: script.inovelli_led_control
+  mode: restart
