@@ -1,0 +1,104 @@
+# Mealie Dinner Notification
+# Load tonight's dinner plan, extract the total time, and set a notification to start cooking at the right time to have dinner ready by 6:15 PM.
+
+input_datetime:
+  dinner_target_time:
+    name: Dinner Target Time
+    has_date: false
+    has_time: true
+
+  dinner_start_time:
+    name: Dinner Start Time
+    has_date: true
+    has_time: true
+
+input_number:
+  dinner_total_minutes:
+    name: Dinner Total Time (min)
+    min: 0
+    max: 240
+    step: 1
+
+input_text:
+  dinner_recipe_name:
+    name: Dinner Recipe Name
+
+automation:
+  - id: mealie_fetch_todays_dinner
+    alias: "Mealie - Fetch today's dinner"
+    trigger:
+      - platform: time
+        at: "00:08:00"
+      - platform: time
+        at: "00:16:00"
+      - platform: state
+        entity_id: input_datetime.dinner_target_time
+
+    action:
+      - service: mealie.get_mealplan
+        response_variable: mealplan_response
+        data:
+          config_entry_id: 01KJXY75D445VF2H2HHWTA74XE
+
+      - variables:
+          recipe_name: >-
+            {% set dinner = mealplan_response.mealplan
+               | selectattr('entry_type','eq','dinner')
+               | list
+               | first %}
+            {{ dinner.recipe.name if dinner else '' }}
+
+          total_minutes: >
+            {% set dinner = mealplan_response.mealplan
+               | selectattr('entry_type','eq','dinner')
+               | list
+               | first %}
+            {% if dinner %}
+              {{ dinner.recipe.total_time | regex_findall_index('\d+') | int }}
+            {% else %}
+              0
+            {% endif %}
+
+          target_time: >
+            {% set t = states('input_datetime.dinner_target_time') %}
+            {{ today_at(t) }}
+
+          start_time: >
+            {{ as_datetime(target_time) - timedelta(minutes=total_minutes) }}
+
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.dinner_recipe_name
+        data:
+          value: "{{ recipe_name }}"
+
+      - service: input_datetime.set_datetime
+        target:
+          entity_id: input_datetime.dinner_start_time
+        data:
+          datetime: "{{ start_time }}"
+
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.dinner_total_minutes
+        data:
+          value: "{{ total_minutes }}"
+
+  - id: mealie_dinner_start_notification
+    alias: "Mealie - Start dinner notification"
+    trigger:
+      - platform: template
+        value_template: >
+          {{ now() >= as_datetime(states('input_datetime.dinner_start_time')) }}
+
+    condition:
+      - condition: template
+        value_template: >
+          {{ states('input_text.dinner_recipe_name') not in ['', 'unknown', 'unavailable'] }}
+
+    action:
+      - service: notify.corban
+        data:
+          title: "Start Cooking Now"
+          message: >
+            Start '{{ states('input_text.dinner_recipe_name') }}' ({{ states('input_number.dinner_total_minutes') | int }} min) now to have dinner ready by {{ today_at(states('input_datetime.dinner_target_time')).strftime('%-I:%M %p') }}.
