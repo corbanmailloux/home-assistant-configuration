@@ -52,7 +52,7 @@ automation:
     alias: Exterior Lighting - Lights On in the Morning
     triggers:
       - trigger: time
-        at: "06:00:00"
+        at: "05:30:00"
     conditions:
       - alias: "Sunrise hasn't happened yet"
         condition: state
@@ -66,7 +66,7 @@ automation:
       - alias: "Lights On"
         action: homeassistant.turn_on
         target:
-          entity_id: light.exterior_lights
+          entity_id: light.exterior_side_door
 
   - id: 0222a662-5ec3-4d21-92b4-d208c1d4fee9
     alias: Exterior Lighting - Lights Off After Sunrise
