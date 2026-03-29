@@ -1,0 +1,40 @@
+substitutions:
+  device_name: "shed-light-plug"
+  friendly_name: "Shed Light Plug"
+
+# Sonoff S31 (so sharing the base power monitoring config), but with a reed switch hardwired to the plug.
+
+# TODO: Consider removing the power monitoring sensors to reduce noise.
+
+packages:
+  power_monitor_plug_base: !include common/power_monitor_plug_base.yaml
+
+# Reed switch on GPIO4 with pull-up
+binary_sensor:
+  - platform: gpio
+    pin:
+      number: GPIO4
+      mode: INPUT_PULLUP
+    name: "Shed Light Plug Reed Switch"
+    id: door_sensor
+    device_class: door
+    filters:
+      - delayed_on_off:
+          time_on: 100ms
+          time_off: 250ms
+    on_press:
+      - script.stop: auto_off
+      - switch.turn_on: relay
+      - script.execute: auto_off
+    on_release:
+      - script.stop: auto_off
+      - switch.turn_off: relay
+switch:
+  - id: !extend relay
+    restore_mode: ALWAYS_OFF
+
+script:
+  - id: auto_off
+    then:
+      - delay: 15min
+      - switch.turn_off: relay
