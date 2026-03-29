@@ -37,7 +37,7 @@ ENV/
 
 # Sometimes I edit this on Mac
 *.DS_Store
-.vscode/
+# .vscode/
 
 # Home Assistant
 *.log*
