@@ -1203,39 +1203,6 @@
             },
             {
               "type": "custom:button-card",
-              "name": "Christmas Controls",
-              "template": "header"
-            },
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "tile",
-                  "entity": "light.christmas_tree_lights",
-                  "name": "Tree",
-                  "vertical": false,
-                  "features_position": "bottom"
-                },
-                {
-                  "type": "tile",
-                  "entity": "switch.exterior_christmas_lights",
-                  "name": "Exterior Lights",
-                  "show_entity_picture": false,
-                  "vertical": false,
-                  "features_position": "bottom"
-                },
-                {
-                  "type": "tile",
-                  "entity": "light.office_leds",
-                  "name": "Mudroom",
-                  "show_entity_picture": false,
-                  "vertical": false,
-                  "features_position": "bottom"
-                }
-              ]
-            },
-            {
-              "type": "custom:button-card",
               "name": "Exterior Lighting",
               "template": "header"
             },
@@ -1259,6 +1226,51 @@
                   "state_content": "state",
                   "vertical": false,
                   "features_position": "bottom"
+                }
+              ]
+            },
+            {
+              "type": "vertical-stack",
+              "cards": [
+                {
+                  "type": "custom:button-card",
+                  "name": "Christmas Controls",
+                  "template": "header"
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "tile",
+                      "entity": "light.christmas_tree_lights",
+                      "name": "Tree",
+                      "vertical": false,
+                      "features_position": "bottom"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "switch.exterior_christmas_lights",
+                      "name": "Exterior Lights",
+                      "show_entity_picture": false,
+                      "vertical": false,
+                      "features_position": "bottom"
+                    },
+                    {
+                      "type": "tile",
+                      "entity": "light.office_leds",
+                      "name": "Mudroom",
+                      "show_entity_picture": false,
+                      "vertical": false,
+                      "features_position": "bottom"
+                    }
+                  ]
+                }
+              ],
+              "visibility": [
+                {
+                  "condition": "state",
+                  "entity": "input_boolean.christmas_lighting_active",
+                  "state": "on"
                 }
               ]
             }

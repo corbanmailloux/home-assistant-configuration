@@ -411,36 +411,6 @@
               }
             },
             {
-              "type": "conditional",
-              "conditions": [
-                {
-                  "entity": "binary_sensor.wall_display_show_kitchen_media_card",
-                  "state": "on"
-                }
-              ],
-              "card": {
-                "type": "custom:mini-media-player",
-                "entity": "media_player.kitchen_2",
-                "name": "Kitchen HomePod",
-                "artwork": "cover",
-                "icon": "mdi:speaker",
-                "toggle_power": true,
-                "hide": {
-                  "icon": true,
-                  "source": true,
-                  "power": true,
-                  "runtime": false
-                },
-                "volume_stateless": false,
-                "sound_mode": "full",
-                "source": "full",
-                "info": "scroll",
-                "idle_view": {
-                  "when_idle": true
-                }
-              }
-            },
-            {
               "type": "custom:layout-break"
             },
             {
@@ -574,6 +544,36 @@
                 }
               ],
               "type": "horizontal-stack"
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "entity": "binary_sensor.wall_display_show_kitchen_media_card",
+                  "state": "on"
+                }
+              ],
+              "card": {
+                "type": "custom:mini-media-player",
+                "entity": "media_player.kitchen_2",
+                "name": "Kitchen HomePod",
+                "artwork": "cover",
+                "icon": "mdi:speaker",
+                "toggle_power": true,
+                "hide": {
+                  "icon": true,
+                  "source": true,
+                  "power": true,
+                  "runtime": false
+                },
+                "volume_stateless": false,
+                "sound_mode": "full",
+                "source": "full",
+                "info": "scroll",
+                "idle_view": {
+                  "when_idle": true
+                }
+              }
             },
             {
               "card": {
