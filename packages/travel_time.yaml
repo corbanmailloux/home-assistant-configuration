@@ -23,6 +23,7 @@ script:
                 tag: "maggie_home_warning"
                 push:
                   sound: "US-EN-Alexa-Wife-Is-Arriving.wav"
+                  interruption-level: time-sensitive # Allows Siri to read the notification over headphones.
 
 automation:
   - alias: Notify Corban when Maggie is almost home
