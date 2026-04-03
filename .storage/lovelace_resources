@@ -116,17 +116,17 @@
       },
       {
         "id": "460b34f886a84a4e9c0ec8dca3d81fdb",
-        "url": "/hacsfiles/battery-state-card/battery-state-card.js?hacstag=256292682401",
+        "url": "/hacsfiles/battery-state-card/battery-state-card.js?hacstag=256292682410",
         "type": "module"
       },
       {
         "id": "0d2f31628eb84fa8ad32b185cc11d1a0",
-        "url": "/ha_creality_ws/k_printer_card.js?v=1774233896",
+        "url": "/ha_creality_ws/k_printer_card.js?v=1775071181",
         "type": "module"
       },
       {
         "id": "a0a3da9a73074a7696909072f4e769b0",
-        "url": "/ha_creality_ws/k_cfs_card.js?v=1774233896",
+        "url": "/ha_creality_ws/k_cfs_card.js?v=1775071181",
         "type": "module"
       }
     ]
