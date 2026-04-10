@@ -2748,3 +2748,20 @@
         entity_id: light.linen_closet_wall_switch
     action: script.inovelli_led_control
   mode: restart
+- id: '1775648455734'
+  alias: Temporary. Notify Corban when access point light turns on.
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - light.living_room_cabinet_ap_led
+    to:
+    - 'on'
+  conditions: []
+  actions:
+  - action: notify.corban
+    metadata: {}
+    data:
+      title: AP Light On
+      message: Why?
+  mode: single
