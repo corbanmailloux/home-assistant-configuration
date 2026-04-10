@@ -883,6 +883,9 @@
                   },
                   "double_tap_action": {
                     "action": "more-info"
+                  },
+                  "tap_action": {
+                    "action": "more-info"
                   }
                 }
               ]
@@ -1299,42 +1302,6 @@
               ],
               "camera_image": "camera.driveway_medium_resolution_channel",
               "title": "Driveway"
-            },
-            {
-              "type": "custom:webrtc-camera",
-              "ui": true,
-              "muted": true,
-              "style": ".screenshot {display: none}",
-              "streams": [
-                {
-                  "entity": "camera.main_doorbell_main",
-                  "mode": "webrtc",
-                  "name": "HD"
-                },
-                {
-                  "entity": "camera.main_doorbell_sub",
-                  "mode": "webrtc",
-                  "name": "Low"
-                }
-              ],
-              "shortcuts": [
-                {
-                  "name": "Exterior Lights",
-                  "icon": "mdi:lightbulb-group",
-                  "service": "light.toggle",
-                  "service_data": {
-                    "entity_id": "light.exterior_lights"
-                  }
-                },
-                {
-                  "name": "Siren",
-                  "icon": "mdi:alarm-light-outline",
-                  "service": "siren.toggle",
-                  "service_data": {
-                    "entity_id": "siren.main_doorbell_siren"
-                  }
-                }
-              ]
             },
             {
               "entities": [
