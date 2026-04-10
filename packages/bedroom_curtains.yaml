@@ -64,6 +64,11 @@ automation:
         condition: state
         entity_id: input_boolean.room_exclude_master_bedroom
         state: "off"
+      - alias: "Curtains are not already open"
+        condition: numeric_state
+        entity_id: cover.master_bedroom_curtains
+        attribute: current_position
+        below: 5
       - not:
           - condition: state
             entity_id: input_select.home_mode
