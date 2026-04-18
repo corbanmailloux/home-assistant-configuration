@@ -60,11 +60,6 @@
         "id": "3be86917498147c08cb200b17d63894b"
       },
       {
-        "url": "/hacsfiles/threedy/threedy-card.js?hacstag=33288368520211125",
-        "type": "module",
-        "id": "ff34917b3c6a44b4b37d905f037ebc51"
-      },
-      {
         "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375511",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
@@ -111,7 +106,7 @@
       },
       {
         "id": "e68ae68f9432455c8ab2829886ae7691",
-        "url": "/openweathermaphistory/www/openweathermaphistory.js?v=2025.08.01",
+        "url": "/openweathermaphistory/www/openweathermaphistory.js?v=2026.04.03",
         "type": "module"
       },
       {
@@ -121,12 +116,17 @@
       },
       {
         "id": "0d2f31628eb84fa8ad32b185cc11d1a0",
-        "url": "/ha_creality_ws/k_printer_card.js?v=1775787409",
+        "url": "/ha_creality_ws/k_printer_card.js?v=1776459841",
         "type": "module"
       },
       {
         "id": "a0a3da9a73074a7696909072f4e769b0",
-        "url": "/ha_creality_ws/k_cfs_card.js?v=1775787409",
+        "url": "/ha_creality_ws/k_cfs_card.js?v=1776459841",
+        "type": "module"
+      },
+      {
+        "id": "e50bce84a5ef446588a5103d78a5254b",
+        "url": "/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=4973191281300",
         "type": "module"
       }
     ]

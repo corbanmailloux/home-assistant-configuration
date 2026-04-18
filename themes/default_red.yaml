@@ -1,7 +1,0 @@
----
-#
-# Default theme but with red and yellow states.
-#
-Default (Red and Yellow):
-  state-icon-active-color: "#FDD835"
-  state-icon-color: "#D11111"

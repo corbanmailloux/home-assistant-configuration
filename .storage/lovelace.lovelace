@@ -1620,14 +1620,6 @@
                   "type": "custom:button-card"
                 },
                 {
-                  "entity": "sensor.kitchen_temperature_sensor_temperature",
-                  "name": "Kitchen",
-                  "layout": "vertical",
-                  "show_icon": false,
-                  "show_state": true,
-                  "type": "custom:button-card"
-                },
-                {
                   "entity": "sensor.office_temperature",
                   "name": "Office",
                   "layout": "vertical",
@@ -1665,10 +1657,12 @@
                   "type": "custom:button-card"
                 },
                 {
-                  "type": "tile",
                   "entity": "sensor.lucys_bedroom_temperature_temperature",
-                  "vertical": false,
-                  "features_position": "bottom"
+                  "name": "Lucy's Room",
+                  "layout": "vertical",
+                  "show_icon": false,
+                  "show_state": true,
+                  "type": "custom:button-card"
                 }
               ],
               "type": "horizontal-stack"
@@ -1799,24 +1793,6 @@
               "title": "Temperature Overview",
               "type": "history-graph",
               "hours_to_show": 24
-            },
-            {
-              "type": "custom:scheduler-card",
-              "include": [
-                "climate",
-                "fan",
-                "input_select"
-              ],
-              "exclude": [],
-              "title": true,
-              "display_options": {
-                "primary_info": "default",
-                "secondary_info": [
-                  "relative-time",
-                  "additional-tasks"
-                ],
-                "icon": "action"
-              }
             }
           ]
         },
@@ -3227,7 +3203,7 @@
             {
               "type": "custom:xiaomi-vacuum-map-card",
               "map_source": {
-                "camera": "camera.eve_camera",
+                "camera": "camera.eve_rendered_map",
                 "crop": {
                   "top": 55
                 }

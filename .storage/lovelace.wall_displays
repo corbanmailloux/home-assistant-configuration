@@ -107,7 +107,7 @@
       },
       "views": [
         {
-          "theme": "ios-dark-mode-dark-blue",
+          "theme": "Frosted Glass Custom Lite",
           "icon": "mdi:tablet-dashboard",
           "path": "wall-display",
           "title": "Welcome Home!",
@@ -662,7 +662,7 @@
                     "max": 60
                   },
                   {
-                    "dark_mode": false,
+                    "type": "map",
                     "entities": [
                       {
                         "entity": "person.corban"
@@ -680,11 +680,11 @@
                         "entity": "zone.l3harris"
                       }
                     ],
-                    "type": "map",
                     "hours_to_show": 1,
+                    "aspect_ratio": "1.4",
                     "default_zoom": 13,
                     "auto_fit": true,
-                    "aspect_ratio": "1"
+                    "theme_mode": "auto"
                   }
                 ],
                 "type": "horizontal-stack"
