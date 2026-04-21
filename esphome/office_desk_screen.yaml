@@ -13,6 +13,7 @@ esp32:
     type: esp-idf
     advanced:
       minimum_chip_revision: "3.1"
+      sram1_as_iram: true
 
 packages:
   device_base: !include common/device_base.yaml
@@ -66,7 +67,9 @@ spi:
   - id: tft
     clk_pin: GPIO14
     mosi_pin: GPIO13
-    miso_pin: GPIO12
+    miso_pin:
+      number: GPIO12
+      ignore_strapping_warning: true
 
 # Setup i2c bus for capacitive touch
 i2c:
@@ -77,12 +80,16 @@ i2c:
 
 # Configure display in landscape mode
 display:
-  - platform: ili9xxx
+  - platform: mipi_spi
     id: my_display
     model: ST7789V
     spi_id: tft
-    cs_pin: GPIO15
-    dc_pin: GPIO2
+    cs_pin:
+      number: GPIO15
+      ignore_strapping_warning: true
+    dc_pin:
+      number: GPIO2
+      ignore_strapping_warning: true
     invert_colors: false
     dimensions:
       width: 320
@@ -272,9 +279,14 @@ font:
     size: 20
     bpp: 4
     glyphs: ["X", "°", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+  # - file: "resources/fonts/SF-Pro-Display-Semibold.otf"
+  #   id: mac_font_bold_14
+  #   size: 14
+  #   bpp: 4
+  #   glyphs: ["X", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "%"]
   - file: "resources/fonts/SF-Pro-Display-Semibold.otf"
-    id: mac_font_bold_14
-    size: 14
+    id: mac_font_bold_16
+    size: 16
     bpp: 4
     glyphs: ["X", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "%"]
 
@@ -336,7 +348,6 @@ lvgl:
   gradients:
     - id: color_bar
       direction: hor
-      dither: none
       stops:
         - color: 0xFF0000
           position: 0
@@ -662,10 +673,10 @@ lvgl:
               - bar:
                   id: mac_3d_window_progress_bar
                   align: BOTTOM_MID
-                  y: -10 # Pull up from the bottom of the window
+                  y: -8 # Pull up from the bottom of the window
                   width: 90%
-                  height: 18
-                  radius: 9 # Half of height
+                  height: 20
+                  radius: 10 # Half of height
 
                   value: 0
                   min_value: 0
@@ -675,11 +686,11 @@ lvgl:
                   align_to:
                     id: mac_3d_window_progress_bar
                     align: OUT_BOTTOM_MID
-                    y: -18 # Stack on top of the progress bar
+                    y: -20 # Stack on top of the progress bar
                   bg_opa: 0%
-                  text_font: mac_font_bold_14
+                  text_font: mac_font_bold_16
                   text_align: CENTER
-                  text_color: black
+                  text_color: white
                   text: "X%"
 
         # Mower Window
@@ -757,12 +768,37 @@ lvgl:
 
               - label:
                   id: mac_mower_window_message
-                  align: LEFT_MID
-                  x: 2
-                  y: 7 # Center on the window below the title bar
+                  align_to:
+                    id: mac_mower_window_divider_line
+                    align: OUT_BOTTOM_MID
+                    y: 4
+                  width: 90%
                   text_font: mac_font_20
                   text_align: LEFT
-                  text: "State: XXX\nProgress: XXX%"
+                  # text: "State: XXX\nProgress: XXX%"
+                  text: "State: XXX"
+              - bar:
+                  id: mac_mower_window_progress_bar
+                  align: BOTTOM_MID
+                  y: -8 # Pull up from the bottom of the window
+                  width: 90%
+                  height: 20
+                  radius: 10 # Half of height
+
+                  value: 0
+                  min_value: 0
+                  max_value: 100
+              - label:
+                  id: mac_mower_window_progress_bar_label
+                  align_to:
+                    id: mac_mower_window_progress_bar
+                    align: OUT_BOTTOM_MID
+                    y: -20 # Stack on top of the progress bar
+                  bg_opa: 0%
+                  text_font: mac_font_bold_16
+                  text_align: CENTER
+                  text_color: white
+                  text: "X%"
 
         # Floating Alert Window
         - obj:
@@ -944,6 +980,8 @@ text_sensor:
           - completed -> Done
           - complete -> Done
           - error -> Error
+          - stopped -> Stopped
+          - processing -> Processing
     on_value:
       then:
         - script.execute: update_3d_print_window
@@ -1263,25 +1301,52 @@ script:
 
   - id: update_mower_window
     then:
-      # - if:
-      #     condition:
-      #       not:
-      #         text_sensor.state:
-      #           id: mower_status
-      #           state: "Docked"
-      #     then:
-      #       - lvgl.label.update:
-      #           id: mac_mower_window_message
-      #           text:
-      #             format: "State: %s\nProgress: %.0f%%"
-      #             args:
-      #               [
-      #                 "id(mower_status).state.c_str()",
-      #                 "id(mower_progress).state",
-      #               ]
-      #       - lvgl.widget.show: mac_mower_window
-      #     else:
-      #       - lvgl.widget.hide: mac_mower_window
+      - if:
+          condition:
+            not:
+              text_sensor.state:
+                id: mower_status
+                state: "Docked"
+          then:
+            - lvgl.label.update:
+                id: mac_mower_window_message
+                text:
+                  format: "State: %s"
+                  args:
+                    - "id(mower_status).state.c_str()"
+                # text:
+                #   format: "State: %s\nProgress: %.0f%%"
+                #   args:
+                #     [
+                #       "id(mower_status).state.c_str()",
+                #       "id(mower_progress).state",
+                #     ]
+            - lvgl.bar.update:
+                id: mac_mower_window_progress_bar
+                value: !lambda return (int)id(mower_progress).state;
+            - lvgl.label.update:
+                id: mac_mower_window_progress_bar_label
+                text:
+                  format: "%.0f%%"
+                  args:
+                    - "id(mower_progress).state"
+            # Change progress bar label color based on progress for visibility.
+            - if:
+                condition:
+                  - sensor.in_range:
+                      id: mower_progress
+                      below: 50.0
+                then:
+                  - lvgl.label.update:
+                      id: mac_mower_window_progress_bar_label
+                      text_color: white
+                else:
+                  - lvgl.label.update:
+                      id: mac_mower_window_progress_bar_label
+                      text_color: black
+            - lvgl.widget.show: mac_mower_window
+          else:
+            - lvgl.widget.hide: mac_mower_window
 
   - id: update_timer_icon
     then:
