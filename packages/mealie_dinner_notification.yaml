@@ -89,7 +89,7 @@ automation:
     trigger:
       - platform: template
         value_template: >
-          {{ now() >= as_datetime(states('input_datetime.dinner_start_time')) }}
+          {{ now() >= (as_datetime(states('input_datetime.dinner_start_time')) | as_local) }}
 
     condition:
       - condition: template
