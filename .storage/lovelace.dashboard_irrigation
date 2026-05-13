@@ -336,7 +336,7 @@
                     },
                     {
                       "entity": "script.start_sprinker_for_limited_time",
-                      "name": "Run for 10 minutes",
+                      "name": "Run for 7 minutes",
                       "icon": "mdi:timer-play",
                       "secondary_info": "last-triggered"
                     },
