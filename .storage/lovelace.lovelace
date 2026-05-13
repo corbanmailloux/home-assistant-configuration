@@ -1825,6 +1825,19 @@
                   "icon": "mdi:lamp",
                   "vertical": false,
                   "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "switch.lucys_chair",
+                  "state_content": "state",
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "fan.lucys_bedroom_ceiling_fan",
+                  "vertical": false,
+                  "features_position": "bottom"
                 }
               ]
             },

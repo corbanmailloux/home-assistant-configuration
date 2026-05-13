@@ -899,7 +899,7 @@
               ]
             }
           ],
-          "max_columns": 4,
+          "max_columns": 3,
           "dense_section_placement": true
         },
         {
