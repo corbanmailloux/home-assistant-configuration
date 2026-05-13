@@ -1267,19 +1267,19 @@ script:
                   args:
                     - "id(printer_progress).state"
             # Change progress bar label color based on progress for visibility.
-            - if:
-                condition:
-                  - sensor.in_range:
-                      id: printer_progress
-                      below: 50.0
-                then:
-                  - lvgl.label.update:
-                      id: mac_3d_window_progress_bar_label
-                      text_color: white
-                else:
-                  - lvgl.label.update:
-                      id: mac_3d_window_progress_bar_label
-                      text_color: black
+            # - if:
+            #     condition:
+            #       - sensor.in_range:
+            #           id: printer_progress
+            #           below: 50.0
+            #     then:
+            #       - lvgl.label.update:
+            #           id: mac_3d_window_progress_bar_label
+            #           text_color: white
+            #     else:
+            #       - lvgl.label.update:
+            #           id: mac_3d_window_progress_bar_label
+            #           text_color: black
             - if:
                 condition:
                   - text_sensor.state:
@@ -1331,19 +1331,19 @@ script:
                   args:
                     - "id(mower_progress).state"
             # Change progress bar label color based on progress for visibility.
-            - if:
-                condition:
-                  - sensor.in_range:
-                      id: mower_progress
-                      below: 50.0
-                then:
-                  - lvgl.label.update:
-                      id: mac_mower_window_progress_bar_label
-                      text_color: white
-                else:
-                  - lvgl.label.update:
-                      id: mac_mower_window_progress_bar_label
-                      text_color: black
+            # - if:
+            #     condition:
+            #       - sensor.in_range:
+            #           id: mower_progress
+            #           below: 50.0
+            #     then:
+            #       - lvgl.label.update:
+            #           id: mac_mower_window_progress_bar_label
+            #           text_color: white
+            #     else:
+            #       - lvgl.label.update:
+            #           id: mac_mower_window_progress_bar_label
+            #           text_color: black
             - lvgl.widget.show: mac_mower_window
           else:
             - lvgl.widget.hide: mac_mower_window
