@@ -299,7 +299,7 @@ image:
   - file: "resources/images/office_screen_background.jpeg"
     id: office_screen_background
     resize: 320x240
-    type: RGB565
+    type: RGB
 
 lvgl:
   displays:
