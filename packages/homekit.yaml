@@ -47,6 +47,7 @@ homekit:
         - light.lucys_bedroom_ceiling_fan_light
         - fan.lucys_bedroom_ceiling_fan
         - light.lucys_dresser_lamp
+        - switch.lucys_chair
 
         # Guest Bedroom
         - light.fairy_lights
@@ -78,8 +79,8 @@ homekit:
         - sensor.fake_side_door_lock_input_temperature
 
         # Christmas
-        - light.christmas_tree_lights # Seasonal
-        - switch.exterior_christmas_lights # Seasonal
+        # - light.christmas_tree_lights # Seasonal
+        # - switch.exterior_christmas_lights # Seasonal
 
   - name: HASS Doorbell Camera
     port: 21065

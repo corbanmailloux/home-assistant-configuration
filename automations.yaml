@@ -465,21 +465,6 @@
       target:
         entity_id: cover.ratgdo_left_garage_door_door
   mode: single
-- id: '1715117158694'
-  alias: Upstairs Hall Light Switch - Triple tap config to move Eve to dump spot
-  description: ''
-  triggers:
-  - trigger: device
-    domain: mqtt
-    device_id: 6239543fc9a684fbba5d4af77ccdf052
-    type: action
-    subtype: config_triple
-  conditions: []
-  actions:
-  - action: script.vacuum_dump_process
-    metadata: {}
-    data: {}
-  mode: single
 - id: '1724423649065'
   alias: Stairs Wall Switch - Red During Meetings
   description: ''
@@ -2567,76 +2552,6 @@
         target:
           floor_id: second_floor
         data: {}
-  mode: single
-- id: '1767664857708'
-  alias: Show Living Room Camera Privacy Mode on Wall Switch
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - switch.g4_instant_privacy_mode
-    to:
-    - 'on'
-    from:
-    - 'off'
-    id: 'on'
-  - trigger: state
-    entity_id:
-    - switch.g4_instant_privacy_mode
-    to:
-    - 'off'
-    id: 'off'
-    from:
-    - 'on'
-  conditions: []
-  actions:
-  - if:
-    - condition: trigger
-      id:
-      - 'on'
-    then:
-    - action: script.inovelli_led_control
-      metadata: {}
-      data:
-        led: All
-        color: Green
-        level: 100
-        effect: Solid
-        duration: Indefinitely
-        target:
-          device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
-    else:
-    - action: script.inovelli_led_control
-      metadata: {}
-      data:
-        led: All
-        color: Green
-        level: 100
-        effect: Clear
-        duration: Indefinitely
-        target:
-          device_id: 21e10aa0c624e6abdcbbbbb97e0373c5
-  mode: single
-- id: '1767666008041'
-  alias: Turn off Living Room Camera Privacy at Sleep
-  description: ''
-  triggers:
-  - trigger: state
-    entity_id:
-    - input_select.home_mode
-    to:
-    - Sleep
-  conditions:
-  - condition: device
-    type: is_on
-    device_id: 4a48f38f65e678245c196b409bd1e8f5
-    entity_id: 5c26f72c022771703e5dbb7409424ba8
-    domain: switch
-  actions:
-  - type: turn_off
-    device_id: 4a48f38f65e678245c196b409bd1e8f5
-    entity_id: 5c26f72c022771703e5dbb7409424ba8
-    domain: switch
   mode: single
 - id: '1768237337857'
   alias: Living Room Triple Tap for Room Light Control

@@ -1,24 +1,24 @@
 automation:
   ## Button Actions
 
-  - id: 34a158cc-aa49-4aeb-9426-705f3a98bd85
-    alias: Upstairs Light Switch - Config Single Press - Toggle Under Bed Lighting
-    triggers:
-      - trigger: device
-        domain: mqtt
-        device_id: 6239543fc9a684fbba5d4af77ccdf052
-        type: action
-        subtype: config_single
-    actions:
-      - action: light.toggle
-        data:
-          brightness_pct: 100
-          rgb_color:
-            - 255
-            - 78
-            - 30
-        target:
-          entity_id: light.bed_lighting_rgb_light
+  # - id: 34a158cc-aa49-4aeb-9426-705f3a98bd85
+  #   alias: Upstairs Light Switch - Config Single Press - Toggle Under Bed Lighting
+  #   triggers:
+  #     - trigger: device
+  #       domain: mqtt
+  #       device_id: 6239543fc9a684fbba5d4af77ccdf052
+  #       type: action
+  #       subtype: config_single
+  #   actions:
+  #     - action: light.toggle
+  #       data:
+  #         brightness_pct: 100
+  #         rgb_color:
+  #           - 255
+  #           - 78
+  #           - 30
+  #       target:
+  #         entity_id: light.bed_lighting_rgb_light
 
   - id: f65fe143-e99c-4bb8-b131-295e121d2240
     alias: Upstairs Light Switch - Config Double Press - Toggle Fairy Lights

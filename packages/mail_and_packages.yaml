@@ -14,11 +14,11 @@ automation:
         conditions:
           - alias: "There is mail"
             condition: numeric_state
-            entity_id: sensor.mail_usps_mail
+            entity_id: sensor.mail_and_packages_mail_usps_mail
             above: 0
           - alias: "There are packages"
             condition: numeric_state
-            entity_id: sensor.mail_usps_delivered
+            entity_id: sensor.mail_and_packages_mail_usps_delivered
             above: 0
     actions:
       - alias: "Notify Maggie"
@@ -26,15 +26,15 @@ automation:
         data:
           title: "Check the Mail"
           message: >-
-            Expecting {{states("sensor.mail_usps_mail")|int(0)}} {{ "" }}
-            {%- if states("sensor.mail_usps_mail")|int(0) == 1 -%}
+            Expecting {{states("sensor.mail_and_packages_mail_usps_mail")|int(0)}} {{ "" }}
+            {%- if states("sensor.mail_and_packages_mail_usps_mail")|int(0) == 1 -%}
               piece of mail
             {%- else -%}
               pieces of mail
             {%- endif -%}
-            {%- if states("sensor.mail_usps_delivered")|int(0) > 0 -%} {{ "" }}
-            and {{states("sensor.mail_usps_delivered")|int(0)}} {{ "" }}
-            {%- if states("sensor.mail_usps_mail")|int(0) == 1 -%}
+            {%- if states("sensor.mail_and_packages_mail_usps_delivered")|int(0) > 0 -%} {{ "" }}
+            and {{states("sensor.mail_and_packages_mail_usps_delivered")|int(0)}} {{ "" }}
+            {%- if states("sensor.mail_and_packages_mail_usps_mail")|int(0) == 1 -%}
               USPS package
             {%- else -%}
               USPS packages

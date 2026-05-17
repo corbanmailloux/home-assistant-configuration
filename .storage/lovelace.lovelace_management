@@ -893,6 +893,12 @@
                     },
                     {
                       "entity": "input_datetime.cat_claw_last_clipped"
+                    },
+                    {
+                      "type": "divider"
+                    },
+                    {
+                      "entity": "input_datetime.litter_box_last_full_clean"
                     }
                   ]
                 }
@@ -995,27 +1001,27 @@
                       "type": "glance",
                       "entities": [
                         {
-                          "entity": "sensor.mail_usps_delivering",
+                          "entity": "sensor.mail_and_packages_mail_usps_delivering",
                           "name": "USPS",
                           "image": "https://home.corb.co/local/images/logos/usps.png"
                         },
                         {
-                          "entity": "sensor.mail_ups_delivering",
+                          "entity": "sensor.mail_and_packages_mail_ups_delivering",
                           "name": "UPS",
                           "image": "https://home.corb.co/local/images/logos/ups.png"
                         },
                         {
-                          "entity": "sensor.mail_fedex_delivering",
+                          "entity": "sensor.mail_and_packages_mail_fedex_delivering",
                           "name": "FedEx",
                           "image": "https://home.corb.co/local/images/logos/fedex-bg.png"
                         },
                         {
-                          "entity": "sensor.mail_amazon_packages",
+                          "entity": "sensor.mail_and_packages_mail_amazon_packages",
                           "name": "Amazon",
                           "image": "https://home.corb.co/local/images/logos/amazon-simple.png"
                         },
                         {
-                          "entity": "sensor.mail_usps_mail",
+                          "entity": "sensor.mail_and_packages_mail_usps_mail",
                           "name": "Mail"
                         }
                       ],
@@ -1028,75 +1034,31 @@
                       "type": "glance",
                       "entities": [
                         {
-                          "entity": "sensor.mail_usps_delivered",
+                          "entity": "sensor.mail_and_packages_mail_usps_delivered",
                           "name": "USPS",
                           "image": "https://home.corb.co/local/images/logos/usps.png"
                         },
                         {
-                          "entity": "sensor.mail_ups_delivered",
+                          "entity": "sensor.mail_and_packages_mail_ups_delivered",
                           "name": "UPS",
                           "image": "https://home.corb.co/local/images/logos/ups.png"
                         },
                         {
-                          "entity": "sensor.mail_fedex_delivered",
+                          "entity": "sensor.mail_and_packages_mail_fedex_delivered",
                           "name": "FedEx",
                           "image": "https://home.corb.co/local/images/logos/fedex-bg.png"
                         },
                         {
-                          "entity": "sensor.mail_amazon_packages_delivered",
+                          "entity": "sensor.mail_and_packages_mail_amazon_packages_delivered",
                           "name": "Amazon",
                           "image": "https://home.corb.co/local/images/logos/amazon-simple.png"
                         },
                         {
-                          "entity": "sensor.mail_usps_mail",
+                          "entity": "sensor.mail_and_packages_mail_usps_mail",
                           "name": "Mail"
                         }
                       ],
                       "title": "Delivered Today"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "icon": "mdi:cog-box",
-                  "heading": "Device Management",
-                  "heading_style": "title"
-                },
-                {
-                  "show_name": true,
-                  "show_icon": true,
-                  "show_state": true,
-                  "type": "glance",
-                  "entities": [
-                    {
-                      "entity": "sensor.private_ble_corban_s_watch_area",
-                      "name": "Corban's Watch"
-                    },
-                    {
-                      "entity": "sensor.private_ble_corban_s_iphone_area",
-                      "name": "Corban's iPhone"
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
-                {
-                  "type": "heading",
-                  "heading": "New section"
-                },
-                {
-                  "type": "entities",
-                  "entities": [
-                    {
-                      "entity": "switch.g4_instant_privacy_mode"
                     }
                   ]
                 }
