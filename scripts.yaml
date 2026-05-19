@@ -101,3 +101,55 @@ start_sprinker_for_limited_time:
       entity_id: switch.sprinkler_valve_1
   alias: Start sprinker for limited time
   description: ''
+run_sprinkler_with_fields:
+  alias: Run Sprinkler - Fields
+  description: Run a sprinkler for a specified duration. Use variables.
+  mode: parallel
+  max: 10
+  icon: mdi:sprinkler-variant
+  fields:
+    input_entity_id:
+      selector:
+        entity:
+          filter:
+            domain: valve
+      name: Entity
+      description: entity_id of the sprinkler switch to run. Friendly Name is extracted
+        and used for MQTT topic.
+      required: true
+    runtime_in_seconds:
+      selector:
+        number:
+          min: 1
+          max: 1800
+      default: 60
+      name: Runtime (seconds)
+      description: Duration to run the sprinkler in seconds.
+      required: true
+  sequence:
+  - action: mqtt.publish
+    data:
+      qos: 0
+      retain: false
+      payload: "{\n  \"state\" : \"ON\",\n  \"on_time\": {{ runtime_in_seconds }}\n}"
+      topic: '{{ ''zigbee2mqtt/'' ~ device_name(input_entity_id) ~ ''/set'' }}'
+      evaluate_payload: true
+  - delay:
+      seconds: '{{ runtime_in_seconds + 30 }}'
+    alias: Delay for runtime + 30 seconds
+  - if:
+    - condition: template
+      value_template: '{{ is_state(input_entity_id, ''on'') }}'
+      alias: If the valve is still on...
+    then:
+    - data:
+        title: Sprinkler Still On
+        message: '{{ device_name(input_entity_id) }} is still on after {{ (runtime_in_seconds
+          + 65) // 60 }} minutes. Forcibly turning it off.'
+      action: notify.corban
+    - action: mqtt.publish
+      data:
+        qos: 0
+        retain: false
+        payload: '{"state": "OFF"}'
+        topic: '{{ ''zigbee2mqtt/'' ~ device_name(input_entity_id) ~ ''/set'' }}'

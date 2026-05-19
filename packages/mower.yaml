@@ -14,6 +14,7 @@ automation:
           - input_datetime.mower_last_mow_garage_side
           - input_datetime.mower_last_mow_front_yard
           - input_datetime.mower_last_mow_mailbox
+          - input_datetime.mower_last_mow_tree_strip
     actions:
       - variables:
           lawns:
@@ -21,6 +22,7 @@ automation:
             input_datetime.mower_last_mow_garage_side: Garage Side
             input_datetime.mower_last_mow_front_yard: Front Yard
             input_datetime.mower_last_mow_mailbox: Mailbox
+            input_datetime.mower_last_mow_tree_strip: Tree Strip
       - variables:
           last_mow: >-
             {% set last = namespace(entity='', timestamp=0) %}
@@ -56,6 +58,11 @@ input_datetime:
     has_time: true
   mower_last_mow_mailbox:
     name: Last Mow - Mailbox
+    icon: mdi:grass
+    has_date: true
+    has_time: true
+  mower_last_mow_tree_strip:
+    name: Last Mow - Tree Strip
     icon: mdi:grass
     has_date: true
     has_time: true
@@ -97,6 +104,13 @@ input_number:
     max: 14
     step: 1
     mode: box
+  mower_schedule_days_delay_tree_strip:
+    name: Tree Strip Schedule Days Delay
+    icon: mdi:calendar-clock
+    min: 0
+    max: 14
+    step: 1
+    mode: box
 
 input_text:
   mower_reason_no_mow:
@@ -115,7 +129,7 @@ script:
     sequence:
       - action: script.mower_mow_area
         data:
-          area_entity_id: switch.lucas_area_main_back_and_low_side
+          area_entity_id: switch.lucas_area_main_back_and_side
           last_mow_entity_id: input_datetime.mower_last_mow_back_yard_main
 
   mower_mow_garage_side:
@@ -125,7 +139,7 @@ script:
     sequence:
       - action: script.mower_mow_area
         data:
-          area_entity_id: switch.lucas_area_garage_side_and_back
+          area_entity_id: switch.lucas_area_garage_side
           last_mow_entity_id: input_datetime.mower_last_mow_garage_side
 
   mower_mow_front_yard:
@@ -147,6 +161,16 @@ script:
         data:
           area_entity_id: switch.lucas_area_mailbox_lawn
           last_mow_entity_id: input_datetime.mower_last_mow_mailbox
+
+  mower_mow_tree_strip:
+    alias: Mow Tree Strip
+    description: Mow the tree strip area.
+    icon: mdi:robot-mower
+    sequence:
+      - action: script.mower_mow_area
+        data:
+          area_entity_id: switch.lucas_area_tree_strip
+          last_mow_entity_id: input_datetime.mower_last_mow_tree_strip
 
   mower_mow_area:
     alias: Mow Area
@@ -176,7 +200,7 @@ script:
           channel_mode: 0 # Zigzag
           toward_mode: 2 # Random angle (for zigzag)
           rain_tactics: 1
-          blade_height: 75
+          blade_height: 75 # mm = ~3 inches
           mowing_laps: 2
           obstacle_laps: 1
           areas:

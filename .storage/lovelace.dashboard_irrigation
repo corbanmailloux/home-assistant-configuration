@@ -18,8 +18,23 @@
                 {
                   "type": "heading",
                   "heading_style": "title",
-                  "heading": "Lucas (Luba)",
-                  "icon": "mdi:robot-mower-outline"
+                  "heading": "Lucas",
+                  "icon": "mdi:robot-mower-outline",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "sensor.lucas_activity_mode",
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "state_content": [
+                        "state",
+                        "last_changed"
+                      ]
+                    }
+                  ]
                 },
                 {
                   "type": "tile",
@@ -29,9 +44,10 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "sensor.lucas_battery",
-                  "features_position": "bottom",
-                  "vertical": false
+                  "entity": "sensor.lucas_connection",
+                  "name": "Connection Type",
+                  "vertical": false,
+                  "features_position": "bottom"
                 },
                 {
                   "type": "tile",
@@ -42,10 +58,9 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "sensor.lucas_activity_mode",
+                  "entity": "sensor.lucas_battery",
                   "features_position": "bottom",
-                  "vertical": false,
-                  "name": "Current Mode"
+                  "vertical": false
                 },
                 {
                   "type": "tile",
@@ -72,6 +87,14 @@
                   },
                   "name": "Last Error",
                   "icon": "mdi:alert-circle"
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.lucas_task_duration",
+                  "name": "Last Change (work time)",
+                  "state_content": "last_updated",
+                  "vertical": false,
+                  "features_position": "bottom"
                 }
               ]
             },
@@ -269,6 +292,33 @@
                   "features_position": "bottom",
                   "vertical": false,
                   "hide_state": true
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_number.mower_schedule_days_delay_tree_strip",
+                  "name": "Tree Strip",
+                  "hide_state": true,
+                  "vertical": false,
+                  "features": [
+                    {
+                      "type": "numeric-input",
+                      "style": "buttons"
+                    }
+                  ],
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_datetime.mower_last_mow_tree_strip",
+                  "vertical": false,
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.mower_mow_tree_strip",
+                  "hide_state": true,
+                  "vertical": false,
+                  "features_position": "bottom"
                 }
               ]
             },
@@ -327,7 +377,15 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "switch.sprinkler_valve_1",
+                      "entity": "valve.sprinkler_valve_1",
+                      "secondary_info": "last-changed",
+                      "icon": "mdi:sprinkler-variant",
+                      "name": "Back Sprinkler"
+                    },
+                    {
+                      "entity": "valve.sprinkler_valve_2",
+                      "name": "Front Sprinkler",
+                      "icon": "mdi:sprinkler-variant",
                       "secondary_info": "last-changed"
                     },
                     {
@@ -344,6 +402,47 @@
                       "entity": "timer.irrigation_off_timer"
                     }
                   ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.run_sprinkler_fields",
+                  "name": "Run front for 7 minutes",
+                  "hide_state": true,
+                  "vertical": false,
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.run_sprinkler_with_fields",
+                    "target": {},
+                    "data": {
+                      "runtime_in_seconds": 420,
+                      "input_entity_id": "valve.sprinkler_valve_2"
+                    }
+                  },
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.run_sprinkler_fields",
+                  "name": "Run back for 7 minutes",
+                  "hide_state": true,
+                  "vertical": false,
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.run_sprinkler_with_fields",
+                    "target": {},
+                    "data": {
+                      "runtime_in_seconds": 420,
+                      "input_entity_id": "valve.sprinkler_valve_1"
+                    }
+                  },
+                  "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "script.run_sprinkler_fields",
+                  "hide_state": true,
+                  "vertical": false,
+                  "features_position": "bottom"
                 }
               ]
             },

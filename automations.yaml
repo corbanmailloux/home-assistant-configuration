@@ -1845,6 +1845,7 @@
       - front_yard
       - back_yard_main
       - mailbox
+      - tree_strip
       chosen_area: "{% set today = now().date() %} {% for cid in area_options %}\n
         \ {% set ent_id_last_mow = 'input_datetime.mower_last_mow_' ~ cid %}\n  {%
         set ent_id_schedule = 'input_number.mower_schedule_days_delay_' ~ cid %}\n
@@ -1862,7 +1863,7 @@
   - action: notify.corban
     metadata: {}
     data:
-      message: Mowing {{ chosen_area }}.
+      message: Mowing area {{ chosen_area.replace("_", " ") }}
       title: Mower Schedule Triggered
   - alias: Start Mower Script for Area
     action: script.turn_on
@@ -2681,3 +2682,48 @@
       title: AP Light On
       message: Why?
   mode: single
+- id: '1779124421355'
+  alias: Notify when Sprinkler Valves Activate
+  description: ''
+  triggers:
+  - alias: When the Front Valve Turns On
+    trigger: state
+    entity_id:
+    - valve.sprinkler_valve_2
+    to: 'on'
+    for: 00:00:00
+    id: Front Sprinkler
+  - alias: When the Back Valve Turns On
+    trigger: state
+    entity_id:
+    - valve.sprinkler_valve_1
+    to: 'on'
+    for: 00:00:00
+    id: Back Sprinkler
+  conditions: []
+  actions:
+  - alias: Notify Corban
+    data:
+      message: '{{ trigger.id }} valve just turned on.'
+      title: Sprinkler Valve On
+    action: notify.corban
+  mode: single
+  variables:
+    _cafe_metadata:
+      version: 1
+      strategy: native
+      nodes:
+        trigger_1779124238453_0:
+          x: 45
+          y: 120
+        action_1779124298568_1:
+          x: 570
+          y: 165
+        trigger_1779124348492_2:
+          x: 45
+          y: 270
+        action_1779124368387_3:
+          x: 585
+          y: 315
+      graph_id: 69a134d9-ba25-4903-843e-2ad346532da1
+      graph_version: 1
