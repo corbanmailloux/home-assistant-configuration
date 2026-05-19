@@ -31,11 +31,12 @@ automation:
                 target:
                   entity_id: light.garage_lights
               - alias: "Disable recording"
-                action: switch.turn_off
+                action: switch.turn_on
                 target:
                   entity_id:
-                    - switch.main_doorbell_record # Reolink
-                    - switch.driveway_privacy_mode # UniFi
+                    - switch.main_doorbell_privacy_mode
+                    - switch.unifi_doorbell_privacy_mode
+                    - switch.driveway_privacy_mode
               - alias: "Disable garage lighting automations"
                 action: input_boolean.turn_on
                 target:
@@ -45,10 +46,11 @@ automation:
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
               - alias: "Re-enable recording"
-                action: switch.turn_on
+                action: switch.turn_off
                 target:
                   entity_id:
-                    - switch.main_doorbell_record
+                    - switch.main_doorbell_privacy_mode
+                    - switch.unifi_doorbell_privacy_mode
                     - switch.driveway_privacy_mode
               - alias: "Re-enable garage lighting automations"
                 action: input_boolean.turn_off

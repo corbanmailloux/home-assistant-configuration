@@ -1309,13 +1309,13 @@
                   "entity": "input_select.home_mode"
                 },
                 {
+                  "entity": "input_boolean.guest_mode"
+                },
+                {
                   "entity": "input_boolean.vacation_mode_light_schedule"
                 },
                 {
                   "entity": "input_boolean.cat_sitter_mode"
-                },
-                {
-                  "entity": "input_boolean.guest_mode"
                 },
                 {
                   "entity": "input_boolean.cats_are_home"
@@ -1323,6 +1323,9 @@
                 {
                   "entity": "device_tracker.bens_iphone_se_unifi",
                   "secondary_info": "last-changed"
+                },
+                {
+                  "entity": "input_boolean.exterior_privacy_mode"
                 }
               ],
               "show_header_toggle": false,
