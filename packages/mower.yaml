@@ -194,8 +194,8 @@ script:
         data:
           is_dump: false
           border_mode: 0
-          speed: 0.4
-          ultra_wave: 10
+          speed: 0.3 # m/s. Previously 0.4. Trying slower.
+          ultra_wave: 0 # Obstacle avoidance: 10 = "No Touch"; 0 = "Direct Touch". Current disabled (0) because it's trying to avoid dandilions...
           # channel_mode: 2 # Adaptive zigzag
           channel_mode: 0 # Zigzag
           toward_mode: 2 # Random angle (for zigzag)

@@ -1825,7 +1825,7 @@
     - wed
     - thu
     - fri
-    after: '11:30:00'
+    after: '11:00:00'
     before: '19:00:00'
   - condition: state
     entity_id: input_boolean.mower_schedule_enabled
