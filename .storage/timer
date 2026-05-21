@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "timer",
+  "data": {
+    "items": [
+      {
+        "id": "irrigation_off_timer",
+        "name": "Irrigation Off Timer",
+        "duration": "0:07:00",
+        "icon": "mdi:water",
+        "restore": false
+      }
+    ]
+  }
+}

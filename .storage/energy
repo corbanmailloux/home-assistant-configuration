@@ -1,0 +1,88 @@
+{
+  "version": 1,
+  "minor_version": 3,
+  "key": "energy",
+  "data": {
+    "energy_sources": [
+      {
+        "type": "grid",
+        "cost_adjustment_day": 0.0,
+        "stat_energy_from": "sensor.home_energy_monitor_total_daily_energy",
+        "stat_cost": null,
+        "entity_energy_price": "sensor.energy_cost_per_wh",
+        "number_energy_price": null,
+        "stat_energy_to": null,
+        "stat_compensation": null,
+        "entity_energy_price_export": null,
+        "number_energy_price_export": null
+      }
+    ],
+    "device_consumption": [
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_fl1_hvac",
+        "name": "FL1 HVAC",
+        "stat_rate": "sensor.home_energy_monitor_power_fl1_hvac"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_fl2_hvac",
+        "name": "FL2 HVAC",
+        "stat_rate": "sensor.home_energy_monitor_power_fl2_hvac"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_fl1_heat_strips",
+        "name": "FL1 Heat Strips",
+        "stat_rate": "sensor.home_energy_monitor_power_fl1_heat_strips"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_fl2_heat_strips",
+        "name": "FL2 Heat Strips",
+        "stat_rate": "sensor.home_energy_monitor_power_fl2_heat_strips"
+      },
+      {
+        "stat_consumption": "sensor.power_monitor_plug_1_daily_energy",
+        "name": "Dehumidifier",
+        "stat_rate": "sensor.power_monitor_plug_1_power"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_water_heater",
+        "name": "Water Heater",
+        "stat_rate": "sensor.home_energy_monitor_power_water_heater"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_network_rack",
+        "name": "Network Rack",
+        "stat_rate": "sensor.home_energy_monitor_power_network_rack"
+      },
+      {
+        "stat_consumption": "sensor.washing_machine_energy_today",
+        "name": "Washing Machine",
+        "stat_rate": "sensor.washing_machine_power_draw"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_dryer",
+        "name": "Dryer",
+        "stat_rate": "sensor.home_energy_monitor_power_dryer"
+      },
+      {
+        "stat_consumption": "sensor.power_monitor_plug_2_daily_energy",
+        "name": "Fridge",
+        "stat_rate": "sensor.power_monitor_plug_2_power"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_stove",
+        "name": "Stove",
+        "stat_rate": "sensor.home_energy_monitor_power_stove"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_dishwasher",
+        "name": "Dishwasher",
+        "stat_rate": "sensor.home_energy_monitor_power_dishwasher"
+      },
+      {
+        "stat_consumption": "sensor.energy_fl1_lighting",
+        "name": "FL1 Lighting (Partial)"
+      }
+    ],
+    "device_consumption_water": []
+  }
+}

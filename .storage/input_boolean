@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "minor_version": 1,
+  "key": "input_boolean",
+  "data": {
+    "items": [
+      {
+        "id": "movie_mode_active",
+        "name": "Movie Mode Active",
+        "icon": "mdi:movie-open-check"
+      },
+      {
+        "id": "christmas_lighting_active",
+        "name": "Christmas Lighting Automation Active",
+        "icon": "mdi:string-lights"
+      },
+      {
+        "id": "lucy_home",
+        "name": "Lucy Home",
+        "icon": "mdi:home-heart"
+      }
+    ]
+  }
+}

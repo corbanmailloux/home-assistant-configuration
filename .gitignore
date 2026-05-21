@@ -71,9 +71,15 @@ google_cloud_assistant_credentials.json
 .ha_run.lock
 .cache/
 
-# Hide all of the storage directory, but keep the UI config.
+# Ignore the internal Home Assistant .storage directory, but include some basic configs.
 .storage/*
+# Dashboards
 !.storage/lovelace*
+# UI-configured helper entities.
+!.storage/input_boolean
+!.storage/input_datetime
+!.storage/timer
+!.storage/energy
 
 # Most of my custom components are managed by HACS.
 custom_components/
