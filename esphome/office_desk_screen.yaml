@@ -667,7 +667,7 @@ lvgl:
                     y: 4
                   width: 90%
                   text_font: mac_font_20
-                  text_align: LEFT
+                  text_align: CENTER # LEFT
                   # text: "State: XXX\nProgress: XXX%"
                   text: "K2: XXX"
               - bar:
@@ -677,6 +677,7 @@ lvgl:
                   width: 90%
                   height: 20
                   radius: 10 # Half of height
+                  bg_color: 0x005ba5 # blue
 
                   value: 0
                   min_value: 0
@@ -774,7 +775,7 @@ lvgl:
                     y: 4
                   width: 90%
                   text_font: mac_font_20
-                  text_align: LEFT
+                  text_align: CENTER # LEFT
                   # text: "State: XXX\nProgress: XXX%"
                   text: "State: XXX"
               - bar:
@@ -784,6 +785,7 @@ lvgl:
                   width: 90%
                   height: 20
                   radius: 10 # Half of height
+                  bg_color: 0x005ba5 # blue
 
                   value: 0
                   min_value: 0
@@ -1294,7 +1296,7 @@ script:
                   - lvgl.bar.update:
                       id: mac_3d_window_progress_bar
                       indicator:
-                        bg_color: 0x0078D7 # blue
+                        bg_color: 0x005ba5 # blue
             - lvgl.widget.show: mac_3d_printer_window
           else:
             - lvgl.widget.hide: mac_3d_printer_window
@@ -1311,7 +1313,7 @@ script:
             - lvgl.label.update:
                 id: mac_mower_window_message
                 text:
-                  format: "State: %s"
+                  format: "%s" # Previously "State: %s"
                   args:
                     - "id(mower_status).state.c_str()"
                 # text:
