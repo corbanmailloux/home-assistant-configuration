@@ -677,7 +677,8 @@ lvgl:
                   width: 90%
                   height: 20
                   radius: 10 # Half of height
-                  bg_color: 0x005ba5 # blue
+                  indicator:
+                    bg_color: 0x005ba5 # blue
 
                   value: 0
                   min_value: 0
@@ -785,7 +786,8 @@ lvgl:
                   width: 90%
                   height: 20
                   radius: 10 # Half of height
-                  bg_color: 0x005ba5 # blue
+                  indicator:
+                    bg_color: 0x005ba5 # blue
 
                   value: 0
                   min_value: 0

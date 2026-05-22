@@ -1,8 +1,10 @@
-# Gitignore settings for esphome
+# gitignore for esphome
+
+/secrets.yaml
 /.esphome/
 **/.pioenvs/
 **/.piolibdeps/
 **/lib/
 **/src/
 **/platformio.ini
-/secrets.yaml
+/.device-builder*
