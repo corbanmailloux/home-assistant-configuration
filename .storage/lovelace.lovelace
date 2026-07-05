@@ -1214,7 +1214,7 @@
               "cards": [
                 {
                   "type": "tile",
-                  "entity": "light.wled_garage",
+                  "entity": "light.garage_wled_garage_main",
                   "name": "House LEDs",
                   "show_entity_picture": false,
                   "vertical": false,

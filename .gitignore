@@ -81,6 +81,9 @@ google_cloud_assistant_credentials.json
 !.storage/timer
 !.storage/energy
 
+# Profile pictures
+image/
+
 # Most of my custom components are managed by HACS.
 custom_components/
 
