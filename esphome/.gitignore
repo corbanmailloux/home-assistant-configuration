@@ -1,4 +1,4 @@
-# gitignore for esphome
+# gitignore for ESPHome
 
 /secrets.yaml
 /.esphome/
@@ -8,3 +8,4 @@
 **/src/
 **/platformio.ini
 /.device-builder*
+/.offloader_pairings.json

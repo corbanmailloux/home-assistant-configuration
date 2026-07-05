@@ -7,3 +7,7 @@ ota:
   platform: esphome
 
 api:
+
+button:
+  - platform: restart
+    name: "Device Restart"

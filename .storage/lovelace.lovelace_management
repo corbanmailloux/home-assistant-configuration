@@ -930,6 +930,32 @@
                 {
                   "type": "heading",
                   "heading_style": "title",
+                  "heading": "Garage"
+                },
+                {
+                  "type": "tile",
+                  "grid_options": {
+                    "columns": "full"
+                  },
+                  "entity": "switch.unicycle_charger_plug",
+                  "name": "Unicycle Charger",
+                  "state_content": "last_changed",
+                  "vertical": false,
+                  "features": [
+                    {
+                      "type": "toggle"
+                    }
+                  ],
+                  "features_position": "inline"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading_style": "title",
                   "heading": "Christmas Controls",
                   "icon": "mdi:string-lights",
                   "badges": [
@@ -1202,7 +1228,10 @@
                   "box3_slot3_filament": "",
                   "box3_slot3_color": "",
                   "box3_slot3_percent": "",
-                  "type": "custom:k-cfs-card"
+                  "type": "custom:k-cfs-card",
+                  "grid_options": {
+                    "rows": "auto"
+                  }
                 },
                 {
                   "camera_view": "auto",
