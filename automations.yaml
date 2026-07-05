@@ -1765,7 +1765,7 @@
     - wed
     - thu
     - fri
-    after: '11:00:00'
+    after: '11:30:00'
     before: '19:00:00'
   - condition: state
     entity_id: input_boolean.mower_schedule_enabled
@@ -1778,6 +1778,10 @@
     before_offset: '-1:00:00'
     after: sunrise
     alias: Between sunrise and 1 hour before sunset
+  - condition: state
+    entity_id: person.corban
+    state:
+    - home
   actions:
   - variables:
       area_options:
@@ -2620,23 +2624,25 @@
   alias: Notify when Sprinkler Valves Activate
   description: ''
   triggers:
-  - alias: When the Front Valve Turns On
+  - alias: When the Front Valve Changes
     trigger: state
     entity_id:
     - valve.sprinkler_valve_2
     to:
     - open
+    - closed
     for:
       hours: 0
       minutes: 0
       seconds: 0
     id: Front Sprinkler
-  - alias: When the Back Valve Turns On
+  - alias: When the Back Valve Changes
     trigger: state
     entity_id:
     - valve.sprinkler_valve_1
     to:
     - open
+    - closed
     for:
       hours: 0
       minutes: 0
@@ -2646,10 +2652,10 @@
   actions:
   - alias: Notify Corban
     data:
-      message: '{{ trigger.id }} valve just turned on.'
-      title: Sprinkler Valve On
+      message: '{{ trigger.id }} valve is now {{ trigger.to_state.state }}.'
+      title: Sprinkler Valve
     action: notify.corban
-  mode: single
+  mode: parallel
   variables:
     _cafe_metadata:
       version: 1
@@ -2669,6 +2675,7 @@
           y: 315
       graph_id: 69a134d9-ba25-4903-843e-2ad346532da1
       graph_version: 1
+  max: 10
 - id: '1779392330865'
   alias: Master Bathroom Motion Lighting
   description: ''
@@ -2705,7 +2712,7 @@
         if:
         - condition: time
           after: 07:00:00
-          before: '23:00:00'
+          before: '22:00:00'
         then:
         - action: light.turn_on
           metadata: {}
@@ -2744,19 +2751,19 @@
   triggers:
   - trigger: state
     entity_id:
-    - switch.master_bathroom_adaptive_lighting_adaptive_lighting_master_bathroom
+    - switch.adaptive_lighting_master_bathroom
     attribute: brightness_pct
   conditions: []
   actions:
   - action: number.set_value
     metadata: {}
+    data:
+      value: '{{ (state_attr("switch.adaptive_lighting_master_bathroom", "brightness_pct")
+        | int(127) / 100 * 255) | round(0) }}'
     target:
       entity_id:
       - number.master_bathroom_light_defaultlevellocal
       - number.master_bathroom_light_defaultlevelremote
-    data:
-      value: '{{ state_attr("switch.master_bathroom_adaptive_lighting_adaptive_lighting_master_bathroom",
-        "brightness_pct") | int(127) }}'
   mode: single
 - id: '1779414442748'
   alias: Adaptive Lighting - Sleep Mode
@@ -2799,4 +2806,25 @@
         target:
           entity_id: switch.adaptive_lighting_sleep_mode_master_bathroom
         data: {}
+  mode: single
+- id: '1781710464232'
+  alias: Notify Corban when the unicycle is charging for more than 5 hours
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - switch.unicycle_charger_plug
+    to:
+    - 'on'
+    for:
+      hours: 5
+      minutes: 0
+      seconds: 0
+  conditions: []
+  actions:
+  - action: notify.corban
+    metadata: {}
+    data:
+      title: Unicycle Charging for 5 Hours
+      message: Do you want to turn off the charger?
   mode: single
