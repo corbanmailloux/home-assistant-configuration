@@ -1452,19 +1452,10 @@
   alias: Notify if Lucy’s timer is running for too long
   description: ''
   triggers:
-  - trigger: state
-    entity_id:
-    - switch.lucy_mailloux_timer
-    to: 'on'
-    for:
-      hours: 2
-      minutes: 0
-      seconds: 0
-    enabled: false
   - trigger: time
     at:
       entity_id: sensor.lucy_timer_start_time
-      offset: '2:00:00'
+      offset: '3:00:00'
   conditions:
   - condition: time
     after: 08:00:00
@@ -1766,7 +1757,7 @@
     - thu
     - fri
     after: '11:30:00'
-    before: '19:00:00'
+    before: '18:02:00'
   - condition: state
     entity_id: input_boolean.mower_schedule_enabled
     state: 'on'

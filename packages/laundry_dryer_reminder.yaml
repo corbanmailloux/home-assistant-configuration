@@ -92,10 +92,10 @@ automation:
           dismiss_notification: true
 
   - id: 3b991b80-fc3f-4d67-9900-5cf5f6510c96
-    alias: Dryer Reminder - Acknowledge alert when motion is detected in the basement
+    alias: Dryer Reminder - Acknowledge alert when dryer door is opened
     triggers:
       - trigger: state
-        entity_id: binary_sensor.laundry_motion_sensor_occupancy
+        entity_id: binary_sensor.dryer_door_sensor_contact
         from: "off"
         to: "on"
     conditions:
