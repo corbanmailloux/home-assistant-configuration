@@ -1321,10 +1321,6 @@
                   "entity": "input_boolean.cats_are_home"
                 },
                 {
-                  "entity": "device_tracker.bens_iphone_se_unifi",
-                  "secondary_info": "last-changed"
-                },
-                {
                   "entity": "input_boolean.exterior_privacy_mode"
                 }
               ],

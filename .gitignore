@@ -71,6 +71,9 @@ google_cloud_assistant_credentials.json
 .ha_run.lock
 .cache/
 
+mcp_usage.jsonl
+.ha_mcp/*
+
 # Ignore the internal Home Assistant .storage directory, but include some basic configs.
 .storage/*
 # Dashboards
