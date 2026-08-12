@@ -2819,3 +2819,28 @@
       title: Unicycle Charging for 5 Hours
       message: Do you want to turn off the charger?
   mode: single
+- id: '1786125957752'
+  alias: Reset Mower Turn Mode
+  description: 'Ideally this is temporary until Mammotion fixes this mess... again.
+
+    https://old.reddit.com/r/MammotionTechnology/comments/1vh40sz/new_app_and_firmware_update_is_coming_soon/'
+  triggers:
+  - trigger: state
+    entity_id:
+    - select.lucas_turnaround_mode
+    to:
+    - zero_turn
+  conditions: []
+  actions:
+  - action: notify.corban
+    metadata: {}
+    data:
+      message: Resetting to multi-point turn.
+      title: Lucas Turn Mode Reset
+  - action: select.select_option
+    metadata: {}
+    target:
+      entity_id: select.lucas_turnaround_mode
+    data:
+      option: multipoint
+  mode: single

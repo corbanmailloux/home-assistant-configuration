@@ -95,6 +95,16 @@
                   "state_content": "last_updated",
                   "vertical": false,
                   "features_position": "bottom"
+                },
+                {
+                  "type": "tile",
+                  "entity": "select.lucas_turnaround_mode",
+                  "name": {
+                    "type": "entity"
+                  },
+                  "icon": "mdi:arrow-u-down-left",
+                  "vertical": false,
+                  "features_position": "bottom"
                 }
               ]
             },
