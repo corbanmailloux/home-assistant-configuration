@@ -534,12 +534,56 @@
                 },
                 {
                   "aspect_ratio": "1/1",
-                  "color_type": "blank-card",
+                  "color_type": "icon",
+                  "entity": "binary_sensor.washing_machine_running",
+                  "name": "Washer",
+                  "show_name": false,
+                  "state": [
+                    {
+                      "value": "on",
+                      "icon": "mdi:washing-machine",
+                      "color": "rgb(33, 150, 243)"
+                    },
+                    {
+                      "value": "off",
+                      "icon": "mdi:washing-machine-off",
+                      "color": "rgb(120, 120, 120)"
+                    }
+                  ],
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.toggle",
+                    "service_data": {
+                      "entity_id": "input_boolean.washer_reminder_notifying"
+                    }
+                  },
                   "type": "custom:button-card"
                 },
                 {
                   "aspect_ratio": "1/1",
-                  "color_type": "blank-card",
+                  "color_type": "icon",
+                  "entity": "binary_sensor.dryer_running",
+                  "name": "Dryer",
+                  "show_name": false,
+                  "state": [
+                    {
+                      "value": "on",
+                      "icon": "mdi:tumble-dryer",
+                      "color": "rgb(255, 152, 0)"
+                    },
+                    {
+                      "value": "off",
+                      "icon": "mdi:tumble-dryer-off",
+                      "color": "rgb(120, 120, 120)"
+                    }
+                  ],
+                  "tap_action": {
+                    "action": "call-service",
+                    "service": "input_boolean.toggle",
+                    "service_data": {
+                      "entity_id": "input_boolean.dryer_reminder_notifying"
+                    }
+                  },
                   "type": "custom:button-card"
                 }
               ],
