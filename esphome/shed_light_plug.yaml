@@ -36,5 +36,5 @@ switch:
 script:
   - id: auto_off
     then:
-      - delay: 15min
+      - delay: 30min
       - switch.turn_off: relay
