@@ -168,7 +168,7 @@ light:
   # One light strip snakes around the unit, covering both number displays.
   # See the `partition` entries below for breaking up the strip into segments.
   - platform: esp32_rmt_led_strip
-    rgb_order: GRB
+    channel_colors: GRB
     pin: 22
     num_leds: 87
     chipset: WS2812
