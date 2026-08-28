@@ -35,8 +35,8 @@ binary_sensor:
       mode: INPUT_PULLUP
       inverted: True
     name: "Button"
-    # on_press:
-    #   - switch.toggle: relay
+    on_press:
+      - switch.toggle: relay
   - platform: status
     name: "Status"
 
