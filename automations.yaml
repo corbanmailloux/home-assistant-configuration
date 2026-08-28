@@ -2844,3 +2844,33 @@
     data:
       option: multipoint
   mode: single
+- id: '1787943021009'
+  alias: Disable driveway animal detection when Lucas is mowing
+  description: Disable driveway animal detection while Lucas is away from his dock
+    (so the mower doesn't trigger it), re-enable when he returns and starts charging.
+  triggers:
+  - trigger: state
+    entity_id: binary_sensor.lucas_charging
+    to: 'off'
+    id: not_docked
+  - trigger: state
+    entity_id: binary_sensor.lucas_charging
+    to: 'on'
+    id: docked
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: not_docked
+      sequence:
+      - action: switch.turn_off
+        target:
+          entity_id: switch.driveway_animal_detection
+    - conditions:
+      - condition: trigger
+        id: docked
+      sequence:
+      - action: switch.turn_on
+        target:
+          entity_id: switch.driveway_animal_detection
+  mode: single
