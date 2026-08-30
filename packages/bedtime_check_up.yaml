@@ -7,6 +7,7 @@ group:
       - binary_sensor.garage_back_person_door_contact
       - binary_sensor.basement_exterior_door_sensor_contact
       - binary_sensor.sunporch_sliding_door_contact
+      - binary_sensor.shed_light_plug_shed_door
 
 input_boolean:
   bedtime_checkup_error:
