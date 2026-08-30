@@ -862,6 +862,7 @@
     subtype: brightness_up_click
     trigger: device
     id: up
+    enabled: false
   - domain: mqtt
     device_id: 52b2f81b59b1104f1e7ee8114a23c2a0
     type: action
@@ -874,12 +875,14 @@
     subtype: arrow_left_click
     trigger: device
     id: left
+    enabled: false
   - domain: mqtt
     device_id: 52b2f81b59b1104f1e7ee8114a23c2a0
     type: action
     subtype: arrow_right_click
     trigger: device
     id: right
+    enabled: false
   conditions: []
   actions:
   - choose:
@@ -2873,4 +2876,44 @@
       - action: switch.turn_on
         target:
           entity_id: switch.driveway_animal_detection
+  mode: single
+- id: '1788016695960'
+  alias: 'Sunporch String Lights follow Sconces '
+  description: ''
+  triggers:
+  - trigger: light.turned_on
+    target:
+      device_id: 362f57d66b0bbc6a0ca4c8a53e2a51d5
+    options:
+      behavior: each
+    id: 'on'
+  - trigger: light.turned_off
+    target:
+      device_id: 362f57d66b0bbc6a0ca4c8a53e2a51d5
+    options:
+      behavior: each
+    id: 'off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        target:
+          device_id: c3c50fad5d714e5281cb6e7b11e1815c
+        data: {}
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        target:
+          device_id: c3c50fad5d714e5281cb6e7b11e1815c
+        data: {}
   mode: single
