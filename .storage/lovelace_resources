@@ -60,7 +60,7 @@
         "id": "3be86917498147c08cb200b17d63894b"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375522",
+        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375523",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },
@@ -116,17 +116,17 @@
       },
       {
         "id": "0d2f31628eb84fa8ad32b185cc11d1a0",
-        "url": "/ha_creality_ws/k_printer_card.js?v=1787171118",
+        "url": "/ha_creality_ws/k_printer_card.js?v=1790183998",
         "type": "module"
       },
       {
         "id": "a0a3da9a73074a7696909072f4e769b0",
-        "url": "/ha_creality_ws/k_cfs_card.js?v=1787171118",
+        "url": "/ha_creality_ws/k_cfs_card.js?v=1790183998",
         "type": "module"
       },
       {
         "id": "e50bce84a5ef446588a5103d78a5254b",
-        "url": "/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=4973191281402",
+        "url": "/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=4973191281421",
         "type": "module"
       }
     ]
