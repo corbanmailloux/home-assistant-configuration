@@ -1054,6 +1054,47 @@
                   }
                 ]
               }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "or",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity": "cover.ratgdo_left_garage_door_door",
+                      "state": "open"
+                    },
+                    {
+                      "condition": "state",
+                      "entity": "cover.ratgdo_right_garage_door_door",
+                      "state": "open"
+                    }
+                  ]
+                }
+              ],
+              "card": {
+                "type": "custom:button-card",
+                "entity": "cover.ratgdo_left_garage_door_door",
+                "name": "Garage Door(s) Open",
+                "icon": "mdi:garage",
+                "color": "purple",
+                "layout": "icon_name",
+                "show_icon": true,
+                "show_state": false,
+                "hold_action": "none",
+                "tap_action": {
+                  "action": "perform-action",
+                  "perform_action": "cover.close_cover",
+                  "target": {
+                    "entity_id": [
+                      "cover.ratgdo_left_garage_door_door",
+                      "cover.ratgdo_right_garage_door_door"
+                    ]
+                  }
+                }
+              }
             }
           ]
         }
