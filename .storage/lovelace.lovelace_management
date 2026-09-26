@@ -682,7 +682,7 @@
                 },
                 {
                   "type": "markdown",
-                  "content": "{%- set raw = states(\"sensor.unavailable_tracked_devices\") -%}\n{%- set items = raw.split(',') | map('trim') | select('ne','') | list -%}\n{% if items | count > 0 %}\n{{ items | sort | map('regex_replace', '^(.*)$', '- \\\\1') | join('\\n') }}\n{% else %}\nNone\n{% endif %}"
+                  "content": "{%- set names = state_attr('sensor.unavailable_tracked_devices', 'device_names') or [] -%}\n{% if names | count > 0 %}\n{{ names | sort | map('regex_replace', '^(.*)$', '- \\\\1') | join('\\n') }}\n{% else %}\nNone\n{% endif %}"
                 },
                 {
                   "type": "custom:battery-state-card",
