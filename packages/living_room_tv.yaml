@@ -1,49 +1,49 @@
-script:
-  game_mode_start:
-    alias: "Game Mode"
-    sequence:
-      # TODO: Check if the PC is on. If not, send a WOL packet. (Check if that works for this motherboard)
-      - if:
-          - alias: "LG TV is off"
-            condition: state
-            entity_id: media_player.living_room_lg_tv
-            state: "off"
-        then:
-          # Turn on the Apple TV, because it also turns on the actual TV over CEC.
-          # If I can configure the LG WebOS TV to turn on directly, I should use that.
-          # - action: media_player.turn_on
-          #   target:
-          #     entity_id: media_player.living_room_apple_tv
+# script:
+#   game_mode_start:
+#     alias: "Game Mode"
+#     sequence:
+#       # TODO: Check if the PC is on. If not, send a WOL packet. (Check if that works for this motherboard)
+#       - if:
+#           - alias: "LG TV is off"
+#             condition: state
+#             entity_id: media_player.living_room_lg_tv
+#             state: "off"
+#         then:
+#           # Turn on the Apple TV, because it also turns on the actual TV over CEC.
+#           # If I can configure the LG WebOS TV to turn on directly, I should use that.
+#           # - action: media_player.turn_on
+#           #   target:
+#           #     entity_id: media_player.living_room_apple_tv
 
-          - action: media_player.turn_on
-            target:
-              entity_id: media_player.living_room_lg_tv
-          - alias: Wait for the LG TV to be on
-            wait_template: "{{ is_state('media_player.living_room_lg_tv', 'on') }}"
-            timeout:
-              seconds: 30
-          - alias: "Wait a couple more seconds to get the source to settle."
-            delay:
-              seconds: 5
-      - alias: "Switch TV input to the PC"
-        action: media_player.select_source
-        data:
-          source: PC
-        target:
-          entity_id: media_player.living_room_lg_tv
+#           - action: media_player.turn_on
+#             target:
+#               entity_id: media_player.living_room_lg_tv
+#           - alias: Wait for the LG TV to be on
+#             wait_template: "{{ is_state('media_player.living_room_lg_tv', 'on') }}"
+#             timeout:
+#               seconds: 30
+#           - alias: "Wait a couple more seconds to get the source to settle."
+#             delay:
+#               seconds: 5
+#       - alias: "Switch TV input to the PC"
+#         action: media_player.select_source
+#         data:
+#           source: PC
+#         target:
+#           entity_id: media_player.living_room_lg_tv
 
-automation:
-  - alias: "Turn On Living Room LG TV with WakeOnLan"
-    triggers:
-      - trigger: webostv.turn_on
-        entity_id: media_player.living_room_lg_tv
-    actions:
-      # - action: wake_on_lan.send_magic_packet
-      #   data:
-      #     mac: 64:e4:a5:7b:7c:b6
+# automation:
+#   - alias: "Turn On Living Room LG TV with WakeOnLan"
+#     triggers:
+#       - trigger: webostv.turn_on
+#         entity_id: media_player.living_room_lg_tv
+#     actions:
+#       # - action: wake_on_lan.send_magic_packet
+#       #   data:
+#       #     mac: 64:e4:a5:7b:7c:b6
 
-      # Turn on the Apple TV, because it also turns on the actual TV over CEC.
-      # If I can configure the LG WebOS TV to turn on directly, I should use that.
-      - action: media_player.turn_on
-        target:
-          entity_id: media_player.living_room_apple_tv
+#       # Turn on the Apple TV, because it also turns on the actual TV over CEC.
+#       # If I can configure the LG WebOS TV to turn on directly, I should use that.
+#       - action: media_player.turn_on
+#         target:
+#           entity_id: media_player.living_room_apple_tv
