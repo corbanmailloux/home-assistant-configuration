@@ -1095,6 +1095,30 @@
                   }
                 }
               }
+            },
+            {
+              "type": "conditional",
+              "conditions": [
+                {
+                  "condition": "state",
+                  "entity": "lawn_mower.lucas",
+                  "state_not": "docked"
+                }
+              ],
+              "card": {
+                "type": "custom:button-card",
+                "entity": "lawn_mower.lucas",
+                "name": "Lucas is",
+                "icon": "mdi:robot-mower-outline",
+                "color": "green",
+                "layout": "icon_name_state",
+                "show_icon": true,
+                "show_state": true,
+                "hold_action": "none",
+                "tap_action": {
+                  "action": "more-info"
+                }
+              }
             }
           ]
         }

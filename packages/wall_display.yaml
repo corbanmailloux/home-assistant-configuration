@@ -52,6 +52,7 @@ automation:
           - "home"
           - "L3Harris"
           - "Clay Studio"
+          - "Mimi and Pop's House"
         for: "00:01:00"
     actions:
       - action: input_boolean.turn_off
