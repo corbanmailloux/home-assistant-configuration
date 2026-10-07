@@ -70,14 +70,14 @@ script:
             {{ training_entity_ids }}
             {% endif %}
 
-      - alias: "Sunporch"
-        variables:
-          training_entity_ids: >
-            {% if is_state("input_boolean.room_exclude_sunporch", "off") -%}
-            {{ training_entity_ids + ["light.sunporch_sconces", "light.sunporch_string_lights"] }}
-            {%- else -%}
-            {{ training_entity_ids }}
-            {% endif %}
+      # - alias: "Sunporch"
+      #   variables:
+      #     training_entity_ids: >
+      #       {% if is_state("input_boolean.room_exclude_sunporch", "off") -%}
+      #       {{ training_entity_ids + ["light.sunporch_sconces", "light.sunporch_string_lights"] }}
+      #       {%- else -%}
+      #       {{ training_entity_ids }}
+      #       {% endif %}
 
       - alias: "Hallways"
         variables:
