@@ -1551,7 +1551,7 @@
       entity_id: switch.sprinkler_valve_1
   mode: single
 - id: '1750027073324'
-  alias: Turn on exterior lights at night when a vehicle is detected
+  alias: Turn on exterior lights at night when a vehicle or person is detected
   description: ''
   triggers:
   - trigger: state
@@ -2916,4 +2916,61 @@
         target:
           device_id: c3c50fad5d714e5281cb6e7b11e1815c
         data: {}
+  mode: single
+- id: '1791856984384'
+  alias: Master Bathroom - Motion Default Level Schedule
+  description: Update default lighting level on a schedule so motion lighting always
+    turns on at a good brightness.
+  triggers:
+  - trigger: time
+    at: 08:00:00
+    id: generated-zmVG
+  - trigger: time
+    at: '19:00:00'
+    id: generated-in-z
+  - trigger: time
+    at: '21:00:00'
+    id: generated-AYi6
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - generated-zmVG
+      sequence:
+      - action: number.set_value
+        target:
+          entity_id:
+          - number.master_bathroom_light_defaultlevellocal
+          - number.master_bathroom_light_defaultlevelremote
+        data:
+          value: 191
+        note: 'Daytime: 75% of the number''s 0-255 range'
+    - conditions:
+      - condition: trigger
+        id:
+        - generated-in-z
+      sequence:
+      - action: number.set_value
+        target:
+          entity_id:
+          - number.master_bathroom_light_defaultlevellocal
+          - number.master_bathroom_light_defaultlevelremote
+        data:
+          value: 102
+        note: 'Evening: 40% of the number''s 0-255 range'
+    - conditions:
+      - condition: trigger
+        id:
+        - generated-AYi6
+      sequence:
+      - action: number.set_value
+        target:
+          entity_id:
+          - number.master_bathroom_light_defaultlevellocal
+          - number.master_bathroom_light_defaultlevelremote
+        data:
+          value: 5
+        note: 'Night (9pm-8am): 2% of the number''s 0-255 range'
   mode: single
