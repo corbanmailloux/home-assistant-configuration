@@ -116,22 +116,22 @@
       },
       {
         "id": "0d2f31628eb84fa8ad32b185cc11d1a0",
-        "url": "/ha_creality_ws/k_printer_card.js?v=efead36a13",
+        "url": "/ha_creality_ws/k_printer_card.js?v=fd0786eb1e",
         "type": "module"
       },
       {
         "id": "a0a3da9a73074a7696909072f4e769b0",
-        "url": "/ha_creality_ws/k_cfs_card.js?v=71e833984f",
+        "url": "/ha_creality_ws/k_cfs_card.js?v=04dd7dff75",
         "type": "module"
       },
       {
         "id": "e50bce84a5ef446588a5103d78a5254b",
-        "url": "/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=4973191281421",
+        "url": "/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=4973191281500",
         "type": "module"
       },
       {
-        "id": "fca01d1004424941bddc1203ef54952b",
-        "url": "/dreame_vacuum/frontend.js?v=f80f9cd1a90ee37163753012dee79812",
+        "id": "f4814ce755c9486ea92862ec78ce14f7",
+        "url": "/dreame_vacuum/frontend.js?v=86844026d96639df85eab0f732abadca",
         "type": "module"
       }
     ]

@@ -24,14 +24,14 @@
         "stat_rate": "sensor.home_energy_monitor_power_fl1_hvac"
       },
       {
-        "stat_consumption": "sensor.home_energy_monitor_daily_energy_fl2_hvac",
-        "name": "FL2 HVAC",
-        "stat_rate": "sensor.home_energy_monitor_power_fl2_hvac"
-      },
-      {
         "stat_consumption": "sensor.home_energy_monitor_daily_energy_fl1_heat_strips",
         "name": "FL1 Heat Strips",
         "stat_rate": "sensor.home_energy_monitor_power_fl1_heat_strips"
+      },
+      {
+        "stat_consumption": "sensor.home_energy_monitor_daily_energy_fl2_hvac",
+        "name": "FL2 HVAC",
+        "stat_rate": "sensor.home_energy_monitor_power_fl2_hvac"
       },
       {
         "stat_consumption": "sensor.home_energy_monitor_daily_energy_fl2_heat_strips",
