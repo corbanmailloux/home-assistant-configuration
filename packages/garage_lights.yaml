@@ -181,3 +181,77 @@ automation:
           color_temp_kelvin: 5000
           brightness_pct: 100
           transition: 0
+
+  # Safety net for the motion sensor in the garage getting stuck "on" (or for the lights
+  # being left on by hand): nudge Corban once the main lights have been on for an hour.
+  # Note: a `for:` timer restarts on every HA restart or on a momentary `unavailable`,
+  # so the nudge can arrive late — never early.
+  - id: 11a896ab-85e5-4675-b000-aab91239da23
+    alias: Garage - Notify when the main lights have been left on
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: light.garage_main_lights
+        to: "on"
+        for:
+          hours: 1
+    conditions:
+      - alias: "Garage automations are not disabled"
+        condition: state
+        entity_id: input_boolean.room_exclude_garage
+        state: "off"
+    actions:
+      - action: notify.corban
+        data:
+          title: "Garage lights left on"
+          message: >-
+            The garage main lights have been on for over an hour (since
+            {{ states.light.garage_main_lights.last_changed | as_timestamp | timestamp_custom("%-I:%M %p") }}).
+          data:
+            tag: "garage_lights_left_on"
+            actions:
+              - action: "GARAGE_MAIN_LIGHTS_OFF"
+                title: "Turn Off Lights"
+                activationMode: "background"
+                authenticationRequired: false
+                destructive: true
+                behavior: "default"
+
+  - id: 7df92bbf-5902-4f47-8943-da32ce96261d
+    alias: Garage - Turn off the main lights from the notification
+    mode: single
+    triggers:
+      - trigger: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "GARAGE_MAIN_LIGHTS_OFF"
+    actions:
+      - alias: "Turn off the lights"
+        action: light.turn_off
+        target:
+          entity_id: light.garage_main_lights
+        data:
+          transition: 0
+      - alias: "Clear the notification"
+        action: notify.corban
+        data:
+          message: clear_notification
+          data:
+            tag: "garage_lights_left_on"
+
+  # Clear the notification if the lights get turned off another way (wall switch, motion
+  # timeout), so a stale "left on" card doesn't linger with a useless button.
+  - id: 1d4f6a0e-3f9c-4e0a-9c7d-2b0f4f0c9e51
+    alias: Garage - Clear the left-on notification when the main lights turn off
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: light.garage_main_lights
+        from: "on"
+        to: "off"
+    actions:
+      - action: notify.corban
+        data:
+          message: clear_notification
+          data:
+            tag: "garage_lights_left_on"
