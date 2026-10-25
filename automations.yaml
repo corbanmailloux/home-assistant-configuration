@@ -133,18 +133,94 @@
     entity_id:
     - cover.ratgdo_left_garage_door_door
     - cover.ratgdo_right_garage_door_door
-    - binary_sensor.garage_side_person_door_contact
+    to:
+    - opening
+    - closing
+    - open
+    - closed
+  - trigger: state
+    entity_id: binary_sensor.garage_side_person_door_contact
+    to:
+    - 'on'
+    - 'off'
   conditions: []
   actions:
   - choose:
-    - conditions:
+    - alias: A door is opening
+      conditions:
       - condition: or
         conditions:
         - condition: state
+          entity_id: cover.ratgdo_left_garage_door_door
+          state: opening
+        - condition: state
           entity_id: cover.ratgdo_right_garage_door_door
-          state: open
+          state: opening
+      sequence:
+      - action: script.inovelli_led_control
+        metadata: {}
+        alias: Purple rising - door opening
+        data:
+          led: All
+          color: Purple
+          level: 62
+          duration: Indefinitely
+          effect: Slow Rising
+          target:
+            device_id: 9f61f3f1b573c3799a54ee705f98034f
+      - action: script.inovelli_led_control
+        metadata: {}
+        alias: Purple rising - door opening
+        data:
+          led: All
+          color: Purple
+          level: 62
+          duration: Indefinitely
+          effect: Slow Rising
+          target:
+            device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
+    - alias: A door is closing
+      conditions:
+      - condition: or
+        conditions:
         - condition: state
           entity_id: cover.ratgdo_left_garage_door_door
+          state: closing
+        - condition: state
+          entity_id: cover.ratgdo_right_garage_door_door
+          state: closing
+      sequence:
+      - action: script.inovelli_led_control
+        metadata: {}
+        alias: Purple falling - door closing
+        data:
+          led: All
+          color: Purple
+          level: 62
+          duration: Indefinitely
+          effect: Slow Falling
+          target:
+            device_id: 9f61f3f1b573c3799a54ee705f98034f
+      - action: script.inovelli_led_control
+        metadata: {}
+        alias: Purple falling - door closing
+        data:
+          led: All
+          color: Purple
+          level: 62
+          duration: Indefinitely
+          effect: Slow Falling
+          target:
+            device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
+    - alias: A door or the side door is open
+      conditions:
+      - condition: or
+        conditions:
+        - condition: state
+          entity_id: cover.ratgdo_left_garage_door_door
+          state: open
+        - condition: state
+          entity_id: cover.ratgdo_right_garage_door_door
           state: open
         - condition: state
           entity_id: binary_sensor.garage_side_person_door_contact
@@ -152,18 +228,18 @@
       sequence:
       - action: script.inovelli_led_control
         metadata: {}
+        alias: Solid purple - open
         data:
           led: All
           color: Purple
           level: 62
           duration: Indefinitely
+          effect: Solid
           target:
             device_id: 9f61f3f1b573c3799a54ee705f98034f
-          effect: Solid
-        alias: Set LED strip to purple - Kitchen Bar Light
-      - alias: Set LED strip to purple - Utility Closet Light
-        action: script.inovelli_led_control
+      - action: script.inovelli_led_control
         metadata: {}
+        alias: Solid purple - open
         data:
           led: All
           color: Purple
@@ -172,26 +248,30 @@
           effect: Solid
           target:
             device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
-      alias: If any door is open
     default:
     - action: script.inovelli_led_control
       metadata: {}
+      alias: Clear LEDs
       data:
         led: All
+        color: Purple
+        level: 62
+        duration: Indefinitely
+        effect: Clear
         target:
           device_id: 9f61f3f1b573c3799a54ee705f98034f
-        effect: Clear
-      alias: Clear LED Strip - Kitchen Bar Light
-    - alias: Clear LED Strip - Utility Closet Light
-      action: script.inovelli_led_control
+    - action: script.inovelli_led_control
       metadata: {}
+      alias: Clear LEDs
       data:
         led: All
-        target:
-          device_id:
-          - b61d7bab7432d5e91ddb6fb6e28bf5fd
+        color: Purple
+        level: 62
+        duration: Indefinitely
         effect: Clear
-  mode: single
+        target:
+          device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
+  mode: restart
 - id: '1711145973507'
   alias: Pantry Door Light
   description: ''
