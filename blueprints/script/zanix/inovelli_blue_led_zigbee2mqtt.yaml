@@ -1,7 +1,7 @@
 blueprint:
   name: Inovelli Blue LED (Zigbee2MQTT)
   description: "Set LED effects for Inovelli Blue Series Switches using Zigbee2MQTT.\n\nℹ️
-    Version: 2025.8.0\n\nTo update this blueprint, read [Re-importing a blueprint](https://www.home-assistant.io/docs/automation/using_blueprints/#re-importing-a-blueprint)\n\n✨
+    Version: 2026.4.0\n\nTo update this blueprint, read [Re-importing a blueprint](https://www.home-assistant.io/docs/automation/using_blueprints/#re-importing-a-blueprint)\n\n✨
     Features:\n\n- Select one or multiple devices, entities, floors, labels, or areas
     with Inovelli switches\n- Selectors for LED Number, Color, Brightness Level, Effect,
     and Duration\n- LED Number, Color, Effect, and Duration can accept direct values
@@ -33,7 +33,9 @@ blueprint:
             by default.
           default: zigbee2mqtt
           selector:
-            text: {}
+            text:
+              multiline: false
+              multiple: false
         command_path_map:
           name: Default Command Path Map
           description: 'Map of Entity IDs with a MQTT command path map when HA and
@@ -52,7 +54,8 @@ blueprint:
             '
           default: ''
           selector:
-            object: {}
+            object:
+              multiple: false
 fields:
   target:
     name: Target
@@ -352,13 +355,13 @@ variables:
     [])\n  | list\n-%} {{ selectors | flatten | unique | list }}"
   leds:
     all: -1
-    led 1: 0
-    led 2: 1
-    led 3: 2
-    led 4: 3
-    led 5: 4
-    led 6: 5
-    led 7: 6
+    led 1: 1
+    led 2: 2
+    led 3: 3
+    led 4: 4
+    led 5: 5
+    led 6: 6
+    led 7: 7
   led: '{{ led | default("all") }}'
   led_value: "{% if led | int(default=-2) == -2 %}\n  {{ leds[led | lower] | int(default=-1)
     }}\n{% else %}\n  {{ led | int(default=-1) }}\n{% endif %}"
