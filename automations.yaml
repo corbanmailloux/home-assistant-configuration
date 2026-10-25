@@ -466,7 +466,8 @@
       sequence:
       - action: light.toggle
         metadata: {}
-        data: {}
+        data:
+          brightness_pct: 100
         target:
           entity_id: light.fairy_lights
     - conditions:
@@ -2423,7 +2424,8 @@
         metadata: {}
         target:
           floor_id: second_floor
-        data: {}
+        data:
+          brightness_pct: 100
     - conditions:
       - condition: trigger
         id:
@@ -2843,4 +2845,109 @@
         data:
           value: 5
         note: 'Night (9pm-8am): 2% of the number''s 0-255 range'
+  mode: single
+- id: '1792090259336'
+  alias: Stairs Switch - Bottom - Triple Tap for All Lights
+  description: ''
+  triggers:
+  - domain: mqtt
+    device_id: 6239543fc9a684fbba5d4af77ccdf052
+    type: action
+    subtype: aux_up_triple
+    trigger: device
+    id: 'on'
+  - domain: mqtt
+    device_id: 6239543fc9a684fbba5d4af77ccdf052
+    type: action
+    subtype: aux_down_triple
+    trigger: device
+    id: 'off'
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id:
+        - 'on'
+      sequence:
+      - action: light.turn_on
+        metadata: {}
+        data:
+          brightness_pct: 100
+        target:
+          area_id:
+          - 6a82246dbc29484cb9558c88e6e7be5d
+          - dining_room
+          - front_entry
+          - 4872200594374640b069eaeee79e9ec6
+          - first_floor_hallway
+          - mudroom
+    - conditions:
+      - condition: trigger
+        id:
+        - 'off'
+      sequence:
+      - action: light.turn_off
+        metadata: {}
+        target:
+          area_id:
+          - 6a82246dbc29484cb9558c88e6e7be5d
+          - dining_room
+          - 4872200594374640b069eaeee79e9ec6
+          - mudroom
+          - first_floor_hallway
+          - front_entry
+        data: {}
+  mode: single
+- id: '1792879691620'
+  alias: Exterior Lighting - Porch White Override on Person Detection
+  description: 'Halloween scene workaround: while the WLED exterior lights are on,
+    a person on the doorbell or driveway camera turns on the white porch segment override.
+    The override turns off once no person has been detected on either camera for 3
+    minutes. Disable after the holiday.'
+  triggers:
+  - alias: Person detected on doorbell or driveway
+    trigger: state
+    entity_id:
+    - binary_sensor.main_doorbell_person
+    - binary_sensor.driveway_person_detected
+    to: 'on'
+    id: person_detected
+  - alias: No person detected for 3 minutes
+    trigger: state
+    entity_id:
+    - binary_sensor.main_doorbell_person
+    - binary_sensor.driveway_person_detected
+    to: 'off'
+    for: 00:03:00
+    id: all_clear
+  conditions:
+  - alias: WLED main lights are on
+    condition: state
+    entity_id: light.garage_wled_garage_main
+    state: 'on'
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: person_detected
+      sequence:
+      - alias: Turn on porch white override
+        action: light.turn_on
+        target:
+          entity_id: light.garage_wled_garage_segment_1
+    - conditions:
+      - condition: trigger
+        id: all_clear
+      - alias: Neither camera still detects a person
+        condition: state
+        entity_id:
+        - binary_sensor.main_doorbell_person
+        - binary_sensor.driveway_person_detected
+        state: 'off'
+      sequence:
+      - alias: Turn off porch white override
+        action: light.turn_off
+        target:
+          entity_id: light.garage_wled_garage_segment_1
   mode: single
