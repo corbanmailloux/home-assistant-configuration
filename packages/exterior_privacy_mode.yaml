@@ -35,7 +35,6 @@ automation:
                 target:
                   entity_id:
                     - switch.main_doorbell_privacy_mode
-                    - switch.unifi_doorbell_privacy_mode
                     - switch.driveway_privacy_mode
               - alias: "Disable garage lighting automations"
                 action: input_boolean.turn_on
@@ -50,7 +49,6 @@ automation:
                 target:
                   entity_id:
                     - switch.main_doorbell_privacy_mode
-                    - switch.unifi_doorbell_privacy_mode
                     - switch.driveway_privacy_mode
               - alias: "Re-enable garage lighting automations"
                 action: input_boolean.turn_off

@@ -110,12 +110,7 @@ automation:
           from: "on"
           to: "off"
       - delay:
-          minutes: >-
-            {% if states("device_tracker.bens_iphone_se_unifi") == "home" %}
-              60
-            {% else %}
-              10
-            {% endif %}
+          minutes: 10
       - action: light.turn_off
         target:
           entity_id: light.garage_main_lights
