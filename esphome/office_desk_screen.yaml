@@ -14,6 +14,7 @@ esp32:
     advanced:
       minimum_chip_revision: "3.1"
       sram1_as_iram: true
+      flash_chip: generic
 
 packages:
   device_base: !include common/device_base.yaml
@@ -1057,6 +1058,15 @@ binary_sensor:
       then:
         - script.execute: update_maggie_eta
 
+  # Only show the mower window while the mower is in season.
+  - platform: homeassistant
+    id: mower_in_season
+    entity_id: input_boolean.mower_in_season
+    internal: true
+    on_state:
+      then:
+        - script.execute: update_mower_window
+
   - platform: homeassistant
     id: lucy_timer_active
     entity_id: switch.lucy_mailloux_timer
@@ -1309,10 +1319,12 @@ script:
     then:
       - if:
           condition:
-            not:
-              text_sensor.state:
-                id: mower_status
-                state: "Docked"
+            and:
+              - binary_sensor.is_on: mower_in_season
+              - not:
+                  text_sensor.state:
+                    id: mower_status
+                    state: "Docked"
           then:
             - lvgl.label.update:
                 id: mac_mower_window_message
