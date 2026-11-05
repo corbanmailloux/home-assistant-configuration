@@ -98,6 +98,8 @@ themes/ios-themes/
 
 .shopping_list.json
 
+mail_and_packages/
+
 # Keys, such as for the Lutron Caseta integration.
 *.pem
 

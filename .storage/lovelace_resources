@@ -96,7 +96,7 @@
       },
       {
         "id": "3458e41b97cf402fb54c606a3302f36c",
-        "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701574019",
+        "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701574020",
         "type": "module"
       },
       {
@@ -106,7 +106,7 @@
       },
       {
         "id": "e68ae68f9432455c8ab2829886ae7691",
-        "url": "/openweathermaphistory/www/openweathermaphistory.js?v=2026.05.03",
+        "url": "/openweathermaphistory/www/openweathermaphistory.js?v=2026.11.05",
         "type": "module"
       },
       {
@@ -116,12 +116,12 @@
       },
       {
         "id": "0d2f31628eb84fa8ad32b185cc11d1a0",
-        "url": "/ha_creality_ws/k_printer_card.js?v=fd0786eb1e",
+        "url": "/ha_creality_ws/k_printer_card.js?v=b2f69e9836",
         "type": "module"
       },
       {
         "id": "a0a3da9a73074a7696909072f4e769b0",
-        "url": "/ha_creality_ws/k_cfs_card.js?v=04dd7dff75",
+        "url": "/ha_creality_ws/k_cfs_card.js?v=0e84e91123",
         "type": "module"
       },
       {
@@ -130,8 +130,8 @@
         "type": "module"
       },
       {
-        "id": "5ef5196bdcc04103ad56fd684d513f20",
-        "url": "/dreame_vacuum/frontend.js?v=86844026d96639df450a7b9f68eccb35",
+        "id": "98ffd80f4df6491dbe1f73c81b613201",
+        "url": "/dreame_vacuum/frontend.js?v=da9f7c2bf8d2d9d7450a7b9f68eccb35",
         "type": "module"
       }
     ]
