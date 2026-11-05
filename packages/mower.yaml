@@ -68,6 +68,9 @@ input_datetime:
     has_time: true
 
 input_boolean:
+  mower_in_season:
+    name: Mower Active Season
+    icon: mdi:leaf
   mower_do_not_mow:
     name: Do Not Mow
     icon: mdi:cancel

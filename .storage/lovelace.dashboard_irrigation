@@ -367,6 +367,15 @@
                   "card_mod": {
                     "style": ":host {\n  /* --mdc-icon-size: 20px; */\n}\n"
                   }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_boolean.mower_in_season",
+                  "features": [
+                    {
+                      "type": "toggle"
+                    }
+                  ]
                 }
               ]
             }

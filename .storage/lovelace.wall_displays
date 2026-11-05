@@ -1100,9 +1100,21 @@
               "type": "conditional",
               "conditions": [
                 {
+                  "condition": "not",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity_id": "lawn_mower.lucas",
+                      "state": "docked"
+                    }
+                  ]
+                },
+                {
                   "condition": "state",
-                  "entity": "lawn_mower.lucas",
-                  "state_not": "docked"
+                  "entity_id": "input_boolean.mower_in_season",
+                  "state": [
+                    "on"
+                  ]
                 }
               ],
               "card": {
