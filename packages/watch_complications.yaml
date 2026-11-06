@@ -1,0 +1,72 @@
+# Build a custom templated entity to use for a round complication on my Apple Watch.
+#
+#   state        -> center text of the round complication
+#   title        -> label showing the active purpose of the complication
+#   bar-progress -> 0.0–1.0 ring fill
+#   last_updated -> ":MM" string of when this sensor last rendered, to help notice long refresh times
+#
+# All rules (first match wins) live in the `result` variable calculation below.
+template:
+  - triggers:
+      # Every entity any rule reads should be listed here for updates.
+      - trigger: state
+        entity_id:
+          - input_boolean.wall_display_show_map
+          - sensor.maggie_time_to_home_for_display
+          - sensor.k2_pro_print_status
+          - sensor.k2_pro_print_progress
+          - sensor.outdoor_porch_temperature
+      # Refresh each minute for now. This can probably be reduced, especially during quiet periods.
+      - trigger: time_pattern
+        minutes: "/1"
+
+    variables:
+      # The rule engine. Renders to a dict {state, title, progress}
+      # (HA's parse_result turns the to_json string back into a dict.)
+      # Keep values string/number only (JSON-serializable).
+      result: >-
+        {% set eta_rule = is_state('input_boolean.wall_display_show_map', 'on')
+           and has_value('sensor.maggie_time_to_home_for_display') %}
+        {% set print_rule = is_state('sensor.k2_pro_print_status', 'printing') %}
+
+        {% if eta_rule %}
+          {# --- Rule 1: Maggie on her way home --- #}
+          {% set eta = states('sensor.maggie_time_to_home_for_display') | float(0) %}
+          {% set state_text = (now() + timedelta(minutes=eta)).strftime('%-I:%M') %}
+          {% set title = 'ETA' %}
+          {% set bar = 0.25 if eta < 10 else 0.75 %}
+        {% elif print_rule %}
+          {# --- Rule 2: K2 Pro is printing --- #}
+          {% set progress = states('sensor.k2_pro_print_progress') | float(0) %}
+          {% set state_text = (progress | round(0) | int) ~ '%' %}
+          {% set title = '3D' %}
+          {% set bar = [[progress / 100, 0] | max, 1] | min %}
+        {% else %}
+          {# --- Rule 3: fallback, porch temperature --- #}
+          {% set temp = states('sensor.outdoor_porch_temperature') | float(50) %}
+          {% set state_text = (temp | round(0) | int) ~ '°' %}
+          {% set title = 'Out' %}
+          {% set bar = [[(temp - 32) / 68, 0] | max, 1] | min %}
+        {% endif %}
+
+        {{ {'state': state_text, 'title': title, 'progress': bar | round(2)} | to_json }}
+
+    sensor:
+      - name: "Apple Watch Complication"
+        unique_id: apple_watch_complication
+        icon: mdi:watch-variant
+        # Available whenever any rule has a value.
+        availability: >-
+          {{ has_value('sensor.outdoor_porch_temperature')
+             or is_state('sensor.k2_pro_print_status', 'printing')
+             or (is_state('input_boolean.wall_display_show_map', 'on')
+                 and has_value('sensor.maggie_time_to_home_for_display')) }}
+        state: "{{ result['state'] }}"
+        attributes:
+          title: "{{ result['title'] }}"
+          bar-progress: "{{ result['progress'] }}"
+          state-text: "{{ result['state'] }}"
+          # ":MM" of the time this update rendered (2:06 -> ":06").
+          # Leading colon is needed to keep it a string and not an int.
+          # Used to display on the watch when the last refresh happened.
+          last_updated: "{{ ':' ~ now().strftime('%M') }}"
