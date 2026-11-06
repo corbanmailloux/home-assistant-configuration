@@ -40,6 +40,18 @@ automation:
         data:
           value: "{{ last_mow }}"
 
+  - id: da15c401-74cb-4b38-8bd5-83d1d13b332d
+    alias: Mower - Disable Schedule When Out of Season
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: input_boolean.mower_in_season
+        to: "off"
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.mower_schedule_enabled
+
 input_datetime:
   mower_last_mow_back_yard_main:
     name: Last Mow - Back Yard
