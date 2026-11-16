@@ -7,65 +7,65 @@
       {
         "id": "28c4a145735f43cc87c5a24a7fb4f4b6",
         "type": "module",
-        "url": "/hacsfiles/lovelace-card-tools/card-tools.js"
+        "url": "/local/community/lovelace-card-tools/card-tools.js"
       },
       {
         "id": "4047cd6f267f4453bfddfd94708537d8",
         "type": "module",
-        "url": "/hacsfiles/mini-media-player/mini-media-player-bundle.js?hacstag=14852083811612"
+        "url": "/local/community/mini-media-player/mini-media-player-bundle.js?v=14852083811612"
       },
       {
         "id": "67bafd0677544c748363f9561ce64446",
         "type": "module",
-        "url": "/hacsfiles/lovelace-slider-entity-row/slider-entity-row.js?hacstag=1448997001750"
+        "url": "/local/community/lovelace-slider-entity-row/slider-entity-row.js?v=1448997001750"
       },
       {
         "id": "2ecb0875b3bc4c8ab53a257f098adf41",
         "type": "module",
-        "url": "/hacsfiles/button-card/button-card.js?hacstag=146194325701"
+        "url": "/local/community/button-card/button-card.js?v=146194325701"
       },
       {
         "id": "e577585c2be34a5ea55084e31269460e",
         "type": "module",
-        "url": "/hacsfiles/text-divider-row/text-divider-row.js?hacstag=179788256141"
+        "url": "/local/community/text-divider-row/text-divider-row.js?v=179788256141"
       },
       {
         "id": "49dae12118f643c19955e01675348008",
         "type": "module",
-        "url": "/hacsfiles/mini-graph-card/mini-graph-card-bundle.js?hacstag=1512800620130"
+        "url": "/local/community/mini-graph-card/mini-graph-card-bundle.js?v=1512800620130"
       },
       {
         "id": "b9ec5fec89054ffeb91508eafed17d54",
         "type": "module",
-        "url": "/hacsfiles/lovelace-card-mod/card-mod.js?hacstag=190927524421"
+        "url": "/local/community/lovelace-card-mod/card-mod.js?v=190927524421"
       },
       {
         "id": "9717aed771b445c5965d83897ccb1714",
         "type": "module",
-        "url": "/hacsfiles/weather-card/weather-card.js"
+        "url": "/local/community/weather-card/weather-card.js"
       },
       {
-        "url": "/hacsfiles/lovelace-valetudo-map-card/valetudo-map-card.js?hacstag=2030361082022012",
+        "url": "/local/community/lovelace-valetudo-map-card/valetudo-map-card.js?v=2030361082022012",
         "type": "module",
         "id": "1cf10dc4f7744e18b1b9f06015ba439e"
       },
       {
-        "url": "/hacsfiles/lovelace-layout-card/layout-card.js?hacstag=156434866247",
+        "url": "/local/community/lovelace-layout-card/layout-card.js?v=156434866247",
         "type": "module",
         "id": "ad5e2552f9ec4dbb96308ac020109a99"
       },
       {
-        "url": "/hacsfiles/lovelace-fold-entity-row/fold-entity-row.js?hacstag=150781994232",
+        "url": "/local/community/lovelace-fold-entity-row/fold-entity-row.js?v=150781994232",
         "type": "module",
         "id": "3be86917498147c08cb200b17d63894b"
       },
       {
-        "url": "/hacsfiles/lovelace-mushroom/mushroom.js?hacstag=444350375523",
+        "url": "/local/community/lovelace-mushroom/mushroom.js?v=444350375-v5.3.0",
         "type": "module",
         "id": "39a732e40929449aab2045af85893af1"
       },
       {
-        "url": "/hacsfiles/apexcharts-card/apexcharts-card.js?hacstag=331701152223",
+        "url": "/local/community/apexcharts-card/apexcharts-card.js?v=331701152223",
         "type": "module",
         "id": "1a480f1e8ae24f60808f839d79ef7ff6"
       },
@@ -75,13 +75,13 @@
         "id": "b9781c9d8ab340f089a8a0da2cc2a497"
       },
       {
-        "url": "/hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js?hacstag=2465497471031",
+        "url": "/local/community/atomic-calendar-revive/atomic-calendar-revive.js?v=2465497471031",
         "type": "module",
         "id": "7b9231683b094f41b0e2eb93d0e4a706"
       },
       {
         "id": "52bdcfd4312d426dbc45d05ad4fa2818",
-        "url": "/hacsfiles/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js?hacstag=193372044241",
+        "url": "/local/community/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js?v=193372044241",
         "type": "module"
       },
       {
@@ -91,17 +91,17 @@
       },
       {
         "id": "567b9db865f54fd8a30ae9a727ed4dfe",
-        "url": "/hacsfiles/restriction-card/restriction-card.js?hacstag=2156334041219",
+        "url": "/local/community/restriction-card/restriction-card.js?v=2156334041219",
         "type": "module"
       },
       {
         "id": "3458e41b97cf402fb54c606a3302f36c",
-        "url": "/hacsfiles/scheduler-card/scheduler-card.js?hacstag=2862701574020",
+        "url": "/local/community/scheduler-card/scheduler-card.js?v=2862701574020",
         "type": "module"
       },
       {
         "id": "b618b7f7959c4d42a84ff4f5f6cc4dd5",
-        "url": "/hacsfiles/hass-valetudo-icons/valetudo-icons.js?hacstag=8819423242025100",
+        "url": "/local/community/hass-valetudo-icons/valetudo-icons.js?v=8819423242025100",
         "type": "module"
       },
       {
@@ -111,7 +111,7 @@
       },
       {
         "id": "460b34f886a84a4e9c0ec8dca3d81fdb",
-        "url": "/hacsfiles/battery-state-card/battery-state-card.js?hacstag=256292682420",
+        "url": "/local/community/battery-state-card/battery-state-card.js?v=256292682420",
         "type": "module"
       },
       {
@@ -126,12 +126,12 @@
       },
       {
         "id": "e50bce84a5ef446588a5103d78a5254b",
-        "url": "/hacsfiles/kiosk-mode/kiosk-mode.js?hacstag=4973191281500",
+        "url": "/local/community/kiosk-mode/kiosk-mode.js?v=497319128-v16.0.0",
         "type": "module"
       },
       {
-        "id": "98ffd80f4df6491dbe1f73c81b613201",
-        "url": "/dreame_vacuum/frontend.js?v=da9f7c2bf8d2d9d7450a7b9f68eccb35",
+        "id": "9b415dc1565d4b49ad3a406cf7b9384f",
+        "url": "/dreame_vacuum/frontend.js?v=da9f7c2bf8d2d9d75b72a757d915fb08",
         "type": "module"
       }
     ]
