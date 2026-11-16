@@ -42,14 +42,6 @@ template:
             is_state('binary_sensor.garage_right_motion', 'on') or
             is_state('binary_sensor.garage_opener_motion_sensor_occupancy', 'on')
           }}
-        # OLD:
-        # # Only count the door sensors as motion if the lights are off. This avoids retriggering when leaving the garage.
-        # state: >-
-        #   {{
-        #     ( is_state('binary_sensor.garage_door_just_opened', 'on') and is_state('light.garage_main_lights', 'off')) or
-        #     is_state('binary_sensor.garage_right_motion', 'on') or
-        #     is_state('binary_sensor.garage_opener_motion_sensor_occupancy', 'on')
-        #   }}
 
 automation:
   - id: 01c0a256-d577-4934-b97f-208357c58cb8
@@ -116,47 +108,6 @@ automation:
           entity_id: light.garage_main_lights
         data:
           transition: 0
-
-  # This is disabled and may be removed in the future.
-  - id: 6f80226a-15d7-4285-83c5-e643c16f1b7f
-    alias: Garage - Motion Lights
-    mode: restart
-    triggers:
-      - trigger: state
-        entity_id: binary_sensor.garage_assumed_motion
-        from: "off"
-        to: "on"
-        id: "on"
-      - trigger: state
-        entity_id: binary_sensor.garage_assumed_motion
-        to: "off"
-        for:
-          minutes: 10
-        id: "off"
-    conditions:
-      - alias: "Garage automations are not disabled"
-        condition: state
-        entity_id: input_boolean.room_exclude_garage
-        state: "off"
-    actions:
-      - alias: "On or Off?"
-        choose:
-          - conditions: >-
-              {{ trigger.id == "on" }}
-            sequence:
-              - alias: "Turn on lights"
-                action: light.turn_on
-                target:
-                  entity_id: light.garage_main_lights
-                data:
-                  color_temp_kelvin: 5000
-          - conditions: >-
-              {{ trigger.id == "off" }}
-            sequence:
-              - alias: "Turn off lights"
-                action: light.turn_off
-                target:
-                  entity_id: light.garage_main_lights
 
   - id: 170ab84a-5bab-4192-ba0e-21e72c395bb4
     alias: Garage - Keep the garage door opener lights on when the main lights are on

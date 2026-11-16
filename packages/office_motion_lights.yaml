@@ -5,10 +5,6 @@ light:
     unique_id: 164722fa-2fce-4e46-9054-af4f2a08b0dd
     entities:
       - light.office_ceiling
-      # - light.office_leds
-      # - light.wled_master # Used when there are multiple segments
-      # - light.corban_s_office_lamp
-      # - light.office_corner_light
 
 input_boolean:
   office_motion_lights_override:
@@ -146,7 +142,6 @@ automation:
                   entity_id:
                     - light.main_office_lights
                     - light.office_desk_screen_display_backlight
-                    # - light.office_status_lcd_display_backlight
           - conditions: "{{ trigger.to_state.state == 'off' }}"
             sequence:
               - if:
@@ -161,12 +156,11 @@ automation:
                         entity_id: input_boolean.training_mode
                         to: "off"
                   - delay:
-                      seconds: 10
+                      seconds: 2
               - action: light.turn_off
                 target:
                   entity_id:
                     - light.main_office_lights
                     - light.office_desk_screen_display_backlight
-                    # - light.office_status_lcd_display_backlight
                 data:
                   transition: 10

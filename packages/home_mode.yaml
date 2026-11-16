@@ -200,7 +200,9 @@ automation:
     actions:
       - action: light.turn_on
         data:
-          entity_id: light.kitchen_main_lights
+          entity_id:
+            - light.kitchen_main_lights
+            - light.kitchen_bar_light
 
   - alias: Home Unoccupied - Turn everything off
     id: 230957ce-f646-4c5d-8819-9b6b069d3628
@@ -220,37 +222,3 @@ automation:
         action: lock.lock
         target:
           entity_id: lock.side_door
-
-  - alias: Turn and keep a light on for the cats when leaving after sunset
-    id: 2d03492c-8f7c-40da-8b54-0d6fa94d3093
-    triggers:
-      - trigger: state
-        entity_id: input_select.home_mode
-        to: "Away"
-      - trigger: sun
-        event: sunset
-    conditions:
-      - alias: "Living room automations are not disabled"
-        condition: state
-        entity_id: input_boolean.room_exclude_livingroom
-        state: "off"
-      - alias: "Away mode"
-        condition: state
-        entity_id: input_select.home_mode
-        state: "Away"
-      - alias: "Sun below horizon"
-        condition: state
-        entity_id: sun.sun
-        state: "below_horizon"
-      - alias: "Cats are home"
-        condition: state
-        entity_id: input_boolean.cats_are_home
-        state: "on"
-    actions:
-      - alias: "Delay to allow leaving automation to run"
-        delay:
-          seconds: 15
-      - alias: "Turn on a light"
-        action: light.turn_on
-        target:
-          entity_id: light.christmas_tree_lights

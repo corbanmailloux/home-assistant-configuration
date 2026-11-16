@@ -9,7 +9,7 @@ automation:
         entity_id: light.fairy_lights
         to: "on"
         for:
-          hours: 5
+          hours: 8
           minutes: 0
           seconds: 0
     actions:

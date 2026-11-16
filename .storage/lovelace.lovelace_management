@@ -394,41 +394,21 @@
                       "icon": "mdi:power-settings"
                     }
                   ]
-                }
-              ]
-            },
-            {
-              "type": "grid",
-              "cards": [
+                },
                 {
                   "type": "heading",
-                  "heading": "StonePerch ProxMox",
+                  "heading": "Tailscale / Remote Devices",
                   "heading_style": "title",
-                  "icon": "mdi:shovel"
+                  "icon": "mdi:wan"
                 },
                 {
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "sensor.syncthing_stoneperch_tv_shows"
-                    },
-                    {
-                      "entity": "sensor.syncthing_stoneperch_movies"
-                    },
-                    {
-                      "entity": "sensor.pve_stoneperch_last_seen"
-                    },
-                    {
-                      "entity": "binary_sensor.stoneperch_sync_active"
-                    },
-                    {
-                      "entity": "sensor.stoneperch_sync_speed"
-                    },
-                    {
-                      "entity": "switch.syncthing_stoneperch_sync_control"
-                    },
-                    {
-                      "entity": "automation.syncthing_run_sync_at_night_only"
+                      "entity": "sensor.pve_stoneperch_last_seen",
+                      "name": {
+                        "type": "entity"
+                      }
                     }
                   ]
                 }
@@ -1504,47 +1484,7 @@
           ],
           "title": "Archive",
           "badges": [],
-          "cards": [
-            {
-              "type": "horizontal-stack",
-              "cards": [
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "device_tracker.emilys_iphone_unifi",
-                  "name": "Emily"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "device_tracker.bens_iphone_se_unifi",
-                  "name": "Ben"
-                },
-                {
-                  "type": "custom:mushroom-entity-card",
-                  "entity": "input_boolean.guest_mode"
-                }
-              ]
-            },
-            {
-              "entities": [
-                "automation.sunrise_alarm",
-                {
-                  "type": "custom:fold-entity-row",
-                  "head": {
-                    "type": "section",
-                    "label": "Configuration"
-                  },
-                  "entities": [
-                    "input_number.alarm_max_brightness",
-                    "input_datetime.alarm_start_time",
-                    "input_datetime.alarm_target_time"
-                  ]
-                }
-              ],
-              "show_header_toggle": false,
-              "title": "Sunrise Alarm",
-              "type": "entities"
-            }
-          ]
+          "cards": []
         }
       ]
     }

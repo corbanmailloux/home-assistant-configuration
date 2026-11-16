@@ -599,7 +599,7 @@
               ],
               "card": {
                 "type": "custom:mini-media-player",
-                "entity": "media_player.kitchen_2",
+                "entity": "media_player.kitchen_homepod",
                 "name": "Kitchen HomePod",
                 "artwork": "cover",
                 "icon": "mdi:speaker",
