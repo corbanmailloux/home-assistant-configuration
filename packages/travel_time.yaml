@@ -14,11 +14,17 @@ script:
               message: clear_notification
               data:
                 tag: "maggie_home_warning"
+          # Also end the Live Activity, which uses its own tag.
+          - action: notify.corban
+            data:
+              message: clear_notification
+              data:
+                tag: "la_maggie_eta"
         else:
           - action: notify.corban
             data:
               title: "Maggie's Almost Home"
-              message: "She's less than 10 minutes away." # TODO: Could I have this notification silently updated every couple minutes to show the current time?
+              message: "She's less than 10 minutes away."
               data:
                 tag: "maggie_home_warning"
                 push:
@@ -58,6 +64,73 @@ automation:
         data:
           duration: "00:10:00" # 10 minute cooldown before retriggering.
 
+  # Live Activity on Corban's lock screen counting down Maggie's drive home.
+  #
+  # Waze refreshes the travel time roughly every minute and iOS rate-limits Live
+  # Activity pushes, so this sends at most one update every two minutes (the
+  # `delay` at the end of `mode: single` is the throttle). Between updates the
+  # `chronometer` counts down on the phone itself, so the lock screen stays
+  # roughly accurate without extra pushes.
+  - id: 426bdd49-6404-4eaf-949a-4fc8019df00e
+    alias: Maggie ETA - Live Activity
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: state
+        entity_id: sensor.maggie_to_home_travel_time
+    conditions:
+      - alias: "Maggie is out, and has been for a minute"
+        condition: state
+        entity_id: person.maggie
+        state: "not_home" # Not home and not stopped in a named zone.
+        for:
+          minutes: 1 # Skip the first minute after leaving home, when the ETA is still tiny.
+
+      - alias: "Under 20 minutes and heading toward home"
+        condition: template
+        value_template: >-
+          {% set eta = trigger.to_state.state | float(-1) %}
+          {% set prev_eta = trigger.from_state.state | float(-1) %}
+          {% set distance = trigger.to_state.attributes.get('distance', -1) | float(-1) %}
+          {% set prev_distance = trigger.from_state.attributes.get('distance', -1) | float(-1) %}
+          {#- Needs a real ETA under the threshold. -#}
+          {% if eta <= 0 or eta >= 20 %}
+            false
+          {#- Prefer distance: it shows she is moving toward home even when traffic
+              makes the ETA stall or grow. A flat distance means she is parked
+              somewhere (or stopped), so don't start an activity; a rising
+              distance means she is driving away (e.g. just left the house). -#}
+          {% elif distance >= 0 and prev_distance >= 0 %}
+            {{ distance < prev_distance }}
+          {#- No distance attributes: fall back to the ETA trending down. -#}
+          {% else %}
+            {{ prev_eta <= 0 or eta < prev_eta }}
+          {% endif %}
+
+    actions:
+      - variables:
+          eta_minutes: >-
+            {{ [trigger.to_state.state | float(0), 1] | max | round(0, "floor") | int }}
+      - alias: "Start or update the Live Activity"
+        action: notify.corban
+        data:
+          title: "Maggie's ETA"
+          message: >-
+            {{ eta_minutes }} min away · arriving
+            {{ (now() + timedelta(minutes=eta_minutes)).strftime("%-I:%M %p") }}
+          data:
+            tag: "la_maggie_eta"
+            live_update: true
+            chronometer: true
+            when_relative: true
+            when: "{{ eta_minutes * 60 }}"
+            notification_icon: mdi:car
+            notification_icon_color: "#4CAF50"
+            relevance_score: 0.6
+            url: /map
+      # Throttle: `mode: single` ignores new triggers until this finishes.
+      - delay: "00:02:00"
+
   - id: 380345d6-b3ab-4cc1-908d-741051bb8ccf
     alias: Dismiss the notification after Maggie arrives
     triggers:
@@ -66,6 +139,16 @@ automation:
         to: "home"
         for:
           minutes: 1
+      # She stopped somewhere that isn't home (a named zone) mid-trip, so the ETA
+      # is no longer meaningful. Without this the Live Activity would keep
+      # counting down until iOS expires it (up to 8 hours).
+      - trigger: state
+        entity_id: person.maggie
+        from: "not_home"
+        not_to:
+          - "home"
+          - "unknown"
+          - "unavailable"
     actions:
       - alias: "Dismiss notification"
         action: script.maggie_travel_time_send
