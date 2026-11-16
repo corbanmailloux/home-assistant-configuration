@@ -13,12 +13,12 @@ automation:
   - alias: Cat Claw Clipping - Mark Clipped
     mode: single
     id: c577630f-a024-453e-a4a4-dd3732fe7493
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.cat_claw_clip_needed
         to: "off"
-    action:
-      - service: input_datetime.set_datetime
+    actions:
+      - action: input_datetime.set_datetime
         target:
           entity_id: input_datetime.cat_claw_last_clipped
         data:
@@ -27,19 +27,19 @@ automation:
   - alias: Cat Claw Clipping - Needs Clipping Reminder
     mode: single
     id: 6124cc2c-b790-4554-9b99-7bbe3488d4a2
-    trigger:
-      - platform: time_pattern
-        hours: "/1"
-    condition:
+    triggers:
+      - trigger: time
+        at: "09:00:00"
+    conditions:
       - condition: template
-        value_template: >
+        value_template: >-
           {% set last = states('input_datetime.cat_claw_last_clipped') %}
           {% if last in ('unknown', 'unavailable', '') %}
             true
           {% else %}
-            {{ (now().date() - strptime(last, '%Y-%m-%d').date()).days >= 7 }}
+            {{ (now().date() - as_datetime(last).date()).days >= 7 }}
           {% endif %}
-    action:
-      - service: input_boolean.turn_on
+    actions:
+      - action: input_boolean.turn_on
         target:
           entity_id: input_boolean.cat_claw_clip_needed

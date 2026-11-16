@@ -13,12 +13,12 @@ automation:
   - alias: Cat Fountain - Mark Cleaned
     mode: single
     id: 38acac42-28a1-4674-95ca-d3e0292cd287
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.cat_fountain_clean_needed
         to: "off"
-    action:
-      - service: input_datetime.set_datetime
+    actions:
+      - action: input_datetime.set_datetime
         target:
           entity_id: input_datetime.cat_fountain_last_cleaned
         data:
@@ -27,19 +27,19 @@ automation:
   - alias: Cat Fountain - Needs Cleaning Reminder
     mode: single
     id: cecedd30-f7e9-4462-a5e1-16d3b5ff89ae
-    trigger:
-      - platform: time_pattern
-        hours: "/1"
-    condition:
+    triggers:
+      - trigger: time
+        at: "09:00:00"
+    conditions:
       - condition: template
-        value_template: >
+        value_template: >-
           {% set last = states('input_datetime.cat_fountain_last_cleaned') %}
           {% if last in ('unknown', 'unavailable', '') %}
             true
           {% else %}
-            {{ (now().date() - strptime(last, '%Y-%m-%d').date()).days >= 14 }}
+            {{ (now().date() - as_datetime(last).date()).days >= 14 }}
           {% endif %}
-    action:
-      - service: input_boolean.turn_on
+    actions:
+      - action: input_boolean.turn_on
         target:
           entity_id: input_boolean.cat_fountain_clean_needed
