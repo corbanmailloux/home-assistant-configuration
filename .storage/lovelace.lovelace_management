@@ -1440,6 +1440,52 @@
                     "state_color": true
                   }
                 }
+              ],
+              "visibility": [
+                {
+                  "condition": "not",
+                  "conditions": [
+                    {
+                      "condition": "state",
+                      "entity_id": "switch.3d_printer_power",
+                      "state": [
+                        "unavailable"
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Filament Dryer",
+                  "heading_style": "title"
+                },
+                {
+                  "type": "history-graph",
+                  "entities": [
+                    {
+                      "entity": "sensor.filament_dryer_temperature_sensor_temperature",
+                      "name": {
+                        "type": "entity"
+                      }
+                    },
+                    {
+                      "entity": "sensor.filament_dryer_temperature_sensor_humidity",
+                      "name": {
+                        "type": "entity"
+                      }
+                    }
+                  ],
+                  "title": "Filament Dryer Internal - 12 hour",
+                  "hours_to_show": 12,
+                  "show_names": true,
+                  "logarithmic_scale": false,
+                  "expand_legend": true
+                }
               ]
             }
           ],
