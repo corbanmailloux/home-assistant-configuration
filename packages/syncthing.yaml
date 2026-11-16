@@ -1,0 +1,174 @@
+# Controls for syncing files from my NAS to a remote mini-PC.
+
+rest_command:
+  syncthing_pause_all:
+    url: "http://192.168.1.10:8384/rest/system/pause"
+    method: POST
+    headers:
+      X-API-Key: !secret syncthing_tubby_api_key
+
+  syncthing_resume_all:
+    url: "http://192.168.1.10:8384/rest/system/resume"
+    method: POST
+    headers:
+      X-API-Key: !secret syncthing_tubby_api_key
+
+  syncthing_pause:
+    url: "http://192.168.1.10:8384/rest/config/devices/UWEEQFI-7YHBZ35-3NWF2UY-UIPIL2J-ON3Z3TP-TZXMOKY-H5JO5VQ-SYC5RQQ"
+    method: PATCH
+    headers:
+      X-API-Key: !secret syncthing_tubby_api_key
+    content_type: "application/json"
+    payload: '{"paused": true}'
+
+  syncthing_resume:
+    url: "http://192.168.1.10:8384/rest/config/devices/UWEEQFI-7YHBZ35-3NWF2UY-UIPIL2J-ON3Z3TP-TZXMOKY-H5JO5VQ-SYC5RQQ"
+    method: PATCH
+    headers:
+      X-API-Key: !secret syncthing_tubby_api_key
+    content_type: "application/json"
+    payload: '{"paused": false}'
+
+binary_sensor:
+  - platform: rest
+    name: "StonePerch Sync Active"
+    resource: "http://192.168.1.10:8384/rest/system/connections"
+    method: GET
+    headers:
+      X-API-Key: !secret syncthing_tubby_api_key
+    value_template: >
+      {% set device_id = 'UWEEQFI-7YHBZ35-3NWF2UY-UIPIL2J-ON3Z3TP-TZXMOKY-H5JO5VQ-SYC5RQQ' %}
+      {% if value_json['connections'][device_id] is defined %}
+        {{ value_json['connections'][device_id].paused == false }}
+      {% else %}
+        false
+      {% endif %}
+    device_class: connectivity
+    scan_interval: 30
+
+sensor:
+  - platform: rest
+    name: "StonePerch Sync Stats"
+    resource: "http://192.168.1.10:8384/rest/system/connections"
+    method: GET
+    headers:
+      X-API-Key: !secret syncthing_tubby_api_key
+    value_template: >
+      {% set device_id = 'UWEEQFI-7YHBZ35-3NWF2UY-UIPIL2J-ON3Z3TP-TZXMOKY-H5JO5VQ-SYC5RQQ' %}
+      {% if value_json['connections'][device_id] is defined %}
+        {{ value_json['connections'][device_id].connected }}
+      {% else %}
+        Disconnected
+      {% endif %}
+    scan_interval: 30
+    json_attributes_path: "$.connections.UWEEQFI-7YHBZ35-3NWF2UY-UIPIL2J-ON3Z3TP-TZXMOKY-H5JO5VQ-SYC5RQQ"
+    json_attributes:
+      - inBytesTotal
+      - outBytesTotal
+      - clientVersion
+      - type
+
+  - platform: rest
+    name: "Haber Sync Stats"
+    resource: "http://192.168.1.10:8384/rest/system/connections"
+    method: GET
+    headers:
+      X-API-Key: !secret syncthing_tubby_api_key
+    value_template: >
+      {% set device_id = 'EVVLPH7-UB27A5P-WQLLMLB-6JXAYLU-X36GK4W-TPC3K2M-753WN2B-X5CDEQQ' %}
+      {% if value_json['connections'][device_id] is defined %}
+        {{ value_json['connections'][device_id].connected }}
+      {% else %}
+        Disconnected
+      {% endif %}
+    scan_interval: 30
+    json_attributes_path: "$.connections.EVVLPH7-UB27A5P-WQLLMLB-6JXAYLU-X36GK4W-TPC3K2M-753WN2B-X5CDEQQ"
+    json_attributes:
+      - inBytesTotal
+      - outBytesTotal
+      - clientVersion
+      - type
+
+  - platform: derivative
+    source: sensor.stoneperch_sync_total_bytes_received
+    name: "StonePerch Sync Download Rate Raw"
+    unit_time: s
+    unit: "B/s"
+    time_window: "00:01:00"
+
+  - platform: derivative
+    source: sensor.haber_sync_total_bytes_sent
+    name: "Haber Sync Upload Rate Raw"
+    unit_time: s
+    unit: "B/s"
+    time_window: "00:01:00"
+
+template:
+  - sensor:
+      - name: "StonePerch Sync Total Bytes Received"
+        unit_of_measurement: "B"
+        device_class: data_size
+        state: "{{ state_attr('sensor.stoneperch_sync_stats', 'outBytesTotal') | float(0) }}"
+
+      - name: "StonePerch Sync Speed"
+        unit_of_measurement: "MB/s"
+        state: >
+          {% set bytes = states('sensor.stoneperch_sync_download_rate_raw') | float(0) %}
+          {{ max((bytes / 1024 / 1024) | round(2), 0) }}
+        icon: mdi:download-network
+
+      - name: "Haber Sync Total Bytes Sent"
+        unit_of_measurement: "B"
+        device_class: data_size
+        state: "{{ state_attr('sensor.haber_sync_stats', 'outBytesTotal') | float(0) }}"
+
+      - name: "Haber Sync Speed"
+        unit_of_measurement: "MB/s"
+        state: >
+          {% set bytes = states('sensor.haber_sync_upload_rate_raw') | float(0) %}
+          {{ max((bytes / 1024 / 1024) | round(2), 0) }}
+        icon: mdi:download-network
+
+  - switch:
+      - name: StonePerch Sync Control
+        default_entity_id: switch.syncthing_stoneperch_sync_control
+        turn_on:
+          - action: rest_command.syncthing_resume
+        turn_off:
+          - action: rest_command.syncthing_pause
+        icon: >-
+          {% if is_state('binary_sensor.stoneperch_sync_active', 'on') %}
+            mdi:sync
+          {% else %}
+            mdi:sync-off
+          {% endif %}
+        state: "{{ is_state('binary_sensor.stoneperch_sync_active', 'on') }}"
+
+automation:
+  - alias: "Syncthing: Run Sync at Night Only"
+    description: "Pause Syncthing during the day to save bandwidth and reduce system load."
+    id: ad2555c2-47a2-42cd-b009-cf70484e23d6
+    mode: restart
+    trigger:
+      - platform: time
+        at: "07:00:00"
+        id: "pause"
+      - platform: time
+        at: "00:00:00"
+        id: "resume"
+    action:
+      - choose:
+          - conditions:
+              - condition: trigger
+                id: "pause"
+            sequence:
+              - action: switch.turn_off
+                target:
+                  entity_id: switch.syncthing_stoneperch_sync_control
+          - conditions:
+              - condition: trigger
+                id: "resume"
+            sequence:
+              - action: switch.turn_on
+                target:
+                  entity_id: switch.syncthing_stoneperch_sync_control
