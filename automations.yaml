@@ -2164,7 +2164,7 @@
       data:
         push:
           interruption-level: critical
-  mode: single
+  mode: queued
 - id: 03bcaae7-109c-4ccd-9392-d571c09518a8
   alias: Living Room Curtains - Match Window State
   description: ''
