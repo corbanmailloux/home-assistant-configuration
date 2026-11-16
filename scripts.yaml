@@ -10,12 +10,12 @@ living_room_dramatic_lighting:
     data:
       scene_id: living_room_pre_drama
       snapshot_entities:
-      - update.living_room_lights_wall_switch_1
-      - update.living_room_lights_wall_switch_2
-      - update.living_room_lights_wall_switch_3
+      - light.living_room_lights_wall_switch_1
+      - light.living_room_lights_wall_switch_2
+      - light.living_room_lights_wall_switch_3
       - light.corner_lamp
-      - update.reading_lamp
-      - update.living_room_cabinet_lights
+      - light.reading_lamp
+      - light.living_room_cabinet_lights
   - action: light.turn_off
     metadata: {}
     data:
