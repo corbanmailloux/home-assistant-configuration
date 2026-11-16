@@ -102,17 +102,17 @@ automation:
             data:
               notify_device: corban
               dismiss_notification: false
-      - if:
-          - alias: "Is Maggie home?"
-            condition: state
-            entity_id: person.maggie
-            state: "home"
-        then:
-          - alias: "Notify Maggie"
-            action: script.trash_reminder_send_notification_to_variable
-            data:
-              notify_device: maggie
-              dismiss_notification: false
+      # - if:
+      #     - alias: "Is Maggie home?"
+      #       condition: state
+      #       entity_id: person.maggie
+      #       state: "home"
+      #   then:
+      #     - alias: "Notify Maggie"
+      #       action: script.trash_reminder_send_notification_to_variable
+      #       data:
+      #         notify_device: maggie
+      #         dismiss_notification: false
 
   - id: d43927da-35b6-4a59-9f6f-357f43346eb8
     alias: Trash Reminder - Dismiss notifications based on boolean
@@ -154,10 +154,10 @@ automation:
         entity_id: person.corban
         to: "home"
         id: "corban"
-      - trigger: state
-        entity_id: person.maggie
-        to: "home"
-        id: "maggie"
+      # - trigger: state
+      #   entity_id: person.maggie
+      #   to: "home"
+      #   id: "maggie"
     conditions:
       - alias: "Notification active"
         condition: state
@@ -179,10 +179,10 @@ automation:
         entity_id: person.corban
         from: "home"
         id: "corban"
-      - trigger: state
-        entity_id: person.maggie
-        from: "home"
-        id: "maggie"
+      # - trigger: state
+      #   entity_id: person.maggie
+      #   from: "home"
+      #   id: "maggie"
     conditions:
       - alias: "Notification active"
         condition: state
