@@ -2951,3 +2951,30 @@
         target:
           entity_id: light.garage_wled_garage_segment_1
   mode: single
+- id: '1794716986560'
+  alias: Critical notification if filament dryer is overheating
+  description: ''
+  triggers:
+  - trigger: temperature.crossed_threshold
+    target:
+      entity_id: sensor.filament_dryer_temperature_sensor_temperature
+    options:
+      behavior: each
+      for: 00:00:00
+      threshold:
+        type: above
+        value:
+          active_choice: number
+          unit_of_measurement: °F
+          number: 200
+  conditions: []
+  actions:
+  - action: notify.corban
+    metadata: {}
+    data:
+      message: Filament over 200°F!
+      title: Filament Dryer Too Hot
+      data:
+        push:
+          interruption-level: critical
+  mode: single
