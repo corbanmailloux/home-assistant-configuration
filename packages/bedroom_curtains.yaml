@@ -1,5 +1,14 @@
 # There are two Switchbot Curtain 3 motors installed in the Master Bedroom.
 
+# Movement speed comes from the native per-device option "Curtain movement
+# speed" = 2 (Settings > Devices & services > SwitchBot > device > Configure).
+# That reproduces the old v6-quietdrift `speed: 2` byte-for-byte.
+#
+# The actions below deliberately pass no `speed:` and therefore inherit that
+# default. Passing `speed:` overrides the device option, and only `normal` (255)
+# and `silent` (1) are accepted there - anything else is silently dropped.
+# https://www.home-assistant.io/integrations/cover/
+
 template:
   - binary_sensor:
       - name: "Bedroom Curtains - Low Battery"
@@ -17,21 +26,25 @@ template:
         name: Master Bedroom Curtains
         device_class: curtain
         set_cover_position:
-          - action: v6_quietdrift.set_switchbot_curtain_position
-            data:
+          - action: cover.set_cover_position
+            target:
               entity_id:
                 - cover.master_bedroom_curtain_left
                 - cover.master_bedroom_curtain_right
+            data:
               position: "{{position}}"
-              speed: 2
         default_entity_id: cover.master_bedroom_curtains
         position: >-
-          {% set position = (state_attr("cover.master_bedroom_curtain_left", "current_position") + state_attr("cover.master_bedroom_curtain_right", "current_position")) / 2 %}
+          {% set left = state_attr("cover.master_bedroom_curtain_left", "current_position") %}
+          {% set right = state_attr("cover.master_bedroom_curtain_right", "current_position") %}
+          {% if left is number and right is number %}
+            {% set position = (left + right) / 2 %}
 
-          {% if position < 3 %}
-            0
-          {% else %}
-            {{ position }}
+            {% if position < 3 %}
+              0
+            {% else %}
+              {{ position }}
+            {% endif %}
           {% endif %}
 
 automation:
@@ -74,18 +87,13 @@ automation:
             entity_id: input_select.home_mode
             state: "Vacation"
     actions:
-      # - action: cover.set_cover_position
-      #   target:
-      #     entity_id: cover.master_bedroom_curtains
-      #   data:
-      #     position: 30
-      - action: v6_quietdrift.set_switchbot_curtain_position
-        data:
+      - action: cover.set_cover_position
+        target:
           entity_id:
             - cover.master_bedroom_curtain_left
             - cover.master_bedroom_curtain_right
+        data:
           position: 30
-          speed: 2
 
   - alias: "Close curtains around sunset"
     id: 3ba2dda8-25b0-4ceb-96d2-c79fe7612603
@@ -107,21 +115,21 @@ automation:
             entity_id: binary_sensor.master_bedroom_window_contact
             state: "off"
         then:
-          - action: v6_quietdrift.set_switchbot_curtain_position
-            data:
+          - action: cover.set_cover_position
+            target:
               entity_id:
                 - cover.master_bedroom_curtain_left
                 - cover.master_bedroom_curtain_right
+            data:
               position: 0
-              speed: 2
         else:
           # Close left, and then wait to close right once the window is closed.
-          - action: v6_quietdrift.set_switchbot_curtain_position
-            data:
+          - action: cover.set_cover_position
+            target:
               entity_id:
                 - cover.master_bedroom_curtain_left
+            data:
               position: 0
-              speed: 2
           - wait_for_trigger:
               - trigger: state
                 entity_id:
@@ -132,9 +140,9 @@ automation:
             continue_on_timeout: false
             timeout:
               hours: 8
-          - action: v6_quietdrift.set_switchbot_curtain_position
-            data:
+          - action: cover.set_cover_position
+            target:
               entity_id:
                 - cover.master_bedroom_curtain_right
+            data:
               position: 0
-              speed: 2
