@@ -20,6 +20,10 @@ script:
               message: clear_notification
               data:
                 tag: "la_maggie_eta"
+          # Stop the watchdog armed alongside the Live Activity.
+          - action: timer.cancel
+            target:
+              entity_id: timer.maggie_eta_live_activity
         else:
           - action: notify.corban
             data:
@@ -128,13 +132,26 @@ automation:
             notification_icon_color: "#4CAF50"
             relevance_score: 0.6
             url: /map
+      # Re-arm the watchdog on every update. If updates stop before she gets
+      # home (she parks, loses signal, or drives off), it finishes and the
+      # dismissal automation ends the activity.
+      - alias: "Arm the Live Activity watchdog"
+        action: timer.start
+        target:
+          entity_id: timer.maggie_eta_live_activity
+        data:
+          duration: "{{ (eta_minutes + 10) * 60 }}"
       # Throttle: `mode: single` ignores new triggers until this finishes.
       - delay: "00:02:00"
 
+  # Ends the ETA notification and Live Activity whenever they stop describing a
+  # real arrival: Maggie gets home, stops in a named zone, drives away from home
+  # after getting close, or the countdown goes stale because updates stopped.
   - id: 380345d6-b3ab-4cc1-908d-741051bb8ccf
-    alias: Dismiss the notification after Maggie arrives
+    alias: Clear Maggie's ETA alerts
     triggers:
-      - trigger: state
+      - id: arrived_home
+        trigger: state
         entity_id: person.maggie
         to: "home"
         for:
@@ -142,13 +159,50 @@ automation:
       # She stopped somewhere that isn't home (a named zone) mid-trip, so the ETA
       # is no longer meaningful. Without this the Live Activity would keep
       # counting down until iOS expires it (up to 8 hours).
-      - trigger: state
+      - id: entered_zone
+        trigger: state
         entity_id: person.maggie
         from: "not_home"
         not_to:
           - "home"
           - "unknown"
           - "unavailable"
+      # She passed the house or turned around: the distance is growing again,
+      # so the countdown is no longer an arrival time.
+      - id: driving_away
+        trigger: state
+        entity_id: sensor.maggie_to_home_travel_time
+      # Watchdog armed by the Live Activity automation (last ETA + grace).
+      - id: stale
+        trigger: timer.finished
+        target:
+          entity_id: timer.maggie_eta_live_activity
+    conditions:
+      # Arrival, zone changes, and the watchdog always clear. The travel-time
+      # trigger only matters while an activity is actually running.
+      - condition: or
+        conditions:
+          - condition: trigger
+            id:
+              - arrived_home
+              - entered_zone
+              - stale
+          - condition: state
+            entity_id: timer.maggie_eta_live_activity
+            state: "active"
+      # The `distance` attribute is in miles here. Require a real move away from
+      # home so a route recalculation or GPS jitter can't end the activity.
+      - condition: template
+        value_template: >-
+          {% if trigger.id != 'driving_away' %}
+            true
+          {% else %}
+            {% set distance = trigger.to_state.attributes.get('distance', -1) | float(-1) %}
+            {% set prev_distance = trigger.from_state.attributes.get('distance', -1) | float(-1) %}
+            {{ is_state('person.maggie', 'not_home')
+               and distance >= 0 and prev_distance >= 0
+               and distance - prev_distance >= 0.5 }}
+          {% endif %}
     actions:
       - alias: "Dismiss notification"
         action: script.maggie_travel_time_send
@@ -157,6 +211,11 @@ automation:
 
 timer:
   maggie_home_notification_cooldown:
+  # Tracks whether the Live Activity is showing, and expires it if updates stop.
+  maggie_eta_live_activity:
+    name: Maggie ETA Live Activity
+    icon: mdi:car-clock
+    restore: true
 
 homeassistant:
   customize:
