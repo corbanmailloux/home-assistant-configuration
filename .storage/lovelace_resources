@@ -27,7 +27,7 @@
       {
         "id": "e577585c2be34a5ea55084e31269460e",
         "type": "module",
-        "url": "/local/community/text-divider-row/text-divider-row.js?v=179788256141"
+        "url": "/local/community/text-divider-row/text-divider-row.js?v=179788256-2.0.0"
       },
       {
         "id": "49dae12118f643c19955e01675348008",
@@ -91,7 +91,7 @@
       },
       {
         "id": "567b9db865f54fd8a30ae9a727ed4dfe",
-        "url": "/local/community/restriction-card/restriction-card.js?v=2156334041219",
+        "url": "/local/community/restriction-card/restriction-card.js?v=215633404-2.0.0",
         "type": "module"
       },
       {
@@ -130,8 +130,8 @@
         "type": "module"
       },
       {
-        "id": "9b415dc1565d4b49ad3a406cf7b9384f",
-        "url": "/dreame_vacuum/frontend.js?v=da9f7c2bf8d2d9d75b72a757d915fb08",
+        "id": "118b8823d5484f49a7f458579ba0bf16",
+        "url": "/dreame_vacuum/frontend.js?v=da9f7c2bf8d2d9d72f168dfa9bf89de3",
         "type": "module"
       }
     ]
