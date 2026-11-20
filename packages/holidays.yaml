@@ -1,11 +1,9 @@
 # Holiday / seasonal lighting.
 #
-# One selector is the source of truth. The WLED preset follows the selection, and
-# the seasonal automations gate on the same selector instead of being turned off
-# for the year. The Management -> Holidays dashboard view is the control surface.
+# `input_select` for the current season. Used in conditions on relevant automations, and used
+# to update the WLED default preset (when "House LEDs follow season" is on).
 #
-# To add a season: add the option below, add a preset to the script's `presets`
-# map, and add a row to the dashboard's "What each season does" card.
+# To add a season: add the option below and add a WLED preset to the script's `presets` map.
 
 input_select:
   holiday_season:
