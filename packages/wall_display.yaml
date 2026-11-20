@@ -72,4 +72,5 @@ automation:
     actions:
       - action: light.turn_on
         data:
-          entity_id: light.tablet_wall_display_screen
+          # entity_id: light.tablet_wall_display_screen  # Fully Kiosk (retired)
+          entity_id: light.wall_display_fridge_screen  # Kiosk Satellite

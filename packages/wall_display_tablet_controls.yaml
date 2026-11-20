@@ -1,71 +1,138 @@
-# New wall display, made with a Samsung Galaxy Tab A7 tablet and using Fully Kiosk browser for control.
-
-# Great structure from https://kleypot.com/fully-kiosk-rest-api-integration-in-home-assistant/
-template:
-  - light:
-      - name: Wall Display Screen
-        turn_on:
-          - action: rest_command.tablet_wall_display_command
-            data:
-              cmd: screenOn
-        turn_off:
-          - action: rest_command.tablet_wall_display_command
-            data:
-              cmd: screenOff
-        set_level:
-          - action: rest_command.tablet_wall_display_command
-            data_template:
-              cmd: setStringSetting
-              key: screenBrightness
-              value: "{{ brightness }}"
-        default_entity_id: light.tablet_wall_display_screen
-        level: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenBrightness")}}'
-        state: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenOn") }}'
-
-sensor:
-  - platform: rest
-    name: Tablet Wall Display Device Info
-    resource: !secret tablet_wall_display_get_device_info_url
-    json_attributes:
-      - screenBrightness
-      - screenOn
-      - plugged
-    value_template: "OK"
-    scan_interval: 10 # seconds
-
-rest_command:
-  tablet_wall_display_command:
-    url: !secret tablet_wall_display_command_url
+# Wall display tablet controls.
+#
+# 2026-11-20 - Migrated from Fully Kiosk Browser to Kiosk Satellite
+# (app me.jxl.kiosk_satellite, ESPHome device "Wall Display - Fridge").
+#
+# Kiosk Satellite registers the tablet as a native ESPHome device, so the
+# hand-rolled Fully plumbing is gone: no 10s REST poll, no password in a URL,
+# no template light proxying REST commands.
+#
+# Entity mapping (old -> new):
+#   light.tablet_wall_display_screen                      -> light.wall_display_fridge_screen
+#   sensor.tablet_wall_display_device_info (attr plugged)  -> binary_sensor.wall_display_fridge_charging
+#   REST cmd=loadStartUrl                                  -> button.wall_display_fridge_reload_page
+#   REST cmd=rebootDevice                                  -> button.wall_display_fridge_restart_app
+#
+# Device reboot is no longer exposed. Kiosk Satellite only reboots the whole
+# device as Android device owner or over a Shizuku connection; Fully's
+# rebootDevice required root and was not working on this tablet (not rooted).
+#
+# The old Fully configuration is kept commented out below for rollback.
+# Rolling back also means restoring the light.* entity IDs in:
+#   packages/wall_display.yaml      (morning)
+#   packages/home_mode.yaml         (home occupied)
+#   packages/everything_off.yaml    (kitchen all-off)
+#
+# Script entity IDs are deliberately unchanged: the wall-displays dashboard
+# button and the "Reload the Wall Display After Home Assistant Restarts"
+# automation call script.tablet_wall_display_reload directly.
 
 script:
   tablet_wall_display_reload:
     alias: "Reload the Wall Display"
     icon: "mdi:refresh"
     sequence:
-      - action: rest_command.tablet_wall_display_command
-        data:
-          cmd: loadStartUrl
+      - action: button.press
+        target:
+          entity_id: button.wall_display_fridge_reload_page
+      # button.wall_display_fridge_go_to_dashboard is the closer equivalent to
+      # Fully's loadStartUrl (returns to the configured default dashboard).
 
   tablet_wall_display_restart:
     alias: "Restart the Wall Display"
     icon: "mdi:power"
     sequence:
-      - action: rest_command.tablet_wall_display_command
-        data:
-          cmd: rebootDevice
+      - action: button.press
+        target:
+          entity_id: button.wall_display_fridge_restart_app
 
 automation:
+  # Charging comes from Android's battery state. Some devices report "off"
+  # once the battery is full even while still plugged in - verify by
+  # unplugging and replugging the tablet after a reload.
   - alias: Notify if the wall display comes unplugged
     id: 6885c896-0a99-4cbe-bbf5-16fc703f1c32
     triggers:
       - trigger: state
-        entity_id: sensor.tablet_wall_display_device_info
-        attribute: plugged
-        from: true
-        to: false
+        entity_id: binary_sensor.wall_display_fridge_charging
+        from: "on"
+        to: "off"
         for: "00:00:30"
     actions:
       - action: notify.corban
         data:
           title: "Wall Display Unplugged"
           message: "The wall display has been unplugged for at least 30 seconds."
+
+####################################################################
+# OLD: Fully Kiosk Browser (retired 2026-11-20) - kept for rollback
+####################################################################
+#
+# template:
+#   - light:
+#       - name: Wall Display Screen
+#         turn_on:
+#           - action: rest_command.tablet_wall_display_command
+#             data:
+#               cmd: screenOn
+#         turn_off:
+#           - action: rest_command.tablet_wall_display_command
+#             data:
+#               cmd: screenOff
+#         set_level:
+#           - action: rest_command.tablet_wall_display_command
+#             data_template:
+#               cmd: setStringSetting
+#               key: screenBrightness
+#               value: "{{ brightness }}"
+#         default_entity_id: light.tablet_wall_display_screen
+#         level: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenBrightness")}}'
+#         state: '{{ state_attr("sensor.tablet_wall_display_device_info", "screenOn") }}'
+#
+# sensor:
+#   - platform: rest
+#     name: Tablet Wall Display Device Info
+#     resource: !secret tablet_wall_display_get_device_info_url
+#     json_attributes:
+#       - screenBrightness
+#       - screenOn
+#       - plugged
+#     value_template: "OK"
+#     scan_interval: 10 # seconds
+#
+# rest_command:
+#   tablet_wall_display_command:
+#     url: !secret tablet_wall_display_command_url
+#
+# script:
+#   tablet_wall_display_reload:
+#     alias: "Reload the Wall Display"
+#     icon: "mdi:refresh"
+#     sequence:
+#       - action: rest_command.tablet_wall_display_command
+#         data:
+#           cmd: loadStartUrl
+#
+#   tablet_wall_display_restart:
+#     alias: "Restart the Wall Display"
+#     icon: "mdi:power"
+#     sequence:
+#       - action: rest_command.tablet_wall_display_command
+#         data:
+#           cmd: rebootDevice
+#
+# automation:
+#   - alias: Notify if the wall display comes unplugged
+#     id: 6885c896-0a99-4cbe-bbf5-16fc703f1c32
+#     triggers:
+#       - trigger: state
+#         entity_id: sensor.tablet_wall_display_device_info
+#         attribute: plugged
+#         from: true
+#         to: false
+#         for: "00:00:30"
+#     actions:
+#       - action: notify.corban
+#         data:
+#           title: "Wall Display Unplugged"
+#           message: "The wall display has been unplugged for at least 30 seconds."

@@ -1,0 +1,77 @@
+# Show the exterior camera view on the wall display when something happens
+# outside, then close it one minute after the driveway and doorbell are clear.
+#
+# Kiosk Satellite side:
+#   - the only configured camera view is named "Exterior"
+#   - button.wall_display_fridge_show_exterior opens it
+#   - button.wall_display_fridge_close_camera_view closes it
+#   - sensor.wall_display_fridge_active_camera_view mirrors it ("none" = closed)
+#
+# Behavior:
+#   - triggers on person or vehicle on the driveway, person at the doorbell,
+#     and a doorbell button press (Reolink "visitor" sensor)
+#   - stays open while a person or vehicle is still detected, then one more
+#     minute (the doorbell has no vehicle sensor - it faces the road)
+#   - mode: restart, so each new detection restarts the one-minute grace period
+#   - presses "show" only when the view is not already open, so closing it by
+#     hand on the tablet is respected until the next detection
+#
+# Note: main_doorbell_person is device_class motion, but the Reolink smart
+# detection sensors (driveway person/vehicle, doorbell visitor) have no device
+# class, so a plain state trigger is used instead of motion.detected.
+
+automation:
+  - id: 95c37265-ef65-4884-8d4a-c985aa08497d
+    alias: Wall Display - Show Exterior Cameras on Activity
+    mode: restart
+    triggers:
+      - alias: "Person or vehicle detected outside"
+        trigger: state
+        entity_id:
+          - binary_sensor.driveway_person_detected
+          - binary_sensor.driveway_vehicle_detected
+          - binary_sensor.main_doorbell_person
+        to: "on"
+      - alias: "Doorbell button pressed"
+        trigger: state
+        entity_id: binary_sensor.main_doorbell_visitor
+        to: "on"
+    conditions:
+      - alias: "Exterior privacy mode is off"
+        condition: state
+        entity_id: input_boolean.exterior_privacy_mode
+        state: "off"
+      - alias: "Wall display is reachable"
+        condition: state
+        entity_id: binary_sensor.wall_display_fridge_connectivity
+        state: "on"
+    actions:
+      - alias: "Open the camera view unless it is already showing"
+        if:
+          - condition: not
+            conditions:
+              - condition: state
+                entity_id: sensor.wall_display_fridge_active_camera_view
+                state: "Exterior"
+        then:
+          - action: button.press
+            target:
+              entity_id: button.wall_display_fridge_show_exterior
+
+      - alias: "Wait until the driveway and doorbell are clear"
+        # 15 minute cap so a stuck detection sensor cannot keep the view up
+        # forever; on timeout the sequence still continues to the cleanup below.
+        wait_template: >-
+          {{ is_state('binary_sensor.driveway_person_detected', 'off')
+             and is_state('binary_sensor.driveway_vehicle_detected', 'off')
+             and is_state('binary_sensor.main_doorbell_person', 'off') }}
+        timeout: "00:15:00"
+        continue_on_timeout: true
+
+      - alias: "One minute grace period after the last detection"
+        delay: "00:01:00"
+
+      - alias: "Close the camera view"
+        action: button.press
+        target:
+          entity_id: button.wall_display_fridge_close_camera_view
