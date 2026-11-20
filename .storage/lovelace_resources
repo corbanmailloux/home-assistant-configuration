@@ -27,7 +27,7 @@
       {
         "id": "e577585c2be34a5ea55084e31269460e",
         "type": "module",
-        "url": "/local/community/text-divider-row/text-divider-row.js?v=179788256-2.0.0"
+        "url": "/local/community/text-divider-row/text-divider-row.js?v=179788256-2.0.1"
       },
       {
         "id": "49dae12118f643c19955e01675348008",
@@ -91,7 +91,7 @@
       },
       {
         "id": "567b9db865f54fd8a30ae9a727ed4dfe",
-        "url": "/local/community/restriction-card/restriction-card.js?v=215633404-2.0.0",
+        "url": "/local/community/restriction-card/restriction-card.js?v=215633404-2.1.0",
         "type": "module"
       },
       {
@@ -111,7 +111,7 @@
       },
       {
         "id": "460b34f886a84a4e9c0ec8dca3d81fdb",
-        "url": "/local/community/battery-state-card/battery-state-card.js?v=256292682420",
+        "url": "/local/community/battery-state-card/battery-state-card.js?v=256292682-v4.3.0",
         "type": "module"
       },
       {
