@@ -125,6 +125,7 @@ automation:
           data:
             tag: "la_maggie_eta"
             live_update: true
+            silent: true
             chronometer: true
             when_relative: true
             when: "{{ eta_minutes * 60 }}"
