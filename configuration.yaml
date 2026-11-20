@@ -34,8 +34,12 @@ history:
 
 frontend:
   themes: !include_dir_merge_named themes
+  # card-mod is loaded ONCE, as a frontend module (card-mod 4.2.1 docs:
+  # "Performance improvements"). Do NOT also add it under Settings >
+  # Dashboards > Resources - two different URLs = the module runs twice and
+  # card-mod warns "hui-card already patched". Bump ?v= when updating it.
   extra_module_url:
-    - /hacsfiles/lovelace-card-mod/card-mod.js
+    - /local/community/lovelace-card-mod/card-mod.js?v=4.2.1
 
 lovelace:
 

@@ -35,11 +35,6 @@
         "url": "/local/community/mini-graph-card/mini-graph-card-bundle.js?v=1512800620130"
       },
       {
-        "id": "b9ec5fec89054ffeb91508eafed17d54",
-        "type": "module",
-        "url": "/local/community/lovelace-card-mod/card-mod.js?v=190927524421"
-      },
-      {
         "id": "9717aed771b445c5965d83897ccb1714",
         "type": "module",
         "url": "/local/community/weather-card/weather-card.js"
