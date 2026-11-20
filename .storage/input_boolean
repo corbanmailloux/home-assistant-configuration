@@ -10,11 +10,6 @@
         "icon": "mdi:movie-open-check"
       },
       {
-        "id": "christmas_lighting_active",
-        "name": "Christmas Lighting Automation Active",
-        "icon": "mdi:string-lights"
-      },
-      {
         "id": "lucy_home",
         "name": "Lucy Home",
         "icon": "mdi:home-heart"

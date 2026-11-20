@@ -1,0 +1,130 @@
+# Holiday / seasonal lighting.
+#
+# One selector is the source of truth. The WLED preset follows the selection, and
+# the seasonal automations gate on the same selector instead of being turned off
+# for the year. The Management -> Holidays dashboard view is the control surface.
+#
+# To add a season: add the option below, add a preset to the script's `presets`
+# map, and add a row to the dashboard's "What each season does" card.
+
+input_select:
+  holiday_season:
+    name: Holiday Season
+    icon: mdi:calendar-star
+    options:
+      - None
+      - Fall
+      - Halloween
+      - Christmas
+      - New Year
+      - July 4
+
+input_boolean:
+  holiday_leds_follow_season:
+    name: House LEDs follow season
+    icon: mdi:string-lights
+    # When off, changing the season leaves the WLED preset alone. Use this
+    # during early holiday setup when the decorations are up but the house
+    # LEDs should stay on the previous preset.
+
+script:
+  holiday_apply:
+    alias: Apply holiday season
+    description: >-
+      Set the WLED preset for a season.
+    mode: queued
+    max: 5
+    fields:
+      season:
+        name: Season
+        description: The season to apply to the house LEDs.
+        required: true
+        selector:
+          select:
+            options:
+              - None
+              - Fall
+              - Halloween
+              - Christmas
+              - New Year
+              - July 4
+    variables:
+      presets:
+        "None": "Solid White"
+        "Fall": "Fall"
+        "Halloween": "Halloween - Twinklecat"
+        "Christmas": "Twinklecat xmas"
+        "New Year": "USA Fireworks"
+        "July 4": "USA Fireworks"
+      preset: "{{ presets.get(season, 'Solid White') }}"
+      wled_was_on: "{{ is_state('light.wled_garage', 'on') }}"
+    sequence:
+      - alias: Set the seasonal WLED preset
+        action: select.select_option
+        target:
+          entity_id: select.wled_garage_preset
+        data:
+          option: "{{ preset }}"
+      - alias: Restore the WLED on/off state
+        if:
+          - condition: template
+            value_template: "{{ not wled_was_on }}"
+        then:
+          - action: light.turn_off
+            target:
+              entity_id: light.wled_garage
+
+  holiday_apply_current:
+    alias: Apply current season LED preset
+    description: Apply the selected season's WLED preset, regardless of the follow-season toggle.
+    mode: queued
+    max: 5
+    sequence:
+      - action: script.holiday_apply
+        data:
+          season: "{{ states('input_select.holiday_season') }}"
+
+  holiday_turn_off_decorations:
+    alias: Turn off seasonal decorations
+    description: Turn off the separate seasonal decoration switches, not the house LEDs.
+    mode: single
+    sequence:
+      - alias: Turn off Christmas decorations
+        action: homeassistant.turn_off
+        target:
+          entity_id:
+            - light.christmas_tree_lights
+            - switch.exterior_christmas_lights
+            - switch.garage_christmas_wreath
+        continue_on_error: true
+
+automation:
+  - alias: Holiday - Apply season to WLED
+    id: da72fbc5-436d-4225-9e5f-d710d00a8ceb
+    description: >-
+      When House LEDs follow season is on, applies the selected season's preset.
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: input_select.holiday_season
+        not_to:
+          - unavailable
+          - unknown
+      - trigger: state
+        entity_id: input_boolean.holiday_leds_follow_season
+        to: "on"
+    conditions:
+      - alias: House LEDs follow the season
+        condition: state
+        entity_id: input_boolean.holiday_leds_follow_season
+        state: "on"
+      - alias: A real season is selected
+        condition: not
+        conditions:
+          - condition: state
+            entity_id: input_select.holiday_season
+            state:
+              - unavailable
+              - unknown
+    actions:
+      - action: script.holiday_apply_current

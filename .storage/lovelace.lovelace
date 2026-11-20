@@ -852,10 +852,10 @@
                   "name": "Air Purifier",
                   "icon_animation": false,
                   "fill_container": true,
-                  "show_percentage_control": true,
+                  "show_percentage_control": false,
                   "collapsible_controls": true,
                   "tap_action": {
-                    "action": "toggle"
+                    "action": "more-info"
                   },
                   "double_tap_action": {
                     "action": "more-info"
@@ -1257,14 +1257,6 @@
                       "show_entity_picture": false,
                       "vertical": false,
                       "features_position": "bottom"
-                    },
-                    {
-                      "type": "tile",
-                      "entity": "light.office_leds",
-                      "name": "Mudroom",
-                      "show_entity_picture": false,
-                      "vertical": false,
-                      "features_position": "bottom"
                     }
                   ]
                 }
@@ -1272,8 +1264,8 @@
               "visibility": [
                 {
                   "condition": "state",
-                  "entity": "input_boolean.christmas_lighting_active",
-                  "state": "on"
+                  "entity": "input_select.holiday_season",
+                  "state": "Christmas"
                 }
               ]
             }
@@ -1571,18 +1563,23 @@
           "type": "custom:vertical-layout",
           "badges": [
             {
+              "type": "entity",
               "entity": "sensor.openweathermap_temperature"
             },
             {
+              "type": "entity",
               "entity": "sensor.outdoor_porch_temperature"
             },
             {
+              "type": "entity",
               "entity": "sensor.office_temperature"
             },
             {
+              "type": "entity",
               "entity": "sensor.living_room_temperature"
             },
             {
+              "type": "entity",
               "entity": "sensor.bedroom_temperature"
             }
           ],
