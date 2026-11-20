@@ -78,9 +78,9 @@ homekit:
         - input_boolean.fake_side_door_lock_status
         - sensor.fake_side_door_lock_input_temperature
 
-        # Christmas
-        # - light.christmas_tree_lights # Seasonal
-        # - switch.exterior_christmas_lights # Seasonal
+        # Seasonal
+        - light.christmas_tree_lights # Christmas
+        - switch.exterior_christmas_lights # Christmas
 
   - name: HASS Doorbell Camera
     port: 21065
