@@ -83,6 +83,11 @@ automation:
       - trigger: state
         entity_id: sensor.maggie_to_home_travel_time
     conditions:
+      - alias: "Corban is home to see it"
+        condition: state
+        entity_id: person.corban
+        state: "home"
+
       - alias: "Maggie is out, and has been for a minute"
         condition: state
         entity_id: person.maggie
@@ -178,15 +183,24 @@ automation:
         trigger: timer.finished
         target:
           entity_id: timer.maggie_eta_live_activity
+      # Corban left home, so he can't see the activity anymore.
+      - id: corban_left_home
+        trigger: state
+        entity_id: person.corban
+        from: "home"
+        not_to:
+          - "unknown"
+          - "unavailable"
     conditions:
-      # Arrival, zone changes, and the watchdog always clear. The travel-time
-      # trigger only matters while an activity is actually running.
+      # Arrival, zone changes, leaving home, and the watchdog always clear. The
+      # travel-time trigger only matters while an activity is actually running.
       - condition: or
         conditions:
           - condition: trigger
             id:
               - arrived_home
               - entered_zone
+              - corban_left_home
               - stale
           - condition: state
             entity_id: timer.maggie_eta_live_activity
