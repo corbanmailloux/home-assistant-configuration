@@ -15,16 +15,16 @@ template:
       - name: Download Speed Limit
         unit_of_measurement: MB/s
         default_entity_id: sensor.download_speed_limit
-        availability: '{{ has_value("input_select.download_speed") }}'
+        availability: >-
+          {{ has_value("input_select.download_speed")
+             and not is_state("input_select.download_speed", "Full Speed") }}
         state: >-
           {% set e_id = "input_select.download_speed" %}
-          {% if is_state(e_id, "Full Speed") %}
-            N/A
-          {% elif is_state(e_id, "Medium Speed") %}
+          {% if is_state(e_id, "Medium Speed") %}
             7
           {% elif is_state(e_id, "Slow Speed") %}
             1
-          {% elif is_state(e_id, "Pause") %}
+          {% else %}
             0
           {% endif %}
 
