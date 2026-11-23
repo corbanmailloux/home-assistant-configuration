@@ -142,6 +142,9 @@ automation:
       - delay:
           milliseconds: 250
       - action: scene.turn_on
+        # The snapshot scene is created at runtime and is lost across a restart,
+        # so don't fail the whole script if it no longer exists.
+        continue_on_error: true
         target:
           entity_id: scene.state_before_training
       - alias: "Clear notification"

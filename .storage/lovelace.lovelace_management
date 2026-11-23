@@ -780,10 +780,6 @@
                       "icon": "mdi:power-cycle"
                     },
                     {
-                      "entity": "script.game_mode_start",
-                      "icon": "mdi:microsoft-xbox-controller"
-                    },
-                    {
                       "entity": "button.biden_shutdown",
                       "name": "Shutdown Gaming PC",
                       "confirmation": {
