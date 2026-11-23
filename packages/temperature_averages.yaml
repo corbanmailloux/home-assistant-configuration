@@ -8,7 +8,7 @@ sensor:
     type: mean
     entity_ids:
       - sensor.living_room_temperature
-      - sensor.kitchen_temperature_sensor_temperature
+      # - sensor.kitchen_temperature_sensor_temperature # Temporarily unavailable; may return.
       - sensor.office_temperature
 
   - platform: min_max

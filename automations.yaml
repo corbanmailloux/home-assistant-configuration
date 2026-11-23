@@ -1391,7 +1391,7 @@
   - trigger: time
     at:
       entity_id: sensor.lucy_timer_start_time
-      offset: '3:00:00'
+      offset: '2:00:00'
   conditions:
   - condition: time
     after: 08:00:00
@@ -1689,6 +1689,9 @@
   - trigger: time_pattern
     minutes: /30
   conditions:
+  - condition: state
+    entity_id: input_boolean.mower_in_season
+    state: 'on'
   - condition: time
     weekday:
     - mon
@@ -1778,7 +1781,18 @@
     - input_boolean.mower_schedule_enabled
     from: 'off'
     to: 'on'
-  conditions: []
+  conditions:
+  - condition: state
+    entity_id: input_boolean.mower_in_season
+    state: 'on'
+  - condition: template
+    alias: Mower and rain sensors are available
+    value_template: >-
+      {{ has_value('sensor.lucas_activity_mode')
+         and has_value('sensor.lucas_battery')
+         and has_value('sensor.owmh_home_forecast0rain')
+         and has_value('sensor.owmh_home_day0rain')
+         and has_value('sensor.owmh_home_current_rain') }}
   actions:
   - choose:
     - conditions:

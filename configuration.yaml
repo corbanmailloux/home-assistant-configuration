@@ -29,6 +29,7 @@ recorder:
       - script
     entities:
       - sensor.time
+      - sensor.pi_hole_tubby_seen_clients
 
 history:
 

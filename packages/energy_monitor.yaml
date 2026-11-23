@@ -128,20 +128,3 @@ template:
           {{
             is_number(states('sensor.home_energy_monitor_balance_power'))
           }}
-      - name: Energy - Untracked Sources
-        unique_id: 6cb082bf-93aa-478d-8455-0e23400da84d
-        unit_of_measurement: "Wh"
-        device_class: "energy"
-        state_class: "total_increasing"
-        state: >-
-          {{
-            states('sensor.home_energy_monitor_balance_daily_energy')|float -
-            states('sensor.energy_fl1_lighting')|float(default=0) -
-            states('sensor.washing_machine_energy_today')|float(default=0) -
-            states('sensor.power_monitor_plug_1_daily_energy')|float(default=0) -
-            states('sensor.power_monitor_plug_2_daily_energy')|float(default=0)
-          }}
-        availability: >-
-          {{
-            is_number(states('sensor.home_energy_monitor_balance_daily_energy'))
-          }}

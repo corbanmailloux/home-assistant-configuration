@@ -6,7 +6,7 @@ template:
         state: >-
           {{
             is_state('binary_sensor.living_room_presence', 'on') or
-            is_state('media_player.living_room_lg_tv', 'on')
+            is_state('media_player.living_room_tv', 'on')
           }}
 
 automation:

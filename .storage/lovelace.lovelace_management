@@ -770,7 +770,7 @@
                   "type": "entities",
                   "entities": [
                     {
-                      "entity": "light.tablet_wall_display_screen"
+                      "entity": "light.wall_display_fridge_screen"
                     },
                     {
                       "entity": "script.tablet_wall_display_reload"
