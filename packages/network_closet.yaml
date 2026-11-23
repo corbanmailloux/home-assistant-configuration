@@ -55,18 +55,20 @@ automation:
         entity_id: binary_sensor.ups_power_normal
         from: "off"
         to: "on"
-        variables:
-          outage_stop_time: >-
-            {{ now().timestamp() }}
-          outage_start_time: >-
-            {{ states("input_datetime.power_outage_start_time") | as_timestamp }}
       - trigger: homeassistant
         event: start
     conditions:
       - condition: state
         entity_id: input_boolean.power_outage
         state: "on"
+      # On a restart mid-outage, don't announce a recovery while the UPS is still on battery.
+      - condition: state
+        entity_id: binary_sensor.ups_power_normal
+        state: "on"
     actions:
+      - variables:
+          outage_stop_time: "{{ now().timestamp() }}"
+          outage_start_time: "{{ states('input_datetime.power_outage_start_time') | as_timestamp }}"
       - delay: "00:01:00" # Wait 1 minute to ensure power is stable
       - alias: Mark that the outage has ended
         action: input_boolean.turn_off
