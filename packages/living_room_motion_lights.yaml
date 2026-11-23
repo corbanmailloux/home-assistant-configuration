@@ -4,9 +4,10 @@ template:
         unique_id: c647ffd9-f8af-4e09-a862-9959a99e2a9a
         device_class: occupancy
         state: >-
+          {% set tv = states('media_player.living_room_apple_tv') %}
           {{
             is_state('binary_sensor.living_room_presence', 'on') or
-            is_state('media_player.living_room_tv', 'on')
+            tv not in ['off', 'standby', 'unavailable', 'unknown']
           }}
 
 automation:

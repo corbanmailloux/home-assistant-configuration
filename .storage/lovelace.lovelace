@@ -346,12 +346,6 @@
                     "tap_action": {
                       "action": "toggle"
                     },
-                    "hold_action": {
-                      "action": "call-service",
-                      "service": "script.cat_claw_clipped_run_eve",
-                      "data": {},
-                      "target": {}
-                    },
                     "double_tap_action": {
                       "action": "none"
                     },

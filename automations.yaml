@@ -14,7 +14,7 @@
     metadata: {}
     data: {}
     target:
-      device_id: 0e47eccd7765e50037be8ffc24099a13
+      entity_id: media_player.living_room_apple_tv
   mode: single
 - id: '1710728057701'
   alias: Linen Closet Light - Door Trigger
