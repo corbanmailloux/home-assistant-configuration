@@ -19,6 +19,9 @@ esp32:
   framework:
     type: esp-idf
     version: recommended
+    advanced:
+      flash_chip: gd
+      sram1_as_iram: true
 
 # Enable Home Assistant API
 api:

@@ -14,6 +14,7 @@ esp32:
     type: esp-idf
     advanced:
       sram1_as_iram: true
+      flash_chip: gd
 
 packages:
   device_base: !include device_base.yaml
@@ -43,7 +44,7 @@ button:
 # Built-in LED on the M5Stack Atom Lite
 light:
   - platform: esp32_rmt_led_strip
-    rgb_order: GRB
+    channel_colors: GRB
     pin: 27
     num_leds: 1
     chipset: SK6812

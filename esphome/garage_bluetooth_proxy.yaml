@@ -7,7 +7,9 @@ esp32:
   framework:
     type: esp-idf
     advanced:
+      sram1_as_iram: true
       minimum_chip_revision: "3.0"
+      flash_chip: generic
 
 packages:
   device_base: !include common/device_base.yaml

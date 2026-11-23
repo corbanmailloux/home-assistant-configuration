@@ -9,6 +9,7 @@ esp32:
     advanced:
       minimum_chip_revision: "3.0"
       sram1_as_iram: true
+      flash_chip: generic
 
 packages:
   device_base: !include common/device_base.yaml
