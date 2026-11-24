@@ -1,6 +1,6 @@
 # AGENTS.md
 
-This is the **live configuration of a running Home Assistant instance** (Home Assistant OS on a HA Blue / ODROID-N2+, version in `.HA_VERSION`), mounted at `/Volumes/config` and pushed to `github.com/corbanmailloux/home-assistant-configuration`. There is no build, test suite, or CI — "verify" means HA validates the config (no local `hass` binary is available from this mount).
+This is the **live configuration of a running Home Assistant instance** (Home Assistant OS on a HA Blue / ODROID-N2+, version in `.HA_VERSION`), mounted at `/Volumes/config` and pushed to `github.com/corbanmailloux/home-assistant-configuration`. There is no CI — "verify" means HA validates the config (no local `hass` binary is available from this mount). ESPHome device configs are the exception: they build locally (see [Validation](#validation)).
 
 ## Live instance access (MCP)
 
@@ -33,3 +33,23 @@ This is the **live configuration of a running Home Assistant instance** (Home As
 - No CI. Validate with **Developer Tools → YAML → Check configuration** in the HA UI, or via the MCP server, before considering a change done.
 - For YAML-only changes (automations, scripts, templates), reload the specific config instead of restarting; adding a new integration or package entry requires a full restart.
 - Work lands on `master` directly; occasional feature branches exist for large projects (e.g. `unicycle-monitor`).
+
+### ESPHome devices (`esphome/`)
+
+Build in a scratch copy, never in the live config tree, and never flash/OTA from here unless asked.
+
+```sh
+TMP=$(mktemp -d)
+cp -R esphome/common esphome/secrets.yaml "$TMP"/
+cp esphome/<device>.yaml "$TMP"/
+cd "$TMP"
+esphome config <device>.yaml    # fast schema/ID check
+esphome compile <device>.yaml   # the only real check: compiles the C++ lambdas
+```
+
+- Run from the copy's root so `!include common/...` and `!secret` resolve; copy `common/` and `esphome/secrets.yaml` alongside the device file. Configs that pull `github://` packages (`ratgdo`, `esp-fbot`, `emporia_vue`) need network and clone into `.esphome/`.
+- `esphome config` (and `compile --only-generate`) do **not** catch C++ mistakes in lambdas — only a full `compile` does. Never report an ESPHome change as verified off schema validation alone.
+- The CLI is Homebrew's `esphome`; keep it in step with the ESPHome add-on (`esphome version`, `brew upgrade esphome` if behind). A first ESP32 build may download ~1 GB of toolchain, but the Device Builder has usually already populated `~/Library/Caches/esphome/idf`. If a build can't find a toolchain, use the bundled interpreter, which reuses that cache:
+  `"$HOME/Library/Application Support/io.esphome.builder/python/bin/python3" -m esphome compile <device>.yaml`
+- Lambda gotcha: ESPHome rewrites `id(x).` to a pointer dereference only when the `.` is immediately adjacent. Splitting `id(light)` and `.turn_on()` across lines emits the raw pointer and fails to compile.
+- `.esphome/` and `**/.pioenvs/` are gitignored build output; delete the scratch copy when done. Flashing stays a manual step in the ESPHome dashboard/add-on.
