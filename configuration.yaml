@@ -30,6 +30,11 @@ recorder:
     entities:
       - sensor.time
       - sensor.pi_hole_tubby_seen_clients
+      # The parking sign publishes ~5x/second while a door is open. It needs to
+      # stay controllable/live in HA, but its history is pure noise.
+      - sensor.garage_parking_sign_range_sensor_left
+      - sensor.garage_parking_sign_range_sensor_right
+      - number.garage_parking_sign_display_number
 
 history:
 

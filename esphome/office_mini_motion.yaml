@@ -42,6 +42,34 @@ number:
       name: Max Move Distance Gate
     max_still_distance_gate:
       name: Max Still Distance Gate
+    # Per-gate sensitivity. Raise thresholds until the idle energy of an empty
+    # room sits comfortably below them. Still thresholds matter most for
+    # stationary false positives; the module defaults are 0 for gates 0 and 1.
+    g0:
+      move_threshold:
+        name: G0 Move Threshold
+      still_threshold:
+        name: G0 Still Threshold
+    g1:
+      move_threshold:
+        name: G1 Move Threshold
+      still_threshold:
+        name: G1 Still Threshold
+    g2:
+      move_threshold:
+        name: G2 Move Threshold
+      still_threshold:
+        name: G2 Still Threshold
+    g3:
+      move_threshold:
+        name: G3 Move Threshold
+      still_threshold:
+        name: G3 Still Threshold
+    g4:
+      move_threshold:
+        name: G4 Move Threshold
+      still_threshold:
+        name: G4 Still Threshold
 
 switch:
   - platform: ld2410
@@ -70,15 +98,61 @@ binary_sensor:
   - platform: ld2410
     has_target:
       name: Presence
-    # has_moving_target:
-    #   name: Moving Target
-    # has_still_target:
-    #   name: Still Target
+    # Diagnostics: tells you whether a false trigger came from moving or
+    # still energy, which decides whether to raise a move_ or still_threshold.
+    has_moving_target:
+      name: Moving Target
+      entity_category: diagnostic
+    has_still_target:
+      name: Still Target
+      entity_category: diagnostic
+    calibration:
+      name: Calibration Running
 
 sensor:
   - platform: ld2410
     detection_distance:
       name: Detection Distance
+    # Per-gate energy, for calibration in engineering mode.
+    g0:
+      move_energy:
+        name: G0 Move Energy
+      still_energy:
+        name: G0 Still Energy
+    g1:
+      move_energy:
+        name: G1 Move Energy
+      still_energy:
+        name: G1 Still Energy
+    g2:
+      move_energy:
+        name: G2 Move Energy
+      still_energy:
+        name: G2 Still Energy
+    g3:
+      move_energy:
+        name: G3 Move Energy
+      still_energy:
+        name: G3 Still Energy
+    g4:
+      move_energy:
+        name: G4 Move Energy
+      still_energy:
+        name: G4 Still Energy
+
+text_sensor:
+  - platform: ld2410
+    version:
+      name: Firmware Version
+    calibration_result:
+      name: Calibration Result
+
+button:
+  - platform: ld2410
+    # Module-side auto-calibration (firmware V2.44+): measures the noise floor
+    # for 10s with the room empty and rewrites all gate thresholds.
+    background_correction:
+      name: Calibrate Radar
 
 light:
   - platform: monochromatic
