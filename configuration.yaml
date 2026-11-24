@@ -1,7 +1,5 @@
 homeassistant:
   packages: !include_dir_named packages
-  # allowlist_external_dirs:
-  #   - /config/openhasp
 
 default_config:
 
@@ -67,10 +65,6 @@ ifttt:
   key: !secret ifttt_key
 
 ffmpeg:
-
-# spotcast:
-#   sp_dc: !secret spotcast_sp_dc
-#   sp_key: !secret spotcast_sp_key
 
 tts:
   - platform: google_translate
