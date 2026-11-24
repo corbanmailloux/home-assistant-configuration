@@ -505,7 +505,6 @@
           "max_columns": 4
         },
         {
-          "theme": "Backend-selected",
           "icon": "mdi:server-network",
           "title": "Network",
           "type": "sections",
@@ -595,6 +594,67 @@
                   "heading": "Network Rack",
                   "heading_style": "title",
                   "icon": "mdi:server-outline"
+                },
+                {
+                  "type": "heading",
+                  "icon": "mdi:home-battery-outline",
+                  "heading": "Backup Battery",
+                  "heading_style": "subtitle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "entity": "binary_sensor.grid_power_normal",
+                      "show_state": true,
+                      "show_icon": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      },
+                      "show_name": true
+                    },
+                    {
+                      "type": "entity",
+                      "entity": "binary_sensor.fossibot_battery_connected",
+                      "show_state": false,
+                      "show_icon": true,
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "horizontal-stack",
+                  "cards": [
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.fossibot_battery_battery",
+                      "name": "Battery",
+                      "needle": true,
+                      "min": 0,
+                      "max": 100,
+                      "severity": {
+                        "green": 50,
+                        "yellow": 20,
+                        "red": 0
+                      }
+                    },
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.fossibot_battery_input_power",
+                      "name": "Grid Input",
+                      "needle": false,
+                      "min": 0,
+                      "max": 1000
+                    },
+                    {
+                      "type": "gauge",
+                      "entity": "sensor.fossibot_battery_output_power",
+                      "name": "Output",
+                      "needle": false,
+                      "min": 0,
+                      "max": 600
+                    }
+                  ]
                 },
                 {
                   "type": "heading",
@@ -808,7 +868,8 @@
                 }
               ]
             }
-          ]
+          ],
+          "path": "network"
         },
         {
           "title": "Automation Configurations",
