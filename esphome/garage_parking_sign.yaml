@@ -5,7 +5,6 @@ substitutions:
 esphome:
   name: "${device_name}"
   friendly_name: "${friendly_name}"
-  # compile_process_limit: 3 # This is a big config. Reduce the threading to help with performance.
 
 esp32:
   board: esp32doit-devkit-v1
@@ -26,6 +25,11 @@ wifi:
 logger:
   level: INFO
 
+# ---------------------------------------------------------------------------
+# Range sensors
+# ---------------------------------------------------------------------------
+# The HA automation in packages/garage_parking_sign.yaml turns one polling
+# switch on when its door starts opening, and off again when it closes.
 switch:
   - platform: template
     name: "Poll Range Sensor - Left"
@@ -69,37 +73,13 @@ sensor:
       - sliding_window_moving_average:
           window_size: 3
           send_every: 2
-      # - exponential_moving_average:
-      #     send_every: 3 # Send every few readings to smooth out noise.
-      - timeout: 1000ms # When polling is disabled, automatically reset to NaN.
+      - timeout: 1000ms # When polling stops, reset to NaN so the sign clears.
     on_value:
       then:
-        - number.set:
-            id: display_number
-            value: !lambda >-
-              if (isnan(x)) {
-                return -10;
-              }
-
-              int display_value = max( -9, min( (int)(round(x) - id(target_distance_left).state), 99 ));
-
-              if (display_value >= 20) {
-                // Over 20 is noisy. Just display "--"
-                return -11;
-              }
-
-              return display_value;
-        - lambda: |-
-            if (isnan(x)) {
-              id(light_hand).turn_off().perform();
-              id(light_walk).turn_off().perform();
-            } else if ((x - id(target_distance_left).state) < 3) {
-              id(light_hand).turn_on().perform();
-              id(light_walk).turn_off().perform();
-            } else {
-              id(light_hand).turn_off().perform();
-              id(light_walk).turn_on().perform();
-            }
+        - script.execute:
+            id: update_sign
+            distance: !lambda return x;
+            target: !lambda return id(target_distance_left).state;
 
   - platform: ultrasonic
     trigger_pin: 27
@@ -113,38 +93,17 @@ sensor:
       - sliding_window_moving_average:
           window_size: 3
           send_every: 2
-      # - exponential_moving_average:
-      #     send_every: 5 # Send every few readings to smooth out noise.
-      - timeout: 1000ms # When polling is disabled, automatically reset to NaN.
+      - timeout: 1000ms # When polling stops, reset to NaN so the sign clears.
     on_value:
       then:
-        - number.set:
-            id: display_number
-            value: !lambda >-
-              if (isnan(x)) {
-                return -10;
-              }
+        - script.execute:
+            id: update_sign
+            distance: !lambda return x;
+            target: !lambda return id(target_distance_right).state;
 
-              int display_value = max( -9, min( (int)(round(x) - id(target_distance_right).state), 99 ));
-
-              if (display_value >= 20) {
-                // Over 20 is noisy. Just display "--"
-                return -11;
-              }
-
-              return display_value;
-        - lambda: |-
-            if (isnan(x)) {
-              id(light_hand).turn_off().perform();
-              id(light_walk).turn_off().perform();
-            } else if ((x - id(target_distance_right).state) < 3) {
-              id(light_hand).turn_on().perform();
-              id(light_walk).turn_off().perform();
-            } else {
-              id(light_hand).turn_off().perform();
-              id(light_walk).turn_on().perform();
-            }
-
+# ---------------------------------------------------------------------------
+# Crossing-sign lamps
+# ---------------------------------------------------------------------------
 output:
   - platform: ledc
     pin: 18
@@ -167,8 +126,9 @@ light:
     id: light_walk
     name: "Walk"
 
-  # One light strip snakes around the unit, covering both number displays.
-  # See the `partition` entries below for breaking up the strip into segments.
+  # One 87-LED strip snakes around the unit, covering both number displays.
+  # The digits are drawn straight into this strip's LED buffer by the
+  # `Display Number` lambda below, using the segment ranges in its table.
   - platform: esp32_rmt_led_strip
     channel_colors: GRB
     pin: 22
@@ -178,146 +138,10 @@ light:
     name: "Digit Full Light"
     internal: true
     default_transition_length: 0s
-    # color_correct: [25%, 25%, 25%] # Dim down all?
 
-  # Definition of the segments:
-  # 1 = top
-  # 2 = right top
-  # 3 = right bottom
-  # 4 = bottom
-  # 5 = left bottom
-  # 6 = left top
-  # 7 = center
-
-  - platform: partition
-    name: Digit 1 Segment 1
-    id: dig_1_seg_1
-    internal: true
-    default_transition_length: 0s
-    segments:
-      - id: digit_display_light
-        from: 77
-        to: 79
-  - platform: partition
-    name: Digit 1 Segment 2
-    id: dig_1_seg_2
-    internal: true
-    default_transition_length: 0s
-    segments:
-      - id: digit_display_light
-        from: 69
-        to: 73 # 74
-  - platform: partition
-    name: Digit 1 Segment 3
-    id: dig_1_seg_3
-    internal: true
-    default_transition_length: 0s
-    segments:
-      - id: digit_display_light
-        from: 62
-        to: 67
-  - platform: partition
-    name: Digit 1 Segment 4
-    id: dig_1_seg_4
-    internal: true
-    default_transition_length: 0s
-    segments:
-      - id: digit_display_light
-        from: 16
-        to: 18
-  - platform: partition
-    name: Digit 1 Segment 5
-    id: dig_1_seg_5
-    internal: true
-    default_transition_length: 0s
-    segments:
-      - id: digit_display_light
-        from: 8
-        to: 13 # or 12
-  - platform: partition
-    name: Digit 1 Segment 6
-    id: dig_1_seg_6
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 1
-        to: 6
-  - platform: partition
-    name: Digit 1 Segment 7
-    id: dig_1_seg_7
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 81
-        to: 83
-
-  # Digit 2 Segments
-  - platform: partition
-    name: Digit 2 Segment 1
-    id: dig_2_seg_1
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 42
-        to: 44
-  - platform: partition
-    name: Digit 2 Segment 2
-    id: dig_2_seg_2
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 34
-        to: 39 # 38
-  - platform: partition
-    name: Digit 2 Segment 3
-    id: dig_2_seg_3
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 28 # or 27
-        to: 32
-  - platform: partition
-    name: Digit 2 Segment 4
-    id: dig_2_seg_4
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 22
-        to: 24 # 25 is end of bottom
-  - platform: partition
-    name: Digit 2 Segment 5
-    id: dig_2_seg_5
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 54
-        to: 59 # 58
-  - platform: partition
-    name: Digit 2 Segment 6
-    id: dig_2_seg_6
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 47
-        to: 52
-  - platform: partition
-    name: Digit 2 Segment 7
-    id: dig_2_seg_7
-    default_transition_length: 0s
-    internal: true
-    segments:
-      - id: digit_display_light
-        from: 84
-        to: 86
-
+# ---------------------------------------------------------------------------
+# Controls
+# ---------------------------------------------------------------------------
 number:
   - platform: template
     name: Target Distance - Left
@@ -397,14 +221,14 @@ number:
     unit_of_measurement: "%"
     icon: "mdi:palette"
 
+  # What the sign is currently showing, and how HA clears it.
+  # -10 = blank both digits, -11 = a dash on each, -9..-1 = minus + digit,
+  # 0-9 = blank + digit, 10-99 = two digits.
   - platform: template
     name: Display Number
     id: display_number
     optimistic: true
     mode: box
-    # -10 represents a clear display.
-    # -11 represents two dashes.
-    # All other numbers are displayable.
     min_value: -11
     max_value: 99
     initial_value: -10 # Start blank.
@@ -412,1248 +236,159 @@ number:
     on_value:
       then:
         - lambda: |-
-            auto call_digit_1 = id(digit_1_value).make_call();
-            auto call_digit_2 = id(digit_2_value).make_call();
-
-            if (x == -10) {
-              call_digit_1.set_value(-2);
-              call_digit_2.set_value(-2);
-              call_digit_1.perform();
-              call_digit_2.perform();
-              return; // Clear and return.
-            } else if (x == -11) {
-              call_digit_1.set_value(-1);
-              call_digit_2.set_value(-1);
-              call_digit_1.perform();
-              call_digit_2.perform();
+            // `Display Number` publishes its initial value during component setup,
+            // before the LED output has been linked to its LightState. Touching the
+            // strip then (schedule_show() in particular) dereferences a null parent
+            // and crashes the boot. Nothing is lit at that point anyway (initial
+            // value is -10), so skip drawing until setup is finished.
+            if (!App.is_setup_complete())
               return;
-            } else if (x < 0) {
-              // -1 represents a negative sign
-              call_digit_1.set_value(-1);
-            } else if (x < 10) {
-              // -2 represents a blank value
-              call_digit_1.set_value(-2);
+
+            // Segment numbering used by both tables below:
+            //
+            //        ┌──1──┐
+            //        │     │
+            //        6     2
+            //        │     │
+            //        ├──7──┤
+            //        │     │
+            //        5     3
+            //        │     │
+            //        └──4──┘
+            //
+            // ---- GLYPH: which segments each digit lights ----------------------
+            // One bit per segment, bit 0 = segment 1 ... bit 6 = segment 7, so a
+            // digit's byte is sum(1 << (segment - 1)) over the segments it lights.
+            // These were lifted from the original per-digit `on_value_range` blocks
+            // (each digit listed its own turn_on/turn_off segments per value) and
+            // then packed; the mapping was re-checked against those blocks for every
+            // value the sign can show.
+            //
+            //   digit   lit segments    binary    byte
+            //     0     1 2 3 4 5 6     0111111   0x3F
+            //     1     2 3             0000110   0x06
+            //     2     1 2 4 5 7       1011011   0x5B
+            //     3     1 2 3 4 7       1001111   0x4F
+            //     4     2 3 6 7         1100110   0x66
+            //     5     1 3 4 6 7       1101101   0x6D
+            //     6     1 3 4 5 6 7     1111101   0x7D
+            //     7     1 2 3           0000111   0x07
+            //     8     1 2 3 4 5 6 7   1111111   0x7F
+            //     9     1 2 3 4 6 7     1101111   0x6F
+            //
+            // Non-digits are not in this table: blank = 0x00, minus = 0x40 (segment
+            // 7 only). See the `mask` line further down for those two.
+            static const uint8_t GLYPH[10] = {0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F};
+
+            // ---- SEG: which LEDs physically belong to each segment -------------
+            // The strip snakes around the unit, so LED indices are not ordered
+            // left-to-right and a digit's segments are not adjacent in the buffer:
+            //   digit 1 (left / tens or minus) lives in LED spans 1-18 and 62-83
+            //   digit 2 (right / ones)         lives in LED spans 22-59 and 84-86
+            // Each pair is {first, last}, both inclusive, copied from the fourteen
+            // `partition` lights that used to define the segments (their from/to).
+            // The drawing loop adds 1 to `last` because addressable light ranges are
+            // end-exclusive.
+            //
+            //   seg1  seg2  seg3  seg4  seg5  seg6  seg7
+            // d1 77-79 69-73 62-67 16-18 8-13  1-6   81-83
+            // d2 42-44 34-39 28-32 22-24 54-59 47-52 84-86
+            //
+            // The other 23 LEDs (0, 7, 14-15, 19-21, 25-27, 33, 40-41, 45-46, 53,
+            // 60-61, 68, 74-76, 80) fall in the gaps between those segment runs,
+            // so they always stay dark.
+            static const uint8_t SEG[2][7][2] = {
+                {{77, 79}, {69, 73}, {62, 67}, {16, 18}, {8, 13}, {1, 6}, {81, 83}},
+                {{42, 44}, {34, 39}, {28, 32}, {22, 24}, {54, 59}, {47, 52}, {84, 86}},
+            };
+
+            const int value = (int) x;
+
+            // Decode the number into two glyphs: 0-9 = digit, -1 = blank, -2 = minus.
+            int glyph[2];
+            if (value == -10) {
+              glyph[0] = glyph[1] = -1;
+            } else if (value == -11) {
+              glyph[0] = glyph[1] = -2;
+            } else if (value < 0) {
+              glyph[0] = -2;
+              glyph[1] = -value;
+            } else if (value < 10) {
+              glyph[0] = -1;
+              glyph[1] = value;
             } else {
-              call_digit_1.set_value(((int) x / 10) % 10);
+              glyph[0] = value / 10;
+              glyph[1] = value % 10;
             }
 
-            call_digit_2.set_value(abs((int) x) % 10);
+            const float scale = id(digit_brightness).state / 100.0f;
+            auto channel = [scale](float percent) -> uint8_t {
+              return (uint8_t) roundf(percent * 2.55f * scale);
+            };
+            Color color(channel(id(digit_red).state), channel(id(digit_green).state),
+                        channel(id(digit_blue).state));
+            // Semantic accents. Delete these two branches to always use the sliders' color.
+            if (value == 0) {
+              color = Color(0, channel(100.0f), 0); // on target
+            } else if (value < 0 && value > -10) {
+              color = Color(channel(100.0f), 0, 0); // past target / too close
+            }
 
-            call_digit_1.perform();
-            call_digit_2.perform();
+            auto *strip = (esphome::light::AddressableLight *) id(digit_display_light).get_output();
+            strip->all() = Color(0, 0, 0);
+            for (int d = 0; d < 2; d++) {
+              // Turn the glyph code into a segment mask: -2 (minus) lights only the
+              // middle segment (bit 6 = 0x40), -1 (blank) lights nothing, 0-9 index
+              // the GLYPH table above.
+              const uint8_t mask = glyph[d] == -2 ? 0x40 : glyph[d] == -1 ? 0x00 : GLYPH[glyph[d]];
+              for (int s = 0; s < 7; s++) {
+                if ((mask & (1 << s)) != 0)
+                  strip->range(SEG[d][s][0], SEG[d][s][1] + 1).set(color);
+              }
+            }
+            strip->schedule_show();
 
-  # Map the number value to a set of segments.
-  # Value meanings:
-  #  -2 = blank
-  #  -1 = - (minus sign)
-  # 0-9 = normal values
+# ---------------------------------------------------------------------------
+# Show the measurement
+# ---------------------------------------------------------------------------
+script:
+  - id: update_sign
+    parameters:
+      distance: float
+      target: float
+    then:
+      - lambda: |-
+          const bool valid = !isnan(distance);
+          int display_value;
+          if (!valid) {
+            display_value = -10; // blank
+          } else {
+            const int delta = (int) roundf(distance - target);
+            // Over 20 is noisy; show two dashes instead of a number.
+            display_value = delta >= 20 ? -11 : max(-9, min(delta, 99));
+          }
 
-  - platform: template
-    name: Digit 1 Value
-    id: digit_1_value
-    optimistic: true
-    internal: true
-    mode: box
-    min_value: -2
-    max_value: 9
-    step: 1
-    on_value_range:
-      - above: -2
-        below: -2
-        # On: none
-        # Off: 1,2,3,4,5,6,7
-        then:
-          - light.turn_off: dig_1_seg_1
-          - light.turn_off: dig_1_seg_2
-          - light.turn_off: dig_1_seg_3
-          - light.turn_off: dig_1_seg_4
-          - light.turn_off: dig_1_seg_5
-          - light.turn_off: dig_1_seg_6
-          - light.turn_off: dig_1_seg_7
-      - above: -1
-        below: -1
-        # On: 7
-        # Off: 1,2,3,4,5,6
-        then:
-          - light.turn_off: dig_1_seg_1
-          - light.turn_off: dig_1_seg_2
-          - light.turn_off: dig_1_seg_3
-          - light.turn_off: dig_1_seg_4
-          - light.turn_off: dig_1_seg_5
-          - light.turn_off: dig_1_seg_6
-          - light.turn_on:
-              id: dig_1_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 0
-        below: 0
-        # On: 1,2,3,4,5,6
-        # Off: 7
-        then:
-          - light.turn_on:
-              id: dig_1_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_5
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_7
-      - above: 1
-        below: 1
-        # On: 2,3
-        # Off: 1,4,5,6,7
-        then:
-          - light.turn_off: dig_1_seg_1
-          - light.turn_on:
-              id: dig_1_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_4
-          - light.turn_off: dig_1_seg_5
-          - light.turn_off: dig_1_seg_6
-          - light.turn_off: dig_1_seg_7
-      - above: 2
-        below: 2
-        # On: 1,2,4,5,7
-        # Off: 3,6
-        then:
-          - light.turn_on:
-              id: dig_1_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_3
-          - light.turn_on:
-              id: dig_1_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_5
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_6
-          - light.turn_on:
-              id: dig_1_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 3
-        below: 3
-        # On: 1,2,3,4,7
-        # Off: 5,6
-        then:
-          - light.turn_on:
-              id: dig_1_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_5
-          - light.turn_off: dig_1_seg_6
-          - light.turn_on:
-              id: dig_1_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 4
-        below: 4
-        # On: 2,3,6,7
-        # Off: 1,4,5
-        then:
-          - light.turn_off: dig_1_seg_1
-          - light.turn_on:
-              id: dig_1_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_4
-          - light.turn_off: dig_1_seg_5
-          - light.turn_on:
-              id: dig_1_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 5
-        below: 5
-        # On: 1,3,4,6,7
-        # Off: 2,5
-        then:
-          - light.turn_on:
-              id: dig_1_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_2
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_5
-          - light.turn_on:
-              id: dig_1_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 6
-        below: 6
-        # On: 1,3,4,5,6,7
-        # Off: 2
-        then:
-          - light.turn_on:
-              id: dig_1_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_2
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_5
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 7
-        below: 7
-        # On: 1,2,3
-        # Off: 4,5,6,7
-        then:
-          - light.turn_on:
-              id: dig_1_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_4
-          - light.turn_off: dig_1_seg_5
-          - light.turn_off: dig_1_seg_6
-          - light.turn_off: dig_1_seg_7
-      - above: 8
-        below: 8
-        # On: 1,2,3,4,5,6,7
-        # Off: none
-        then:
-          - light.turn_on:
-              id: dig_1_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_5
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 9
-        below: 9
-        # On: 1,2,3,4,6,7
-        # Off: 5
-        then:
-          - light.turn_on:
-              id: dig_1_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_1_seg_5
-          - light.turn_on:
-              id: dig_1_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_1_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
+          // Publish only when the shown value changes. The sign still updates as
+          // fast as the digit changes, without a 5 Hz stream of HA state changes.
+          if ((int) id(display_number).state != display_value) {
+            id(display_number).publish_state(display_value);
+          }
 
-  - platform: template
-    name: Digit 2 Value
-    id: digit_2_value
-    optimistic: true
-    internal: true
-    mode: box
-    min_value: -2
-    max_value: 9
-    step: 1
-    on_value_range:
-      - above: -2
-        below: -2
-        # On: none
-        # Off: 1,2,3,4,5,6,7
-        then:
-          - light.turn_off: dig_2_seg_1
-          - light.turn_off: dig_2_seg_2
-          - light.turn_off: dig_2_seg_3
-          - light.turn_off: dig_2_seg_4
-          - light.turn_off: dig_2_seg_5
-          - light.turn_off: dig_2_seg_6
-          - light.turn_off: dig_2_seg_7
-      - above: -1
-        below: -1
-        # On: 7
-        # Off: 1,2,3,4,5,6
-        then:
-          - light.turn_off: dig_2_seg_1
-          - light.turn_off: dig_2_seg_2
-          - light.turn_off: dig_2_seg_3
-          - light.turn_off: dig_2_seg_4
-          - light.turn_off: dig_2_seg_5
-          - light.turn_off: dig_2_seg_6
-          - light.turn_on:
-              id: dig_2_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 0
-        below: 0
-        # On: 1,2,3,4,5,6
-        # Off: 7
-        then:
-          - light.turn_on:
-              id: dig_2_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_5
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_7
-      - above: 1
-        below: 1
-        # On: 2,3
-        # Off: 1,4,5,6,7
-        then:
-          - light.turn_off: dig_2_seg_1
-          - light.turn_on:
-              id: dig_2_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_4
-          - light.turn_off: dig_2_seg_5
-          - light.turn_off: dig_2_seg_6
-          - light.turn_off: dig_2_seg_7
-      - above: 2
-        below: 2
-        # On: 1,2,4,5,7
-        # Off: 3,6
-        then:
-          - light.turn_on:
-              id: dig_2_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_3
-          - light.turn_on:
-              id: dig_2_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_5
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_6
-          - light.turn_on:
-              id: dig_2_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 3
-        below: 3
-        # On: 1,2,3,4,7
-        # Off: 5,6
-        then:
-          - light.turn_on:
-              id: dig_2_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_5
-          - light.turn_off: dig_2_seg_6
-          - light.turn_on:
-              id: dig_2_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 4
-        below: 4
-        # On: 2,3,6,7
-        # Off: 1,4,5
-        then:
-          - light.turn_off: dig_2_seg_1
-          - light.turn_on:
-              id: dig_2_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_4
-          - light.turn_off: dig_2_seg_5
-          - light.turn_on:
-              id: dig_2_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 5
-        below: 5
-        # On: 1,3,4,6,7
-        # Off: 2,5
-        then:
-          - light.turn_on:
-              id: dig_2_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_2
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_5
-          - light.turn_on:
-              id: dig_2_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 6
-        below: 6
-        # On: 1,3,4,5,6,7
-        # Off: 2
-        then:
-          - light.turn_on:
-              id: dig_2_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_2
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_5
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 7
-        below: 7
-        # On: 1,2,3
-        # Off: 4,5,6,7
-        then:
-          - light.turn_on:
-              id: dig_2_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_4
-          - light.turn_off: dig_2_seg_5
-          - light.turn_off: dig_2_seg_6
-          - light.turn_off: dig_2_seg_7
-      - above: 8
-        below: 8
-        # On: 1,2,3,4,5,6,7
-        # Off: none
-        then:
-          - light.turn_on:
-              id: dig_2_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_5
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-      - above: 9
-        below: 9
-        # On: 1,2,3,4,6,7
-        # Off: 5
-        then:
-          - light.turn_on:
-              id: dig_2_seg_1
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_2
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_3
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_4
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_off: dig_2_seg_5
-          - light.turn_on:
-              id: dig_2_seg_6
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
-          - light.turn_on:
-              id: dig_2_seg_7
-              red: !lambda |-
-                return id(digit_red).state / 100.0;
-              green: !lambda |-
-                return id(digit_green).state / 100.0;
-              blue: !lambda |-
-                return id(digit_blue).state / 100.0;
-              brightness: !lambda |-
-                return id(digit_brightness).state / 100.0;
+          // Hand when you are there, walk when you still have room. Only touch
+          // the lamps when the wanted state differs from the current one.
+          const bool hand = valid && (distance - target) < 3.0f;
+          const bool walk = valid && !hand;
+          if (id(light_hand).current_values.is_on() != hand) {
+            if (hand) {
+              id(light_hand).turn_on().perform();
+            } else {
+              id(light_hand).turn_off().perform();
+            }
+          }
+          if (id(light_walk).current_values.is_on() != walk) {
+            if (walk) {
+              id(light_walk).turn_on().perform();
+            } else {
+              id(light_walk).turn_off().perform();
+            }
+          }
