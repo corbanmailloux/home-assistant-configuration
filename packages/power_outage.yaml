@@ -1,0 +1,212 @@
+# Power outage handling has two layers:
+#   1. The upstream battery (FossiBot) feeding the UPS reports no grid input -> the house has
+#      lost utility power. Notify, but everything keeps running (the battery carries the load).
+#   2. The UPS itself drops to battery -> the upstream battery is out or empty. Escalate, and
+#      offer to shut down non-critical systems.
+# The grid signal lives in the "Grid Power Normal" template sensor below, so the underlying
+# ESPHome sensor can be swapped out in one place.
+automation:
+  - alias: Power Outage - Grid Lost
+    id: 249c1373-c037-4b3c-80b8-8460daa3c79f
+    mode: single
+    triggers:
+      # to-only so a change that passes through "unavailable" is not missed; the outage
+      # input_boolean below keeps repeated triggers from re-announcing the same outage.
+      - trigger: state
+        entity_id: binary_sensor.grid_power_normal
+        to: "off"
+        for: "00:00:15" # Ignore single bad readings from the Bluetooth bridge
+      # Backstop: if the upstream battery stops reporting altogether, the UPS switching to
+      # battery is still proof that the house lost power.
+      - trigger: state
+        entity_id: binary_sensor.ups_power_normal
+        to: "off"
+        for: "00:00:30"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.power_outage
+        state: "off"
+    actions:
+      - variables:
+          outage_start_time: "{{ now().timestamp() }}"
+      - alias: Mark that an outage has started
+        action: input_boolean.turn_on
+        target:
+          entity_id: input_boolean.power_outage
+      - action: input_datetime.set_datetime
+        alias: Store the start time
+        target:
+          entity_id: input_datetime.power_outage_start_time
+        data:
+          timestamp: "{{ outage_start_time }}"
+      - action: notify.corban
+        data:
+          title: "Power Outage at Home"
+          message: >-
+            The power went out at {{ outage_start_time | float | timestamp_custom("%-I:%M %p") }}.
+          data:
+            tag: "power_outage"
+
+  - alias: Power Outage - UPS On Battery
+    id: 733ea4b2-b002-4e2e-b467-2e831dd2d60f
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.ups_power_normal
+        to: "off"
+        for: "00:00:30"
+        # A restart re-reports the current state; don't re-offer shutdowns for an outage
+        # that was already announced before the restart.
+        not_from:
+          - unavailable
+          - unknown
+    actions:
+      - action: notify.corban
+        data:
+          title: "Power Outage - Running on UPS Battery"
+          message: >-
+            The UPS has switched to its own battery.
+            Upstream battery: {{ states('sensor.fossibot_battery_battery') | int(0) }}%.
+            Shut down non-critical systems to extend the runtime?
+          data:
+            tag: "power_outage"
+            actions:
+              - action: "POWER_OUTAGE_SHUTDOWN_NON_CRITICAL"
+                title: "Shut Down ProxMoxBox + NAS"
+                activationMode: "background"
+                authenticationRequired: true
+                destructive: true
+                behavior: "default"
+
+  - alias: Power Outage - Shutdown Non-Critical Systems Action
+    id: 4f983a53-9c85-4f66-8a7a-9239c00d37c4
+    mode: single
+    triggers:
+      - trigger: event
+        event_type: mobile_app_notification_action
+        event_data:
+          action: "POWER_OUTAGE_SHUTDOWN_NON_CRITICAL"
+    actions:
+      - action: script.power_outage_shutdown_non_critical
+      - action: notify.corban
+        data:
+          title: "Shutting Down Non-Critical Systems"
+          message: >-
+            Shutdown commands sent to ProxMoxBox and Tubby.
+          data:
+            tag: "power_outage"
+
+  - alias: Power Outage - Recovered
+    id: b0c8df7d-160e-4ae8-b2a2-6372a9736aec
+    mode: single
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.grid_power_normal
+        to: "on"
+      - trigger: state
+        entity_id: binary_sensor.ups_power_normal
+        to: "on"
+      - trigger: homeassistant
+        event: start
+    conditions:
+      - condition: state
+        entity_id: input_boolean.power_outage
+        state: "on"
+      # On a restart mid-outage, don't announce a recovery while either layer still sees an
+      # outage. Both triggers above cover a recovery that happens while the other is still down.
+      # "Not off" rather than "on": a sensor that is unavailable must not leave the outage
+      # state stuck on forever.
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.grid_power_normal
+            state: "off"
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: binary_sensor.ups_power_normal
+            state: "off"
+    actions:
+      - variables:
+          # Time the outage ended, not the time the stability wait finishes.
+          outage_stop_time: "{{ now().timestamp() }}"
+          outage_start_time: "{{ states('input_datetime.power_outage_start_time') | as_timestamp }}"
+      - delay: "00:01:00" # Wait 1 minute to ensure power is stable
+      - if:
+          - condition: or
+            conditions:
+              - condition: state
+                entity_id: binary_sensor.grid_power_normal
+                state: "off"
+              - condition: state
+                entity_id: binary_sensor.ups_power_normal
+                state: "off"
+        then:
+          - stop: "Power dropped again during the stability wait."
+      - variables:
+          outage_duration: >-
+            {%- set seconds = (outage_stop_time - outage_start_time) | int -%}
+            {%- if seconds < 60 -%}{{ seconds }}s
+            {%- elif seconds < 3600 -%}{{ seconds // 60 }}m
+            {%- else -%}{{ seconds // 3600 }}h {{ (seconds % 3600) // 60 }}m
+            {%- endif -%}
+      - alias: Mark that the outage has ended
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.power_outage
+      - action: notify.corban
+        data:
+          title: "Power Outage at Home - Recovered"
+          message: >-
+            The power came back at {{ outage_stop_time | float | timestamp_custom("%-I:%M %p") }}.
+            The outage started at {{ outage_start_time | float | timestamp_custom("%-I:%M %p") }}
+            and lasted {{ outage_duration }}.
+          data:
+            tag: "power_outage"
+            # Note that this replaces the previous notification. If power were to flicker repeatedly, there would only be one final notification.
+
+template:
+  - binary_sensor:
+      - name: "Grid Power Normal"
+        unique_id: b72c918d-20e4-4e65-af5a-f16becc7cfe4
+        default_entity_id: binary_sensor.grid_power_normal
+        device_class: power
+        # No numeric reading means no reliable conclusion; stay unavailable rather than
+        # reporting an outage (which would fire notifications and offer shutdowns).
+        availability: >-
+          {{ is_state('binary_sensor.fossibot_battery_connected', 'on')
+             and is_number(states('sensor.fossibot_battery_input_power')) }}
+        state: >-
+          {{ states('sensor.fossibot_battery_input_power') | float(0) > 5 }}
+      - name: "UPS Power Normal"
+        device_class: power
+        availability: >-
+          {{ is_number(states('sensor.ups_input_voltage')) }}
+        state: >-
+          {{ states('sensor.ups_input_voltage')|float > 100 }}
+
+input_boolean:
+  power_outage:
+    name: Power Outage
+    icon: mdi:power-plug-off
+
+input_datetime:
+  power_outage_start_time:
+    name: Power Outage Start Time
+    has_date: true
+    has_time: true
+
+script:
+  power_outage_shutdown_non_critical:
+    alias: "Power Outage - Shutdown Non-Critical Systems"
+    mode: single
+    sequence:
+      # Independent hosts: one being offline must not block the other, and must not stop the
+      # script before the second shutdown is attempted.
+      - parallel:
+          - action: script.shutdown_proxmoxbox
+            continue_on_error: true
+          - action: button.press
+            target:
+              entity_id: button.tubby_shutdown
+            continue_on_error: true
