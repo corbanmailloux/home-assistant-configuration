@@ -1,0 +1,119 @@
+# Linen Closet LED bar
+
+input_boolean:
+  mop_tank_needs_emptying:
+    name: VacMop Tank Needs Emptying
+    icon: mdi:vacuum
+
+automation:
+  - id: 2e262ba6-c9ed-466c-91a9-ad1c75d6d146
+    alias: Linen Closet LED - Render Active Notifications
+    description: >-
+      Owns the linen closet wall switch LED bar. Paints the highest-priority
+      active notification: garage door status (purple, temporary) outranks the
+      mop tank reminder (red); when the garage is idle the reminder is restored,
+      and with neither active the bar is cleared. Triggered by every fact it
+      renders, so the next notification is restored automatically.
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: input_boolean.mop_tank_needs_emptying
+      - trigger: state
+        entity_id:
+          - cover.ratgdo_left_garage_door_door
+          - cover.ratgdo_right_garage_door_door
+          - binary_sensor.garage_side_person_door_contact
+      - alias: Re-render after a restart
+        trigger: homeassistant
+        event: start
+    actions:
+      - choose:
+          - alias: A garage door is opening
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: cover.ratgdo_left_garage_door_door
+                    state: opening
+                  - condition: state
+                    entity_id: cover.ratgdo_right_garage_door_door
+                    state: opening
+            sequence:
+              - action: script.inovelli_led_control
+                data:
+                  led: All
+                  color: Purple
+                  level: 62
+                  effect: Slow Rising
+                  duration: Indefinitely
+                target:
+                  entity_id: light.linen_closet_wall_switch
+          - alias: A garage door is closing
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: cover.ratgdo_left_garage_door_door
+                    state: closing
+                  - condition: state
+                    entity_id: cover.ratgdo_right_garage_door_door
+                    state: closing
+            sequence:
+              - action: script.inovelli_led_control
+                data:
+                  led: All
+                  color: Purple
+                  level: 62
+                  effect: Slow Falling
+                  duration: Indefinitely
+                target:
+                  entity_id: light.linen_closet_wall_switch
+          - alias: A garage door or the side door is open
+            conditions:
+              - condition: or
+                conditions:
+                  - condition: state
+                    entity_id: cover.ratgdo_left_garage_door_door
+                    state: open
+                  - condition: state
+                    entity_id: cover.ratgdo_right_garage_door_door
+                    state: open
+                  - condition: state
+                    entity_id: binary_sensor.garage_side_person_door_contact
+                    state: "on"
+            sequence:
+              - action: script.inovelli_led_control
+                data:
+                  led: All
+                  color: Purple
+                  level: 62
+                  effect: Solid
+                  duration: Indefinitely
+                target:
+                  entity_id: light.linen_closet_wall_switch
+          - alias: Mop tank needs emptying
+            conditions:
+              - condition: state
+                entity_id: input_boolean.mop_tank_needs_emptying
+                state: "on"
+            sequence:
+              - action: script.inovelli_led_control
+                data:
+                  led: All
+                  color: Red
+                  level: 100
+                  effect: Open/Close
+                  duration: Indefinitely
+                target:
+                  entity_id: light.linen_closet_wall_switch
+        default:
+          - alias: Nothing to show
+            action: script.inovelli_led_control
+            data:
+              led: All
+              color: Purple
+              level: 62
+              effect: Clear
+              duration: Indefinitely
+            target:
+              entity_id: light.linen_closet_wall_switch

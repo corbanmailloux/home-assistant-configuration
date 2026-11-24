@@ -168,17 +168,6 @@
           effect: Slow Rising
           target:
             device_id: 9f61f3f1b573c3799a54ee705f98034f
-      - action: script.inovelli_led_control
-        metadata: {}
-        alias: Purple rising - door opening
-        data:
-          led: All
-          color: Purple
-          level: 62
-          duration: Indefinitely
-          effect: Slow Rising
-          target:
-            device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
     - alias: A door is closing
       conditions:
       - condition: or
@@ -201,17 +190,6 @@
           effect: Slow Falling
           target:
             device_id: 9f61f3f1b573c3799a54ee705f98034f
-      - action: script.inovelli_led_control
-        metadata: {}
-        alias: Purple falling - door closing
-        data:
-          led: All
-          color: Purple
-          level: 62
-          duration: Indefinitely
-          effect: Slow Falling
-          target:
-            device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
     - alias: A door or the side door is open
       conditions:
       - condition: or
@@ -237,17 +215,6 @@
           effect: Solid
           target:
             device_id: 9f61f3f1b573c3799a54ee705f98034f
-      - action: script.inovelli_led_control
-        metadata: {}
-        alias: Solid purple - open
-        data:
-          led: All
-          color: Purple
-          level: 62
-          duration: Indefinitely
-          effect: Solid
-          target:
-            device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
     default:
     - action: script.inovelli_led_control
       metadata: {}
@@ -260,17 +227,6 @@
         effect: Clear
         target:
           device_id: 9f61f3f1b573c3799a54ee705f98034f
-    - action: script.inovelli_led_control
-      metadata: {}
-      alias: Clear LEDs
-      data:
-        led: All
-        color: Purple
-        level: 62
-        duration: Indefinitely
-        effect: Clear
-        target:
-          device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
   mode: restart
 - id: '1711145973507'
   alias: Pantry Door Light
@@ -2441,7 +2397,12 @@
   mode: single
 - id: d82d1145-5086-4670-802f-37c0b15c75f2
   alias: VacMop Tank Clean Reminder
-  description: ''
+  description: >-
+    Flashes green when the button is pressed, then allows a short grace period
+    for the closet door to be opened again before arming the reminder. The
+    reminder is stored in input_boolean.mop_tank_needs_emptying; the LED bar is
+    painted by "Linen Closet LED - Render Active Notifications" so other LED
+    users (e.g. garage door status) cannot clear it.
   triggers:
   - domain: mqtt
     device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd
@@ -2476,30 +2437,25 @@
       - condition: template
         value_template: '{{ wait.completed }}'
       sequence:
+      - alias: Acknowledge any previous reminder
+        action: input_boolean.turn_off
+        target:
+          entity_id: input_boolean.mop_tank_needs_emptying
       - alias: Exit early
         stop: Door opened before reminder timeout
-  - alias: Turn LEDs red indefinitely
-    data:
-      led: All
-      color: Red
-      level: 100
-      effect: Open/Close
-      duration: Indefinitely
-      target:
-        entity_id: light.linen_closet_wall_switch
-    action: script.inovelli_led_control
+  - alias: Remember that the tank needs emptying
+    action: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.mop_tank_needs_emptying
   - alias: Wait until door opens
     wait_for_trigger:
     - entity_id: binary_sensor.linen_closet_door_sensor_contact
       to: 'on'
       trigger: state
-  - alias: Clear LED notification
-    data:
-      led: All
-      effect: Clear
-      target:
-        entity_id: light.linen_closet_wall_switch
-    action: script.inovelli_led_control
+  - alias: Acknowledge reminder
+    action: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.mop_tank_needs_emptying
   mode: restart
 - id: '1779124421355'
   alias: Notify when Sprinkler Valves Activate
