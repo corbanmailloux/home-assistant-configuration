@@ -1,6 +1,12 @@
 esphome:
   name: fossibot-battery
   friendly_name: FossiBot Battery
+  on_boot:
+    # The light can only restore on/off, not the right colour, so let the script
+    # pick the LED state from the real states once everything is set up.
+    - priority: -100
+      then:
+        - script.execute: update_led
 
 # https://github.com/Ylianst/ESP-FBot/blob/main/docs/example-m5atom-full.yaml
 
@@ -26,6 +32,13 @@ external_components:
 # BLE Client configuration
 ble_client:
   - mac_address: "7C:2C:67:AB:F6:52"
+    id: fbot_ble
+    on_disconnect:
+      - logger.log:
+          level: WARN
+          format: "FossiBot BLE link lost"
+      # update_led shows a pulsing red LED while `connected` is off.
+      - script.execute: update_led
 
 # Configure the FBot component
 fbot:
@@ -124,64 +137,50 @@ switch:
       name: "Light"
       id: light_switch
 
-# Script to update LED based on connection, AC state, and battery level
+# Status LED: link health first, then inverter state, then battery level.
+# The level table is {battery threshold, red, green}; blue stays 0.
 script:
   - id: update_led
     then:
-      - if:
-          condition:
-            binary_sensor.is_off: connected
-          then:
-            # Battery not connected - show white
-            - light.turn_on:
-                id: status_led
-                red: 100%
-                green: 100%
-                blue: 100%
-                brightness: 50%
-          else:
-            # Battery is connected
-            - if:
-                condition:
-                  binary_sensor.is_off: ac_active
-                then:
-                  # AC not active - turn off LED
-                  - light.turn_off: status_led
-                else:
-                  # AC is active - show battery level
-                  - if:
-                      condition:
-                        lambda: 'return id(battery_percent).state > 30;'
-                      then:
-                        # Green for > 30%
-                        - light.turn_on:
-                            id: status_led
-                            red: 0%
-                            green: 100%
-                            blue: 0%
-                            brightness: 50%
-                  - if:
-                      condition:
-                        lambda: 'return id(battery_percent).state > 15 && id(battery_percent).state <= 30;'
-                      then:
-                        # Yellow for 15-30%
-                        - light.turn_on:
-                            id: status_led
-                            red: 100%
-                            green: 100%
-                            blue: 0%
-                            brightness: 50%
-                  - if:
-                      condition:
-                        lambda: 'return id(battery_percent).state <= 15;'
-                      then:
-                        # Red for <= 15%
-                        - light.turn_on:
-                            id: status_led
-                            red: 100%
-                            green: 0%
-                            blue: 0%
-                            brightness: 50%
+      - lambda: |-
+          static const float LEVELS[3][3] = {
+              {50.0f, 0.0f, 1.0f},  // > 50%: green
+              {15.0f, 1.0f, 1.0f},  // 16-50%: yellow
+              {-1.0f, 1.0f, 0.0f},  // <= 15%: red
+          };
+
+          // No BLE link: pulsing red, so a dropped connection is visible locally.
+          if (!id(connected).state) {
+            id(status_led).turn_on()
+                .set_rgb(1.0f, 0.0f, 0.0f)
+                .set_brightness(0.5f)
+                .set_effect("Pulse")
+                .perform();
+            return;
+          }
+
+          // Connected but the AC inverter is off: LED dark.
+          if (!id(ac_active).state) {
+            id(status_led).turn_off().perform();
+            return;
+          }
+
+          const float level =
+              id(battery_percent).has_state() ? id(battery_percent).state : 100.0f;
+          const float *row = LEVELS[2];
+          for (int i = 0; i < 3; i++) {
+            if (level > LEVELS[i][0]) {
+              row = LEVELS[i];
+              break;
+            }
+          }
+
+          // Default to 50% brightness on the LED.
+          id(status_led).turn_on()
+              .set_rgb(row[1], row[2], 0.0f)
+              .set_brightness(0.5f)
+              .set_effect("None")  // stop the disconnected pulse
+              .perform();
 
 # RGB LED on M5 ATOM (Pin 27, WS2812B)
 light:
@@ -194,7 +193,8 @@ light:
     id: status_led
     name: "M5Atom Status LED"
     default_transition_length: 0.5s
-    restore_mode: ALWAYS_ON
+    # Start dark; on_boot -> update_led sets the real state.
+    restore_mode: ALWAYS_OFF
     effects:
       - pulse:
           name: "Pulse"
