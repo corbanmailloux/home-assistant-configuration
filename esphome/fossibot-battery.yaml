@@ -22,11 +22,10 @@ logger:
 # Load external component from GitHub
 external_components:
   - source: github://ylianst/esp-fbot
-    refresh: 10s
 
 # BLE Client configuration
 ble_client:
-  - mac_address: "7C:2C:67:AB:F6:52"  # Replace with your battery's MAC address
+  - mac_address: "7C:2C:67:AB:F6:52"
 
 # Configure the FBot component
 fbot:

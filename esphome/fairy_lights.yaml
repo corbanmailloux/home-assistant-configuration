@@ -43,3 +43,8 @@ light:
     name: "Fairy Lights"
     icon: "mdi:bed"
     output: pin_2
+    # Come back off after a power blip instead of restoring "on".
+    restore_mode: RESTORE_DEFAULT_OFF
+    effects:
+      - pulse:
+      - flicker:
