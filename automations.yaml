@@ -1347,7 +1347,7 @@
   - trigger: time
     at:
       entity_id: sensor.lucy_timer_start_time
-      offset: '2:00:00'
+      offset: '3:00:00'
   conditions:
   - condition: time
     after: 08:00:00
@@ -1357,7 +1357,7 @@
     metadata: {}
     data:
       title: Napping Too Long?
-      message: A BabyBuddy timer has been running for more than 2 hours.
+      message: A BabyBuddy timer has been running for more than 3 hours.
       data:
         group: babybuddy
         tag: baby-nap-too-long
