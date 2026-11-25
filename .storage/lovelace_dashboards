@@ -33,7 +33,7 @@
       },
       {
         "id": "dashboard_irrigation",
-        "show_in_sidebar": true,
+        "show_in_sidebar": false,
         "title": "Irrigation",
         "require_admin": false,
         "mode": "storage",
