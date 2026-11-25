@@ -5,16 +5,14 @@ homekit:
         - light.office_ceiling
         # - light.wled_master
         # - light.office_leds
-        # - light.corban_s_office_lamp # Moved to Mudroom, at least for now.
-        # - light.office_corner_light
 
         # Living Room
-        - light.corner_lamp
-        - light.living_room_ceiling_lights # Zigbee Group
+        - light.living_room_corner_lamp # Zigbee group
+        - light.living_room_ceiling_lights # Zigbee group
         - light.living_room_cabinet_lights
         - light.reading_lamp
         - input_boolean.movie_mode_active
-        - cover.living_room_window_1_curtains # Cover Group
+        - cover.living_room_window_1_curtains # Cover group
         # - fan.living_room_fan # Seasonal
         # - script.game_mode_start
 
@@ -25,7 +23,10 @@ homekit:
         # Kitchen
         - light.kitchen_main_lights
         - light.kitchen_bar_light
+
+        # Mudroom
         - light.mudroom_lamp
+        - light.mudroom_triple_lamp
 
         # Dining Room
         - light.dining_room_light

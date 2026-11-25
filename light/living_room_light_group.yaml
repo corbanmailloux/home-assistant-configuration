@@ -1,6 +1,0 @@
-- platform: group
-  name: Corner Lamp
-  entities:
-    - light.tv_lamp_top
-    - light.tv_lamp_middle
-    - light.tv_lamp_bottom

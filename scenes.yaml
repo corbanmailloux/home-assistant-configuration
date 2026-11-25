@@ -1,7 +1,7 @@
 - id: movie_mode
   name: Movie Mode
   entities:
-    light.corner_lamp:
+    light.living_room_corner_lamp:
       min_color_temp_kelvin: 2702
       max_color_temp_kelvin: 6535
       min_mireds: 153

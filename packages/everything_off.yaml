@@ -191,9 +191,6 @@ script:
             target:
               entity_id:
                 - light.office_ceiling
-                - light.corban_s_office_lamp_bottom
-                - light.corban_s_office_lamp_middle
-                - light.corban_s_office_lamp_top
                 # - light.office_corner_light
                 - light.key_light_air_1
           - if:
@@ -217,7 +214,7 @@ script:
             continue_on_error: true
             target:
               entity_id:
-                - light.corner_lamp
+                - light.living_room_corner_lamp # Zigbee group
                 - light.living_room_ceiling_lights # Zigbee group
                 - light.living_room_cabinet_lights
                 - light.reading_lamp
@@ -273,6 +270,7 @@ script:
             target:
               entity_id:
                 - light.mudroom_lamp
+                - light.mudroom_triple_lamp
 
       - alias: "Sunporch"
         if:

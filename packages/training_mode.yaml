@@ -38,7 +38,7 @@ script:
         variables:
           training_entity_ids: >
             {% if is_state("input_boolean.room_exclude_office", "off") -%}
-            {{ training_entity_ids + ["light.office_ceiling", "light.corban_s_office_lamp"] }}
+            {{ training_entity_ids + ["light.office_ceiling"] }}
             {%- else -%}
             {{ training_entity_ids }}
             {% endif %}
@@ -47,7 +47,7 @@ script:
         variables:
           training_entity_ids: >
             {% if is_state("input_boolean.room_exclude_livingroom", "off") -%}
-            {{ training_entity_ids + ["light.reading_lamp", "light.corner_lamp", "light.living_room_cabinet_lights"] }}
+            {{ training_entity_ids + ["light.reading_lamp", "light.living_room_corner_lamp", "light.living_room_cabinet_lights"] }}
             {%- else -%}
             {{ training_entity_ids }}
             {% endif %}
@@ -56,7 +56,7 @@ script:
         variables:
           training_entity_ids: >
             {% if is_state("input_boolean.room_exclude_kitchen", "off") -%}
-            {{ training_entity_ids + ["light.kitchen_main_lights", "light.kitchen_bar_light", "light.mudroom_lamp"] }}
+            {{ training_entity_ids + ["light.kitchen_main_lights", "light.kitchen_bar_light", "light.mudroom_lamp", "light.mudroom_triple_lamp"] }}
             {%- else -%}
             {{ training_entity_ids }}
             {% endif %}

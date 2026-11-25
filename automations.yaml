@@ -321,16 +321,8 @@
           transition: 0
           brightness_pct: 100
         target:
-          device_id: def287c341c870f1a188cf2c5e84a3a3
+          area_id: mudroom
         action: light.turn_on
-      - metadata: {}
-        data:
-          transition: 0
-          brightness_pct: 100
-          color_temp_kelvin: 3200
-        action: light.turn_on
-        target:
-          device_id: 5fde3d24df137723731bafe28dd07084
     - conditions:
       - condition: trigger
         id:
@@ -340,9 +332,7 @@
         data:
           transition: 0
         target:
-          device_id:
-          - def287c341c870f1a188cf2c5e84a3a3
-          - 5fde3d24df137723731bafe28dd07084
+          area_id: mudroom
         action: light.turn_off
   mode: single
 - id: '1712671842634'
@@ -796,7 +786,7 @@
     metadata: {}
     data: {}
     target:
-      entity_id: light.mudroom_triple_lamp
+      area_id: mudroom
   mode: single
 - id: '1743972311093'
   alias: Changing Table Remote
@@ -1223,7 +1213,8 @@
     metadata: {}
     data: {}
     target:
-      entity_id: light.corner_lamp
+      entity_id:
+      - light.living_room_corner_lamp
   mode: single
 - id: '1745702457597'
   alias: Living Room Switch 3 - Toggle Reading Lamp
@@ -1743,12 +1734,9 @@
     state: 'on'
   - condition: template
     alias: Mower and rain sensors are available
-    value_template: >-
-      {{ has_value('sensor.lucas_activity_mode')
-         and has_value('sensor.lucas_battery')
-         and has_value('sensor.owmh_home_forecast0rain')
-         and has_value('sensor.owmh_home_day0rain')
-         and has_value('sensor.owmh_home_current_rain') }}
+    value_template: "{{ has_value('sensor.lucas_activity_mode')\n   and has_value('sensor.lucas_battery')\n
+      \  and has_value('sensor.owmh_home_forecast0rain')\n   and has_value('sensor.owmh_home_day0rain')\n
+      \  and has_value('sensor.owmh_home_current_rain') }}"
   actions:
   - choose:
     - conditions:
@@ -1910,7 +1898,7 @@
     path: corbanmailloux/inovelli_hold_to_dim.yaml
     input:
       switch_device: 53afe29f4d972deb626552ed9a4f89f6
-      light_entity: light.corner_lamp
+      light_entity: light.living_room_corner_lamp
 - id: '1756139451249'
   alias: Hold-to-Cycle Brightness - Living Room Reading Lamp
   description: ''
@@ -2397,12 +2385,11 @@
   mode: single
 - id: d82d1145-5086-4670-802f-37c0b15c75f2
   alias: VacMop Tank Clean Reminder
-  description: >-
-    Flashes green when the button is pressed, then allows a short grace period
-    for the closet door to be opened again before arming the reminder. The
-    reminder is stored in input_boolean.mop_tank_needs_emptying; the LED bar is
-    painted by "Linen Closet LED - Render Active Notifications" so other LED
-    users (e.g. garage door status) cannot clear it.
+  description: Flashes green when the button is pressed, then allows a short grace
+    period for the closet door to be opened again before arming the reminder. The
+    reminder is stored in input_boolean.mop_tank_needs_emptying; the LED bar is painted
+    by "Linen Closet LED - Render Active Notifications" so other LED users (e.g. garage
+    door status) cannot clear it.
   triggers:
   - domain: mqtt
     device_id: b61d7bab7432d5e91ddb6fb6e28bf5fd

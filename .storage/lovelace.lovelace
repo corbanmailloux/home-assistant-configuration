@@ -723,10 +723,11 @@
                 },
                 {
                   "type": "tile",
-                  "entity": "light.corner_lamp",
-                  "features_position": "bottom",
+                  "entity": "light.living_room_corner_lamp",
+                  "name": "Corner Lamp",
+                  "icon": "",
                   "vertical": false,
-                  "icon": ""
+                  "features_position": "bottom"
                 }
               ]
             },
@@ -1265,6 +1266,445 @@
             }
           ],
           "type": "custom:vertical-layout"
+        },
+        {
+          "title": "Maintenance",
+          "path": "maintenance",
+          "icon": "mdi:clipboard-list-outline",
+          "type": "sections",
+          "badges": [
+            {
+              "type": "entity",
+              "entity": "input_select.home_mode",
+              "show_name": true,
+              "show_state": true
+            },
+            {
+              "type": "entity",
+              "entity": "lock.side_door",
+              "show_name": true,
+              "show_state": true
+            },
+            {
+              "type": "entity",
+              "entity": "sensor.open_windows",
+              "show_name": true
+            }
+          ],
+          "sections": [
+            {
+              "type": "grid",
+              "column_span": 2,
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Cameras",
+                  "heading_style": "title",
+                  "icon": "mdi:cctv"
+                },
+                {
+                  "type": "picture-entity",
+                  "entity": "camera.driveway_medium_resolution_channel",
+                  "camera_view": "auto",
+                  "fit_mode": "cover",
+                  "name": "Driveway",
+                  "show_name": true,
+                  "show_state": false,
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12
+                  }
+                },
+                {
+                  "show_state": false,
+                  "show_name": true,
+                  "camera_view": "auto",
+                  "fit_mode": "cover",
+                  "type": "picture-entity",
+                  "entity": "camera.litter_box_medium_resolution_channel",
+                  "tap_action": {
+                    "action": "more-info"
+                  },
+                  "grid_options": {
+                    "columns": 12
+                  },
+                  "name": "Litter Box / Side Door"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Litter Robot",
+                  "heading_style": "title",
+                  "icon": "mdi:cat"
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.litter_robot_4_litter_level",
+                  "name": {
+                    "type": "entity"
+                  },
+                  "needle": false,
+                  "severity": {
+                    "green": 70,
+                    "yellow": 30,
+                    "red": 0
+                  },
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  }
+                },
+                {
+                  "type": "gauge",
+                  "entity": "sensor.litter_robot_4_waste_drawer",
+                  "grid_options": {
+                    "columns": 6,
+                    "rows": 2
+                  },
+                  "name": {
+                    "type": "entity"
+                  },
+                  "severity": {
+                    "green": 0,
+                    "yellow": 50,
+                    "red": 80
+                  },
+                  "needle": false
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "House Check",
+                  "heading_style": "title",
+                  "icon": "mdi:home-circle",
+                  "badges": [
+                    {
+                      "type": "entity",
+                      "show_state": true,
+                      "show_icon": true,
+                      "entity": "binary_sensor.grid_power_normal",
+                      "state_content": [
+                        "name",
+                        "state"
+                      ],
+                      "name": "Power",
+                      "color": "green",
+                      "tap_action": {
+                        "action": "more-info"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_select.home_mode",
+                  "name": "Home Mode",
+                  "icon": "mdi:home-account"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_boolean.cat_sitter_mode",
+                  "name": "Cat Sitter Mode",
+                  "icon": "mdi:account-switch",
+                  "grid_options": {
+                    "columns": 6
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "sensor.interior_lights_on",
+                  "name": "Interior Lights On",
+                  "icon": "mdi:lightbulb-group-outline",
+                  "grid_options": {
+                    "columns": 6
+                  }
+                },
+                {
+                  "type": "shortcut",
+                  "label": "Everything Off",
+                  "icon": "mdi:lightbulb-group-off",
+                  "tap_action": {
+                    "action": "perform-action",
+                    "perform_action": "script.everything_off",
+                    "confirmation": {
+                      "text": "Turn everything off?"
+                    },
+                    "data": {
+                      "ignore_room_exclusions": false,
+                      "include_fans": false
+                    },
+                    "target": {}
+                  },
+                  "vertical": false
+                },
+                {
+                  "type": "tile",
+                  "entity": "climate.main_hvac",
+                  "name": "Thermostat",
+                  "icon": "mdi:thermostat",
+                  "state_content": [
+                    "state",
+                    "current_temperature"
+                  ],
+                  "grid_options": {
+                    "columns": 6
+                  }
+                },
+                {
+                  "type": "heading",
+                  "heading": "Doors and Windows",
+                  "heading_style": "subtitle",
+                  "icon": "mdi:door"
+                },
+                {
+                  "color": "state",
+                  "type": "entities",
+                  "grid_options": {
+                    "columns": 12
+                  },
+                  "entities": [
+                    {
+                      "entity": "sensor.open_windows"
+                    },
+                    {
+                      "entity": "lock.side_door",
+                      "secondary_info": "last_changed"
+                    },
+                    {
+                      "entity": "binary_sensor.front_door",
+                      "secondary_info": "last_changed"
+                    },
+                    {
+                      "entity": "cover.ratgdo_left_garage_door_door",
+                      "name": "Left Garage Door",
+                      "secondary_info": "last_changed"
+                    },
+                    {
+                      "entity": "cover.ratgdo_right_garage_door_door",
+                      "name": "Right Garage Door",
+                      "secondary_info": "last_changed"
+                    },
+                    {
+                      "entity": "binary_sensor.garage_side_person_door_contact",
+                      "name": "Garage Side Door"
+                    },
+                    {
+                      "entity": "binary_sensor.garage_back_person_door_contact",
+                      "name": "Garage Back Door"
+                    },
+                    {
+                      "entity": "binary_sensor.sunporch_sliding_door_contact",
+                      "name": "Sunporch Door"
+                    },
+                    {
+                      "entity": "binary_sensor.basement_exterior_door_sensor_contact",
+                      "name": "Basement Exterior Door"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Recent Detections",
+                  "heading_style": "title",
+                  "icon": "mdi:motion-sensor"
+                },
+                {
+                  "type": "logbook",
+                  "hours_to_show": 48,
+                  "name_detail": "auto",
+                  "target": {
+                    "entity_id": [
+                      "binary_sensor.driveway_person_detected",
+                      "binary_sensor.driveway_vehicle_detected",
+                      "binary_sensor.main_doorbell_person",
+                      "binary_sensor.litter_box_person_detected"
+                    ]
+                  },
+                  "state_filter": [
+                    "on",
+                    "off"
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Main Door Activity",
+                  "heading_style": "title",
+                  "icon": "mdi:door-open"
+                },
+                {
+                  "type": "logbook",
+                  "name_detail": "auto",
+                  "grid_options": {
+                    "columns": "full"
+                  },
+                  "target": {
+                    "entity_id": [
+                      "lock.side_door",
+                      "binary_sensor.front_door"
+                    ]
+                  },
+                  "state_filter": [
+                    "off",
+                    "jammed",
+                    "locked",
+                    "open",
+                    "on",
+                    "unlocked"
+                  ],
+                  "hours_to_show": 48
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Cat Chores",
+                  "heading_style": "title",
+                  "icon": "mdi:paw"
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_boolean.cat_fountain_clean_needed",
+                  "name": "Fountain Cleaning Due",
+                  "icon": "mdi:fountain",
+                  "color": "amber",
+                  "grid_options": {
+                    "columns": 12
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_datetime.cat_fountain_last_cleaned",
+                  "name": "Fountain Last Cleaned",
+                  "grid_options": {
+                    "columns": 12
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_boolean.cat_claw_clip_needed",
+                  "name": "Claws Clipping Due",
+                  "icon": "mdi:content-cut",
+                  "color": "amber",
+                  "grid_options": {
+                    "columns": 12
+                  }
+                },
+                {
+                  "type": "tile",
+                  "entity": "input_datetime.cat_claw_last_clipped",
+                  "name": "Claws Last Clipped",
+                  "grid_options": {
+                    "columns": 12
+                  }
+                },
+                {
+                  "type": "tile",
+                  "grid_options": {
+                    "columns": 12
+                  },
+                  "entity": "input_datetime.litter_box_last_full_clean",
+                  "vertical": false,
+                  "features_position": "bottom"
+                }
+              ]
+            },
+            {
+              "type": "grid",
+              "cards": [
+                {
+                  "type": "heading",
+                  "heading": "Low Batteries",
+                  "heading_style": "title",
+                  "icon": "mdi:battery-alert-variant-outline"
+                },
+                {
+                  "type": "custom:battery-state-card",
+                  "filter": {
+                    "include": [
+                      {
+                        "name": "attributes.device_class",
+                        "value": "battery"
+                      }
+                    ],
+                    "exclude": [
+                      {
+                        "name": "entity_id",
+                        "value": "binary_sensor.*"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "sensor.valetudo_eve_battery_level"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "*iphone*"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "*ipad*"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "*macbook*"
+                      },
+                      {
+                        "name": "entity_id",
+                        "value": "*mbp*"
+                      }
+                    ]
+                  },
+                  "sort": {
+                    "by": "state"
+                  },
+                  "collapse": 5,
+                  "bulk_rename": [
+                    {
+                      "from": " Battery"
+                    },
+                    {
+                      "from": " level"
+                    },
+                    {
+                      "from": " Level"
+                    }
+                  ],
+                  "colors": {
+                    "steps": [
+                      "#ff0000",
+                      "#ffff00",
+                      "#00ff00"
+                    ],
+                    "gradient": true
+                  }
+                }
+              ]
+            }
+          ],
+          "max_columns": 3,
+          "cards": []
         },
         {
           "title": "Security",
